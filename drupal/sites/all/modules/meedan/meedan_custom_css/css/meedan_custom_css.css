@@ -25,3 +25,12 @@
 #meedan-custom-css-field label + input[type=checkbox] {
   margin-left: 36px;
 }
+
+#meedan-custom-css-field input[type=checkbox] {
+  float: none;
+}
+
+#meedan-custom-css-field .form-textarea-wrapper > span {
+  display: block;
+  font-size: 14px;
+}

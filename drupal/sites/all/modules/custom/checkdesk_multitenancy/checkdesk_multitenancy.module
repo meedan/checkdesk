@@ -7,6 +7,58 @@
 define('CHECKDESK_MULTITENANCY_GROUP_TYPE', 'newsroom');
 define('CHECKDESK_MULTITENANCY_GROUPED_TYPE', 'discussion');
 
+/**
+ * Implements hook_init().
+ */
+function checkdesk_multitenancy_init() {
+  if (arg(0) === 'node' && is_numeric(arg(1))) {
+
+    $node = node_load(arg(1));
+
+    if ($node) {
+      $group = NULL;
+
+      switch ($node->type) {
+        case CHECKDESK_MULTITENANCY_GROUP_TYPE:
+          $group = $node;
+          break;
+        case CHECKDESK_MULTITENANCY_GROUPED_TYPE:
+          $group = _checkdesk_multitenancy_get_group_from_grouped($node);
+          break;
+        // FIXME: Assumption
+        case 'post':
+          $story = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+          if ($story && node_load($story)) {
+            $group = _checkdesk_multitenancy_get_group_from_grouped($story);
+          }
+          break;
+        // FIXME: Assumption
+        case 'media':
+          $story = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
+          if ($story && node_load($story)) {
+            $group = _checkdesk_multitenancy_get_group_from_grouped($story);
+          }
+          break;
+      }
+
+      if ($group) {
+        $custom_css = $group->custom_css[LANGUAGE_NONE][0]['value'];
+        drupal_add_css($custom_css, array('type' => 'inline', 'weight' => 9999, 'group' => CSS_THEME));
+      }
+    }
+  }
+}
+
+function _checkdesk_multitenancy_get_group_from_grouped($grouped) {
+  if (is_numeric($grouped)) {
+    $grouped = node_load($grouped);
+  }
+  $wrapper = entity_metadata_wrapper('node', $grouped);
+  $gid = $wrapper->{OG_AUDIENCE_FIELD}->get(0)->getIdentifier();
+  $group = node_load($gid);
+  return $group;
+}
+
 function _checkdesk_multitenancy_roles() {
   $roles = array();
   foreach (user_roles(TRUE) as $rid => $name) {
@@ -150,7 +202,7 @@ function _checkdesk_multitenancy_installed_fields() {
   // Prefix all field names with the group type name
   $p = CHECKDESK_MULTITENANCY_GROUP_TYPE;
 
-  return array(
+  $fields = array(
     $p . '_twitter_bot' => array(
       'field_name' => $p . '_twitter_bot',
       'cardinality' => 1,
@@ -172,11 +224,10 @@ function _checkdesk_multitenancy_installed_fields() {
       'cardinality'  => 1,
       'translatable' => true,
     ),
-    $p . '_owner' => array(
-      'field_name' => $p . '_owner',
+    $p . '_owner_name' => array(
+      'field_name' => $p . '_owner_name',
       'type'       => 'text',
       'cardinality' => 1,
-      'translatable' => true,
     ),
     $p . '_owner_url' => array(
       'field_name' => $p . '_owner_url',
@@ -204,6 +255,16 @@ function _checkdesk_multitenancy_installed_fields() {
       'cardinality'  => 1,
     ),
   );
+  
+  if (module_exists('meedan_custom_css')) {
+    $fields['custom_css'] = array(
+      'field_name'  => 'custom_css',
+      'type'        => 'text',
+      'cardinality' => 1,
+    );
+  }
+
+  return $fields;
 }
 
 function _checkdesk_multitenancy_installed_instances() {
@@ -211,7 +272,7 @@ function _checkdesk_multitenancy_installed_instances() {
   // Prefix all field names with the group type name
   $p = CHECKDESK_MULTITENANCY_GROUP_TYPE;
 
-  return array(
+  $fields = array(
     $p . '_twitter_bot' => array(
       'field_name' => $p . '_twitter_bot',
       'label'      => t('Twitter Bot'),
@@ -236,8 +297,8 @@ function _checkdesk_multitenancy_installed_instances() {
       'label'      => t('Slogan'),
       'widget' => array('type' => 'text_textfield'),
     ),    
-    $p . '_owner' => array(
-      'field_name' => $p . '_owner',
+    $p . '_owner_name' => array(
+      'field_name' => $p . '_owner_name',
       'label'      => t('Owner'),
       'widget' => array('type' => 'text_textfield'),
     ),
@@ -267,6 +328,16 @@ function _checkdesk_multitenancy_installed_instances() {
       'widget' => array('type' => 'text_textfield'),
     ),
   );
+
+  if (module_exists('meedan_custom_css')) {
+    $fields['custom_css'] = array(
+      'field_name' => 'custom_css',
+      'label'      => t('Custom CSS'),
+      'widget'     => array('type' => 'text_textfield'),
+    );
+  }
+
+  return $fields;
 }
 
 /**
@@ -277,14 +348,14 @@ function checkdesk_multitenancy_form_alter(&$form, &$form_state, $form_id) {
 
     // Wrap "owner" fields in a fieldset
 
-    $prefix = CHECKDESK_MULTITENANCY_GROUP_TYPE . '_owner';
+    $prefix = CHECKDESK_MULTITENANCY_GROUP_TYPE . '_owner_';
     $form['owner'] = array(
       '#type' => 'fieldset',
       '#title' => t('Owner'),
       '#collapsible' => true,
       '#collapsed' => false,
     );
-    $attrs = array('', '_url', '_email');
+    $attrs = array('name', 'url', 'email');
     foreach ($attrs as $field) {
       $form['owner'][$prefix . $field] = $form[$prefix . $field];
       unset($form[$prefix . $field]);
@@ -303,6 +374,45 @@ function checkdesk_multitenancy_form_alter(&$form, &$form_state, $form_id) {
     foreach ($attrs as $field) {
       $form['social'][$prefix . $field] = $form[$prefix . $field];
       unset($form[$prefix . $field]);
+    }
+
+    // Add custom CSS field
+
+    if (module_exists('meedan_custom_css') && isset($form_state['node']) && isset($form_state['node']->nid)) {
+      global $theme;
+
+      $node = node_load($form_state['node']->nid);
+      $default = $node->custom_css[LANGUAGE_NONE][0]['value'];
+      $preview_path = drupal_get_path_alias('node/' . $node->nid);
+
+      _meedan_custom_css_add_form_partial(&$form, $default, $theme, $preview_path);
+
+      $form['custom_css_wrapper'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Custom CSS'),
+        '#collapsible' => true,
+        '#collapsed' => false,
+      );
+      $fields = array('custom_css', 'custom_css_preview');
+      foreach ($fields as $field) {
+        $form['custom_css_wrapper'][$field] = $form[$field];
+        unset($form[$field]);
+      }
+
+      $form['actions']['submit']['#submit'][] = '_checkdesk_multitenancy_custom_css_submit';
+    }
+    else {
+      unset($form['custom_css']);
+    }
+  }
+}
+
+function _checkdesk_multitenancy_custom_css_submit($form, &$form_state) {
+  if (isset($form_state['node'])) {
+    $node = node_load($form_state['node']->nid);
+    if ($node) {
+      $node->custom_css[LANGUAGE_NONE][0]['value'] = $form_state['input']['custom_css'];
+      node_save($node);
     }
   }
 }

@@ -27,7 +27,7 @@ jQuery(function($) {
  
   // Preview
   var $preview = $('#meedan-custom-css-preview');
-  $textarea.before('<input type="checkbox" id="meedan-custom-css-toggle-preview" checked="checked" /> <label for="meedan-custom-css-toggle-preview">' + Drupal.t('Enable auto preview.') + '</label> <span>' + Drupal.t('Preview path:') + '</span> <input type="text" id="meedan-custom-css-preview-path" size="60" />');
+  $textarea.before('<input type="checkbox" id="meedan-custom-css-toggle-preview" checked="checked" /> <label for="meedan-custom-css-toggle-preview">' + Drupal.t('Enable auto preview.') + '</label> <span>' + Drupal.t('Preview path:') + '</span> <input type="text" id="meedan-custom-css-preview-path" size="60" value="' + Drupal.settings.meedanCustomCSS.previewPath + '" />');
 
   $('#meedan-custom-css-toggle-preview').click(function() {
     if ($(this).is(':checked')) {
@@ -44,7 +44,10 @@ jQuery(function($) {
   $preview.load(function() { autoPreview(); });
 
   $('#meedan-custom-css-preview-path').blur(function() {
-    $preview.attr('src', Drupal.settings.meedanCustomCSS.frontPage.replace('?', '/' + $(this).val() + '?'));
+    var oldpath = Drupal.settings.meedanCustomCSS.previewPath,
+        newpath = $(this).val();
+    Drupal.settings.meedanCustomCSS.previewPath = newpath;
+    $preview.attr('src', $preview.attr('src').replace(oldpath, newpath));
   });
 
   var autoPreview = function() {

@@ -54,35 +54,38 @@ function meedan_custom_css_form_system_theme_settings_alter(&$form, &$form_state
   $theme = arg(3);
   $enabled_themes = variable_get('meedan_custom_css_enabled_themes', array());
   if (isset($enabled_themes[$theme]) && $enabled_themes[$theme]) {
-    $form['custom_css'] = array(
-      '#title' => t('Custom CSS'),
-      '#type' => 'textarea',
-      '#prefix' => '<div id="meedan-custom-css-field">',
-      '#description' => t('Type custom CSS code for this theme, above. If enabled, preview is displayed below.'),
-      '#default_value' => theme_get_setting('custom_css', $theme),
-      '#attributes' => array('id' => 'meedan-custom-css-textarea'),
-      '#suffix' => '</div>',
-    );
-    $preview_url = url('<front>', array('absolute' => TRUE, 'query' => array('meedan_custom_theme' => $theme)));
-    $form['custom_css_preview'] = array(
-      '#markup' => '<iframe src="' . $preview_url . '" id="meedan-custom-css-preview">' . t('Frames are not supported.') . '</iframe>',
-    );
-    drupal_add_js(drupal_get_path('module', 'meedan_custom_css') . '/lib/codemirror-3.11/lib/codemirror.js');
-    drupal_add_css(drupal_get_path('module', 'meedan_custom_css') . '/lib/codemirror-3.11/lib/codemirror.css');
-    drupal_add_js(drupal_get_path('module', 'meedan_custom_css') . '/lib/codemirror-3.11/mode/css/css.js');
-    drupal_add_js(drupal_get_path('module', 'meedan_custom_css') . '/js/meedan_custom_css.js');
-    drupal_add_css(drupal_get_path('module', 'meedan_custom_css') . '/css/meedan_custom_css.css');
-    drupal_add_js(array('meedanCustomCSS' => array('frontPage' => $preview_url)), 'setting');
+    $default = theme_get_setting('custom_css', $theme);
+    _meedan_custom_css_add_form_partial($form, $default, $theme);
   }
+}
+
+function _meedan_custom_css_add_form_partial(&$form, $default, $theme, $preview_path = 'user') {
+  $form['custom_css'] = array(
+    '#title' => t('Custom CSS'),
+    '#type' => 'textarea',
+    '#prefix' => '<div id="meedan-custom-css-field">',
+    '#description' => t('Type custom CSS code for this theme, above. If enabled, preview is displayed below.'),
+    '#default_value' => $default,
+    '#attributes' => array('id' => 'meedan-custom-css-textarea'),
+    '#suffix' => '</div>',
+  );
+  $preview_url = url($preview_path, array('absolute' => TRUE, 'query' => array('meedan_custom_theme' => $theme)));
+  $form['custom_css_preview'] = array(
+    '#markup' => '<iframe src="' . $preview_url . '" id="meedan-custom-css-preview">' . t('Frames are not supported.') . '</iframe>',
+  );
+  drupal_add_js(drupal_get_path('module', 'meedan_custom_css') . '/lib/codemirror-3.11/lib/codemirror.js');
+  drupal_add_css(drupal_get_path('module', 'meedan_custom_css') . '/lib/codemirror-3.11/lib/codemirror.css');
+  drupal_add_js(drupal_get_path('module', 'meedan_custom_css') . '/lib/codemirror-3.11/mode/css/css.js');
+  drupal_add_js(drupal_get_path('module', 'meedan_custom_css') . '/js/meedan_custom_css.js');
+  drupal_add_css(drupal_get_path('module', 'meedan_custom_css') . '/css/meedan_custom_css.css');
+  drupal_add_js(array('meedanCustomCSS' => array('previewPath' => $preview_path)), 'setting');
 }
 
 /**
  * Implements hook_custom_theme().
  */
 function meedan_custom_css_custom_theme() {
-  if (isset($_REQUEST['meedan_custom_theme']) &&
-      isset($_SERVER['HTTP_REFERER']) &&
-      $_SERVER['HTTP_REFERER'] == url('admin/appearance/settings/' . $_REQUEST['meedan_custom_theme'], array('absolute' => TRUE))) {
+  if (isset($_REQUEST['meedan_custom_theme'])) {
     return $_REQUEST['meedan_custom_theme'];
   }
 }
