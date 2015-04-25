@@ -9040,7 +9040,7 @@ Go to !story_url to compose a new update to the story using that report.', array
   $translations['ar:default']['c684eaaf428ef3ce8aa94755f2cedc51'] = array(
     'source' => 'Not promoted',
     'context' => '',
-    'location' => '',
+    'location' => '; sites/all/modules/contrib/save_draft/save_draft.js',
     'translation' => 'غير مختارة',
     'plid' => 0,
     'plural' => 0,
@@ -9945,7 +9945,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['d8580f815b6c3fca34da24b45567a5b6'] = array(
     'source' => 'Automatic alias',
     'context' => '',
-    'location' => '',
+    'location' => '; sites/all/modules/contrib/pathauto/pathauto.js',
     'translation' => 'Automatic alias',
     'plid' => 0,
     'plural' => 0,
@@ -12136,6 +12136,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Submit report', array(), array('context' => 'item:0bc3af5d-28a8-c864-bd93-f17d8bea2366:title'));
+  $translations['ar:menu']['a219f581ced256135e3d808db622e0d9'] = array(
+    'source' => 'View incoming citizen reports',
+    'context' => 'item:e48d5c0f-0c1a-49ca-8a8d-b785b7bc8514:title',
+    'location' => 'menu:item:e48d5c0f-0c1a-49ca-8a8d-b785b7bc8514:title',
+    'translation' => 'عرض التقارير الواردة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('View incoming citizen reports', array(), array('context' => 'item:e48d5c0f-0c1a-49ca-8a8d-b785b7bc8514:title'));
   $translations['ar:menu']['b2d30a94203b8b6f25b7e1c4d6f4dd6a'] = array(
     'source' => 'Draft  stories',
     'context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title',

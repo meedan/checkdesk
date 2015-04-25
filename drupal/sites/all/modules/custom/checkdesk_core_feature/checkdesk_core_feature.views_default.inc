@@ -2209,23 +2209,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'media' => 'media',
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'load_more';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '3';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
-  $handler->display->display_options['pager']['options']['load_all'] = 0;
-  $handler->display->display_options['path'] = 'reports';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'View incoming citizen reports';
-  $handler->display->display_options['menu']['weight'] = '50';
-  $handler->display->display_options['menu']['name'] = 'main-menu';
-  $handler->display->display_options['menu']['context'] = 0;
-
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
@@ -2258,7 +2241,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('Parent'),
     t('.'),
     t(','),
-    t('Page'),
     t('Block'),
     t('All'),
   );

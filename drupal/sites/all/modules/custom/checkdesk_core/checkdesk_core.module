@@ -141,6 +141,12 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'checkdesk_core.pages.inc',
   );
+  $items['checkdesk/reports'] = array(
+    'title' => 'Reports',
+    'page callback' => 'drupal_goto',
+    'page arguments' => array('search'),
+    'access callback' => TRUE,
+  );
   $items['checkdesk/draft_stories'] = array(
     'title' => 'Draft stories',
     'page callback' => 'drupal_goto',
@@ -3829,7 +3835,7 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
       }
     }
   }
-  elseif ($original_path == 'reports') {
+  elseif ($original_path == 'checkdesk/reports') {
     $path = 'search';
     $options['query']['type'] = 'report';
   }
