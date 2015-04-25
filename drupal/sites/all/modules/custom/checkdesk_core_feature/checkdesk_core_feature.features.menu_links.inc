@@ -48,7 +48,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_links_customized_2' => 1,
     'menu_links_language' => 'und',
     'menu_name' => 'main-menu',
-    'module' => 'system',
+    'module' => 'menu',
     'options' => array(
       'attributes' => array(),
       'alter' => TRUE,
@@ -254,7 +254,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_links_customized_2' => 1,
     'menu_links_language' => 'und',
     'menu_name' => 'main-menu',
-    'module' => 'system',
+    'module' => 'menu',
     'options' => array(
       'identifier' => 'main-menu_view-incoming-citizen-reports:reports',
     ),
