@@ -65,7 +65,7 @@ $aliases['prod.thetribune'] = array (
 );
 $aliases['prod.madamasr'] = array (
   'parent' => '@prod-alias',
-  'uri' => 'madamasr.checkdesk.org',
+  'uri' => 'mersal.madamasr.com',
 );
 $aliases['prod.smex'] = array (
   'parent' => '@prod-alias',
