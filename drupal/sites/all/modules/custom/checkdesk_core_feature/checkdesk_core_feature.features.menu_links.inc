@@ -48,7 +48,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_links_customized_2' => 1,
     'menu_links_language' => 'und',
     'menu_name' => 'main-menu',
-    'module' => 'system',
+    'module' => 'menu',
     'options' => array(
       'attributes' => array(),
       'alter' => TRUE,
@@ -240,26 +240,27 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => 'd1a4a4e9-b0c3-8d94-11a4-34f35bda25c1',
     'weight' => -47,
   );
-  // Exported menu link: main-menu_view-incoming-citizen-reports:reports
-  $menu_links['main-menu_view-incoming-citizen-reports:reports'] = array(
+  // Exported menu link: main-menu_view-incoming-citizen-reports:checkdesk/reports
+  $menu_links['main-menu_view-incoming-citizen-reports:checkdesk/reports'] = array(
     'customized' => 1,
     'expanded' => 0,
     'external' => 0,
     'has_children' => 0,
     'hidden' => 0,
     'language' => 'und',
-    'link_path' => 'reports',
+    'link_path' => 'checkdesk/reports',
     'link_title' => 'View incoming citizen reports',
     'menu_links_customized' => 1,
     'menu_links_customized_2' => 1,
     'menu_links_language' => 'und',
     'menu_name' => 'main-menu',
-    'module' => 'system',
+    'module' => 'menu',
     'options' => array(
-      'identifier' => 'main-menu_view-incoming-citizen-reports:reports',
+      'identifier' => 'main-menu_view-incoming-citizen-reports:checkdesk/reports',
+      'alter' => TRUE,
     ),
     'parent_identifier' => 'main-menu_:<sub>',
-    'router_path' => 'reports',
+    'router_path' => 'checkdesk/reports',
     'uuid' => 'e48d5c0f-0c1a-49ca-8a8d-b785b7bc8514',
     'weight' => -50,
   );
