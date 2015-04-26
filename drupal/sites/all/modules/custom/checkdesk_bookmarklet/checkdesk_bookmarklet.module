@@ -60,7 +60,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     );
 
     // Fields order
-    $form['field_link']['#weight'] = -1;
+    $form['field_link']['#weight'] = -2;
     $form['report_preview']['#weight'] = 0;
 
     // Change field attributes
@@ -169,34 +169,39 @@ function _checkdesk_bookmarklet_media_preview($path) {
         $response['error']['message'] = check_plain(t('There was a problem parsing this report. You can create the report now (but it will remain unpublished) and try to parse it later, or give up and try to submit it again later.'));
       }
     }
-    elseif (isset($oembed->thumbnail_url)) {
-      // If it is a tweeet, show the text instead of the image
-      if (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter' && $oembed->type != 'photo') {
+    else {
+      if (isset($oembed->thumbnail_url)) {
+        // If it is a tweeet, show the text instead of the image
+        if (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter' && $oembed->type != 'photo') {
+          $response['preview'] = theme('meedan_oembed_twitter_tweet', array('tweet' => $oembed->html));
+        }
+        elseif (isset($oembed->provider_name) && $oembed->provider_name == 'Google Maps') {
+          $response['preview'] = $oembed->html;
+        }
+        else {
+          $response['preview'] = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));
+        }
+      }
+      elseif (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter' && $oembed->type != 'photo') {
         $response['preview'] = theme('meedan_oembed_twitter_tweet', array('tweet' => $oembed->html));
       }
-      elseif (isset($oembed->provider_name) && $oembed->provider_name == 'Google Maps') {
-        $response['preview'] = $oembed->html;
-      }
-      //Disable calling meedan_oembed_facebook_status as it's module was disabled.
-      else if (FALSE && isset($oembed->provider_name) && $oembed->provider_name == 'Facebook' && empty($oembed->picture) && empty($oembed->html)) {
-        $response['preview'] = theme('meedan_oembed_facebook_status', array('status' => $oembed->description, 'author' => array('name' => $oembed->author_name, 'url' => $oembed->author_url)));
-      }
-      else {
-        $response['preview'] = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));
-      }
-    }
-    elseif (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter' && $oembed->type != 'photo') {
-      $response['preview'] = theme('meedan_oembed_twitter_tweet', array('tweet' => $oembed->html));
-    }
 
-    if (!isset($response['error']) && isset($oembed->description)) {
-      $response['description'] = $oembed->description;
-    }
-    if (!isset($response['error']) && isset($oembed->title)) {
-      $response['title'] = $oembed->title;
+      if (isset($oembed->description)) {
+        $response['description'] = $oembed->description;
+      }
+
+      if (isset($oembed->title)) {
+        $response['title'] = $oembed->title;
+      }
+
+      // Add duplicate reports id exists
+      $response['duplicates'] = FALSE;
+      if (module_exists('checkdesk_duplicates')) {
+        $duplicates = _checkdesk_detect_report_duplicate($path, $_GET['report_id'], $_GET['story_id']);
+        $response['duplicates'] = $duplicates;
+      }
     }
   }
-
   return $response;
 }
 

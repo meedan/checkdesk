@@ -24,7 +24,7 @@ function checkdesk_duplicates_update_7001(&$sandbox) {
     $n_url = _checkdesk_normalize_url($row->field_link_url);
     if ($n_url != $row->field_link_url) {
         db_query('
-        UPDATE {heartbeat_activity} SET field_link_url = :field_link_url
+        UPDATE {field_data_field_link} SET field_link_url = :field_link_url
         WHERE entity_id = :entity_id
         ', array(':field_link_url' => $n_url, ':entity_id' => $row->entity_id));
     }
