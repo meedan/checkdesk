@@ -41,10 +41,6 @@
                   $('#checkdesk_report_duplicate').show().addClass('error').html(data.duplicates.msg);
               }
           }
-          //console.log(data.duplicates);
-          //console.log(data.duplicates.duplicate_story);
-          //console.log(data.duplicates.duplicate);
-          //console.log(data.duplicates.duplicate_reports);
         }
       },
       error: function (xhr, textStatus, error) {

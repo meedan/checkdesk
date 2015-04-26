@@ -25,15 +25,13 @@ function checkdesk_duplicates_form_media_node_form_alter(&$form, &$form_state) {
 }
 
 function _checkdesk_duplicates_form_validate($form, &$form_state) {
-  //$reports = _checkdesk_detect_report_duplicate($form_state['values']['field_link'][LANGUAGE_NONE][0]['url']);
-  if (isset($form_state['values']['nid'])) {
-    unset($reports[$form_state['values']['nid']]);
-  }
-  $stories = array_flip($reports);
   $story_nid = $form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'];
-  if ($story_nid && array_key_exists($story_nid, $stories)) {
-    form_set_error('field_link', t('Report already exist !link',
-      array('!link' => l(t('click here'), 'node/'. $stories[$story_nid]))));
+  if ($story_nid) {
+    $report_id = isset($form_state['values']['nid']) ? $form_state['values']['nid'] : 0;
+    $duplicate = _checkdesk_detect_report_duplicate($form_state['values']['field_link'][LANGUAGE_NONE][0]['url'], $report_id, $story_nid);
+    if ($duplicate['duplicate_story']) {
+      form_set_error('field_link', $duplicate['msg']);
+    }
   }
 }
 
@@ -79,7 +77,7 @@ function _checkdesk_detect_report_duplicate($url, $report_id, $story_id) {
       if ($v->field_stories_target_id == $story_id) {
         $output['duplicate_story'] = TRUE;
         $output['msg'] = t('!report already exists',
-          array('!report' => l(t('Report'), 'node/'. $reports[$story_id])));
+          array('!report' => l(t('Report'), 'node/'. $k)));
         break;
       }
       $duplicate_reports[$k] = l($v->title, 'node/'. $v->entity_id);
