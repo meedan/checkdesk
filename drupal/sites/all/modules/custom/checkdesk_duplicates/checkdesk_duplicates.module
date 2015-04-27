@@ -23,6 +23,7 @@ function checkdesk_duplicates_node_presave($node) {
 }
 
 /**
+ *
  * Implements hook_form_ID_alter().
  */
 function checkdesk_duplicates_form_media_node_form_alter(&$form, &$form_state) {
@@ -30,6 +31,7 @@ function checkdesk_duplicates_form_media_node_form_alter(&$form, &$form_state) {
     '#markup' => '<div id="checkdesk_report_duplicate" style="display: none;"></div>',
     '#weight' => -1                                                                                                                                                                                               ,
   );
+  $form['field_stories']['#prefix'] = '<div id="checkdesk_report_story_duplicate" style="display: none;"></div>';
   $setting = array('checkdesk_duplicates' => array('report_nid' => empty($form['nid']['#value']) ? 0 : $form['nid']['#value']));
   drupal_add_js($setting, 'setting');
   // Validate duplicate report

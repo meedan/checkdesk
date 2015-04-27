@@ -2,14 +2,13 @@
  * Created by melsawy on 4/27/15.
  */
 jQuery(function() {
-    console.log( "ready!" );
     jQuery('#edit-field-stories-und').change(function() {
         var story_id = jQuery(this).val();
         var report_id = 0;
         if (typeof Drupal.settings.checkdesk_duplicates !== 'undefined') {
             report_id = Drupal.settings.checkdesk_duplicates.report_nid;
         }
-        jQuery('#checkdesk_report_duplicate').hide();
+        jQuery('#checkdesk_report_story_duplicate').hide();
         jQuery('#edit-submit').show();
         var url = jQuery('#edit-field-link-und-0-url').val().trim();
         jQuery.ajax({
@@ -18,14 +17,12 @@ jQuery(function() {
             dataType: 'json',
             success: function (data) {
                 if (data.duplicate) {
-                    jQuery('#checkdesk_report_duplicate').show().addClass('error').html(data.msg);
+                    jQuery('#checkdesk_report_story_duplicate').show().addClass('error').html(data.msg);
                     jQuery('#edit-submit').hide();
                 }
             },
             error: function (xhr, textStatus, error) {
-                jQuery('#checkdesk_report_duplicate').show().addClass('error').html(
-                    Drupal.t('An error occurred while communicating with Checkdesk. Please try again.')
-                );
+ 
             },
             complete: function (xhr, textStatus) {
 
