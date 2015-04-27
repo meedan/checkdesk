@@ -385,7 +385,22 @@ function checkdesk_multitenancy_form_alter(&$form, &$form_state, $form_id) {
     else {
       unset($form['custom_css']);
     }
+      
+    $form['#validate'][] = '_checkdesk_multitenancy_newsroom_validation';
   }
+}
+
+function _checkdesk_multitenancy_newsroom_validation($form, &$form_state) {
+  if (empty($form_state['values']['newsroom_owner_name'][LANGUAGE_NONE][0]['value'])) {
+    $form_state['values']['newsroom_owner_name'][LANGUAGE_NONE][0]['value'] = $form_state['values']['title'];
+  }
+
+  if (empty($form_state['values']['newsroom_url'][LANGUAGE_NONE][0]['value'])) {
+    $form_state['values']['newsroom_url'][LANGUAGE_NONE][0]['value'] = $form_state['values']['title'];
+  }
+
+  module_load_include('inc','pathauto','pathauto');
+  $form_state['values']['newsroom_url'][LANGUAGE_NONE][0]['value'] = pathauto_cleanstring($form_state['values']['newsroom_url'][LANGUAGE_NONE][0]['value']);
 }
 
 function _checkdesk_multitenancy_custom_css_submit($form, &$form_state) {
