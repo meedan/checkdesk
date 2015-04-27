@@ -84,8 +84,29 @@ function _checkdesk_duplicate_report_story() {
  */
 function _checkdesk_normalize_url($url) {
   require_once libraries_get_path('url-normalizer') .'/src/URL/Normalizer.php';
+  $url = _checkdesk_unshorten_url($url);
   $un = new URL\Normalizer($url);
   return $un->normalize();
+}
+
+/**
+ * Helper function for unshortener url
+ * http://jonathonhill.net/2012-05-18/unshorten-urls-with-php-and-curl/
+ * @param $url
+ * @return mixed
+ */
+function _checkdesk_unshorten_url($url) {
+  $ch = curl_init($url);
+  curl_setopt_array($ch, array(
+    CURLOPT_FOLLOWLOCATION => TRUE,  // the magic sauce
+    CURLOPT_RETURNTRANSFER => TRUE,
+    CURLOPT_SSL_VERIFYHOST => FALSE, // suppress certain SSL errors
+    CURLOPT_SSL_VERIFYPEER => FALSE,
+  ));
+  curl_exec($ch);
+  $url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+  curl_close($ch);
+  return $url;
 }
 
 /**
