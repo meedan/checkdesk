@@ -138,7 +138,7 @@ function checkdesk_preprocess_html(&$variables) {
     }
   }
 
-  if (!empty($variables['head_title'])) {
+  if (empty($variables['head_title'])) {
     $head_title = array();
     $title = drupal_get_title();
     if (!empty($title)) {

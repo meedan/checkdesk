@@ -533,7 +533,7 @@ function checkdesk_multitenancy_preprocess_html(&$variables) {
       $head_title[] = htmlspecialchars_decode($title);
     }
     $head_title[] = $group->title;
-    $variables['head_title'] = strip_tags(implode(' | ', $head_title));
+    $variables['head_title'] = strip_tags(implode(' | ', array_unique($head_title)));
   }
 }
 
