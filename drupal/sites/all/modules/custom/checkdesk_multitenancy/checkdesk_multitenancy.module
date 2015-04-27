@@ -11,13 +11,21 @@ define('CHECKDESK_MULTITENANCY_GROUPED_TYPE', 'discussion');
  * Implements hook_init().
  */
 function checkdesk_multitenancy_init() {
+  $group = _checkdesk_multitenancy_get_group();
+  if ($group) {
+    $custom_css = $group->custom_css[LANGUAGE_NONE][0]['value'];
+    drupal_add_css($custom_css, array('type' => 'inline', 'weight' => 9999, 'group' => CSS_THEME));
+  }
+}
+
+function _checkdesk_multitenancy_get_group() {
+  $group = NULL;
+
   if (arg(0) === 'node' && is_numeric(arg(1))) {
 
     $node = node_load(arg(1));
 
     if ($node) {
-      $group = NULL;
-
       switch ($node->type) {
         case CHECKDESK_MULTITENANCY_GROUP_TYPE:
           $group = $node;
@@ -40,13 +48,10 @@ function checkdesk_multitenancy_init() {
           }
           break;
       }
-
-      if ($group) {
-        $custom_css = $group->custom_css[LANGUAGE_NONE][0]['value'];
-        drupal_add_css($custom_css, array('type' => 'inline', 'weight' => 9999, 'group' => CSS_THEME));
-      }
     }
   }
+
+  return $group;
 }
 
 function _checkdesk_multitenancy_get_group_from_grouped($grouped) {
@@ -385,7 +390,7 @@ function checkdesk_multitenancy_form_alter(&$form, &$form_state, $form_id) {
       $default = $node->custom_css[LANGUAGE_NONE][0]['value'];
       $preview_path = drupal_get_path_alias('node/' . $node->nid);
 
-      _meedan_custom_css_add_form_partial(&$form, $default, $theme, $preview_path);
+      // _meedan_custom_css_add_form_partial(&$form, $default, $theme, $preview_path);
 
       $form['custom_css_wrapper'] = array(
         '#type' => 'fieldset',
@@ -415,4 +420,163 @@ function _checkdesk_multitenancy_custom_css_submit($form, &$form_state) {
       node_save($node);
     }
   }
+}
+
+/**
+ * Implements hook_preprocess_region().
+ */
+function checkdesk_multitenancy_preprocess_region(&$variables) {
+  global $language;
+
+  $group = _checkdesk_multitenancy_get_group();
+
+  if ($group) {
+
+    // Set the logo
+
+    $image = $group->newsroom_logo[LANGUAGE_NONE][0]['uri'];
+    if (!empty($image)) {
+      $header_image_data = array(
+        'style_name' => 'partner_logo',
+        'path' => $image,
+      );
+      $path = drupal_get_path_alias('node/' . $group->nid);
+      $variables['header_image'] = l(theme('image_style', $header_image_data), $path,
+                                     array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
+    }
+
+    // Set the slogan
+
+    $slogan = $group->newsroom_slogan[$language->language][0]['value'];
+    if (empty($slogan)) {
+      $t = 'A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>';
+      $slogan = t($t, array('@partner' => $group->newsroom_owner_name[LANGUAGE_NONE][0]['value'], 
+                            '@partner_url' => $group->newsroom_owner_url[LANGUAGE_NONE][0]['value']));
+    }
+    $variables['header_slogan'] = $slogan;
+
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function checkdesk_multitenancy_views_query_alter(&$view, &$query) {
+  if ($view->name == 'featured_stories' || $view->name == 'liveblog') {
+    $group = _checkdesk_multitenancy_get_group();
+    
+    if ($group) {
+      $join = new views_join();
+      $join->construct('og_membership', 'node', 'nid', 'etid', array(), 'LEFT');
+      $query->add_relationship('ogm', $join, 'og_membership');
+
+      $query->add_field('node', 'nid', 'nid', array('function' => 'groupby'));
+      $query->add_groupby('node.nid');
+          
+      $query->add_where(1, 'ogm.gid', $group->nid);
+      $query->add_where(1, 'ogm.entity_type', 'node');
+      $query->add_where(1, 'ogm.group_type', 'node');
+    }
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function checkdesk_multitenancy_block_info() {
+  $blocks['followus'] = array(
+    'info' => t('Follow us'),
+    'status' => 1,
+    'region' => 'widgets',
+    'visibility' => BLOCK_VISIBILITY_NOT_LISTED,
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function checkdesk_multitenancy_block_view($delta = '') {
+  $block = array();
+
+  if ($delta == 'followus') {
+    $group = _checkdesk_multitenancy_get_group();
+
+    if ($group) {
+      $variables = array(
+                     'twitter' => $group->newsroom_social_twitter[LANGUAGE_NONE][0]['value'],
+                     'facebook' => $group->newsroom_social_facebook[LANGUAGE_NONE][0]['value'],
+                     'gplus' => $group->newsroom_social_gplus[LANGUAGE_NONE][0]['value'],
+                   );
+      $block['content'] = theme('blockfollowus', $variables);
+    }
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function checkdesk_multitenancy_theme() {
+  return array(
+    'blockfollowus' => array(
+      'variables' => array('twitter' => NULL, 'facebook' => NULL, 'gplus' => NULL),
+      'template' => 'blockfollowus',
+    ),
+  );
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function checkdesk_multitenancy_preprocess_html(&$variables) {
+  $group = _checkdesk_multitenancy_get_group();
+
+  if ($group) {
+    $head_title = array();
+    $title = drupal_get_title();
+    if (!empty($title)) {
+      $head_title[] = htmlspecialchars_decode($title);
+    }
+    $head_title[] = $group->title;
+    $variables['head_title'] = strip_tags(implode(' | ', $head_title));
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function checkdesk_multitenancy_node_view($node, $view_mode, $langcode) {
+  if ($node->type == CHECKDESK_MULTITENANCY_GROUP_TYPE) {
+    $view = views_get_view('liveblog');
+
+    $node->content = array(
+      'liveblog' => array(
+        '#markup' => views_embed_view('liveblog', 'page'),
+      )
+    );
+  }
+}
+
+/**
+ * Implements  hook_menu().
+ */
+function checkdesk_multitenancy_menu() {
+  $items = array();
+
+  $items['checkdesk_multitenancy_frontpage'] = array(
+    'title' => t('Home'),
+    'page callback' => '_checkdesk_multitenancy_frontpage',
+    'access callback' => 'user_access',
+    'access argument' => array('access nodes'),
+  );
+
+  return $items;
+}
+
+function _checkdesk_multitenancy_frontpage() {
+  return 'Frontpage to be defined';
 }

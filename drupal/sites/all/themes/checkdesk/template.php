@@ -138,13 +138,15 @@ function checkdesk_preprocess_html(&$variables) {
     }
   }
 
-  $head_title = array();
-  $title = drupal_get_title();
-  if (!empty($title)) {
-    $head_title[] = htmlspecialchars_decode($title);
+  if (!empty($variables['head_title'])) {
+    $head_title = array();
+    $title = drupal_get_title();
+    if (!empty($title)) {
+      $head_title[] = htmlspecialchars_decode($title);
+    }
+    $head_title[] = variable_get('site_name', 'Drupal');
+    $variables['head_title'] = strip_tags(implode(' | ', $head_title));
   }
-  $head_title[] = variable_get('site_name', 'Drupal');
-  $variables['head_title'] = strip_tags(implode(' | ', $head_title));
 }
 
 /**
@@ -155,7 +157,7 @@ function checkdesk_preprocess_region(&$variables) {
 
   if ($variables['region'] == 'widgets') {
     // define custom header settings
-    $variables['header_image'] = '';
+    if (!$variables['header_image']) $variables['header_image'] = '';
     $image = theme_get_setting('header_image_path');
 
     if (!empty($image) && theme_get_setting('header_image_enabled')) {
@@ -172,8 +174,11 @@ function checkdesk_preprocess_region(&$variables) {
     $bg = theme_get_setting('header_bg_path');
     $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
 
-    $slogan = $variables['header_slogan'] = t('A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language)), '@partner_url' => variable_get_value('checkdesk_site_owner_url', array('language' => $language))));
-    $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
+    if (!$variables['header_slogan']) {
+      $slogan = $variables['header_slogan'] = t('A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language)), '@partner_url' => variable_get_value('checkdesk_site_owner_url', array('language' => $language))));
+      $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
+    }
+
     $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
   }
 
@@ -856,6 +861,12 @@ function checkdesk_widgets_visibility() {
   if (!empty($current_node) && $current_node->type == 'discussion' && arg(0) == 'story-collaboration' && is_numeric(arg(1))) {
     return TRUE;
   }
+
+  // Display on frontpage of each instance if multitenancy is enabled
+  if (module_exists('checkdesk_multitenancy') && !empty($current_node) && $current_node->type == CHECKDESK_MULTITENANCY_GROUP_TYPE) {
+    return TRUE;
+  }
+
   // what to check for
   $roles = array('administrator', 'journalist');
   $check_role = array_intersect($roles, array_values($user->roles));

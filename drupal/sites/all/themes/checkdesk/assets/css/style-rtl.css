@@ -8618,53 +8618,53 @@ div.autocomplete-deluxe-throbber {
   border-top: 1px solid black;
 }
 
-body.page-liveblog #main .view-liveblog {
+body.page-liveblog #main .view-liveblog, body.node-type-newsroom #main .view-liveblog {
   *zoom: 1;
 }
-body.page-liveblog #main .view-liveblog:before, body.page-liveblog #main .view-liveblog:after {
+body.page-liveblog #main .view-liveblog:before, body.page-liveblog #main .view-liveblog:after, body.node-type-newsroom #main .view-liveblog:before, body.node-type-newsroom #main .view-liveblog:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.page-liveblog #main .view-liveblog:after {
+body.page-liveblog #main .view-liveblog:after, body.node-type-newsroom #main .view-liveblog:after {
   clear: both;
 }
-body.page-liveblog #main .view-liveblog .desk {
+body.page-liveblog #main .view-liveblog .desk, body.node-type-newsroom #main .view-liveblog .desk {
   position: relative;
   *zoom: 1;
   margin-bottom: 0;
   margin-top: 25px;
   overflow: visible;
 }
-body.page-liveblog #main .view-liveblog .desk:before, body.page-liveblog #main .view-liveblog .desk:after {
+body.page-liveblog #main .view-liveblog .desk:before, body.page-liveblog #main .view-liveblog .desk:after, body.node-type-newsroom #main .view-liveblog .desk:before, body.node-type-newsroom #main .view-liveblog .desk:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.page-liveblog #main .view-liveblog .desk:after {
+body.page-liveblog #main .view-liveblog .desk:after, body.node-type-newsroom #main .view-liveblog .desk:after {
   clear: both;
 }
-body.page-liveblog #main .view-liveblog .desk:first-child {
+body.page-liveblog #main .view-liveblog .desk:first-child, body.node-type-newsroom #main .view-liveblog .desk:first-child {
   margin-top: 0;
 }
-body.page-liveblog #main .view-liveblog .desk h1 {
+body.page-liveblog #main .view-liveblog .desk h1, body.node-type-newsroom #main .view-liveblog .desk h1 {
   color: #283743;
 }
-body.page-liveblog #main .view-liveblog .desk h1 a {
+body.page-liveblog #main .view-liveblog .desk h1 a, body.node-type-newsroom #main .view-liveblog .desk h1 a {
   display: block;
   border-bottom: 1px dotted rgba(255, 255, 255, 0.01);
   color: #283743;
 }
-body.page-liveblog #main .view-liveblog .desk h1 a:hover {
+body.page-liveblog #main .view-liveblog .desk h1 a:hover, body.node-type-newsroom #main .view-liveblog .desk h1 a:hover {
   background-color: #efefef;
   background-color: #f3f4f4;
   border-bottom: 1px dotted #e7e8ea;
   text-decoration: none;
 }
-body.page-liveblog #main .view-liveblog .desk h1 a:active {
+body.page-liveblog #main .view-liveblog .desk h1 a:active, body.node-type-newsroom #main .view-liveblog .desk h1 a:active {
   background-color: #c5d9fe;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more {
+body.page-liveblog #main .view-liveblog .pager-load-more, body.node-type-newsroom #main .view-liveblog .pager-load-more {
   *zoom: 1;
   margin: 0;
   padding: 0;
@@ -8674,18 +8674,18 @@ body.page-liveblog #main .view-liveblog .pager-load-more {
   position: relative;
   text-align: center;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more:before, body.page-liveblog #main .view-liveblog .pager-load-more:after {
+body.page-liveblog #main .view-liveblog .pager-load-more:before, body.page-liveblog #main .view-liveblog .pager-load-more:after, body.node-type-newsroom #main .view-liveblog .pager-load-more:before, body.node-type-newsroom #main .view-liveblog .pager-load-more:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more:after {
+body.page-liveblog #main .view-liveblog .pager-load-more:after, body.node-type-newsroom #main .view-liveblog .pager-load-more:after {
   clear: both;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more li {
+body.page-liveblog #main .view-liveblog .pager-load-more li, body.node-type-newsroom #main .view-liveblog .pager-load-more li {
   list-style: none;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more a {
+body.page-liveblog #main .view-liveblog .pager-load-more a, body.node-type-newsroom #main .view-liveblog .pager-load-more a {
   width: 70%;
   text-align: center;
   font-family: "Droid Arabic Naskh", serif;
@@ -8697,21 +8697,21 @@ body.page-liveblog #main .view-liveblog .pager-load-more a {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more a:hover {
+body.page-liveblog #main .view-liveblog .pager-load-more a:hover, body.node-type-newsroom #main .view-liveblog .pager-load-more a:hover {
   color: white;
   background-color: #2e77fc;
   border: 1px solid #2e77fc;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber {
+body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber, body.node-type-newsroom #main .view-liveblog .pager-load-more .ajax-progress-throbber {
   position: absolute;
   top: 4px;
   left: 15px;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber .throbber {
+body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber .throbber, body.node-type-newsroom #main .view-liveblog .pager-load-more .ajax-progress-throbber .throbber {
   background: url("../imgs/icons/loader_white.gif");
 }
 
-.node-type-discussion #main .update-row .update-body, .page-liveblog #main .update-row .update-body {
+.node-type-discussion #main .update-row .update-body, .page-liveblog #main .update-row .update-body, .node-type-newsroom #main .update-row .update-body {
   width: 77.30496%;
   float: right;
   margin-left: 2.12766%;
@@ -8720,7 +8720,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   min-height: 220px;
   margin-left: 0;
 }
-.node-type-discussion #main .update-row .update-footer, .page-liveblog #main .update-row .update-footer {
+.node-type-discussion #main .update-row .update-footer, .page-liveblog #main .update-row .update-footer, .node-type-newsroom #main .update-row .update-footer {
   width: 20.56738%;
   float: right;
   margin-left: 2.12766%;

@@ -22,6 +22,13 @@ function checkdesk_multitenancy_install() {
   variable_set('entity_translation_entity_types', array('node' => 'node'));
   variable_set('language_content_type_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, ENTITY_TRANSLATION_ENABLED);
   variable_set('title_node', array('auto_attach' => array('title' => 'title')));
+  variable_set('site_frontpage', 'checkdesk_multitenancy_frontpage');
+
+  // Disable theme settings that will not be site-wide anymore
+
+  $theme_settings = variable_get('theme_checkdesk_settings', array());
+  $theme_settings['header_image_enabled'] = 0;
+  variable_set('theme_checkdesk_settings', $theme_settings);
 
   // Replace title field by a translatable field
 
