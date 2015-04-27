@@ -39,7 +39,7 @@
                   $('#edit-submit').hide();
               }
               else {
-                  $('#checkdesk_report_duplicate').show().addClass('error').html(data.duplicates.msg);
+                  $('#checkdesk_report_duplicate').show().addClass('status').html(data.duplicates.msg);
               }
           }
         }
