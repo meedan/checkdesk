@@ -1,6 +1,18 @@
 <?php
 
 /**
+ * Implements hook_menu().
+ */
+function checkdesk_duplicates_menu() {
+  $items = array();
+  $items['checkdesk/duplicate-report-story'] = array(
+    'page callback' => '_checkdesk_duplicate_report_story',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+/**
  * Implements hook_node_presave()
  */
 function checkdesk_duplicates_node_presave($node) {
@@ -22,8 +34,12 @@ function checkdesk_duplicates_form_media_node_form_alter(&$form, &$form_state) {
   drupal_add_js($setting, 'setting');
   // Validate duplicate report
   $form['#validate'][] = '_checkdesk_duplicates_form_validate';
+  $form['#attached']['js'][] = drupal_get_path('module', 'checkdesk_duplicates') . '/js/checkdesk_duplicates_form.js';
 }
 
+/**
+ * Validate report against selected story
+ */
 function _checkdesk_duplicates_form_validate($form, &$form_state) {
   $story_nid = $form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'];
   if ($story_nid) {
@@ -35,6 +51,30 @@ function _checkdesk_duplicates_form_validate($form, &$form_state) {
   }
 }
 
+/*
+ * Menu callback for checkdesk/duplicate-report-story.
+ */
+function _checkdesk_duplicate_report_story() {
+  $output['duplicate'] = FALSE;
+  $url = isset($_GET['url']) ? $_GET['url'] : FALSE;
+  $report_id = $_GET['report_id'];
+  $story_id = is_numeric($_GET['story_id']) ? $_GET['story_id'] : 0;
+  if ($url && $story_id) {
+    $n_url = _checkdesk_normalize_url($url);
+    $result = db_query('
+              SELECT fl.entity_id
+              FROM {field_data_field_link} fl
+              INNER JOIN {field_data_field_stories} fs ON fl.entity_id = fs.entity_id
+              WHERE field_link_url = :field_link_url AND fl.entity_id <> :report_id
+              AND fs.field_stories_target_id = :story_id
+              ', array(':field_link_url' => $n_url, ':report_id' => $report_id, ':story_id' => $story_id))->fetchField();
+    if ($result) {
+      $output['duplicate'] = TRUE;
+      $output['msg'] = t('!report already exists', array('!report' => l(t('Report'), 'node/'. $result)));
+    }
+  }
+  drupal_json_output($output);
+}
 /**
  * Helper function to Normalize URL
  * @param $url

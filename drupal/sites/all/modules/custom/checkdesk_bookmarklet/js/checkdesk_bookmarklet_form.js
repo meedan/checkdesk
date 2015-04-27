@@ -30,6 +30,7 @@
           if (data.title) $('#edit-title').val(data.title);
 
           $controls.show();
+          $('#checkdesk_report_duplicate').hide();
           if (data.duplicates.duplicate) {
               if (data.duplicates.duplicate_story) {
                   //Report already exists in same story
