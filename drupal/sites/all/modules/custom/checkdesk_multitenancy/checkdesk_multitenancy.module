@@ -553,7 +553,7 @@ function checkdesk_multitenancy_node_view($node, $view_mode, $langcode) {
 }
 
 /**
- * Implements  hook_menu().
+ * Implements hook_menu().
  */
 function checkdesk_multitenancy_menu() {
   $items = array();
@@ -561,8 +561,7 @@ function checkdesk_multitenancy_menu() {
   $items['checkdesk_multitenancy_frontpage'] = array(
     'title' => t('Home'),
     'page callback' => '_checkdesk_multitenancy_frontpage',
-    'access callback' => 'user_access',
-    'access argument' => array('access nodes'),
+    'access callback' => TRUE,
   );
 
   return $items;
@@ -570,4 +569,33 @@ function checkdesk_multitenancy_menu() {
 
 function _checkdesk_multitenancy_frontpage() {
   return 'Frontpage to be defined';
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function checkdesk_multitenancy_node_access($node, $op, $account) {
+  $type = is_string($node) ? $node : $node->type;
+
+  // FIXME: Assumption about node types
+  if (($type == 'post' || $type == 'media') && $op != 'view') {
+    $params = drupal_get_query_parameters();
+    $story_id = $params['story'];
+    if (!$story_id) {
+      $story_id = $params['ref_nid'];
+    }
+
+    if ($story_id) {
+      $story = node_load($story_id);
+      $story_group = _checkdesk_multitenancy_get_group_from_grouped($story);
+      $user_groups = og_get_groups_by_user($account, 'node');
+      if (in_array($story_group->nid, array_values($user_groups))) {
+        return NODE_ACCESS_ALLOW;
+      }
+      else {
+        return NODE_ACCESS_DENY;
+      }
+    }
+  }
+  return NODE_ACCESS_IGNORE;
 }
