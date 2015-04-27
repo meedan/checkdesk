@@ -140,30 +140,6 @@ function checkdesk_multitenancy_og_permission_alter(&$perms) {
 }
 
 /**
- * Returns the current newsroom.
- */
-function _checkdesk_multitenancy_current_newsroom() {
-  // TODO
-  return 0;
-}
-
-/**
- * Implements hook_node_access().
- */
-function checkdesk_multitenancy_node_access($node, $op, $account) {
-  if ($node->type == CHECKDESK_MULTITENANCY_GROUPED_TYPE) {
-    $wrapper = entity_metadata_wrapper('node', $node);
-    // FIXME: Assuming only one newsroom per story here
-    $gid = $wrapper->{OG_AUDIENCE_FIELD}->get(0)->getIdentifier();
-    $current = _checkdesk_multitenancy_current_newsroom();
-    if ($current && $current != $gid) {
-      return NODE_ACCESS_DENY;
-    }
-  }
-  return NODE_ACCESS_IGNORE;
-}
-
-/**
  * Implements hook_query_TAG_alter().
  */
 function checkdesk_multitenancy_query_checkdesk_stories_alter($query) {
@@ -390,7 +366,7 @@ function checkdesk_multitenancy_form_alter(&$form, &$form_state, $form_id) {
       $default = $node->custom_css[LANGUAGE_NONE][0]['value'];
       $preview_path = drupal_get_path_alias('node/' . $node->nid);
 
-      // _meedan_custom_css_add_form_partial(&$form, $default, $theme, $preview_path);
+      _meedan_custom_css_add_form_partial(&$form, $default, $theme, $preview_path);
 
       $form['custom_css_wrapper'] = array(
         '#type' => 'fieldset',
