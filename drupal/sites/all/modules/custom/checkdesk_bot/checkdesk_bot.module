@@ -50,8 +50,9 @@ function checkdesk_bot__generate_response($tweet) {
   }
   else {
     // Tell user we can only parse a single URL and exit.
+    // TODO distinguish between no link and multiple links.
     return t(
-      'Sorry !screen_name, I can only understand a single URL to import. ' .
+      '!screen_name sorry, I can only understand a single URL to import. ' .
       'We don\'t want to lose your contributions! Please adjust and resend :-)',
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
@@ -77,7 +78,7 @@ function checkdesk_bot__generate_response($tweet) {
   // If not found, generate a URL to the report form.
   if (empty($sender_uid)) {
     return t(
-      'Hello !screen_name, thanks for your contribution! You can visit !site_name to submit your report: !url',
+      '!screen_name thanks for your contribution! You can visit !site_name to submit your report: !url',
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
         '!site_name' => variable_get('site_name', t('Checkdesk')),
@@ -94,7 +95,7 @@ function checkdesk_bot__generate_response($tweet) {
   $report = checkdesk_bot__import_report($report_url, $sender_uid, $story_nid, $tweet);
 
   return t(
-    'Thanks !screen_name for submitting this report to !site_name. You can access it here: !url',
+    '!screen_name thanks for submitting this report to !site_name. You can access it here: !url',
     array(
       '!screen_name' => '@' . $tweet['user']['screen_name'],
       '!site_name' => variable_get('site_name', t('Checkdesk')),
