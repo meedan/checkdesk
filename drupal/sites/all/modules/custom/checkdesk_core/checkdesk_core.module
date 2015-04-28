@@ -406,11 +406,17 @@ function _checkdesk_core_report_suggest($form, $form_state, $report = NULL) {
 function _checkdesk_core_report_suggest_submit($form, &$form_state) {
   // Add the story to the report.
   $report = $form['#report'];
-  $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
+  if (module_exists('checkdesk_duplicates')) {
+    // Clone existing report ticket #3660
+    $report = _checkdesk_duplicate_share_report($report, $form_state['values']['story']);
+  }
+  else {
+    $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
+    node_save($report);
+  }
   $story = node_load($form_state['values']['story']);
   $form_state['values']['story_title'] = $story->title;
-  node_save($report);
-
+  $form_state['values']['report_id'] = $report->nid;
   // Redirect to story.
   if (user_access('add report to story')) {
     $form_state['redirect'] = array('node/add/post', array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
@@ -451,7 +457,7 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
 
     // Redirect to story.
     if (user_access('add report to story')) {
-      $commands[] = ctools_ajax_command_redirect('node/add/post', 0, array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
+      $commands[] = ctools_ajax_command_redirect('node/add/post', 0, array('query' => array('report' => $form_state['values']['report_id'], 'story' => $form_state['values']['story'])));
     }
   }
 

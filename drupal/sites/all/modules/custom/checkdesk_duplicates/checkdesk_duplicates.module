@@ -177,3 +177,18 @@ function _checkdesk_detect_report_duplicate($url, $report_id, $story_id) {
   }
   return $output;
 }
+
+/**
+ * @param $report
+ * @param $story_id
+ * @return mixed
+ */
+function _checkdesk_duplicate_share_report($report, $story_id) {
+  global $user;
+  $new_report = clone $report;
+  unset($new_report->nid, $new_report->vid, $new_report->created, $new_report->changed);
+  $new_report->uid = $user->uid;
+  $new_report->field_stories[LANGUAGE_NONE][]['target_id'] = $story_id;
+  node_save($new_report);
+  return $new_report;
+}
