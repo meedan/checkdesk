@@ -63,13 +63,15 @@ function _checkdesk_duplicate_report_story() {
   $story_id = is_numeric($_GET['story_id']) ? $_GET['story_id'] : 0;
   if ($url && $story_id) {
     $n_url = _checkdesk_normalize_url($url);
-    $result = db_query('
-              SELECT fl.entity_id
-              FROM {field_data_field_link} fl
-              INNER JOIN {field_data_field_stories} fs ON fl.entity_id = fs.entity_id
-              WHERE field_link_url = :field_link_url AND fl.entity_id <> :report_id
-              AND fs.field_stories_target_id = :story_id
-              ', array(':field_link_url' => $n_url, ':report_id' => $report_id, ':story_id' => $story_id))->fetchField();
+    $query = db_select('field_data_field_link', 'fl');
+    $query->addField('fl', 'entity_id');
+    $query->innerJoin('field_data_field_stories', 'fs', ' fl.entity_id = fs.entity_id');
+    $query->condition('fl.field_link_url', $n_url)
+      ->condition('fl.entity_id', $report_id, '<>')
+      ->condition('fs.field_stories_target_id', $story_id);
+    $query->addTag('checkdesk_duplicate');
+    $result = $query->execute()->fetchField();
+
     if ($result) {
       $output['duplicate'] = TRUE;
       $output['msg'] = t('!report already exists', array('!report' => l(t('Report'), 'node/'. $result)));
@@ -119,14 +121,15 @@ function _checkdesk_unshorten_url($url) {
  */
 function _checkdesk_duplicate_reports($url) {
   $n_url = _checkdesk_normalize_url($url);
-  $result = db_query('
-              SELECT fl.entity_id, fs.field_stories_target_id
-              FROM {field_data_field_link} fl
-              LEFT JOIN {field_data_field_stories} fs ON fl.entity_id = fs.entity_id
-              WHERE field_link_url = :field_link_url
-              ', array(':field_link_url' => $n_url));
-  if ($result->rowCount()) {
-    return $result->fetchAllKeyed(0);
+  $query = db_select('field_data_field_link', 'fl');
+  $query->addField('fl', 'entity_id');
+  $query->addField('fs', 'field_stories_target_id');
+  $query->leftJoin('field_data_field_stories', 'fs', 'fl.entity_id = fs.entity_id');
+  $query->condition('fl.field_link_url', $n_url);
+  $query->addTag('checkdesk_duplicate');
+  $result = $query->execute()->fetchAllKeyed(0);
+  if (count($result)) {
+    return $result;
   }
   return FALSE;
 }
@@ -152,13 +155,15 @@ function _checkdesk_detect_report_duplicate($url, $report_id, $story_id) {
     $story_id = is_numeric($story_id) ? $story_id : 0;
     // Unset current report (edit form)
     unset($reports[$report_id]);
-    $result = db_query('
-              SELECT n.nid, n.title, n2.nid as story_id, n2.title as story_title
-              FROM {node} n
-              LEFT JOIN {field_data_field_stories} fs ON n.nid = fs.entity_id
-              LEFT JOIN {node} n2 ON fs.field_stories_target_id = n2.nid
-              WHERE n.nid IN (:nids)
-              ', array(':nids' => array_keys($reports)))->fetchAllAssoc('nid');
+    $query = db_select('node', 'n');
+    $query->fields('n', array('nid', 'title'));
+    $query->addField('n2', 'nid', 'story_id');
+    $query->addField('n2', 'title', 'story_title');
+    $query->leftJoin('field_data_field_stories', 'fs', 'n.nid = fs.entity_id');
+    $query->leftJoin('node', 'n2', 'fs.field_stories_target_id = n2.nid');
+    $query->condition('n.nid', array_keys($reports), 'IN');
+    $query->addTag('checkdesk_duplicate');
+    $result = $query->execute()->fetchAllAssoc('nid');
     foreach ($result as $k => $v) {
       if ($v->story_id == $story_id) {
         $output['duplicate_story'] = TRUE;
