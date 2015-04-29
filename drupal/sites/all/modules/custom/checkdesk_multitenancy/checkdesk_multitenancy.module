@@ -473,6 +473,8 @@ function checkdesk_multitenancy_views_query_alter(&$view, &$query) {
   else if ($view->name == 'my_notifications') {
     global $user;
 
+    $params = meedan_notifications_placeholders_for_views($user);
+    unset($params[':nids']);
     $user_gids = implode(',', array_values(og_get_groups_by_user($user, 'node')));
     
     $join = new views_join;
@@ -486,15 +488,14 @@ function checkdesk_multitenancy_views_query_alter(&$view, &$query) {
     $join = new views_join;
     $join->construct('og_membership', 'desk', 'field_desk_target_id', 'etid', array(), 'LEFT');
     $query->add_relationship('ogmd', $join, 'og_membership');
-    
+
     $id = $query->set_where_group('OR');
 
     $query->add_where_expression($id, "heartbeat_activity.message_id NOT IN ('checkdesk_new_update_on_story_i_commented_on_update',
                                                                              'checkdesk_add_story', 'checkdesk_update_story')");
-    $update_query = empty($user_gids) ? "1 = 2" : "ogmd.gid IN ($user_gids)";
-    $query->add_where_expression($id, "n.type = 'post' AND heartbeat_activity.message_id = 'checkdesk_new_update_on_story_i_commented_on_update' AND $update_query");
-    $story_query = empty($user_gids) ? "1 = 2" : "ogmn.gid IN ($user_gids)";
-    $query->add_where_expression($id, "n.type = 'discussion' AND heartbeat_activity.message_id IN ('checkdesk_add_story', 'checkdesk_update_story') AND $story_query");
+    $og = "gid IN (SELECT gid FROM {og_membership} WHERE entity_type = 'user' AND etid = :uid)";
+    $query->add_where_expression($id, "n.type = 'post' AND heartbeat_activity.message_id = 'checkdesk_new_update_on_story_i_commented_on_update' AND ogmd.$og", array(':uid' => $params[':uid']));
+    $query->add_where_expression($id, "n.type = 'discussion' AND heartbeat_activity.message_id IN ('checkdesk_add_story', 'checkdesk_update_story') AND ogmn.$og", array(':uid' => $params[':uid']));
   }
 }
 

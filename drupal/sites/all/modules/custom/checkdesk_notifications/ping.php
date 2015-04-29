@@ -53,6 +53,10 @@ function should_notify($data, $option) {
 // Is this user a journalist?
 $is_journalist = get_result("SELECT COUNT(*) FROM users_roles ur INNER JOIN role r ON r.rid = ur.rid WHERE ur.uid = $uid AND r.name = 'journalist'", $mysql);
 
+// Is multitenancy enabled?
+$multitenancy = intval(get_result("SELECT COUNT(*) FROM system WHERE name = 'checkdesk_multitenancy' AND status = 1", $mysql));
+$accessible_stories = "SELECT ogm2.etid FROM og_membership ogm1 INNER JOIN og_membership ogm2 ON ogm1.gid = ogm2.gid WHERE ogm1.entity_type = 'user' AND ogm1.etid = $uid AND ogm2.entity_type = 'node'";
+
 $query = "SELECT COUNT(DISTINCT(ha.uaid)) FROM heartbeat_activity ha LEFT JOIN node n ON n.nid = ha.nid LEFT JOIN comment c ON c.cid = ha.nid LEFT JOIN comment c2 ON c2.nid = n.nid WHERE (";
 
 if ($is_journalist) {
@@ -74,10 +78,16 @@ if ($is_journalist) {
     $query .= "(ha.message_id = 'checkdesk_reply_to_comment' AND c.uid = $uid) OR ";
   if (should_notify($data, 'site_new_user'))
     $query .= "(ha.message_id = 'checkdesk_new_user') OR ";
-  if (should_notify($data, 'site_new_story'))
-    $query .= "(ha.message_id = 'checkdesk_add_story') OR ";
-  if (should_notify($data, 'site_update_story'))
-    $query .= "(ha.message_id = 'checkdesk_update_story') OR ";
+  if (should_notify($data, 'site_new_story')) {
+    $query .= "(ha.message_id = 'checkdesk_add_story'";
+    if ($multitenancy) $query .= " AND ha.nid IN ($accessible_stories)";
+    $query .= ") OR ";
+  }
+  if (should_notify($data, 'site_update_story')) {
+    $query .= "(ha.message_id = 'checkdesk_update_story'";
+    if ($multitenancy) $query .= " AND ha.nid IN ($accessible_stories)";
+    $query .= ") OR ";
+  }
 } else {
   if (should_notify($data, 'site_reply_to_comment'))
     $query .= "(ha.message_id = 'checkdesk_reply_to_comment' AND c.uid = $uid) OR ";
