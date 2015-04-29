@@ -82,6 +82,7 @@
         else {
           element.find('.item-nested-content').slideDown('fast');
           element.addClass('open');
+          element.find('textarea[class*=expanding]').expanding();
         }
         return false;
       });
