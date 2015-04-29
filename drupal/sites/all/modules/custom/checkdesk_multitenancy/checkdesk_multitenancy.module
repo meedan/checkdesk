@@ -18,36 +18,35 @@ function checkdesk_multitenancy_init() {
   }
 }
 
-function _checkdesk_multitenancy_get_group() {
+function _checkdesk_multitenancy_get_group($node = NULL) {
   $group = NULL;
 
-  if (arg(0) === 'node' && is_numeric(arg(1))) {
-
+  if (is_null($node) && arg(0) === 'node' && is_numeric(arg(1))) {
     $node = node_load(arg(1));
+  }
 
-    if ($node) {
-      switch ($node->type) {
-        case CHECKDESK_MULTITENANCY_GROUP_TYPE:
-          $group = $node;
-          break;
-        case CHECKDESK_MULTITENANCY_GROUPED_TYPE:
-          $group = _checkdesk_multitenancy_get_group_from_grouped($node);
-          break;
-        // FIXME: Assumption
-        case 'post':
-          $story = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
-          if ($story && node_load($story)) {
-            $group = _checkdesk_multitenancy_get_group_from_grouped($story);
-          }
-          break;
-        // FIXME: Assumption
-        case 'media':
-          $story = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
-          if ($story && node_load($story)) {
-            $group = _checkdesk_multitenancy_get_group_from_grouped($story);
-          }
-          break;
-      }
+  if ($node && isset($node->type)) {
+    switch ($node->type) {
+      case CHECKDESK_MULTITENANCY_GROUP_TYPE:
+        $group = $node;
+        break;
+      case CHECKDESK_MULTITENANCY_GROUPED_TYPE:
+        $group = _checkdesk_multitenancy_get_group_from_grouped($node);
+        break;
+      // FIXME: Assumption
+      case 'post':
+        $story = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+        if ($story && node_load($story)) {
+          $group = _checkdesk_multitenancy_get_group_from_grouped($story);
+        }
+        break;
+      // FIXME: Assumption
+      case 'media':
+        $story = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
+        if ($story && node_load($story)) {
+          $group = _checkdesk_multitenancy_get_group_from_grouped($story);
+        }
+        break;
     }
   }
 
@@ -626,4 +625,22 @@ function checkdesk_multitenancy_node_access($node, $op, $account) {
     }
   }
   return NODE_ACCESS_IGNORE;
+}
+
+/**
+ * Implements hook_meedan_notifications_recipients_alter().
+ */
+function checkdesk_multitenancy_meedan_notifications_recipients_alter(&$uids, $object, $context) {
+  $ev = $context['event'];
+  if ($ev == 'email_new_update' || $ev == 'email_new_story' || $ev == 'email_update_story') {
+    $group = _checkdesk_multitenancy_get_group($object);
+    if ($group) {
+      foreach (user_load_multiple($uids) as $uid => $account) {
+        $user_groups = og_get_groups_by_user($account, 'node');
+        if (!in_array($group->nid, array_values($user_groups))) {
+          unset($uids[$uid]);
+        }
+      }
+    }
+  }
 }
