@@ -596,7 +596,7 @@ function checkdesk_multitenancy_menu() {
 }
 
 function _checkdesk_multitenancy_frontpage() {
-  return 'Frontpage to be defined';
+  return views_embed_view('newsrooms');
 }
 
 /**
@@ -644,4 +644,13 @@ function checkdesk_multitenancy_meedan_notifications_recipients_alter(&$uids, $o
       }
     }
   }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function checkdesk_multitenancy_views_api() {
+  return array(
+    'api' => 3,
+  );
 }
