@@ -13,8 +13,10 @@ define('CHECKDESK_MULTITENANCY_GROUPED_TYPE', 'discussion');
 function checkdesk_multitenancy_init() {
   $group = _checkdesk_multitenancy_get_group();
   if ($group) {
-    $custom_css = $group->custom_css[LANGUAGE_NONE][0]['value'];
-    drupal_add_css($custom_css, array('type' => 'inline', 'weight' => 9999, 'group' => CSS_THEME));
+    if (isset($group->custom_css[LANGUAGE_NONE])) {
+      $custom_css = $group->custom_css[LANGUAGE_NONE][0]['value'];
+      drupal_add_css($custom_css, array('type' => 'inline', 'weight' => 9999, 'group' => CSS_THEME));
+    }
   }
 }
 
@@ -438,7 +440,7 @@ function checkdesk_multitenancy_preprocess_region(&$variables) {
 
     // Set the slogan
 
-    $slogan = $group->newsroom_slogan[$language->language][0]['value'];
+    $slogan = isset($group->newsroom_slogan[$language->language]) ? $group->newsroom_slogan[$language->language][0]['value'] : '';
     if (empty($slogan)) {
       $t = 'A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>';
       $slogan = t($t, array('@partner' => $group->newsroom_owner_name[LANGUAGE_NONE][0]['value'], 
@@ -508,7 +510,7 @@ function checkdesk_multitenancy_block_info() {
     'info' => t('Follow us'),
     'status' => 1,
     'region' => 'widgets',
-    'visibility' => BLOCK_VISIBILITY_NOT_LISTED,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
     'cache' => DRUPAL_NO_CACHE,
   );
 
@@ -526,9 +528,12 @@ function checkdesk_multitenancy_block_view($delta = '') {
 
     if ($group) {
       $variables = array(
-                     'twitter' => $group->newsroom_social_twitter[LANGUAGE_NONE][0]['value'],
-                     'facebook' => $group->newsroom_social_facebook[LANGUAGE_NONE][0]['value'],
-                     'gplus' => $group->newsroom_social_gplus[LANGUAGE_NONE][0]['value'],
+                     'twitter'  => isset($group->newsroom_social_twitter[LANGUAGE_NONE]) ? 
+                                   $group->newsroom_social_twitter[LANGUAGE_NONE][0]['value'] : '',
+                     'facebook' => isset($group->newsroom_social_facebook[LANGUAGE_NONE]) ? 
+                                   $group->newsroom_social_facebook[LANGUAGE_NONE][0]['value'] : '',
+                     'gplus'    => isset($group->newsroom_social_gplus[LANGUAGE_NONE]) ? 
+                                   $group->newsroom_social_gplus[LANGUAGE_NONE][0]['value'] : '',
                    );
       $block['content'] = theme('blockfollowus', $variables);
     }

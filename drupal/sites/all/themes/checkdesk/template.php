@@ -157,7 +157,7 @@ function checkdesk_preprocess_region(&$variables) {
 
   if ($variables['region'] == 'widgets') {
     // define custom header settings
-    if (!$variables['header_image']) $variables['header_image'] = '';
+    if (!isset($variables['header_image'])) $variables['header_image'] = '';
     $image = theme_get_setting('header_image_path');
 
     if (!empty($image) && theme_get_setting('header_image_enabled')) {
@@ -174,7 +174,7 @@ function checkdesk_preprocess_region(&$variables) {
     $bg = theme_get_setting('header_bg_path');
     $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
 
-    if (!$variables['header_slogan']) {
+    if (!isset($variables['header_slogan'])) {
       $slogan = $variables['header_slogan'] = t('A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language)), '@partner_url' => variable_get_value('checkdesk_site_owner_url', array('language' => $language))));
       $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
     }
