@@ -68,10 +68,11 @@ function checkdesk_multitenancy_install() {
   ->condition('name', 'checkdesk_multitenancy', '=')
   ->execute();
 
-  // Revoke site-wide permissions for journalists related to stories.
+  // Revoke some site-wide permissions for journalists which are now newsroom-wide
 
   $roles = user_roles(TRUE);
   $story_permissions = array_keys(node_list_permissions(CHECKDESK_MULTITENANCY_GROUPED_TYPE));
+  $permissions = array_merge($story_permissions, array('administer users', 'assign roles'));
   $rid = array_search('journalist', $roles);
-  user_role_revoke_permissions($rid, $story_permissions);
+  user_role_revoke_permissions($rid, $permissions);
 }
