@@ -3555,17 +3555,20 @@ function _checkdesk_story_links($nid) {
   if ($user->uid) {
     $items = array();
 
-    $items[] = array(
-      'data' => l(t('Add a report'), 'node/add/media', array('query' => array('ref_nid' => $nid, drupal_get_destination()))),
-      'class' => array('submit-report'),
-    );
-
-    if (user_access('create post content')) {
+    if (node_access('update', node_load($nid), $user)) {
       $items[] = array(
-        'data' => l(t('Compose update'), 'node/add/post', array('query' => array('story' => $nid))),
-        'class' => array('compose-update'),
+        'data' => l(t('Add a report'), 'node/add/media', array('query' => array('ref_nid' => $nid, drupal_get_destination()))),
+        'class' => array('submit-report'),
       );
+
+      if (user_access('create post content')) {
+        $items[] = array(
+          'data' => l(t('Compose update'), 'node/add/post', array('query' => array('story' => $nid))),
+          'class' => array('compose-update'),
+        );
+      }
     }
+
     $output .= theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-collaborate-links')));
   }
 
