@@ -365,7 +365,8 @@ function checkdesk_multitenancy_form_alter(&$form, &$form_state, $form_id) {
       $default = $node->custom_css[LANGUAGE_NONE][0]['value'];
       $preview_path = drupal_get_path_alias('node/' . $node->nid);
 
-      _meedan_custom_css_add_form_partial(&$form, $default, $theme, $preview_path);
+      $partial = meedan_custom_css_add_form_partial($default, $theme, $preview_path);
+      $form = array_merge($form, $partial);
 
       $form['custom_css_wrapper'] = array(
         '#type' => 'fieldset',
