@@ -23,8 +23,26 @@ function checkdesk_bot_menu() {
 function checkdesk_bot_response() {
   $input = file_get_contents("php://input",  TRUE);
   $json = drupal_json_decode($input, TRUE);
+  $signature = checkdesk_bot__generate_signature($input);
+  if ($signature != $_SERVER['HTTP_X_CHECKY_SIGNATURE']) {
+    watchdog('checkdesk_bot', 'Bad X-Checky-Signature: Expected !mine and received !theirs.', array(
+      '!mine' => $signature,
+      '!theirs' => empty($_SERVER['HTTP_X_CHECKY_SIGNATURE']) ? '(blank)' : $_SERVER['HTTP_X_CHECKY_SIGNATURE'],
+    ), WATCHDOG_ERROR);
+    drupal_add_http_header('Status', '400 Bad Request');
+    drupal_json_output(array('error' => array('message' => 'Bad X-Checky-Signature')));
+    return;
+  }
   $reply = checkdesk_bot__generate_response($json['tweet']);
   drupal_json_output(array('reply' => $reply));
+}
+
+/**
+ * Generate sha1 signature.
+ * @see https://developer.github.com/webhooks/securing/
+ */
+function checkdesk_bot__generate_signature($json) {
+  return 'sha1=' . hash_hmac('sha1', $json, variable_get('checkdesk_bot_secret_token', ''));
 }
 
 /**
