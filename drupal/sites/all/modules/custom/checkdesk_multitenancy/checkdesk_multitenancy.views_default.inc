@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Implements hook_views_default_views().
+ */
 function checkdesk_multitenancy_views_default_views() {
   $view = new view();
   $view->name = 'newsrooms';

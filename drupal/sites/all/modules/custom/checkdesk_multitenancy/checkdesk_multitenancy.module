@@ -596,6 +596,7 @@ function checkdesk_multitenancy_menu() {
 }
 
 function _checkdesk_multitenancy_frontpage() {
+  // FIXME: The frontpage will change, this is just temporary
   return views_embed_view('newsrooms');
 }
 
