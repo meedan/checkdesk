@@ -66,7 +66,7 @@ function _checkdesk_multitenancy_get_group_from_grouped($grouped) {
 function _checkdesk_multitenancy_roles() {
   $roles = array();
   foreach (user_roles(TRUE) as $rid => $name) {
-    if ($rid != DRUPAL_AUTHENTICATED_RID) {
+    if ($rid != DRUPAL_AUTHENTICATED_RID && $rid != DRUPAL_ANONYMOUS_RID) {
       $roles[] = $name;
     }
   }
@@ -654,4 +654,52 @@ function checkdesk_multitenancy_views_api() {
   return array(
     'api' => 3,
   );
+}
+
+/**
+ * Implements hook_og_role_grant().
+ */
+function checkdesk_multitenancy_og_role_grant($group_type, $gid, $uid, $rid) {
+  $account = user_load($uid);
+  $group = entity_load_single($group_type, $gid);
+  list(, , $bundle) = entity_extract_ids($group_type, $group);
+  $og_roles = og_roles($group_type, $bundle, $gid, FALSE, FALSE);
+  $role = $og_roles[$rid];
+
+  $site_roles = array();
+  foreach (user_roles(TRUE) as $srid => $name) {
+    if ($srid != DRUPAL_AUTHENTICATED_RID && $srid != DRUPAL_ANONYMOUS_RID && $name != 'administrator') {
+      $site_roles[$name] = $srid;
+    }
+  }
+    
+  if ($site_roles[$role] && !in_array($role, $account->roles)) {
+    user_multiple_role_edit(array($uid), 'add_role', $site_roles[$role]);
+  }
+}
+
+/**
+ * Implements hook_og_role_revoke().
+ */
+function checkdesk_multitenancy_og_role_revoke($group_type, $gid, $uid, $rid) {
+  $account = user_load($uid);
+  $group = entity_load_single($group_type, $gid);
+  list(, , $bundle) = entity_extract_ids($group_type, $group);
+  $og_roles = og_roles($group_type, $bundle, $gid, FALSE, FALSE);
+  $role = $og_roles[$rid];
+
+  $site_roles = array();
+  foreach (user_roles(TRUE) as $srid => $name) {
+    if ($srid != DRUPAL_AUTHENTICATED_RID && $srid != DRUPAL_ANONYMOUS_RID && $name != 'administrator') {
+      $site_roles[$name] = $srid;
+    }
+  }
+    
+  if ($site_roles[$role] && in_array($role, $account->roles)) {
+    $result = db_query('SELECT COUNT(*) FROM {og_users_roles} WHERE rid = :rid AND uid = :uid', array(':uid' => $uid, ':rid' => $rid));
+    $grants_count = $result->fetchField(0);
+    if ($grants_count == 0) {
+      user_multiple_role_edit(array($uid), 'remove_role', $site_roles[$role]);
+    }
+  }
 }
