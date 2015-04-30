@@ -13,6 +13,14 @@ function checkdesk_bot_menu() {
       'access callback' => TRUE,
       'type' => MENU_CALLBACK,
     ),
+    'admin/config/services/checkdesk-bot' => array(
+      'title' => 'Checkdesk Bot',
+      'description' => 'Administer Checkdesk bot configuration',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('checkdesk_bot__admin_settings'),
+      'access arguments' => array('administer site configuration'),
+      'type' => MENU_LOCAL_TASK,
+    ),
   );
 }
 
@@ -168,4 +176,14 @@ function checkdesk_bot__import_report($report_url, $sender_uid, $story_nid, $twe
     return $report;
   }
   return FALSE;
+}
+
+function checkdesk_bot__admin_settings() {
+  $form['checkdesk_bot_secret_token'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Secret token'),
+    '#description' => t('This token is shared with the Checkdesk Bot process in order to communicate securely.'),
+    '#default_value' => variable_get('checkdesk_bot_secret_token'),
+  );
+  return system_settings_form($form);
 }
