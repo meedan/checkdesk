@@ -714,3 +714,19 @@ function checkdesk_multitenancy_og_role_revoke($group_type, $gid, $uid, $rid) {
     }
   }
 }
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function checkdesk_multitenancy_views_pre_render(&$view) {
+  if ($view->name == 'newsrooms') {
+    global $user;
+    $user_groups = array_values(og_get_groups_by_user($user, 'node'));
+    
+    foreach ($view->result as $i => $newsroom) {
+      if (in_array($newsroom->nid, $user_groups)) {
+        $view->result[$i]->node_title .= ' ✓';
+      }
+    }
+  }
+}
