@@ -730,3 +730,17 @@ function checkdesk_multitenancy_views_pre_render(&$view) {
     }
   }
 }
+
+/**
+ * Implements hook_menu_alter().
+ */
+function checkdesk_multitenancy_menu_alter(&$items) {
+  $items['nodequeue/%nodequeue/add-node/%subqueue/%node']['access callback'] = '_checkdesk_multitenancy_nodequeue_access';
+  $items['nodequeue/%nodequeue/remove-node/%subqueue/%node']['access callback'] = '_checkdesk_multitenancy_nodequeue_access';
+}
+
+function _checkdesk_multitenancy_nodequeue_access($node, $queue, $subqueue = NULL) {
+  $group = _checkdesk_multitenancy_get_group($node);
+  $user_groups = array_values(og_get_groups_by_user($user, 'node'));
+  return in_array($group->nid, $user_groups) && nodequeue_node_and_queue_access($node, $queue, $subqueue = NULL);
+}
