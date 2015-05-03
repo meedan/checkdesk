@@ -2751,6 +2751,28 @@ function checkdesk_core_node_insert($node) {
       'alias' => 'story/' . $node->nid . '/collaboration',
     );
     path_save($path);
+    // Link reports to created story
+    if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
+      $matches = $reports = array();
+      preg_match_all('/\[[^:]+:([0-9]+)\]/u', $node->body[LANGUAGE_NONE][0]['value'], $matches);
+      if (count($matches[1])) {
+        foreach ($matches[1] as $key => $nid) {
+          if (is_numeric($nid) && is_object(node_load($nid))) {
+            if (!in_array($nid, $reports)) {
+              $reports[] = $nid;
+              //Link report to story
+              $report = node_load($nid);
+              if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) ||
+                $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $node->nid
+              ) {
+                $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $node->nid;
+                node_save($report);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 
