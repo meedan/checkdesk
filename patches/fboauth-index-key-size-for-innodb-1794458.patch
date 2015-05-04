@@ -1,8 +1,10 @@
 diff --git a/drupal/sites/all/modules/contrib/fboauth/fboauth.install b/drupal/sites/all/modules/contrib/fboauth/fboauth.install
-index 3043847..a4e9ae2 100644
+old mode 100755
+new mode 100644
+index 52fc935..a276e02
 --- a/drupal/sites/all/modules/contrib/fboauth/fboauth.install
 +++ b/drupal/sites/all/modules/contrib/fboauth/fboauth.install
-@@ -61,6 +61,7 @@ function fboauth_schema() {
+@@ -62,6 +62,7 @@ function fboauth_schema() {
   * Implements hook_schema_alter()
   */
  function fboauth_schema_alter(&$schema) {
@@ -10,7 +12,7 @@ index 3043847..a4e9ae2 100644
    $schema['users']['fields']['mail']['length'] = 320;
  }
  
-@@ -77,6 +78,8 @@ function _fboauth_change_user_mail_field($action = 'install') {
+@@ -78,7 +79,9 @@ function _fboauth_change_user_mail_field($action = 'install') {
    if ($action == 'install') {
      fboauth_schema_alter($schema);
    }
@@ -20,3 +22,4 @@ index 3043847..a4e9ae2 100644
 +    array('indexes' => array('mail' => array(array('mail', 255)))));
    return $res;
  }
+ 
