@@ -62,9 +62,6 @@ Drupal.views.ajaxView = function(settings) {
 
   // Add the ajax to pagers.
   this.$view
-    // Don't attach to nested views. Doing so would attach multiple behaviors
-    // to a given element.
-    .filter(jQuery.proxy(this.filterNestedViews, this))
     .once(jQuery.proxy(this.attachPagerAjax, this));
 
   // Add a trigger to update this view specifically. In order to trigger a
@@ -86,12 +83,6 @@ Drupal.views.ajaxView.prototype.attachExposedFormAjax = function() {
   this.exposedFormAjax = new Drupal.ajax($(button).attr('id'), button, this.element_settings);
 };
 
-Drupal.views.ajaxView.prototype.filterNestedViews= function() {
-  // If there is at least one parent with a view class, this view
-  // is nested (e.g., an attachment). Bail.
-  return !this.$view.parents('.view').size();
-};
-
 /**
  * Attach the ajax behavior to each link.
  */
@@ -105,6 +96,10 @@ Drupal.views.ajaxView.prototype.attachPagerAjax = function() {
  */
 Drupal.views.ajaxView.prototype.attachPagerLinkAjax = function(id, link) {
   var $link = $(link);
+  // Don't attach to pagers inside nested views.
+  if ($link.closest('.view')[0] != this.$view[0]) {
+    return;
+  }
   var viewData = {};
   var href = $link.attr('href');
   // Construct an object using the settings defaults and then overriding
