@@ -12,7 +12,8 @@ function fboauth_field_form_alter(&$form, &$form_state) {
   $form['fboauth_user_fields'] = array(
     '#type' => 'fieldset',
     '#title' => t('User field mapping'),
-    '#description' => t('Each of your <a href="!url">fields that are attached to users</a> are listed below. Map each one you would like to import into your site to a Facebook data source.', array('!url' => url('admin/config/people/accounts/fields'))),
+    '#description' => t('Each of your <a href="!url">fields that are attached to users</a> are listed below. Map each one you would like to import into your site to a Facebook data source.',
+      array('!url' => url('admin/config/people/accounts/fields'))),
     '#tree' => TRUE,
     '#weight' => 5,
   );
@@ -36,7 +37,7 @@ function fboauth_field_form_alter(&$form, &$form_state) {
     if (isset($property_options[$field['type']])) {
       $options = array_merge(array('' => t('- Do not import -')), $property_options[$field['type']]);
       $form['fboauth_user_fields'][$field_name] = array(
-        '#title' => t($instance['label']),
+        '#title' => t(check_plain($instance['label'])),
         '#type' => 'select',
         '#options' => $options,
         '#default_value' => isset($field_defaults[$field_name]) ? $field_defaults[$field_name] : '',
@@ -44,7 +45,7 @@ function fboauth_field_form_alter(&$form, &$form_state) {
     }
     else {
       $form['fboauth_user_fields'][$field_name] = array(
-        '#title' => t($instance['label']),
+        '#title' => t(check_plain($instance['label'])),
         '#type' => 'form_element',
         '#children' => '<em>' . t('No mappable Facebook properties.') . '</em>',
         '#theme_wrappers' => array('form_element'),
@@ -90,12 +91,20 @@ function fboauth_field_convert_info() {
       'label' => t('Text'),
       'callback' => 'fboauth_field_convert_text',
     ),
+    'link_field' => array(
+      'label' => t('Link Field'),
+      'callback' => 'fboauth_field_convert_link_field',
+    ),
+    'location' => array(
+      'label' => t('Location'),
+      'callback' => 'fboauth_field_convert_location',
+    ),
     'text_long' => array(
       'label' => t('Long text'),
       'callback' => 'fboauth_field_convert_text',
     ),
     'list_text' => array(
-      'label' => t('List (\'text\')'),
+      'label' => t("List ('text')"),
       'callback' => 'fboauth_field_convert_list',
     ),
     'datetime' => array(
@@ -109,6 +118,10 @@ function fboauth_field_convert_info() {
     'datestamp' => array(
       'label' => t('Date'),
       'callback' => 'fboauth_field_convert_date',
+    ),
+    'image' => array(
+      'label' => t('Image'),
+      'callback' => 'fboauth_field_convert_image',
     ),
   );
   drupal_alter('fboauth_field_convert_info', $convert_info);
@@ -140,12 +153,91 @@ function fboauth_field_convert_text($facebook_property_name, $fbuser, $field, $i
 }
 
 /**
+ * Facebook data conversion function for a link.
+ */
+function fboauth_field_convert_link_field($facebook_property_name, $fbuser, $field, $instance) {
+  $value = NULL;
+
+  if (isset($fbuser->$facebook_property_name)) {
+    // Most Facebook properties are simple strings.
+    if (is_string($fbuser->$facebook_property_name)) {
+      $value = $fbuser->$facebook_property_name;
+    }
+    // If the property is an object, try common keys that are strings.
+    elseif (is_object($fbuser->$facebook_property_name)) {
+      $object = $fbuser->$facebook_property_name;
+      // Locations, Signficant Other, Hometown, and other properties use "name"
+      // as the human-readable value in the object.
+      if (isset($object->name)) {
+        $value = $object->name;
+      }
+    }
+  }
+
+  return $value ? array(
+    'url'  => $value,
+    'title' => $value,
+    'attributes' => 'a:0:{}') : NULL;
+}
+
+/**
  * Facebook data conversion function.
  *
- * Converts an incoming Facebook location (which is an object) into a string.
+ * Converts an incoming Facebook location (which is an object) 
+ * into a string, and then searches location array for the US or Canadian province
  */
 function fboauth_field_convert_location($facebook_property_name, $fbuser, $field, $instance) {
-}
+  if (!module_exists('location')) {
+    return NULL;
+  }
+  $value = NULL;
+  if (isset($fbuser->$facebook_property_name)) {
+    // Most Facebook properties are simple strings.
+    if (is_string($fbuser->$facebook_property_name)) {
+      $value = $fbuser->$facebook_property_name;
+    }
+    // If the property is an object, try common keys that are strings.
+    elseif (is_object($fbuser->$facebook_property_name)) {
+      $object = $fbuser->$facebook_property_name;
+      // Locations, Signficant Other, Hometown, and other properties use "name"
+      // as the human-readable value in the object.
+      if (isset($object->name)) {
+        $value = $object->name;
+      }
+    }
+  }
+
+  $loc = explode(',', $value);
+  $city = trim($loc[0]);
+  $prov_name = trim($loc[1]);
+  $us_prov = location_get_provinces();
+  $us_prov_abbr = array_search($prov_name, $us_prov);
+  if ($us_prov_abbr) {
+    $prov_abbr = $us_prov_abbr;
+    $country = 'us';
+  }
+  else {
+    // Lets check Canada!
+    $ca_prov = location_get_provinces('ca');
+    $ca_prov_abbr = array_search($prov_name, $ca_prov);
+    if ($ca_prov_abbr) {
+      $prov_abbr = $ca_prov_abbr;
+      $country = 'ca';
+    } 
+    else {  // not us or canadian
+      $prov_name = '';
+      $prov_abbr = '';
+      $country = '';  
+    }
+  }
+
+  return $value ? array(
+    'city'          => $city,
+    'province_name' => $prov_name,
+    'province'      => $prov_abbr,
+    'country'       => $country) : NULL;
+
+}  // Done converting facebook location information.
 
 /**
  * Facebook data conversion function.
@@ -154,7 +246,7 @@ function fboauth_field_convert_location($facebook_property_name, $fbuser, $field
  */
 function fboauth_field_convert_list($facebook_property_name, $fbuser, $field, $instance) {
   // We can't import anything other than strings into selects.
-  if (empty($facebook_property_name) || !is_string($fbuser->$facebook_property_name)) {
+  if (!isset($fbuser->$facebook_property_name) || empty($facebook_property_name) || !is_string($fbuser->$facebook_property_name)) {
     return;
   }
 
@@ -176,7 +268,6 @@ function fboauth_field_convert_list($facebook_property_name, $fbuser, $field, $i
       $best_key = $key;
     }
   }
-
   return isset($best_key) ? array('value' => $best_key) : NULL;
 }
 
@@ -190,16 +281,45 @@ function fboauth_field_convert_list($facebook_property_name, $fbuser, $field, $i
  */
 function fboauth_field_convert_date($facebook_property_name, $fbuser, $field, $instance) {
   $value = NULL;
-  $fbdate = explode('/', $fbuser->$facebook_property_name);
-  if (count($fbdate) == 3) {
-    $date = new DateObject($fbuser->$facebook_property_name);
-    if (date_is_date($date)) {
-      $format = $field['type'] == 'datestamp' ? DATE_FORMAT_UNIX : DATE_FORMAT_ISO;
-      $value = array(
-        'value' => $date->format($format, TRUE),
-        'date_type' => $field['type'],
-      );
+  if(isset($fbuser->$facebook_property_name) ) {
+    $fbdate = explode('/', $fbuser->$facebook_property_name);
+    if (count($fbdate) == 3) {
+      $date = new DateObject($fbuser->$facebook_property_name);
+      if (date_is_date($date)) {
+        $format = $field['type'] == 'datestamp' ? DATE_FORMAT_UNIX : DATE_FORMAT_ISO;
+        $value = array(
+          'value' => $date->format($format, TRUE),
+          'date_type' => $field['type'],
+        );
+      }
     }
   }
   return $value;
+}
+
+/**
+ * Facebook data conversion function.
+ */
+function fboauth_field_convert_image($facebook_property_name, $fbuser, $field, $instance) {
+  $file = NULL;
+
+  switch ($facebook_property_name) {
+    case 'picture':
+      // 1000px width should be enough.
+      $image_url = fboauth_graph_query($fbuser->id . '/picture', NULL, array('width' => 1000));
+      if (isset($image_url['redirect_url'])) {
+        if ($image = file_get_contents($image_url['redirect_url'])) {
+          $destination = file_field_widget_uri($field, $instance) . "/$fbuser->id.jpg";
+          $file = file_save_data($image, $destination, FILE_EXISTS_REPLACE);
+
+          if (is_object($file)) {
+            $file->status = 1;
+            $file = (array)file_save($file);
+          }
+        }
+      }
+      break;
+  }
+
+  return $file;
 }

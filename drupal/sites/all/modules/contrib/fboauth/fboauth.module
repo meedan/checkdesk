@@ -278,6 +278,31 @@ function fboauth_save($uid, $fbid) {
     ))
   ->execute();
   }
+  $loggedin_account = user_load($uid); //load user, all user fields & fbuid
+  // Check if the logged in user has a picture saved & has linked their FB account through fboauth, but only if
+  // the site is configured to do this.
+  if(variable_get('fboauth_user_picture','picture') == 'picture' && is_null($loggedin_account->picture) && !empty($fbid)) {
+      $picture_directory =  file_default_scheme() . '://' . variable_get('user_picture_path', 'pictures');
+      if(file_prepare_directory($picture_directory, FILE_CREATE_DIRECTORY)){
+        $picture_result = drupal_http_request('https://graph.facebook.com/v2.3/' . $fbid . '/picture?type=large');
+        $picture_path = file_stream_wrapper_uri_normalize($picture_directory . '/picture-' . $loggedin_account->uid . '-' . REQUEST_TIME . '.jpg');
+        $picture_file = file_save_data($picture_result->data, $picture_path, FILE_EXISTS_REPLACE);
+        // Check to make sure the picture isn't too large for the site settings.
+        $max_dimensions = variable_get('user_picture_dimensions', '85x85');
+        file_validate_image_resolution($picture_file, $max_dimensions);
+        // Update the user record.
+        $picture_file->uid = $loggedin_account->uid;
+        $picture_file = file_save($picture_file);
+        file_usage_add($picture_file, 'user', 'user', $loggedin_account->uid);
+        db_update('users')
+          ->fields(array(
+          'picture' => $picture_file->fid,
+          ))
+          ->condition('uid', $loggedin_account->uid)
+          ->execute();
+}
+  }
+
 }
 
 /**
@@ -350,7 +375,7 @@ function fboauth_action_link_properties($action_name, $redirect = NULL, $app_id 
       'client_id' => $app_id,
       'redirect_uri' => fboauth_action_url('fboauth/' . $action_name, array('absolute' => TRUE, 'query' => $query)),
     ),
-    'href' => 'https://www.facebook.com/dialog/oauth',
+    'href' => 'https://www.facebook.com/v2.3/dialog/oauth',
   );
 
   if ($permissions) {
