@@ -2279,10 +2279,6 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         }
       }
     }
-    // Add status condition for anonymous and citizen users
-    if (!$user->uid || in_array('citizen journalist', $user->roles) ) {
-      $query->add_where(1,'node.status', 1, '=');
-    }
     // Add author condition
     if (isset($_GET['author']) && $_GET['author'] != 'All') {
       $query->add_where(1,'users_node.name', $_GET['author'], 'LIKE');
