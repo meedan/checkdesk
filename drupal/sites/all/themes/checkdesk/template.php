@@ -734,8 +734,8 @@ function checkdesk_preprocess_node(&$variables) {
           SELECT DISTINCT nid_target, n.title
           FROM {heartbeat_activity} ha
           INNER JOIN {node} n ON ha.nid_target = n.nid AND ha.nid = :nid
-          WHERE n.language = :language AND message_id IN (:status)
-          ', array(':nid' => $variables['nid'], ':language' => $language->language, ':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
+          WHERE message_id IN (:status)
+          ', array(':nid' => $variables['nid'], ':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
               )->fetchAllKeyed(0);
       // display published in story if more than one or its the report/media page
       if (count($published_stories) > 1 || $variables['page'] == TRUE) {

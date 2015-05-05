@@ -11001,6 +11001,15 @@ print theme(\'views_autorefresh\', array(
     'plural' => 0,
   );
   $translatables[] = t('Retrieve lost password', array(), array('context' => ''));
+  $translations['ar:default']['ed1d2ab2cf6f022bfd9a589e44e3ef5a'] = array(
+    'source' => 'Posted to !published',
+    'context' => '',
+    'location' => '/ar/report/613',
+    'translation' => 'تم نشره على !published',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Posted to !published', array(), array('context' => ''));
   $translations['ar:default']['ed42606c7c0b96f4b4106330a94e22a5'] = array(
     'source' => 'Date and time of when the last comment was posted.',
     'context' => '',
