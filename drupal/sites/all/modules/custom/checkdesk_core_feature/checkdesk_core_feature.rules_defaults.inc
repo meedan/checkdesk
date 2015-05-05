@@ -181,6 +181,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [
         "rules",
+        "php",
         "heartbeat_rules",
         "rules_scheduler",
         "checkdesk_core",
@@ -198,7 +199,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_comment_on_report" : {
             "nid" : [ "comment:node:nid" ],
             "uid" : [ "comment:author:uid" ],
-            "nid_target" : [ "comment:node:field-stories:nid" ],
+            "nid_target" : "\\u003C?php\\r\\n$node = node_load($comment-\\u003Enid);\\r\\nif (isset($node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027] ;\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
             "uid_target" : "0",
             "cid" : [ "comment:cid" ],
             "message_id" : { "value" : { "checkdesk_comment_on_report" : "checkdesk_comment_on_report" } },
@@ -302,9 +303,8 @@ function checkdesk_core_feature_default_rules_configuration() {
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
-      "ON" : { "node_update" : [] },
+      "ON" : { "node_update--media" : { "bundle" : "media" } },
       "IF" : [
-        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
         { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_rating" } },
         { "NOT data_is" : {
             "data" : [ "node:field-rating:tid" ],
@@ -317,7 +317,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_fact_checking_set" : {
             "nid" : [ "node:nid" ],
             "uid" : [ "site:current-user:uid" ],
-            "nid_target" : [ "node:field-stories:nid" ],
+            "nid_target" : "\\u003C?php\\r\\nif (isset($node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027];\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
             "uid_target" : "0",
             "message_id" : { "value" : { "checkdesk_fact_checking_set" : "checkdesk_fact_checking_set" } },
             "!user_url" : [ "site:current-user:uid" ],
@@ -329,7 +329,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_fact_status_changed_for_commenter" : {
             "nid" : [ "node:nid" ],
             "uid" : [ "site:current-user:uid" ],
-            "nid_target" : [ "node:field-stories:nid" ],
+            "nid_target" : "\\u003C?php\\r\\nif (isset($node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027];\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
             "uid_target" : "0",
             "message_id" : { "value" : { "checkdesk_fact_status_changed_for_commenter" : "checkdesk_fact_status_changed_for_commenter" } },
             "!user_url" : [ "site:current-user:uid" ],
@@ -379,7 +379,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "flag" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler", "flag" ],
       "ON" : { "flag_flagged_factcheck_journalist" : [] },
       "IF" : [
         { "user_has_role" : { "account" : [ "flagging-user" ], "roles" : { "value" : { "4" : "4" } } } },
@@ -393,7 +393,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_fact_checking_on_by_citizen" : {
             "nid" : [ "flagged-node:nid" ],
             "uid" : [ "flagging-user:uid" ],
-            "nid_target" : [ "flagged-node:field-stories:nid" ],
+            "nid_target" : "\\u003C?php\\r\\nif (isset($flagged_node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $flagged_node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027];\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
             "uid_target" : "0",
             "message_id" : { "value" : { "checkdesk_fact_checking_on_by_citizen" : "checkdesk_fact_checking_on_by_citizen" } },
             "!user_url" : [ "flagging-user:url" ],
@@ -416,7 +416,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules" ],
       "ON" : { "node_insert" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } }
@@ -425,7 +425,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_new_report" : {
             "nid" : [ "node:nid" ],
             "uid" : [ "node:author:uid" ],
-            "nid_target" : [ "node:field-stories:nid" ],
+            "nid_target" : "\\u003C?php\\r\\nif (isset($node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027];\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
             "message_id" : { "value" : { "new_report" : "new_report" } },
             "!title" : [ "node:title" ],
             "!username" : [ "node:author:name" ]
@@ -439,7 +439,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "comment" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "comment" ],
       "ON" : { "comment_insert" : [] },
       "IF" : [
         { "node_is_of_type" : {
@@ -452,7 +452,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_new_comment_report" : {
             "nid" : [ "comment:node:nid" ],
             "uid" : [ "comment:author:uid" ],
-            "nid_target" : [ "comment:node:field-stories:nid" ],
+            "nid_target" : "\\u003C?php\\r\\n$node = node_load($comment-\\u003Enid);\\r\\nif (isset($node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027];\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
             "cid" : [ "comment:cid" ],
             "message_id" : { "value" : { "new_comment_report" : "new_comment_report" } },
             "!username" : [ "comment:author:name" ],
@@ -913,11 +913,8 @@ function checkdesk_core_feature_default_rules_configuration() {
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules" ],
-      "ON" : { "node_insert" : [] },
-      "IF" : [
-        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } },
-        { "NOT data_is_empty" : { "data" : [ "node:field_desk" ] } }
-      ],
+      "ON" : { "node_insert--post" : { "bundle" : "post" } },
+      "IF" : [ { "NOT data_is_empty" : { "data" : [ "node:field_desk" ] } } ],
       "DO" : [
         { "LOOP" : {
             "USING" : { "list" : [ "node:reports" ] },
@@ -977,11 +974,8 @@ function checkdesk_core_feature_default_rules_configuration() {
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
-      "ON" : { "node_insert" : [] },
-      "IF" : [
-        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } },
-        { "NOT data_is_empty" : { "data" : [ "node:reports:0:nid" ] } }
-      ],
+      "ON" : { "node_insert--post" : { "bundle" : "post" } },
+      "IF" : [ { "NOT data_is_empty" : { "data" : [ "node:reports:0:nid" ] } } ],
       "DO" : [
         { "LOOP" : {
             "USING" : { "list" : [ "node:reports" ] },
@@ -1088,7 +1082,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "php", "flag" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler", "flag" ],
       "ON" : { "flag_flagged_factcheck_journalist" : [] },
       "IF" : [
         { "node_is_of_type" : {
@@ -1101,8 +1095,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_fact_checking_on" : {
             "nid" : [ "flagged-node:nid" ],
             "uid" : [ "flagging-user:uid" ],
-            "nid_target" : [ "flagged-node:field-stories:nid" ],
-            "uid_target" : [ "flagged-node:field-stories:nid" ],
+            "nid_target" : "\\u003C?php\\r\\nif (isset($flagged_node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $flagged_node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027];\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
             "message_id" : { "value" : { "checkdesk_fact_checking_on" : "checkdesk_fact_checking_on" } },
             "!user_url" : [ "flagging-user:url" ],
             "!username" : [ "flagging-user:name" ],
@@ -1152,7 +1145,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_flag_report" : {
             "nid" : "[flagged-node:nid]",
             "uid" : "[flagging-user:uid]",
-            "nid_target" : [ "flagged-node:field-stories:nid" ],
+            "nid_target" : "\\u003C?php\\r\\nif (isset($flagged_node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $flagged_node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027];\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
             "uid_target" : [ "flagging-user:uid" ],
             "message_id" : { "value" : { "checkdesk_flag_report" : "checkdesk_flag_report" } },
             "!flag_author_url" : [ "flagging-user:url" ],
@@ -1179,7 +1172,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
       "ON" : { "node_update" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
@@ -1193,7 +1186,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_status_report" : {
             "nid" : [ "node:nid" ],
             "uid" : [ "site:current-user:uid" ],
-            "nid_target" : [ "node:field-stories:nid" ],
+            "nid_target" : "\\u003C?php\\r\\nif (isset($node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027];\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
             "message_id" : { "value" : { "status_report" : "status_report" } },
             "!editor_url" : [ "site:current-user:url" ],
             "!editor" : [ "site:current-user:name" ],
