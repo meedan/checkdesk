@@ -2429,7 +2429,7 @@ function checkdesk_core_wysiwyg_editor_settings_alter(&$settings, $context) {
  * Implements hook_form_FORM_ID_alter() for `user_cancel_confirm_form`.
  */
 function checkdesk_core_form_user_cancel_confirm_form_alter(&$form, $form_state) {
-  $form['#action'] .= '?destination=administer-users';
+  $form['#action'] .= '?destination=admin/people';
 }
 
 /**
