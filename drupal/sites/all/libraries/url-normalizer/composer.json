@@ -1,0 +1,20 @@
+{
+    "name": "glenscott/url-normalizer",
+    "description": "Syntax based normalization of URL's",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Glen Scott",
+            "email": "glen@glenscott.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "URL\\" : "src/URL"
+        }
+    }
+}

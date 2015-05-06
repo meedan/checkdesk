@@ -1,7 +1,6 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
   'use strict';
-
   // NOTE: This code is intentionally NOT inside a Drupal behavior
   $(function () {
     // On initial page load, check to see if a modal should and can be restored.
@@ -243,7 +242,7 @@
 
   Drupal.behaviors.footnotes = {
     attach: function(context, settings) {
-      $('textarea[class*=expanding]', context).expanding();
+      $('textarea[class*=expanding]', context).filter(":visible").expanding();
     }
   }
 
@@ -257,8 +256,8 @@
     $form.show();
     $form.find('textarea').val('');
     //destory then re-assign expanding to fix issue #2119.
-    $form.find('textarea').expanding('destroy');
-    $form.find('textarea').expanding();
+    $form.find('textarea[class*=expanding]').expanding('destroy');
+    $form.find('textarea[class*=expanding]').expanding();
     // Scroll to new footnote
     $('html, body').animate({
         scrollTop: $('.open#report-activity-node-' + nid).offset().top - 150

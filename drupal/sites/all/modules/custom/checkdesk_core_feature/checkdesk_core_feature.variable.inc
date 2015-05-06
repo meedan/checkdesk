@@ -10,10 +10,7 @@
 function checkdesk_core_feature_variable_realm_default_variables() {
 $realm_variables = array();
   $realm_variables['language']['ar'] = array(
-  'checkdesk_site_owner' => '',
   'r4032login_access_denied_message' => 'الوصول ممنوع. سجل دخولك لتصل للصفحة.',
-  'site_name' => 'Bellingcat Checkdesk',
-  'site_slogan' => '',
   'user_mail_cancel_confirm_body' => '[user:name],
 
 A request to cancel your account has been made at [site:name].

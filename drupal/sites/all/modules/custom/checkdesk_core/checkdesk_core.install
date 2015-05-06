@@ -384,3 +384,17 @@ function checkdesk_core_update_7040() {
 function checkdesk_core_update_7041() {
   module_disable(array('views_autocomplete_filters'));
 }
+
+/**
+ * Update body format for stories to be liveblog
+ */
+function checkdesk_core_update_7042() {
+  db_query(
+    'UPDATE {field_data_body} set body_format = :format  WHERE bundle = :type'
+    , array(':format' => 'liveblog', ':type' => 'discussion')
+  );
+  db_query(
+    'UPDATE {field_revision_body} set body_format = :format  WHERE bundle = :type'
+    , array(':format' => 'liveblog', ':type' => 'discussion')
+  );
+}

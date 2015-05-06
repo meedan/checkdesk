@@ -13,7 +13,11 @@ Installation
 1. In order for your site to use Facebook Connect you must register an
    application on Facebook. Visit https://www.facebook.com/developers/apps.php
    and create a new application, usually simply the name of your website such as
-   "example.com".
+   "example.com". You will need to request review of your application with Facebook.
+   In order to get reviewed, you will need to provide Facebok with various
+   pieces of information including a privacy policy, a description of your application,
+   and notes for why you want to request information about the various fields
+   that you request from Facebook.
 
 2. While setting up your application, set the "Deauthorize Callback" to
    "http://example.com/fboauth/deauthorize". This will allow Facebook OAuth to

@@ -141,6 +141,12 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'checkdesk_core.pages.inc',
   );
+  $items['checkdesk/reports'] = array(
+    'title' => 'Reports',
+    'page callback' => 'drupal_goto',
+    'page arguments' => array('search'),
+    'access callback' => '_checkdesk_is_journalist',
+  );
   $items['checkdesk/draft_stories'] = array(
     'title' => 'Draft stories',
     'page callback' => 'drupal_goto',
@@ -400,11 +406,17 @@ function _checkdesk_core_report_suggest($form, $form_state, $report = NULL) {
 function _checkdesk_core_report_suggest_submit($form, &$form_state) {
   // Add the story to the report.
   $report = $form['#report'];
-  $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
+  if (module_exists('checkdesk_duplicates')) {
+    // Clone existing report ticket #3660
+    $report = _checkdesk_duplicate_share_report($report, $form_state['values']['story']);
+  }
+  else {
+    $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
+    node_save($report);
+  }
   $story = node_load($form_state['values']['story']);
   $form_state['values']['story_title'] = $story->title;
-  node_save($report);
-
+  $form_state['values']['report_id'] = $report->nid;
   // Redirect to story.
   if (user_access('add report to story')) {
     $form_state['redirect'] = array('node/add/post', array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
@@ -445,7 +457,7 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
 
     // Redirect to story.
     if (user_access('add report to story')) {
-      $commands[] = ctools_ajax_command_redirect('node/add/post', 0, array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
+      $commands[] = ctools_ajax_command_redirect('node/add/post', 0, array('query' => array('report' => $form_state['values']['report_id'], 'story' => $form_state['values']['story'])));
     }
   }
 
@@ -1066,9 +1078,6 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
     $form['field_desk']['#access'] = false;
   }
 
-  // Hide summary
-  unset($form['body'][LANGUAGE_NONE][0]['summary']);
-
   // Make the body field a drop target for reports.
   $form['body']['#prefix'] = '<div class="droppable">';
   $form['body']['#suffix'] = '</div>';
@@ -1167,8 +1176,11 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
 
   $form['body'][LANGUAGE_NONE][0]['#title'] = t('Text');
-  $form['body'][LANGUAGE_NONE][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
-
+  $form['body'][LANGUAGE_NONE][0]['#description'] =
+    t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
+  // Make the body field a drop target for reports.
+  $form['body']['#prefix'] = '<div class="droppable">';
+  $form['body']['#suffix'] = '</div>';
   // add custom class for image uploader plus hide description with class nodescription
   $form['field_lead_image']['#prefix'] = '<div class="custom_file_upload nodescription">';
   $form['field_lead_image']['#suffix'] = '</div">';
@@ -1526,7 +1538,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['source']['#attributes']['placeholder'] = 'YouTube'; // don't translate this as the sources database won't understand the translation.
     //Fix reset button
     $form['#action'] = url($_GET['q']);
-    if (checkdesk_core__get_desk_reports_args() !== 'all') {
+    if (checkdesk_core__get_desk_reports_args() !== 'all' || (isset($_GET['q']) && $_GET['q'] == 'node/add/discussion')) {
       $form['field_stories_target_id']['#access'] = FALSE;
       $form['#info']['filter-field_stories_target_id'] = FALSE;
     }
@@ -2206,17 +2218,12 @@ function _twitter_signin_get_picture($account, $twitter_account) {
 function checkdesk_core_views_query_alter(&$view, &$query) {
   // On desk reports, show suggested reports first
   if ($view->name == 'desk_reports') {
-    if (isset($_GET['story']) && is_numeric($_GET['story'])) {
-      $story_id = $_GET['story'];
-      $sort_order = isset($_REQUEST['sort_order']) ? $_REQUEST['sort_order'] : 'DESC';
-      // Another approach to do the same thing, but probably slower
-      // $view->query->orderby[0]['field'] = "(SELECT COUNT(*) FROM {field_data_field_stories} WHERE entity_id = node.nid AND field_stories_target_id = $story_id)";
+    if (isset($_GET['q']) &&  $_GET['q'] == 'node/add/discussion') {
+      // show reports that are unassigned to any story
       $join = new views_join();
       $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
       $query->add_relationship('f', $join, 'field_data_field_stories');
-      $query->add_field('node', 'nid', 'nid', array('function' => 'groupby'));
-      $query->add_groupby('node.nid');
-      $query->orderby = array(array('field' => "(f.field_stories_target_id IS NOT NULL AND f.field_stories_target_id = $story_id)", 'direction' => 'DESC'), array('field' => 'node.created', 'direction' => $sort_order));
+      $query->add_where(1,'f.field_stories_target_id', 1, 'IS NULL');
     }
   }
 
@@ -2230,7 +2237,6 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
   }
 
   if ($view->name == 'checkdesk_search') {
-    global $user;
     // Update type condition with right values
     if (isset($_GET['type']) && $_GET['type'] != 'All') {
       foreach($query->where[1]['conditions'] as $k => $v) {
@@ -2246,7 +2252,11 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
             $selected_type = array('discussion');
           }
           $query->where[1]['conditions'][$k]['value'] = $selected_type;
-          break;
+        }
+        // List all language if user filter by report
+        if (is_string($v['field']) && $v['field'] == 'node.language' && $_GET['type'] == 'report') {
+          $all_language = array_merge(array_keys(language_list()), array(LANGUAGE_NONE));
+          $query->where[1]['conditions'][$k]['value'] = $all_language;
         }
       }
     }
@@ -2271,10 +2281,6 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
           break;
         }
       }
-    }
-    // Add status condition for anonymous and citizen users
-    if (!$user->uid || in_array('citizen journalist', $user->roles) ) {
-      $query->add_where(1,'node.status', 1, '=');
     }
     // Add author condition
     if (isset($_GET['author']) && $_GET['author'] != 'All') {
@@ -2426,7 +2432,7 @@ function checkdesk_core_wysiwyg_editor_settings_alter(&$settings, $context) {
  * Implements hook_form_FORM_ID_alter() for `user_cancel_confirm_form`.
  */
 function checkdesk_core_form_user_cancel_confirm_form_alter(&$form, $form_state) {
-  $form['#action'] .= '?destination=administer-users';
+  $form['#action'] .= '?destination=admin/people';
 }
 
 /**
@@ -2744,6 +2750,28 @@ function checkdesk_core_node_insert($node) {
       'alias' => 'story/' . $node->nid . '/collaboration',
     );
     path_save($path);
+    // Link reports to created story
+    if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
+      $matches = $reports = array();
+      preg_match_all('/\[[^:]+:([0-9]+)\]/u', $node->body[LANGUAGE_NONE][0]['value'], $matches);
+      if (count($matches[1])) {
+        foreach ($matches[1] as $key => $nid) {
+          if (is_numeric($nid) && is_object(node_load($nid))) {
+            if (!in_array($nid, $reports)) {
+              $reports[] = $nid;
+              //Link report to story
+              $report = node_load($nid);
+              if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) ||
+                $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $node->nid
+              ) {
+                $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $node->nid;
+                node_save($report);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -3829,7 +3857,7 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
       }
     }
   }
-  elseif ($original_path == 'reports') {
+  elseif ($original_path == 'checkdesk/reports') {
     $path = 'search';
     $options['query']['type'] = 'report';
   }

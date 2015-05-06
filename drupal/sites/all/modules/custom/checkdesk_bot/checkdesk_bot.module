@@ -13,6 +13,14 @@ function checkdesk_bot_menu() {
       'access callback' => TRUE,
       'type' => MENU_CALLBACK,
     ),
+    'admin/config/services/checkdesk-bot' => array(
+      'title' => 'Checkdesk Bot',
+      'description' => 'Administer Checkdesk bot configuration',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('checkdesk_bot__admin_settings'),
+      'access arguments' => array('administer site configuration'),
+      'type' => MENU_LOCAL_TASK,
+    ),
   );
 }
 
@@ -23,8 +31,26 @@ function checkdesk_bot_menu() {
 function checkdesk_bot_response() {
   $input = file_get_contents("php://input",  TRUE);
   $json = drupal_json_decode($input, TRUE);
+  $signature = checkdesk_bot__generate_signature($input);
+  if ($signature != $_SERVER['HTTP_X_CHECKY_SIGNATURE']) {
+    watchdog('checkdesk_bot', 'Bad X-Checky-Signature: Expected !mine and received !theirs.', array(
+      '!mine' => $signature,
+      '!theirs' => empty($_SERVER['HTTP_X_CHECKY_SIGNATURE']) ? '(blank)' : $_SERVER['HTTP_X_CHECKY_SIGNATURE'],
+    ), WATCHDOG_ERROR);
+    drupal_add_http_header('Status', '400 Bad Request');
+    drupal_json_output(array('error' => array('message' => 'Bad X-Checky-Signature')));
+    return;
+  }
   $reply = checkdesk_bot__generate_response($json['tweet']);
   drupal_json_output(array('reply' => $reply));
+}
+
+/**
+ * Generate sha1 signature.
+ * @see https://developer.github.com/webhooks/securing/
+ */
+function checkdesk_bot__generate_signature($json) {
+  return 'sha1=' . hash_hmac('sha1', $json, variable_get('checkdesk_bot_secret_token', ''));
 }
 
 /**
@@ -32,26 +58,43 @@ function checkdesk_bot_response() {
  */
 function checkdesk_bot__generate_response($tweet) {
   // Find Drupal username of sender if any.
+  $sender = NULL;
   $sender_uid = db_query(
     "SELECT uid FROM {twitter_account} WHERE twitter_uid = :twitter_id",
     array('twitter_id' => $tweet['user']['id_str'])
   )->fetchField();
+  if (!empty($sender_uid)) {
+    $sender = user_load($sender_uid);
+  }
 
-  // Detect tweet language if any.
+  // Decide on reply language.
+  // TODO: take into account Twitter user's preferences, Checkdesk user preferences, browser settings, etc.
   global $language;
   $languages = language_list();
-  $langcode = $tweet['lang'] === 'und' ? $language->language : $langcode;
+  $langcode = empty($tweet['lang']) || $tweet['lang'] === 'und' || empty($languages[$tweet['lang']]) ? $language->language : $tweet['lang'];
 
   // Detect URL if any.
   if (1 === count($tweet['entities']['urls'])) {
-    $report_url = !empty($tweet['entities']['urls']['expanded_url']) ?
-      $tweet['entities']['urls']['expanded_url'] :
-      $tweet['entities']['urls']['url'];
+    $report_url = !empty($tweet['entities']['urls'][0]['expanded_url']) ?
+      $tweet['entities']['urls'][0]['expanded_url'] :
+      $tweet['entities']['urls'][0]['url'];
   }
-  else {
+  else if (1 < count($tweet['entities']['urls'])) {
     // Tell user we can only parse a single URL and exit.
     return t(
-      'Sorry !screen_name, I can only understand a single URL to import. ' .
+      '!screen_name sorry, I can only understand a single URL to import. ' .
+      'We don\'t want to lose your contributions! Please adjust and resend :-)',
+      array(
+        '!screen_name' => '@' . $tweet['user']['screen_name'],
+      ),
+      array(
+        'langcode' => $langcode,
+      )
+    );
+  }
+  else { // 1 > count($tweet['entities']['urls'])
+    return t(
+      '!screen_name sorry, I need a URL to import. ' .
       'We don\'t want to lose your contributions! Please adjust and resend :-)',
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
@@ -77,11 +120,11 @@ function checkdesk_bot__generate_response($tweet) {
   // If not found, generate a URL to the report form.
   if (empty($sender_uid)) {
     return t(
-      'Hello !screen_name, thanks for your contribution! You can visit !site_name to submit your report: !url',
+      '!screen_name thanks! You can visit !site_name to submit your report: !url',
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
         '!site_name' => variable_get('site_name', t('Checkdesk')),
-        '!url' => $report_url
+        '!url' => url('node/add/media', array('query' => array('url' => $report_url), 'absolute' => TRUE)),
       ),
       array(
         'langcode' => $langcode,
@@ -94,7 +137,7 @@ function checkdesk_bot__generate_response($tweet) {
   $report = checkdesk_bot__import_report($report_url, $sender_uid, $story_nid, $tweet);
 
   return t(
-    'Thanks !screen_name for submitting this report to !site_name. You can access it here: !url',
+    '!screen_name thanks! You can access your report here: !url',
     array(
       '!screen_name' => '@' . $tweet['user']['screen_name'],
       '!site_name' => variable_get('site_name', t('Checkdesk')),
@@ -117,5 +160,30 @@ function checkdesk_bot__duplicates($report_url) {
 }
 
 function checkdesk_bot__import_report($report_url, $sender_uid, $story_nid, $tweet) {
-  // TODO Create new report node with given parameters and return node object.
+  $report = new StdClass;
+  $report->type = 'media';
+  node_object_prepare($report);
+  $report->status = 1;
+  $report->title = ''; // auto_nodetitle should take care of that
+  $report->language = LANGUAGE_NONE;
+  $report->uid = $sender_uid;
+  $report->field_link[LANGUAGE_NONE][]['url'] = $report_url;
+  if (!empty($story_nid)) {
+    $report->field_stories[LANGUAGE_NONE][]['target_id'] = $story_nid;
+  }
+  if ($report = node_submit($report)) {
+    node_save($report);
+    return $report;
+  }
+  return FALSE;
+}
+
+function checkdesk_bot__admin_settings() {
+  $form['checkdesk_bot_secret_token'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Secret token'),
+    '#description' => t('This token is shared with the Checkdesk Bot process in order to communicate securely.'),
+    '#default_value' => variable_get('checkdesk_bot_secret_token'),
+  );
+  return system_settings_form($form);
 }

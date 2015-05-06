@@ -77,7 +77,7 @@ function checkdesk_core_feature_wysiwyg_default_profiles() {
       'toolbar_loc' => 'top',
       'toolbar_align' => 'left',
       'path_loc' => 'none',
-      'resizing' => 0,
+      'resizing' => 1,
       'verify_html' => 1,
       'preformatted' => 0,
       'convert_fonts_to_spans' => 0,
