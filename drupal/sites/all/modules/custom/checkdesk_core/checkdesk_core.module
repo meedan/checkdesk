@@ -2237,7 +2237,6 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
   }
 
   if ($view->name == 'checkdesk_search') {
-    global $user;
     // Update type condition with right values
     if (isset($_GET['type']) && $_GET['type'] != 'All') {
       foreach($query->where[1]['conditions'] as $k => $v) {
@@ -2253,7 +2252,11 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
             $selected_type = array('discussion');
           }
           $query->where[1]['conditions'][$k]['value'] = $selected_type;
-          break;
+        }
+        // List all language if user filter by report
+        if (is_string($v['field']) && $v['field'] == 'node.language' && $_GET['type'] == 'report') {
+          $all_language = array_merge(array_keys(language_list()), array(LANGUAGE_NONE));
+          $query->where[1]['conditions'][$k]['value'] = $all_language;
         }
       }
     }
