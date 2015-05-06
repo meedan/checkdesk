@@ -145,7 +145,7 @@ function checkdesk_core_menu() {
     'title' => 'Reports',
     'page callback' => 'drupal_goto',
     'page arguments' => array('search'),
-    'access callback' => TRUE,
+    'access callback' => '_checkdesk_is_journalist',
   );
   $items['checkdesk/draft_stories'] = array(
     'title' => 'Draft stories',
