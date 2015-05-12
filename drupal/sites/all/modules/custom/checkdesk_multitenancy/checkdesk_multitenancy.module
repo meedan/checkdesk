@@ -145,17 +145,14 @@ function checkdesk_multitenancy_og_permission_alter(&$perms) {
  */
 function checkdesk_multitenancy_query_checkdesk_stories_alter($query) {
   global $user;
-  $groups = og_get_groups_by_user($user, 'node');
+  
+  $og_roles = og_roles('node', CHECKDESK_MULTITENANCY_GROUP_TYPE);
+  $rid = array_search('journalist', $og_roles);
 
-  // Show nothing if user is not subscribed to any group
-  if (!$groups || empty($groups)) {
-    $query->condition('1', '2', '=');
-  }
-
-  else {
-    $query->innerJoin('og_membership', 'ogm', 'ogm.etid = n.nid AND ogm.entity_type = :entity_type', array(':entity_type' => 'node'));
-    $query->condition('ogm.gid', array_values($groups), 'IN');
-  }
+  $query->innerJoin('og_membership', 'ogm', 'ogm.etid = n.nid AND ogm.entity_type = :entity_type', array(':entity_type' => 'node'));
+  $query->innerJoin('og_users_roles', 'ogur', 'ogur.gid = ogm.gid AND ogur.group_type = :group_type', array(':group_type' => 'node'));
+  $query->condition('ogur.uid', $user->uid);
+  $query->condition('ogur.rid', $rid);
 }
 
 /**
