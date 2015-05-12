@@ -469,3 +469,33 @@ function _meedan_render_oembed_activity_type($node, $heartbeat_row) {
   }
   return $output;
 }
+
+function _meedan_inline_thumbnail_bg($node, $classes = array()) {
+  // dsm($node);
+  if (isset($node->embed->thumbnail_url)) {
+    $thumbnail_url = $node->embed->thumbnail_url;
+    $thumbnail_title = $node->embed->title;
+  }
+  elseif (isset($node->field_lead_image['und'][0]['uri'])) {
+    $derivative_uri = image_style_path('report_thumbnail', $node->field_lead_image['und'][0]['uri']);
+    $success = file_exists($derivative_uri) || image_style_create_derivative('activity_avatar', $node->field_lead_image['und'][0]['uri'], $derivative_uri);
+    $thumbnail_url = file_create_url($derivative_uri);
+    $thumbnail_title = $node->title;
+  }
+  else {
+    $thumbnail_url = '';
+  }
+
+  $inline_thumbnail = '';
+  if ($thumbnail_url) {
+    $inline_thumbnail = l('', 'node/' . $node->nid, array('html' => TRUE,
+      'attributes' => array(
+        'class' => is_array($classes) ? $classes : array(),
+        'title' => t(check_plain($thumbnail_title)),
+        'style' => 'background-image: url("' . $thumbnail_url . '")'
+      )));
+  }
+
+  return $inline_thumbnail;
+}
+
