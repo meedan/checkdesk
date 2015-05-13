@@ -474,7 +474,7 @@ function _meedan_inline_thumbnail_bg($node, $classes = array()) {
 
   if (isset($node->embed->thumbnail_url)) {
     $thumbnail_url = $node->embed->thumbnail_url;
-    $thumbnail_title = $node->embed->title ? $node->embed->title : $node->title;
+    $thumbnail_title = isset($node->embed->title) ? $node->embed->title : $node->title;
   }
   elseif (isset($node->field_lead_image['und'][0]['uri'])) {
     $derivative_uri = image_style_path('medium', $node->field_lead_image['und'][0]['uri']);
