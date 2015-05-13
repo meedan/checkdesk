@@ -44,6 +44,12 @@
       </div>
     </div>
 
+    <?php if(isset($fields['field_lead_image']->content)) { ?>
+      <figure>
+        <?php print render($fields['field_lead_image']->content); ?>
+      </figure>
+    <?php } ?>
+
     <div class="story-body">
       <?php print render($fields['body']->content); ?>
     </div>
@@ -53,12 +59,6 @@
         <?php print $follow_story; ?>
       </div>
     <?php endif; ?>
-
-    <?php if(isset($fields['field_lead_image']->content)) { ?>
-      <figure>
-        <?php print render($fields['field_lead_image']->content); ?>
-      </figure>
-    <?php } ?>
 
     <div class="story-updates-wrapper">
       <?php print $updates; ?>
