@@ -471,14 +471,14 @@ function _meedan_render_oembed_activity_type($node, $heartbeat_row) {
 }
 
 function _meedan_inline_thumbnail_bg($node, $classes = array()) {
-  // dsm($node);
+
   if (isset($node->embed->thumbnail_url)) {
     $thumbnail_url = $node->embed->thumbnail_url;
-    $thumbnail_title = $node->embed->title;
+    $thumbnail_title = $node->embed->title ? $node->embed->title : $node->title;
   }
   elseif (isset($node->field_lead_image['und'][0]['uri'])) {
-    $derivative_uri = image_style_path('report_thumbnail', $node->field_lead_image['und'][0]['uri']);
-    $success = file_exists($derivative_uri) || image_style_create_derivative('activity_avatar', $node->field_lead_image['und'][0]['uri'], $derivative_uri);
+    $derivative_uri = image_style_path('medium', $node->field_lead_image['und'][0]['uri']);
+    $success = file_exists($derivative_uri) || image_style_create_derivative('medium', $node->field_lead_image['und'][0]['uri'], $derivative_uri);
     $thumbnail_url = file_create_url($derivative_uri);
     $thumbnail_title = $node->title;
   }

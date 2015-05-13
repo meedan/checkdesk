@@ -136,8 +136,8 @@
   margin-#{$from-direction}: auto;
   margin-#{opposite-position($from-direction)}: auto;
   position: relative;
-	width: 144px;
-	height: 90px;
+	width: 140px;
+	height: 88px;
 	text-align: center;
 }
 
@@ -173,17 +173,12 @@
 	position: relative;
 	overflow: hidden;
 	z-index: 1;
-	
-	.inline-img-thumb {
-		border: 1px solid $firefly10;
-		@include border-radius(4px);
-	}
 	// backrgound frame first
 	&:after {
 		position: absolute;
 		content: "";
 		z-index: -1;
-		top: 6px;
+		top: 7px;
 		#{$from-direction}: 6px;
 		bottom: 0;
 		background: $firefly5;
@@ -197,7 +192,7 @@
 		position: absolute;
 		content: "";
 		z-index: -1;
-		top: 12px;
+		top: 13px;
 		#{$from-direction}: 0;
 		bottom: 0;
 		background: $firefly5;
