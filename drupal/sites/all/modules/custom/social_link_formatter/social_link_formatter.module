@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function social_link_formatter_field_formatter_info() {
+  return array(
+    'social_link_formatter_icon' => array(
+      'label' => t('Social link with icon'),
+      'field types' => array('link_field'),
+      'multiple values' => FIELD_BEHAVIOR_DEFAULT,
+      'module' => 'social_link_formatter',
+      'settings' => array(
+        'size' => 'md',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function social_link_formatter_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  drupal_add_css(drupal_get_path('module', 'social_link_formatter') . '/css/bootstrap-social.css');
+
+  $settings = $display['settings'];
+
+  $elements = array();
+  foreach ($items as $delta => $item) {
+    $elements[$delta] = array(
+      '#markup' => theme('social_link_formatter_icon', array('element' => $item, 'size' => $settings['size'])),
+    );
+  }
+  return $elements;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function social_link_formatter_theme() {
+  return array(
+    'social_link_formatter_icon' => array(
+      'variables' => array('element' => NULL, 'size' => NULL),
+    ),
+  );
+}
+
+function theme_social_link_formatter_icon($element) {
+  $return = '';
+  $size = (isset($element['size']) ? $element['size'] : 'md');
+  $url = $element['element']['url'];
+  $parts = parse_url($url);
+  if ($parts) {
+    $network = preg_replace('/(.*\.|^)([^\.]+)\.com$/', '\2', $parts['host']);
+    if ($network) {
+      $return = theme('link', array(
+          'path' => $url,
+          'text' => "<i class=\"fa fa-$network\"></i>",
+          'options' => array(
+            'html' => TRUE,
+            'attributes' => array(
+              'class' => "btn btn-social-icon btn-$size btn-$network",
+            ),
+          ),
+        )
+      );
+    }
+  }
+  return $return;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function social_link_formatter_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $summary = '';
+  if ($display['type'] == 'social_link_formatter_icon') {
+    $summary = t('An icon of the social network of the link pointing to the link');
+  }
+  return $summary;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function social_link_formatter_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $settings = $instance['display'][$view_mode]['settings'];
+  $element = array();
+  $element['size'] = array(
+    '#title' => t('Size'),
+    '#type' => 'select',
+    '#options' => array(
+      'xs' => t('Very Small'),
+      'sm' => t('Small'),
+      'md' => t('Medium'),
+      'lg' => t('Large'),
+    ),
+    '#default_value' => $settings['size'],
+    '#required' => FALSE,
+  );
+  return $element;
+}
