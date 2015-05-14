@@ -520,7 +520,6 @@ function _meedan_oembed_fetch_favicon($url) {
   $mod_url = parse_url('http://' . $mod_url);
   $mod_url['host'] = str_replace('www.', '', $mod_url['host']);
   $icon_path = $favicon_path . str_replace(array('.', '/'), '-', $mod_url['host']) . '.ico';
-  watchdog('favicon', $icon_path);
   // check favicon exists before calling geticon
   if (!file_exists($icon_path)) {
     // fetch favicon
