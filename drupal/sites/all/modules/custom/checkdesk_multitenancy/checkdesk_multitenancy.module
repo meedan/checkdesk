@@ -218,20 +218,10 @@ function _checkdesk_multitenancy_installed_fields() {
       'type'       => 'text',
       'cardinality' => 1,
     ),
-    $p . '_social_twitter' => array(
-      'field_name'   => $p . '_social_twitter',
-      'type'         => 'text',
-      'cardinality'  => 1,
-    ),
-    $p . '_social_facebook' => array(
-      'field_name'   => $p . '_social_facebook',
-      'type'         => 'text',
-      'cardinality'  => 1,
-    ),
-    $p . '_social_gplus' => array(
-      'field_name'   => $p . '_social_gplus',
-      'type'         => 'text',
-      'cardinality'  => 1,
+    $p . '_social_networks' => array(
+      'field_name'  => $p . '_social_networks',
+      'type'        => 'link_field',
+      'cardinality' => -1,
     ),
   );
   
@@ -291,20 +281,21 @@ function _checkdesk_multitenancy_installed_instances() {
       'label'      => t('Owner e-mail'),
       'widget' => array('type' => 'text_textfield'),
     ),
-    $p . '_social_twitter' => array(
-      'field_name' => $p . '_social_twitter',
-      'label'      => t('Twitter URL'),
-      'widget' => array('type' => 'text_textfield'),
-    ),
-    $p . '_social_facebook' => array(
-      'field_name' => $p . '_social_facebook',
-      'label'      => t('Facebook URL'),
-      'widget' => array('type' => 'text_textfield'),
-    ),
-    $p . '_social_gplus' => array(
-      'field_name' => $p . '_social_gplus',
-      'label'      => t('Google+ URL'),
-      'widget' => array('type' => 'text_textfield'),
+    $p . '_social_networks' => array(
+      'field_name'  => $p . '_social_networks',
+      'label'       => t('Social Networks'),
+      'description' => t('Links (absolute URLs) to social network profiles'),
+      'widget' => array(
+        'type' => 'link_field',
+      ),
+      'display' => array(
+        'default' => array(
+          'type' => 'social_link_formatter_icon',
+          'label' => 'hidden',
+          'settings' => array('size' => 'md'),
+        ),
+      ),
+      'settings' => array('title' => 'none'),
     ),
   );
 
@@ -337,21 +328,6 @@ function checkdesk_multitenancy_form_alter(&$form, &$form_state, $form_id) {
     $attrs = array('name', 'url', 'email');
     foreach ($attrs as $field) {
       $form['owner'][$prefix . $field] = $form[$prefix . $field];
-      unset($form[$prefix . $field]);
-    }
-
-    // Wrap social links fields in a fieldset
-
-    $prefix = CHECKDESK_MULTITENANCY_GROUP_TYPE . '_social_';
-    $form['social'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Social links'),
-      '#collapsible' => true,
-      '#collapsed' => false,
-    );
-    $attrs = array('twitter', 'facebook', 'gplus');
-    foreach ($attrs as $field) {
-      $form['social'][$prefix . $field] = $form[$prefix . $field];
       unset($form[$prefix . $field]);
     }
 
@@ -524,15 +500,8 @@ function checkdesk_multitenancy_block_view($delta = '') {
     $group = _checkdesk_multitenancy_get_group();
 
     if ($group) {
-      $variables = array(
-                     'twitter'  => isset($group->newsroom_social_twitter[LANGUAGE_NONE]) ? 
-                                   $group->newsroom_social_twitter[LANGUAGE_NONE][0]['value'] : '',
-                     'facebook' => isset($group->newsroom_social_facebook[LANGUAGE_NONE]) ? 
-                                   $group->newsroom_social_facebook[LANGUAGE_NONE][0]['value'] : '',
-                     'gplus'    => isset($group->newsroom_social_gplus[LANGUAGE_NONE]) ? 
-                                   $group->newsroom_social_gplus[LANGUAGE_NONE][0]['value'] : '',
-                   );
-      $block['content'] = theme('blockfollowus', $variables);
+      $links = field_view_field('node', $group, 'newsroom_social_networks', 'full');
+      $block['content'] = theme('blockfollowus', array('links' => $links));
     }
   }
 
@@ -545,7 +514,7 @@ function checkdesk_multitenancy_block_view($delta = '') {
 function checkdesk_multitenancy_theme() {
   return array(
     'blockfollowus' => array(
-      'variables' => array('twitter' => NULL, 'facebook' => NULL, 'gplus' => NULL),
+      'variables' => array('links' => array()),
       'template' => 'blockfollowus',
     ),
   );
