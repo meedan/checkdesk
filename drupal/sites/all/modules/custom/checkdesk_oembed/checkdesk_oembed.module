@@ -113,6 +113,8 @@ function checkdesk_oembed_meedan_oembed_embed_alter($embed) {
       return strlen($match[0]) >= 4 ? 'X' : $match[0];
     }, $embed->title);
   }
+  // Fetch favicon here to fix old reports
+  $embed->favicon_link = _meedan_oembed_fetch_favicon($embed->original_url);
 }
 
 /**
