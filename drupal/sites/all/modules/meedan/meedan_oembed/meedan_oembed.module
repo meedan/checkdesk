@@ -202,14 +202,18 @@ function meedan_oembed_add_extra_information(&$embed) {
   $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
   // TODO Get thumbnail.
   if (empty($embed->thumbnail_url)) {
-    if($embed->type == 'photo') {
+    if ($embed->type == 'photo') {
       // put original url as thumbnail url
       // if original url is itself an image path
       $original_image = getimagesize($embed->original_url);
-      if(isset($original_image)) { 
+      if (isset($original_image)) { 
         $embed->thumbnail_url = $embed->original_url;
       }
     } 
+  }
+  if ($embed->provider_name == 'YouTube' && !empty($embed->thumbnail_url)) {
+    // Use Youtube thumbnail that doesn't have black borders
+    $embed->thumbnail_url = str_replace('hqdefault.jpg', 'mqdefault.jpg', $embed->thumbnail_url);
   }
 }
 
@@ -471,7 +475,6 @@ function _meedan_render_oembed_activity_type($node, $heartbeat_row) {
 }
 
 function _meedan_inline_thumbnail_bg($node, $classes = array()) {
-
   if (isset($node->embed->thumbnail_url)) {
     $thumbnail_url = $node->embed->thumbnail_url;
     $thumbnail_title = isset($node->embed->title) ? $node->embed->title : $node->title;
