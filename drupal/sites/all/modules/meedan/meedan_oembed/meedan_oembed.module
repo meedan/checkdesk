@@ -122,7 +122,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed = $cache->data;
     $embed->original_url = $url;
     $embed->provider = $provider;
-    
+
     drupal_alter('meedan_oembed_embed', $embed);
 
     return $embed;
@@ -186,7 +186,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed->error = FALSE;
   }
   drupal_alter('meedan_oembed_embed', $embed);
-  
+
   // Set result to cache, even if error
   cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
 
@@ -203,10 +203,10 @@ function meedan_oembed_add_extra_information(&$embed) {
       // put original url as thumbnail url
       // if original url is itself an image path
       $original_image = getimagesize($embed->original_url);
-      if (isset($original_image)) { 
+      if (isset($original_image)) {
         $embed->thumbnail_url = $embed->original_url;
       }
-    } 
+    }
   }
   if ($embed->provider_name == 'YouTube' && !empty($embed->thumbnail_url)) {
     // Use Youtube thumbnail that doesn't have black borders
@@ -290,8 +290,8 @@ function meedan_oembed_node_presave($node) {
   if ($node->type == 'media') {
     // Set report title and description
     $link = $node->field_link[LANGUAGE_NONE][0]['url'];
-    $old_link = (isset($node->original) ? $node->original->field_link[LANGUAGE_NONE][0]['url'] : ''); 
-    $embed = meedan_oembed_data($link, array(), TRUE);
+    $old_link = (isset($node->original) ? $node->original->field_link[LANGUAGE_NONE][0]['url'] : '');
+    $embed = meedan_oembed_data($link, array(), FALSE, TRUE);
     $node->status = ((isset($embed->error) && $embed->error) ? 0 : 1);
     if (empty($node->title) || (isset($node->original) && $link !== $old_link && $node->title === $node->original->title)) {
       if (!empty($embed->title)) {
@@ -303,11 +303,11 @@ function meedan_oembed_node_presave($node) {
         $node->title = t('!type from !source', array('!type' => $embed->type, '!source' => $embed_source));
       }
     }
-    if (!empty($embed->description) && 
-       (empty($node->body[LANGUAGE_NONE][0]['value']) || 
-       (isset($node->original) && 
-        $link !== $old_link && 
-        html_entity_decode(strip_tags($node->body[LANGUAGE_NONE][0]['value'])) === 
+    if (!empty($embed->description) &&
+       (empty($node->body[LANGUAGE_NONE][0]['value']) ||
+       (isset($node->original) &&
+        $link !== $old_link &&
+        html_entity_decode(strip_tags($node->body[LANGUAGE_NONE][0]['value'])) ===
         html_entity_decode(strip_tags($node->original->body[LANGUAGE_NONE][0]['value']))))) {
       // $node->body[LANGUAGE_NONE][0]['value'] = $embed->description;
     }
