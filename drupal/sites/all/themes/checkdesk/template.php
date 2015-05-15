@@ -1020,13 +1020,13 @@ function checkdesk_field__field_tags(&$variables) {
     $type = $variables['element']['#bundle'];
     if ($type == 'media') {
       $alt_type = array(
-          'singular' => 'report',
-          'plural' => 'reports'
+          'singular' => t('Report'),
+          'plural' => t('Reports'),
       );
     } elseif ($type == 'discussion') {
       $alt_type = array(
-          'singular' => 'story',
-          'plural' => 'stories'
+          'singular' => t('Story'),
+          'plural' => t('Stories'),
       );
     }
 
