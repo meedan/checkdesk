@@ -34,7 +34,8 @@ class geticon {
      * @param type $cache_folder 
      */
     public function __construct($url, $root, $cache_folder) {
-        $this->_default = $root . $cache_folder . 'default.png';
+        //$this->_default = $root . $cache_folder . 'default.png';
+        $this->_default = drupal_get_path('module', 'meedan_oembed') .'/theme/thumbnail.png';
         $url = trim(str_replace(array('http://', 'https://', 'http:/', 'https:/'), '', trim($url)), '/');
         $url = parse_url('http://' . $url);
         $url['host'] = str_replace('www.', '', $url['host']);
@@ -85,19 +86,19 @@ class geticon {
             $drupal_headers = drupal_http_request($this->_ico_url,array('method' => 'HEAD'));
             $headers  = $drupal_headers->headers;
             $this->_log('Favicon Headers', $headers);
-            if ($headers['location']) {
+            if (isset($headers['location'])) {
                 $headers['location'] = is_array($headers['location']) ? end($headers['location']) : $headers['location'];
                 $this->_log('Redirect Location', $headers['location']);
                 $this->_ico_url = $headers['location'];
-                $this->_log('Favicon Headers', $headers);
+                //$this->_log('Favicon Headers', $headers);
             }
             if ($drupal_headers->code == 200 || $drupal_headers->code == 302) {
-                $this->_log('Favicon Header Content Type', $headers['Content-Type']);
+                //$this->_log('Favicon Header Content Type', $headers['Content-Type']);
             } else {
                 if ($this->_ico_url != $this->_url . 'favicon.ico' && $linktag) {
                     $this->_catch(false);
                 } else {
-                    $this->_log('Unknown Favicon', $headers['Content-Type']);
+                    //$this->_log('Unknown Favicon', $headers['Content-Type']);
                     $this->_ico_url = $this->_default;
                 }
             }
@@ -114,6 +115,7 @@ class geticon {
             copy($this->_default, $this->_cache_name . '.ico');
         } else
             $icofile = $this->_cache_name . '.ico';
+
         try {
             $this->_log('Favicon Cache', $icofile);
             file_put_contents($icofile, file_get_contents($this->_ico_url));
