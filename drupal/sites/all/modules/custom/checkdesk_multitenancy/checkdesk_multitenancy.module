@@ -576,12 +576,14 @@ function _checkdesk_multitenancy_frontpage() {
  * Implements hook_node_access().
  */
 function checkdesk_multitenancy_node_access($node, $op, $account) {
-  $user_groups = array_values(og_get_groups_by_user($account, 'node'));
 
   if ($op == 'delete' || $op == 'update') {
     $group = _checkdesk_multitenancy_get_group($node);
-    if ($group && !in_array($group->nid, $user_groups)) {
-      return NODE_ACCESS_DENY;
+    if ($group) {
+      $roles = array_values(og_get_user_roles('node', $group->nid, $account->uid));
+      if (!in_array('journalist', $roles)) {
+        return NODE_ACCESS_DENY;
+      }
     }
   }
   
@@ -596,9 +598,12 @@ function checkdesk_multitenancy_node_access($node, $op, $account) {
 
     if ($story_id) {
       $story = node_load($story_id);
-      $story_group = _checkdesk_multitenancy_get_group_from_grouped($story);
-      if (!in_array($story_group->nid, $user_groups)) {
-        return NODE_ACCESS_DENY;
+      $group = _checkdesk_multitenancy_get_group_from_grouped($story);
+      if ($group) {
+        $roles = array_values(og_get_user_roles('node', $group->nid, $account->uid));
+        if (!in_array('journalist', $roles)) {
+          return NODE_ACCESS_DENY;
+        }
       }
     }
   }
