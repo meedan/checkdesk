@@ -694,14 +694,14 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     $update_anchor = 'update-' . $node->nid;
     $url = url('node/'.$parent_story_id, array(
       'absolute' => TRUE, 'alias' => TRUE, 'fragment' => $update_anchor, 'language' => $language,
-      'query' => array('version' => $node->changed),
+      'query' => array('fbrefresh' => $node->changed),
     ));
     // Replace anchor # with %23 to force anchor on share link
     $url = str_replace('#' . $update_anchor, '%23' . $update_anchor, $url);
   }
   else {
     $url = url('node/' . $node->nid, array(
-      'absolute' => TRUE, 'alias' => TRUE, 'language' => $language, 'query' => array('version' => $node->changed),
+      'absolute' => TRUE, 'alias' => TRUE, 'language' => $language, 'query' => array('fbrefresh' => $node->changed),
     ));
   }
 
