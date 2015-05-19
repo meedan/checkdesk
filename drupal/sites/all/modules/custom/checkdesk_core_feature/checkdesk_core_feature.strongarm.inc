@@ -1908,13 +1908,6 @@ password: Your password
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'user_registrationpassword_registration';
-  $strongarm->value = '2';
-  $export['user_registrationpassword_registration'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'user_registrationpassword_user_mail_status_activated_body_original';
   $strongarm->value = '[user:name],
 

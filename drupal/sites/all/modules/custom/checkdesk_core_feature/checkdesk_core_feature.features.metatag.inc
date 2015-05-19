@@ -51,14 +51,14 @@ function checkdesk_core_feature_metatag_export_default() {
       'description' => array(
         'value' => '[node:summary]',
       ),
-      'twitter:card' => array(
-        'value' => 'summary',
-      ),
-      'twitter:description' => array(
-        'value' => '[node:summary]',
+      'canonical' => array(
+        'value' => '[current-page:url:absolute]?fbrefresh=[node:changed:raw]',
       ),
       'twitter:title' => array(
         'value' => '[node:title]',
+      ),
+      'twitter:description' => array(
+        'value' => '[node:summary]',
       ),
     ),
   );
@@ -69,6 +69,9 @@ function checkdesk_core_feature_metatag_export_default() {
     'config' => array(
       'description' => array(
         'value' => '[node:body]',
+      ),
+      'canonical' => array(
+        'value' => '[current-page:url:absolute]?fbrefresh=[node:changed:raw]',
       ),
       'twitter:description' => array(
         'value' => '[node:body]',
