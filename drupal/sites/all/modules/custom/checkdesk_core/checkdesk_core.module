@@ -1039,16 +1039,18 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
     $element = array(
       '#tag' => 'meta',
       '#attributes' => array(
-        'property' => 'og:image',
+        'property' => 'og:image:url',
         'content' => (empty($node->field_lead_image) ? '' : file_create_url($node->field_lead_image[LANGUAGE_NONE][0]['uri'])),
       ),
     );
-    drupal_add_html_head($element, 'meta_og_image');
+    drupal_add_html_head($element, 'meta_og_image_url');
     $element = array(
       '#tag' => 'meta',
       '#attributes' => array(
         'property' => 'og:url',
-        'content' => url('node/' . $node->nid, array('absolute' => TRUE, 'alias' => TRUE)),
+        'content' => url('node/' . $node->nid, array(
+          'absolute' => TRUE, 'alias' => TRUE, 'query' => array('fbrefresh' => $node->changed),
+        )),
       ),
     );
     drupal_add_html_head($element, 'meta_og_url');
