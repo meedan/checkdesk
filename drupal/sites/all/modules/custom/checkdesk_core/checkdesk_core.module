@@ -1200,7 +1200,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     //Set default language value
     $form['language']['#default_value'] = $language->language;
   }
-  
+
 }
 
 /**
@@ -3008,7 +3008,7 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
   }
 
-  $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity();
+  $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);
   $form['field_stories'][LANGUAGE_NONE]['#options'] = $options;
   // Handle HTML entities
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
@@ -3476,18 +3476,30 @@ function _checkdesk_active_story($options = array()) {
 }
 
 /**
+ * @param bool $show_draft
  * @return array
  *  List of stories sorted by activity.
  */
-function _checkdesk_get_stories_by_activity() {
+function _checkdesk_get_stories_by_activity($show_draft = FALSE) {
   global $language;
   $result = db_query('
-    SELECT n.nid, n.title
-    FROM heartbeat_activity ha
-    INNER JOIN node n ON n.nid = ha.nid_target AND n.type = :type AND n.language = :language
-    ORDER BY ha.timestamp DESC 
+    SELECT DISTINCT n.nid, n.title
+    FROM {heartbeat_activity} ha
+    INNER JOIN {node} n ON n.nid = ha.nid_target AND n.type = :type AND n.language = :language
+    ORDER BY ha.timestamp DESC
     ', array(':type' => 'discussion', ':language' => $language->language))->fetchAllKeyed(0);
-  return $result;
+
+  $drafts = array();
+  if ($show_draft && _checkdesk_is_journalist()) {
+    $drafts = db_query('
+    SELECT n.nid, n.title
+    FROM {node} n
+    WHERE n.type = :type AND n.status = :status AND n.language = :language
+    ORDER BY n.created DESC
+    ', array(':type' => 'discussion', ':status' => 0, ':language' => $language->language))->fetchAllKeyed(0);
+  }
+
+  return $result + $drafts;
 }
 
 /**
