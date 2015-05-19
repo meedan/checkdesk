@@ -3485,9 +3485,9 @@ function _checkdesk_get_stories_by_activity($show_draft = FALSE) {
   $result = db_query('
     SELECT DISTINCT n.nid, n.title
     FROM {heartbeat_activity} ha
-    INNER JOIN {node} n ON n.nid = ha.nid_target AND n.type = :type AND n.language = :language
+    INNER JOIN {node} n ON n.nid = ha.nid_target AND n.type = :type AND n.status = :status AND n.language = :language
     ORDER BY ha.timestamp DESC
-    ', array(':type' => 'discussion', ':language' => $language->language))->fetchAllKeyed(0);
+    ', array(':type' => 'discussion', ':status' => 1, ':language' => $language->language))->fetchAllKeyed(0);
 
   $drafts = array();
   if ($show_draft && _checkdesk_is_journalist()) {

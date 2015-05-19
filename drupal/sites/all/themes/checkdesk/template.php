@@ -727,14 +727,15 @@ function checkdesk_preprocess_node(&$variables) {
       // Set published stories
       $variables['published_stories'] = '';
       $published_stories_links = array();
+      $published_cond = _checkdesk_is_journalist() ? array(0, 1) : array(1);
       $published_stories = db_query('
           SELECT DISTINCT nid_target, n.title
           FROM {heartbeat_activity} ha
-          INNER JOIN {node} n ON ha.nid_target = n.nid AND ha.nid = :nid
+          INNER JOIN {node} n ON ha.nid_target = n.nid AND ha.nid = :nid AND n.status IN (:published)
           WHERE message_id IN (:status)
-          ', array(':nid' => $variables['nid'], ':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
+          ', array(':nid' => $variables['nid'], ':published' => $published_cond, ':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
               )->fetchAllKeyed(0);
-      // display published in story if more than one or its the report/media page
+      // display published in story if more than one story or user access report/media page
       if (count($published_stories) > 1 || $variables['page'] == TRUE) {
         foreach ($published_stories as $k => $v) {
           array_push($published_stories_links, l($v, 'node/' . $k));
