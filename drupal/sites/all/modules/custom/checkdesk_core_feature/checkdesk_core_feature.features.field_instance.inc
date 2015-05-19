@@ -426,6 +426,75 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-discussion-field_additional_authors'
+  $field_instances['node-discussion-field_additional_authors'] = array(
+    'bundle' => 'discussion',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'checkdesk_collaborate' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+      'meedan_oembed' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'exclude_cv' => 0,
+    'field_name' => 'field_additional_authors',
+    'label' => 'Additional authors',
+    'required' => 0,
+    'settings' => array(
+      'exclude_cv' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-discussion-field_lead_image'
   $field_instances['node-discussion-field_lead_image'] = array(
     'bundle' => 'discussion',
@@ -1440,6 +1509,7 @@ function checkdesk_core_feature_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Additional authors');
   t('Attachment');
   t('Bio');
   t('Body');
