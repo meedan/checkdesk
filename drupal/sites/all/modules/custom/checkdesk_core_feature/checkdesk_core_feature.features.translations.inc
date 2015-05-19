@@ -12046,6 +12046,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Reason', array(), array('context' => 'field_reason:graphic:label'));
+  $translations['ar:field']['f7cc399e5b1bdc3160c3d52c3b2726aa'] = array(
+    'source' => 'Additional authors',
+    'context' => 'field_additional_authors:discussion:label',
+    'location' => 'field:field_additional_authors:discussion:label',
+    'translation' => 'مؤلفون اضافيون',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Additional authors', array(), array('context' => 'field_additional_authors:discussion:label'));
   $translations['ar:menu']['0438c40111de0a6a702090159db84319'] = array(
     'source' => 'Administer users',
     'context' => 'item:64951ef2-f0ea-4842-a761-c42b353bbf41:title',

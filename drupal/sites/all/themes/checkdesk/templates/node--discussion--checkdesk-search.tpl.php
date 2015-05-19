@@ -22,7 +22,7 @@
 
             <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
             <?php if(isset($node->name)) : ?>
-              <span class="author"><?php print $node->name; ?></span>
+              <span class="author"><?php print $story_authors; ?></span>
             <?php endif; ?>
 
             <?php if (isset($content['field_tags'])) :?>

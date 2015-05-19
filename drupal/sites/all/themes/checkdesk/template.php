@@ -559,6 +559,9 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if ($variables['type'] == 'discussion') {
+    // get authors
+    $variables['story_authors'] = _checkdesk_story_authors($variables['node']);
+
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();
     $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
@@ -568,11 +571,9 @@ function checkdesk_preprocess_node(&$variables) {
     }
 
     if ($variables['view_mode'] == 'checkdesk_collaborate' || $variables['view_mode'] == 'full' ) {
-
       $variables['creation_info_short'] =
-        t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
-        '@user' => url('user/' . $variables['uid']),
-        '!user' => $node->name,
+        t('!authors <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
+        '!authors' => $variables['story_authors'],
         '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
         '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
       ));
@@ -1365,4 +1366,29 @@ function _checkdesk_term_get_children_ids($tid) {
     }
   }
   return $tids;
+}
+
+/**
+ * List story authors based on additional author field
+ * @param $node
+ * @return bool|string
+ */
+function _checkdesk_story_authors($node) {
+  if (is_numeric($node)) {
+    $node = node_load($node);
+  }
+  // get updates for a particular story
+  $view = views_get_view('story_authors');
+  $view->set_arguments(array($node->nid));
+  $view->get_total_rows = TRUE;
+  $view_output = $view->preview('block_1');
+  $total_rows = $view->total_rows;
+  $view->destroy();
+  if ($total_rows) {
+    $story_authors = $view_output;
+  }
+  else {
+    $story_authors = l($node->name, 'user/'. $node->uid, array('attributes' => array('class' => 'contributor')));
+  }
+  return $story_authors;
 }
