@@ -63,6 +63,22 @@ function checkdesk_core_feature_metatag_export_default() {
     ),
   );
 
+  // Exported Metatag config instance: node:discussion.
+  $config['node:discussion'] = array(
+    'instance' => 'node:discussion',
+    'config' => array(
+      'twitter:card' => array(
+        'value' => 'summary_large_image',
+      ),
+      'twitter:creator' => array(
+        'value' => '@[node:author]',
+      ),
+      'twitter:image:src' => array(
+        'value' => '[node:field_lead_image]',
+      ),
+    ),
+  );
+
   // Exported Metatag config instance: node:media.
   $config['node:media'] = array(
     'instance' => 'node:media',
