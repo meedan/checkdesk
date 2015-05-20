@@ -1017,6 +1017,37 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       '#theme' => 'checkdesk_core_story_drafts',
       '#story' => $node,
     );
+    // Facebook tags
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'property' => 'og:title',
+        'content' => strip_tags($node->title),
+      ),
+    );
+    drupal_add_html_head($element, 'meta_og_title');
+    $description = strip_tags(preg_replace('/\n|\r/', ' ', token_replace('[node:summary]', array('node' => $node), array('clear' => TRUE))));
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'property' => 'og:description',
+        'content' => (empty($description) ? '-' : $description),
+      ),
+    );
+    drupal_add_html_head($element, 'meta_og_description');
+
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'property' => 'og:url',
+        'content' => url('node/' . $node->nid, array(
+          'absolute' => TRUE,
+          'alias' => TRUE,
+          'query' => array('fbrefresh' => $node->changed),
+        )),
+      ),
+    );
+    drupal_add_html_head($element, 'meta_og_url');
     $element = array(
       '#tag' => 'meta',
       '#attributes' => array(
@@ -1025,6 +1056,28 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       ),
     );
     drupal_add_html_head($element, 'meta_og_image_url');
+    drupal_add_html_head($element, 'meta_og_url');
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'property' => 'og:image',
+        'content' => (empty($node->field_lead_image) ? '' : file_create_url($node->field_lead_image[LANGUAGE_NONE][0]['uri'])),
+      ),
+    );
+    drupal_add_html_head($element, 'meta_og_image');
+    // Add twitter cards tags (twitter account)
+    $twitter_creator = db_query('SELECT screen_name FROM  {twitter_account} WHERE uid = :uid LIMIT 1',
+      array(':uid' => $node->uid))->fetchField();
+    if ($twitter_creator) {
+      $element = array(
+        '#tag' => 'meta',
+        '#attributes' => array(
+          'property' => 'twitter:creator',
+          'content' => '@'.$twitter_creator,
+        ),
+      );
+      drupal_add_html_head($element, 'meta_twitter_creator');
+    }
   }
 
   // Add decorations to report nodes.
@@ -1034,50 +1087,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       '#report' => $node,
     );
   }
-  // Facebook tags
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      'property' => 'og:title',
-      'content' => strip_tags($node->title),
-    ),
-  );
-  drupal_add_html_head($element, 'meta_og_title');
-  $description = strip_tags(preg_replace('/\n|\r/', ' ', token_replace('[node:summary]', array('node' => $node), array('clear' => TRUE))));
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      'property' => 'og:description',
-      'content' => (empty($description) ? '-' : $description),
-    ),
-  );
-  drupal_add_html_head($element, 'meta_og_description');
 
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      'property' => 'og:url',
-      'content' => url('node/' . $node->nid, array(
-        'absolute' => TRUE,
-        'alias' => TRUE,
-        'query' => array('fbrefresh' => $node->changed),
-      )),
-    ),
-  );
-  drupal_add_html_head($element, 'meta_og_url');
-  // Add twitter cards tags (twitter account)
-  $twitter_creator = db_query('SELECT screen_name FROM  {twitter_account} WHERE uid = :uid LIMIT 1',
-    array(':uid' => $node->uid))->fetchField();
-  if ($twitter_creator) {
-    $element = array(
-      '#tag' => 'meta',
-      '#attributes' => array(
-        'property' => 'twitter:creator',
-        'content' => '@'.$twitter_creator,
-      ),
-    );
-    drupal_add_html_head($element, 'meta_twitter_creator');
-  }
 }
 
 /*
