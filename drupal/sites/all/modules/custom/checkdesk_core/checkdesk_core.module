@@ -693,7 +693,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     $update_anchor = 'update-' . $node->nid;
     $url = url('node/'.$parent_story_id, array(
-      'absolute' => TRUE, 'alias' => TRUE, 'fragment' => $update_anchor, 'language' => $language,
+      'absolute' => TRUE, 'fragment' => $update_anchor, 'language' => $language,
       'query' => array('fbrefresh' => $node->changed),
     ));
     // Replace anchor # with %23 to force anchor on share link
@@ -701,7 +701,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   }
   else {
     $url = url('node/' . $node->nid, array(
-      'absolute' => TRUE, 'alias' => TRUE, 'language' => $language, 'query' => array('fbrefresh' => $node->changed),
+      'absolute' => TRUE, 'language' => $language, 'query' => array('fbrefresh' => $node->changed),
     ));
   }
 
@@ -1042,7 +1042,6 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
         'property' => 'og:url',
         'content' => url('node/' . $node->nid, array(
           'absolute' => TRUE,
-          'alias' => TRUE,
           'query' => array('fbrefresh' => $node->changed),
         )),
       ),
