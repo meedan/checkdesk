@@ -490,10 +490,10 @@ return _checkdesk_core_auto_title($node);
           'weight' => '0',
         ),
         'metatags' => array(
-          'weight' => '5',
+          'weight' => '6',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '5',
         ),
       ),
       'display' => array(),
@@ -1146,13 +1146,6 @@ return _checkdesk_core_auto_title($node);
   $strongarm->name = 'meedan_livefyre_lazy_load_comments';
   $strongarm->value = 1;
   $export['meedan_livefyre_lazy_load_comments'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_livefyre_siteid';
-  $strongarm->value = '315968';
-  $export['meedan_livefyre_siteid'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -1911,13 +1904,6 @@ password: Your password
   $strongarm->name = 'user_registrationpassword_register_subject';
   $strongarm->value = 'Account details for [user:name] at [site:name]';
   $export['user_registrationpassword_register_subject'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_registrationpassword_registration';
-  $strongarm->value = '2';
-  $export['user_registrationpassword_registration'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

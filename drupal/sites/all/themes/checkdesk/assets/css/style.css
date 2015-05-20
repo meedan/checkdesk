@@ -5400,21 +5400,27 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  width: 142px;
-  min-height: 88px;
+  width: 140px;
+  height: 88px;
   text-align: center;
 }
 
 .media .inline-img-thumb, .media .inline-video-thumb {
-  width: 142px;
-  min-height: 88px;
-  height: auto;
-  overflow: auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
+  background-color: #cfd3d5;
+  width: 140px;
+  height: 88px;
 }
 
 /* Hack to make the loader gif not resize as media thumbnails */
@@ -5435,14 +5441,11 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   overflow: hidden;
   z-index: 1;
 }
-.item-type-story .media .inline-img-thumb-holder .inline-img-thumb {
-  border: 1px solid #e7e8ea;
-}
 .item-type-story .media .inline-img-thumb-holder:after {
   position: absolute;
   content: "";
   z-index: -1;
-  top: 6px;
+  top: 7px;
   left: 6px;
   bottom: 0;
   background: #f3f4f4;
@@ -5459,7 +5462,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   position: absolute;
   content: "";
   z-index: -1;
-  top: 12px;
+  top: 13px;
   left: 0;
   bottom: 0;
   background: #f3f4f4;
@@ -8806,6 +8809,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story figure {
   margin-bottom: 30px;
+  margin-top: 30px;
 }
 .story figure blockquote {
   border: 0 none;

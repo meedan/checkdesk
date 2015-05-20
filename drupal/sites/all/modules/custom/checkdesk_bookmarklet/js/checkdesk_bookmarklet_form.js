@@ -34,12 +34,12 @@
           if (data.duplicates.duplicate) {
               if (data.duplicates.duplicate_story) {
                   //Report already exists in same story
-                  $('#checkdesk_report_duplicate').show().addClass('error').html(data.duplicates.msg);
+                  $('#checkdesk_report_duplicate').show().html(data.duplicates.msg);
                   // Hide submit button
                   $('#edit-submit').hide();
               }
               else {
-                  $('#checkdesk_report_duplicate').show().addClass('status').html(data.duplicates.msg);
+                  $('#checkdesk_report_duplicate').show().html(data.duplicates.msg);
               }
           }
         }

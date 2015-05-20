@@ -12,10 +12,8 @@
     );
     $user_avatar = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($user->name)), 'style_name' => 'navigation_avatar')), 'user/'. $user->uid, $options);
   }
-  $author = t('<a class="contributor" href="@user">!user</a>', array(
-    '@user' => url('user/'. $user->uid),
-    '!user' => $user->name,
-  ));
+
+  $author = _checkdesk_story_authors($fields['nid']->raw);
   
   // get timezone information to display in timestamps e.g. Cairo, Egypt
   $site_timezone = checkdesk_get_timezone();
@@ -44,6 +42,12 @@
       </div>
     </div>
 
+    <?php if(isset($fields['field_lead_image']->content)) { ?>
+      <figure>
+        <?php print render($fields['field_lead_image']->content); ?>
+      </figure>
+    <?php } ?>
+
     <div class="story-body">
       <?php print render($fields['body']->content); ?>
     </div>
@@ -53,12 +57,6 @@
         <?php print $follow_story; ?>
       </div>
     <?php endif; ?>
-
-    <?php if(isset($fields['field_lead_image']->content)) { ?>
-      <figure>
-        <?php print render($fields['field_lead_image']->content); ?>
-      </figure>
-    <?php } ?>
 
     <div class="story-updates-wrapper">
       <?php print $updates; ?>

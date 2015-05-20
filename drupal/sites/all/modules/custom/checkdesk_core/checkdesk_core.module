@@ -692,12 +692,17 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   if ($node->type == 'post') {
     $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     $update_anchor = 'update-' . $node->nid;
-    $url = url('node/'.$parent_story_id, array('absolute' => TRUE, 'alias' => TRUE, 'fragment' => $update_anchor, 'language' => $language));
+    $url = url('node/'.$parent_story_id, array(
+      'absolute' => TRUE, 'fragment' => $update_anchor, 'language' => $language,
+      'query' => array('fbrefresh' => $node->changed),
+    ));
     // Replace anchor # with %23 to force anchor on share link
     $url = str_replace('#' . $update_anchor, '%23' . $update_anchor, $url);
   }
   else {
-    $url = url('node/' . $node->nid, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
+    $url = url('node/' . $node->nid, array(
+      'absolute' => TRUE, 'language' => $language, 'query' => array('fbrefresh' => $node->changed),
+    ));
   }
 
   // Try to gracefully redirect the user back to where they were. In some cases
@@ -1012,7 +1017,6 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       '#theme' => 'checkdesk_core_story_drafts',
       '#story' => $node,
     );
-
     // Facebook tags
     $element = array(
       '#tag' => 'meta',
@@ -1031,6 +1035,26 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       ),
     );
     drupal_add_html_head($element, 'meta_og_description');
+
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'property' => 'og:url',
+        'content' => url('node/' . $node->nid, array(
+          'absolute' => TRUE,
+          'query' => array('fbrefresh' => $node->changed),
+        )),
+      ),
+    );
+    drupal_add_html_head($element, 'meta_og_url');
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'property' => 'og:image:url',
+        'content' => (empty($node->field_lead_image) ? '' : file_create_url($node->field_lead_image[LANGUAGE_NONE][0]['uri'])),
+      ),
+    );
+    drupal_add_html_head($element, 'meta_og_image_url');
     $element = array(
       '#tag' => 'meta',
       '#attributes' => array(
@@ -1039,7 +1063,17 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       ),
     );
     drupal_add_html_head($element, 'meta_og_image');
+    // Add twitter cards tags (twitter site)
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'property' => 'twitter:site',
+        'content' => '@checkdesk',
+      ),
+    );
+    drupal_add_html_head($element, 'meta_twitter_site');
   }
+
   // Add decorations to report nodes.
   if ($node->type == 'media') {
     $node->content['report_source'] = array(
@@ -1047,6 +1081,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       '#report' => $node,
     );
   }
+
 }
 
 /*
@@ -1200,55 +1235,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     //Set default language value
     $form['language']['#default_value'] = $language->language;
   }
-  if (count($form_state['build_info']['args']) <= 1 || $form_state['build_info']['args'][1] != 'ajax') {
-    return;
-  }
 
-  $form['#prefix'] = '<div id="discussion-form-wrapper">';
-  $form['#suffix'] = '</div>';
-
-  // Helper class caught by Drupal.behaviors.checkdeskKeepTBDropdownsOpen
-  // after the form is rebuilt by AJAX we need the hacks to stay active.
-  $form['#attributes']['class'][] = 'cd-keep-tb-dropdown-open';
-
-  $file_size = $form['field_lead_image'][LANGUAGE_NONE][0]['#upload_validators']['file_validate_size'][0];
-  $formats = $form['field_lead_image'][LANGUAGE_NONE][0]['#upload_validators']['file_validate_extensions'][0];
-  $file_upload_description = t('Image must be less than !size.', array('!size' => format_size($file_size))) .
-                             ' ' .
-                             t('Allowed file types: !extensions.', array('!extensions' => $formats));
-  $form['field_lead_image'][LANGUAGE_NONE][0]['#description'] = $file_upload_description;
-
-  $form['actions']['submit']['#ajax'] = array(
-    'callback' => 'checkdesk_core_discussion_ajax_node_form_submit_callback',
-    'wrapper' => 'discussion-form-wrapper',
-    'method' => 'replace',
-    'effect' => 'fade',
-    'selector' => '#edit-submit-story',
-  );
-  $form['actions']['submit']['#submit'][] = 'checkdesk_core_discussion_node_form_submit_callback';
-  $form['actions']['submit']['#attributes']['id'] = 'edit-submit-story';
-
-  $form['actions']['cancel'] = array(
-    '#type' => 'button',
-    '#value' => t('Cancel'),
-    '#attributes' => array(
-      'onclick' => "document.getElementById('discussion-form-menu-link').click(); return false;"
-    ),
-    '#weight' => 15,
-  );
-
-  $form['body'][$form['#node']->language][0]['#after_build'][] = 'checkdesk_core_discussion_node_form_after_build';
-
-  // Make the upload field customizable
-  drupal_add_js(libraries_get_path('fileinput') . '/jquery.fileinput.js');
-  drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/fileinput.js');
-  $fileinput = array(
-    'change' => t('Change'),
-    'button' => t('Browse'),
-    'field'  => t('Add optional feature image'),
-  );
-  drupal_add_js(array('fileInput' => $fileinput), 'setting');
-  drupal_add_css(libraries_get_path('fileinput') . '/fileinput.css');
 }
 
 /**
@@ -1260,90 +1247,6 @@ function _redirect_story($form, &$form_state) {
     $_SESSION['report_tooltip'] = TRUE;
   }
   $form_state['redirect'] = 'node/' . $values['nid'] . '/collaboration';
-}
-
-/**
- * Append extra information
- */
-function checkdesk_core_discussion_node_form_after_build($element) {
-  $element['#id'] .= '-noconflict';
-
-  if (isset($element['format']) && isset($element['format']['format'])) {
-    $element['format']['format']['#id'] .= '-noconflict';
-  }
-
-  return $element;
-}
-
-/**
- * Submit handler to be invoked AFTER node_form_submit().
- *
- * Removes redirect added by node_form_submit() to ensure AJAX commands
- * are returned correctly.
- */
-function checkdesk_core_discussion_node_form_submit_callback($form, &$form_state) {
-  if (!form_get_errors()) {
-    unset($form_state['redirect']);
-
-    // Reset the form form next usage. This is critical else drupal_get_form()
-    // in checkdesk_core_discussion_ajax_node_form_submit_callback() can
-    // double submit the form!
-    //
-    // See: http://drupal.org/node/1350700
-    $form_state['input'] = array();
-    $form_state['rebuild'] = TRUE;
-  }
-}
-
-/**
- * Delivers the updated discussion node form after the #ajax enabled node form is
- * submitted.
- */
-function checkdesk_core_discussion_ajax_node_form_submit_callback($form, &$form_state) {
-  global $user;
-
-  // Return the actual form if it contains errors.
-  if (form_get_errors()) {
-    return $form;
-  }
-
-  $commands = array();
-
-  // Redirect to compose update page is user is not on it yet
-  if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== url('node/add/post', array('absolute' => TRUE))) {
-    $commands[] = ctools_ajax_command_redirect('node/add/post');
-  }
-
-  // Update form if user is on compose update page
-  else {
-    $node = $form_state['node'];
-
-    $title_link = l('<strong>' . check_plain($node->title) . '</strong>', 'node/' . $node->nid, array('html' => TRUE));
-    $success_message = t("!title created successfully.", array('!title' => $title_link));
-
-    // Yuck. Need to wipe $_POST to trick drupal_get_form() into creating a
-    // brand new form. If we don't do this drupal_get_form() will latch onto the
-    // old build_id. There appears to be no way around this in D7.
-    $_POST = array();
-    $new_node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => 'discussion', 'language' => LANGUAGE_NONE);
-    $fresh_form = drupal_get_form('discussion_node_form', $new_node, 'ajax');
-
-    $fresh_form['create_another_story'] = array(
-      '#type'   => 'markup',
-      '#markup' => '<h2>' . t('Create another story') . '</h2>',
-      '#weight' => -500,
-    );
-
-    $commands[] = ajax_command_replace('#discussion-form-wrapper', drupal_render($fresh_form));
-    $commands[] = ajax_command_prepend('#discussion-form-wrapper', '<div class="messages success">' . $success_message . '</div>');
-    $commands[] = ajax_command_append('#edit-field-desk-und', form_select_options(array('#options' => array($node->nid => $node->title))));
-  }
-
-  ajax_deliver(array('#type' => 'ajax', '#commands' => $commands));
-
-  // Some rouge actor is throwing extra ajax commands after these ones causing
-  // invalid JSON.
-  drupal_exit();
 }
 
 /**
@@ -1444,6 +1347,18 @@ function checkdesk_core_views_pre_render(&$view) {
       }
     }
   }
+  elseif ($view->name == 'story_authors' && $view->current_display == 'block_1') {
+    if (count($view->result)) {
+      $entity = $view->result[0]->_field_data['field_additional_authors_users_nid']['entity'];
+      foreach($entity->field_additional_authors[LANGUAGE_NONE] as $values) {
+        if ($entity->uid == $values['target_id']) {
+          unset($view->field['name']);
+          break;
+        }
+      }
+    }
+  }
+
 }
 
 /**
@@ -3128,7 +3043,7 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
   }
 
-  $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity();
+  $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);
   $form['field_stories'][LANGUAGE_NONE]['#options'] = $options;
   // Handle HTML entities
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
@@ -3596,18 +3511,30 @@ function _checkdesk_active_story($options = array()) {
 }
 
 /**
+ * @param bool $show_draft
  * @return array
  *  List of stories sorted by activity.
  */
-function _checkdesk_get_stories_by_activity() {
+function _checkdesk_get_stories_by_activity($show_draft = FALSE) {
   global $language;
   $result = db_query('
+    SELECT DISTINCT n.nid, n.title
+    FROM {heartbeat_activity} ha
+    INNER JOIN {node} n ON n.nid = ha.nid_target AND n.type = :type AND n.status = :status AND n.language = :language
+    ORDER BY ha.timestamp DESC
+    ', array(':type' => 'discussion', ':status' => 1, ':language' => $language->language))->fetchAllKeyed(0);
+
+  $drafts = array();
+  if ($show_draft && _checkdesk_is_journalist()) {
+    $drafts = db_query('
     SELECT n.nid, n.title
-    FROM heartbeat_activity ha
-    INNER JOIN node n ON n.nid = ha.nid_target AND n.type = :type AND n.language = :language
-    ORDER BY ha.timestamp DESC 
-    ', array(':type' => 'discussion', ':language' => $language->language))->fetchAllKeyed(0);
-  return $result;
+    FROM {node} n
+    WHERE n.type = :type AND n.status = :status AND n.language = :language
+    ORDER BY n.created DESC
+    ', array(':type' => 'discussion', ':status' => 0, ':language' => $language->language))->fetchAllKeyed(0);
+  }
+
+  return $result + $drafts;
 }
 
 /**
