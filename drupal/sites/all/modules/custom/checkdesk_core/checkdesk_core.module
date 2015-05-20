@@ -1056,7 +1056,6 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       ),
     );
     drupal_add_html_head($element, 'meta_og_image_url');
-    drupal_add_html_head($element, 'meta_og_url');
     $element = array(
       '#tag' => 'meta',
       '#attributes' => array(
