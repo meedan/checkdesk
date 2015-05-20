@@ -1063,7 +1063,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       ),
     );
     drupal_add_html_head($element, 'meta_og_image');
-    // Add twitter cards tags (twitter site & account)
+    // Add twitter cards tags (twitter site)
     $element = array(
       '#tag' => 'meta',
       '#attributes' => array(
@@ -1072,18 +1072,6 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       ),
     );
     drupal_add_html_head($element, 'meta_twitter_site');
-    $twitter_creator = db_query('SELECT screen_name FROM  {twitter_account} WHERE uid = :uid LIMIT 1',
-      array(':uid' => $node->uid))->fetchField();
-    if ($twitter_creator) {
-      $element = array(
-        '#tag' => 'meta',
-        '#attributes' => array(
-          'property' => 'twitter:creator',
-          'content' => '@'.$twitter_creator,
-        ),
-      );
-      drupal_add_html_head($element, 'meta_twitter_creator');
-    }
   }
 
   // Add decorations to report nodes.
