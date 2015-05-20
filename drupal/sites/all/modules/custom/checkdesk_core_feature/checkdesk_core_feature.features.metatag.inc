@@ -67,9 +67,6 @@ function checkdesk_core_feature_metatag_export_default() {
   $config['node:discussion'] = array(
     'instance' => 'node:discussion',
     'config' => array(
-      'twitter:card' => array(
-        'value' => 'summary_large_image',
-      ),
       'twitter:image:src' => array(
         'value' => '[node:field_lead_image]',
       ),
