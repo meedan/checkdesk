@@ -2165,6 +2165,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Source ID', array(), array('context' => ''));
+  $translations['ar:default']['337e8f4aa741ef97ec3ed8fd7b1accb7'] = array(
+    'source' => 'Collaboration',
+    'context' => '',
+    'location' => '/ar/story/35',
+    'translation' => 'تعاون',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Collaboration', array(), array('context' => ''));
   $translations['ar:default']['33ba2886eae2bbca019c6d3e28495e25'] = array(
     'source' => 'There are no results that match your search.',
     'context' => '',
