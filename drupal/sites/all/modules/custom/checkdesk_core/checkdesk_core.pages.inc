@@ -46,15 +46,6 @@ function _checkdesk_story_collaboration($node) {
       jQuery(window).bind("load", function() {
         jQuery(".ctools-modal-modal-popup-login").click();
       });
-      jQuery(function() {
-        Drupal.behaviors.collanon = {
-          attach: function (context, settings) {
-            jQuery(".ctools-modal-content .modal-header").hide();
-            jQuery(document).unbind("keydown", modalEventEscapeCloseHandler);
-            jQuery("#modalBackdrop").unbind("click");
-          }
-        };
-      });
       ', 'inline');
   }
   $node_view = node_view($node, 'checkdesk_collaborate');
@@ -75,7 +66,7 @@ function story_collaboration_anonymous_login($js = NULL) {
   ctools_include('modal');
   ctools_include('ajax');
   $form_state = array(
-    'title' => t('Login'),
+    'title' => t('Sign in'),
     'ajax' => TRUE,
     'story' => $story_nid,
   );
