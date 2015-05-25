@@ -113,6 +113,11 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
 
     $handler->setTranslation($translation, $node);
 
+    // Define path prefix based on title
+
+    module_load_include('inc','pathauto','pathauto');
+    $node->newsroom_url[LANGUAGE_NONE][0]['value'] = pathauto_cleanstring($title);
+
     // Save
 
     $node = node_submit($node);
