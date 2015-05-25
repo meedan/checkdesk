@@ -63,6 +63,8 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
   public function preImport() {
     parent::preImport();
 
+    $name = $this->arguments['name'];
+
     // Common node properties
 
     $title = $this->getSourceVariable('site_name');
@@ -81,6 +83,19 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
     $node->newsroom_owner_name[LANGUAGE_NONE][0]['value'] = $this->getSourceVariable('checkdesk_site_owner');
     $node->newsroom_owner_url[LANGUAGE_NONE][0]['value'] = $this->getSourceVariable('checkdesk_site_owner_url');
     $node->custom_css[LANGUAGE_NONE][0]['value'] = $this->getSourceThemeSetting('custom_css');
+
+    // Logo
+
+    $logo = $this->getSourceThemeSetting('header_image_path');
+    if ($logo) {
+      // FIXME: (?) Assuming that all files to be migrated are under /mnt/{name}
+      $path = file_uri_target($logo);
+      $image = file_get_contents('/mnt/' . $name . '/' . $path);
+      $file = file_save_data($image, file_build_uri($path), FILE_EXISTS_REPLACE);
+      if (isset($file->fid)) {
+        $node->newsroom_logo[LANGUAGE_NONE][0]['fid'] = $file->fid;
+      }
+    }
 
     // Translations
 
