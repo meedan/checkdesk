@@ -1258,6 +1258,22 @@ function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_s
 }
 
 /**
+ * Implements hook_node_presave()
+ */
+function checkdesk_core_node_presave($node) {
+  if ($node->type == 'discussion') {
+    //Eliminate duplicates in multiple authors section (Ticket #3763)
+    $target_authors = array();
+    foreach ($node->field_additional_authors[LANGUAGE_NONE] as $k => $row) {
+      if (in_array($row['target_id'], $target_authors)) {
+        unset($node->field_additional_authors[LANGUAGE_NONE][$k]);
+      }
+      $target_authors[] = $row['target_id'];
+    }
+  }
+}
+
+/**
  * Implements hook_views_pre_render().
  */
 function checkdesk_core_views_pre_render(&$view) {
