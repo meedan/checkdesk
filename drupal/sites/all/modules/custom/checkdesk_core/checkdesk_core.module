@@ -77,15 +77,6 @@ function checkdesk_core_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-
-  /*
-  $items['node/%checkdesk_report/checkdesk/publish'] = array(
-    'title' => 'Publish a report',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('_checkdesk_core_report_publish', 1),
-    'access arguments' => array('create post content'),
-  );
-  */
   $items['admin/config/system/checkdesk'] = array(
     'title' => 'Checkdesk',
     'description' => 'Manage general Checkdesk configuration.',
@@ -113,18 +104,10 @@ function checkdesk_core_menu() {
     'page arguments' => array(1),
     'access arguments' => array('access content'),
   );
-
   $items['checkdesk_validation/unique_field'] = array(
     'title' => 'Client-side validation ajax callback to validate unique fields',
     'page callback' => '_checkdesk_validation_ajax_unique_field',
     'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
-  );
-
-  $items['checkdesk_take_tour'] = array(
-    'title' => 'Take a tour based on role',
-    'page callback' => '_checkdesk_core_take_tour',
-    'access callback' => '_checkdesk_core_can_take_tour',
     'type' => MENU_CALLBACK,
   );
   $items['node/%node/collaboration'] = array(
@@ -168,30 +151,6 @@ function _checkdesk_is_journalist() {
     return TRUE;
   }
   return FALSE;
-}
-/**
- * Menu callback function for `checkdesk_take_tour`
- */
-function _checkdesk_core_take_tour() {
-  global $user;
-  $roles = array_values($user->roles);
-  $tour = '';
-  if (in_array('journalist', $roles)) {
-    $tour = 'journalist';
-  }
-  else if (in_array('citizen journalist', $roles)) {
-    $tour = 'citizen';
-  }
-  drupal_goto('<front>', array('query' => array('tour' => $tour)));
-}
-
-/**
- * Menu access callback function for `checkdesk_take_tour`
- */
-function _checkdesk_core_can_take_tour() {
-  global $user;
-  $roles = array_values($user->roles);
-  return ($user->uid == 1) || in_array('journalist', $roles) || in_array('citizen journalist', $roles);
 }
 
 /**
@@ -641,42 +600,6 @@ function _checkdesk_core_invoke_messages($action, $type) {
   $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
   $page = array('#type' => 'ajax', '#commands' => $commands);
   ajax_deliver($page);
-}
-
-/**
- * Form function for `_checkdesk_core_report_publish`.
- */
-function _checkdesk_core_report_publish($form, $form_state, $report) {
-  $stories = db_query("
-    SELECT nid, title
-    FROM {node}
-    WHERE type='discussion'
-    ")->fetchAllKeyed();
-  $form['story'] = array(
-    '#type' => 'select',
-    '#title' => t('Story'),
-    '#options' => $stories,
-  );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit'),
-  );
-  $form['#report'] = $report;
-  return $form;
-}
-
-/**
- * Submit function for `_checkdesk_core_report_publish`.
- */
-function _checkdesk_core_report_publish_submit($form, &$form_state) {
-  // Add the story to the report.
-  // TODO Don't add the story to the report if it's already there.
-  $report = $form['#report'];
-  $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
-  node_save($report);
-
-  // Redirect to story.
-  $form_state['redirect'] = array('node/add/post', array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
 }
 
 /**
