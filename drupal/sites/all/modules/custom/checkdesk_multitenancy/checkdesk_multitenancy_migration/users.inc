@@ -64,6 +64,7 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
     parent::preImport();
 
     $name = $this->arguments['name'];
+    $db = Database::getConnection('default', $name);
 
     // Common node properties
 
@@ -118,6 +119,23 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
     module_load_include('inc','pathauto','pathauto');
     $node->newsroom_url[LANGUAGE_NONE][0]['value'] = pathauto_cleanstring($title);
 
+    // Define social links
+
+    $block = $db->select('block_custom', 'b')
+                ->fields('b', array('body'))
+                ->condition('info', 'Follow us', '=')
+                ->execute()
+                ->fetchField();
+
+    if ($block) {
+      $matches = array();
+      preg_match_all('#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $block, $matches);
+
+      foreach ($matches[0] as $i => $url) {
+        $node->newsroom_social_networks[LANGUAGE_NONE][$i]['url'] = $url;
+      }
+    }
+
     // Save
 
     $node = node_submit($node);
@@ -133,8 +151,6 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
   public function postRollback() {
     parent::postRollback();
 
-    $db = Database::getConnection('default', $this->arguments['name']);
-    
     $title = $this->getSourceVariable('site_name');
     
     $newsroom = db_select('node', 'n')
