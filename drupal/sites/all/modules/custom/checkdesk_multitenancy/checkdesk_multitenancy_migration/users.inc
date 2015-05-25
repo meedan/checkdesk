@@ -48,6 +48,14 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
     return ($unserialized ? $unserialized : $value);
   }
 
+  public function getSourceThemeSetting($name) {
+    $theme_settings = $this->getSourceVariable('theme_checkdesk_settings');
+    if (array_key_exists($name, $theme_settings)) {
+      return $theme_settings[$name];
+    }
+    return NULL;
+  }
+
   /**
    * Implements Migration::preImport().
    * Creates newsroom.
@@ -72,6 +80,7 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
     $node->newsroom_owner_email[LANGUAGE_NONE][0]['value'] = $this->getSourceVariable('site_mail');
     $node->newsroom_owner_name[LANGUAGE_NONE][0]['value'] = $this->getSourceVariable('checkdesk_site_owner');
     $node->newsroom_owner_url[LANGUAGE_NONE][0]['value'] = $this->getSourceVariable('checkdesk_site_owner_url');
+    $node->custom_css[LANGUAGE_NONE][0]['value'] = $this->getSourceThemeSetting('custom_css');
 
     // Translations
 
