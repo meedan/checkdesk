@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * Implements hook_migrate_api().
+ */
+function checkdesk_multitenancy_migration_migrate_api() {
+
+  $migrations = array();
+  $groups = array('migrations' => array());
+
+  // Set $conf['databases_to_be_migrated'] on settings.php  
+  foreach(variable_get('databases_to_be_migrated', array()) as $name) {
+
+    $groups[$name] = array(
+      'title' => t('Migration from single-tenant !name Checkdesk to multi-tenancy', array('!name' => $name)),
+      'name' => $name,
+    );
+
+    $common_arguments = array(
+      'source_connection' => $name,
+      'source_version' => 7,
+      'group_name' => $name,
+    );
+
+    $migrations['User_' . $name] = $common_arguments + array(
+      'description' => t('Migration of users from !site', array('!site' => $name)),
+      'class_name' => 'CheckdeskUserMigration',
+    );
+  }
+
+  $api = array(
+    'api' => 2,
+    'groups' => $groups,
+    'migrations' => $migrations,
+  );
+
+  return $api;
+}

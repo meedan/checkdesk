@@ -1,0 +1,10 @@
+name = "Checkdesk Multitenancy Migration"
+description = "Migrate single-tenant Checkdesk instances to the multitenancy instance"
+package = "Checkdesk"
+core = 7.x
+hidden = TRUE
+
+dependencies[] = migrate
+dependencies[] = migrate_d2d
+
+files[] = users.inc
