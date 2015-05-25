@@ -1,0 +1,18 @@
+name = "Sample D6 to D7 migration"
+description = "Migrate content from D6 site to D7"
+package = "Development"
+core = 7.x
+hidden = TRUE
+
+dependencies[] = migrate
+dependencies[] = migrate_d2d
+
+files[] = migrate_d2d_example.migrate.inc
+files[] = node.inc
+
+; Information added by Drupal.org packaging script on 2015-02-09
+version = "7.x-2.1"
+core = "7.x"
+project = "migrate_d2d"
+datestamp = "1423523588"
+

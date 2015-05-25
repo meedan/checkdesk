@@ -1,0 +1,17 @@
+; $Id$
+name = "Drupal-to-Drupal migration UI"
+description = "Support for migrating external Drupal sites into the current site"
+package = "Migration"
+core = 7.x
+
+dependencies[] = migrate_d2d
+dependencies[] = migrate_ui
+
+files[] = migrate_d2d_ui.migrate.inc
+
+; Information added by Drupal.org packaging script on 2015-02-09
+version = "7.x-2.1"
+core = "7.x"
+project = "migrate_d2d"
+datestamp = "1423523588"
+

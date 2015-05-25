@@ -1,0 +1,31 @@
+<?php
+
+/**
+* Implements hook_theme()
+*
+* @return array
+*/
+function migrate_d2d_ui_theme() {
+  return array(
+    'migrate_d2d_ui_vocab_form' => array(
+      'arguments' => array('vocab' => NULL),
+      'render element' => 'vocab',
+      'file' => '/migrate_d2d_ui.migrate.inc',
+    ),
+    'migrate_d2d_ui_content_type_form' => array(
+      'arguments' => array('type' => NULL),
+      'render element' => 'type',
+      'file' => '/migrate_d2d_ui.migrate.inc',
+    ),
+    'migrate_d2d_ui_role_form' => array(
+      'arguments' => array('role' => NULL),
+      'render element' => 'role',
+      'file' => '/migrate_d2d_ui.migrate.inc',
+    ),
+    'migrate_d2d_ui_format_form' => array(
+      'arguments' => array('format' => NULL),
+      'render element' => 'format',
+      'file' => '/migrate_d2d_ui.migrate.inc',
+    ),
+  );
+}

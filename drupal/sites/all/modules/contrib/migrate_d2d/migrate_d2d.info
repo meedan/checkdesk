@@ -1,0 +1,62 @@
+name = "Drupal-to-Drupal migration"
+description = "Migration from one Drupal site to another"
+package = "Migration"
+core = 7.x
+
+dependencies[] = migrate (>=7.x-2.7)
+
+files[] = migrate_d2d.migrate.inc
+
+; Base classes
+files[] = block_custom.inc
+files[] = comment.inc
+files[] = entity.inc
+files[] = file.inc
+files[] = menu.inc
+files[] = menu_links.inc
+files[] = node.inc
+files[] = role.inc
+files[] = taxonomy.inc
+files[] = user.inc
+
+; D5 implementations
+files[] = d5/d5.inc
+files[] = d5/block_custom.inc
+files[] = d5/comment.inc
+files[] = d5/file.inc
+files[] = d5/node.inc
+files[] = d5/role.inc
+files[] = d5/taxonomy.inc
+files[] = d5/user.inc
+
+; D6 implementations
+files[] = d6/d6.inc
+files[] = d6/block_custom.inc
+files[] = d6/comment.inc
+files[] = d6/entity.inc
+files[] = d6/file.inc
+files[] = d6/menu.inc
+files[] = d6/menu_links.inc
+files[] = d6/node.inc
+files[] = d6/role.inc
+files[] = d6/taxonomy.inc
+files[] = d6/user.inc
+
+; D7 implementations
+files[] = d7/d7.inc
+;files[] = d7/block_custom.inc
+files[] = d7/comment.inc
+files[] = d7/file.inc
+;files[] = d7/menu.inc
+;files[] = d7/menu_links.inc
+files[] = d7/node.inc
+files[] = d7/role.inc
+files[] = d7/taxonomy.inc
+files[] = d7/user.inc
+
+; Information added by Drupal.org packaging script on 2015-02-09
+version = "7.x-2.1"
+core = "7.x"
+project = "migrate_d2d"
+datestamp = "1423523588"
+

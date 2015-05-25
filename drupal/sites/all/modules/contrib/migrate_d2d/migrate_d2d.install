@@ -1,0 +1,27 @@
+<?php
+/**
+ * @file
+ * Update functions for migrate_d2d.
+ */
+
+/**
+ * Make sure any previously-encrypted source_database arguments are appropriately
+ * marked as encrypted going forward.
+ */
+function migrate_d2d_update_7201() {
+  $result = db_select('migrate_group', 'mg')
+            ->fields('mg', array('name', 'arguments'))
+            ->execute();
+  foreach ($result as $row) {
+    $arguments = unserialize($row->arguments);
+    if (!isset($arguments['encrypted_arguments'])) {
+      if (isset($arguments['source_database']) && !is_array($arguments['source_database'])) {
+        $arguments['encrypted_arguments'] = array('source_database');
+        db_update('migrate_group')
+          ->fields(array('arguments' => serialize($arguments)))
+          ->condition('name', $row->name)
+          ->execute();
+      }
+    }
+  }
+}
