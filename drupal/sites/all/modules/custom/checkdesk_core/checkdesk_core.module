@@ -1879,41 +1879,21 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['#submit'][] = 'checkdesk_core_site_information_submit';
   }
 
-  if (in_array($form_id, array('user_login', 'user_login_block', 'user_register_form'))) {
-    unset($form['twitter_signin']);
-  }
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
+    unset($form['name']['#description'], $form['pass']['#description'], $form['links'], $form['twitter_signin']);
     $form['#prefix'] = '<div class="user-login-wrapper">';
     $form['#suffix'] = '</div>';
-    $form['pass']['#title'] = $form['pass']['#title'] . l(t('(forgot?)'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
-    $items = array();
-    if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
-      $items[] = l(t('Create new account'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
-    }
-    $form['links'] = array('#markup' => theme('item_list', array('items' => $items)));
+    $form['login_header'] = array(
+      '#markup' => t('Sign in with your email address or username'),
+      '#weight' => -99,
+    );
     $form['actions']['submit']['#value'] = t('Sign in');
-    unset($form['name']['#description']);
-    unset($form['pass']['#description']);
-    $form['pass']['#title'] = t('Password');
     // Add forgot link and a wrapper around forgot pass and remember me
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
     $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
     $form['remember_me']['#suffix'] = '</div>';
-    // add a wrapper around new account link
-    unset($form['links']);
-    $link['attributes']['class'][] = 'register';
-    $link['attributes']['title'] = t('Sign Up');
-    // Set destination with story collaboration page if login using modal
-    if (isset($form_state['ajax'])) {
-      $link['query']['destination'] = 'node/' . $form_state['story'] . '/collaboration';
-    }
-    else {
-      $link['query'] = drupal_get_destination();
-    }
-    $new_account_link = l(t('Sign Up'), 'user/register', $link);
-    $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link"><span>' . t('Don\'t have an account? ') . '</span>
-    ' . $new_account_link . '</div>';
-
+    $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
+    $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link">' . $back_link . '</div>';
   }
 
   if ($form_id == '_checkdesk_core_report_suggest') {

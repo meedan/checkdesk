@@ -1,6 +1,6 @@
 <div>
  <div>
-   <h1><?php print t('Checkdesk'); ?></h1>
+   <h1 class="title"><?php print t('Checkdesk'); ?></h1>
    <div><?php print t('Sign in or create an account'); ?></div>
  </div>
   <?php if(isset($links['twitter'])) : ?>
