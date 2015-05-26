@@ -10,10 +10,22 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
    */
   public function prepareRow($row) {
     parent::prepareRow($row);
+  }
 
-    // Skip the administrator
-    if ($row->uid == 1) {
-      return FALSE;
+  /**
+   * Implements Migration::prepare().
+   */
+  public function prepare($account, $row) {
+    parent::prepare($account, $row);
+
+    $db = Database::getConnection('default', $this->arguments['name']);
+    $user_by_name = $db->select('users', 'u')
+                       ->condition('name', $row->name, '=')
+                       ->fields('u', array('uid'))
+                       ->execute();
+
+    if ($user_by_name->rowCount() > 0) {
+      $account->name = $row->name . '-' . $this->arguments['name'];
     }
   }
 
@@ -22,6 +34,43 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
    */
   public function complete($account, $row) {
     parent::complete($account, $row);
+
+    // Assigns user to the correct newsroom
+
+    $values = array(
+      'entity_type' => 'user',
+      'entity' => $account,
+      'state' => OG_STATE_ACTIVE,
+    );
+
+    og_group('node', $this->newsroom_gid, $values);
+
+    if ($row->uid == 1) {
+      $newsroom = node_load($this->newsroom_gid);
+      $newsroom->uid = $account->uid;
+      node_save($newsroom);
+    }
+
+    $og_roles = og_roles('node', 'newsroom');
+    
+    foreach ($this->getUserSourceRoles($row->uid) as $role) {
+      $rid = array_search($role, $og_roles);
+      og_role_grant('node', $this->newsroom_gid, $account->uid, $rid);
+    }
+  }
+
+  public function getUserSourceRoles($uid) {
+    $db = Database::getConnection('default', $this->arguments['name']);
+    $query = $db->select('users_roles', 'ur');
+    $query->join('role', 'r', 'ur.rid = r.rid');
+    $query->fields('r', array('name'))
+          ->condition('ur.uid', $uid, '=');
+    $result = $query->execute();
+    $roles = array();
+    while($record = $result->fetchAssoc()) {
+      $roles[] = $record['name'];
+    }
+    return $roles;
   }
 
   public function getSourceVariable($name, $lang = 'en') {
@@ -141,7 +190,7 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
     $node = node_submit($node);
     node_save($node);
 
-    $this->newsroom = $node->nid;
+    $this->newsroom_gid = $node->nid;
   }
 
   /**
@@ -162,6 +211,11 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
 
     if ($newsroom) {
       node_delete($newsroom);
+    }
+
+    $users = db_query('SELECT uid FROM {users} WHERE name LIKE :migrated', array(':migrated' => '%-' . $this->arguments['name']));
+    foreach ($users as $user) {
+      user_delete($user->uid);
     }
   }
 }
