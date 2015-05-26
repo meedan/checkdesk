@@ -124,6 +124,15 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'checkdesk_core.pages.inc',
   );
+  $items['checkdesk/%ctools_js/sign_in_up'] = array(
+    'title' => 'Checkdesk',
+    'page callback' => 'checkdesk_sign_in_up_callback',
+    'page arguments' => array(1),
+    'access callback' => user_is_anonymous(),
+    'type' => MENU_CALLBACK,
+    'file' => 'checkdesk_sign_in_up.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
+  );
   $items['checkdesk/reports'] = array(
     'title' => 'Reports',
     'page callback' => 'drupal_goto',
@@ -1591,6 +1600,13 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
+  $themes['checkdesk_core_sign_in_up'] = array(
+      'template' => 'checkdesk_sign_in_up',
+      'variables' => array(
+      'links' => NULL,
+    ),
+  ) + $base;
+
   return $themes;
 }
 
@@ -1864,23 +1880,6 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
 
   if (in_array($form_id, array('user_login', 'user_login_block', 'user_register_form'))) {
-    $items = array();
-    if (twitter_api_keys()) {
-      $items[] = twitter_signin_button();
-    }
-    $fb_block = module_invoke('fboauth', 'block_view', 'login');
-    if (isset($fb_block['content'])) {
-      $items[] = $fb_block['content'];
-    }
-    if (count($items)) {
-      $form['social_media_signin'] = array(
-        '#type' => 'item',
-        '#markup' => theme('item_list', array('items' => $items)),
-        '#weight' => '-99',
-        '#prefix' => '<div class="social-signin-wrapper">',
-        '#suffix' => '</div><div class="or"><span>' . t('or') . '</span></div>',
-      );
-    }
     unset($form['twitter_signin']);
   }
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {

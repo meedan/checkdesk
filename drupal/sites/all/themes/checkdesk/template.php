@@ -325,7 +325,7 @@ function checkdesk_preprocess_page(&$variables) {
 
     if ($item['title'] === '<user>') {
       foreach ($item['below'] as $subid => $subitem) {
-        if ($subitem['link_path'] == 'user/login') {
+        if ($subitem['link_path'] == 'checkdesk/nojs/sign_in_up') {
           if (user_is_logged_in())
             unset($variables['secondary_menu'][$id]['below'][$subid]);
           else
@@ -415,66 +415,67 @@ function checkdesk_preprocess_page(&$variables) {
       'heading' => NULL,
   ));
 
-  // ctools modal
-  ctools_include('modal');
-  ctools_modal_add_js();
+  if (user_is_logged_in()) {
+    // ctools modal
+    ctools_include('modal');
+    ctools_modal_add_js();
 
-  // Custom modal settings arrays
-  $modal_style = array(
+    // Custom modal settings arrays
+    $modal_style = array(
       'modal-popup-small' => array(
-          'modalSize' => array(
-              'type' => 'fixed',
-              'width' => 420,
-              'height' => 300,
-              'addWidth' => 0,
-              'addHeight' => 0
-          ),
-          'modalOptions' => array(
-              'opacity' => .5,
-              'background-color' => '#000',
-          ),
-          'animation' => 'show',
-          'animationSpeed' => 40,
-          'modalTheme' => 'CheckDeskModal',
-          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
+        'modalSize' => array(
+          'type' => 'fixed',
+          'width' => 420,
+          'height' => 300,
+          'addWidth' => 0,
+          'addHeight' => 0
+        ),
+        'modalOptions' => array(
+          'opacity' => .5,
+          'background-color' => '#000',
+        ),
+        'animation' => 'show',
+        'animationSpeed' => 40,
+        'modalTheme' => 'CheckDeskModal',
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
       ),
       'modal-popup-medium' => array(
-          'modalSize' => array(
-              'type' => 'fixed',
-              'width' => 520,
-              'height' => 350,
-              'addWidth' => 0,
-              'addHeight' => 0
-          ),
-          'modalOptions' => array(
-              'opacity' => .5,
-              'background-color' => '#000',
-          ),
-          'animation' => 'show',
-          'animationSpeed' => 40,
-          'modalTheme' => 'CheckDeskModal',
-          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
+        'modalSize' => array(
+          'type' => 'fixed',
+          'width' => 520,
+          'height' => 350,
+          'addWidth' => 0,
+          'addHeight' => 0
+        ),
+        'modalOptions' => array(
+          'opacity' => .5,
+          'background-color' => '#000',
+        ),
+        'animation' => 'show',
+        'animationSpeed' => 40,
+        'modalTheme' => 'CheckDeskModal',
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
       ),
       'modal-popup-large' => array(
-          'modalSize' => array(
-              'type' => 'fixed',
-              'width' => 700,
-              'height' => 400,
-              'addWidth' => 0,
-              'addHeight' => 0
-          ),
-          'modalOptions' => array(
-              'opacity' => .5,
-              'background-color' => '#000',
-          ),
-          'animation' => 'show',
-          'animationSpeed' => 40,
-          'modalTheme' => 'CheckDeskModal',
-          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
+        'modalSize' => array(
+          'type' => 'fixed',
+          'width' => 700,
+          'height' => 400,
+          'addWidth' => 0,
+          'addHeight' => 0
+        ),
+        'modalOptions' => array(
+          'opacity' => .5,
+          'background-color' => '#000',
+        ),
+        'animation' => 'show',
+        'animationSpeed' => 40,
+        'modalTheme' => 'CheckDeskModal',
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
       ),
-  );
-  drupal_add_js($modal_style, 'setting');
-
+    );
+    drupal_add_js($modal_style, 'setting');
+  }
   // define custom header settings
   $variables['header_image'] = '';
   $image = theme_get_setting('header_image_path');
@@ -781,11 +782,12 @@ function checkdesk_links__node($variables) {
   $layout = checkdesk_core_direction_settings();
 
   $output = '';
-
-  // Prepare for modal dialogs.
-  ctools_include('modal');
-  ctools_include('ajax');
-  ctools_modal_add_js();
+  if (user_is_logged_in()) {
+    // Prepare for modal dialogs.
+    ctools_include('modal');
+    ctools_include('ajax');
+    ctools_modal_add_js();
+  }
   ctools_add_js('checkdesk_core', 'checkdesk_core');
   if (arg(0) != 'embed' && count($links) > 0) {
     $output = '<div' . drupal_attributes(array('class' => $class)) . '>';
@@ -1068,7 +1070,7 @@ function checkdesk_fboauth_action__connect(&$variables) {
   $link['attributes']['class'] .= " fb-button-$language";
   $attributes = isset($link['attributes']) ? drupal_attributes($link['attributes']) : '';
   $title = isset($link['title']) ? check_plain($link['title']) : '';
-  $text = t('Facebook');
+  $text = t('Sign in with Facebook');
   return "<a $attributes href='$url' alt='$title'>$text</a>";
 }
 
@@ -1077,8 +1079,8 @@ function checkdesk_fboauth_action__connect(&$variables) {
  */
 function checkdesk_twitter_signin_button() {
   $link['attributes']['class'][] = 'twitter-action-signin';
-  $link['attributes']['title'] = t('Sign In with Twitter');
-  return l(t('Twitter'), 'twitter/redirect', $link);
+  $link['attributes']['title'] = t('Sign in with Twitter');
+  return l(t('Sign in with Twitter'), 'twitter/redirect', $link);
 }
 
 /**

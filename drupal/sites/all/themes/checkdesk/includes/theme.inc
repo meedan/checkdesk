@@ -119,7 +119,13 @@ function checkdesk_checkdesk_links($variables) {
             @$block['content']['#markup'] .= '<p class="notifications-settings-link">' . l(t('Settings'), url('user/' . $user->uid . '/notifications', array('absolute' => TRUE))) . '</p>';
             $output .= render($block['content']);
             $output .= '</div>';
-          } else {
+          }
+          elseif($link['href'] == 'checkdesk/nojs/sign_in_up') {
+            $link['attributes']['class'][] = 'ctools-use-modal';
+            $link['attributes']['class'][] = 'ctools-modal-modal-popup-medium';
+            $output .= l($link['title'], $link['href'], $link);
+          }
+          else {
             $output .= l($link['title'], $link['href'], $link);  
           }
         }
