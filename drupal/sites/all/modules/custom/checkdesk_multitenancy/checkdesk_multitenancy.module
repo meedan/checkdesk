@@ -655,7 +655,7 @@ function checkdesk_multitenancy_og_role_grant($group_type, $gid, $uid, $rid) {
     }
   }
     
-  if ($site_roles[$role] && !in_array($role, $account->roles)) {
+  if (isset($site_roles[$role]) && !in_array($role, $account->roles)) {
     user_multiple_role_edit(array($uid), 'add_role', $site_roles[$role]);
   }
 }
