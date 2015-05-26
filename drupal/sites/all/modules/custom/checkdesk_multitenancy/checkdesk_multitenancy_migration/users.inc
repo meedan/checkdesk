@@ -21,6 +21,7 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
     $db = Database::getConnection('default', $this->arguments['name']);
     $user_by_name = $db->select('users', 'u')
                        ->condition('name', $row->name, '=')
+                       ->condition('mail', $row->mail, '!=')
                        ->fields('u', array('uid'))
                        ->execute();
 
