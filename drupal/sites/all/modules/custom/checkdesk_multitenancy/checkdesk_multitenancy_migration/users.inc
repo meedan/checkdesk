@@ -10,6 +10,17 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
    */
   public function prepareRow($row) {
     parent::prepareRow($row);
+
+    $user_by_name = db_select('users', 'u')
+                    ->condition('u.name', $row->name, '=')
+                    ->fields('u', array('uid'))
+                    ->countQuery()
+                    ->execute()
+                    ->fetchField();
+
+    if (intval($user_by_name) > 0) {
+      $row->name = $row->name . '-' . $this->arguments['name'];
+    }
   }
 
   /**
@@ -17,17 +28,6 @@ class CheckdeskUserMigration extends DrupalUser7Migration {
    */
   public function prepare($account, $row) {
     parent::prepare($account, $row);
-
-    $db = Database::getConnection('default', $this->arguments['name']);
-    $user_by_name = $db->select('users', 'u')
-                       ->condition('name', $row->name, '=')
-                       ->condition('mail', $row->mail, '!=')
-                       ->fields('u', array('uid'))
-                       ->execute();
-
-    if ($user_by_name->rowCount() > 0) {
-      $account->name = $row->name . '-' . $this->arguments['name'];
-    }
   }
 
   /**

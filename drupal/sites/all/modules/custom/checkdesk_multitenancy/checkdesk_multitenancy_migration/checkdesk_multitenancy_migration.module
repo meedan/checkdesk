@@ -22,9 +22,19 @@ function checkdesk_multitenancy_migration_migrate_api() {
       'group_name' => $name,
     );
 
+    $migrations['Picture_' . $name] = $common_arguments + array(
+      'description' => t('Migration of user picture'),
+      'default_uid' => 1,
+      'source_dir' => "/mnt/$name/pictures",
+      'destination_dir' => 'public://',
+      'class_name' => 'DrupalPicture7Migration',
+      'machine_name' => 'Picture_' . $name,
+    );
+
     $migrations['User_' . $name] = $common_arguments + array(
       'description' => t('Migration of users from !site', array('!site' => $name)),
       'class_name' => 'CheckdeskUserMigration',
+      'picture_migration' => 'Picture_' . $name,
     );
   }
 
