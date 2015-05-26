@@ -121,6 +121,7 @@ function checkdesk_checkdesk_links($variables) {
             $output .= '</div>';
           }
           elseif($link['href'] == 'checkdesk/nojs/sign_in_up') {
+            $link['attributes']['class'][] = 'ctools_checkdesk_sign_in_up';
             $link['attributes']['class'][] = 'ctools-use-modal';
             $link['attributes']['class'][] = 'ctools-modal-modal-popup-medium';
             $output .= l($link['title'], $link['href'], $link);

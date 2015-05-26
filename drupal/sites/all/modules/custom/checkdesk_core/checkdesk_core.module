@@ -116,14 +116,6 @@ function checkdesk_core_menu() {
     'access arguments' => array('access content'),
     'file' => 'checkdesk_core.pages.inc',
   );
-  $items['story-collaboration-anonymous/%ctools_js/login'] = array(
-    'title' => 'Login',
-    'page callback' => 'story_collaboration_anonymous_login',
-    'page arguments' => array(1),
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-    'file' => 'checkdesk_core.pages.inc',
-  );
   $items['checkdesk/%ctools_js/sign_in_up'] = array(
     'title' => 'Checkdesk',
     'page callback' => 'checkdesk_sign_in_up_callback',
