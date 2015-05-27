@@ -750,21 +750,16 @@ function checkdesk_preprocess_node(&$variables) {
 
     if (isset($variables['content']['field_link'])) {
       $field_link_rendered = render($variables['content']['field_link']);
+      // Quick and easy, replace all src attributes with data-somethingelse
+      // Drupal.behavior.lazyLoadSrc handles re-applying the src attribute when
+      // the iframe tag enters the viewport.
+      // See: http://stackoverflow.com/a/7154968/806988
+      // use drupal_get_path to find imgs src instead on path_to_theme as imgs exist only on checkdesk theme
+      $placeholder = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/loader_white.gif';
+      $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src=["\'])/i', '<\1\2src="' . $placeholder . '" data-lazy-load-\3', $field_link_rendered);
 
-      // Never lazy-load inside the modal
-      if (arg(0) != 'report-view-modal') {
-        // Quick and easy, replace all src attributes with data-somethingelse
-        // Drupal.behavior.lazyLoadSrc handles re-applying the src attribute when
-        // the iframe tag enters the viewport.
-        // See: http://stackoverflow.com/a/7154968/806988
-        // use drupal_get_path to find imgs src instead on path_to_theme as imgs exist only on checkdesk theme
-        $placeholder = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/loader_white.gif';
-        $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src=["\'])/i', '<\1\2src="' . $placeholder . '" data-lazy-load-\3', $field_link_rendered);
-
-        // Lazy load classes as well (for dynamic-loaded content, like tweets, for example)
-        $field_link_rendered = preg_replace('/<(blockquote)([^>]*)class=/i', '<\1\2data-lazy-load-class=', $field_link_rendered);
-      }
-
+      // Lazy load classes as well (for dynamic-loaded content, like tweets, for example)
+      $field_link_rendered = preg_replace('/<(blockquote)([^>]*)class=/i', '<\1\2data-lazy-load-class=', $field_link_rendered);
       $variables['field_link_lazy_load'] = $field_link_rendered;
     }
   }

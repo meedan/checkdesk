@@ -52,6 +52,8 @@ function checkdesk_core_menu() {
     'page arguments' => array('_checkdesk_core_report_suggest', 1),
     'access callback' => '_checkdesk_core_report_can_suggest',
     'access arguments' => array(1),
+    'file' => 'checkdesk.report_suggest.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
   $items['node/%checkdesk_report/checkdesk/modal/suggest/%ctools_js'] = array(
     'title' => 'Add report to story',
@@ -62,6 +64,8 @@ function checkdesk_core_menu() {
     'access callback' => '_checkdesk_core_report_can_suggest',
     'access arguments' => array(1),
     'type' => MENU_CALLBACK,
+    'file' => 'checkdesk.report_suggest.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
   $items['node/flag/confirm/%/%flag/%/%ctools_js'] = array(
     'title' => 'Confirm',
@@ -83,6 +87,8 @@ function checkdesk_core_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_checkdesk_core_settings'),
     'access arguments' => array('administer site configuration'),
+    'file' => 'checkdesk.admin.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
   $items['admin/config/system/activity-formatter'] = array(
     'title' => 'Checkdesk',
@@ -90,14 +96,8 @@ function checkdesk_core_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_checkdesk_activity_formatter_mapping'),
     'access arguments' => array('administer site configuration'),
-  );
-  $items['report-view-modal/%ctools_js'] = array(
-    'title' => 'Report view (modal)',
-    'page callback' => '_checkdesk_modal_report_view',
-    'page arguments' => array(1),
-    'access callback' => TRUE,
-    //'modal' => TRUE,
-    'type' => MENU_CALLBACK,
+    'file' => 'checkdesk.admin.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
   $items['modal/%ctools_js'] = array(
     'page callback' => 'checkdesk_core_modal_callback',
@@ -114,7 +114,8 @@ function checkdesk_core_menu() {
     'page callback' => '_checkdesk_story_collaboration',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
-    'file' => 'checkdesk_core.pages.inc',
+    'file' => 'checkdesk.collaborate.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
   $items['checkdesk/%ctools_js/sign_in_up'] = array(
     'title' => 'Checkdesk',
@@ -122,7 +123,7 @@ function checkdesk_core_menu() {
     'page arguments' => array(1),
     'access callback' => user_is_anonymous(),
     'type' => MENU_CALLBACK,
-    'file' => 'checkdesk_sign_in_up.inc',
+    'file' => 'checkdesk.sign_in_up.inc',
     'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
   $items['checkdesk/reports'] = array(
@@ -146,6 +147,9 @@ function checkdesk_core_menu() {
   return $items;
 }
 
+/**
+ *check if login user is journalist or super admin
+ */
 function _checkdesk_is_journalist() {
   global $user;
   if ($user->uid == 1 || in_array('journalist', $user->roles)) {
@@ -228,42 +232,6 @@ function _checkdesk_core_report_can_suggest($report) {
 }
 
 /**
- * Menu function for `report-view-modal/%ctools_js`.
- */
-function _checkdesk_modal_report_view($js = FALSE) {
-  ctools_include('modal');
-  $nid = arg(2);
-  $output = '';
-  if (is_numeric($nid)) {
-    $node = node_load($nid);
-    if (is_object($node)) {
-      $title = $node->title;
-      $element = node_view($node);
-      $element['comments'] = comment_node_page_additions($node);
-      $output = drupal_render($element);
-
-      $javascript = drupal_add_js(NULL, NULL);
-      $settings = '';
-      if(isset($javascript['settings'])) {
-        $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
-          drupal_json_encode(call_user_func_array('array_merge_recursive', $javascript['settings']['data'])) .
-          ');</script>';
-      }
-      //Add the settings to the form
-      $output .= $settings;
-    }
-  }
-
-  if ($js) {
-    ctools_modal_render($title, $output);
-  }
-  else {
-    drupal_set_title($title);
-    print $output . ' no ctools';
-  }
-}
-
-/**
  * Implements hook_ajax_render_alter().
  * Add a `facebook_refresh` command to make sure FB embeds are shown correctly.
  * @see http://thereisamoduleforthat.com/content/loading-facebook-embeds-ajax
@@ -279,37 +247,6 @@ function checkdesk_core_ajax_render_alter(&$commands) {
 }
 
 /**
- * Form function for `_checkdesk_core_settings`.
- */
-function _checkdesk_core_settings($form, $form_state) {
-  $form['checkdesk_site_owner'] = array(
-    '#title' => t('Site owner'),
-    '#type' => 'textfield',
-    '#default_value' => variable_get('checkdesk_site_owner', ''),
-  );
-  $form['checkdesk_site_owner_url'] = array(
-    '#title' => t('Site owner URL'),
-    '#type' => 'textfield',
-    '#default_value' => variable_get('checkdesk_site_owner_url', ''),
-  );
-  $form['checkdesk_factchecking_statement'] = array(
-    '#title' => t('A "verified" status means'),
-    '#type' => 'textarea',
-    '#default_value' => variable_get('checkdesk_factchecking_statement', ''),
-  );
-
-  return system_settings_form($form);
-}
-
-/**
- * Form function for `_checkdesk_activity_formatter_mapping`.
- */
-function _checkdesk_activity_formatter_mapping($form, $form_state) {
-
-  return system_settings_form($form);
-}
-
-/**
  * Load function for reports.
  */
 function checkdesk_report_load($nid) {
@@ -320,110 +257,6 @@ function checkdesk_report_load($nid) {
   return FALSE;
 }
 
-/**
- * Title callback for `_checkdesk_core_report_suggest`.
- */
-function _checkdesk_core_report_suggest_title($report) {
-  return user_access('add report to story') ?
-    t('Add Report "!title" to Story', array(
-      '!title' => views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title))
-    ) :
-    t('Suggest Report "!title" to Story', array(
-      '!title' => views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title))
-    );
-}
-
-/**
- * Form function for `_checkdesk_core_report_suggest`.
- * Allow user to choose from all stories not already associated with this report.
- */
-function _checkdesk_core_report_suggest($form, $form_state, $report = NULL) {
-  if (empty($report)) {
-    $report = $form_state['report'];
-  }
-  $stories = db_query("
-    SELECT nid, concat(substring(title, 1, 48), '...') as title
-    FROM {node}
-    WHERE type='discussion'
-    ORDER BY created DESC
-    LIMIT 10
-    ")->fetchAllKeyed();
-  $form['story'] = array(
-    '#type' => 'select',
-    '#options' => $stories,
-  );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit'),
-  );
-  $form['#report'] = $report;
-  return $form;
-}
-
-/**
- * Submit function for `_checkdesk_core_report_suggest`.
- */
-function _checkdesk_core_report_suggest_submit($form, &$form_state) {
-  // Add the story to the report.
-  $report = $form['#report'];
-  if (module_exists('checkdesk_duplicates')) {
-    // Clone existing report ticket #3660
-    $report = _checkdesk_duplicate_share_report($report, $form_state['values']['story']);
-  }
-  else {
-    $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
-    node_save($report);
-  }
-  $story = node_load($form_state['values']['story']);
-  $form_state['values']['story_title'] = $story->title;
-  $form_state['values']['report_id'] = $report->nid;
-  // Redirect to story.
-  if (user_access('add report to story')) {
-    $form_state['redirect'] = array('node/add/post', array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
-  }
-}
-
-/**
- * Modal function for `_checkdesk_core_report_suggest`.
- */
-function _checkdesk_core_report_suggest_modal($report, $js) {
-  if (!$js) {
-    drupal_goto('node/' . $report->nid . '/checkdesk/suggest');
-    return;
-  }
-
-  ctools_include('modal');
-  ctools_include('ajax');
-
-  $form_state = array(
-    'ajax' => TRUE,
-    'title' => _checkdesk_core_report_suggest_title($report),
-    'report' => $report,
-  );
-
-  $commands = ctools_modal_form_wrapper('_checkdesk_core_report_suggest', $form_state);
-
-  if (!empty($form_state['executed'])) {
-    // Add the responder javascript, required by ctools
-    ctools_add_js('ajax-responder');
-
-    // Array with ajax response.
-    $commands = array();
-    // Create ajax command array, set the message and dismiss the modal window.
-    $message = t('<b>' . views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title) . '</b> added to <b>' . $form_state['values']['story_title'] . '</b>');
-    drupal_set_message(t($message));
-    // $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
-    $commands[] = ctools_modal_command_dismiss();
-
-    // Redirect to story.
-    if (user_access('add report to story')) {
-      $commands[] = ctools_ajax_command_redirect('node/add/post', 0, array('query' => array('report' => $form_state['values']['report_id'], 'story' => $form_state['values']['story'])));
-    }
-  }
-
-  print ajax_render($commands);
-  exit;
-}
 
 /**
  * Implements hook_flag_link_type_info().

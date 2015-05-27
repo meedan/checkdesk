@@ -12,10 +12,6 @@
 	<?php } ?>
 	<div class="report-detail-link">
 		<?php
-    //$link['attributes']['class'] = array('ctools-use-modal', 'ctools-modal-modal-popup-report');
-    //$link['attributes']['data-toggle'] = 'dropdown';
-    //$link['href'] = 'report-view-modal/nojs/' . $fields['nid']->raw;
-    //print l(t('Details'), $link['href'], $link);
     print l(t('Details'), 'node/'. $fields['nid']->raw);
     ?>
 	</div>
