@@ -1126,7 +1126,7 @@ function _checkdesk_core_post_node_form_validate($form, &$form_state) {
  * Ajax-enable the discussion form as requested.
  */
 function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
-
+  global $user;
   //Adjust create story form
   $form['title']['#title'] = t('Story title');
   // $form['title']['#attributes']['placeholder'] = t('Story title');
@@ -1159,7 +1159,10 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     //Set default language value
     $form['language']['#default_value'] = $language->language;
   }
-
+  if (in_array('journalist', $user->roles)) {
+    // Hide comment settings
+    $form['comment_settings']['#access'] = FALSE;
+  }
 }
 
 /**
@@ -2940,6 +2943,7 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
+  global $user;
   // Adjust edit node form
   $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
@@ -2961,6 +2965,10 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   }
   // Redirect user to collaboration page.
   $form['actions']['submit']['#submit'][] = '_redirect_report';
+  if (in_array('journalist', $user->roles)) {
+    // Hide comment settings
+    $form['comment_settings']['#access'] = FALSE;
+  }
 }
 
 /**
