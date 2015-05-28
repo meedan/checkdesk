@@ -4030,7 +4030,10 @@ div.ctools-modal-content .modal-content {
   color: white;
 }
 .modal-content .actions a.twitter-action-signin {
-  background-color: #1d87c9;
+  background-color: #008ee6;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
 }
 .modal-content .actions a.twitter-action-signin:before {
   font-family: "FontAwesome";
@@ -4046,8 +4049,26 @@ div.ctools-modal-content .modal-content {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.modal-content .actions a.twitter-action-signin, .modal-content .actions a.twitter-action-signin:visited {
+  color: white;
+}
+.modal-content .actions a.twitter-action-signin:hover, .modal-content .actions a.twitter-action-signin:focus {
+  background-color: #006eb3;
+}
+.modal-content .actions a.twitter-action-signin:hover, .modal-content .actions a.twitter-action-signin:hover:visited, .modal-content .actions a.twitter-action-signin:focus, .modal-content .actions a.twitter-action-signin:focus:visited {
+  color: white;
+}
+.modal-content .actions a.twitter-action-signin:active {
+  background-color: #007bc7;
+}
+.modal-content .actions a.twitter-action-signin:active, .modal-content .actions a.twitter-action-signin:active:visited {
+  color: white;
+}
 .modal-content .actions a.facebook-action-connect {
-  background-color: #264887;
+  background-color: #033eaa;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
 }
 .modal-content .actions a.facebook-action-connect:before {
   font-family: "FontAwesome";
@@ -4063,11 +4084,29 @@ div.ctools-modal-content .modal-content {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.modal-content .actions a.facebook-action-connect, .modal-content .actions a.facebook-action-connect:visited {
+  color: white;
+}
+.modal-content .actions a.facebook-action-connect:hover, .modal-content .actions a.facebook-action-connect:focus {
+  background-color: #022c78;
+}
+.modal-content .actions a.facebook-action-connect:hover, .modal-content .actions a.facebook-action-connect:hover:visited, .modal-content .actions a.facebook-action-connect:focus, .modal-content .actions a.facebook-action-connect:focus:visited {
+  color: white;
+}
+.modal-content .actions a.facebook-action-connect:active {
+  background-color: #03338c;
+}
+.modal-content .actions a.facebook-action-connect:active, .modal-content .actions a.facebook-action-connect:active:visited {
+  color: white;
+}
 .modal-content .actions a.facebook-action-connect:before, .modal-content .actions a.facebook-action-connect:after {
   margin-right: 26px !important;
 }
 .modal-content .actions a.email-signin {
-  background-color: #9fa6ac;
+  background-color: #7ba9d0;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
 }
 .modal-content .actions a.email-signin:before {
   font-family: "FontAwesome";
@@ -4083,9 +4122,24 @@ div.ctools-modal-content .modal-content {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.modal-content .actions a.email-signin, .modal-content .actions a.email-signin:visited {
+  color: white;
+}
+.modal-content .actions a.email-signin:hover, .modal-content .actions a.email-signin:focus {
+  background-color: #32668c;
+}
+.modal-content .actions a.email-signin:hover, .modal-content .actions a.email-signin:hover:visited, .modal-content .actions a.email-signin:focus, .modal-content .actions a.email-signin:focus:visited {
+  color: white;
+}
+.modal-content .actions a.email-signin:active {
+  background-color: #659ac8;
+}
+.modal-content .actions a.email-signin:active, .modal-content .actions a.email-signin:active:visited {
+  color: white;
+}
 .modal-content .actions a.email-signup {
-  color: #2e77fc;
-  border: 1px solid #2e77fc;
+  color: #6f7a82;
+  border: 1px solid #6f7a82;
   background-color: transparent;
 }
 .modal-content .actions a.email-signup:before {
@@ -4101,6 +4155,11 @@ div.ctools-modal-content .modal-content {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.modal-content .actions a.email-signup:hover {
+  color: #2e77fc;
+  border: 1px solid #2e77fc;
+  background-color: #fff;
 }
 .modal-content .actions a:before, .modal-content .actions a:after {
   font-size: 24px !important;
