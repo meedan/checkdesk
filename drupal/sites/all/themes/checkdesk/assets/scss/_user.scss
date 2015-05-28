@@ -73,7 +73,7 @@ body.page-user.logged-in {
     }
     .profile-links {
       a {
-        @include checkdesk-button($grayLight);
+        @include checkdesk-button($firefly5);
         @include button-size(16px);
         text-transform: lowercase;
         float: $from-direction;
@@ -116,9 +116,9 @@ body.page-user.logged-in.toolbar {
 // Forgot password and create new account <.item-list>s
 
 //  this first selector is jacked ... -CGB
-body.page-user-login, 
-body.page-user-register, 
-body.page-user-password { // both logged in and not logged ins states
+.page-user-login, 
+.page-user-register, 
+.page-user-password { // both logged in and not logged ins states
 
   #main {
 
@@ -145,47 +145,7 @@ body.page-user-password { // both logged in and not logged ins states
   .password-strength, .password-suggestions {
     display: none !important;
   }
-
-  // captcha
-  .captcha {
-    @include ctb-clearfix;
-    #recaptcha_table {
-      float: $alpha;
-      width: auto;
-      background-color: $white;
-      
-      #recaptcha_response_field {
-        width: 284px !important;
-        @if $from-direction == right {
-          margin-#{$alpha}: $gutter-width;
-        }
-      }
-
-      #recaptcha_privacy {
-        font-size: 80%;
-      }
-    }
-  }
-
-  // same size as the form
-  #content-header {
-    @include span-columns(4, 6);
-    @include pad(1, 1, 6);
-  }
   
-
-  // ================================================================================
-  // Breakpoints
-  //
-
-  // Break small
-  @include at-breakpoint($break-small) {
-    form {
-      .social-signin-wrapper a {
-        font-size: $large-font-size !important;
-      }
-    }
-  }
 }
 
 .user-login-wrapper, .user-register-wrapper {
@@ -196,6 +156,11 @@ body.page-user-password { // both logged in and not logged ins states
       padding: 0;
       margin: 0;
     }
+  }
+
+  // hide password strength and suggestions
+  .password-strength, .password-suggestions {
+    display: none !important;
   }
 
 
@@ -232,7 +197,7 @@ body.page-user-password { // both logged in and not logged ins states
     padding-#{$from-direction}: $gutter-width*2;
     label {
       display: inline-block;
-      color: $grayLight;
+      color: $firefly5;
       @include cd-sans-serif-family;
       font-size: $small-font-size;
       line-height: 1.5;
@@ -254,10 +219,9 @@ body.page-user-password { // both logged in and not logged ins states
     }
     .user-new-account-link {
       float: $omega;
-      margin-top: $absolute-line-height/4;
       @include cd-sans-serif-family;
       font-size: $small-font-size;
-      color: $grayLight;
+      color: $firefly5;
 
       span {
         display: inline-block;
@@ -273,28 +237,4 @@ body.page-user-password { // both logged in and not logged ins states
       }
     }
   }
-}
-
-// user admin page#
-.view-administer-users {
-  fieldset {
-    margin-bottom: $absolute-line-height/2;
-  }
-  select {
-    margin-bottom: $absolute-line-height/2;
-  }
-}
-
-
-
-/**
- * Override default textfield float to put the "Add role" button next to
- * the input textfield.
- */
-#user-admin-roles td.edit-name {
-  clear: both;
-}
-#user-admin-roles .form-item-name {
-  float: left; /* LTR */
-  margin-right: 1em; /* LTR */
 }

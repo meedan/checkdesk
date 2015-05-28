@@ -1672,6 +1672,10 @@ div.block:hover .edit {
   content: "\f002";
 }
 
+.modal-content .actions a.email-signup:before {
+  content: "\f003";
+}
+
 .autocomplete-deluxe-item-delete:before {
   content: "\f00d";
 }
@@ -1785,11 +1789,11 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f086";
 }
 
-.icon-twitter:before, #widgets .elsewhere ul li span.icon-twitter:before {
+.modal-content .actions a.twitter-action-signin:before, .icon-twitter:before, #widgets .elsewhere ul li span.icon-twitter:before {
   content: "\f099";
 }
 
-#widgets .elsewhere ul li span.icon-facebook:before {
+.modal-content .actions a.facebook-action-connect:before, #widgets .elsewhere ul li span.icon-facebook:before {
   content: "\f09a";
 }
 
@@ -1818,7 +1822,7 @@ nav[role="navigation"] #user-menu .icon-bell:before {
   content: "\f0dc";
 }
 
-.notifications-preferences .notifications-preferences-email:before {
+.modal-content .actions a.email-signin:before, .notifications-preferences .notifications-preferences-email:before {
   content: "\f0e0";
 }
 
@@ -3934,6 +3938,187 @@ div.ctools-modal-content .modal-content {
   position: absolute;
   top: 10px;
   left: 10px;
+}
+
+.modal-content .title {
+  color: #10212f;
+  font-size: 32px;
+}
+@media screen and (max-width: 767px) {
+  .modal-content .title {
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+}
+
+.modal-content .description {
+  color: #b7bcc0;
+  font-size: 26px;
+}
+@media screen and (max-width: 767px) {
+  .modal-content .description {
+    font-size: 20px;
+  }
+}
+
+.modal-content .actions {
+  margin-top: 35px;
+}
+@media screen and (max-width: 767px) {
+  .modal-content .actions {
+    margin-top: 20px;
+  }
+}
+.modal-content .actions a {
+  font-family: "Droid Arabic Naskh", serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 400;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: #2b76ff;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 400;
+  margin-left: 1em;
+  display: block;
+  margin: 0 auto 10px;
+  width: 260px;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-align: right;
+  height: 48px;
+  line-height: 47px;
+  font-size: 16.5px;
+}
+.modal-content .actions a::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+.modal-content .actions a:focus {
+  outline: none;
+}
+.modal-content .actions a, .modal-content .actions a:visited {
+  color: white;
+}
+.modal-content .actions a:hover, .modal-content .actions a:focus {
+  background-color: #1c6cff;
+}
+.modal-content .actions a:hover, .modal-content .actions a:hover:visited, .modal-content .actions a:focus, .modal-content .actions a:focus:visited {
+  color: white;
+}
+.modal-content .actions a:active {
+  background-color: #0c62ff;
+}
+.modal-content .actions a:active, .modal-content .actions a:active:visited {
+  color: white;
+}
+.modal-content .actions a.twitter-action-signin {
+  background-color: #1d87c9;
+}
+.modal-content .actions a.twitter-action-signin:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.modal-content .actions a.facebook-action-connect {
+  background-color: #264887;
+}
+.modal-content .actions a.facebook-action-connect:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.modal-content .actions a.facebook-action-connect:before, .modal-content .actions a.facebook-action-connect:after {
+  margin-left: 26px !important;
+}
+.modal-content .actions a.email-signin {
+  background-color: #9fa6ac;
+}
+.modal-content .actions a.email-signin:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.modal-content .actions a.email-signup {
+  color: #2e77fc;
+  border: 1px solid #2e77fc;
+  background-color: transparent;
+}
+.modal-content .actions a.email-signup:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.modal-content .actions a:before, .modal-content .actions a:after {
+  font-size: 24px !important;
+  margin: 0 0 0 0 !important;
+  margin-left: 15px !important;
+}
+@media screen and (max-width: 767px) {
+  .modal-content .actions a {
+    height: 42px;
+    line-height: 41px;
+  }
+  .modal-content .actions a:before, .modal-content .actions a:after {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+}
+
+.modal-content .or {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #b7bcc0;
 }
 
 html {
@@ -7766,8 +7951,8 @@ form#user-login label {
   display: block;
 }
 form#user-register-form {
-  padding-right: 0;
   padding-left: 0;
+  padding-right: 0;
   width: 100%;
 }
 form#user-register-form label {
@@ -8436,6 +8621,28 @@ div.autocomplete-deluxe-throbber {
 }
 .page-administer-users table.views-table {
   border-top: 1px solid black;
+}
+
+.view-administer-users fieldset {
+  margin-bottom: 12px;
+}
+.view-administer-users select {
+  margin-bottom: 12px;
+}
+
+/**
+ * Override default textfield float to put the "Add role" button next to
+ * the input textfield.
+ */
+#user-admin-roles td.edit-name {
+  clear: both;
+}
+
+#user-admin-roles .form-item-name {
+  float: left;
+  /* LTR */
+  margin-right: 1em;
+  /* LTR */
 }
 
 body.page-liveblog #main .view-liveblog {
@@ -11064,7 +11271,7 @@ body.page-user.logged-in .user-info .profile-links a {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  background-color: #999999;
+  background-color: #eef9f9;
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -11092,19 +11299,19 @@ body.page-user.logged-in .user-info .profile-links a:focus {
   outline: none;
 }
 body.page-user.logged-in .user-info .profile-links a, body.page-user.logged-in .user-info .profile-links a:visited {
-  color: white;
+  color: #3e4c57;
 }
 body.page-user.logged-in .user-info .profile-links a:hover, body.page-user.logged-in .user-info .profile-links a:focus {
-  background-color: #919191;
+  background-color: #e3f4f4;
 }
 body.page-user.logged-in .user-info .profile-links a:hover, body.page-user.logged-in .user-info .profile-links a:hover:visited, body.page-user.logged-in .user-info .profile-links a:focus, body.page-user.logged-in .user-info .profile-links a:focus:visited {
-  color: white;
+  color: #3e4c57;
 }
 body.page-user.logged-in .user-info .profile-links a:active {
-  background-color: #8a8a8a;
+  background-color: #d8f0f0;
 }
 body.page-user.logged-in .user-info .profile-links a:active, body.page-user.logged-in .user-info .profile-links a:active:visited {
-  color: white;
+  color: #3e4c57;
 }
 body.page-user.logged-in h1.title {
   font-size: 29px;
@@ -11123,24 +11330,24 @@ body.page-user.logged-in.toolbar #sidebar-first {
   top: 103px !important;
 }
 
-body.page-user-login #main h1.title,
-body.page-user-register #main h1.title,
-body.page-user-password #main h1.title {
+.page-user-login #main h1.title,
+.page-user-register #main h1.title,
+.page-user-password #main h1.title {
   text-align: center;
 }
-body.page-user-login #main #content-area,
-body.page-user-register #main #content-area,
-body.page-user-password #main #content-area {
+.page-user-login #main #content-area,
+.page-user-register #main #content-area,
+.page-user-password #main #content-area {
   clear: both;
 }
-body.page-user-login #content-header > h1,
-body.page-user-register #content-header > h1,
-body.page-user-password #content-header > h1 {
+.page-user-login #content-header > h1,
+.page-user-register #content-header > h1,
+.page-user-password #content-header > h1 {
   padding-right: 15px;
 }
-body.page-user-login div.profile,
-body.page-user-register div.profile,
-body.page-user-password div.profile {
+.page-user-login div.profile,
+.page-user-register div.profile,
+.page-user-password div.profile {
   padding-right: 2.12766%;
   padding-left: 2.12766%;
   width: 84.39716%;
@@ -11149,9 +11356,9 @@ body.page-user-password div.profile {
   display: inline;
   background-color: white;
 }
-body.page-user-login div.profile .user-picture,
-body.page-user-register div.profile .user-picture,
-body.page-user-password div.profile .user-picture {
+.page-user-login div.profile .user-picture,
+.page-user-register div.profile .user-picture,
+.page-user-password div.profile .user-picture {
   float: left;
   padding-right: 2.12766%;
   padding-left: 2.12766%;
@@ -11161,111 +11368,57 @@ body.page-user-password div.profile .user-picture {
   *margin-right: -15px;
   display: inline;
 }
-body.page-user-login div.profile h3,
-body.page-user-register div.profile h3,
-body.page-user-password div.profile h3 {
+.page-user-login div.profile h3,
+.page-user-register div.profile h3,
+.page-user-password div.profile h3 {
   display: block;
   width: auto;
   padding: 15px;
 }
-body.page-user-login div.profile dl,
-body.page-user-register div.profile dl,
-body.page-user-password div.profile dl {
+.page-user-login div.profile dl,
+.page-user-register div.profile dl,
+.page-user-password div.profile dl {
   *zoom: 1;
   padding: 15px;
   font-size: 18px;
   border-bottom: 1px solid #b7bcc0;
 }
-body.page-user-login div.profile dl:before, body.page-user-login div.profile dl:after,
-body.page-user-register div.profile dl:before,
-body.page-user-register div.profile dl:after,
-body.page-user-password div.profile dl:before,
-body.page-user-password div.profile dl:after {
+.page-user-login div.profile dl:before, .page-user-login div.profile dl:after,
+.page-user-register div.profile dl:before,
+.page-user-register div.profile dl:after,
+.page-user-password div.profile dl:before,
+.page-user-password div.profile dl:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.page-user-login div.profile dl:after,
-body.page-user-register div.profile dl:after,
-body.page-user-password div.profile dl:after {
+.page-user-login div.profile dl:after,
+.page-user-register div.profile dl:after,
+.page-user-password div.profile dl:after {
   clear: both;
 }
-body.page-user-login div.profile dl dt,
-body.page-user-register div.profile dl dt,
-body.page-user-password div.profile dl dt {
+.page-user-login div.profile dl dt,
+.page-user-register div.profile dl dt,
+.page-user-password div.profile dl dt {
   float: right;
 }
-body.page-user-login div.profile dl dd,
-body.page-user-register div.profile dl dd,
-body.page-user-password div.profile dl dd {
+.page-user-login div.profile dl dd,
+.page-user-register div.profile dl dd,
+.page-user-password div.profile dl dd {
   float: left;
   font-weight: 200px;
 }
-body.page-user-login .tabs,
-body.page-user-register .tabs,
-body.page-user-password .tabs {
+.page-user-login .tabs,
+.page-user-register .tabs,
+.page-user-password .tabs {
   display: none;
 }
-body.page-user-login .password-strength, body.page-user-login .password-suggestions,
-body.page-user-register .password-strength,
-body.page-user-register .password-suggestions,
-body.page-user-password .password-strength,
-body.page-user-password .password-suggestions {
+.page-user-login .password-strength, .page-user-login .password-suggestions,
+.page-user-register .password-strength,
+.page-user-register .password-suggestions,
+.page-user-password .password-strength,
+.page-user-password .password-suggestions {
   display: none !important;
-}
-body.page-user-login .captcha,
-body.page-user-register .captcha,
-body.page-user-password .captcha {
-  *zoom: 1;
-}
-body.page-user-login .captcha:before, body.page-user-login .captcha:after,
-body.page-user-register .captcha:before,
-body.page-user-register .captcha:after,
-body.page-user-password .captcha:before,
-body.page-user-password .captcha:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-body.page-user-login .captcha:after,
-body.page-user-register .captcha:after,
-body.page-user-password .captcha:after {
-  clear: both;
-}
-body.page-user-login .captcha #recaptcha_table,
-body.page-user-register .captcha #recaptcha_table,
-body.page-user-password .captcha #recaptcha_table {
-  float: right;
-  width: auto;
-  background-color: white;
-}
-body.page-user-login .captcha #recaptcha_table #recaptcha_response_field,
-body.page-user-register .captcha #recaptcha_table #recaptcha_response_field,
-body.page-user-password .captcha #recaptcha_table #recaptcha_response_field {
-  width: 284px !important;
-  margin-right: 15px;
-}
-body.page-user-login .captcha #recaptcha_table #recaptcha_privacy,
-body.page-user-register .captcha #recaptcha_table #recaptcha_privacy,
-body.page-user-password .captcha #recaptcha_table #recaptcha_privacy {
-  font-size: 80%;
-}
-body.page-user-login #content-header,
-body.page-user-register #content-header,
-body.page-user-password #content-header {
-  width: 64.44444%;
-  float: right;
-  margin-left: 6.66667%;
-  display: inline;
-  padding-right: 17.77778%;
-  padding-left: 17.77778%;
-}
-@media (min-width: 465px) {
-  body.page-user-login form .social-signin-wrapper a,
-  body.page-user-register form .social-signin-wrapper a,
-  body.page-user-password form .social-signin-wrapper a {
-    font-size: 20px !important;
-  }
 }
 
 .user-login-wrapper, .user-register-wrapper {
@@ -11276,6 +11429,9 @@ body.page-user-password #content-header {
     padding: 0;
     margin: 0;
   }
+}
+.user-login-wrapper .password-strength, .user-login-wrapper .password-suggestions, .user-register-wrapper .password-strength, .user-register-wrapper .password-suggestions {
+  display: none !important;
 }
 .user-login-wrapper label, .user-register-wrapper label {
   color: #6f7a82;
@@ -11309,7 +11465,7 @@ body.page-user-password #content-header {
 }
 .user-login-wrapper .form-item-remember-me label, .user-register-wrapper .form-item-remember-me label {
   display: inline-block;
-  color: #999999;
+  color: #f3f4f4;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   line-height: 1.5;
@@ -11326,10 +11482,9 @@ body.page-user-password #content-header {
 }
 .user-login-wrapper .form-actions .user-new-account-link, .user-register-wrapper .form-actions .user-new-account-link {
   float: left;
-  margin-top: 6px;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
-  color: #999999;
+  color: #f3f4f4;
 }
 .user-login-wrapper .form-actions .user-new-account-link span, .user-register-wrapper .form-actions .user-new-account-link span {
   display: inline-block;
@@ -11345,28 +11500,6 @@ body.page-user-password #content-header {
 }
 .user-login-wrapper .form-actions .user-new-account-link .register:hover, .user-register-wrapper .form-actions .user-new-account-link .register:hover {
   color: #01225d;
-}
-
-.view-administer-users fieldset {
-  margin-bottom: 12px;
-}
-.view-administer-users select {
-  margin-bottom: 12px;
-}
-
-/**
- * Override default textfield float to put the "Add role" button next to
- * the input textfield.
- */
-#user-admin-roles td.edit-name {
-  clear: both;
-}
-
-#user-admin-roles .form-item-name {
-  float: left;
-  /* LTR */
-  margin-right: 1em;
-  /* LTR */
 }
 
 #nav-discussion-form {

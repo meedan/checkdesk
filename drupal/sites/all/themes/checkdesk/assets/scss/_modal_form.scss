@@ -1,0 +1,115 @@
+// form in modal
+
+.modal-content .title {
+  color: $firefly;
+  font-size: 32px;
+  @if $from-direction == 'left' {
+    letter-spacing: -1.1px;    
+  }
+
+  // For mobile screens
+  @media screen and (max-width: 767px) {
+    & {
+      font-size: 26px;
+      @if $from-direction == 'left' {
+        letter-spacing: -1.2px;
+      }
+      margin-bottom: 6px;
+    }
+  }
+
+}
+
+.modal-content .description {
+  color: $firefly30;
+  font-size: 26px;
+  @if $from-direction == 'left' {
+    @include cd-serif-family;
+    letter-spacing: -1.2px;    
+  }
+
+  // For mobile screens
+  @media screen and (max-width: 767px) {
+    & {
+      font-size: 20px;
+      @if $from-direction == 'left' {
+        letter-spacing: -0.8px;
+      }
+    }
+  }
+}
+
+.modal-content .actions {
+  margin-top: 35px;
+  // For mobile screens
+  @media screen and (max-width: 767px) {
+    & {
+      margin-top: 20px;
+    }
+  }    
+  a {
+    @include checkdesk-button();
+    display: block;
+    margin: 0 auto 10px;
+    width: 260px;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: $alpha;
+    height: 48px;
+    line-height: 47px;
+    @if $from-direction == 'right' {
+      font-size: 16.5px;
+    }
+
+    // add icons and colors
+    &.twitter-action-signin {
+      @include icon(twitter);
+      background-color: $twitter-blue;
+    }
+    
+    &.facebook-action-connect {
+      @include icon(facebook);
+      background-color: $facebook-blue;
+      &:before, &:after {
+        margin-#{$omega}: 26px !important;  // bigger margin for thin icon
+      }
+    }
+
+    &.email-signin {
+      @include icon(envelope);
+      background-color: $firefly40;
+    }
+
+    &.email-signup {
+      @include icon(envelope-o);
+      color: $dodgerBlue;
+      border: 1px solid $dodgerBlue;
+      background-color: transparent;
+    }
+
+    // for all icons
+    &:before, &:after { 
+      font-size: 24px !important;
+      margin: 0 0 0 0 !important;
+      margin-#{$omega}: 15px !important;
+    }
+
+    @media screen and (max-width: 767px) {
+      & {
+        height: 42px;
+        line-height: 41px;
+        &:before, &:after {
+          font-size: 20px; 
+          margin-#{$omega}: 10px;
+        }
+      }
+    }
+
+  }
+}
+
+.modal-content .or {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: $firefly30;
+}
