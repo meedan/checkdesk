@@ -883,6 +883,29 @@ They provided the following explanation for flagging:
     'plural' => 0,
   );
   $translatables[] = t('@entity:@bundle', array(), array('context' => ''));
+  $translations['ar:default']['13d3d49a036583f55afbb03c61cd2376'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has added a new report !report.
+
+<a href="!url">Click here </a> to view this report.
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name, 
+
+قام !author بإضافة تقرير جديد !report.
+
+ <a href="!url"> اضغط هنا </a> لمعرفة هذا التقرير.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+!author has added a new report !report.
+
+<a href="!url">Click here </a> to view this report.
+', array(), array('context' => ''));
   $translations['ar:default']['13d494fd35f9f5b14309b84466cbddf2'] = array(
     'source' => 'loading...',
     'context' => '',
@@ -4060,6 +4083,15 @@ $interval = 5000;
 $path = drupal_get_path(\'module\', \'checkdesk_notifications\') . \'/ping.php?user=\' . $user->uid;
 print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_field\' => TRUE, \'incremental\' => FALSE, \'ping\' => array(\'ping_base_path\' =>  $path)));
 ?>', array(), array('context' => ''));
+  $translations['ar:default']['5bc2fc614e6fd08d3f85592b216720cb'] = array(
+    'source' => 'New report created',
+    'context' => '',
+    'location' => '/ar/my-notifications',
+    'translation' => 'تم إضافة تقربر جديد',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('New report created', array(), array('context' => ''));
   $translations['ar:default']['5bd7326b4cb86a6b0ceefd9ad5668d5d'] = array(
     'source' => 'Alphabetical',
     'context' => 'Sort order',
@@ -8442,6 +8474,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Whether or not the content is sticky. To list sticky content first, set this to descending.', array(), array('context' => ''));
+  $translations['ar:default']['b894e3b0a8c6df50c80aeb7ffa10d12b'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> added a new <a href="!report_url">report</a>',
+    'context' => '',
+    'location' => '/ar/my-notifications',
+    'translation' => 'قام <a class="actor" href="!user_url">!username</a> بإضافة <a href="!report_url">تقرير جديد</a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('<a class="actor" href="!user_url">!username</a> added a new <a href="!report_url">report</a>', array(), array('context' => ''));
   $translations['ar:default']['b8d5baf5ad540cc8fe0f63cea026c324'] = array(
     'source' => 'oEmbed filter',
     'context' => '',
