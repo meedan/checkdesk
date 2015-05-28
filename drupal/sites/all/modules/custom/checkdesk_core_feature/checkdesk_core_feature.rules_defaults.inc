@@ -436,7 +436,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "php", "heartbeat_rules" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
       "ON" : { "node_insert" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } }
@@ -452,7 +452,12 @@ function checkdesk_core_feature_default_rules_configuration() {
             "!report_url" : [ "node:url" ]
           }
         },
-        { "component_checkdesk_core_feature_notify_subscribed_users_new_report" : { "report" : [ "node" ] } }
+        { "schedule" : {
+            "component" : "checkdesk_core_feature_notify_subscribed_users_new_report",
+            "date" : "now",
+            "param_report" : [ "node" ]
+          }
+        }
       ]
     }
   }');
