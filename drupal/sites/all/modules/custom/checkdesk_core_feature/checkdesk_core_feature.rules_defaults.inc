@@ -447,8 +447,9 @@ function checkdesk_core_feature_default_rules_configuration() {
             "uid" : [ "node:author:uid" ],
             "nid_target" : "\\u003C?php\\r\\nif (isset($node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027];\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
             "message_id" : { "value" : { "new_report" : "new_report" } },
-            "!title" : [ "node:title" ],
-            "!username" : [ "node:author:name" ]
+            "!user_url" : [ "node:author:url" ],
+            "!username" : [ "node:author:name" ],
+            "!report_url" : [ "node:url" ]
           }
         },
         { "component_checkdesk_core_feature_notify_subscribed_users_new_report" : { "report" : [ "node" ] } }
