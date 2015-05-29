@@ -3962,7 +3962,7 @@ div.ctools-modal-content .modal-content {
   padding: 10px;
 }
 
-.modal-dialog-signin {
+.modal-dialog, .modal-forms-modal-content {
   text-align: center;
 }
 
@@ -4207,6 +4207,17 @@ div.ctools-modal-content .modal-content {
 }
 
 .page-checkdesk-nojs-sign-in-up h1.title {
+  display: none;
+}
+
+.modal-forms-modal-content form {
+  width: 390px;
+  margin: 0 auto;
+}
+.modal-forms-modal-content form label {
+  text-align: right;
+}
+.modal-forms-modal-content form .email-textfield {
   display: none;
 }
 
@@ -8041,7 +8052,6 @@ form#user-login label {
 form#user-register-form {
   padding-left: 0;
   padding-right: 0;
-  width: 100%;
 }
 form#user-register-form label {
   display: block;
@@ -10175,21 +10185,6 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
 }
 
 .icon-chevron-up:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-close:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;

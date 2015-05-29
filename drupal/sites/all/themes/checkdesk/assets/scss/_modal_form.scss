@@ -1,5 +1,5 @@
 // form in modal
-.modal-dialog-signin {
+.modal-dialog, .modal-forms-modal-content {
   text-align: center;
 }
 
@@ -125,4 +125,17 @@
 // when no js hide title
 .page-checkdesk-nojs-sign-in-up h1.title {
   display: none;
+}
+
+// form inside modal
+.modal-forms-modal-content form {
+  width: 390px;
+  margin: 0 auto;
+  label {
+    text-align: $alpha;
+  }
+  // hide extra field
+  .email-textfield {
+    display: none;
+  }
 }

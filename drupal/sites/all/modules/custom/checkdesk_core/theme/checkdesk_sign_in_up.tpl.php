@@ -1,4 +1,4 @@
-<div class="modal-dialog-signin">
+<div class="modal-dialog modal-dialog-signin">
   <h3 class="title"><?php print t('Checkdesk'); ?></h3>
   <div class="description"><?php print t('Sign in or create an account'); ?></div>
   <div class="actions">
