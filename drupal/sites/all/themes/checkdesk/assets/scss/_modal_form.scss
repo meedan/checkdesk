@@ -1,6 +1,9 @@
 // form in modal
+.modal-dialog, .modal-forms-modal-content {
+  text-align: center;
+}
 
-.modal-content .title {
+.modal-dialog-signin .title {
   color: $firefly;
   font-size: 32px;
   @if $from-direction == 'left' {
@@ -20,7 +23,7 @@
 
 }
 
-.modal-content .description {
+.modal-dialog-signin .description {
   color: $firefly30;
   font-size: 26px;
   @if $from-direction == 'left' {
@@ -39,7 +42,7 @@
   }
 }
 
-.modal-content .actions {
+.modal-dialog-signin .actions {
   margin-top: 35px;
   // For mobile screens
   @media screen and (max-width: 767px) {
@@ -77,13 +80,13 @@
 
     &.email-signin {
       @include icon(envelope);
-      @include button-colors($firefly40, darken($firefly60, 10));
+      @include button-colors($medium-grey, darken($medium-grey, 10));
     }
 
     &.email-signup {
       @include icon(envelope-o);
-      color: $firefly60;
-      border: 1px solid $firefly60;
+      color: $medium-grey;
+      border: 1px solid $medium-grey;
       background-color: transparent;
       &:hover {
         color: $dodgerBlue;
@@ -113,8 +116,26 @@
   }
 }
 
-.modal-content .or {
+.modal-dialog-signin .or {
   margin-bottom: 10px;
   font-size: 18px;
   color: $firefly30;
+}
+
+// when no js hide title
+.page-checkdesk-nojs-sign-in-up h1.title {
+  display: none;
+}
+
+// form inside modal
+.modal-forms-modal-content form {
+  width: 390px;
+  margin: 0 auto;
+  label {
+    text-align: $alpha;
+  }
+  // hide extra field
+  .email-textfield {
+    display: none;
+  }
 }

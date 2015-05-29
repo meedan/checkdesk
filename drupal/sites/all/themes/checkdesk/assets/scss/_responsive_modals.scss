@@ -1,7 +1,7 @@
 /* Override inline dom styles from modal.js */
 #modalBackdrop {
   background: #fff !important;
-  opacity: 0.9 !important;
+  opacity: 0.98 !important;
 }
 
 #modalContent {
@@ -52,4 +52,15 @@ div.ctools-modal-content .modal-content {
   position: absolute;
   top: 10px;
   #{$omega}: 10px;
+  // hide the default close text
+  font: 0/0 serif;
+  overflow: hidden;
+  text-shadow: none;
+  // add icon
+  @include icon(times);
+  &:before {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 10px;
+  }
 }

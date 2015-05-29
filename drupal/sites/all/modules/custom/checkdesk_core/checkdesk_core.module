@@ -2802,6 +2802,10 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   elseif (isset($_GET['ref_nid'])) {
     $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
   }
+  //set default url if exist.
+  if (isset($_GET['url'])) {
+    $form['field_link'][LANGUAGE_NONE][0]['#default_value']['url'] = $_GET['url'];
+  }
 
   $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);
   $form['field_stories'][LANGUAGE_NONE]['#options'] = $options;
