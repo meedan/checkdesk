@@ -722,3 +722,18 @@ function _checkdesk_multitenancy_nodequeue_tab_access($node) {
   $user_groups = array_values(og_get_groups_by_user($user, 'node'));
   return in_array($group->nid, $user_groups) && nodequeue_node_tab_access($node);
 }
+
+/**
+ * Implements hook_query_TAG_alter().
+ */
+function checkdesk_multitenancy_query_checkdesk_drafts_alter($query) {
+  global $user;
+
+  $og_roles = og_roles('node', CHECKDESK_MULTITENANCY_GROUP_TYPE);
+  $rid = array_search('journalist', $og_roles);
+
+  $query->innerJoin('og_membership', 'ogm', 'ogm.etid = n.nid AND ogm.entity_type = :entity_type', array(':entity_type' => 'node'));
+  $query->innerJoin('og_users_roles', 'ogur', 'ogur.gid = ogm.gid AND ogur.group_type = :group_type', array(':group_type' => 'node'));
+  $query->condition('ogur.uid', $user->uid);
+  $query->condition('ogur.rid', $rid);
+}
