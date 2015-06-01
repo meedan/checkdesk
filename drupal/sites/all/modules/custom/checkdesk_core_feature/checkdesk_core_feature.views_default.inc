@@ -665,7 +665,10 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['advance']['content_class'] = '> .view-checkdesk-search .view-content';
+  $handler->display->display_options['pager']['options']['advance']['pager_selector'] = '.view-checkdesk-search-pager .pager-load-more';
   $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
+  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['row_class'] = 'item';
   $handler->display->display_options['row_plugin'] = 'entity';
@@ -711,6 +714,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['language']['field'] = 'language';
   $handler->display->display_options['filters']['language']['value'] = array(
     '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
+    'und' => 'und',
   );
   $handler->display->display_options['filters']['language']['group'] = 1;
   /* Filter criterion: Content: Type */
@@ -758,28 +762,6 @@ function checkdesk_core_feature_views_default_views() {
     4 => 0,
   );
   $handler->display->display_options['filters']['keys']['remove_score'] = TRUE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'media' => 'media',
-    'discussion' => 'discussion',
-    'post' => 'post',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
-  $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
-  $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
-  $handler->display->display_options['filters']['type']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    5 => 0,
-    4 => 0,
-  );
-  $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
   /* Filter criterion: Content: Tags (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
@@ -864,6 +846,10 @@ function checkdesk_core_feature_views_default_views() {
     5 => 0,
     4 => 0,
   );
+  /* Filter criterion: Content: Published or admin */
+  $handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
+  $handler->display->display_options['filters']['status_extra']['table'] = 'node';
+  $handler->display->display_options['filters']['status_extra']['field'] = 'status_extra';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -872,7 +858,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['style_options']['row_class'] = 'item';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['view_mode'] = 'checkdesk_search';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['exposed_block'] = TRUE;
@@ -1300,11 +1286,6 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '10';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
   /* Filter criterion: Field: Fact-checking status (field_rating) (translated) */
   $handler->display->display_options['filters']['field_rating_tid_i18n']['id'] = 'field_rating_tid_i18n';
   $handler->display->display_options['filters']['field_rating_tid_i18n']['table'] = 'field_data_field_rating';
@@ -1491,11 +1472,6 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '10';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
   /* Filter criterion: Field: Fact-checking status (field_rating) */
   $handler->display->display_options['filters']['field_rating_tid']['id'] = 'field_rating_tid';
   $handler->display->display_options['filters']['field_rating_tid']['table'] = 'field_data_field_rating';
@@ -2237,23 +2213,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'media' => 'media',
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'load_more';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '3';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
-  $handler->display->display_options['pager']['options']['load_all'] = 0;
-  $handler->display->display_options['path'] = 'reports';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'View incoming citizen reports';
-  $handler->display->display_options['menu']['weight'] = '50';
-  $handler->display->display_options['menu']['name'] = 'main-menu';
-  $handler->display->display_options['menu']['context'] = 0;
-
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
@@ -2286,7 +2245,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('Parent'),
     t('.'),
     t(','),
-    t('Page'),
     t('Block'),
     t('All'),
   );

@@ -332,7 +332,7 @@ function _cd_create_sample_content() {
   //add english report
   $node = new stdClass(); 
   $node->type = 'media';
-  $node->language = 'en'; 
+  $node->language = 'und';
   $node->uid = 1;
   node_object_prepare($node); 
   $node->field_link[LANGUAGE_NONE][0]['url'] = 'https://www.youtube.com/watch?v=iwMO84pJwMs&list=UUL6xkW90kBI76OuApogUbFQ&feature=share&index=1'; 
@@ -400,7 +400,7 @@ function _cd_create_sample_content() {
   //add arabic report
   $node = new stdClass(); 
   $node->type = 'media';
-  $node->language = 'ar'; 
+  $node->language = 'und';
   $node->uid = 1;
   node_object_prepare($node); 
   $node->field_link[LANGUAGE_NONE][0]['url'] = 'https://www.youtube.com/watch?v=-2ch6n9SdZc&list=UUL6xkW90kBI76OuApogUbFQ&feature=share'; 

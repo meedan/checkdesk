@@ -68,7 +68,7 @@ function template_preprocess_meedan_full_mode(&$vars) {
 
   // Inline thumbnail
   if(isset($embed->thumbnail_url)) {
-    $vars['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-img-thumb')))), 'node/' . $node->nid , array('html' => TRUE));
+    $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
   }
 
   // Load report status
@@ -135,7 +135,7 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
 
   // Inline thumbnail
   if(isset($embed->thumbnail_url)) {
-    $vars['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-img-thumb')))), 'node/' . $node->nid , array('html' => TRUE));
+   $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
   }
 
   // Load report status
@@ -202,7 +202,7 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
 
   // Inline thumbnail
   if(isset($embed->thumbnail_url)) {
-    $vars['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-img-thumb')))), 'node/' . $node->nid , array('html' => TRUE));
+    $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
   }
 
   // Load report status

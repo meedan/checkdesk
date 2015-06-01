@@ -1,0 +1,199 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function checkdesk_duplicates_menu() {
+  $items = array();
+  $items['checkdesk/duplicate-report-story'] = array(
+    'page callback' => '_checkdesk_duplicate_report_story',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+/**
+ * Implements hook_node_presave()
+ */
+function checkdesk_duplicates_node_presave($node) {
+  // Normalize URL before save media node
+  if ($node->type == 'media') {
+    $node->field_link[LANGUAGE_NONE][0]['url'] = _checkdesk_normalize_url($node->field_link[LANGUAGE_NONE][0]['url']);
+  }
+}
+
+/**
+ *
+ * Implements hook_form_ID_alter().
+ */
+function checkdesk_duplicates_form_media_node_form_alter(&$form, &$form_state) {
+  $form['report_duplicate'] = array(
+    '#markup' => '<div id="checkdesk_report_duplicate" style="display: none;"></div>',
+    '#weight' => -1                                                                                                                                                                                               ,
+  );
+  $form['field_stories']['#prefix'] = '<div id="checkdesk_report_story_duplicate" style="display: none;"></div>';
+  $setting = array('checkdesk_duplicates' => array('report_nid' => empty($form['nid']['#value']) ? 0 : $form['nid']['#value']));
+  drupal_add_js($setting, 'setting');
+  // Validate duplicate report
+  $form['#validate'][] = '_checkdesk_duplicates_form_validate';
+  $form['#attached']['js'][] = drupal_get_path('module', 'checkdesk_duplicates') . '/js/checkdesk_duplicates_form.js';
+}
+
+/**
+ * Validate report against selected story
+ */
+function _checkdesk_duplicates_form_validate($form, &$form_state) {
+  $story_nid = $form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'];
+  if ($story_nid) {
+    $report_id = isset($form_state['values']['nid']) ? $form_state['values']['nid'] : 0;
+    $duplicate = _checkdesk_detect_report_duplicate($form_state['values']['field_link'][LANGUAGE_NONE][0]['url'], $report_id, $story_nid);
+    if ($duplicate['duplicate_story']) {
+      form_set_error('field_link', $duplicate['msg']);
+    }
+  }
+}
+
+/*
+ * Menu callback for checkdesk/duplicate-report-story.
+ */
+function _checkdesk_duplicate_report_story() {
+  $output['duplicate'] = FALSE;
+  $url = isset($_GET['url']) ? $_GET['url'] : FALSE;
+  $report_id = $_GET['report_id'];
+  $story_id = is_numeric($_GET['story_id']) ? $_GET['story_id'] : 0;
+  if ($url && $story_id) {
+    $n_url = _checkdesk_normalize_url($url);
+    $query = db_select('field_data_field_link', 'fl');
+    $query->addField('fl', 'entity_id');
+    $query->innerJoin('field_data_field_stories', 'fs', ' fl.entity_id = fs.entity_id');
+    $query->condition('fl.field_link_url', $n_url)
+      ->condition('fl.entity_id', $report_id, '<>')
+      ->condition('fs.field_stories_target_id', $story_id);
+    $query->addTag('checkdesk_duplicate');
+    $result = $query->execute()->fetchField();
+
+    if ($result) {
+      $output['duplicate'] = TRUE;
+      $output['msg'] = t('!report already exists', array('!report' => l(t('Report'), 'node/'. $result)));
+    }
+  }
+  drupal_json_output($output);
+}
+/**
+ * Helper function to Normalize URL
+ * @param $url
+ * @return mixed
+ */
+function _checkdesk_normalize_url($url) {
+  require_once libraries_get_path('url-normalizer') .'/src/URL/Normalizer.php';
+  $url = _checkdesk_unshorten_url($url);
+  $un = new URL\Normalizer($url);
+  return $un->normalize();
+}
+
+/**
+ * Helper function for unshortener url
+ * http://jonathonhill.net/2012-05-18/unshorten-urls-with-php-and-curl/
+ * @param $url
+ * @return mixed
+ */
+function _checkdesk_unshorten_url($url) {
+  $ch = curl_init($url);
+  curl_setopt_array($ch, array(
+    CURLOPT_FOLLOWLOCATION => TRUE,  // the magic sauce
+    CURLOPT_RETURNTRANSFER => TRUE,
+    CURLOPT_SSL_VERIFYHOST => FALSE, // suppress certain SSL errors
+    CURLOPT_SSL_VERIFYPEER => FALSE,
+  ));
+  curl_exec($ch);
+  $url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+  curl_close($ch);
+  return $url;
+}
+
+/**
+ * Helper function to get duplicate reports.
+ * @param string $url
+ *  report url
+ * @return array|bool
+ * FALSE if no duplicate or
+ * Associative array with report_nid => story_nid
+ */
+function _checkdesk_duplicate_reports($url) {
+  $n_url = _checkdesk_normalize_url($url);
+  $query = db_select('field_data_field_link', 'fl');
+  $query->addField('fl', 'entity_id');
+  $query->addField('fs', 'field_stories_target_id');
+  $query->leftJoin('field_data_field_stories', 'fs', 'fl.entity_id = fs.entity_id');
+  $query->condition('fl.field_link_url', $n_url);
+  $query->addTag('checkdesk_duplicate');
+  $result = $query->execute()->fetchAllKeyed(0);
+  if (count($result)) {
+    return $result;
+  }
+  return FALSE;
+}
+
+/**
+ * @param string $url
+ *  report url
+ * @param $report_id
+ * @param $story_id
+ * @return array|bool
+ * FALSE if no duplicate or
+ * Associative array with report_nid => story_nid
+ */
+
+function _checkdesk_detect_report_duplicate($url, $report_id, $story_id) {
+  $output = array();
+  $output['duplicate'] = FALSE;
+  $reports = _checkdesk_duplicate_reports($url);
+  if ($reports) {
+    $duplicate_reports = array();
+    $output['duplicate'] = TRUE;
+    $output['duplicate_story'] = FALSE;
+    $story_id = is_numeric($story_id) ? $story_id : 0;
+    // Unset current report (edit form)
+    unset($reports[$report_id]);
+    $query = db_select('node', 'n');
+    $query->fields('n', array('nid', 'title'));
+    $query->addField('n2', 'nid', 'story_id');
+    $query->addField('n2', 'title', 'story_title');
+    $query->leftJoin('field_data_field_stories', 'fs', 'n.nid = fs.entity_id');
+    $query->leftJoin('node', 'n2', 'fs.field_stories_target_id = n2.nid');
+    $query->condition('n.nid', array_keys($reports), 'IN');
+    $query->addTag('checkdesk_duplicate');
+    $result = $query->execute()->fetchAllAssoc('nid');
+    foreach ($result as $k => $v) {
+      if ($v->story_id == $story_id) {
+        $output['duplicate_story'] = TRUE;
+        $output['msg'] = t('!report already exists',
+          array('!report' => l(t('Report'), 'node/'. $v->nid)));
+        break;
+      }
+      $duplicate_reports[$v->nid] = l($v->title, 'node/'. $v->nid);
+      if ($v->story_id) {
+        $duplicate_reports[$v->nid] .= t(' published in !story', array('!story' => l($v->story_title, 'node/'. $v->story_id)));
+      }
+    }
+    if (!$output['duplicate_story']) {
+      $output['msg'] = t('Duplicate reports !urls', array('!urls' => theme('item_list', array('items' => $duplicate_reports))));
+    }
+  }
+  return $output;
+}
+
+/**
+ * @param $report
+ * @param $story_id
+ * @return mixed
+ */
+function _checkdesk_duplicate_share_report($report, $story_id) {
+  global $user;
+  $new_report = clone $report;
+  unset($new_report->nid, $new_report->vid, $new_report->created, $new_report->changed);
+  $new_report->uid = $user->uid;
+  $new_report->field_stories[LANGUAGE_NONE][]['target_id'] = $story_id;
+  node_save($new_report);
+  return $new_report;
+}

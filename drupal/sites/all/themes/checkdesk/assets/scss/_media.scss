@@ -127,27 +127,58 @@
 	}
 }
 
-.media .inline-img-thumb, .media .inline-video-thumb {
-	width: 142px;
-	min-height: 88px;
-	height: auto;
-	overflow: auto;
-	@include border-radius(4px);
+
+.media .inline-img-thumb-holder, .media .inline-video-thumb-holder {
+	float: opposite-position($from-direction);
+	padding-#{$from-direction}: 12px;
+	padding-bottom: 12px;
+	display: block;
+  margin-#{$from-direction}: auto;
+  margin-#{opposite-position($from-direction)}: auto;
+  position: relative;
+	width: 140px;
+	height: 88px;
+	text-align: center;
 }
+
+.media .inline-img-thumb, .media .inline-video-thumb {
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  @include border-radius(4px);
+  background-color: $firefly20;
+  width: 140px;
+  height: 88px;
+}
+
+/* Hack to make the loader gif not resize as media thumbnails */
+.media .inline-img-thumb-holder img[src*="loader_white.gif"] {
+	width: auto !important;
+	min-height: 0 !important;
+	position: absolute;
+  top: 0;
+  bottom: 0;
+  #{opposite-position($from-direction)}: 0;
+  #{$from-direction}: 0;
+  margin: auto;
+  border: 0 none !important;
+}
+
 
 .item-type-story .media .inline-img-thumb-holder {
 	position: relative;
 	overflow: hidden;
 	z-index: 1;
-	.inline-img-thumb {
-		border: 1px solid $firefly10;
-	}
 	// backrgound frame first
 	&:after {
 		position: absolute;
 		content: "";
 		z-index: -1;
-		top: 6px;
+		top: 7px;
 		#{$from-direction}: 6px;
 		bottom: 0;
 		background: $firefly5;
@@ -161,7 +192,7 @@
 		position: absolute;
 		content: "";
 		z-index: -1;
-		top: 12px;
+		top: 13px;
 		#{$from-direction}: 0;
 		bottom: 0;
 		background: $firefly5;
@@ -170,12 +201,6 @@
 		height: 85%;
 		@include border-radius(4px);
 	}
-}
-
-.media .inline-img-thumb-holder, .media .inline-video-thumb-holder {
-	float: opposite-position($from-direction);
-	padding-#{$from-direction}: 12px;
-	padding-bottom: 12px;
 }
 
 .inline-attachment {

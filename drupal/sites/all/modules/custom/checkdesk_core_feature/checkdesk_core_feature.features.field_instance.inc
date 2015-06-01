@@ -368,15 +368,16 @@ function checkdesk_core_feature_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'exclude_cv' => 0,
     'field_name' => 'body',
     'label' => 'Story',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'filtered_html' => 'filtered_html',
+          'filtered_html' => 0,
           'full_html' => 0,
-          'liveblog' => 0,
+          'liveblog' => 'liveblog',
           'php_code' => 0,
           'plain_text' => 0,
         ),
@@ -402,7 +403,7 @@ function checkdesk_core_feature_field_default_field_instances() {
           ),
         ),
       ),
-      'display_summary' => 1,
+      'display_summary' => 0,
       'exclude_cv' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
@@ -414,12 +415,83 @@ function checkdesk_core_feature_field_default_field_instances() {
         'maxlength_js' => '',
         'maxlength_js_enforce' => 0,
         'maxlength_js_label' => '',
+        'maxlength_js_label_summary' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_summary' => '',
         'maxlength_js_truncate_html' => 0,
         'rows' => 4,
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
       'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-discussion-field_additional_authors'
+  $field_instances['node-discussion-field_additional_authors'] = array(
+    'bundle' => 'discussion',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'checkdesk_collaborate' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+      'meedan_oembed' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'exclude_cv' => 0,
+    'field_name' => 'field_additional_authors',
+    'label' => 'Additional authors',
+    'required' => 0,
+    'settings' => array(
+      'exclude_cv' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 4,
     ),
   );
 
@@ -1242,6 +1314,7 @@ function checkdesk_core_feature_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'exclude_cv' => 0,
     'field_name' => 'body',
     'label' => 'Body',
     'required' => 0,
@@ -1276,7 +1349,7 @@ function checkdesk_core_feature_field_default_field_instances() {
           ),
         ),
       ),
-      'display_summary' => 1,
+      'display_summary' => 0,
       'exclude_cv' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
@@ -1285,6 +1358,12 @@ function checkdesk_core_feature_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_label_summary' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_summary' => '',
+        'maxlength_js_truncate_html' => 0,
         'rows' => 20,
         'summary_rows' => 5,
       ),
@@ -1430,6 +1509,7 @@ function checkdesk_core_feature_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Additional authors');
   t('Attachment');
   t('Bio');
   t('Body');

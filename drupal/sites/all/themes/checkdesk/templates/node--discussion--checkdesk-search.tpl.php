@@ -2,7 +2,7 @@
   <span class="item-content">
       <div class="media-holder media-inline-holder">
 
-          <?php if(isset($inline_thumbnail)) : ?>
+          <?php if(isset($inline_thumbnail) && !empty($inline_thumbnail)) : ?>
             <div class="media">
               <div class="inline-holder inline-img-thumb-holder">
                 <?php print $inline_thumbnail; ?>
@@ -22,7 +22,7 @@
 
             <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
             <?php if(isset($node->name)) : ?>
-              <span class="author"><?php print $node->name; ?></span>
+              <span class="author"><?php print $story_authors; ?></span>
             <?php endif; ?>
 
             <?php if (isset($content['field_tags'])) :?>
@@ -30,7 +30,7 @@
             <?php endif; ?>
             <span class="ts"><?php print $media_creation_info; ?></span>
 
-          </div> <!-- /media-content -->  
+          </div> <!-- /media-content -->
         </div> <!-- /media-holder -->
 
   </span> <!-- /item-content -->

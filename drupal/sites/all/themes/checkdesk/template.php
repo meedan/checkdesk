@@ -48,7 +48,8 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     // Set author name or provider name
     if (isset($embed->author_url) && isset($embed->author_name)) {
       $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
-    } else {
+    }
+    elseif (isset($embed->original_url) && isset($embed->provider_name)) {
       $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
     }
     // Media description
@@ -88,7 +89,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     }
     // Inline thumbnail
     if ($element['#formatter'] == 'meedan_inline_thumbnail') {
-      $variables['inline_thumbnail'] = isset($embed->thumbnail_url) ? l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid, array('html' => TRUE)) : '';
+      $variables['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
     }
     // Large image in case of Flickr or imgur or instagram
     if ($element['#formatter'] == 'meedan_inline_full_mode' || $element['#formatter'] == 'meedan_full_mode') {
@@ -147,6 +148,17 @@ function checkdesk_preprocess_html(&$variables) {
     $head_title[] = variable_get('site_name', 'Drupal');
     $variables['head_title'] = strip_tags(implode(' | ', $head_title));
   }
+  
+  // Add meta tag for twitter:widgets:csp ticket #3628
+  
+  $twitter_csp = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'twitter:widgets:csp',
+      'content' => 'on',
+    ),
+  );
+  drupal_add_html_head($twitter_csp, 'twitter:widgets:csp');
 }
 
 /**
@@ -160,7 +172,7 @@ function checkdesk_preprocess_region(&$variables) {
     if (!isset($variables['header_image'])) $variables['header_image'] = '';
     $image = theme_get_setting('header_image_path');
 
-    if (!empty($image) && theme_get_setting('header_image_enabled')) {
+    if (!empty($image)) {
       $header_image_data = array(
           'style_name' => 'partner_logo',
           'path' => $image,
@@ -474,18 +486,11 @@ function checkdesk_preprocess_page(&$variables) {
   $variables['header_image'] = '';
   $image = theme_get_setting('header_image_path');
 
-  if (!empty($image) && theme_get_setting('header_image_enabled')) {
+  if (!empty($image)) {
     $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
   }
 
-  $position = theme_get_setting('header_image_position');
-  $variables['header_image_position'] = (empty($position) ? 'left' : $position);
-
-  $bg = theme_get_setting('header_bg_path');
-  $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
-
   $variables['header_slogan'] = t('A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
-  $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
 
   // set page variable if widgets should be visible
   $variables['show_widgets'] = checkdesk_widgets_visibility();
@@ -561,6 +566,9 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if ($variables['type'] == 'discussion') {
+    // get authors
+    $variables['story_authors'] = _checkdesk_story_authors($variables['node']);
+
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();
     $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
@@ -570,11 +578,9 @@ function checkdesk_preprocess_node(&$variables) {
     }
 
     if ($variables['view_mode'] == 'checkdesk_collaborate' || $variables['view_mode'] == 'full' ) {
-
       $variables['creation_info_short'] =
-        t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
-        '@user' => url('user/' . $variables['uid']),
-        '!user' => $node->name,
+        t('!authors <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
+        '!authors' => $variables['story_authors'],
         '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
         '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
       ));
@@ -644,13 +650,9 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['inline_thumbnail'] = '';
 
       if (isset($variables['field_lead_image'][0]['uri'])) {
-        $variables['inline_thumbnail'] = l(theme('image_style', array(
-          'path' => $variables['field_lead_image'][0]['uri'],
-          'alt' => t(check_plain($node->title)),
-          'style_name' => 'report_thumbnail',
-          'attributes' => array('class' => 'inline-img-thumb')
-        )), 'node/' . $variables['nid'], array('html' => TRUE));
+        $variables['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
       }
+
       // use media creation info for activity templates & search template
       global $language;
       // Set custom format based on language.
@@ -732,14 +734,15 @@ function checkdesk_preprocess_node(&$variables) {
       // Set published stories
       $variables['published_stories'] = '';
       $published_stories_links = array();
+      $published_cond = _checkdesk_is_journalist() ? array(0, 1) : array(1);
       $published_stories = db_query('
           SELECT DISTINCT nid_target, n.title
           FROM {heartbeat_activity} ha
-          INNER JOIN {node} n ON ha.nid_target = n.nid AND ha.nid = :nid
-          WHERE n.language = :language AND message_id IN (:status)
-          ', array(':nid' => $variables['nid'], ':language' => $language->language, ':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
+          INNER JOIN {node} n ON ha.nid_target = n.nid AND ha.nid = :nid AND n.status IN (:published)
+          WHERE message_id IN (:status)
+          ', array(':nid' => $variables['nid'], ':published' => $published_cond, ':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
               )->fetchAllKeyed(0);
-      // display published in story if more than one or its the report/media page
+      // display published in story if more than one story or user access report/media page
       if (count($published_stories) > 1 || $variables['page'] == TRUE) {
         foreach ($published_stories as $k => $v) {
           array_push($published_stories_links, l($v, 'node/' . $k));
@@ -1032,13 +1035,13 @@ function checkdesk_field__field_tags(&$variables) {
     $type = $variables['element']['#bundle'];
     if ($type == 'media') {
       $alt_type = array(
-          'singular' => 'report',
-          'plural' => 'reports'
+          'singular' => t('Report'),
+          'plural' => t('Reports'),
       );
     } elseif ($type == 'discussion') {
       $alt_type = array(
-          'singular' => 'story',
-          'plural' => 'stories'
+          'singular' => t('Story'),
+          'plural' => t('Stories'),
       );
     }
 
@@ -1113,18 +1116,34 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
   // Set page title
   $view = $vars['view'];
   $page_title = t('Search');
-  if (isset($_GET['type']) && $_GET['type'] != 'All') {
-    if ($_GET['type'] == 'media') {
+  $get_args = $_GET;
+  unset($get_args['q']);
+  // Set title based on type filter
+  if (count($get_args) == 1 && isset($get_args['type'])) {
+    if ($_GET['type'] == 'report') {
       $page_title = t('Reports');
-    } elseif ($_GET['type'] == 'post') {
+    } elseif ($_GET['type'] == 'update') {
       $page_title = t('Updates');
-    } elseif ($_GET['type'] == 'discussion') {
+    } elseif ($_GET['type'] == 'story') {
       $page_title = t('Stories');
     }
-  } elseif (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
+  }
+  // Set title based on tag filter
+  elseif (count($get_args) == 1 && isset($get_args['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
     //Set taxonomy name as title
     $term = taxonomy_term_load($_GET['field_tags_tid']);
     $page_title = $term->name;
+  }
+  // Set title based on type and status filter 
+  elseif (count($get_args) == 2 && isset($get_args['type']) && isset($get_args['status'])) {
+    if (!$get_args['status']) {
+      if ($_GET['type'] == 'story') {
+        $page_title = t('Draft stories');
+      }
+      elseif ($_GET['type'] == 'update') {
+        $page_title = t('Draft updates');
+      }
+    }
   }
   $view->set_title($page_title);
 }
@@ -1194,7 +1213,9 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
       $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
       // append count
-      $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
+      if (isset($flag_count['follow_story'])) {
+        $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
+      }
     }
     $vars['follow_story'] = $follow_story;
   }
@@ -1359,4 +1380,29 @@ function _checkdesk_term_get_children_ids($tid) {
     }
   }
   return $tids;
+}
+
+/**
+ * List story authors based on additional author field
+ * @param $node
+ * @return bool|string
+ */
+function _checkdesk_story_authors($node) {
+  if (is_numeric($node)) {
+    $node = node_load($node);
+  }
+  // get updates for a particular story
+  $view = views_get_view('story_authors');
+  $view->set_arguments(array($node->nid));
+  $view->get_total_rows = TRUE;
+  $view_output = $view->preview('block_1');
+  $total_rows = $view->total_rows;
+  $view->destroy();
+  if ($total_rows) {
+    $story_authors = $view_output;
+  }
+  else {
+    $story_authors = l($node->name, 'user/'. $node->uid, array('attributes' => array('class' => 'contributor')));
+  }
+  return $story_authors;
 }

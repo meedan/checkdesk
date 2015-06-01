@@ -12,10 +12,14 @@
         url = $input.val().trim();
 
     $input.addClass('meedan-bookmarklet-loading');
-
+    var report_id = 0;
+    if (typeof Drupal.settings.checkdesk_duplicates !== 'undefined') {
+        report_id = Drupal.settings.checkdesk_duplicates.report_nid;
+    }
+    var story_id = jQuery('#edit-field-stories-und').val();
     $.ajax({
       url: Drupal.settings.basePath + Drupal.settings.pathPrefix + 'checkdesk/media-preview?' + parseInt(Math.random() * 1000000000, 10),
-      data: { url : url },
+      data: { url : url, report_id : report_id, story_id : story_id },
       dataType: 'json',
       success: function (data) {
         if (data.error) {
@@ -24,7 +28,20 @@
         } else {
           $preview_content.removeClass('error').html(data.preview);
           if (data.title) $('#edit-title').val(data.title);
+
           $controls.show();
+          $('#checkdesk_report_duplicate').hide();
+          if (data.duplicates.duplicate) {
+              if (data.duplicates.duplicate_story) {
+                  //Report already exists in same story
+                  $('#checkdesk_report_duplicate').show().addClass('error').html(data.duplicates.msg);
+                  // Hide submit button
+                  $('#edit-submit').hide();
+              }
+              else {
+                  $('#checkdesk_report_duplicate').show().addClass('status').html(data.duplicates.msg);
+              }
+          }
         }
       },
       error: function (xhr, textStatus, error) {

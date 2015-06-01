@@ -122,9 +122,9 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed = $cache->data;
     $embed->original_url = $url;
     $embed->provider = $provider;
-    
+
     drupal_alter('meedan_oembed_embed', $embed);
-    
+
     return $embed;
   }
   // Ask for fresh data, remove cache first
@@ -185,9 +185,8 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     meedan_oembed_add_extra_information($embed);
     $embed->error = FALSE;
   }
-
   drupal_alter('meedan_oembed_embed', $embed);
-  
+
   // Set result to cache, even if error
   cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
 
@@ -198,18 +197,20 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
  * Scrape page to extract oEmbed-relevent information.
  */
 function meedan_oembed_add_extra_information(&$embed) {
-  //Use google getFavicon service http://getfavicon.appspot.com/
-  $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
   // TODO Get thumbnail.
   if (empty($embed->thumbnail_url)) {
-    if($embed->type == 'photo') {
+    if ($embed->type == 'photo') {
       // put original url as thumbnail url
       // if original url is itself an image path
       $original_image = getimagesize($embed->original_url);
-      if(isset($original_image)) { 
+      if (isset($original_image)) {
         $embed->thumbnail_url = $embed->original_url;
       }
-    } 
+    }
+  }
+  if ($embed->provider_name == 'YouTube' && !empty($embed->thumbnail_url)) {
+    // Use Youtube thumbnail that doesn't have black borders
+    $embed->thumbnail_url = str_replace('hqdefault.jpg', 'mqdefault.jpg', $embed->thumbnail_url);
   }
 }
 
@@ -289,8 +290,8 @@ function meedan_oembed_node_presave($node) {
   if ($node->type == 'media') {
     // Set report title and description
     $link = $node->field_link[LANGUAGE_NONE][0]['url'];
-    $old_link = (isset($node->original) ? $node->original->field_link[LANGUAGE_NONE][0]['url'] : ''); 
-    $embed = meedan_oembed_data($link, array(), TRUE);
+    $old_link = (isset($node->original) ? $node->original->field_link[LANGUAGE_NONE][0]['url'] : '');
+    $embed = meedan_oembed_data($link, array(), FALSE, TRUE);
     $node->status = ((isset($embed->error) && $embed->error) ? 0 : 1);
     if (empty($node->title) || (isset($node->original) && $link !== $old_link && $node->title === $node->original->title)) {
       if (!empty($embed->title)) {
@@ -302,11 +303,11 @@ function meedan_oembed_node_presave($node) {
         $node->title = t('!type from !source', array('!type' => $embed->type, '!source' => $embed_source));
       }
     }
-    if (!empty($embed->description) && 
-       (empty($node->body[LANGUAGE_NONE][0]['value']) || 
-       (isset($node->original) && 
-        $link !== $old_link && 
-        html_entity_decode(strip_tags($node->body[LANGUAGE_NONE][0]['value'])) === 
+    if (!empty($embed->description) &&
+       (empty($node->body[LANGUAGE_NONE][0]['value']) ||
+       (isset($node->original) &&
+        $link !== $old_link &&
+        html_entity_decode(strip_tags($node->body[LANGUAGE_NONE][0]['value'])) ===
         html_entity_decode(strip_tags($node->original->body[LANGUAGE_NONE][0]['value']))))) {
       // $node->body[LANGUAGE_NONE][0]['value'] = $embed->description;
     }
@@ -468,4 +469,64 @@ function _meedan_render_oembed_activity_type($node, $heartbeat_row) {
     $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
   }
   return $output;
+}
+
+function _meedan_inline_thumbnail_bg($node, $classes = array()) {
+  if (isset($node->embed->thumbnail_url)) {
+    $thumbnail_url = $node->embed->thumbnail_url;
+    $thumbnail_title = isset($node->embed->title) ? $node->embed->title : $node->title;
+  }
+  elseif (isset($node->field_lead_image['und'][0]['uri'])) {
+    $derivative_uri = image_style_path('medium', $node->field_lead_image['und'][0]['uri']);
+    $success = file_exists($derivative_uri) || image_style_create_derivative('medium', $node->field_lead_image['und'][0]['uri'], $derivative_uri);
+    $thumbnail_url = file_create_url($derivative_uri);
+    $thumbnail_title = $node->title;
+  }
+  else {
+    $thumbnail_url = '';
+  }
+
+  $inline_thumbnail = '';
+  if ($thumbnail_url) {
+    $inline_thumbnail = l('', 'node/' . $node->nid, array('html' => TRUE,
+      'attributes' => array(
+        'class' => is_array($classes) ? $classes : array(),
+        'title' => t(check_plain($thumbnail_title)),
+        'style' => 'background-image: url("' . $thumbnail_url . '")'
+      )));
+  }
+
+  return $inline_thumbnail;
+}
+
+/**
+ * depnd on geticon library https://github.com/gokercebeci/geticon/blob/master/class.geticon.php
+ * @param string $url
+ *  media URL
+ * @return string
+ *  path of favicon
+ */
+function _meedan_oembed_fetch_favicon($url) {
+  // Check exists of favicon directory
+  $files_path = file_default_scheme()."://";
+  $favicon_dir = 'oembed_favicon/';
+  $favicon_path = $files_path . $favicon_dir;
+  file_prepare_directory($favicon_path, FILE_CREATE_DIRECTORY);
+  // Generate favicon file name same as geticon class
+  $mod_url = trim(str_replace(array('http://', 'https://', 'http:/', 'https:/'), '', trim($url)), '/');
+  $mod_url = parse_url('http://' . $mod_url);
+  $mod_url['host'] = str_replace('www.', '', $mod_url['host']);
+  $icon_path = $favicon_path . str_replace(array('.', '/'), '-', $mod_url['host']) . '.ico';
+  // check favicon exists before calling geticon
+  if (!file_exists($icon_path)) {
+    // fetch favicon
+    require_once libraries_get_path('geticon') .'/class.geticon.drupal.php';
+    new geticon($url, $files_path, $favicon_dir);
+  }
+  // check if favicon generated by geticon or not
+  if (!file_exists($icon_path)) {
+    // Use google getFavicon service http://getfavicon.appspot.com/
+    $icon_path = url('http://g.etfv.co/'. $url, array('absolute' => TRUE));
+  }
+  return $icon_path;
 }

@@ -1,0 +1,24 @@
+build_translation_test:
+  pattern: '/admin/config/build_translation_test'
+  defaults:
+    _content: '\Drupal\potx\Controller\TranslationController::buildTranslationTest'
+    _title: 'Build translation test'
+  requirements:
+    _permission: 'none'
+
+build_alternative_translations:
+  pattern: '/admin/config/build_alternative_translation'
+  defaults:
+    _content: '\Drupal\potx\Controller\TranslationController::buildAlternativeTranslation'
+    _title: 'Build alternative translation'
+  requirements:
+    _permission: 'none'
+
+build_translation_in_context:
+  pattern: '/admin/config/build_translation_in_context'
+  defaults:
+    _content: '\Drupal\potx\Controller\TranslationController::buildTranslationInContext'
+    _title: 'Translation title in context'
+    _title_context: 'Title context'
+  requirements:
+    _permission: 'none'

@@ -1,0 +1,30 @@
+'*.info.yml':
+  - name
+  - description
+  - package
+  - regions
+'*.routing.yml':
+  - _title:
+      context: _title_context
+'*.links.task.yml':
+  - title:
+      context: title_context
+'*.links.action.yml':
+  - title:
+      context: title_context
+'*.links.contextual.yml':
+  - title:
+      context: title_context
+'*.links.menu.yml':
+  - title:
+      context: title_context
+  - description
+'*.breakpoints.yml':
+  - label
+  - group
+'*.permissions.yml':
+  - title
+  - description
+  - %top-level-key
+'config/schema/*.yml':
+  - label

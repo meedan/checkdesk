@@ -184,6 +184,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'administer comments',
     'roles' => array(
       'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'comment',
   );
@@ -1185,6 +1186,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view the administration theme',
     'roles' => array(
       'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'system',
   );

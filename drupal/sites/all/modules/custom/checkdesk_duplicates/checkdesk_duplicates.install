@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * Normalize existing URLs
+ */
+function checkdesk_duplicates_update_7001(&$sandbox) {
+  if(!isset($sandbox['progress'])){
+    $sandbox['progress'] = 0;
+    $sandbox['last_id'] = 0;
+    $sandbox['limit'] = 1000;
+    $sandbox['max'] = db_query('SELECT COUNT(*) FROM {field_data_field_link}')->fetchField();
+  }
+
+  $result = db_query_range('
+    SELECT entity_id, field_link_url
+    FROM {field_data_field_link}
+    WHERE entity_id > :entity_id
+    ',0, $sandbox['limit'], array(
+      ':entity_id' => $sandbox['last_id']
+    )
+  );
+
+  foreach ($result as $row) {
+    $n_url = _checkdesk_normalize_url($row->field_link_url);
+    if ($n_url != $row->field_link_url) {
+        db_query('
+        UPDATE {field_data_field_link} SET field_link_url = :field_link_url
+        WHERE entity_id = :entity_id
+        ', array(':field_link_url' => $n_url, ':entity_id' => $row->entity_id));
+    }
+    $sandbox['progress']++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_id'] = $row->entity_id;
+}

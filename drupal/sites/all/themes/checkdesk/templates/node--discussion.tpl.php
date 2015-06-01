@@ -22,6 +22,12 @@
       </div>
     </div>
 
+    <?php if(isset($content['field_lead_image'])) { ?>
+      <figure>
+        <?php print render($content['field_lead_image']); ?>
+      </figure>
+    <?php } ?>
+
   	<div class="story-body">
       <?php print render($content['body']); ?>
     </div>
@@ -31,12 +37,6 @@
         <?php print $follow_story; ?>
       </div>
     <?php endif; ?>
-
-    <?php if(isset($content['field_lead_image'])) { ?>
-      <figure>
-        <?php print render($content['field_lead_image']); ?>
-      </figure>
-    <?php } ?>
 
     <div class="story-tabs-wrapper">
       <?php print $story_tabs; ?>

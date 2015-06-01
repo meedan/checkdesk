@@ -1,0 +1,11 @@
+potx_test_8.mobile:
+  label: Mobile
+  mediaQuery: '(min-width: 0px)'
+  weight: 0
+potx_test_8.standard:
+  label: Standard
+  mediaQuery: '(min-width: 560px)'
+  weight: 1
+  multipliers:
+    - 2x
+  group: 'Some breakpoint group'
