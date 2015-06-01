@@ -22,11 +22,3 @@ function _checkdesk_core_settings($form, $form_state) {
 
   return system_settings_form($form);
 }
-
-/**
- * Form function for `_checkdesk_activity_formatter_mapping`.
- */
-function _checkdesk_activity_formatter_mapping($form, $form_state) {
-
-  return system_settings_form($form);
-}

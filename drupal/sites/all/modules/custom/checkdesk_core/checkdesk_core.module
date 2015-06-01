@@ -90,15 +90,6 @@ function checkdesk_core_menu() {
     'file' => 'checkdesk.admin.inc',
     'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
-  $items['admin/config/system/activity-formatter'] = array(
-    'title' => 'Checkdesk',
-    'description' => 'Manage hearbeat activity type and formatter.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('_checkdesk_activity_formatter_mapping'),
-    'access arguments' => array('administer site configuration'),
-    'file' => 'checkdesk.admin.inc',
-    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
-  );
   $items['modal/%ctools_js'] = array(
     'page callback' => 'checkdesk_core_modal_callback',
     'page arguments' => array(1),
@@ -996,6 +987,8 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
   }
+  // Customize "Add more items" for authors.
+  $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
 }
 
 /**

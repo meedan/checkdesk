@@ -182,6 +182,15 @@ function checkdesk_core_feature_translations_defaults() {
     'plural' => 0,
   );
   $translatables[] = t('A file that is associated with this node, usually because it is in a field on the node.', array(), array('context' => ''));
+  $translations['ar:default']['0419e37ad38b1d9c5c72729a6f2ec073'] = array(
+    'source' => 'Sign in with your email',
+    'context' => '',
+    'location' => '/ar/checkdesk/ajax/sign_in_up',
+    'translation' => 'تسجيل الدخول بالإيميل',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sign in with your email', array(), array('context' => ''));
   $translations['ar:default']['0423256c9dd56eaaabb61a7342935886'] = array(
     'source' => 'Filter value type',
     'context' => '',
@@ -254,6 +263,15 @@ function checkdesk_core_feature_translations_defaults() {
     'plural' => 0,
   );
   $translatables[] = t('The language code of the current user interface language.', array(), array('context' => ''));
+  $translations['ar:default']['0557fa923dcee4d0f86b1409f5c2167f'] = array(
+    'source' => 'Back',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/login',
+    'translation' => 'الرجوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Back', array(), array('context' => ''));
   $translations['ar:default']['0590a7b5f472aa655c16a8106410676b'] = array(
     'source' => 'Attachments added to other displays to achieve multiple views in the same view.',
     'context' => '',
@@ -1005,6 +1023,15 @@ They provided the following explanation for flagging:
     'plural' => 0,
   );
   $translatables[] = t('filter criteria', array(), array('context' => ''));
+  $translations['ar:default']['15c968fdab623a56d6d68948514edb37'] = array(
+    'source' => 'Sign in with your email address or username',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/login',
+    'translation' => 'تسجيل الدخول بالإيميل أو اسم المستخدم',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sign in with your email address or username', array(), array('context' => ''));
   $translations['ar:default']['15e2e38189dd8d6b714b8979b3da9284'] = array(
     'source' => 'Node ID used in the activity message',
     'context' => '',
@@ -4786,6 +4813,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('too short', array(), array('context' => ''));
+  $translations['ar:default']['6b7067986c411d6e6fbd66427bd7d1c9'] = array(
+    'source' => 'Additional authors',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'كتّاب إضافيون',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Additional authors', array(), array('context' => ''));
   $translations['ar:default']['6b86db7e25193e054877b6d3c2f05f29'] = array(
     'source' => 'The time a piece of content was most recently flagged by any user.',
     'context' => '',
@@ -5614,6 +5650,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('User module timezone form element.', array(), array('context' => ''));
+  $translations['ar:default']['7b9deb3b61584281192a3e7ac42732cd'] = array(
+    'source' => 'Sign in or create an account',
+    'context' => '',
+    'location' => '/ar/checkdesk/ajax/sign_in_up',
+    'translation' => 'تسجيل الدخول أو انشئ حسابًا جديدًا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sign in or create an account', array(), array('context' => ''));
   $translations['ar:default']['7be3573887a3f2e57b20a4f7631807b7'] = array(
     'source' => '@label:!column',
     'context' => '',
@@ -5704,6 +5749,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Bring in data about the main node.', array(), array('context' => ''));
+  $translations['ar:default']['7d9a6d091a1ac8739e205280f092db99'] = array(
+    'source' => 'Passphrase',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/login',
+    'translation' => 'كلمة السر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Passphrase', array(), array('context' => ''));
   $translations['ar:default']['7dd7cd514726666cfc5ca33ade85447f'] = array(
     'source' => 'The language the comment is in.',
     'context' => '',
@@ -8907,6 +8961,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('<a href="[node:url:unaliased]">[node:author]\'s report</a> was flagged for fact-checking.', array(), array('context' => ''));
+  $translations['ar:default']['c1aa052dfa2d2f412825b9fcd815650f'] = array(
+    'source' => 'Add author',
+    'context' => '',
+    'location' => '/ar/node/1938/edit',
+    'translation' => 'أضف كاتب',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Add author', array(), array('context' => ''));
   $translations['ar:default']['c1c9e5617e7c90882f29ead1945f1308'] = array(
     'source' => 'Exposed form: @view-@display_id',
     'context' => '',
@@ -9965,6 +10028,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Sign Up', array(), array('context' => ''));
+  $translations['ar:default']['d7085e2b5b40144896a996a297e3847d'] = array(
+    'source' => 'Sign in with Facebook',
+    'context' => '',
+    'location' => '/ar/checkdesk/ajax/sign_in_up',
+    'translation' => 'تسجيل الدخول بحساب فيسبوك',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sign in with Facebook', array(), array('context' => ''));
   $translations['ar:default']['d7a9b98095d75260203d6ee1129b3a4f'] = array(
     'source' => 'Relate content to the user who created it. This relationship will create one record for each content item created by the user.',
     'context' => '',
@@ -11817,6 +11889,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Edit this view to add a display.', array(), array('context' => ''));
+  $translations['ar:default']['fe1f636b83baeffd7a2ec09518a81ab8'] = array(
+    'source' => 'Create a new account',
+    'context' => '',
+    'location' => '/ar/checkdesk/ajax/sign_in_up',
+    'translation' => 'انشئ حسابًا جديدًا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Create a new account', array(), array('context' => ''));
   $translations['ar:default']['fe24939470ca06681c136494a5b37813'] = array(
     'source' => 'Count DISTINCT',
     'context' => '',
@@ -12100,7 +12181,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Additional authors',
     'context' => 'field_additional_authors:discussion:label',
     'location' => 'field:field_additional_authors:discussion:label',
-    'translation' => 'مؤلفون اضافيون',
+    'translation' => 'كتّاب إضافيون',
     'plid' => 0,
     'plural' => 0,
   );
@@ -12285,6 +12366,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('View incoming citizen reports', array(), array('context' => 'item:e48d5c0f-0c1a-49ca-8a8d-b785b7bc8514:title'));
+  $translations['ar:menu']['b0e6c8abf68e5f577e9f6c80a9df6be1'] = array(
+    'source' => 'Sign in / Sign up',
+    'context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title',
+    'location' => 'menu:item:9a684326-a352-d454-517b-878bb9468e91:title',
+    'translation' => 'تسجيل الدخول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sign in / Sign up', array(), array('context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title'));
   $translations['ar:menu']['b2d30a94203b8b6f25b7e1c4d6f4dd6a'] = array(
     'source' => 'Draft  stories',
     'context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
