@@ -3500,11 +3500,11 @@ function _checkdesk_get_stories_by_activity($show_draft = FALSE) {
   $drafts = array();
   if ($show_draft && _checkdesk_is_journalist()) {
     $query = db_select('node', 'n')->fields('n', array('nid', 'title'));
-    $query->orderBy('created', 'DESC');
+    $query->orderBy('n.created', 'DESC');
     $query->addTag('checkdesk_drafts');
-    $query->condition('type', 'discussion');
-    $query->condition('status', 0);
-    $query->condition('language', $language->language);
+    $query->condition('n.type', 'discussion');
+    $query->condition('n.status', 0);
+    $query->condition('n.language', $language->language);
     $drafts = $query->execute()->fetchAllKeyed(0);
   }
 
