@@ -14,10 +14,23 @@ function _checkdesk_story_collaboration($node) {
   global $user;
   $output = '';
   if ($user->uid == 0) {
+    global $language;
+    $url = url('node/' . $node->nid, array('absolute' => TRUE, 'language' => $language,));
     drupal_add_js('
       jQuery(window).bind("load", function() {
         jQuery("a.ctools_checkdesk_sign_in_up").click();
       });
+
+      jQuery(function() {
+        Drupal.behaviors.collanon = {
+          attach: function (context, settings) {
+            jQuery( "#modalContent .popups-close" ).click(function() {
+              window.location =  "'. $url .'";
+            });
+          }
+        };
+      });
+
       ', 'inline');
   }
   $node_view = node_view($node, 'checkdesk_collaborate');
