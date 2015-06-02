@@ -1715,7 +1715,6 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       '#weight' => -99,
     );
     $form['actions']['submit']['#value'] = t('Sign in');
-    $form['pass']['#title'] = t('Passphrase');
     // Add forgot link and a wrapper around forgot pass and remember me
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
     $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
@@ -1773,9 +1772,9 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
 
   if ($form_id == 'user_pass') {
-    $pass_header = '<h1 class="title">'. t('Reset your passphrase') .'</h1>';
+    $pass_header = '<h1 class="title">'. t('Reset your password') .'</h1>';
     $pass_header .= '<div>'. t('Enter the email address you used to create your account,
-    and we\'ll send you an email to reset your passphrase') .'</div>';
+    and we\'ll send you an email to reset your password') .'</div>';
     $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
     $form['pass_header'] = array(
       '#markup' => $pass_header,

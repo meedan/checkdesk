@@ -4001,6 +4001,9 @@ div.ctools-modal-content .modal-content {
   }
 }
 
+.modal-dialog-signin-email {
+  text-align: center;
+}
 .modal-dialog-signin-email:before {
   font-family: "FontAwesome";
   display: inline-block;
@@ -4014,6 +4017,9 @@ div.ctools-modal-content .modal-content {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.modal-dialog-signin-email form .form-item {
+  text-align: left;
 }
 
 .modal-dialog-signin .modal-dialog-actions {
@@ -8275,7 +8281,6 @@ form select {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 form .form-wrapper {
-  clear: both;
   margin: 12px 0;
 }
 form .form-type-textarea {
@@ -8426,7 +8431,6 @@ form .form-type-textarea:after {
     font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
   form .form-wrapper {
-    clear: both;
     margin: 12px 0;
   }
   form .form-type-textarea {
@@ -11490,7 +11494,7 @@ body.page-user.logged-in.toolbar #sidebar-first {
 .page-user-login #main h1.title,
 .page-user-register #main h1.title,
 .page-user-password #main h1.title {
-  text-align: center;
+  display: none;
 }
 .page-user-login #main #content-area,
 .page-user-register #main #content-area,
