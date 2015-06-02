@@ -1720,7 +1720,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
     $form['remember_me']['#suffix'] = '</div>';
     $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
-    $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link">' . $back_link . '</div>';
+    $form['actions']['submit']['#suffix'] = '<div class="back-link user-sigin-back-link">' . $back_link . '</div>';
   }
 
   if ($form_id == '_checkdesk_core_report_suggest') {
@@ -1769,6 +1769,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     unset($form['account']['pass']['#description']);
     $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
     $form['account']['mail']['#description'] = t('Check your e-mail to confirm your account');
+    $form['actions']['submit']['#suffix'] = '<div class="back-link user-register-back-link" onclick="Drupal.CTools.Modal.dismiss();return false;">' . l('Back', 'user/login') . '</div>';
   }
 
   if ($form_id == 'user_pass') {
@@ -1781,9 +1782,9 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       '#markup' => $pass_header,
       '#weight' => -99,
     );
+    $form['actions']['submit']['#value'] = t('Send');
     // Add cancel link
-    // TODO handle cancel action.
-    $form['actions']['submit']['#suffix'] = '<div class="user-pass-cancel-link" onclick="Drupal.CTools.Modal.dismiss();return false;">' . l('Cancel', 'user/login') . '</div>';
+    $form['actions']['submit']['#suffix'] = '<div class="back-link user-pass-back-link" onclick="Drupal.CTools.Modal.dismiss();return false;">' . l('Back', 'user/login') . '</div>';
 
   }
 

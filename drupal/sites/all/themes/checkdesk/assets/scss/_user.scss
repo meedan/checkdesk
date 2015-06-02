@@ -241,17 +241,14 @@ body.page-user.logged-in.toolbar {
       @include button-colors($identity);
     }
 
+    // Align cancel button
+    .back-link {
+      float: $omega;
+      a, a:hover { margin-#{$omega}: 0; }
+    }
+
     .ajax-progress-throbber {
       display: none;
     }
   }
 }
-
-// Align cancel button on forgot password form
-.user-forgot-wrapper {
-  .user-pass-cancel-link {
-    float: $omega;
-    a, a:hover { margin-#{$omega}: 0; }
-  }
-}
-

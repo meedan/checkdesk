@@ -11658,15 +11658,14 @@ body.page-user.logged-in.toolbar #sidebar-first {
 .user-login-wrapper .form-actions .form-submit:active, .user-login-wrapper .form-actions .form-submit:active:visited, .user-register-wrapper .form-actions .form-submit:active, .user-register-wrapper .form-actions .form-submit:active:visited, .user-forgot-wrapper .form-actions .form-submit:active, .user-forgot-wrapper .form-actions .form-submit:active:visited {
   color: white;
 }
-.user-login-wrapper .form-actions .ajax-progress-throbber, .user-register-wrapper .form-actions .ajax-progress-throbber, .user-forgot-wrapper .form-actions .ajax-progress-throbber {
-  display: none;
-}
-
-.user-forgot-wrapper .user-pass-cancel-link {
+.user-login-wrapper .form-actions .back-link, .user-register-wrapper .form-actions .back-link, .user-forgot-wrapper .form-actions .back-link {
   float: left;
 }
-.user-forgot-wrapper .user-pass-cancel-link a, .user-forgot-wrapper .user-pass-cancel-link a:hover {
+.user-login-wrapper .form-actions .back-link a, .user-login-wrapper .form-actions .back-link a:hover, .user-register-wrapper .form-actions .back-link a, .user-register-wrapper .form-actions .back-link a:hover, .user-forgot-wrapper .form-actions .back-link a, .user-forgot-wrapper .form-actions .back-link a:hover {
   margin-left: 0;
+}
+.user-login-wrapper .form-actions .ajax-progress-throbber, .user-register-wrapper .form-actions .ajax-progress-throbber, .user-forgot-wrapper .form-actions .ajax-progress-throbber {
+  display: none;
 }
 
 #nav-discussion-form {
