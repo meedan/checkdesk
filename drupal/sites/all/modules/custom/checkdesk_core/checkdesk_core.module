@@ -1709,10 +1709,10 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
 
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     unset($form['name']['#description'], $form['pass']['#description'], $form['links'], $form['twitter_signin']);
-    $form['#prefix'] = '<div class="user-login-wrapper">';
+    $form['#prefix'] = '<div class="user-login-wrapper modal-dialog-signin modal-dialog-signin-email">';
     $form['#suffix'] = '</div>';
     $form['login_header'] = array(
-      '#markup' => t('Sign in with your email address or username'),
+      '#markup' => '<div class="modal-dialog-description">' . t('Sign in with your email address or username') . '</div>',
       '#weight' => -99,
     );
     $form['actions']['submit']['#value'] = t('Sign in');

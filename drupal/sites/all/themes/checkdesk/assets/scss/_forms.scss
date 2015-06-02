@@ -32,9 +32,6 @@
 @mixin form-actions {
   div.form-actions {
     @include ctb-clearfix;
-    margin: $absolute-line-height 0;
-    border-top: 1px solid $firefly10;
-    padding-top: $absolute-line-height;
     input, a {
       @include checkdesk-button(rgba($firefly, 0.4));
       &:hover {

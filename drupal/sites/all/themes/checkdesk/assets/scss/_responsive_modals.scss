@@ -27,6 +27,7 @@
 
 div.ctools-modal-content {
   width: 100% !important;
+  height: auto !important;
   margin: 0 auto;
   max-width: 620px;
   display: inline-block;
@@ -45,6 +46,7 @@ div.ctools-modal-content {
 
 div.ctools-modal-content .modal-content {
   width: 100% !important;
+  height: auto !important;
   padding: 0;
 }
 
@@ -63,4 +65,9 @@ div.ctools-modal-content .modal-content {
     line-height: 22px;
     padding: 10px;
   }
+}
+
+// hide title in the frame
+.modal-title {
+  display: none;
 }
