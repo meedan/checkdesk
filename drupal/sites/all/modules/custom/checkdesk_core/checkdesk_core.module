@@ -1904,15 +1904,6 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     }
   }
 
-  // Do not display on liveblog stories without updates
-  if ($view->name === 'liveblog') {
-    $join = new views_join();
-    $join->construct('field_data_field_desk', 'node', 'nid', 'field_desk_target_id', array(), 'INNER');
-    $query->add_relationship('f', $join, 'field_data_field_desk');
-    $query->add_field('node', 'nid', 'nid', array('function' => 'groupby'));
-    $query->add_groupby('node.nid');
-  }
-
   if ($view->name == 'checkdesk_search') {
     // Update type condition with right values
     if (isset($_GET['type']) && $_GET['type'] != 'All') {
