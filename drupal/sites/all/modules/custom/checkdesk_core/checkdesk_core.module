@@ -1782,7 +1782,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     );
     // Add cancel link
     // TODO handle cancel action.
-    $form['actions']['submit']['#suffix'] = '<div class="user-pass-cancel-link">' . l('Cancel', '<front>') . '</div>';
+    $form['actions']['submit']['#suffix'] = '<div class="user-pass-cancel-link" onclick="Drupal.CTools.Modal.dismiss();return false;">' . l('Cancel', 'user/login') . '</div>';
 
   }
 
