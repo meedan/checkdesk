@@ -772,6 +772,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'edit own discussion content',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'node',
