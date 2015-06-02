@@ -863,16 +863,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'pathauto',
   );
 
-  // Exported permission: 'override discussion promote to front page option'.
-  $permissions['override discussion promote to front page option'] = array(
-    'name' => 'override discussion promote to front page option',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'override_node_options',
-  );
-
   // Exported permission: 'post comments'.
   $permissions['post comments'] = array(
     'name' => 'post comments',
