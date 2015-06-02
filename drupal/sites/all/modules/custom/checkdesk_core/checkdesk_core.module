@@ -974,12 +974,11 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   unset($form['language']['#options'][LANGUAGE_NONE]);
   if (!$form['nid']['#value']) {
     global $language;
-    //Change submit button for CJ users
+    $form['actions']['submit']['#value'] = t('Create story');
+
+    //Hide submit button for CJ users
     if (in_array('citizen journalist', $user->roles)) {
-      $form['actions']['submit']['#value'] = t('Save as draft');
-    }
-    else {
-      $form['actions']['submit']['#value'] = t('Create story');
+      hide($form['actions']['submit']);
     }
     $form['actions']['submit']['#suffix'] =
       '<div class="description">'.
@@ -1022,10 +1021,6 @@ function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_s
  */
 function checkdesk_core_node_presave($node) {
   if ($node->type == 'discussion') {
-    global $user;
-    if (in_array('citizen journalist', $user->roles)) {
-      $node->status = 0;
-    }
     //Eliminate duplicates in multiple authors section (Ticket #3763)
     $target_authors = array();
     foreach ($node->field_additional_authors[LANGUAGE_NONE] as $k => $row) {
@@ -1788,7 +1783,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     );
     // Add cancel link
     // TODO handle cancel action.
-    $form['actions']['submit']['#suffix'] = '<div class="user-pass-cancel-link">' . l('Cancel', '<front>') . '</div>';
+    $form['actions']['submit']['#suffix'] = '<div class="user-pass-cancel-link" onclick="Drupal.CTools.Modal.dismiss();return false;">' . l('Cancel', 'user/login') . '</div>';
 
   }
 
