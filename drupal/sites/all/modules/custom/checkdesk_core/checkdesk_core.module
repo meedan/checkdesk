@@ -953,7 +953,6 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   global $user;
   //Adjust create story form
   $form['title']['#title'] = t('Story title');
-  // $form['title']['#attributes']['placeholder'] = t('Story title');
 
   $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
@@ -993,8 +992,9 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
   }
-  // Customize "Add more items" for authors.
-  $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
+  // Customize Chosen default placeholder text "Choose some options" for authors
+  $form['field_additional_authors'][LANGUAGE_NONE]['#chosen'] = TRUE;
+  $form['field_additional_authors'][LANGUAGE_NONE]['#attributes']['data-placeholder'] = t('Choose authors');
 
 }
 

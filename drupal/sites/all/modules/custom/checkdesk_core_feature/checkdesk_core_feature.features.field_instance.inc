@@ -646,7 +646,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
+      'module' => 'autocomplete_deluxe',
       'settings' => array(
         'apply_chosen' => '',
         'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
@@ -656,7 +656,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'not_found_message' => 'Add \'@term\' as a tag',
         'size' => 60,
       ),
-      'type' => 'options_select',
+      'type' => 'autocomplete_deluxe_taxonomy',
       'weight' => 3,
     ),
   );
