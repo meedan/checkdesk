@@ -48,6 +48,8 @@
 // Add icon for sign in with email form
 .modal-dialog-signin-email {
   @include icon(sign-in, 80px);
+  text-align: center;
+  form .form-item { text-align: $alpha; }
 }
 
 .modal-dialog-signin .modal-dialog-actions {

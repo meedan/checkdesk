@@ -1720,7 +1720,6 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       '#weight' => -99,
     );
     $form['actions']['submit']['#value'] = t('Sign in');
-    $form['pass']['#title'] = t('Passphrase');
     // Add forgot link and a wrapper around forgot pass and remember me
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
     $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
@@ -1778,9 +1777,9 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
 
   if ($form_id == 'user_pass') {
-    $pass_header = '<h1 class="title">'. t('Reset your passphrase') .'</h1>';
+    $pass_header = '<h1 class="title">'. t('Reset your password') .'</h1>';
     $pass_header .= '<div>'. t('Enter the email address you used to create your account,
-    and we\'ll send you an email to reset your passphrase') .'</div>';
+    and we\'ll send you an email to reset your password') .'</div>';
     $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
     $form['pass_header'] = array(
       '#markup' => $pass_header,
@@ -1903,6 +1902,15 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       $query->add_relationship('f', $join, 'field_data_field_stories');
       $query->add_where(1,'f.field_stories_target_id', 1, 'IS NULL');
     }
+  }
+
+  // Do not display on liveblog stories without updates
+  if ($view->name === 'liveblog') {
+    $join = new views_join();
+    $join->construct('field_data_field_desk', 'node', 'nid', 'field_desk_target_id', array(), 'INNER');
+    $query->add_relationship('f', $join, 'field_data_field_desk');
+    $query->add_field('node', 'nid', 'nid', array('function' => 'groupby'));
+    $query->add_groupby('node.nid');
   }
 
   if ($view->name == 'checkdesk_search') {
