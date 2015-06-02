@@ -6437,6 +6437,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged as containing graphic content.', array(), array('context' => ''));
+  $translations['ar:default']['8b6dbba7add9908ae94df6d0be680465'] = array(
+    'source' => 'Promotion settings',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => 'إعدادات الترقية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Promotion settings', array(), array('context' => ''));
   $translations['ar:default']['8b9b82bdef7910e04be780d11dac62b5'] = array(
     'source' => 'Twitter status messages.',
     'context' => '',
@@ -8862,6 +8871,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Custom text', array(), array('context' => ''));
+  $translations['ar:default']['bf336d4a4a066c5bf336c1bc9ee86f1d'] = array(
+    'source' => 'Choose authors',
+    'context' => '',
+    'location' => '/ar/node/1953/edit',
+    'translation' => 'إختر الكتّاب',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Choose authors', array(), array('context' => ''));
   $translations['ar:default']['bf733d8a933c1601697f364223fc7ecb'] = array(
     'source' => 'Access',
     'context' => '',
@@ -8961,15 +8979,6 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('<a href="[node:url:unaliased]">[node:author]\'s report</a> was flagged for fact-checking.', array(), array('context' => ''));
-  $translations['ar:default']['c1aa052dfa2d2f412825b9fcd815650f'] = array(
-    'source' => 'Add author',
-    'context' => '',
-    'location' => '/ar/node/1938/edit',
-    'translation' => 'أضف كاتب',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translatables[] = t('Add author', array(), array('context' => ''));
   $translations['ar:default']['c1c9e5617e7c90882f29ead1945f1308'] = array(
     'source' => 'Exposed form: @view-@display_id',
     'context' => '',
