@@ -358,6 +358,7 @@
     // .form-actions { @include span-columns($w, $w); }
 
     & > .form-item {
+      @include ctb-clearfix;
       @include span-columns($w, $w);
 
       // Nested <.form-item>s
@@ -372,8 +373,8 @@
     // input[type="file"],
     textarea {
       @include cd-sans-serif-family;
-      @include span-columns($w, $w); // small padding with grid accounting
       @include ctb-box-sizing(border-box); // Makes inputs behave like true block-level elements
+      width: 100%;
       padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
       height: auto;
     }

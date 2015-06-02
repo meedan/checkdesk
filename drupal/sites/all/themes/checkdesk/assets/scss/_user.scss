@@ -207,12 +207,6 @@ body.page-user.logged-in.toolbar {
   }
 
   .form-actions {
-
-    .form-submit {
-      float: $alpha;
-      @include button-colors($identity);
-    }
-
     .user-new-account-link {
       float: $omega;
       @include cd-sans-serif-family;
@@ -235,10 +229,29 @@ body.page-user.logged-in.toolbar {
         @include ctb-linkColor($linkColor);
       }
     }
+  }
+}
+
+
+// Form actions on user sign in, register and forgot password
+.user-login-wrapper, .user-register-wrapper, .user-forgot-wrapper {
+  .form-actions {
+    .form-submit {
+      float: $alpha;
+      @include button-colors($identity);
+    }
 
     .ajax-progress-throbber {
       display: none;
     }
-
   }
 }
+
+// Align cancel button on forgot password form
+.user-forgot-wrapper {
+  .user-pass-cancel-link {
+    float: $omega;
+    a, a:hover { margin-#{$omega}: 0; }
+  }
+}
+

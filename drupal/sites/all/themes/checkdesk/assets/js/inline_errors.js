@@ -57,8 +57,8 @@ jQuery(function ($) {
       // ife user register form 
       // setting placeholder text for password fields
       // as it wasn't possible to do with hook_form_alter
-      $('.ife #edit-pass-pass1', context).attr('placeholder', Drupal.t('Password'));
-      $('.ife #edit-pass-pass2', context).attr('placeholder', Drupal.t('Confirm password'));
+      // $('.ife #edit-pass-pass1', context).attr('placeholder', Drupal.t('Password'));
+      // $('.ife #edit-pass-pass2', context).attr('placeholder', Drupal.t('Confirm password'));
     }
 
   };

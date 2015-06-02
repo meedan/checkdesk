@@ -8151,10 +8151,19 @@ form .messages-inline {
 }
 
 form > .form-item {
+  *zoom: 1;
   width: 100%;
   float: left;
   margin-right: 2.12766%;
   display: inline;
+}
+form > .form-item:before, form > .form-item:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+form > .form-item:after {
+  clear: both;
 }
 form > .form-item .form-item {
   width: 100%;
@@ -8166,13 +8175,10 @@ form input[type="password"],
 form input[type="text"],
 form textarea {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  width: 100%;
-  float: left;
-  margin-right: 2.12766%;
-  display: inline;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  width: 100%;
   padding-top: 7.5px;
   padding-bottom: 7.5px;
   height: auto;
@@ -8305,9 +8311,18 @@ form .form-type-textarea:after {
     display: inline-block;
   }
   form > .form-item {
+    *zoom: 1;
     width: 100%;
     float: left;
     margin-right: 6.66667%;
+  }
+  form > .form-item:before, form > .form-item:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  form > .form-item:after {
+    clear: both;
   }
   form > .form-item .form-item {
     width: 100%;
@@ -8318,12 +8333,10 @@ form .form-type-textarea:after {
   form input[type="text"],
   form textarea {
     font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    width: 100%;
-    float: left;
-    margin-right: 6.66667%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    width: 100%;
     padding-top: 7.5px;
     padding-bottom: 7.5px;
     height: auto;
@@ -11634,28 +11647,6 @@ body.page-user.logged-in.toolbar #sidebar-first {
 .user-login-wrapper .user-forgot-pass-link a:hover, .user-register-wrapper .user-forgot-pass-link a:hover {
   color: #50565b;
 }
-.user-login-wrapper .form-actions .form-submit, .user-register-wrapper .form-actions .form-submit {
-  float: left;
-  background-color: #2b76ff;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-}
-.user-login-wrapper .form-actions .form-submit, .user-login-wrapper .form-actions .form-submit:visited, .user-register-wrapper .form-actions .form-submit, .user-register-wrapper .form-actions .form-submit:visited {
-  color: white;
-}
-.user-login-wrapper .form-actions .form-submit:hover, .user-login-wrapper .form-actions .form-submit:focus, .user-register-wrapper .form-actions .form-submit:hover, .user-register-wrapper .form-actions .form-submit:focus {
-  background-color: #1c6cff;
-}
-.user-login-wrapper .form-actions .form-submit:hover, .user-login-wrapper .form-actions .form-submit:hover:visited, .user-login-wrapper .form-actions .form-submit:focus, .user-login-wrapper .form-actions .form-submit:focus:visited, .user-register-wrapper .form-actions .form-submit:hover, .user-register-wrapper .form-actions .form-submit:hover:visited, .user-register-wrapper .form-actions .form-submit:focus, .user-register-wrapper .form-actions .form-submit:focus:visited {
-  color: white;
-}
-.user-login-wrapper .form-actions .form-submit:active, .user-register-wrapper .form-actions .form-submit:active {
-  background-color: #0c62ff;
-}
-.user-login-wrapper .form-actions .form-submit:active, .user-login-wrapper .form-actions .form-submit:active:visited, .user-register-wrapper .form-actions .form-submit:active, .user-register-wrapper .form-actions .form-submit:active:visited {
-  color: white;
-}
 .user-login-wrapper .form-actions .user-new-account-link, .user-register-wrapper .form-actions .user-new-account-link {
   float: right;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -11680,8 +11671,38 @@ body.page-user.logged-in.toolbar #sidebar-first {
 .user-login-wrapper .form-actions .user-new-account-link .register:hover, .user-register-wrapper .form-actions .user-new-account-link .register:hover {
   color: #01225d;
 }
-.user-login-wrapper .form-actions .ajax-progress-throbber, .user-register-wrapper .form-actions .ajax-progress-throbber {
+
+.user-login-wrapper .form-actions .form-submit, .user-register-wrapper .form-actions .form-submit, .user-forgot-wrapper .form-actions .form-submit {
+  float: left;
+  background-color: #2b76ff;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.user-login-wrapper .form-actions .form-submit, .user-login-wrapper .form-actions .form-submit:visited, .user-register-wrapper .form-actions .form-submit, .user-register-wrapper .form-actions .form-submit:visited, .user-forgot-wrapper .form-actions .form-submit, .user-forgot-wrapper .form-actions .form-submit:visited {
+  color: white;
+}
+.user-login-wrapper .form-actions .form-submit:hover, .user-login-wrapper .form-actions .form-submit:focus, .user-register-wrapper .form-actions .form-submit:hover, .user-register-wrapper .form-actions .form-submit:focus, .user-forgot-wrapper .form-actions .form-submit:hover, .user-forgot-wrapper .form-actions .form-submit:focus {
+  background-color: #1c6cff;
+}
+.user-login-wrapper .form-actions .form-submit:hover, .user-login-wrapper .form-actions .form-submit:hover:visited, .user-login-wrapper .form-actions .form-submit:focus, .user-login-wrapper .form-actions .form-submit:focus:visited, .user-register-wrapper .form-actions .form-submit:hover, .user-register-wrapper .form-actions .form-submit:hover:visited, .user-register-wrapper .form-actions .form-submit:focus, .user-register-wrapper .form-actions .form-submit:focus:visited, .user-forgot-wrapper .form-actions .form-submit:hover, .user-forgot-wrapper .form-actions .form-submit:hover:visited, .user-forgot-wrapper .form-actions .form-submit:focus, .user-forgot-wrapper .form-actions .form-submit:focus:visited {
+  color: white;
+}
+.user-login-wrapper .form-actions .form-submit:active, .user-register-wrapper .form-actions .form-submit:active, .user-forgot-wrapper .form-actions .form-submit:active {
+  background-color: #0c62ff;
+}
+.user-login-wrapper .form-actions .form-submit:active, .user-login-wrapper .form-actions .form-submit:active:visited, .user-register-wrapper .form-actions .form-submit:active, .user-register-wrapper .form-actions .form-submit:active:visited, .user-forgot-wrapper .form-actions .form-submit:active, .user-forgot-wrapper .form-actions .form-submit:active:visited {
+  color: white;
+}
+.user-login-wrapper .form-actions .ajax-progress-throbber, .user-register-wrapper .form-actions .ajax-progress-throbber, .user-forgot-wrapper .form-actions .ajax-progress-throbber {
   display: none;
+}
+
+.user-forgot-wrapper .user-pass-cancel-link {
+  float: right;
+}
+.user-forgot-wrapper .user-pass-cancel-link a, .user-forgot-wrapper .user-pass-cancel-link a:hover {
+  margin-right: 0;
 }
 
 #nav-discussion-form {
