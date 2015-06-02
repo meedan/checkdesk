@@ -27,6 +27,11 @@ function _checkdesk_story_collaboration($node) {
             jQuery( "#modalContent .popups-close" ).click(function() {
               window.location =  "'. $url .'";
             });
+            jQuery(document).keyup(function (e) {
+              if ( e.keyCode === 27 ) {
+                window.location =  "'. $url .'";
+              }
+            });
           }
         };
       });
