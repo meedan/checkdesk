@@ -2171,6 +2171,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Language negotiation', array(), array('context' => ''));
+  $translations['ar:default']['32fe59513f5bbdd353b4527cc6af55ce'] = array(
+    'source' => 'Reset your password',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/password',
+    'translation' => 'تغيير كلمة السر ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Reset your password', array(), array('context' => ''));
   $translations['ar:default']['33173aa7d8ee25654236f372dd8a28c5'] = array(
     'source' => 'Hello !recipient_name,
 
@@ -7830,7 +7839,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Sign in with Twitter',
     'context' => '',
     'location' => '',
-    'translation' => 'تسجيل الدخول باستخدام تويتر',
+    'translation' => 'تسجيل الدخول بحساب تويتر',
     'plid' => 0,
     'plural' => 0,
   );
@@ -8979,6 +8988,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('<a href="[node:url:unaliased]">[node:author]\'s report</a> was flagged for fact-checking.', array(), array('context' => ''));
+  $translations['ar:default']['c1aa052dfa2d2f412825b9fcd815650f'] = array(
+    'source' => 'Add author',
+    'context' => '',
+    'location' => '/ar/node/1938/edit',
+    'translation' => 'أضف كاتب',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Add author', array(), array('context' => ''));
   $translations['ar:default']['c1c9e5617e7c90882f29ead1945f1308'] = array(
     'source' => 'Exposed form: @view-@display_id',
     'context' => '',
@@ -9439,6 +9457,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('@group (historical data)', array(), array('context' => ''));
+  $translations['ar:default']['cba11c1f002216777f82e149e6fe5c12'] = array(
+    'source' => 'Email address or username',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/login',
+    'translation' => 'الإيميل أو اسم المستخدم',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Email address or username', array(), array('context' => ''));
   $translations['ar:default']['cbaaeca438c03039dbe4d94987e4a3ad'] = array(
     'source' => '<a class="actor" href="!user_url">!username</a> added a new  <a href="!report_url">report</a> to <a href="!story_url">!story</a>',
     'context' => '',
@@ -11537,6 +11564,17 @@ print theme(\'views_autorefresh\', array(
     'plural' => 0,
   );
   $translatables[] = t('User roles', array(), array('context' => ''));
+  $translations['ar:default']['f484d26b2768aa088b44b9153ffb6706'] = array(
+    'source' => 'Enter the email address you used to create your account,
+    and we\'ll send you an email to reset your password',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/password',
+    'translation' => 'ادخل الإيميل المستخدم في إنشاء حسابك، وستصلك عليه رسالة لتغيير كلمة السر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Enter the email address you used to create your account,
+    and we\'ll send you an email to reset your password', array(), array('context' => ''));
   $translations['ar:default']['f4dc020f50664a70b23db8dbd5db986c'] = array(
     'source' => 'Display the label of the referenced entities.',
     'context' => '',
@@ -11902,7 +11940,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create a new account',
     'context' => '',
     'location' => '/ar/checkdesk/ajax/sign_in_up',
-    'translation' => 'انشئ حسابًا جديدًا',
+    'translation' => 'إنشاء حساب جديد',
     'plid' => 0,
     'plural' => 0,
   );
