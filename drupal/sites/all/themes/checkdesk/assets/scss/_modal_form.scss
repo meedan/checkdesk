@@ -6,6 +6,7 @@
 .modal-dialog-signin .modal-dialog-title {
   color: $firefly;
   font-size: 32px;
+  margin-top: 12px;
   @if $from-direction == 'left' {
     letter-spacing: -1.1px;    
   }
@@ -47,7 +48,6 @@
 
 // Add icon for sign in with email form
 .modal-dialog-signin-email {
-  @include icon(sign-in, 80px);
   text-align: center;
   form .form-item { text-align: $alpha; }
 }

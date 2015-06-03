@@ -1711,9 +1711,10 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['#prefix'] = '<div class="user-login-wrapper modal-dialog-signin modal-dialog-signin-email">';
     $form['#suffix'] = '</div>';
     $form['login_header'] = array(
-      '#markup' => '<div class="modal-dialog-description">' . t('Sign in with your email address or username') . '</div>',
+      '#markup' => '<div class="branding"></div><div class="modal-dialog-description">' . t('Sign in with your email address or username') . '</div>',
       '#weight' => -99,
     );
+    $form['name']['#title'] = t('Email address or username');
     $form['actions']['submit']['#value'] = t('Sign in');
     // Add forgot link and a wrapper around forgot pass and remember me
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
@@ -1753,9 +1754,17 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
 
   if ($form_id == 'user_register_form') {
-    $form['#prefix'] = '<div class="user-register-wrapper">';
+    $form['#prefix'] = '<div class="user-register-wrapper modal-dialog-signin modal-dialog-signin-register">';
     $form['#suffix'] = '</div>';
     global $user;
+
+    $register_header = '<div class="branding"></div>';
+    $register_header .= '<div class="modal-dialog-description">'. t('Create a new account') .'</div>';
+    $form['register_header'] = array(
+      '#markup' => $register_header,
+      '#weight' => -99,
+    );
+
     //Hide administer role so journalist can not give his account a higher role.
     if (!in_array('administrator', $user->roles) && in_array('journalist', $user->roles)) {
       $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
@@ -1767,21 +1776,24 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     }
     unset($form['account']['name']['#description']);
     unset($form['account']['pass']['#description']);
-    $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
-    $form['account']['mail']['#description'] = t('Check your e-mail to confirm your account');
-    $form['actions']['submit']['#suffix'] = '<div class="back-link user-register-back-link" onclick="Drupal.CTools.Modal.dismiss();return false;">' . l('Back', 'user/login') . '</div>';
+    unset($form['account']['mail']['#description']);
+    $form['account']['mail']['#title'] = t('Email address');
+    $form['actions']['submit']['#value'] = t('Sign Up');
+    $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
+    $form['actions']['submit']['#suffix'] = '<div class="back-link user-register-back-link">' . $back_link . '</div>';
   }
 
   if ($form_id == 'user_pass') {
     $form['#prefix'] = '<div class="user-forgot-wrapper modal-dialog-signin modal-dialog-signin-forgot">';
     $form['#suffix'] = '</div>';
-    $pass_header = '<h1 class="modal-dialog-title">'. t('Reset your password') .'</h1>';
+    $pass_header = '<div class="branding"></div><h1 class="modal-dialog-title">'. t('Reset your password') .'</h1>';
     $pass_header .= '<div class="modal-dialog-description">'. t('Enter the email address you used to create your account,
     and we\'ll send you an email to reset your password') .'</div>';
     $form['pass_header'] = array(
       '#markup' => $pass_header,
       '#weight' => -99,
     );
+    $form['name']['#title'] = t('Email address');
     $form['actions']['submit']['#value'] = t('Send');
     // Add cancel link
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-pass-back-link" onclick="Drupal.CTools.Modal.dismiss();return false;">' . l('Back', 'user/login') . '</div>';
@@ -1817,7 +1829,7 @@ function checkdesk_core_rename_remove_button($element, &$form_state) {
 }
 
 function checkdesk_core_user_register_form_submit(&$form, &$form_state) {
-  $message = t('Thank you for applying for an account. Your account is currently pending approval by the site administrator.<br />In the meantime, a welcome message with further instructions has been sent to your e-mail address.');
+  $message = t('Thank you for applying for an account. Your account is currently pending approval by the site administrator.<br />In the meantime, a welcome message with further instructions has been sent to your email address.');
   $position = array_search($message, $_SESSION['messages']['status']);
   if ($position !== FALSE) {
     unset($_SESSION['messages']['status'][$position]);

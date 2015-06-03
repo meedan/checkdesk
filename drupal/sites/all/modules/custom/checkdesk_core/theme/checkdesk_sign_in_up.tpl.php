@@ -1,5 +1,5 @@
 <div class="modal-dialog modal-dialog-signin">
-  <h3 class="modal-dialog-title"><?php print t('Checkdesk'); ?></h3>
+  <div class="branding"></div>
   <div class="modal-dialog-description"><?php print t('Sign in or create an account'); ?></div>
   <div class="modal-dialog-actions">
     <?php if(isset($links['twitter'])) : ?>

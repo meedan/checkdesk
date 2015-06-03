@@ -1789,10 +1789,6 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f086";
 }
 
-.modal-dialog-signin-email:before {
-  content: "\f090";
-}
-
 .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:before, .icon-twitter:before, #widgets .elsewhere ul li span.icon-twitter:before {
   content: "\f099";
 }
@@ -3976,6 +3972,7 @@ div.ctools-modal-content .modal-content {
 .modal-dialog-signin .modal-dialog-title {
   color: #10212f;
   font-size: 32px;
+  margin-top: 12px;
 }
 @media screen and (max-width: 767px) {
   .modal-dialog-signin .modal-dialog-title {
@@ -3999,20 +3996,6 @@ div.ctools-modal-content .modal-content {
 
 .modal-dialog-signin-email {
   text-align: center;
-}
-.modal-dialog-signin-email:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 80px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 .modal-dialog-signin-email form .form-item {
   text-align: right;
@@ -5028,6 +5011,14 @@ div.tabs ul.primary li a {
   height: 22px;
   text-indent: -5000em;
   background: transparent url(../imgs/checkdesk-logo.png) center bottom no-repeat;
+}
+
+.branding {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAYAAAA4E5OyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA65JREFUeNrsm7Fy2kAQhg9wkRK/AXmCyJ0bj6FLaT8B8ARAmRQBUqTFPAGmSgl5AvC4iSvzBpAuXfAbZNdejTVEyOzeniSU+2du5PEgJH3a293bW4zJkTqfv9ayvodSBg8dwKEO4xIGAggSPr6CsYFxB2M+/vZlUwgg9OZbMJoEQSoENIVxC3C2RweEQPQJhqYQxhjGjTaYkkMYAzzAqDpkjlOoDVCWuQVCVjF7wzdoawhQBhpfVFGGgc5yYeknJKqfXzRqD/eLH7kBAjBaZBnvMoqYgQaUihKMKzh8z0EqYw2logAjyNgy4qD8Aiir1J0qwMAI8piBzzhEZ+Bo2VBOLC/aV4CxpITrKfK/S4pSNiF7glBSs5BIRHGWWJGj7liEcMxRbtMC8ii80Tnd6JZxrS4cRpLEDa7z3jkQenMTwam4BmlbWORMMI2u4ZrzQz9cFhpIM00YKErPe0zf1ODAEFkIpeZr7ioVbuzMKAiuj1OnmwQe+UkijDTKdATn9IyehrR6rsaAGNrWTCRTps4Nq5qrUXLG40i0QkCnOB01CkgngunCjSxTB0lX6BfU6yHcKRNY3LxRtJIVJXPqKjsGsnJV6nMlLpAPgrTcFBkINyl6KjoQ7kJu5YH8u4grNJDCywOxBMKdAkHRgXCdZNVPGbu85eiA3DleCHLWVVUqcmcKhLuarNI2hQthgXuNe8iaYFz7EFTThXWY15pICKabOhBaZXIjTcuBaXd3HDb+PYLrrKnem6pT5S7nqya55Cexjk5CJj2xASMBItk37Sv6kskB4TwEs6BqvTsgVMWWrFFmtlOH/MQVM8qNXFvIMxfBOfjWFlJLsdisGqcB5EZoJQFB6XJ8BoyZEMaW6/NstjIHFPKk2tDbi223pLnfpCkinWrsVivbdoi10WuFCEN6Tek72fu6KNt2iGvz0h+iIe2MVrRtatVB9HC/+H1+0cC66cecrdGG3DYIFSAE5Sf2deWo9oGb6uKtU5WmO2xyywkUqw4DNSA5gWINQxVIBEoWPqUHMD5pfJGTXnfKRicpWAuG6ra0FyQ1IBEwLaPTqRiX1IkjSWZAdsA0jX1JcQlj6gJEqkAiYGrm9ddUwQFTKmx7wFrusjC/qDoAUi0m7d4YLy8vLy8vLy+v/1elhAzyeb/U2FW986ZwW6K3r6E4qci8MEfYEvWGwq4BfK7Yn6uU91hHUEAYUQX79nzLCSS9D9mxkj8FBrMFH3LKsRBUw/BbqI5BG3q2WP0VYADuhlDSHARt1wAAAABJRU5ErkJggg==) no-repeat center top;
+  background-size: 68px 68px;
+  width: 68px;
+  height: 68px;
+  width: 100%;
 }
 
 #footer {
