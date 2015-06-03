@@ -13,6 +13,7 @@ $aliases['prod'] = array(
     '@prod.smex',
     '@prod.bellingcat',
     '@prod.globalvoices',
+    '@prod.almanassa',
   ),
 );
 // temporarily remove gv
@@ -78,6 +79,10 @@ $aliases['prod.bellingcat'] = array (
 $aliases['prod.globalvoices'] = array (
   'parent' => '@prod-alias',
   'uri' => 'globalvoices.checkdesk.org',
+);
+$aliases['prod.almanassa'] = array (
+  'parent' => '@prod-alias',
+  'uri' => 'almanassa.checkdesk.org',
 );
 
 // qa aliases
