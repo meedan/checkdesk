@@ -1776,9 +1776,10 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     unset($form['account']['name']['#description']);
     unset($form['account']['pass']['#description']);
     unset($form['account']['mail']['#description']);
-    $form['account']['mail']['#title'] = t('Email address');
-    $form['actions']['submit']['#value'] = t('Sign Up');
+
     if (!$user->uid) {
+      $form['account']['mail']['#title'] = t('Email address');
+      $form['actions']['submit']['#value'] = t('Sign Up');
       // add extra modal classes
       $form['#prefix'] = '<div class="user-register-wrapper modal-dialog-signin modal-dialog-signin-register">';
       $form['#suffix'] = '</div>';
