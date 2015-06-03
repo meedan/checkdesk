@@ -1,7 +1,12 @@
+.modal-overflow-hidden {
+  overflow: hidden !important;
+}
+
 /* Override inline dom styles from modal.js */
 #modalBackdrop {
   background: #fff !important;
   opacity: 0.98 !important;
+  width: 100% !important;
 }
 
 #modalContent {
