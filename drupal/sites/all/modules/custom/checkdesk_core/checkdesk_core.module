@@ -3591,8 +3591,9 @@ function _checkdesk_main_navigation() {
 
   if (user_access('create media content')) {
     $items[] = array(
-      'data' => l(t('Submit report'), 'node/add/media', array(
+      'data' => l('<span>' . t('Submit report') . '</span>', 'node/add/media', array(
         'attributes' => array('class' => array($a_class, 'create-report-link')),
+        'html' => TRUE,
         'query' => array('ref_nid' => $ref_nid),
       )),
       'class' => array($li_class, 'create-report'),
@@ -3619,7 +3620,7 @@ function _checkdesk_main_navigation() {
     'items' => $items,
     'title' => '',
     'type' => 'ul',
-    'attributes' => array('class' => 'first-group')
+    'attributes' => array('class' => 'first-group'),
   ));
   // Second group
   // reports, stories and updates

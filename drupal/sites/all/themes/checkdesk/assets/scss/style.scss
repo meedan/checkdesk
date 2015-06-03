@@ -170,9 +170,6 @@ body {
 // when no sidebars
 body.no-sidebars {
   #main {
-    @include span-columns($container-width - 2, $container-width);
-    //outermost container
-    @include pad(1, 1, $container-width);
     margin-top: $absolute-line-height * 3;
   }
 }
