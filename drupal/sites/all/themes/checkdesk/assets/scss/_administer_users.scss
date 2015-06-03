@@ -35,3 +35,27 @@
     // }
   }
 }
+
+// user admin page#
+.view-administer-users {
+  fieldset {
+    margin-bottom: $absolute-line-height/2;
+  }
+  select {
+    margin-bottom: $absolute-line-height/2;
+  }
+}
+
+
+
+/**
+ * Override default textfield float to put the "Add role" button next to
+ * the input textfield.
+ */
+#user-admin-roles td.edit-name {
+  clear: both;
+}
+#user-admin-roles .form-item-name {
+  float: left; /* LTR */
+  margin-right: 1em; /* LTR */
+}

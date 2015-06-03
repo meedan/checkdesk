@@ -82,8 +82,7 @@ function checkdesk_bot__generate_response($tweet) {
   else if (1 < count($tweet['entities']['urls'])) {
     // Tell user we can only parse a single URL and exit.
     return t(
-      '!screen_name sorry, I can only understand a single URL to import. ' .
-      'We don\'t want to lose your contributions! Please adjust and resend :-)',
+      '!screen_name sorry, I can only understand a single link to import.',
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
       ),
@@ -94,8 +93,21 @@ function checkdesk_bot__generate_response($tweet) {
   }
   else { // 1 > count($tweet['entities']['urls'])
     return t(
-      '!screen_name sorry, I need a URL to import. ' .
-      'We don\'t want to lose your contributions! Please adjust and resend :-)',
+      '!screen_name sorry, I need a link to import.',
+      array(
+        '!screen_name' => '@' . $tweet['user']['screen_name'],
+      ),
+      array(
+        'langcode' => $langcode,
+      )
+    );
+  }
+
+  // Is the URL ours?
+  global $base_url;
+  if (parse_url($report_url, PHP_URL_HOST) === parse_url($base_url, PHP_URL_HOST)) {
+    return t(
+      '!screen_name sorry, but this is one of my links!',
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
       ),
@@ -120,7 +132,7 @@ function checkdesk_bot__generate_response($tweet) {
   // If not found, generate a URL to the report form.
   if (empty($sender_uid)) {
     return t(
-      '!screen_name thanks! You can visit !site_name to submit your report: !url',
+      '!screen_name thanks! Please visit !site_name to submit your link: !url',
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
         '!site_name' => variable_get('site_name', t('Checkdesk')),
@@ -137,7 +149,7 @@ function checkdesk_bot__generate_response($tweet) {
   $report = checkdesk_bot__import_report($report_url, $sender_uid, $story_nid, $tweet);
 
   return t(
-    '!screen_name thanks! You can access your report here: !url',
+    '!screen_name thanks! You can access your link here: !url',
     array(
       '!screen_name' => '@' . $tweet['user']['screen_name'],
       '!site_name' => variable_get('site_name', t('Checkdesk')),

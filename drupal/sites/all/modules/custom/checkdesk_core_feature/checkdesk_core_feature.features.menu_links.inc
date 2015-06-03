@@ -391,28 +391,33 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => '4f72ba17-81dc-46f1-96bf-ab4ae0bed92e',
     'weight' => -48,
   );
-  // Exported menu link: menu-common_sign-in:user/login
-  $menu_links['menu-common_sign-in:user/login'] = array(
+  // Exported menu link: menu-common_sign-in--sign-up:checkdesk/nojs/sign_in_up
+  $menu_links['menu-common_sign-in--sign-up:checkdesk/nojs/sign_in_up'] = array(
     'customized' => 1,
     'expanded' => 0,
     'external' => 0,
     'has_children' => 0,
     'hidden' => 0,
     'language' => 'und',
-    'link_path' => 'user/login',
-    'link_title' => 'Sign in',
+    'link_path' => 'checkdesk/nojs/sign_in_up',
+    'link_title' => 'Sign in / Sign up',
     'menu_links_customized' => 1,
     'menu_links_customized_2' => 1,
     'menu_links_language' => 'und',
     'menu_name' => 'menu-common',
     'module' => 'menu',
     'options' => array(
-      'attributes' => array(),
       'alter' => TRUE,
-      'identifier' => 'menu-common_sign-in:user/login',
+      'identifier' => 'menu-common_sign-in--sign-up:checkdesk/nojs/sign_in_up',
+      'attributes' => array(),
+      'item_attributes' => array(
+        'id' => '',
+        'class' => '',
+        'style' => '',
+      ),
     ),
     'parent_identifier' => 'menu-common_user:<sub>',
-    'router_path' => 'user/login',
+    'router_path' => 'checkdesk/%/sign_in_up',
     'uuid' => '9a684326-a352-d454-517b-878bb9468e91',
     'weight' => -47,
   );
@@ -682,7 +687,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('My account');
   t('Notifications');
   t('Search');
-  t('Sign in');
+  t('Sign in / Sign up');
   t('Submit report');
   t('Terms of use');
   t('Update story');

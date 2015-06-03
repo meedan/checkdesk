@@ -905,7 +905,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'new_report';
   $heartbeatmessagetemplate->description = 'New report';
-  $heartbeatmessagetemplate->message = '!title added by !username.';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added a new <a href="!report_url">report</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -920,28 +920,35 @@ function checkdesk_core_feature_heartbeat_template_info() {
       1 => 0,
       2 => 0,
       3 => 0,
+      5 => 0,
       4 => 0,
     ),
   );
   $heartbeatmessagetemplate->variables = array(
-    '!title' => '',
+    '!user_url' => '',
     '!username' => '',
+    '!report_url' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
+        'activitycomments' => '2',
+      ),
+      'settings' => array(
+        'activitycomments' => array(
+          'activitycomments_node' => 0,
+        ),
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
+        'activitycomments' => 0,
       ),
     ),
     'content' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
+        'activitycomments' => '2',
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
+        'activitycomments' => 0,
       ),
     ),
   );

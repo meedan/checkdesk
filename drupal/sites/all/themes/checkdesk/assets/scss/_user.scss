@@ -73,7 +73,7 @@ body.page-user.logged-in {
     }
     .profile-links {
       a {
-        @include checkdesk-button($grayLight);
+        @include checkdesk-button($firefly5);
         @include button-size(16px);
         text-transform: lowercase;
         float: $from-direction;
@@ -116,14 +116,15 @@ body.page-user.logged-in.toolbar {
 // Forgot password and create new account <.item-list>s
 
 //  this first selector is jacked ... -CGB
-body.page-user-login, 
-body.page-user-register, 
-body.page-user-password { // both logged in and not logged ins states
+.page-user-login, 
+.page-user-register, 
+.page-user-password { // both logged in and not logged ins states
 
   #main {
 
     h1.title {
-      text-align: center;
+      // text-align: center;
+      display: none;
     }
 
     #content-area {
@@ -145,211 +146,109 @@ body.page-user-password { // both logged in and not logged ins states
   .password-strength, .password-suggestions {
     display: none !important;
   }
-
-  // captcha
-  .captcha {
-    @include ctb-clearfix;
-    #recaptcha_table {
-      float: $alpha;
-      width: auto;
-      background-color: $white;
-      
-      #recaptcha_response_field {
-        width: 284px !important;
-        @if $from-direction == right {
-          margin-#{$alpha}: $gutter-width;
-        }
-      }
-
-      #recaptcha_privacy {
-        font-size: 80%;
-      }
-    }
-  }
-
-  // same size as the form
-  #content-header {
-    @include span-columns(4, 6);
-    @include pad(1, 1, 6);
-  }
   
-
-  // ================================================================================
-  // Breakpoints
-  //
-
-  // Break small
-  @include at-breakpoint($break-small) {
-    form {
-      .social-signin-wrapper a {
-        font-size: $large-font-size !important;
-      }
-    }
-  }
 }
 
 .user-login-wrapper, .user-register-wrapper {
-    @include span-columns(4, 6);
-    @include pad(1, 1, 6);
-    margin-top: $absolute-line-height;
-    margin-bottom: $absolute-line-height;
 
-    // when labels are visible
+  // hide password strength and suggestions
+  .password-strength, .password-suggestions {
+    display: none !important;
+  }
+
+
+  // when labels are visible
+  label {
+    color: $firefly60;
+  }    
+
+  // no need of space
+  input[type="text"], input[type="password"] {
+    margin-top: 0;
+  }
+
+  // hide required stars
+  .form-required {
+    display: none;
+  }
+
+  // hide extra link to twitter sign in
+  & > div > .item-list {
+    display: none;
+  }
+
+
+  .user-links {
+    @include ctb-clearfix;
+    @include cd-sans-serif-family;
+    font-size: $small-font-size;
+    line-height: 1.5;
+  }
+
+  .form-item-remember-me {
+    float: $alpha;
     label {
-      color: $firefly60;
-    }    
-
-    // no need of space
-    input[type="text"], input[type="password"] {
-      margin-top: 0;
-    }
-
-    // hide required stars
-    .form-required {
-      display: none;
-    }
-
-    // hide extra link to twitter sign in
-    & > div > .item-list {
-      display: none;
-    }
-
-    // The social media sign-in boxes
-    .social-signin-wrapper {
-      float: none;
-      .item-list {
-        @include ctb-clearfix;
-        text-align: center;
-      }
-      .item-list li {
-        @include reset-list-style;
-        display: inline;
-        margin-#{$omega}: $gutter-width;
-        a {
-          float: none;
-          display: inline-block;
-          padding: $absolute-line-height/2 $gutter-width*2;
-          margin-bottom: $absolute-line-height/2;
-          color: $white;
-          @include border-radius(4px);
-          &:hover {
-            text-decoration: none;
-          }
-        }
-        
-      
-      }
-      // Add the icons with a transition
-      $sign-in-icon-size: 20px;
-      li.first a {
-        @include bb-transition($grey, $twitter-blue) {
-          @include icon(twitter, $sign-in-icon-size, white);
-        }
-      }
-
-      li a[class^='facebook'] {
-        @include bb-transition($grey, $facebook-blue) {
-          @include icon(facebook, $sign-in-icon-size, white);
-        }
-      }
-    }
-
-    .or {
-      @include ctb-clearfix;
-      @include cd-sans-serif-family;
-      color: $grayLight;
-      text-align: center;
-      margin: $absolute-line-height/2 0;
-      span {
-        display: inline-block;
-        border: 1px solid lighten($grayLight, 20%);
-        width: 40px;
-        font-size: 10px;
-        line-height: 40px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        @include border-radius(1000px);
-      }
-    }
-
-    .user-links {
-      @include ctb-clearfix;
+      display: inline-block;
+      color: $firefly30;
       @include cd-sans-serif-family;
       font-size: $small-font-size;
       line-height: 1.5;
     }
-
-    .form-item-remember-me {
+    input[type="checkbox"] {
       float: $alpha;
-      padding-#{$from-direction}: $gutter-width*2;
-      label {
-        display: inline-block;
-        color: $grayLight;
-        @include cd-sans-serif-family;
-        font-size: $small-font-size;
-        line-height: 1.5;
-      }
-      input[type="checkbox"] {
-        float: $alpha;
-        width: auto;
+      width: auto;
 
-      }
     }
+  }
 
-    .user-forgot-pass-link {
+  .user-forgot-pass-link {
+    float: $omega;
+    a { @include ctb-linkColor($firefly30); }
+  }
+
+  .form-actions {
+    .user-new-account-link {
       float: $omega;
-    }
-
-    .form-actions {
-      .form-submit {
-        float: $alpha;
+      @include cd-sans-serif-family;
+      font-size: $small-font-size;
+      color: $firefly5;
+      a {
+        margin-#{$omega}: 0;
       }
-      .user-new-account-link {
-        float: $omega;
-        margin-top: $absolute-line-height/4;
+
+      span {
+        display: inline-block;
+      }
+      
+      .register {
+        @include reset-box-model;
+        background: none;
         @include cd-sans-serif-family;
         font-size: $small-font-size;
-        color: $grayLight;
-
-        span {
-          display: inline-block;
-        }
-        
-        .register {
-          @include reset-box-model;
-          background: none;
-          @include cd-sans-serif-family;
-          font-size: $small-font-size;
-          font-weight: normal;
-          @include ctb-linkColor($linkColor);
-        }
+        font-weight: normal;
+        @include ctb-linkColor($linkColor);
       }
     }
-
-
-  }
-
-
-// user admin page#
-.view-administer-users {
-  fieldset {
-    margin-bottom: $absolute-line-height/2;
-  }
-  select {
-    margin-bottom: $absolute-line-height/2;
   }
 }
 
 
+// Form actions on user sign in, register and forgot password
+.user-login-wrapper, .user-register-wrapper, .user-forgot-wrapper {
+  .form-actions {
+    .form-submit {
+      float: $alpha;
+      @include button-colors($identity);
+    }
 
-/**
- * Override default textfield float to put the "Add role" button next to
- * the input textfield.
- */
-#user-admin-roles td.edit-name {
-  clear: both;
-}
-#user-admin-roles .form-item-name {
-  float: left; /* LTR */
-  margin-right: 1em; /* LTR */
+    // Align cancel button
+    .back-link {
+      float: $omega;
+      a, a:hover { margin-#{$omega}: 0; }
+    }
+
+    .ajax-progress-throbber {
+      display: none;
+    }
+  }
 }

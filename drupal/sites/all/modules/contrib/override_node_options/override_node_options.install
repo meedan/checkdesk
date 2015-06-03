@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the override_node_options module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function override_node_options_install() {
+  db_update('system')->fields(array(
+    'weight' => -1
+  ))
+  ->condition('name', 'override_node_options', '=')
+  ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function override_node_options_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE 'override_node_options_%'");
+}
+
+/**
+ * Implements hook_update_N().
+ */
+function override_node_options_update_7113() {
+  db_update('system')->fields(array(
+    'weight' => -1
+  ))
+  ->condition('name', 'override_node_options', '=')
+  ->execute();
+}

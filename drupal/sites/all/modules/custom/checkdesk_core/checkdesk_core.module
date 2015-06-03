@@ -52,6 +52,8 @@ function checkdesk_core_menu() {
     'page arguments' => array('_checkdesk_core_report_suggest', 1),
     'access callback' => '_checkdesk_core_report_can_suggest',
     'access arguments' => array(1),
+    'file' => 'checkdesk.report_suggest.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
   $items['node/%checkdesk_report/checkdesk/modal/suggest/%ctools_js'] = array(
     'title' => 'Add report to story',
@@ -62,6 +64,8 @@ function checkdesk_core_menu() {
     'access callback' => '_checkdesk_core_report_can_suggest',
     'access arguments' => array(1),
     'type' => MENU_CALLBACK,
+    'file' => 'checkdesk.report_suggest.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
   $items['node/flag/confirm/%/%flag/%/%ctools_js'] = array(
     'title' => 'Confirm',
@@ -77,69 +81,41 @@ function checkdesk_core_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-
-  /*
-  $items['node/%checkdesk_report/checkdesk/publish'] = array(
-    'title' => 'Publish a report',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('_checkdesk_core_report_publish', 1),
-    'access arguments' => array('create post content'),
-  );
-  */
   $items['admin/config/system/checkdesk'] = array(
     'title' => 'Checkdesk',
     'description' => 'Manage general Checkdesk configuration.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_checkdesk_core_settings'),
     'access arguments' => array('administer site configuration'),
-  );
-  $items['admin/config/system/activity-formatter'] = array(
-    'title' => 'Checkdesk',
-    'description' => 'Manage hearbeat activity type and formatter.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('_checkdesk_activity_formatter_mapping'),
-    'access arguments' => array('administer site configuration'),
-  );
-  $items['report-view-modal/%ctools_js'] = array(
-    'title' => 'Report view (modal)',
-    'page callback' => '_checkdesk_modal_report_view',
-    'page arguments' => array(1),
-    'access callback' => TRUE,
-    //'modal' => TRUE,
-    'type' => MENU_CALLBACK,
+    'file' => 'checkdesk.admin.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
   $items['modal/%ctools_js'] = array(
     'page callback' => 'checkdesk_core_modal_callback',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
   );
-
   $items['checkdesk_validation/unique_field'] = array(
     'title' => 'Client-side validation ajax callback to validate unique fields',
     'page callback' => '_checkdesk_validation_ajax_unique_field',
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-
-  $items['checkdesk_take_tour'] = array(
-    'title' => 'Take a tour based on role',
-    'page callback' => '_checkdesk_core_take_tour',
-    'access callback' => '_checkdesk_core_can_take_tour',
-    'type' => MENU_CALLBACK,
-  );
   $items['node/%node/collaboration'] = array(
     'page callback' => '_checkdesk_story_collaboration',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
-    'file' => 'checkdesk_core.pages.inc',
+    'file' => 'checkdesk.collaborate.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
-  $items['story-collaboration-anonymous/%ctools_js/login'] = array(
-    'title' => 'Login',
-    'page callback' => 'story_collaboration_anonymous_login',
+  $items['checkdesk/%ctools_js/sign_in_up'] = array(
+    'title' => 'Checkdesk',
+    'page callback' => 'checkdesk_sign_in_up_callback',
     'page arguments' => array(1),
-    'access callback' => TRUE,
+    'access callback' => user_is_anonymous(),
     'type' => MENU_CALLBACK,
-    'file' => 'checkdesk_core.pages.inc',
+    'file' => 'checkdesk.sign_in_up.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
   $items['checkdesk/reports'] = array(
     'title' => 'Reports',
@@ -162,36 +138,15 @@ function checkdesk_core_menu() {
   return $items;
 }
 
+/**
+ *check if login user is journalist or super admin
+ */
 function _checkdesk_is_journalist() {
   global $user;
   if ($user->uid == 1 || in_array('journalist', $user->roles)) {
     return TRUE;
   }
   return FALSE;
-}
-/**
- * Menu callback function for `checkdesk_take_tour`
- */
-function _checkdesk_core_take_tour() {
-  global $user;
-  $roles = array_values($user->roles);
-  $tour = '';
-  if (in_array('journalist', $roles)) {
-    $tour = 'journalist';
-  }
-  else if (in_array('citizen journalist', $roles)) {
-    $tour = 'citizen';
-  }
-  drupal_goto('<front>', array('query' => array('tour' => $tour)));
-}
-
-/**
- * Menu access callback function for `checkdesk_take_tour`
- */
-function _checkdesk_core_can_take_tour() {
-  global $user;
-  $roles = array_values($user->roles);
-  return ($user->uid == 1) || in_array('journalist', $roles) || in_array('citizen journalist', $roles);
 }
 
 /**
@@ -268,85 +223,22 @@ function _checkdesk_core_report_can_suggest($report) {
 }
 
 /**
- * Menu function for `report-view-modal/%ctools_js`.
- */
-function _checkdesk_modal_report_view($js = FALSE) {
-  ctools_include('modal');
-  $nid = arg(2);
-  $output = '';
-  if (is_numeric($nid)) {
-    $node = node_load($nid);
-    if (is_object($node)) {
-      $title = $node->title;
-      $element = node_view($node);
-      $element['comments'] = comment_node_page_additions($node);
-      $output = drupal_render($element);
-
-      $javascript = drupal_add_js(NULL, NULL);
-      $settings = '';
-      if(isset($javascript['settings'])) {
-        $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
-          drupal_json_encode(call_user_func_array('array_merge_recursive', $javascript['settings']['data'])) .
-          ');</script>';
-      }
-      //Add the settings to the form
-      $output .= $settings;
-    }
-  }
-
-  if ($js) {
-    ctools_modal_render($title, $output);
-  }
-  else {
-    drupal_set_title($title);
-    print $output . ' no ctools';
-  }
-}
-
-/**
  * Implements hook_ajax_render_alter().
  * Add a `facebook_refresh` command to make sure FB embeds are shown correctly.
  * @see http://thereisamoduleforthat.com/content/loading-facebook-embeds-ajax
  */
 function checkdesk_core_ajax_render_alter(&$commands) {
-  foreach ($commands as $command) {
-    if ($command['command'] == 'modal_display') {
+  foreach ($commands as $key => $command) {
+    if ($command['command'] === 'modal_display') {
       $commands[] = array(
         'command' => 'refreshFacebook',
       );
     }
+    // If we're dismissing a modal, AND we're reloading the page, don't dismiss the modal.
+    if ($command['command'] === 'modal_dismiss' && array_filter($commands, function($v) { return $v['command'] === 'reload'; })) {
+      unset($commands[$key]);
+    }
   }
-}
-
-/**
- * Form function for `_checkdesk_core_settings`.
- */
-function _checkdesk_core_settings($form, $form_state) {
-  $form['checkdesk_site_owner'] = array(
-    '#title' => t('Site owner'),
-    '#type' => 'textfield',
-    '#default_value' => variable_get('checkdesk_site_owner', ''),
-  );
-  $form['checkdesk_site_owner_url'] = array(
-    '#title' => t('Site owner URL'),
-    '#type' => 'textfield',
-    '#default_value' => variable_get('checkdesk_site_owner_url', ''),
-  );
-  $form['checkdesk_factchecking_statement'] = array(
-    '#title' => t('A "verified" status means'),
-    '#type' => 'textarea',
-    '#default_value' => variable_get('checkdesk_factchecking_statement', ''),
-  );
-
-  return system_settings_form($form);
-}
-
-/**
- * Form function for `_checkdesk_activity_formatter_mapping`.
- */
-function _checkdesk_activity_formatter_mapping($form, $form_state) {
-
-  return system_settings_form($form);
 }
 
 /**
@@ -360,110 +252,6 @@ function checkdesk_report_load($nid) {
   return FALSE;
 }
 
-/**
- * Title callback for `_checkdesk_core_report_suggest`.
- */
-function _checkdesk_core_report_suggest_title($report) {
-  return user_access('add report to story') ?
-    t('Add Report "!title" to Story', array(
-      '!title' => views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title))
-    ) :
-    t('Suggest Report "!title" to Story', array(
-      '!title' => views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title))
-    );
-}
-
-/**
- * Form function for `_checkdesk_core_report_suggest`.
- * Allow user to choose from all stories not already associated with this report.
- */
-function _checkdesk_core_report_suggest($form, $form_state, $report = NULL) {
-  if (empty($report)) {
-    $report = $form_state['report'];
-  }
-  $stories = db_query("
-    SELECT nid, concat(substring(title, 1, 48), '...') as title
-    FROM {node}
-    WHERE type='discussion'
-    ORDER BY created DESC
-    LIMIT 10
-    ")->fetchAllKeyed();
-  $form['story'] = array(
-    '#type' => 'select',
-    '#options' => $stories,
-  );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit'),
-  );
-  $form['#report'] = $report;
-  return $form;
-}
-
-/**
- * Submit function for `_checkdesk_core_report_suggest`.
- */
-function _checkdesk_core_report_suggest_submit($form, &$form_state) {
-  // Add the story to the report.
-  $report = $form['#report'];
-  if (module_exists('checkdesk_duplicates')) {
-    // Clone existing report ticket #3660
-    $report = _checkdesk_duplicate_share_report($report, $form_state['values']['story']);
-  }
-  else {
-    $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
-    node_save($report);
-  }
-  $story = node_load($form_state['values']['story']);
-  $form_state['values']['story_title'] = $story->title;
-  $form_state['values']['report_id'] = $report->nid;
-  // Redirect to story.
-  if (user_access('add report to story')) {
-    $form_state['redirect'] = array('node/add/post', array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
-  }
-}
-
-/**
- * Modal function for `_checkdesk_core_report_suggest`.
- */
-function _checkdesk_core_report_suggest_modal($report, $js) {
-  if (!$js) {
-    drupal_goto('node/' . $report->nid . '/checkdesk/suggest');
-    return;
-  }
-
-  ctools_include('modal');
-  ctools_include('ajax');
-
-  $form_state = array(
-    'ajax' => TRUE,
-    'title' => _checkdesk_core_report_suggest_title($report),
-    'report' => $report,
-  );
-
-  $commands = ctools_modal_form_wrapper('_checkdesk_core_report_suggest', $form_state);
-
-  if (!empty($form_state['executed'])) {
-    // Add the responder javascript, required by ctools
-    ctools_add_js('ajax-responder');
-
-    // Array with ajax response.
-    $commands = array();
-    // Create ajax command array, set the message and dismiss the modal window.
-    $message = t('<b>' . views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title) . '</b> added to <b>' . $form_state['values']['story_title'] . '</b>');
-    drupal_set_message(t($message));
-    // $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
-    $commands[] = ctools_modal_command_dismiss();
-
-    // Redirect to story.
-    if (user_access('add report to story')) {
-      $commands[] = ctools_ajax_command_redirect('node/add/post', 0, array('query' => array('report' => $form_state['values']['report_id'], 'story' => $form_state['values']['story'])));
-    }
-  }
-
-  print ajax_render($commands);
-  exit;
-}
 
 /**
  * Implements hook_flag_link_type_info().
@@ -641,42 +429,6 @@ function _checkdesk_core_invoke_messages($action, $type) {
   $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
   $page = array('#type' => 'ajax', '#commands' => $commands);
   ajax_deliver($page);
-}
-
-/**
- * Form function for `_checkdesk_core_report_publish`.
- */
-function _checkdesk_core_report_publish($form, $form_state, $report) {
-  $stories = db_query("
-    SELECT nid, title
-    FROM {node}
-    WHERE type='discussion'
-    ")->fetchAllKeyed();
-  $form['story'] = array(
-    '#type' => 'select',
-    '#title' => t('Story'),
-    '#options' => $stories,
-  );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit'),
-  );
-  $form['#report'] = $report;
-  return $form;
-}
-
-/**
- * Submit function for `_checkdesk_core_report_publish`.
- */
-function _checkdesk_core_report_publish_submit($form, &$form_state) {
-  // Add the story to the report.
-  // TODO Don't add the story to the report if it's already there.
-  $report = $form['#report'];
-  $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
-  node_save($report);
-
-  // Redirect to story.
-  $form_state['redirect'] = array('node/add/post', array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
 }
 
 /**
@@ -1202,17 +954,14 @@ function _checkdesk_core_post_node_form_validate($form, &$form_state) {
  * Ajax-enable the discussion form as requested.
  */
 function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
-
+  global $user;
   //Adjust create story form
   $form['title']['#title'] = t('Story title');
-  // $form['title']['#attributes']['placeholder'] = t('Story title');
 
   $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
 
   $form['body'][LANGUAGE_NONE][0]['#title'] = t('Text');
-  $form['body'][LANGUAGE_NONE][0]['#description'] =
-    t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
   // Make the body field a drop target for reports.
   $form['body']['#prefix'] = '<div class="droppable">';
   $form['body']['#suffix'] = '</div>';
@@ -1228,13 +977,30 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   if (!$form['nid']['#value']) {
     global $language;
     $form['actions']['submit']['#value'] = t('Create story');
-    $form['actions']['submit']['#suffix'] =
-      '<div class="description">'.
-      t('<span>Note:</span> Your story won\'t be published to the liveblog homepage until you add an update to your story.') .
-      '</div>';
     //Set default language value
     $form['language']['#default_value'] = $language->language;
   }
+  //Hide submit button for CJ users
+  if (in_array('citizen journalist', $user->roles)) {
+    if (!$form['nid']['#value']) {
+      $form['actions']['submit']['#access'] = 0;
+    }
+    else {
+      if ($form['#node']->status) {
+        drupal_set_message(t('This story is already published. You can\'t edit it'), 'error');
+        drupal_goto('node/'. $form['nid']['#value']);
+      }
+      $form['actions']['submit']['#access'] = $form['#node']->status;
+      $form['actions']['draft']['#access'] = !$form['#node']->status;
+    }
+  }
+  if (in_array('journalist', $user->roles)) {
+    // Hide comment settings
+    $form['comment_settings']['#access'] = FALSE;
+  }
+  // Customize Chosen default placeholder text "Choose some options" for authors
+  $form['field_additional_authors'][LANGUAGE_NONE]['#chosen'] = TRUE;
+  $form['field_additional_authors'][LANGUAGE_NONE]['#attributes']['data-placeholder'] = t('Choose authors');
 
 }
 
@@ -1255,6 +1021,22 @@ function _redirect_story($form, &$form_state) {
 function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_state) {
   // Hide comment attachment field on comment form.
   $form['field_attachment']['#access'] = false;
+}
+
+/**
+ * Implements hook_node_presave()
+ */
+function checkdesk_core_node_presave($node) {
+  if ($node->type == 'discussion') {
+    //Eliminate duplicates in multiple authors section (Ticket #3763)
+    $target_authors = array();
+    foreach ($node->field_additional_authors[LANGUAGE_NONE] as $k => $row) {
+      if (in_array($row['target_id'], $target_authors)) {
+        unset($node->field_additional_authors[LANGUAGE_NONE][$k]);
+      }
+      $target_authors[] = $row['target_id'];
+    }
+  }
 }
 
 /**
@@ -1652,6 +1434,13 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
+  $themes['checkdesk_core_sign_in_up'] = array(
+      'template' => 'checkdesk_sign_in_up',
+      'variables' => array(
+      'links' => NULL,
+    ),
+  ) + $base;
+
   return $themes;
 }
 
@@ -1924,58 +1713,23 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['#submit'][] = 'checkdesk_core_site_information_submit';
   }
 
-  if (in_array($form_id, array('user_login', 'user_login_block', 'user_register_form'))) {
-    $items = array();
-    if (twitter_api_keys()) {
-      $items[] = twitter_signin_button();
-    }
-    $fb_block = module_invoke('fboauth', 'block_view', 'login');
-    if (isset($fb_block['content'])) {
-      $items[] = $fb_block['content'];
-    }
-    if (count($items)) {
-      $form['social_media_signin'] = array(
-        '#type' => 'item',
-        '#markup' => theme('item_list', array('items' => $items)),
-        '#weight' => '-99',
-        '#prefix' => '<div class="social-signin-wrapper">',
-        '#suffix' => '</div><div class="or"><span>' . t('or') . '</span></div>',
-      );
-    }
-    unset($form['twitter_signin']);
-  }
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
-    $form['#prefix'] = '<div class="user-login-wrapper">';
+    unset($form['name']['#description'], $form['pass']['#description'], $form['links'], $form['twitter_signin']);
+    $form['#prefix'] = '<div class="user-login-wrapper modal-dialog-signin modal-dialog-signin-email">';
     $form['#suffix'] = '</div>';
-    $form['pass']['#title'] = $form['pass']['#title'] . l(t('(forgot?)'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
-    $items = array();
-    if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
-      $items[] = l(t('Create new account'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
-    }
-    $form['links'] = array('#markup' => theme('item_list', array('items' => $items)));
+    $form['login_header'] = array(
+      '#markup' => '<div class="branding"></div><div class="modal-dialog-description">' . t('Sign in with your email address or username') . '</div>',
+      '#weight' => -99,
+    );
+    $form['name']['#title'] = t('Email address or username');
     $form['actions']['submit']['#value'] = t('Sign in');
-    unset($form['name']['#description']);
-    unset($form['pass']['#description']);
-    $form['pass']['#title'] = t('Password');
     // Add forgot link and a wrapper around forgot pass and remember me
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
     $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
     $form['remember_me']['#suffix'] = '</div>';
-    // add a wrapper around new account link
-    unset($form['links']);
-    $link['attributes']['class'][] = 'register';
-    $link['attributes']['title'] = t('Sign Up');
-    // Set destination with story collaboration page if login using modal
-    if (isset($form_state['ajax'])) {
-      $link['query']['destination'] = 'node/' . $form_state['story'] . '/collaboration';
-    }
-    else {
-      $link['query'] = drupal_get_destination();
-    }
-    $new_account_link = l(t('Sign Up'), 'user/register', $link);
-    $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link"><span>' . t('Don\'t have an account? ') . '</span>
-    ' . $new_account_link . '</div>';
-
+    $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
+    $form['actions']['submit']['#suffix'] = '<div class="back-link user-sigin-back-link">' . $back_link . '</div>';
+    $form['#validate'][] = '_modify_drupal_message';
   }
 
   if ($form_id == '_checkdesk_core_report_suggest') {
@@ -2008,9 +1762,8 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
 
   if ($form_id == 'user_register_form') {
-    $form['#prefix'] = '<div class="user-register-wrapper">';
-    $form['#suffix'] = '</div>';
     global $user;
+
     //Hide administer role so journalist can not give his account a higher role.
     if (!in_array('administrator', $user->roles) && in_array('journalist', $user->roles)) {
       $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
@@ -2022,11 +1775,41 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     }
     unset($form['account']['name']['#description']);
     unset($form['account']['pass']['#description']);
-    $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
-    $form['account']['mail']['#description'] = t('Check your e-mail to confirm your account');
+    unset($form['account']['mail']['#description']);
+
+    if (!$user->uid) {
+      $form['account']['mail']['#title'] = t('Email address');
+      $form['actions']['submit']['#value'] = t('Sign Up');
+      // add extra modal classes
+      $form['#prefix'] = '<div class="user-register-wrapper modal-dialog-signin modal-dialog-signin-register">';
+      $form['#suffix'] = '</div>';
+      $register_header = '<div class="branding"></div>';
+      $register_header .= '<div class="modal-dialog-description">'. t('Create a new account') .'</div>';
+      $form['register_header'] = array(
+        '#markup' => $register_header,
+        '#weight' => -99,
+      );
+      $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
+      $form['actions']['submit']['#suffix'] = '<div class="back-link user-register-back-link">' . $back_link . '</div>';
+    }
   }
+
   if ($form_id == 'user_pass') {
-    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
+    $form['#prefix'] = '<div class="user-forgot-wrapper modal-dialog-signin modal-dialog-signin-forgot">';
+    $form['#suffix'] = '</div>';
+    $pass_header = '<div class="branding"></div>';
+    $pass_header .= '<div class="modal-dialog-description">'. t('Enter the email address you used to create your account,
+    and we\'ll send you an email to reset your password') .'</div>';
+    $form['pass_header'] = array(
+      '#markup' => $pass_header,
+      '#weight' => -99,
+    );
+    $form['name']['#title'] = t('Email address');
+    $form['actions']['submit']['#value'] = t('Send');
+    $form['actions']['submit']['#submit'][] = '_modify_drupal_message';
+    // Add cancel link
+    $form['actions']['submit']['#suffix'] = '<div class="back-link user-pass-back-link" onclick="Drupal.CTools.Modal.dismiss();return false;">' . l(t('Back'), 'user/login') . '</div>';
+
   }
 
   // theme file field
@@ -2043,8 +1826,31 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
             // Alter the file field element after it has been built.
             $form['field_lead_image'][$node_language][$item]['#after_build'][] = 'checkdesk_core_rename_remove_button';
           }
+
+
         }
       }
+    }
+  }
+}
+
+/**
+ * Alter drupal messages
+ * TODO revisit implementation
+ */
+function _modify_drupal_message($form, &$form_state) {
+  if ($form['#form_id'] == 'user_pass') {
+    drupal_get_messages('status');
+    drupal_set_message(t('<strong>We sent you an email to reset the password</strong> <br> find it in your inbox (or junk).'));
+  }
+  else {
+    $values = $form_state['values'];
+    if (!empty($values['name']) && empty($form_state['uid']) && !isset($form_state['flood_control_triggered'])) {
+      drupal_get_messages('error');
+      if (empty($values['pass'])) {
+        drupal_set_message(t('Password field is required.'), 'error');
+      }
+      drupal_set_message(t('Email/username and password don\'t match. Try again?'), 'error');
     }
   }
 }
@@ -2058,7 +1864,7 @@ function checkdesk_core_rename_remove_button($element, &$form_state) {
 }
 
 function checkdesk_core_user_register_form_submit(&$form, &$form_state) {
-  $message = t('Thank you for applying for an account. Your account is currently pending approval by the site administrator.<br />In the meantime, a welcome message with further instructions has been sent to your e-mail address.');
+  $message = t('Thank you for applying for an account. Your account is currently pending approval by the site administrator.<br />In the meantime, a welcome message with further instructions has been sent to your email address.');
   $position = array_search($message, $_SESSION['messages']['status']);
   if ($position !== FALSE) {
     unset($_SESSION['messages']['status'][$position]);
@@ -2140,15 +1946,6 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       $query->add_relationship('f', $join, 'field_data_field_stories');
       $query->add_where(1,'f.field_stories_target_id', 1, 'IS NULL');
     }
-  }
-
-  // Do not display on liveblog stories without updates
-  if ($view->name === 'liveblog') {
-    $join = new views_join();
-    $join->construct('field_data_field_desk', 'node', 'nid', 'field_desk_target_id', array(), 'INNER');
-    $query->add_relationship('f', $join, 'field_data_field_desk');
-    $query->add_field('node', 'nid', 'nid', array('function' => 'groupby'));
-    $query->add_groupby('node.nid');
   }
 
   if ($view->name == 'checkdesk_search') {
@@ -3030,6 +2827,7 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
+  global $user;
   // Adjust edit node form
   $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
@@ -3042,6 +2840,10 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   elseif (isset($_GET['ref_nid'])) {
     $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
   }
+  //set default url if exist.
+  if (isset($_GET['url'])) {
+    $form['field_link'][LANGUAGE_NONE][0]['#default_value']['url'] = $_GET['url'];
+  }
 
   $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);
   $form['field_stories'][LANGUAGE_NONE]['#options'] = $options;
@@ -3051,6 +2853,10 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   }
   // Redirect user to collaboration page.
   $form['actions']['submit']['#submit'][] = '_redirect_report';
+  if (in_array('journalist', $user->roles)) {
+    // Hide comment settings
+    $form['comment_settings']['#access'] = FALSE;
+  }
 }
 
 /**
