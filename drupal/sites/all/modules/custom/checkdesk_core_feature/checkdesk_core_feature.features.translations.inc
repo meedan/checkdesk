@@ -10095,7 +10095,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Sign Up',
     'context' => '',
     'location' => '/ar/user/login',
-    'translation' => 'أنشئ حسابا جديدا',
+    'translation' => 'سجّل',
     'plid' => 0,
     'plural' => 0,
   );
