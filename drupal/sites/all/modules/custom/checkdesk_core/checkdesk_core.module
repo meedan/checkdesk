@@ -958,8 +958,6 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
 
   $form['body'][LANGUAGE_NONE][0]['#title'] = t('Text');
-  $form['body'][LANGUAGE_NONE][0]['#description'] =
-    t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
   // Make the body field a drop target for reports.
   $form['body']['#prefix'] = '<div class="droppable">';
   $form['body']['#suffix'] = '</div>';
@@ -1723,6 +1721,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['remember_me']['#suffix'] = '</div>';
     $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-sigin-back-link">' . $back_link . '</div>';
+    $form['#validate'][] = '_modify_drupal_message';
   }
 
   if ($form_id == '_checkdesk_core_report_suggest') {
@@ -1796,6 +1795,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     );
     $form['name']['#title'] = t('Email address');
     $form['actions']['submit']['#value'] = t('Send');
+    $form['actions']['submit']['#submit'][] = '_modify_drupal_message';
     // Add cancel link
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-pass-back-link" onclick="Drupal.CTools.Modal.dismiss();return false;">' . l('Back', 'user/login') . '</div>';
 
@@ -1819,6 +1819,27 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
 
         }
       }
+    }
+  }
+}
+
+/**
+ * Alter drupal messages
+ * TODO revisit implementation
+ */
+function _modify_drupal_message($form, &$form_state) {
+  if ($form['#form_id'] == 'user_pass') {
+    drupal_get_messages('status');
+    drupal_set_message(t('<strong>We sent you an email to reset the password</strong> <br> find it in your inbox (or junk).'));
+  }
+  else {
+    $values = $form_state['values'];
+    if (!empty($values['name']) && empty($form_state['uid']) && !isset($form_state['flood_control_triggered'])) {
+      drupal_get_messages('error');
+      if (empty($values['pass'])) {
+        drupal_set_message(t('Password field is required.'), 'error');
+      }
+      drupal_set_message(t('Email/username and password don\'t match. Try again.'), 'error');
     }
   }
 }
