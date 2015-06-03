@@ -1758,16 +1758,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
 
   if ($form_id == 'user_register_form') {
-    $form['#prefix'] = '<div class="user-register-wrapper modal-dialog-signin modal-dialog-signin-register">';
-    $form['#suffix'] = '</div>';
     global $user;
-
-    $register_header = '<div class="branding"></div>';
-    $register_header .= '<div class="modal-dialog-description">'. t('Create a new account') .'</div>';
-    $form['register_header'] = array(
-      '#markup' => $register_header,
-      '#weight' => -99,
-    );
 
     //Hide administer role so journalist can not give his account a higher role.
     if (!in_array('administrator', $user->roles) && in_array('journalist', $user->roles)) {
@@ -1783,8 +1774,19 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     unset($form['account']['mail']['#description']);
     $form['account']['mail']['#title'] = t('Email address');
     $form['actions']['submit']['#value'] = t('Sign Up');
-    $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
-    $form['actions']['submit']['#suffix'] = '<div class="back-link user-register-back-link">' . $back_link . '</div>';
+    if (!$user->uid) {
+      // add extra modal classes
+      $form['#prefix'] = '<div class="user-register-wrapper modal-dialog-signin modal-dialog-signin-register">';
+      $form['#suffix'] = '</div>';
+      $register_header = '<div class="branding"></div>';
+      $register_header .= '<div class="modal-dialog-description">'. t('Create a new account') .'</div>';
+      $form['register_header'] = array(
+        '#markup' => $register_header,
+        '#weight' => -99,
+      );
+      $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
+      $form['actions']['submit']['#suffix'] = '<div class="back-link user-register-back-link">' . $back_link . '</div>';
+    }
   }
 
   if ($form_id == 'user_pass') {
