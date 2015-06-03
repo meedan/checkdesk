@@ -1794,7 +1794,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'user_pass') {
     $form['#prefix'] = '<div class="user-forgot-wrapper modal-dialog-signin modal-dialog-signin-forgot">';
     $form['#suffix'] = '</div>';
-    $pass_header = '<div class="branding"></div><h1 class="modal-dialog-title">'. t('Reset your password') .'</h1>';
+    $pass_header = '<div class="branding"></div>';
     $pass_header .= '<div class="modal-dialog-description">'. t('Enter the email address you used to create your account,
     and we\'ll send you an email to reset your password') .'</div>';
     $form['pass_header'] = array(

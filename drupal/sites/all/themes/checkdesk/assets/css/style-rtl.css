@@ -2119,7 +2119,7 @@ select[size] {
 .form-type-radio,
 .form-type-checkbox {
   min-height: 24px;
-  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .form-type-radio input[type="radio"],
@@ -3978,19 +3978,20 @@ div.ctools-modal-content .modal-content {
   color: #10212f;
   font-size: 32px;
   margin-top: 12px;
+  margin-top: 20px;
 }
 @media screen and (max-width: 767px) {
   .modal-dialog-signin .modal-dialog-title {
     font-size: 26px;
-    margin-bottom: 6px;
+    margin-top: 6px;
   }
 }
 
 .modal-dialog-signin .modal-dialog-description {
-  margin: 12px 0 30px 0;
   color: #b7bcc0;
   font-size: 20px;
   line-height: 1.4;
+  margin: 20px 0 34px 0;
 }
 @media screen and (max-width: 767px) {
   .modal-dialog-signin .modal-dialog-description {
@@ -4039,6 +4040,9 @@ div.ctools-modal-content .modal-content {
   background-clip: padding-box;
   font-weight: 400;
   margin-left: 1em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   display: block;
   margin: 0 auto 10px;
   width: 260px;
@@ -4047,7 +4051,8 @@ div.ctools-modal-content .modal-content {
   text-align: right;
   height: 48px;
   line-height: 47px;
-  font-size: 16.5px;
+  font-size: 14.5px;
+  line-height: 32px;
 }
 .modal-dialog-signin .modal-dialog-actions a::-moz-focus-inner {
   border: none;
@@ -4070,6 +4075,18 @@ div.ctools-modal-content .modal-content {
 }
 .modal-dialog-signin .modal-dialog-actions a:active, .modal-dialog-signin .modal-dialog-actions a:active:visited {
   color: white;
+}
+@media screen and (max-width: 767px) {
+  .modal-dialog-signin .modal-dialog-actions a {
+    height: 42px;
+    font-size: 14.5px;
+    line-height: 32px;
+  }
+  .modal-dialog-signin .modal-dialog-actions a:before, .modal-dialog-signin .modal-dialog-actions a:after {
+    font-size: 20px;
+    margin-left: 10px;
+    line-height: 41px;
+  }
 }
 .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin {
   background-color: #008ee6;
@@ -4206,17 +4223,8 @@ div.ctools-modal-content .modal-content {
 .modal-dialog-signin .modal-dialog-actions a:before, .modal-dialog-signin .modal-dialog-actions a:after {
   font-size: 24px !important;
   margin: 0 0 0 0 !important;
+  margin: 5px 0 0 0 !important;
   margin-left: 15px !important;
-}
-@media screen and (max-width: 767px) {
-  .modal-dialog-signin .modal-dialog-actions a {
-    height: 42px;
-    line-height: 41px;
-  }
-  .modal-dialog-signin .modal-dialog-actions a:before, .modal-dialog-signin .modal-dialog-actions a:after {
-    font-size: 20px;
-    margin-left: 10px;
-  }
 }
 
 .modal-dialog-signin .or {
