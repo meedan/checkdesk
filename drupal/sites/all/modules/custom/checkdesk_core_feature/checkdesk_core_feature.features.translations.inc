@@ -9177,6 +9177,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Compose new update', array(), array('context' => ''));
+  $translations['ar:default']['c6004063e8d52d9ceae2f67f2edc71eb'] = array(
+    'source' => 'Email/username and password don\'t match. Try again?',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/login',
+    'translation' => 'يوجد خطأ في الإيميل / كلمة السر. لِمَ لا تحاول مرة أخرى؟',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Email/username and password don\'t match. Try again?', array(), array('context' => ''));
   $translations['ar:default']['c600e1c14837eea04bf6b37d10f44146'] = array(
     'source' => 'Graphic content (journalist)',
     'context' => '',

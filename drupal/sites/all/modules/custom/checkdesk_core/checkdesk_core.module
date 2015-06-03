@@ -1843,7 +1843,7 @@ function _modify_drupal_message($form, &$form_state) {
       if (empty($values['pass'])) {
         drupal_set_message(t('Password field is required.'), 'error');
       }
-      drupal_set_message(t('Email/username and password don\'t match. Try again.'), 'error');
+      drupal_set_message(t('Email/username and password don\'t match. Try again?'), 'error');
     }
   }
 }
