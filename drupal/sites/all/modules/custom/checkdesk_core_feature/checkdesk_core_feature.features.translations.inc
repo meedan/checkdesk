@@ -9679,6 +9679,15 @@ A <a href="!report_url">report</a> which you have submitted has been published i
     'plural' => 0,
   );
   $translatables[] = t('The terms to search for.', array(), array('context' => ''));
+  $translations['ar:default']['d08e513fc5344ff3e05ac2ac7186232c'] = array(
+    'source' => 'This story is already published. You can\'t edit it',
+    'context' => '',
+    'location' => '/ar/node/58/edit',
+    'translation' => 'تم نشر هذه القصة. لا يمكنك تعديل كتابتها',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('This story is already published. You can\'t edit it', array(), array('context' => ''));
   $translations['ar:default']['d0fc074d327380040687f5da68277507'] = array(
     'source' => 'In case a new revision is to be saved, the log entry explaining the changes for this version.',
     'context' => '',

@@ -982,6 +982,10 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
       $form['actions']['submit']['#access'] = 0;
     }
     else {
+      if ($form['#node']->status) {
+        drupal_set_message(t('This story is already published. You can\'t edit it'), 'error');
+        drupal_goto('node/'. $form['nid']['#value']);
+      }
       $form['actions']['submit']['#access'] = $form['#node']->status;
       $form['actions']['draft']['#access'] = !$form['#node']->status;
     }
