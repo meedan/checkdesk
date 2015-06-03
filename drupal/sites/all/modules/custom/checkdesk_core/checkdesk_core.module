@@ -975,17 +975,18 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   if (!$form['nid']['#value']) {
     global $language;
     $form['actions']['submit']['#value'] = t('Create story');
-
-    //Hide submit button for CJ users
-    if (in_array('citizen journalist', $user->roles)) {
-      hide($form['actions']['submit']);
-    }
-    $form['actions']['submit']['#suffix'] =
-      '<div class="description">'.
-      t('<span>Note:</span> Your story won\'t be published to the liveblog homepage until you add an update to your story.') .
-      '</div>';
     //Set default language value
     $form['language']['#default_value'] = $language->language;
+  }
+  //Hide submit button for CJ users
+  if (in_array('citizen journalist', $user->roles)) {
+    if (!$form['nid']['#value']) {
+      $form['actions']['submit']['#access'] = 0;
+    }
+    else {
+      $form['actions']['submit']['#access'] = $form['#node']->status;
+      $form['actions']['draft']['#access'] = !$form['#node']->status;
+    }
   }
   if (in_array('journalist', $user->roles)) {
     // Hide comment settings
@@ -1814,6 +1815,8 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
             // Alter the file field element after it has been built.
             $form['field_lead_image'][$node_language][$item]['#after_build'][] = 'checkdesk_core_rename_remove_button';
           }
+
+
         }
       }
     }
