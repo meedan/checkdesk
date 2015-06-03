@@ -4407,6 +4407,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Path module form elements', array(), array('context' => ''));
+  $translations['ar:default']['620c0e2624a5a25c2240bea3cf66a418'] = array(
+    'source' => 'Published in ',
+    'context' => '',
+    'location' => '/ar/report/12301',
+    'translation' => 'نُشر في ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Published in ', array(), array('context' => ''));
   $translations['ar:default']['621b4a72b1516a94b6b6fae36485acce'] = array(
     'source' => 'Second sidebar',
     'context' => '',
@@ -8735,6 +8744,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Is new', array(), array('context' => ''));
+  $translations['ar:default']['bcb37020635cab570765bf3c2444984a'] = array(
+    'source' => 'There was a problem with your form submission. Please wait @limit seconds and try again.',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/password',
+    'translation' => ' حدثت مشكلة أثناء إرسال استمارة التسجيل، فضلًا انتظر @limit ثوان ثم أعد المحاولة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('There was a problem with your form submission. Please wait @limit seconds and try again.', array(), array('context' => ''));
   $translations['ar:default']['bcb471ab149452f3050d9403daa3ca78'] = array(
     'source' => 'Heartbeat activity template form element.',
     'context' => '',
@@ -12539,6 +12557,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('In Progress', array(), array('context' => 'term:502ab059-26b9-4947-92e5-3e1a6de4d91e:name'));
+  $translations['ar:taxonomy']['1c2b3ccbfcd5f6eee5394ab2a9f89e5f'] = array(
+    'source' => 'False',
+    'context' => 'term:3:name',
+    'location' => 'taxonomy:term:3:name',
+    'translation' => 'خطأ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('False', array(), array('context' => 'term:3:name'));
   $translations['ar:taxonomy']['1ce09cf2f73f699d9eeda14385be399c'] = array(
     'source' => 'Verified',
     'context' => 'term:3c7ab283-8d43-4913-a293-0db16f025fb1:name',
