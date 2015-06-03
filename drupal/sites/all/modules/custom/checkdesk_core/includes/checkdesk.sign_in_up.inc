@@ -4,7 +4,6 @@
  * A modal login callback.
  */
 function checkdesk_sign_in_up_callback($js = NULL) {
-  watchdog('sing-in-up', '<pre>'. print_r($_GET, true) .'</pre>');
   $output = '';
   $links = array();
   if (twitter_api_keys()) {

@@ -228,11 +228,15 @@ function _checkdesk_core_report_can_suggest($report) {
  * @see http://thereisamoduleforthat.com/content/loading-facebook-embeds-ajax
  */
 function checkdesk_core_ajax_render_alter(&$commands) {
-  foreach ($commands as $command) {
-    if ($command['command'] == 'modal_display') {
+  foreach ($commands as $key => $command) {
+    if ($command['command'] === 'modal_display') {
       $commands[] = array(
         'command' => 'refreshFacebook',
       );
+    }
+    // If we're dismissing a modal, AND we're reloading the page, don't dismiss the modal.
+    if ($command['command'] === 'modal_dismiss' && array_filter($commands, function($v) { return $v['command'] === 'reload'; })) {
+      unset($commands[$key]);
     }
   }
 }
