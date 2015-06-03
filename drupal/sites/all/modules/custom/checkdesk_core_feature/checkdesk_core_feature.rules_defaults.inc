@@ -31,28 +31,6 @@ function checkdesk_core_feature_default_rules_configuration() {
       ]
     }
   }');
-  $items['checkdesk_core_feature_new_story_cj'] = entity_import('rules_config', '{ "checkdesk_core_feature_new_story_cj" : {
-      "LABEL" : "New story (CJ)",
-      "PLUGIN" : "reaction rule",
-      "OWNER" : "rules",
-      "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "rules_scheduler", "checkdesk_core" ],
-      "ON" : { "node_insert--discussion" : { "bundle" : "discussion" } },
-      "IF" : [
-        { "NOT node_is_published" : { "node" : [ "node" ] } },
-        { "user_has_role" : { "account" : [ "node:author" ], "roles" : { "value" : { "4" : "4" } } } }
-      ],
-      "DO" : [
-        { "schedule" : {
-            "component" : "checkdesk_core_feature_notify_subscribed_users_new_story",
-            "date" : "now",
-            "param_story" : [ "node" ]
-          }
-        },
-        { "checkdesk_core_actions_set_followers" : { "node" : [ "node" ] } }
-      ]
-    }
-  }');
   $items['checkdesk_core_feature_notify_subscribed_users_new_report'] = entity_import('rules_config', '{ "checkdesk_core_feature_notify_subscribed_users_new_report" : {
       "LABEL" : "Notify subscribed users: new report",
       "PLUGIN" : "action set",
@@ -516,9 +494,8 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
+      "REQUIRES" : [ "heartbeat_rules", "rules", "rules_scheduler" ],
       "ON" : { "node_insert--discussion" : { "bundle" : "discussion" } },
-      "IF" : [ { "node_is_published" : { "node" : [ "node" ] } } ],
       "DO" : [
         { "heartbeat_activity_checkdesk_add_story" : {
             "nid" : [ "node:nid" ],
