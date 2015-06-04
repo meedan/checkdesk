@@ -958,7 +958,6 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   //Adjust create story form
   $form['title']['#title'] = t('Story title');
 
-  $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
 
   $form['body'][LANGUAGE_NONE][0]['#title'] = t('Text');
