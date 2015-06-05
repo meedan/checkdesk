@@ -138,11 +138,11 @@ function checkdesk_core_feature_default_rules_configuration() {
       "DO" : [
         { "heartbeat_activity_checkdesk_update_story" : {
             "nid" : [ "node:nid" ],
-            "uid" : [ "site:current-user:uid" ],
+            "uid" : [ "node:author:uid" ],
             "nid_target" : [ "node:nid" ],
             "message_id" : { "value" : { "checkdesk_update_story" : "checkdesk_update_story" } },
-            "!user_url" : [ "site:current-user:url" ],
-            "!username" : [ "site:current-user:name" ],
+            "!user_url" : [ "node:author:url" ],
+            "!username" : [ "node:author:name" ],
             "!story_url" : [ "node:url" ]
           }
         },
@@ -473,11 +473,11 @@ function checkdesk_core_feature_default_rules_configuration() {
       "DO" : [
         { "heartbeat_activity_checkdesk_add_story" : {
             "nid" : [ "node:nid" ],
-            "uid" : [ "site:current-user:uid" ],
+            "uid" : [ "node:author:uid" ],
             "nid_target" : [ "node:nid" ],
             "message_id" : { "value" : { "checkdesk_add_story" : "checkdesk_add_story" } },
-            "!user_url" : [ "site:current-user:url" ],
-            "!username" : [ "site:current-user:name" ],
+            "!user_url" : [ "node:author:url" ],
+            "!username" : [ "node:author:name" ],
             "!story_url" : [ "node:url" ]
           }
         },

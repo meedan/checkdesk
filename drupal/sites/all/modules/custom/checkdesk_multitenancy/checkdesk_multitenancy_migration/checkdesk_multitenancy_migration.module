@@ -36,6 +36,32 @@ function checkdesk_multitenancy_migration_migrate_api() {
       'class_name' => 'CheckdeskUserMigration',
       'picture_migration' => 'Picture_' . $name,
     );
+
+    $migrations['Term_' . $name] = $common_arguments + array(
+      'description' => t('Migration of terms from !site', array('!site' => $name)),
+      'class_name' => 'DrupalTerm7Migration',
+      'source_vocabulary' => 'tags',
+      'destination_vocabulary' => 'tags',
+      'machine_name' => 'Term_' . $name,
+      'soft_dependencies' => array('User_' . $name),
+    );
+
+    $migrations['Files_' . $name] = $common_arguments + array(
+      'description' => t('Migration of files from !site', array('!site' => $name)),
+      'machine_name' => 'Files_' . $name,
+      'source_dir' => "/mnt/$name",
+      'destination_dir' => 'public://',
+      'class_name' => 'DrupalFile7Migration',
+    );
+
+    $migrations['Story_' . $name] = $common_arguments + array(
+      'user_migration' => 'User_' . $name,
+      'class_name' => 'CheckdeskStoryMigration',
+      'description' => t('Migration of stories from !site', array('!site' => $name)),
+      'source_type' => 'discussion',
+      'destination_type' => 'discussion',
+      'dependencies' => array('Term_' . $name),
+    );
   }
 
   $api = array(
