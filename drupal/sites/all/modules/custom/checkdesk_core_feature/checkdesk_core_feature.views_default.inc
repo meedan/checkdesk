@@ -989,6 +989,7 @@ print _checkdesk_search_header();
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
+    4 => '4',
     5 => '5',
   );
   $handler->display->display_options['cache']['type'] = 'none';
@@ -1197,8 +1198,6 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['label'] = '';
-  $handler->display->display_options['fields']['nid']['alter']['text'] = 'Details';
-  $handler->display->display_options['fields']['nid']['alter']['path'] = 'report-view-modal/nojs/[nid]';
   $handler->display->display_options['fields']['nid']['alter']['link_class'] = 'ctools-use-modal';
   $handler->display->display_options['fields']['nid']['element_type'] = '0';
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
@@ -1376,10 +1375,6 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['label'] = '';
-  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['nid']['alter']['text'] = 'Details';
-  $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['nid']['alter']['path'] = 'report-view-modal/nojs/[nid]';
   $handler->display->display_options['fields']['nid']['alter']['link_class'] = 'ctools-use-modal';
   $handler->display->display_options['fields']['nid']['element_type'] = '0';
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
@@ -1428,6 +1423,16 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'g:ia - d M Y';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Story (field_stories) */
+  $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
+  $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';
+  $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
+  $handler->display->display_options['arguments']['field_stories_target_id']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_type'] = 'php';
+  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_options']['code'] = 'return checkdesk_core__get_desk_reports_args();';
+  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_stories_target_id']['summary_options']['items_per_page'] = '25';
   /* Contextual filter: Content: Post date (with operator) */
   $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
   $handler->display->display_options['arguments']['created_operator']['table'] = 'node';
@@ -1567,7 +1572,6 @@ print t(\'No content available\');
     t('Date'),
     t('All'),
     t('Block'),
-    t('Details'),
     t('By keyword'),
     t('By status'),
     t('By source'),
@@ -1895,6 +1899,11 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['filters']['language']['value'] = array(
     '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
   );
+  /* Filter criterion: Content: Promoted to front page */
+  $handler->display->display_options['filters']['promote']['id'] = 'promote';
+  $handler->display->display_options['filters']['promote']['table'] = 'node';
+  $handler->display->display_options['filters']['promote']['field'] = 'promote';
+  $handler->display->display_options['filters']['promote']['value'] = '1';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');

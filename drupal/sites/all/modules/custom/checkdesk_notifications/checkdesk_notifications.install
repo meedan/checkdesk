@@ -23,3 +23,30 @@ function checkdesk_notifications_update_7001() {
     user_save($user);
   }
 }
+
+/**
+ * uncheck new report notification for existing journalist.
+ */
+function checkdesk_notifications_update_7002() {
+  $query = db_select('users_roles', 'ur');
+  $query->addField('ur', 'uid');
+  $query->condition('ur.rid', 5);
+  $result = $query->execute()->fetchCol();
+  foreach ($result as $uid) {
+    $user = user_load($uid);
+    if (isset($user->data['meedan_notifications'])) {
+      $user->data['meedan_notifications']['site_new_report'] = '';
+      $user->data['meedan_notifications']['email_new_report'] = '';
+    }
+    else {
+      $events = meedan_notifications_get_events('label');
+      foreach (array_keys($events) as $k) {
+        $user->data['meedan_notifications'][$k] = $k;
+      }
+      //uncheck new report.
+      $user->data['meedan_notifications']['site_new_report'] = '';
+      $user->data['meedan_notifications']['email_new_report'] = '';
+    }
+    user_save($user);
+  }
+}

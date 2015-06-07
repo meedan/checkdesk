@@ -1,0 +1,78 @@
+.modal-overflow-hidden {
+  overflow: hidden !important;
+}
+
+/* Override inline dom styles from modal.js */
+#modalBackdrop {
+  background: #fff !important;
+  opacity: 0.98 !important;
+  width: 100% !important;
+}
+
+#modalContent {
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  #{$alpha}: 0% !important;
+  #{$omega}: 0% !important;
+  overflow: auto;
+  text-align: center;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-#{$omega}: -0.25em;
+  }
+}
+
+div.ctools-modal-content {
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 auto;
+  max-width: 620px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  padding: 100px 80px;
+}
+
+// For mobile screens
+@media screen and (max-width: 767px) {
+  div.ctools-modal-content {
+    width: 80% !important;
+    padding: 0;
+  }
+}
+
+div.ctools-modal-content .modal-content {
+  width: 100% !important;
+  height: auto !important;
+  padding: 0;
+}
+
+.popups-close {
+  position: absolute;
+  top: 10px;
+  #{$omega}: 10px;
+  // hide the default close text
+  font: 0/0 serif;
+  overflow: hidden;
+  text-shadow: none;
+  // add icon
+  @include icon(times);
+  &:before {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 10px;
+  }
+}
+
+// hide title in the frame
+.modal-title {
+  display: none;
+}

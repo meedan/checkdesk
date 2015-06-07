@@ -88,6 +88,8 @@ if ($is_journalist) {
     if ($multitenancy) $query .= " AND ha.nid IN ($accessible_stories)";
     $query .= ") OR ";
   }
+  if (should_notify($data, 'site_new_report'))
+    $query .= "(ha.message_id = 'new_report') OR ";
 } else {
   if (should_notify($data, 'site_reply_to_comment'))
     $query .= "(ha.message_id = 'checkdesk_reply_to_comment' AND c.uid = $uid) OR ";

@@ -147,10 +147,9 @@ $omega: opposite-position($from-direction);
 @import "dropdowns";
 @import "chosen";
 
-// Based on Twitter Bootstrap dropdowns
-@import "modals";
-
-// Based on Twitter Bootstrap modals
+// Modals
+@import "responsive_modals";
+@import "modal_form";
 
 // ====================================================================== 
 //  Default checkdesk layout
@@ -209,6 +208,7 @@ body.no-sidebars {
 
 // Partner stuff
 @import "partner_header";
+@import "branding";
 @import "footer";
 @import "static";
 

@@ -398,3 +398,12 @@ function checkdesk_core_update_7042() {
     , array(':format' => 'liveblog', ':type' => 'discussion')
   );
 }
+
+/**
+ * Enable Promoted to front page for existing stories
+ */
+function checkdesk_core_update_7043() {
+  db_query('UPDATE {node} SET promote = :promote WHERE type = :type AND status = :status'
+  , array(':promote' => 1, ':type' => 'discussion', ':status' => 1)
+  );
+}

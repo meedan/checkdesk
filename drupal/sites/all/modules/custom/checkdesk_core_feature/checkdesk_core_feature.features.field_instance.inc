@@ -484,13 +484,14 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
+      'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'match_operator' => 'CONTAINS',
         'path' => '',
         'size' => 60,
       ),
-      'type' => 'entityreference_autocomplete',
+      'type' => 'options_select',
       'weight' => 4,
     ),
   );
@@ -647,6 +648,7 @@ function checkdesk_core_feature_field_default_field_instances() {
       'active' => 1,
       'module' => 'autocomplete_deluxe',
       'settings' => array(
+        'apply_chosen' => '',
         'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
         'delimiter' => '',
         'limit' => 10,
@@ -1014,6 +1016,7 @@ function checkdesk_core_feature_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
       ),
       'type' => 'options_select',
@@ -1435,6 +1438,7 @@ function checkdesk_core_feature_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
       ),
       'type' => 'options_select',

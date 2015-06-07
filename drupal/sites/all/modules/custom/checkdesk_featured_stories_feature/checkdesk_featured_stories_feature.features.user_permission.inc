@@ -103,6 +103,16 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'module' => 'nodequeue',
   );
 
+  // Exported permission: 'override discussion promote to front page option'.
+  $permissions['override discussion promote to front page option'] = array(
+    'name' => 'override discussion promote to front page option',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'override_node_options',
+  );
+
   // Exported permission: 'unflag delete'.
   $permissions['unflag delete'] = array(
     'name' => 'unflag delete',

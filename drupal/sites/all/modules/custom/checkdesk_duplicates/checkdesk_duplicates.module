@@ -12,6 +12,26 @@ function checkdesk_duplicates_menu() {
   );
   return $items;
 }
+
+/**
+ * Implements hook_theme().
+ */
+function checkdesk_duplicates_theme() {
+  $themes = array();
+  $base = array(
+    'file' => 'theme.inc',
+    'path' => drupal_get_path('module', 'checkdesk_duplicates') . '/theme',
+  );
+  $themes['checkdesk_duplicates_reports'] = array(
+      'template' => 'duplicates_reports',
+      'variables' => array(
+        'reports' => NULL,
+        'duplicate_report_nid' => NULL,
+      ),
+    ) + $base;
+  return $themes;
+}
+
 /**
  * Implements hook_node_presave()
  */
@@ -71,10 +91,11 @@ function _checkdesk_duplicate_report_story() {
       ->condition('fs.field_stories_target_id', $story_id);
     $query->addTag('checkdesk_duplicate');
     $result = $query->execute()->fetchField();
-
     if ($result) {
       $output['duplicate'] = TRUE;
-      $output['msg'] = t('!report already exists', array('!report' => l(t('Report'), 'node/'. $result)));
+      $output['msg'] = t('Report already exists !report', array(
+        '!report' => l(t('View the link'), 'node/'. $result, array('attributes' => array('target'=>'_blank'))))
+      );
     }
   }
   drupal_json_output($output);
@@ -156,29 +177,32 @@ function _checkdesk_detect_report_duplicate($url, $report_id, $story_id) {
     // Unset current report (edit form)
     unset($reports[$report_id]);
     $query = db_select('node', 'n');
-    $query->fields('n', array('nid', 'title'));
+    $query->fields('n', array('nid', 'title', 'uid'));
+    $query->addField('u', 'name');
     $query->addField('n2', 'nid', 'story_id');
     $query->addField('n2', 'title', 'story_title');
+    $query->innerJoin('users', 'u', 'n.uid = u.uid');
     $query->leftJoin('field_data_field_stories', 'fs', 'n.nid = fs.entity_id');
     $query->leftJoin('node', 'n2', 'fs.field_stories_target_id = n2.nid');
     $query->condition('n.nid', array_keys($reports), 'IN');
     $query->addTag('checkdesk_duplicate');
     $result = $query->execute()->fetchAllAssoc('nid');
+    $duplicate_report_nid = 0;
     foreach ($result as $k => $v) {
       if ($v->story_id == $story_id) {
         $output['duplicate_story'] = TRUE;
-        $output['msg'] = t('!report already exists',
-          array('!report' => l(t('Report'), 'node/'. $v->nid)));
-        break;
+        $duplicate_report_nid = $v->nid;
       }
-      $duplicate_reports[$v->nid] = l($v->title, 'node/'. $v->nid);
+      $replacements = array('!user' => l($v->name, 'user/'. $v->uid,
+        array('attributes' => array('target'=>'_blank'))), '!story' => '');
       if ($v->story_id) {
-        $duplicate_reports[$v->nid] .= t(' published in !story', array('!story' => l($v->story_title, 'node/'. $v->story_id)));
+        $replacements['!story'] = t('to story ') . l($v->story_title, 'node/'. $v->story_id,
+            array('attributes' => array('target'=>'_blank')));
       }
+      $duplicate_reports[$v->nid] = t('!user added this link !story', $replacements);
     }
-    if (!$output['duplicate_story']) {
-      $output['msg'] = t('Duplicate reports !urls', array('!urls' => theme('item_list', array('items' => $duplicate_reports))));
-    }
+    $output['msg'] = theme('checkdesk_duplicates_reports', array(
+      'reports' => $duplicate_reports, 'duplicate_report_nid' => $duplicate_report_nid));
   }
   return $output;
 }

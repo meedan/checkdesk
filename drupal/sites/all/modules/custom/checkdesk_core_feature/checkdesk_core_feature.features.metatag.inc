@@ -51,14 +51,24 @@ function checkdesk_core_feature_metatag_export_default() {
       'description' => array(
         'value' => '[node:summary]',
       ),
-      'twitter:card' => array(
-        'value' => 'summary',
+      'canonical' => array(
+        'value' => '[current-page:url:absolute]?fbrefresh=[node:changed:raw]',
+      ),
+      'twitter:title' => array(
+        'value' => '[node:title]',
       ),
       'twitter:description' => array(
         'value' => '[node:summary]',
       ),
-      'twitter:title' => array(
-        'value' => '[node:title]',
+    ),
+  );
+
+  // Exported Metatag config instance: node:discussion.
+  $config['node:discussion'] = array(
+    'instance' => 'node:discussion',
+    'config' => array(
+      'twitter:image:src' => array(
+        'value' => '[node:field_lead_image]',
       ),
     ),
   );
@@ -69,6 +79,9 @@ function checkdesk_core_feature_metatag_export_default() {
     'config' => array(
       'description' => array(
         'value' => '[node:body]',
+      ),
+      'canonical' => array(
+        'value' => '[current-page:url:absolute]?fbrefresh=[node:changed:raw]',
       ),
       'twitter:description' => array(
         'value' => '[node:body]',

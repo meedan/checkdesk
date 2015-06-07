@@ -32,9 +32,7 @@
 @mixin form-actions {
   div.form-actions {
     @include ctb-clearfix;
-    margin: $absolute-line-height 0;
-    border-top: 1px solid $firefly10;
-    padding-top: $absolute-line-height;
+    margin-top: 30px;
     input, a {
       @include checkdesk-button(rgba($firefly, 0.4));
       &:hover {
@@ -102,9 +100,8 @@
   }
   // Registration form
   &#user-register-form {
-    padding-right: 0;
-    padding-left: 0;
-    width: 100%;
+    padding-#{$omega}: 0;
+    padding-#{$alpha}: 0;
 
     label {
       display: block;
@@ -117,7 +114,6 @@
     }
     input[type=text], input[type=password] {
       margin-top: 0;
-      width: 80%;
 
       &.success {
         border-color: $successText;
@@ -362,6 +358,7 @@
     // .form-actions { @include span-columns($w, $w); }
 
     & > .form-item {
+      @include ctb-clearfix;
       @include span-columns($w, $w);
 
       // Nested <.form-item>s
@@ -376,8 +373,8 @@
     // input[type="file"],
     textarea {
       @include cd-sans-serif-family;
-      @include span-columns($w, $w); // small padding with grid accounting
       @include ctb-box-sizing(border-box); // Makes inputs behave like true block-level elements
+      width: 100%;
       padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
       height: auto;
     }
@@ -451,8 +448,6 @@
     }
 
     .form-wrapper {
-      clear: both;
-      // @include span-columns($w, $w);
       margin: $absolute-line-height/2 0;
     }
 

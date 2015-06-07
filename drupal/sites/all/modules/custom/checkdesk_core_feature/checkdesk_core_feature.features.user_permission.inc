@@ -458,6 +458,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'create discussion content',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'node',
@@ -771,6 +772,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'edit own discussion content',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'node',
@@ -886,6 +888,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'save draft',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'save_draft',
@@ -1059,6 +1062,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'use text format liveblog',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'filter',
@@ -1167,6 +1171,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view own unpublished content',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'node',
