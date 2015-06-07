@@ -64,6 +64,11 @@ class CheckdeskStoryMigration extends CheckdeskNodeMigration {
 
     $this->addFieldMapping('body:format')->defaultValue('liveblog');
     $this->addFieldMapping('uid', 'uid')->sourceMigration('User_' . $name);
+    
+    // Additional authors
+    
+    $this->addFieldMapping('field_additional_authors', 'field_additional_authors')->sourceMigration('User_' . $name);
+    $this->addFieldMapping('field_additional_authors:source_type')->defaultValue('uid');
 
     // Lead image
 

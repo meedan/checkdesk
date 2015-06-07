@@ -363,6 +363,21 @@ function checkdesk_multitenancy_form_alter(&$form, &$form_state, $form_id) {
       
     $form['#validate'][] = '_checkdesk_multitenancy_newsroom_validation';
   }
+  
+  else if ($form_id == CHECKDESK_MULTITENANCY_GROUPED_TYPE . '_node_form') {
+    $node = $form_state['node'];
+    
+    if (!isset($node->nid) || isset($node->is_new)) {
+      unset($form['field_additional_authors']);
+    }
+
+    else {
+      $group = _checkdesk_multitenancy_get_group($node);
+      if (!$group) {
+        unset($form['field_additional_authors']);
+      }
+    }
+  }
 }
 
 function _checkdesk_multitenancy_newsroom_validation($form, &$form_state) {
@@ -472,6 +487,23 @@ function checkdesk_multitenancy_views_query_alter(&$view, &$query) {
     $og = "gid IN (SELECT gid FROM {og_membership} WHERE entity_type = 'user' AND etid = :uid)";
     $query->add_where_expression($id, "n.type = 'post' AND heartbeat_activity.message_id = 'checkdesk_new_update_on_story_i_commented_on_update' AND ogmd.$og", array(':uid' => $params[':uid']));
     $query->add_where_expression($id, "n.type = 'discussion' AND heartbeat_activity.message_id IN ('checkdesk_add_story', 'checkdesk_update_story') AND ogmn.$og", array(':uid' => $params[':uid']));
+  }
+
+  else if ($view->name == 'story_authors') {
+    $group = _checkdesk_multitenancy_get_group();
+    
+    if ($group) {
+      $join = new views_join();
+      $join->construct('og_membership', 'users', 'uid', 'etid', array(), 'LEFT');
+      $query->add_relationship('ogm', $join, 'og_membership');
+
+      $query->add_field('users', 'uid', 'uid', array('function' => 'groupby'));
+      $query->add_groupby('users.uid');
+          
+      $query->add_where(1, 'ogm.gid', $group->nid);
+      $query->add_where(1, 'ogm.entity_type', 'user');
+      $query->add_where(1, 'ogm.group_type', 'node');
+    }
   }
 }
 
@@ -647,6 +679,10 @@ function checkdesk_multitenancy_og_role_grant($group_type, $gid, $uid, $rid) {
   list(, , $bundle) = entity_extract_ids($group_type, $group);
   $og_roles = og_roles($group_type, $bundle, $gid, FALSE, FALSE);
   $role = $og_roles[$rid];
+
+  if ($role == 'administrator') {
+    $role = 'journalist';
+  }
 
   $site_roles = array();
   foreach (user_roles(TRUE) as $srid => $name) {
