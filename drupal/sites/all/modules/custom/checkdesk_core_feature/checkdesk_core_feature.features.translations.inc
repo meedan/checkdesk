@@ -32,7 +32,7 @@ function checkdesk_core_feature_translations_defaults() {
     'source' => 'Add Report "!title" to Story',
     'context' => '',
     'location' => '/ar/node/63/checkdesk/modal/suggest/ajax',
-    'translation' => 'أضف التقرير "!title" إلى موضوع',
+    'translation' => 'أضف التقرير "!title" إلى قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -842,7 +842,7 @@ They provided the following explanation for flagging:
     'source' => 'By story',
     'context' => '',
     'location' => '',
-    'translation' => 'الموضوع',
+    'translation' => 'القصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -865,6 +865,34 @@ They provided the following explanation for flagging:
     'plural' => 0,
   );
   $translatables[] = t('Inline fields', array(), array('context' => ''));
+  $translations['ar:default']['1312a237d758e6e17af7be28d206c76d'] = array(
+    'source' => 'Hello !recipient_name,
+
+Story "!title" which you followed has a <a href="!url">new update</a>.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+ تم إضافة <a href="!url">تحديث جديد</a>  لقصة متابعة "!title" .
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+Story "!title" which you followed has a <a href="!url">new update</a>.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.', array(), array('context' => ''));
   $translations['ar:default']['13aa8652e950bb7c4b9b213e6d8d0dc5'] = array(
     'source' => 'Current page',
     'context' => '',
@@ -973,7 +1001,7 @@ They provided the following explanation for flagging:
     'source' => 'New report on a story I followed',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'تقرير جديد لموضوع متابع',
+    'translation' => 'تقرير جديد لقصة متابعة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -1204,6 +1232,39 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Source URL', array(), array('context' => ''));
+  $translations['ar:default']['1a0c8cc66f051451049b4c6c827efffd'] = array(
+    'source' => 'Hello !recipient_name,
+
+!actor has added a new report "!node_title" to this story "!story_title".
+
+Go to !story_url to compose a new update to the story using that report.
+
+You can edit your notification settings from !recipient_url.
+
+This was an auto-generated email from !site, please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !actor بإضافة تقرير جديد "!node_title" إلى هذه القصة "!story_title".
+
+<a href="!story_url">اضغط هنا</a> لكتابة تحديث جديد على ذلك الخبر باستخدام ذاك التقرير.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+!actor has added a new report "!node_title" to this story "!story_title".
+
+Go to !story_url to compose a new update to the story using that report.
+
+You can edit your notification settings from !recipient_url.
+
+This was an auto-generated email from !site, please do not respond directly to this email.', array(), array('context' => ''));
   $translations['ar:default']['1b23ba65c850a287808c474da5871a68'] = array(
     'source' => 'Exposed Form',
     'context' => '',
@@ -1280,7 +1341,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Story page',
     'context' => '',
     'location' => '',
-    'translation' => 'صفحة الموضوع',
+    'translation' => 'صفحة القصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -1671,7 +1732,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Following story',
     'context' => '',
     'location' => 'sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
-    'translation' => 'موضوع مُتابَع',
+    'translation' => 'قصة مُتابَعة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2004,7 +2065,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Follow story',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'تابع الموضوع',
+    'translation' => 'تابع القصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2210,7 +2271,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Story title',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'عنوان الموضوع',
+    'translation' => 'عنوان القصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2300,7 +2361,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create another story',
     'context' => '',
     'location' => '/ar/system/ajax',
-    'translation' => 'أنشئ خبراً آخر',
+    'translation' => 'أنشئ قصة آخرى',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2920,7 +2981,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create a Story',
     'context' => '',
     'location' => 'sites/all/themes/checkdesk/assets/js/tour.js; sites/all/modules/custom/checkdesk_tour/js/tour.js',
-    'translation' => 'أضف موضوع',
+    'translation' => 'أضف قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -3501,7 +3562,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Go to story',
     'context' => '',
     'location' => '/',
-    'translation' => 'إذهب إلى الخبر',
+    'translation' => 'إذهب إلى القصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -6270,7 +6331,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Add to Story',
     'context' => '',
     'location' => '',
-    'translation' => 'أضف إلى موضوع',
+    'translation' => 'أضف إلى قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -6464,6 +6525,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Promotion settings', array(), array('context' => ''));
+  $translations['ar:default']['8b7a6c6df613717ae790dcee994efdf8'] = array(
+    'source' => 'Hello !recipient_name,
+
+Story "!title" which you followed has a <a href="!url">new update</a>.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+ تم إضافة <a href="!url">تحديث جديد</a>  لقصة متابعة "!title" .
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+Story "!title" which you followed has a <a href="!url">new update</a>.', array(), array('context' => ''));
   $translations['ar:default']['8b9b82bdef7910e04be780d11dac62b5'] = array(
     'source' => 'Twitter status messages.',
     'context' => '',
@@ -6829,7 +6906,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Add report to story',
     'context' => '',
     'location' => '',
-    'translation' => 'أضف التقرير إلى موضوع',
+    'translation' => 'أضف التقرير إلى قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -7054,7 +7131,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'New update on a story I commented on an update before',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'تحديث جديد على موضوع علقت على أحد تحديثاته في السابق',
+    'translation' => 'تحديث جديد على قصة علقت على أحد تحديثاته في السابق',
     'plid' => 0,
     'plural' => 0,
   );
@@ -7230,6 +7307,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Lower case', array(), array('context' => ''));
+  $translations['ar:default']['9dffbf69ffba8bc38bc4e01abf4b1675'] = array(
+    'source' => 'Text',
+    'context' => '',
+    'location' => '',
+    'translation' => 'النص',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Text', array(), array('context' => ''));
   $translations['ar:default']['9e227bf89226aa5759ea96de7a7f92f6'] = array(
     'source' => 'E-mail address <span>(never shared)</span>',
     'context' => '',
@@ -7533,7 +7619,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Report suggested to story',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'اقتراح تقرير لإدراجه ضمن موضوع',
+    'translation' => 'اقتراح تقرير لإدراجه ضمن قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -7560,7 +7646,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Update a Story',
     'context' => '',
     'location' => '/ar/user',
-    'translation' => 'قم بتحديث الموضوع',
+    'translation' => 'قم بتحديث القصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -7910,7 +7996,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'location' => '/index.php',
     'translation' => 'مرحباً !recipient_name،
 
- تم إضافة <a href="!url">تحديث جديد</a>  لموضوع متابع "!title" .
+ تم إضافة <a href="!url">تحديث جديد</a>  لقصة متابعة "!title" .
 
 بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
 
@@ -8328,7 +8414,7 @@ Story "!title" which you followed has a <a href="!url">new update</a>.',
     'location' => '/index.php',
     'translation' => 'مرحباً !recipient_name،
 
- تم إضافة <a href="!url">تحديث جديد</a>  لموضوع متابع "!title" .
+ تم إضافة <a href="!url">تحديث جديد</a>  لقصة متابعة "!title" .
 ',
     'plid' => 0,
     'plural' => 0,
@@ -9893,15 +9979,6 @@ This was an auto-generated email from !site; please do not respond directly to t
 You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
 
 This was an auto-generated email from !site; please do not respond directly to this email.', array(), array('context' => ''));
-  $translations['ar:default']['d3ccca2b5ec2adee40e95e7bc262f5b3'] = array(
-    'source' => 'Add a brief description of the story (optional)',
-    'context' => '',
-    'location' => '/',
-    'translation' => 'أضف تلخيصاً موجزاً للموضوع (اختياري)',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translatables[] = t('Add a brief description of the story (optional)', array(), array('context' => ''));
   $translations['ar:default']['d3d2e617335f08df83599665eef8a418'] = array(
     'source' => 'Close',
     'context' => '',
@@ -9933,7 +10010,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create story',
     'context' => '',
     'location' => '',
-    'translation' => 'أضف موضوع',
+    'translation' => 'أنشئ قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -10560,7 +10637,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Story',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'موضوع',
+    'translation' => 'قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -10893,7 +10970,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Suggest Report "!title" to Story',
     'context' => '',
     'location' => '/ar/node/240/checkdesk/modal/suggest/ajax',
-    'translation' => 'اقترح إضافة التقرير "!title" إلى موضوع',
+    'translation' => 'اقترح إضافة التقرير "!title" إلى قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -11127,7 +11204,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Suggest to Story',
     'context' => '',
     'location' => '/ar/reports',
-    'translation' => 'اقترح الإضافة إلى موضوع',
+    'translation' => 'اقترح الإضافة إلى قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -11289,7 +11366,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Unfollow story',
     'context' => '',
     'location' => '/ar/flag/flag/follow_story/13?destination=story-collaboration/13&token=oLBeN_SG-PkEhp5jsIeZ4spHgNg_cDe-bTzZ685AYow; sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
-    'translation' => 'إيقاف متابعة الموضوع',
+    'translation' => 'إيقاف متابعة القصة',
     'plid' => 0,
     'plural' => 0,
   );

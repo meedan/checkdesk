@@ -236,7 +236,7 @@ input[type="checkbox"]:focus {
 .form-type-radio,
 .form-type-checkbox {
   min-height: $absolute-line-height; // clear the floating input if there is no label text
-  padding-left: 20px;
+  padding-#{$alpha}: 20px;
 }
 .form-type-radio input[type="radio"],
 .form-type-checkbox input[type="checkbox"] {
