@@ -62,6 +62,15 @@ function checkdesk_multitenancy_migration_migrate_api() {
       'destination_type' => 'discussion',
       'dependencies' => array('Term_' . $name),
     );
+
+    $migrations['Update_' . $name] = $common_arguments + array(
+      'user_migration' => 'User_' . $name,
+      'class_name' => 'CheckdeskUpdateMigration',
+      'description' => t('Migration of updates from !site', array('!site' => $name)),
+      'source_type' => 'post',
+      'destination_type' => 'post',
+      'dependencies' => array('Story_' . $name),
+    );
   }
 
   $api = array(

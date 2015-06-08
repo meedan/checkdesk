@@ -125,3 +125,15 @@ class CheckdeskStoryMigration extends CheckdeskNodeMigration {
   }
 
 }
+
+// Updates
+
+class CheckdeskUpdateMigration extends CheckdeskNodeMigration {
+  public function __construct(array $arguments) {
+    parent::__construct($arguments);
+    
+    $name = $this->arguments['name'];
+    
+    $this->addFieldMapping('field_desk', 'field_desk')->sourceMigration('Story_' . $name);
+  }
+}
