@@ -112,8 +112,8 @@ function checkdesk_core_menu() {
     'title' => 'Checkdesk',
     'page callback' => 'checkdesk_sign_in_up_callback',
     'page arguments' => array(1),
-    'access callback' => user_is_anonymous(),
-    'type' => MENU_CALLBACK,
+    'access callback' => 'user_is_anonymous',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
     'file' => 'checkdesk.sign_in_up.inc',
     'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
