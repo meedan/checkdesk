@@ -97,6 +97,22 @@ class CheckdeskStoryMigration extends CheckdeskNodeMigration {
   public function complete($node, stdClass $row) {
     parent::complete($node, $row);
 
+    // Set caption
+
+    $db = Database::getConnection('default', $this->arguments['name']);
+
+    $caption = $db->select('field_image_field_caption', 'fifc')
+                  ->fields('fifc', array('caption'))
+                  ->condition('field_name', 'field_lead_image', '=')
+                  ->condition('entity_type', 'node', '=')
+                  ->condition('bundle', 'discussion', '=')
+                  ->condition('entity_id', $row->nid, '=')
+                  ->execute()
+                  ->fetchField();
+    $node->field_lead_image[LANGUAGE_NONE]['0']['image_field_caption']['value'] = $caption;
+    $node->field_lead_image[LANGUAGE_NONE]['0']['image_field_caption']['format'] = 'filtered_html';
+    node_save($node);
+
     // Assign to newsroom
 
     $values = array(
