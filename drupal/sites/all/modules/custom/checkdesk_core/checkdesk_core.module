@@ -25,6 +25,18 @@ function checkdesk_core_permission() {
       'title' => t('Add report to story'),
       'description' => t('User can add a report to a story. Otherwise, only allowed to suggest the addition.'),
     ),
+    'change report status' => array(
+      'title' => t('Change report status'),
+      'description' => t('User can change report status.'),
+    ),
+    'access any drafts content' => array(
+      'title' => t('Access any drafts content'),
+      'description' => t('User can see drafts link for any content.'),
+    ),
+    'edit published content' => array(
+      'title' => t('Edit published content'),
+      'description' => t('User can edit published content.'),
+    ),
   );
 }
 
@@ -127,13 +139,13 @@ function checkdesk_core_menu() {
     'title' => 'Draft stories',
     'page callback' => 'drupal_goto',
     'page arguments' => array('search'),
-    'access callback' => '_checkdesk_is_journalist',
+    'access arguments' => array('access any drafts content'),
   );
   $items['checkdesk/draft_updates'] = array(
     'title' => 'Draft updates',
     'page callback' => 'drupal_goto',
     'page arguments' => array('search'),
-    'access callback' => '_checkdesk_is_journalist',
+    'access arguments' => array('access any drafts content'),
   );
   return $items;
 }
@@ -980,17 +992,17 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     $form['language']['#default_value'] = $language->language;
   }
   //Hide submit button for CJ users
-  if (in_array('citizen journalist', $user->roles)) {
-    if (!$form['nid']['#value']) {
-      $form['actions']['submit']['#access'] = 0;
-    }
-    else {
+  if (!user_access('edit published content')) {
+    if ($form['nid']['#value']) {
       if ($form['#node']->status) {
         drupal_set_message(t('This story is already published. You can\'t edit it'), 'error');
         drupal_goto('node/'. $form['nid']['#value']);
       }
       $form['actions']['submit']['#access'] = $form['#node']->status;
       $form['actions']['draft']['#access'] = !$form['#node']->status;
+    }
+    else {
+      $form['actions']['submit']['#access'] = 0;
     }
   }
   if (in_array('journalist', $user->roles)) {
@@ -1022,21 +1034,6 @@ function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_s
   $form['field_attachment']['#access'] = false;
 }
 
-/**
- * Implements hook_node_presave()
- */
-function checkdesk_core_node_presave($node) {
-  if ($node->type == 'discussion') {
-    //Eliminate duplicates in multiple authors section (Ticket #3763)
-    $target_authors = array();
-    foreach ($node->field_additional_authors[LANGUAGE_NONE] as $k => $row) {
-      if (in_array($row['target_id'], $target_authors)) {
-        unset($node->field_additional_authors[LANGUAGE_NONE][$k]);
-      }
-      $target_authors[] = $row['target_id'];
-    }
-  }
-}
 
 /**
  * Implements hook_views_pre_render().
@@ -2749,7 +2746,7 @@ function _checkdesk_comment_form_submit($form, &$form_state) {
 
   $commands = array();
   // Change report status
-  if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
+  if (user_access('change report status')) {
     $node->field_rating[LANGUAGE_NONE][0]['tid'] = $form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid'];
     node_save($node);
     // Update report status on report display
@@ -3330,7 +3327,7 @@ function _checkdesk_get_stories_by_activity($show_draft = FALSE) {
     ', array(':type' => 'discussion', ':status' => 1, ':language' => $language->language))->fetchAllKeyed(0);
 
   $drafts = array();
-  if ($show_draft && _checkdesk_is_journalist()) {
+  if ($show_draft && user_access('access any drafts content')) {
     $drafts = db_query('
     SELECT n.nid, n.title
     FROM {node} n
@@ -3562,7 +3559,8 @@ function _checkdesk_search_header() {
         if (isset($_GET['status'])) {
           $selected = ($_GET['status'] == 0) ? 'drafts' : 'published';
         }
-        if ($user->uid &&  (in_array('administrator', $user->roles) || in_array('journalist', $user->roles))) {
+        // Check if user can access any drafts content then Show drafts link on search page header
+        if (user_access('access any drafts content')) {
           $links[] = l(t('Drafts'), bef_replace_query_string_arg('status', 0, FALSE, FALSE, $path),
             array('attributes' => array('class' => ($selected == 'drafts') ? 'selected' : '')));
         }
