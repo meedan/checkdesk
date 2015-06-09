@@ -3319,21 +3319,29 @@ function _checkdesk_active_story($options = array()) {
  */
 function _checkdesk_get_stories_by_activity($show_draft = FALSE) {
   global $language;
-  $result = db_query('
-    SELECT DISTINCT n.nid, n.title
-    FROM {heartbeat_activity} ha
-    INNER JOIN {node} n ON n.nid = ha.nid_target AND n.type = :type AND n.status = :status AND n.language = :language
-    ORDER BY ha.timestamp DESC
-    ', array(':type' => 'discussion', ':status' => 1, ':language' => $language->language))->fetchAllKeyed(0);
+  $query = db_select('heartbeat_activity', 'ha')->distinct();
+  $query->fields('n', array('nid', 'title'));
+  $query->join('node', 'n', 'n.nid = ha.nid_target');
+  $query->condition('n.type', 'discussion');
+  $query->condition('n.status', 1);
+  $query->condition('n.language', $language->language);
+  $query->orderBy('ha.timestamp', 'DESC');
+  $result = $query->execute()->fetchAllKeyed(0);
 
   $drafts = array();
-  if ($show_draft && user_access('access any drafts content')) {
-    $drafts = db_query('
-    SELECT n.nid, n.title
-    FROM {node} n
-    WHERE n.type = :type AND n.status = :status AND n.language = :language
-    ORDER BY n.created DESC
-    ', array(':type' => 'discussion', ':status' => 0, ':language' => $language->language))->fetchAllKeyed(0);
+  if ($show_draft) {
+    // either to show all drafts or owned drafts only
+    $query = db_select('node', 'n');
+    $query->fields('n', array('nid', 'title'));
+    $query->condition('type', 'discussion');
+    $query->condition('status', 0);
+    $query->condition('language', $language->language);
+    if (!user_access('access any drafts content')) {
+      global $user;
+      $query->condition('uid', $user->uid);
+    }
+    $query->orderBy('created', 'DESC');
+    $drafts = $query->execute()->fetchAllKeyed(0);
   }
 
   return $result + $drafts;
