@@ -126,7 +126,10 @@ function nodequeue_generate_repopulate_queues($qids, $nodes_limit = 10) {
  */
 function nodequeue_generate_rehash() {
   // Delete existing smartqueue taxonomy subqueues
-  db_query("DELETE ns FROM {nodequeue_subqueue} ns INNER JOIN {nodequeue_queue} nq ON ns.qid = nq.qid WHERE nq.owner = 'smartqueue_taxonomy'");
+  $subqueues = db_query("SELECT sqid FROM {nodequeue_subqueue} ns INNER JOIN {nodequeue_queue} nq ON ns.qid = nq.qid WHERE nq.owner = 'smartqueue_taxonomy'")->fetchCol();
+  if (!empty($subqueues)) {
+    db_query("DELETE FROM {nodequeue_subqueue} WHERE sqid IN (:subqueues)", array(':subqueues' => $subqueues));
+  }
 
   // Get all queues, owned by Smartqueue taxonomy.
   $qids = db_select('nodequeue_queue', 'nq')
@@ -140,6 +143,7 @@ function nodequeue_generate_rehash() {
     $fields = explode('-', $queue->reference);
 
     $tids = array();
+    $nids = array();
     foreach ($fields as $field) {
       // Get all possible tids from this field.
       $query = db_select('field_data_' . $field, 'f');
@@ -153,26 +157,26 @@ function nodequeue_generate_rehash() {
       $query = $query->execute();
 
       $tids += $query->fetchAll();
-    }
 
-    // Rehash for each tid.
-    $nids = array();
-    foreach ($tids as $tid) {
-      foreach ($fields as $field) {
-        $query = db_select('field_data_' . $field, 'f')
+      // Rehash for each tid.
+      foreach ($tids as $tid) {
+        $query = db_select('field_data_' . $field, 'f');
+        $query
           ->condition('f.entity_type', 'node')
           ->condition('f.bundle', $queue->types, 'IN')
           ->condition('f.deleted', FALSE)
           ->condition('f.' . $field . '_tid', $tid->tid)
           ->fields('f', array('entity_id'))
-          ->range(0, 1)
-          ->execute();
+          ->range(0, 1);
+        $query = $query->execute();
 
-        $nids += $query->fetchAll();
+        while($item = $query->fetchAssoc()) {
+          $nids[] = $item;
+        }
       }
 
-      foreach ($nids as $nid) {
-        $node = node_load($nid->entity_id);
+      $nodes = node_load_multiple($nids);
+      foreach ($nodes as $node) {
         nodequeue_api_subqueues($queue, $node);
       }
     }
