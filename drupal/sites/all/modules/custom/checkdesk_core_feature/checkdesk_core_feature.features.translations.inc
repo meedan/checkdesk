@@ -2397,7 +2397,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => '<strong>We sent you an email to reset the password</strong> <br> find it in your inbox (or junk).',
     'context' => '',
     'location' => '/ar/user/password',
-    'translation' => '<strong>تم إرسال تعليمات تغيير كلمات السر</strong> <br> سوف تجده في البريد الوارد (أو المجلد غير المرغوب فيه).',
+    'translation' => '<strong>تم إرسال تعليمات تغيير كلمة السر</strong> <br> سوف تجده في البريد الوارد (أو المجلد غير المرغوب فيه).',
     'plid' => 0,
     'plural' => 0,
   );
