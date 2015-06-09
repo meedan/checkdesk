@@ -3579,8 +3579,9 @@ function _checkdesk_main_navigation() {
   //Build first group links
   //homepage, add a report, write a story and search
   $items[] = array(
-    'data' => l(t('Homepage'), '<front>', array(
-      'attributes' => array('class' => array($a_class, 'homepage-link'))
+    'data' => l('<span>' . t('Homepage') . '</span>', '<front>', array(
+      'attributes' => array('class' => array($a_class, 'homepage-link')),
+      'html' => TRUE,      
     )),
     'class' => array($li_class, 'homepage'),
   );
@@ -3602,16 +3603,18 @@ function _checkdesk_main_navigation() {
 
   if (user_access('create discussion content')) {
     $items[] = array(
-      'data' => l(t('Create story'), 'node/add/discussion', array(
+      'data' => l('<span>' . t('Create story') . '</span>', 'node/add/discussion', array(
         'attributes' => array('class' => array($a_class, 'create-story-link')),
+        'html' => TRUE,
         'query' => array('ref_nid' => arg(1)),
       )),
       'class' => array($li_class, 'create-story'),
     );
   }
   $items[] = array(
-    'data' => l(t('Search'), 'search', array(
+    'data' => l('<span>' . t('Search') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'checkdesk-search-link')),
+      'html' => TRUE,
     )),
     'class' => array($li_class, 'checkdesk-search'),
   );
@@ -3626,22 +3629,25 @@ function _checkdesk_main_navigation() {
   // reports, stories and updates
   $items = array();
   $items[] = array(
-    'data' => l(t('Reports'), 'search', array(
+    'data' => l('<span>' . t('Reports') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'reports-link')),
+      'html' => TRUE,
       'query' => array('type' => 'media'),
     )),
     'class' => array($li_class, 'reports'),
   );
   $items[] = array(
-    'data' => l(t('Stories'), 'search', array(
+    'data' => l('<span>' . t('Stories') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'stories-link')),
+      'html' => TRUE,
       'query' => array('type' => 'discussion'),
     )),
     'class' => array($li_class, 'stories'),
   );
   $items[] = array(
-    'data' => l(t('Updates'), 'search', array(
+    'data' => l('<span>' . t('Updates') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'updates-link')),
+      'html' => TRUE,
       'query' => array('type' => 'post'),
     )),
     'class' => array($li_class, 'updates'),
@@ -3659,15 +3665,17 @@ function _checkdesk_main_navigation() {
   $items = array();
   if (user_access('administer users')) {
     $items[] = array(
-      'data' => l(t('Administer users'), 'admin/people', array(
+      'data' => l('<span>' . t('Administer users') . '</span>', 'admin/people', array(
         'attributes' => array('class' => array($a_class, 'administer-users-link')),
+        'html' => TRUE,
       )),
       'class' => array($li_class, 'administer-users'),
     );
   }
   $items[] = array(
-    'data' => l(t('About Checkdesk'), 'content/about-checkdesk', array(
+    'data' => l('<span>' . t('About Checkdesk') . '</span>', 'content/about-checkdesk', array(
       'attributes' => array('class' => array($a_class, 'about-checkdesk-link')),
+      'html' => TRUE,
     )),
     'class' => array($li_class, 'about-checkdesk'),
   );

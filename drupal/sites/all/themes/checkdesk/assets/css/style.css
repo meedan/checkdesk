@@ -4227,21 +4227,6 @@ html {
   background-color: #fbfaf9;
 }
 
-@media (min-width: 945px) {
-  body {
-    max-width: -2px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  body:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-
 body.no-sidebars #main {
   margin-top: 72px;
 }
@@ -7092,15 +7077,20 @@ body.toolbar-drawer #main #content {
   margin-top: 103px !important;
 }
 
-nav {
+header nav {
   background-color: #10212f;
+  width: 60px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
 }
-nav svg {
-  position: relative;
-  display: inline-block;
-  fill: white;
-  width: 33px;
-  height: 25px;
+
+#main {
+  margin-left: 60px;
+}
+
+header nav ul li a span {
+  display: none;
 }
 
 .submeta {
