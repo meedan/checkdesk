@@ -29,7 +29,11 @@ function metatag_twitter_cards_theme() {
  */
 function theme_metatag_twitter_cards($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array('#name' => 'name', '#value' => 'content'));
+  $args = array(
+    '#name' => 'name',
+    '#value' => 'content',
+  );
+  element_set_attributes($element, $args);
   unset($element['#value']);
   return theme('html_tag', $variables);
 }

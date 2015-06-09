@@ -69,7 +69,7 @@ function metatag_twitter_cards_metatag_bundled_config_alter(array &$configs) {
 function metatag_twitter_cards_metatag_info() {
   $info['groups']['twitter-cards'] = array(
     'label' => t('Twitter card'),
-    'description' => t('A set of meta tags specially for controlling the summaries displayed when content is shared on <a href="!url">Twitter</a>.', array('!url' => 'http://twitter.com/')),
+    'description' => t('A set of meta tags specially for controlling the summaries displayed when content is shared on <a href="!url">Twitter</a>.', array('!url' => 'https://twitter.com/')),
     'form' => array(
       '#weight' => 60,
     ),
@@ -286,16 +286,6 @@ function metatag_twitter_cards_metatag_info() {
   ) + $player_defaults;
 
   // 'app' cards.
-  $app_defaults = $defaults + array(
-    'dependencies' => array(
-      array(
-        'dependency' => 'twitter:card',
-        'attribute' => 'value',
-        'condition' => 'value',
-        'value' => 'app',
-      ),
-    ),
-  );
   $info['tags']['twitter:app:country'] = array(
     'label' => t('App Store Country'),
     'description' => t('If your application is not available in the US App Store, you must set this value to the two-letter country code for the App Store that contains your application.'),
@@ -303,7 +293,7 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
-  ) + $app_defaults;
+  ) + $defaults;
   $info['tags']['twitter:app:name:iphone'] = array(
     'label' => t('iPhone app name'),
     'description' => t("The name of the iPhone app."),
@@ -311,7 +301,7 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
-  ) + $app_defaults;
+  ) + $defaults;
   $info['tags']['twitter:app:id:iphone'] = array(
     'label' => t('iPhone app ID'),
     'description' => t("String value, should be the numeric representation of your iPhone app's ID in the App Store."),
@@ -319,7 +309,7 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
-  ) + $app_defaults;
+  ) + $defaults;
   $info['tags']['twitter:app:url:iphone'] = array(
     'label' => t('iPhone app\'s custom URL scheme'),
     'description' => t('The iPhone app\'s custom URL scheme (must include "://" after the scheme name).'),
@@ -327,7 +317,7 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
-  ) + $app_defaults;
+  ) + $defaults;
   $info['tags']['twitter:app:name:ipad'] = array(
     'label' => t('iPad app name'),
     'description' => t("The name of the iPad app."),
@@ -335,7 +325,7 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
-  ) + $app_defaults;
+  ) + $defaults;
   $info['tags']['twitter:app:id:ipad'] = array(
     'label' => t('iPad app ID'),
     'description' => t("String value, should be the numeric representation of your iPad app's ID in the App Store."),
@@ -343,7 +333,7 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
-  ) + $app_defaults;
+  ) + $defaults;
   $info['tags']['twitter:app:url:ipad'] = array(
     'label' => t('iPad app\'s custom URL scheme'),
     'description' => t('The iPad app\'s custom URL scheme (must include "://" after the scheme name).'),
@@ -351,7 +341,7 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
-  ) + $app_defaults;
+  ) + $defaults;
   $info['tags']['twitter:app:name:googleplay'] = array(
     'label' => t('Google Play app name'),
     'description' => t("The name of the app in the Google Play app store."),
@@ -359,7 +349,7 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
-  ) + $app_defaults;
+  ) + $defaults;
   $info['tags']['twitter:app:id:googleplay'] = array(
     'label' => t('Google Play app ID'),
     'description' => t("String value, and should be the numeric representation of your app's ID in Google Play."),
@@ -367,7 +357,7 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
-  ) + $app_defaults;
+  ) + $defaults;
   $info['tags']['twitter:app:url:googleplay'] = array(
     'label' => t('Google Play app\'s custom URL scheme'),
     'description' => t('The Google Play app\'s custom URL scheme (must include "://" after the scheme name).'),
@@ -375,7 +365,7 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
-  ) + $app_defaults;
+  ) + $defaults;
 
   // 'product' cards.
   $product_defaults = array(

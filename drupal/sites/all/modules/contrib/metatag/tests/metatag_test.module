@@ -8,13 +8,3 @@ function metatag_test_ctools_plugin_api($owner, $api) {
     return array('version' => 1);
   }
 }
-
-/**
- * Implements hook_entity_info_alter().
- */
-function metatag_test_entity_info_alter(&$info) {
-  if (variable_get('metatag_test_entity_info_disable')) {
-    $info['node']['bundles']['page']['metatags'] = FALSE;
-    $info['user']['metatags'] = FALSE;
-  }
-}

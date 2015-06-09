@@ -52,9 +52,9 @@ class metatag_context_reaction extends context_reaction {
 
     // Flatten the fieldsets because otherwise the Context module will not save
     // them properly.
-    // TODO: Perhaps it can be done in a better way with #tree and #parents?
-    foreach (array('advanced', 'dublin-core', 'open-graph', 'twitter-cards') as $fieldset) {
-      if (isset($form['metatags'][LANGUAGE_NONE][$fieldset])) {
+    foreach (element_children($form['metatags'][LANGUAGE_NONE]) as $fieldset) {
+      $child = $form['metatags'][LANGUAGE_NONE][$fieldset];
+      if (isset($child['#type']) && $child['#type'] == 'fieldset') {
         $form['metatags'][LANGUAGE_NONE][$fieldset . '_heading'] = array(
           '#prefix' => '<hr /><h3>',
           '#markup' => $form['metatags'][LANGUAGE_NONE][$fieldset]['#title'],

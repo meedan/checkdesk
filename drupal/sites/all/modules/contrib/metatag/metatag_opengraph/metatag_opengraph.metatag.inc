@@ -64,6 +64,8 @@ function metatag_opengraph_metatag_bundled_config_alter(array &$configs) {
         if (variable_get('user_pictures')) {
           $config->config += array(
             'og:image' => array('value' => '[user:picture:url]'),
+            // For now keep the old default.
+            // 'og:image:url' => array('value' => '[user:picture:url]'),
           );
         }
         break;
@@ -77,7 +79,7 @@ function metatag_opengraph_metatag_bundled_config_alter(array &$configs) {
 function metatag_opengraph_metatag_info() {
   $info['groups']['open-graph'] = array(
     'label' => t('Open Graph'),
-    'description' => t("The <a href=\"@ogp\">Open Graph meta tags</a> are used control how Facebook, LinkedIn an other social networking sites interpret the site's content.", array('@ogp' => 'http://ogp.me/')),
+    'description' => t("The <a href=\"@ogp\">Open Graph meta tags</a> are used control how Facebook, Pinterest, LinkedIn and other social networking sites interpret the site's content.", array('@ogp' => 'http://ogp.me/')),
     'form' => array(
       '#weight' => 50,
     ),
@@ -107,6 +109,7 @@ function metatag_opengraph_metatag_info() {
     'label' => t('Content type'),
     'description' => t('The type of the content, e.g., <em>movie</em>.'),
     'weight' => ++$weight,
+    'select_or_other' => TRUE,
     'form' => array(
       '#type' => 'select',
       '#options' => _metatag_opengraph_type_options(),
@@ -125,15 +128,6 @@ function metatag_opengraph_metatag_info() {
       'type' => 'canonical',
     ),
   ) + $og_defaults;
-
-  if (module_exists('select_or_other')) {
-    // Enhance the og:type field to support custom types.
-    $info['tags']['og:type']['form']['#type'] = 'select_or_other';
-    $info['tags']['og:type']['form']['#other'] = t('Other (please type a value)');
-    $info['tags']['og:type']['form']['#other_unknown_defaults'] = 'other';
-    $info['tags']['og:type']['form']['#theme'] = 'select_or_other';
-    $info['tags']['og:type']['form']['#element_validate'] = array('select_or_other_element_validate');
-  }
 
   $info['tags']['og:title'] = array(
     'label' => t('Content title'),
@@ -181,8 +175,17 @@ function metatag_opengraph_metatag_info() {
   ) + $og_defaults;
 
   $info['tags']['og:image'] = array(
+    'label' => t('Image'),
+    'description' => t('The URL of an image which should represent the content. For best results use an image that is at least 1200 x 630 pixels in size, but at least 600 x 316 pixels is a recommended minimum. Supports PNG, JPEG and GIF formats. Should not be used if og:image:url is used.'),
+    'multiple' => TRUE,
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'image',
+    ),
+  ) + $og_defaults;
+  $info['tags']['og:image:url'] = array(
     'label' => t('Image URL'),
-    'description' => t('The URL of an image which should represent the content. For best results use an image that is at least 1200 x 630 pixels in size, but at least 600 x 316 pixels is a recommended minimum. Supports PNG, JPEG and GIF formats.'),
+    'description' => t('A alternative version of og:image and has exactly the same requirements; only one needs to be used.'),
     'multiple' => TRUE,
     'weight' => ++$weight,
     'devel_generate' => array(
@@ -201,7 +204,7 @@ function metatag_opengraph_metatag_info() {
   ) + $og_defaults;
   $info['tags']['og:image:type'] = array(
     'label' => t('Image type'),
-    'description' => t('The type of image referenced above. Should be either "image/gif" for a GIF image, "image/jpeg" for a JPG/JPEG image, or "image/png" for a PNG image.'),
+    'description' => t('The type of image referenced above. Should be either "image/gif" for a GIF image, "image/jpeg" for a JPG/JPEG image, or "image/png" for a PNG image. Note: there should be one value for each image, and having more than there are images may cause problems.'),
     'multiple' => TRUE,
     'weight' => ++$weight,
   ) + $og_defaults;
@@ -239,9 +242,12 @@ function metatag_opengraph_metatag_info() {
     ),
   ) + $og_defaults;
 
-  $info['tags']['og:street-address'] = array(
+  $info['tags']['og:street_address'] = array(
     'label' => t('Street address'),
     'weight' => ++$weight,
+    'replaces' => array(
+      'og:street-address',
+    ),
   ) + $og_defaults;
   $info['tags']['og:locality'] = array(
     'label' => t('Locality'),
@@ -251,13 +257,19 @@ function metatag_opengraph_metatag_info() {
     'label' => t('Region'),
     'weight' => ++$weight,
   ) + $og_defaults;
-  $info['tags']['og:postal-code'] = array(
+  $info['tags']['og:postal_code'] = array(
     'label' => t('Postal/ZIP code'),
     'weight' => ++$weight,
+    'replaces' => array(
+      'og:postal-code',
+    ),
   ) + $og_defaults;
-  $info['tags']['og:country-name'] = array(
+  $info['tags']['og:country_name'] = array(
     'label' => t('Country name'),
     'weight' => ++$weight,
+    'replaces' => array(
+      'og:country-name',
+    ),
   ) + $og_defaults;
 
   $info['tags']['og:email'] = array(
@@ -507,7 +519,6 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['video:writer'] = array(
     'label' => t('Scriptwriter(s)'),
     'description' => t('Links to the Facebook profiles for scriptwriter(s) for the video.'),
-    'description' => t("Scriptwriters from the video."),
     'multiple' => TRUE,
     'weight' => ++$weight,
   ) + $og_defaults + $video_defaults;
@@ -540,6 +551,158 @@ function metatag_opengraph_metatag_info() {
       ),
     ),
   ) + $og_defaults + $video_defaults;
+
+
+  // Open Graph products.
+  $info['groups']['open-graph-product'] = array(
+    'label' => t('Open Graph - Products'),
+    'description' => t("These Open Graph meta tags for describing products.", array('@ogp' => 'http://ogp.me/')),
+    'form' => array(
+      '#weight' => 51,
+    ),
+  );
+
+  // Default values for each meta tag.
+  $og_product_defaults = array(
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph-product',
+    'element' => array(
+      '#theme' => 'metatag_property',
+    ),
+  );
+
+  // For "product" og:type.
+  $info['tags']['product:price:amount'] = array(
+    'label' => t('Price'),
+    'description' => t("The numeric price with decimal point, without currency indicator. Values below 0.01 may not be supported by clients."),
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:price:currency'] = array(
+    'label' => t('Currency'),
+    'description' => t("The currency for the price (if any)."),
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:availability'] = array(
+    'label' => t('Availability'),
+    'description' => t('Case-insensitive string, possible values: "instock", "pending", "oos"; per <a href="@url">Facebook\' documentation</a>.', array('@url' => 'https://developers.facebook.com/docs/reference/opengraph/object-type/product')),
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:brand'] = array(
+    'label' => t('Brand'),
+    'description' => '',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:upc'] = array(
+    'label' => t('UPC'),
+    'description' => '',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:ean'] = array(
+    'label' => t('EAN'),
+    'description' => '',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:isbn'] = array(
+    'label' => t('ISBN'),
+    'description' => '',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:plural_title'] = array(
+    'label' => t('Plural Title'),
+    'description' => 'A title to be used to describe multiple items of this product',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:retailer'] = array(
+    'label' => t('Retailer ID'),
+    'description' => 'A Facebook ID (or reference to the profile) of the retailer.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:retailer_title'] = array(
+    'label' => t('Retailer Name'),
+    'description' => 'The name of the retailer.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:retailer_part_no'] = array(
+    'label' => t('Retailer SKU/Product Number'),
+    'description' => 'A retailer part number.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:mfr_part_no'] = array(
+    'label' => t('Manufacturer SKU/Part Number'),
+    'description' => 'A manufacturer part number.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:size'] = array(
+    'label' => t('Size'),
+    'description' => 'A size describing the product, such as S, M, L.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:product_link'] = array(
+    'label' => t('Product Link'),
+    'description' => 'A link to find out more about the product',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:category'] = array(
+    'label' => t('Category'),
+    // 'description' => 'A category',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:color'] = array(
+    'label' => t('Color'),
+    // 'description' => 'The product\'s color.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:material'] = array(
+    'label' => t('Material'),
+    'description' => 'A description of the material used to make the product.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:pattern'] = array(
+    'label' => t('Pattern'),
+    'description' => 'A description of the pattern used.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:shipping_cost:amount'] = array(
+    'label' => t('Shipping Cost Amount'),
+    'description' => 'The shipping costs.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:shipping_cost:currency'] = array(
+    'label' => t('Shipping Cost Currency'),
+    'description' => 'The shipping cost currency.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:weight:value'] = array(
+    'label' => t('Product Weight'),
+    'description' => 'The weight, without shipping materials.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:weight:units'] = array(
+    'label' => t('Product Weight Units'),
+    'description' => 'The unit of weight.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:shipping_weight:value'] = array(
+    'label' => t('Shipping Weight'),
+    'description' => 'The shipping weight.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:shipping_weight:units'] = array(
+    'label' => t('Shipping Weight Units'),
+    'description' => 'The unit of shipping weight.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:expiration_time'] = array(
+    'label' => t('Expiration'),
+    'description' => 'A time representing when the product expired, or will expire.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
+  $info['tags']['product:condition'] = array(
+    'label' => t('Condition'),
+    'description' => 'The condition of the product.',
+    'weight' => ++$weight,
+  ) + $og_product_defaults;
 
   return $info;
 }
