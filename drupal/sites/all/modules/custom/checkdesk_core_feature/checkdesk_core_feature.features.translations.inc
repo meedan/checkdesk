@@ -2393,6 +2393,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Module/Theme/Theme engine name', array(), array('context' => ''));
+  $translations['ar:default']['3695828a0a579ce43bf2c1338ec11d3a'] = array(
+    'source' => '<strong>We sent you an email to reset the password</strong> <br> find it in your inbox (or junk).',
+    'context' => '',
+    'location' => '/ar/user/password',
+    'translation' => '<strong>تم إرسال تعليمات تغيير كلمات السر</strong> <br> سوف تجده في البريد الوارد (أو المجلد غير المرغوب فيه).',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('<strong>We sent you an email to reset the password</strong> <br> find it in your inbox (or junk).', array(), array('context' => ''));
   $translations['ar:default']['36b4f478ccdf0d3a6515f875037db0bf'] = array(
     'source' => 'Dashboard (main)',
     'context' => '',
@@ -9979,6 +9988,15 @@ This was an auto-generated email from !site; please do not respond directly to t
 You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
 
 This was an auto-generated email from !site; please do not respond directly to this email.', array(), array('context' => ''));
+  $translations['ar:default']['d3ccca2b5ec2adee40e95e7bc262f5b3'] = array(
+    'source' => 'Add a brief description of the story (optional)',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'أضف تلخيصاً موجزاً للموضوع (اختياري)',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Add a brief description of the story (optional)', array(), array('context' => ''));
   $translations['ar:default']['d3d2e617335f08df83599665eef8a418'] = array(
     'source' => 'Close',
     'context' => '',
