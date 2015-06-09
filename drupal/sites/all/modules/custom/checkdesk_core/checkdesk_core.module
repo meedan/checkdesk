@@ -1802,7 +1802,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     );
     $form['name']['#title'] = t('Email address');
     $form['actions']['submit']['#value'] = t('Send');
-    $form['actions']['submit']['#submit'][] = '_modify_drupal_message';
+    $form['#submit'][] = '_modify_drupal_message';
     // Add cancel link
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-pass-back-link" onclick="Drupal.CTools.Modal.dismiss();return false;">' . l(t('Back'), 'user/login') . '</div>';
 
