@@ -1,5 +1,7 @@
 <?php
 
+module_load_include('inc', 'link', 'link.migrate');
+
 // Common for all node types
 
 abstract class CheckdeskNodeMigration extends DrupalNode7Migration {
@@ -52,6 +54,34 @@ abstract class CheckdeskNodeMigration extends DrupalNode7Migration {
 
     return $newsroom;
   }
+
+  public function updateReports($name, $body) {
+    $matches = array();
+    $new_body = $body;
+
+    preg_match_all("|\[[^:]+:[0-9]+\]|", $body, $matches);
+
+    if (!empty($matches)) {
+      $reports = $matches[0];
+      foreach ($reports as $report) {
+        $nid = preg_replace("/^\[[^:]+:([0-9]+)\]$/", "$1", $report);
+        $new_nid = db_select('migrate_map_report_' . $name, 'm')
+                   ->fields('m', array('destid1'))
+                   ->condition('sourceid1', $nid, '=')
+                   ->extend('PagerDefault')
+                   ->limit(1)
+                   ->execute()
+                   ->fetchField();
+        $replacement = '';
+        if ($new_nid) {
+          $replacement = str_replace($nid, $new_nid, $report);
+        }
+        $new_body = str_replace($report, $replacement, $new_body);
+      }
+    }
+
+    return $new_body;
+  }
 }
 
 // Stories
@@ -87,6 +117,10 @@ class CheckdeskStoryMigration extends CheckdeskNodeMigration {
    */
   public function prepareRow($row) {
     parent::prepareRow($row);
+    
+    $name = $this->arguments['name'];
+    
+    $row->body[0] = $this->updateReports($name, $row->body[0]);
 
     $row->comment = 0;
   }
@@ -135,5 +169,57 @@ class CheckdeskUpdateMigration extends CheckdeskNodeMigration {
     $name = $this->arguments['name'];
     
     $this->addFieldMapping('field_desk', 'field_desk')->sourceMigration('Story_' . $name);
+  }
+
+  /**
+   * Implements Migration::prepareRow().
+   */
+  public function prepareRow($row) {
+    parent::prepareRow($row);
+
+    // Update reports
+    $name = $this->arguments['name'];
+    $row->body[0] = $this->updateReports($name, $row->body[0]);
+  }
+}
+
+// Reports
+
+class CheckdeskReportMigration extends CheckdeskNodeMigration {
+  public function __construct(array $arguments) {
+    parent::__construct($arguments);
+    
+    $name = $this->arguments['name'];
+    
+    $this->addFieldMapping('field_stories', 'field_stories')->sourceMigration('Story_' . $name);
+    
+    $this->addFieldMapping('field_tags', 'field_tags')->sourceMigration('Term_' . $name);
+    $this->addFieldMapping('field_tags:source_type')->defaultValue('tid');
+
+    $this->addFieldMapping('field_rating', 'field_rating')->sourceMigration('Rating_' . $name);
+    $this->addFieldMapping('field_rating:source_type')->defaultValue('tid');
+
+    $this->addFieldMapping('field_link', 'field_link');
+    $this->addFieldMapping('field_link:url', 'field_link:url');
+    $this->addFieldMapping('field_link:title', 'field_link:title');
+    $this->addFieldMapping('field_link:attributes', 'field_link:attributes');
+  }
+
+  /**
+   * Implements Migration::prepareRow().
+   */
+  public function prepareRow($row) {
+    parent::prepareRow($row);
+  }
+
+  /**
+   * Implements Migration::complete().
+   */
+  public function complete($node, stdClass $row) {
+    parent::complete($node, $row);
+
+    // Force callbacks
+
+    node_save($node);
   }
 }

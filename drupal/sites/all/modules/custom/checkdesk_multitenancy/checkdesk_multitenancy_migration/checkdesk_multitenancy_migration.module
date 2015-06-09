@@ -46,6 +46,15 @@ function checkdesk_multitenancy_migration_migrate_api() {
       'soft_dependencies' => array('User_' . $name),
     );
 
+    $migrations['Rating_' . $name] = $common_arguments + array(
+      'description' => t('Migration of rating from !site', array('!site' => $name)),
+      'class_name' => 'DrupalTerm7Migration',
+      'source_vocabulary' => 'media_rating',
+      'destination_vocabulary' => 'media_rating',
+      'machine_name' => 'Rating_' . $name,
+      'soft_dependencies' => array('User_' . $name),
+    );
+
     $migrations['Files_' . $name] = $common_arguments + array(
       'description' => t('Migration of files from !site', array('!site' => $name)),
       'machine_name' => 'Files_' . $name,
@@ -54,13 +63,22 @@ function checkdesk_multitenancy_migration_migrate_api() {
       'class_name' => 'DrupalFile7Migration',
     );
 
+    $migrations['Report_' . $name] = $common_arguments + array(
+      'user_migration' => 'User_' . $name,
+      'class_name' => 'CheckdeskReportMigration',
+      'description' => t('Migration of reports from !site', array('!site' => $name)),
+      'source_type' => 'media',
+      'destination_type' => 'media',
+      'dependencies' => array('Term_' . $name, 'Rating_' . $name),
+    );
+
     $migrations['Story_' . $name] = $common_arguments + array(
       'user_migration' => 'User_' . $name,
       'class_name' => 'CheckdeskStoryMigration',
       'description' => t('Migration of stories from !site', array('!site' => $name)),
       'source_type' => 'discussion',
       'destination_type' => 'discussion',
-      'dependencies' => array('Term_' . $name),
+      'dependencies' => array('Report_' . $name),
     );
 
     $migrations['Update_' . $name] = $common_arguments + array(
