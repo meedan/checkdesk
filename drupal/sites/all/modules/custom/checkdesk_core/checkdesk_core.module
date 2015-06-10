@@ -1757,7 +1757,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-sigin-back-link">' . $back_link . '</div>';
     $form['#validate'][] = '_modify_drupal_message';
-    $form['actions']['submit']['#attributes']['onclick'] = "this.disable = true;this.value = Drupal.t('Loading');";
+    $form['actions']['submit']['#attributes']['onclick'] = "jQuery('#edit-submit').attr('disabled', true);this.value = Drupal.t('Loading');";
   }
 
   if ($form_id == '_checkdesk_core_report_suggest') {
