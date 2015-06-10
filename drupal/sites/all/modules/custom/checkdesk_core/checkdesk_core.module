@@ -1125,18 +1125,6 @@ function checkdesk_core_views_pre_render(&$view) {
       }
     }
   }
-  elseif ($view->name == 'story_authors' && $view->current_display == 'block_1') {
-    if (count($view->result)) {
-      $entity = $view->result[0]->_field_data['field_additional_authors_users_nid']['entity'];
-      foreach($entity->field_additional_authors[LANGUAGE_NONE] as $values) {
-        if ($entity->uid == $values['target_id']) {
-          unset($view->field['name']);
-          break;
-        }
-      }
-    }
-  }
-
 }
 
 /**
