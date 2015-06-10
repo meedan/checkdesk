@@ -1647,6 +1647,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Combine two fields together and search by them.', array(), array('context' => ''));
+  $translations['ar:default']['22c9edfd9b8055a0365a59494db2213e'] = array(
+    'source' => 'RESEND',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/password',
+    'translation' => 'أعد الإرسال',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('RESEND', array(), array('context' => ''));
   $translations['ar:default']['230f3b2f93ecaf7d826afe0e7d2d6ffd'] = array(
     'source' => 'g:ia',
     'context' => '',
@@ -1944,6 +1953,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('This image style is being provided by %module module and may not be renamed.', array(), array('context' => ''));
+  $translations['ar:default']['2ba22e58ca17bb728d522bba36cf8350'] = array(
+    'source' => 'DONE',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/password',
+    'translation' => 'تمّ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('DONE', array(), array('context' => ''));
   $translations['ar:default']['2bda2998d9b0ee197da142a0447f6725'] = array(
     'source' => 'wrong',
     'context' => '',
@@ -11434,6 +11452,15 @@ print theme(\'views_autorefresh\', array(
     'plural' => 0,
   );
   $translatables[] = t('@count[2] updates', array(), array('context' => ''));
+  $translations['ar:default']['ee6af6a9c6fd788e27b5807b82064917'] = array(
+    'source' => 'We sent you an email to reset the password',
+    'context' => '',
+    'location' => '/ar/checkdesk_resend_pass/14',
+    'translation' => 'تم إرسال تعليمات تغيير كلمة السر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('We sent you an email to reset the password', array(), array('context' => ''));
   $translations['ar:default']['ef046ed7ba54bb4a4cb6a461d84fa689'] = array(
     'source' => 'published on ',
     'context' => '',
@@ -11815,6 +11842,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('View link', array(), array('context' => ''));
+  $translations['ar:default']['f7ad4bb650ed9fa45cfacbf30e26c752'] = array(
+    'source' => 'find it in your inbox (or junk).',
+    'context' => '',
+    'location' => '/ar/modal_forms/ajax/password',
+    'translation' => 'سوف تجده في البريد الوارد (أو المجلد غير المرغوب فيه).',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('find it in your inbox (or junk).', array(), array('context' => ''));
   $translations['ar:default']['f7b9522333ea3fbdb6d3965b40b1f6c8'] = array(
     'source' => 'Media sources',
     'context' => '',

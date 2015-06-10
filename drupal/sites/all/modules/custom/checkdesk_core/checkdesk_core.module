@@ -147,7 +147,28 @@ function checkdesk_core_menu() {
     'page arguments' => array('search'),
     'access arguments' => array('access any drafts content'),
   );
+  $items['checkdesk_resend_pass/%'] = array(
+    'title' => 'Resend rest-password mail',
+    'page callback' => '_checkdesk_resend_pass',
+    'page arguments' => array(1),
+    'access callback' => 'user_is_anonymous',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
   return $items;
+}
+
+/**
+ * Resend reset password mail.
+ * @param $uid
+ */
+function _checkdesk_resend_pass($uid) {
+  $account = user_load($uid);
+  _user_mail_notify('password_reset', $account);
+  $msg = theme('checkdesk_core_reset_pass', array(
+    'resend' => NULL
+  ));
+  drupal_set_message($msg);
+  drupal_goto('<front>');
 }
 
 /**
@@ -1425,6 +1446,13 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
+  $themes['checkdesk_core_reset_pass'] = array(
+      'template' => 'checkdesk_reset_pass',
+      'variables' => array(
+        'resend' => NULL,
+      ),
+    ) + $base;
+
   return $themes;
 }
 
@@ -1825,7 +1853,10 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
 function _modify_drupal_message($form, &$form_state) {
   if ($form['#form_id'] == 'user_pass') {
     drupal_get_messages('status');
-    drupal_set_message(t('<strong>We sent you an email to reset the password</strong> <br> find it in your inbox (or junk).'));
+    $msg = theme('checkdesk_core_reset_pass', array(
+      'resend' => l(t('RESEND'), 'checkdesk_resend_pass/' . $form_state['values']['account']->uid)
+    ));
+    drupal_set_message($msg);
   }
   else {
     $values = $form_state['values'];
