@@ -7098,7 +7098,6 @@ header nav {
 }
 header nav a {
   color: #fff;
-  background: rgba(16, 33, 47, 0.4);
   margin: 10px;
   padding: 0 6px;
   display: block;
@@ -7109,6 +7108,9 @@ header nav a {
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
+}
+header nav a.active:not(.homepage-link) {
+  background: rgba(16, 33, 47, 0.4);
 }
 header nav svg {
   fill: rgba(255, 255, 255, 0.4);
