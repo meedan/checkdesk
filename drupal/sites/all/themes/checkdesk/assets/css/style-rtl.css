@@ -4228,6 +4228,15 @@ body.no-sidebars #main {
   margin-top: 72px;
 }
 
+#main {
+  margin-right: 60px;
+  max-width: 1280px;
+}
+
+#main #content {
+  padding: 0 50px 50px;
+}
+
 h1, h2, h3, h4 {
   margin: 0;
   padding: 0;
@@ -7067,15 +7076,11 @@ body.toolbar-drawer #main #content {
 }
 
 header nav {
-  background-color: #10212f;
+  background-color: white;
   width: 60px;
   position: fixed;
   top: 0;
   bottom: 0;
-}
-
-#main {
-  margin-right: 60px;
 }
 
 header nav ul li a span {

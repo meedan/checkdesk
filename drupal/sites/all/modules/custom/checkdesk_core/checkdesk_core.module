@@ -3576,10 +3576,12 @@ function _checkdesk_main_navigation() {
   $items = array();
   $a_class = 'main-navigation-link'; //global class for a
   $li_class = 'main-navigation-item'; //global class for item
+  $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
   //Build first group links
   //homepage, add a report, write a story and search
+  $logo_icon = '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
   $items[] = array(
-    'data' => l('<span>' . t('Homepage') . '</span>', '<front>', array(
+    'data' => l($logo_icon . '<span>' . t('Homepage') . '</span>', '<front>', array(
       'attributes' => array('class' => array($a_class, 'homepage-link')),
       'html' => TRUE,      
     )),
