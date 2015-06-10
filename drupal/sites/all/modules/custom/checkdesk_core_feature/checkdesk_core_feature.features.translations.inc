@@ -956,7 +956,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'loading...',
     'context' => '',
     'location' => 'sites/all/modules/meedan/meedan_livefyre/meedan_livefyre.js',
-    'translation' => 'تحميل ...',
+    'translation' => 'جاري التحميل ...',
     'plid' => 0,
     'plural' => 0,
   );
@@ -6246,6 +6246,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Added ', array(), array('context' => ''));
+  $translations['ar:default']['8524de963f07201e5c086830d370797f'] = array(
+    'source' => 'Loading...',
+    'context' => '',
+    'location' => '',
+    'translation' => 'جاري التحميل ...',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Loading...', array(), array('context' => ''));
   $translations['ar:default']['8567d06b436c06938d4d20225c9ea85c'] = array(
     'source' => 'Beirut',
     'context' => '',
