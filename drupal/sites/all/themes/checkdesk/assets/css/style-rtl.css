@@ -7108,10 +7108,30 @@ header nav {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+header nav ul.second-group {
+  margin-top: 10px;
+  padding-top: 10px;
+  position: relative;
+}
+header nav ul.second-group:before {
+  position: absolute;
+  content: "";
+  width: 28px;
+  top: 0;
+  right: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+header nav ul.third-group {
+  position: absolute;
+  bottom: 50px;
+}
+header nav li {
+  height: 50px;
+}
 header nav a {
   color: #fff;
-  margin: 10px;
-  padding: 0 6px;
+  margin: 10px 6px;
+  padding: 0 12px;
   display: block;
   position: relative;
   height: 100%;
@@ -7128,11 +7148,61 @@ header nav svg {
   fill: rgba(255, 255, 255, 0.4);
   position: relative;
   display: inline-block;
+  top: 6px;
 }
 header nav svg.logo-icon {
-  top: 7px;
-  width: 27px;
-  height: 39px;
+  width: 26px;
+  height: 38px;
+}
+header nav svg.create-report-icon {
+  width: 26px;
+  height: 33px;
+  top: 8px;
+}
+header nav svg.create-story-icon {
+  width: 30px;
+  height: 28px;
+  top: 11px;
+}
+header nav svg.search-icon {
+  width: 24px;
+  height: 24px;
+  top: 11px;
+}
+header nav svg.reports-icon {
+  width: 25px;
+  height: 28px;
+  top: 11px;
+}
+header nav svg.stories-icon {
+  width: 30px;
+  height: 24px;
+  top: 12px;
+  right: -3px;
+}
+header nav svg.updates-icon {
+  width: 28px;
+  height: 32px;
+  top: 8px;
+  right: -2px;
+}
+header nav svg.support-icon {
+  width: 20px;
+  height: 30px;
+  top: 10px;
+  right: 3px;
+}
+header nav svg.settings-icon {
+  width: 28px;
+  height: 28px;
+  top: 10px;
+  right: -2px;
+}
+header nav svg.about-icon {
+  width: 28px;
+  height: 28px;
+  top: 10px;
+  right: -2px;
 }
 
 header nav ul li a span {
@@ -10201,8 +10271,8 @@ body.sidebar-first #main:after {
 body.sidebar-first #main #sidebar-first.column {
   position: fixed;
   max-width: 360px;
-  right: 0;
-  top: 38px;
+  right: 60px;
+  top: 0;
   width: 30%;
   border-left: 1px solid #e7e8ea;
   background-color: white;
@@ -10264,7 +10334,7 @@ body.sidebar-first #main #content {
 body.sidebar-first #main #content #content-inner {
   *zoom: 1;
   max-width: 850px;
-  margin-top: 38px;
+  margin-top: 0;
   padding-top: 36px;
   padding-right: 5.67376%;
   padding-left: 5.67376%;
@@ -10279,7 +10349,7 @@ body.sidebar-first #main #content #content-inner:after {
 }
 
 body.toolbar #main #sidebar-first.column {
-  top: 103px;
+  top: 65px;
 }
 
 @media (min-width: 465px) {

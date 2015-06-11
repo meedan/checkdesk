@@ -74,10 +74,33 @@ header nav {
   bottom: 0;
   @include box-sizing(border-box);
 
+  ul.second-group {
+    margin-top: 10px;
+    padding-top: 10px;
+    position: relative;
+    &:before {
+      position: absolute;
+      content: "";
+      width: 28px;
+      top: 0;
+      #{$alpha}: 16px;
+      border-top: 1px solid rgba(255,255,255,.4);
+    }
+  }
+
+  ul.third-group {
+    position: absolute;
+    bottom: 50px;
+  }
+
+  li {
+    height: 50px;
+  }
+
   a {
     color: #fff;
-    margin: 10px;
-    padding: 0 6px;
+    margin: 10px 6px;
+    padding: 0 12px;
     display: block;
     position: relative;
     height: 100%;
@@ -92,13 +115,73 @@ header nav {
     fill: rgba(255,255,255,.4);
     position: relative;
     display: inline-block;
+    top: 6px;
   }
 
   svg.logo-icon {
-    top: 7px;
-    width: 27px;
-    height: 39px;
+    width: 26px;
+    height: 38px;
   }
+
+  svg.create-report-icon {
+    width: 26px;
+    height: 33px;
+    top: 8px;
+  }
+
+  svg.create-story-icon {
+    width: 30px;
+    height: 28px;
+    top: 11px;
+  }
+
+  svg.search-icon {
+    width: 24px;
+    height: 24px;
+    top: 11px;
+  }
+
+  svg.reports-icon {
+    width: 25px;
+    height: 28px;
+    top: 11px;
+  }
+
+  svg.stories-icon {
+    width: 30px;
+    height: 24px;
+    top: 12px;
+    #{$alpha}: -3px;
+  }
+
+  svg.updates-icon {
+    width: 28px;
+    height: 32px;
+    top: 8px;
+    #{$alpha}: -2px;
+  }
+
+  svg.support-icon {
+    width: 20px;
+    height: 30px;
+    top: 10px;
+    #{$alpha}: 3px;
+  }
+
+  svg.settings-icon {
+    width: 28px;
+    height: 28px;
+    top: 10px;
+    #{$alpha}: -2px;
+  }
+
+  svg.about-icon {
+    width: 28px;
+    height: 28px;
+    top: 10px;
+    #{$alpha}: -2px;
+  }
+
 
 }
 

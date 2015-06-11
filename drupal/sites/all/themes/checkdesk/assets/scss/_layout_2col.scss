@@ -15,8 +15,8 @@
   #sidebar-first.column {
     position: fixed;
     max-width: 360px;
-    #{$alpha}: 0;
-    top: $navbarHeight;
+    #{$alpha}: $navbarWidth;
+    top: 0;
     width: 30%;
     border-#{$omega}: 1px solid $firefly10;
     background-color: $white;
@@ -43,7 +43,7 @@
     #content-inner {
       @include ctb-clearfix;
       max-width: 850px;
-      margin-top: $navbarHeight;
+      margin-top: 0;
       padding-top: $absolute-line-height*1.5;
       @include pad(1,1, $break);
     }
@@ -64,7 +64,7 @@ body.sidebar-first {
 body.toolbar {
   #main {
     #sidebar-first.column {
-      top: $toolbarHeight + $navbarHeight;
+      top: $toolbarHeight;
     }
   }
 }
