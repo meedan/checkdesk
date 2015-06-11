@@ -6,7 +6,7 @@
 //
 div.region-page-top {
   #toolbar {
-    display: none;
+    // display: none;
     position: fixed;
     z-index: $zindexFixedNavbar;
     // This can be cleaned up with toolbar css is removed.
@@ -51,9 +51,19 @@ body.toolbar-drawer {
       margin-top: ($toolbarHeight + $navbarHeight) !important;
     }
   }
+  header {
+    margin-top: ($toolbarHeight + $navbarHeight) !important;
+  }
+  header nav {
+    top: $toolbarHeight;
+  }
 }
 
-
+header {
+  position: relative;
+  max-width: 1040px;
+  height: 100%;
+}
 
 
 header nav {

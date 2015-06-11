@@ -950,6 +950,15 @@ function checkdesk_page_alter(&$page) {
         );
       }
     }
+    // Navigation as toolbar
+    if (!isset($page['navigation'])) {
+      if (in_array($region, array('navigation'))) {
+        $page['navigation'] = array(
+            '#region' => 'navigation',
+            '#theme_wrappers' => array('region'),
+        );
+      }
+    }
   }
 }
 

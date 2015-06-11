@@ -2,8 +2,8 @@
 
   <!-- ______________________ NAVIGATION BAR _______________________ -->
 <header>
-  <?php if ($page['widgets'] && checkdesk_widgets_visibility()): ?>
-    <?php print render($page['widgets']); ?>
+  <?php if ($page['navigation']) : ?>
+    <?php print render($page['navigation']); ?>
   <?php endif; ?>
 </header>
 
