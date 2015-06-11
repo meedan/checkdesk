@@ -33,6 +33,7 @@ function metatag_facebook_metatag_info() {
     'label' => t('Admins'),
     'description' => t('A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page.'),
     'weight' => ++$weight,
+    'multiple' => TRUE,
   ) + $tag_info_defaults;
 
   $info['tags']['fb:app_id'] = array(

@@ -18,7 +18,8 @@ function metatag_google_plus_metatag_bundled_config_alter(array &$configs) {
 
       case 'global:frontpage':
         $config->config += array(
-          'itemprop:name' => array('value' => '[current-page:title]'),
+          'itemprop:name' => array('value' => '[site:name]'),
+          'itemprop:description' => array('value' => '[site:slogan]'),
         );
         break;
 
@@ -26,14 +27,15 @@ function metatag_google_plus_metatag_bundled_config_alter(array &$configs) {
       case 'global:403':
       case 'global:404':
         $config->config += array(
-          'itemprop:name' => array('value' => '[current-page:title]'),
+          'itemprop:name' => array('value' => '[site:name]'),
         );
         break;
 
       case 'node':
         $config->config += array(
           'itemprop:description' => array('value' => '[node:summary]'),
-          'itemprop:name' => array('value' => '[current-page:title]'),
+          'itemprop:name' => array('value' => '[node:title]'),
+          'itemtype' => array('value' => 'Article'),
         );
         break;
 
@@ -47,6 +49,7 @@ function metatag_google_plus_metatag_bundled_config_alter(array &$configs) {
       case 'user':
         $config->config += array(
           'itemprop:name' => array('value' => '[user:name]'),
+          'itemtype' => array('value' => 'Person'),
         );
         if (variable_get('user_pictures')) {
           $config->config += array(
@@ -66,7 +69,7 @@ function metatag_google_plus_metatag_info() {
     'label' => t('Google+'),
     'description' => t('A set of meta tags specially for controlling the summaries displayed when content is shared on <a href="!url">Google+</a>.', array('!url' => 'https://plus.google.com/')),
     'form' => array(
-      '#weight' => 70,
+      '#weight' => 80,
     ),
   );
 
@@ -87,6 +90,7 @@ function metatag_google_plus_metatag_info() {
     'description' => t('Schema type. <a href="!url">More schema info</a>. If your page type does not exist in options above, please install <a href="!url2">select_or_other</a> module to enter page type manually.', array('!url' => 'http://schema.org/docs/schemas.html', '!url2' => 'https://drupal.org/project/select_or_other')),
     'class' => 'DrupalSchemaMetaTag',
     'weight' => ++$weight,
+    'select_or_other' => TRUE,
     'form' => array(
       '#type' => 'select',
       '#options' => array(
@@ -103,14 +107,6 @@ function metatag_google_plus_metatag_info() {
       '#empty_option' => t('- None -'),
     ),
   ) + $defaults;
-
-  if (module_exists('select_or_other')) {
-    $info['tags']['itemtype']['form']['#type'] = 'select_or_other';
-    $info['tags']['itemtype']['form']['#other'] = 'Other (please type a value)';
-    $info['tags']['itemtype']['form']['#multiple'] = FALSE;
-    $info['tags']['itemtype']['form']['#other_unknown_defaults'] = 'other';
-    $info['tags']['itemtype']['form']['#select_type'] = 'select';
-  }
 
   $info['tags']['itemprop:name'] = array(
     'label' => t('Title'),

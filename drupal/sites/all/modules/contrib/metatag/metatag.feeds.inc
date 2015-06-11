@@ -23,19 +23,27 @@ function metatag_feeds_processor_targets_alter(&$targets, $entity_type, $bundle)
 /**
  * Callback function to set value of a metatag tag.
  */
-function metatag_feeds_set_target($source, $entity, $target, $value) {
+function metatag_feeds_set_target($source, $entity, $target, $values) {
   // Don't do anything if we weren't given any data.
-  if (empty($value)) {
+  if (empty($values)) {
     return;
+  }
+
+  // The Feed API was changed so that the $values are passed as an array rather
+  // than a single value. For backwards compatibility, support both.
+  if (!is_array($values)) {
+    $values = array($values);
   }
 
   // Strip the prefix that was added above.
   $name = str_replace('meta_', '', $target);
 
+  // Identify the type of entity being imported.
+  $entity_type = $entity->feeds_item->entity_type;
+
   // Check for any existing data that may not have been loaded already.
   if (!isset($entity->metatags) && !empty($entity->feeds_item->entity_id) && is_numeric($entity->feeds_item->entity_id)) {
     $entity->metatags = array();
-    $entity_type = $entity->feeds_item->entity_type;
     $entity_id = $entity->feeds_item->entity_id;
 
     // Load the existing entity.
@@ -59,5 +67,5 @@ function metatag_feeds_set_target($source, $entity, $target, $value) {
 
   // Assign the value.
   $langcode = metatag_entity_get_language($entity_type, $entity);
-  $entity->metatags[$langcode][$name]['value'] = $value;
+  $entity->metatags[$langcode][$name]['value'] = $values[0];
 }

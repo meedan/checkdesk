@@ -97,7 +97,10 @@ function metatag_views_page_alter(&$page) {
     $options = array();
     $options['token data']['view'] = $view;
 
+    // The page region can be changed.
+    $region = variable_get('metatag_page_region', 'content');
+
     // Add the metatags.
-    $page['content']['metatags'][$instance] = metatag_metatags_view($instance, $metatags, $options);
+    $page[$region]['metatags'][$instance] = metatag_metatags_view($instance, $metatags, $options);
   }
 }

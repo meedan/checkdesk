@@ -25,7 +25,7 @@ development was by Marcin Pajdzik [3] (sponsored by Dennis Publishing [4]).
 
 References
 ------------------------------------------------------------------------------
-1: http://drupal.org/project/context
-2: http://drupal.org/project/context_metadata
-3: http://drupal.org/user/160555
+1: https://www.drupal.org/project/context
+2: https://www.drupal.org/project/context_metadata
+3: https://www.drupal.org/u/marcin-pajdzik
 4: http://www.dennis.co.uk/

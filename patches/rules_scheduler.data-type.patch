@@ -1,0 +1,24 @@
+diff --git a/drupal/sites/all/modules/contrib/rules/rules_scheduler/rules_scheduler.install b/drupal/sites/all/modules/contrib/rules/rules_scheduler/rules_scheduler.install
+index 202c861..f668e5f 100644
+--- a/drupal/sites/all/modules/contrib/rules/rules_scheduler/rules_scheduler.install
++++ b/drupal/sites/all/modules/contrib/rules/rules_scheduler/rules_scheduler.install
+@@ -32,6 +32,7 @@ function rules_scheduler_schema() {
+       ),
+       'data' => array(
+         'type' => 'text',
++        'size' => 'medium',
+         'not null' => FALSE,
+         'serialize' => TRUE,
+         'description' => 'The whole, serialized evaluation data.',
+@@ -189,3 +190,10 @@ function rules_action_delete_scheduled_set_upgrade($element, $target) {
+   $target->settings['component'] = $element['#settings']['ruleset'];
+   $target->settings['task'] = $element['#settings']['task_identifier'];
+ }
++
++/**
++ * Change rules_scheduler.data type to MEDIUMTEXT                                                     .
++ */
++function rules_scheduler_update_7205() {
++  db_query('ALTER TABLE {rules_scheduler} MODIFY COLUMN data MEDIUMTEXT');
++}
+\ No newline at end of file

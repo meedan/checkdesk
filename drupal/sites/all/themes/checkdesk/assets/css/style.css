@@ -39,7 +39,7 @@
 
 /* Animated throbber */
 html.js input.form-autocomplete {
-  background-image: url(../../misc/throbber.gif);
+  background-image: url(/misc/throbber.gif);
   background-position: 100% 2px;
   /* LTR */
   background-repeat: no-repeat;
@@ -122,7 +122,7 @@ a.tabledrag-handle:hover {
 }
 
 a.tabledrag-handle .handle {
-  background: url(../../misc/draggable.png) no-repeat 6px 9px;
+  background: url(/misc/draggable.png) no-repeat 6px 9px;
   height: 13px;
   margin: -0.4em 0.5em;
   /* LTR */
@@ -147,17 +147,17 @@ div.indentation {
 }
 
 div.tree-child {
-  background: url(../../misc/tree.png) no-repeat 11px center;
+  background: url(/misc/tree.png) no-repeat 11px center;
   /* LTR */
 }
 
 div.tree-child-last {
-  background: url(../../misc/tree-bottom.png) no-repeat 11px center;
+  background: url(/misc/tree-bottom.png) no-repeat 11px center;
   /* LTR */
 }
 
 div.tree-child-horizontal {
-  background: url(../../misc/tree.png) no-repeat -11px center;
+  background: url(/misc/tree.png) no-repeat -11px center;
 }
 
 .tabledrag-toggle-weight-wrapper {
@@ -203,7 +203,7 @@ table.sticky-header {
 }
 
 .ajax-progress .throbber {
-  background: transparent url(../../misc/throbber.gif) no-repeat 0px 0px;
+  background: transparent url(/misc/throbber.gif) no-repeat 0px 0px;
   float: left;
   /* LTR */
   height: 16px;

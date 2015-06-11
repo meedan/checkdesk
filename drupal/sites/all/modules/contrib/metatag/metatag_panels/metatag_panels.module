@@ -104,7 +104,6 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
     return;
   }
 
-  // This leaves some possibility for future versions to support translation.
   $metatags = $handler->conf['metatag_panels']['metatags'];
   if (!is_array($metatags) || empty($metatags)) {
     $metatags = array();
@@ -127,6 +126,13 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
 
   if (empty($metatags)) {
     return;
+  }
+
+  // Substitute Panels context variables.
+  foreach ($metatags as $metatag => &$data) {
+    if (is_string($data['value']) && strpos($data['value'], '%') !== FALSE) {
+      $data['value'] = ctools_context_keyword_substitute($data['value'], array(), $context['handler']->conf['display']->context);
+    }
   }
 
   // Get the contexts that exist within this panel.
@@ -173,6 +179,8 @@ function metatag_panels_page_build(&$page) {
   $metatags = drupal_static('metatag_panels');
 
   if (!empty($metatags)) {
-    $page['content']['metatags']['global'] = $metatags;
+    // The page region can be changed.
+    $region = variable_get('metatag_page_region', 'content');
+    $page[$region]['metatags']['global'] = $metatags;
   }
 }
