@@ -4243,6 +4243,8 @@ body.no-sidebars #main {
 #main {
   margin-right: 60px;
   max-width: 1280px;
+  top: 80px;
+  position: relative;
 }
 
 #main #content {
@@ -7048,6 +7050,15 @@ ul.pager {
   cursor: default;
 }
 
+ul#user-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #fbfaf9;
+  height: 80px;
+  margin-right: 60px;
+}
+
 div.region-page-top #toolbar {
   position: fixed;
   z-index: 930;
@@ -7109,7 +7120,7 @@ header nav {
   box-sizing: border-box;
 }
 header nav ul.second-group {
-  margin-top: 10px;
+  margin-top: 20px;
   padding-top: 10px;
   position: relative;
 }
@@ -7123,7 +7134,7 @@ header nav ul.second-group:before {
 }
 header nav ul.third-group {
   position: absolute;
-  bottom: 50px;
+  bottom: 10px;
 }
 header nav li {
   height: 50px;

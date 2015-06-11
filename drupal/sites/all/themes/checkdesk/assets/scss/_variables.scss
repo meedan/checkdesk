@@ -7,6 +7,161 @@
 // // http://compass-style.org/help/tutorials/configurable-variables/
 
 
+// Typography configuration
+//
+// See also typography.scss and bowerbird/typography.scss
+//
+// @import "compass/css3/font-face";
+// @import "bowerbird/typography";
+// @import "fonts";
+
+// Compass utility configuration
+//
+// vertical baseline support
+// http://compass-style.org/reference/compass/typography/vertical_rhythm/
+// $round-to-nearest-half-line: true !default;
+// $relative-font-sizing: false !default;
+$relative-line-height: 1.5 !default;
+$absolute-line-height: 24px !default;
+// $base-line-height: $absolute-line-height !default; // for compass calculations only
+
+// Susy configuration
+//
+// For more information: `gem unpack susy`
+// Note that these also feed Twitter Bootstrap variables; see variables.scss.
+// Further reading: http://susy.oddbird.net
+//
+$container-style: magic;
+
+// Columns count and breakpoints
+$container-width: 18; // Mobile first
+$total-columns: $container-width; // Alias for Susy
+$break-small: 12; 
+$break-medium: 24;
+$break-large: 48;
+
+// Checkdesk layout sections
+$total-width: $container-width; // Alias for Chris
+$sidebar-width: 4; // default sidebar width
+$tabs-width: $container-width; // Tabs inside forms and nodes
+$gutter-width: 15px; // The distance between grid columns
+$column-width: 25px; // The width of columns
+$grid-padding: 10px; // The padding on the sides of the outer <container>
+
+// Modular scale setup
+//
+// Font sizes based on the modular-scale calculations.
+// http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
+//
+$base-size: 18px 1168px; // Two scales based on original photoshop proportions
+$round_pixels: true; //don't return fractional px
+
+// Modular scale-based typography
+$smallest-font-size:  7px; // -2
+$smaller-font-size:   11px; // -1
+$small-font-size:     15px; // -0.5
+$base-font-size:      18px; // 0 
+$large-font-size:     20px; // 0.5
+$larger-font-size:    25px; // 1
+$x-large-font-size:   29px; // 2
+$xx-large-font-size:  40px; // 3
+$xxx-large-font-size: 47px; // 4
+$largest-font-size:   65px; // 5
+
+// Main sections
+// =============================================================================
+
+// Navigation
+$nav-width: $container-width;
+$nav-font-size: 14px;
+$nav-icon-height: 15px;
+$nav-line-height: $nav-icon-height;
+$nav-height: $nav-icon-height + 7*2;
+$nav-gutter: 11px;
+
+// Notifications
+$notification-dropdown-width: modular-scale(11);
+$notification-width: 5;
+$notification-icon-size: $small-font-size;
+$notification-image-width: 5%;
+$notifications-icon-selector: '.heartbeat-time-ago';
+
+// Based on twitter bootstrap
+// Do not change these
+$z-index-Dropdown:          900 !default;
+$z-index-Popover:           910 !default;
+$z-index-Tooltip:           930 !default;
+$z-index-FixedNavbar:       930 !default;
+$z-index-ModalBackdrop:     940 !default;
+$z-index-Modal:             950 !default;
+
+// Reports
+$report-width-px: 400px; // for grid view, don't use columns or percents for now
+$report-width: $container-width;
+
+// Install Bookmarklet
+$install-bookmarklet-abs-width: 600px;
+
+// Aliases
+// =============================================================================
+$container-width: $container-width;
+$tw: $tabs-width; 
+$gutter-width: $gutter-width; 
+$rw: $report-width;
+$nw: $nav-width;
+
+// Forms
+// =============================================================================
+$label-width: $container-width/2;
+$checkbox-width: 25px;
+
+// Misc Values
+// =============================================================================
+
+// Standardize our box-radius
+$radius: 4px;
+
+// Colors
+// =============================================================================
+// ... live in colors.css
+
+$firefly: 			#10212F;
+$firefly90: 		#283743;
+$firefly80: 		#3E4C57;
+$firefly60: 		#6F7A82;
+$firefly40: 		#9FA6AC;
+$firefly30: 		#B7BCC0;
+$firefly20: 		#CFD3D5;
+$firefly10:			#E7E8EA;
+$firefly5:			#F3F4F4;
+$firefly2:			#FAFBFB;
+
+$dodgerBlue: 		#2E77FC;
+$dodgerBlue80:	#3B8AFD;
+$dodgerBlue60: 	#7DB1FE;
+$dodgerStrong:	#2155B4;
+
+$thatch: 				#B89892;
+$thatch80:			#BFA29C;
+$thatch5: 			#FBFAF9;
+$thatch2:				#FEFDFD;
+
+$strongBlue:		#2155B4;
+$strongBlue80: 	#4A74C0;
+$strongBlue60: 	#7A99D2;
+
+$verified:			#399664;
+$undetermined:	#EC9131;
+$false:					#CC4F43;
+$in-progress:		#F5A623;
+
+
+// Debugger
+// =============================================================================
+// debug mode for @debug statements and other sass debuggers
+$debug: true !default;
+
+
 
 // // Typography
 // //
@@ -69,6 +224,7 @@ $zindexModal:             950 !default;
 
 $navbarHeight:                    38px !default;
 $navbarWidth:                     60px !default;
+$headerHeight:										80px !default;
 // $navbarBackgroundHighlight:       $grayDarker !default;
 // $navbarBackground:                $grayDarker;
 // $navbarBorder:                    darken($navbarBackground, 12%) !default;

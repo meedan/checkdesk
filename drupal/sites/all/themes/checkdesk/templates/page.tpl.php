@@ -1,6 +1,11 @@
 
 
-  <!-- ______________________ NAVIGATION BAR _______________________ -->
+  <!-- ______________________ HEADER _______________________ -->
+
+<?php if ($secondary_nav): ?>
+  <?php print $secondary_nav; ?>
+<?php endif; ?>
+
 <header>
   <?php if ($page['navigation']) : ?>
     <?php print render($page['navigation']); ?>
@@ -20,7 +25,6 @@
   <?php endif; ?>
 
   <div id="content">
-    <div id="content-inner" class="inner column center">
       <?php if ($page['header']): ?>
         <div id="header-region">
           <?php print render($page['header']); ?>
@@ -78,9 +82,7 @@
       </div>
 
       <?php // print $feed_icons; ?>
-
-    </div>
-  </div> <!-- /content-inner /content -->
+  </div> <!-- /content -->
 
 
   
@@ -97,7 +99,7 @@
 
   <?php if (checkdesk_footer_visibility()) : ?>        
   <?php if (isset($information_nav) || isset($footer_nav)): ?>
-    <div id="footer">
+    <footer id="footer">
       <div id="footer-inner" class="inner">
         <?php if($page['footer']): ?>
           <?php print render($page['footer']); ?>
@@ -109,7 +111,7 @@
           <?php print $information_nav; ?>
         <?php endif; ?>
       </div>
-    </div> <!-- /footer -->
+    </footer> <!-- /footer -->
   <?php endif; ?>
   <?php endif; ?>
 

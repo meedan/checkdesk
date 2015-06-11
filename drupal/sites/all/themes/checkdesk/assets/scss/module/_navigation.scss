@@ -59,6 +59,10 @@ body.toolbar-drawer {
   }
 }
 
+// =======================================================================
+// Vertical navigation toolbar 
+//
+
 header {
   position: relative;
   max-width: 1040px;
@@ -75,7 +79,7 @@ header nav {
   @include box-sizing(border-box);
 
   ul.second-group {
-    margin-top: 10px;
+    margin-top: 20px;
     padding-top: 10px;
     position: relative;
     &:before {
@@ -90,7 +94,7 @@ header nav {
 
   ul.third-group {
     position: absolute;
-    bottom: 50px;
+    bottom: 10px;
   }
 
   li {
