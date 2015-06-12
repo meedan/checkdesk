@@ -1,110 +1,63 @@
 /*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.html or http://ckeditor.com/license
+* Embed Media Dialog based on http://www.fluidbyte.net/embed-youtube-vimeo-etc-into-ckeditor
+*
+* Plugin name:      mediaembed
+* Menu button name: MediaEmbed
+*
+* Youtube Editor Icon
+* http://paulrobertlloyd.com/
+*
+* @author Fabian Vogelsteller [frozeman.de]
+* @version 0.6
 */
-
-/**
- * @file Plugin for inserting Drupal embeded media
- */
-( function() {
-  var numberRegex = /^\d+(?:\.\d+)?$/;
-  var cssifyLength = function( length )
-  {
-    if ( numberRegex.test( length ) )
-      return length + 'px';
-    return length;
-  }
-  CKEDITOR.plugins.add( 'mediaembed',
-  {
-    requires : [ 'dialog', 'fakeobjects' ],
-    init: function( editor )
+CKEDITOR.plugins.add( 'mediaembed',
     {
-      var addCssObj = CKEDITOR;
-
-      if (Drupal.ckeditor_ver == 3) {
-        addCssObj = editor;
-      }
-      addCssObj.addCss(
-        'img.cke_mediaembed' +
-        '{' +
-        'background-image: url(' + CKEDITOR.getUrl( this.path + 'images/placeholder.gif' ) + ');' +
-        'background-position: center center;' +
-        'background-repeat: no-repeat;' +
-        'border: 1px solid #a9a9a9;' +
-        'width: 80px;' +
-        'height: 80px;' +
-        '}'
-        );
-
-      editor.addCommand( 'mediaembedDialog', new CKEDITOR.dialogCommand( 'mediaembedDialog', { allowedContent : 'div(media_embed);iframe[*](*)' } ) );
-      editor.ui.addButton( 'MediaEmbed',
-      {
-        label: 'Embed Media',
-        command: 'mediaembedDialog',
-        icon: this.path + 'images/icon.png'
-      } );
-      CKEDITOR.dialog.add( 'mediaembedDialog', this.path + 'dialogs/mediaembed.js' );
-    },
-    afterInit : function( editor )
-    {
-      var dataProcessor = editor.dataProcessor,
-      dataFilter = dataProcessor && dataProcessor.dataFilter,
-      htmlFilter = dataProcessor && dataProcessor.htmlFilter;
-
-      if ( htmlFilter )
-      {
-        htmlFilter.addRules({
-          elements :
-          {
-            'div' : function ( element ) {
-              if( element.attributes['class'] == 'media_embed' ) {
-                for (var x in element.children) {
-                  if (typeof(element.children[x].attributes) != 'undefined') {
-                    if (typeof(element.children[x].attributes.width) != undefined) {
-                      element.children[x].attributes.width = element.attributes.width;
-                    }
-                    if (typeof(element.children[x].attributes.height) != undefined) {
-                      element.children[x].attributes.height = element.attributes.height;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        });
-      }
-      if ( dataFilter )
-      {
-        dataFilter.addRules(
+        icons: 'mediaembed', // %REMOVE_LINE_CORE%
+        hidpi: true, // %REMOVE_LINE_CORE%
+        lang: 'en,es',
+        init: function( editor )
         {
-          elements :
-          {
-            'div' : function( element )
+           var me = this;
+           CKEDITOR.dialog.add( 'MediaEmbedDialog', function (instance)
+           {
+              return {
+                 title : editor.lang.mediaembed.dialogTitle,
+                 minWidth : 550,
+                 minHeight : 200,
+                 contents :
+                       [
+                          {
+                             id : 'iframe',
+                             expand : true,
+                             elements :[{
+                                id : 'embedArea',
+                                type : 'textarea',
+                                label : editor.lang.mediaembed.dialogLabel,
+                                'autofocus':'autofocus',
+                                setup: function(element){
+                                },
+                                commit: function(element){
+                                }
+                              }]
+                          }
+                       ],
+                  onOk: function() {
+                        var div = instance.document.createElement('div');
+                        div.setHtml(this.getContentElement('iframe', 'embedArea').getValue());
+                        instance.insertElement(div);
+                  }
+              };
+           } );
+
+            editor.addCommand( 'MediaEmbed', new CKEDITOR.dialogCommand( 'MediaEmbedDialog',
+                { allowedContent: 'iframe[*]' }
+            ) );
+
+            editor.ui.addButton( 'MediaEmbed',
             {
-              var attributes = element.attributes,
-              classId = attributes.classid && String( attributes.classid ).toLowerCase();
-
-              if (element.attributes[ 'class' ] == 'media_embed') {
-                var fakeElement = editor.createFakeParserElement(element, 'cke_mediaembed', 'div', true);
-                var fakeStyle = fakeElement.attributes.style || '';
-                if (element.children[0] && typeof(element.children[0].attributes) != 'undefined') {
-                  var height = element.children[0].attributes.height,
-                  width = element.children[0].attributes.width;
-                }
-                if ( typeof width != 'undefined' )
-                  fakeStyle = fakeElement.attributes.style = fakeStyle + 'width:' + cssifyLength( width ) + ';';
-
-                if ( typeof height != 'undefined' )
-                  fakeStyle = fakeElement.attributes.style = fakeStyle + 'height:' + cssifyLength( height ) + ';';
-
-                return fakeElement;
-              }
-              return element;
-            }
-          }
-        },
-        5);
-      }
-    }
-  } );
-} )();
+                label: editor.lang.mediaembed.toolbar,
+                command: 'MediaEmbed',
+                toolbar: 'mediaembed'
+            } );
+        }
+    } );

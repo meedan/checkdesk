@@ -2130,7 +2130,7 @@ function checkdesk_core_wysiwyg_plugin($editor, $version) {
               'mediaoembed' => t('Media Oembed'),
             ),
           ),
-          // mediaembed plugin from ckeditor module
+          // mediaembed plugin from https://github.com/frozeman/MediaEmbed
           'mediaembed' => array(
             'path' => drupal_get_path('module', 'checkdesk_core') . '/ckeditor/plugins/mediaembed',
             'filename' => 'plugin.js',
