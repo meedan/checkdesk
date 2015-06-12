@@ -1,11 +1,11 @@
 @charset "UTF-8";
 
 
-// Mixins
+// Variables and Mixins
 @import "variables";
 @import "mixins";
 
-// Checkdesk Sass Theme
+// Checkdesk Global
 @import "global";
 
 // Aliases for bidirectional stuff
@@ -206,6 +206,7 @@ $omega: opposite-position($from-direction);
 @import "layout/header";
 @import "module/navigation";
 @import "module/submeta";
+@import "module/drupal_admin_nav";
 
 // Checkdesk user accounts
 @import "module/user/account";

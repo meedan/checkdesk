@@ -1,0 +1,42 @@
+// =======================================================================
+// Drupal toolbars at the very top
+//
+div.region-page-top {
+  #toolbar {
+    // display: none;
+    position: fixed;
+    z-index: $zindexFixedNavbar;
+    // This can be cleaned up with toolbar css is removed.
+    @include box-shadow(0 0 0 0); // disable box shadow
+    padding: 0;
+    margin: 0;
+    overflow: hidden; // removes scroll?
+    background: white;
+    li {
+      @include reset-box-model;
+      a { 
+        color: $nav-color; 
+        padding: $gutter-width;
+      } 
+    }
+
+    div.toolbar-menu {
+      // height: $toolbarMenuHeight;
+      // padding: 0;
+      // background-color: $nav-container-bkg-color;
+    }
+  }
+}
+
+// make navbar fixed at the top
+.navbar-fixed-top {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: $zindexFixedNavbar;
+}
+
+// when toolbar is present
+.toolbar .navbar-fixed-top {
+  top: $toolbarHeight;
+}

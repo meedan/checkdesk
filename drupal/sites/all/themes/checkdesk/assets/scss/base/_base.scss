@@ -16,22 +16,21 @@ body {
   // establish three breakpoints
 }
 
-// when no sidebars
-body.no-sidebars {
-  #main {
-    margin-top: $absolute-line-height * 3;
-  }
-}
-
 #main {
   margin-#{$alpha}: $navbarWidth;
   max-width: 1280px;
   top: 80px;
   position: relative;
+  // adjust top for drupal toolbar
+  body.toolbar-drawer & {
+    margin-top: ($toolbarHeight) !important;
+  }
+  // when no sidebars
+  body.no-sidebars & {
+    margin-top: $absolute-line-height * 3;
+  }
 }
 
 #main #content {
   padding: 0 50px 50px;
 }
-
-

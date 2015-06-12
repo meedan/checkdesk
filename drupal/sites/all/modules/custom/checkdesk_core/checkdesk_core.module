@@ -3170,8 +3170,7 @@ function checkdesk_core_actions_set_followers($node) {
   }
 }
 
-function _set_user_avatar_bg($account, $classes = array()) {
-
+function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
   if (isset($account->picture->uri)) {
     $avatar_uri = $account->picture->uri;
   }
@@ -3185,12 +3184,28 @@ function _set_user_avatar_bg($account, $classes = array()) {
     $success = file_exists($derivative_uri) || image_style_create_derivative('activity_avatar', $avatar_uri, $derivative_uri);
 
     $new_image_url = file_create_url($derivative_uri);
-    $avatar = l('', 'user/' . $account->uid, array('html' => TRUE,
+    
+    if($link == FALSE) {
+      $avatar = theme('html_tag', array(
+        'element' => array(
+          '#tag' => 'div',
+          '#attributes' => array(
+            'class' => is_array($classes) ? $classes : array(),
+            'title' => $account->name,
+            'style' => 'background-image: url("' . $new_image_url . '")'
+            ),
+          '#value' => '',
+        ),
+      ));
+    } else {
+      $avatar = l('', 'user/' . $account->uid, array('html' => TRUE,
       'attributes' => array(
         'class' => is_array($classes) ? $classes : array(),
         'title' => $account->name,
         'style' => 'background-image: url("' . $new_image_url . '")'
       )));
+    }
+    
   }
   return $avatar;
 }

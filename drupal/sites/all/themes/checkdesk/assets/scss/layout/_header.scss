@@ -1,13 +1,56 @@
+header {
+  position: relative;
+  max-width: 1040px;
+  height: 100%;
+  // adjust top for drupal toolbar
+  body.toolbar-drawer & {
+    margin-top: $toolbarHeight !important;
+  }
+}
+
 ul#user-menu {
-
-
 	position: fixed;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+
+	@include box-sizing(border-box);
 	top: 0;
+	// adjust top for drupal toolbar
+  body.toolbar-drawer & {
+    top: ($toolbarHeight) !important;
+  }
+	#{$alpha}: 0;
 	#{$omega}: 0;
+	padding: 0 50px;
 	background: $thatch5;
 	height: $headerHeight;
 	margin-#{$alpha}: $navbarWidth;
+	z-index: $z-index-FixedHeader;
 
+	a { 
+		@include ctb-linkColor($firefly30); 
+		padding: 0 10px;
+	}
 
+	li {
+		padding: 0 10px;
+		&.first {
+			border-#{$alpha}: 1px solid $firefly10;
+		}
+	}
+
+	// add bell icon for notifications.
+  .icon-bell-o { 
+  	@include icon("bell-o", 26px); 
+  	&:before {
+      margin: 0;
+    }
+  }
+
+  // apply default avatar styles
+  .avatar {
+  	@include cd-avatar('inline');
+  }	
 
 }

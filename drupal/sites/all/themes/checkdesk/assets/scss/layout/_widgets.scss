@@ -1,6 +1,10 @@
 // ======================================================================
 // Widgets styles
 
+body.toolbar-drawer {
+  #main #widgets.column { top: ($toolbarHeight + $navbarHeight) !important; }
+}
+
 
 #widgets {
   #widgets-inner {

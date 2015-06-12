@@ -337,6 +337,7 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
         $variables['secondary_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
         $variables['secondary_menu'][$id]['attributes']['class'] = 'dropdown-toggle';
+        $variables['secondary_menu'][$id]['attributes']['id'] = 'my-account-link';
         $variables['secondary_menu'][$id]['suffix'] = theme('checkdesk_user_menu_content', array('items' => $variables['secondary_menu'][$id]['below']));
 
         unset($variables['secondary_menu'][$id]['below']);
@@ -349,7 +350,7 @@ function checkdesk_preprocess_page(&$variables) {
           $counter = '<span>' . $count . '</span>';
         $variables['secondary_menu'][$id]['attributes']['id'] = 'my-notifications-menu-link';
         $variables['secondary_menu'][$id]['html'] = TRUE;
-        $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell"></span><span class="notifications-count">' . $counter . '</span>';
+        $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span><em class="notifications-count">' . $counter . '</em>';
       }
       else {
         unset($variables['secondary_menu'][$id]);

@@ -77,16 +77,8 @@ function checkdesk_checkdesk_dropdown_menu_item($variables) {
  */
 function checkdesk_checkdesk_user_menu_item($variables) {
   global $user;
-
-  $title = '';
-
-  if (!empty($user->picture)) {
-    $user_avatar = theme('image_style', array('path' => file_load($user->picture)->uri, 'alt' => t(check_plain($user->name)), 'style_name' => 'navigation_avatar'));
-    $title .= '<span class="avatar">' . $user_avatar . '</span> ';
-  }
-
-  $title .= check_plain($user->name);
-
+  $account = user_load($user->uid);
+  $title = _set_user_avatar_bg($account, array('avatar', 'thumb-40'), FALSE);
   return theme('checkdesk_dropdown_menu_item', array('title' => $title));
 }
 
