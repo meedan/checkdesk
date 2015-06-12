@@ -2130,7 +2130,15 @@ function checkdesk_core_wysiwyg_plugin($editor, $version) {
               'mediaoembed' => t('Media Oembed'),
             ),
           ),
-
+          // mediaembed plugin from ckeditor module
+          'mediaembed' => array(
+            'path' => drupal_get_path('module', 'checkdesk_core') . '/ckeditor/plugins/mediaembed',
+            'filename' => 'plugin.js',
+            'load' => TRUE,
+            'buttons' => array(
+              'MediaEmbed' => t('Media Embed'),
+            ),
+          ),
         );
       }
       break;
