@@ -15,6 +15,7 @@ header nav {
   }
   bottom: 0;
   @include box-sizing(border-box);
+  z-index: $z-index-FixedNavbar;
 
   ul.second-group {
     margin-top: 20px;
@@ -48,18 +49,71 @@ header nav {
     height: 100%;
     @include border-radius(4px);
   }
-
-  a.active:not(.homepage-link) {
-    background: rgba($firefly, .4);
-  }
-
+  
   svg {
     fill: rgba(255,255,255,.4);
     position: relative;
     display: inline-block;
     top: 6px;
+    transition: fill 0.2s ease;
   }
 
+  a:hover {
+    svg {
+      fill: rgba(255,255,255,.9);
+    } 
+    span {
+      visibility: visible;
+      opacity: 1;
+      #{$alpha}: $navbarWidth + 10px;
+    } 
+  }
+  
+
+  a.active:not(.homepage-link) {
+    background: rgba($firefly, .4);
+    svg {
+      fill: rgba(255,255,255,.9);
+    }
+  }
+
+}
+
+// nav labels
+header nav ul li a span {
+  position: absolute;
+  top: 8px;
+  #{$alpha}: $navbarWidth - 10px;
+  background: $firefly80;
+  color: #fff;
+  font-weight: bold;
+  padding: 0 14px;
+  line-height: 36px;
+  white-space: nowrap;
+  z-index: $z-index-Tooltip;
+  @include border-radius(4px);
+  opacity: 0;
+  visibility: hidden;
+  // animate labels
+  transition: opacity 0.4s ease,
+    left 0.4s ease;
+  // pointer on labels
+  &:after {
+    position: absolute;
+    content: "";
+    background: $firefly80;
+    width: 8px;
+    height: 8px;
+    top: 14px;
+    #{$alpha}: -4px;
+    @include border-radius(0 0 0 2px);
+    @include ctb-rotate(45deg);
+  }
+
+}
+
+// position icons in nav
+header nav {
   svg.logo-icon {
     width: 26px;
     height: 38px;
@@ -123,13 +177,4 @@ header nav {
     top: 10px;
     #{$alpha}: -2px;
   }
-
-
-}
-
-
-
-// temporary hide
-header nav ul li a span {
-  display: none;
 }

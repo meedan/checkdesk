@@ -3706,7 +3706,7 @@ function _checkdesk_main_navigation() {
   }
   $about_icon = '<svg class="about-icon" preserveAspectRatio="xMinYMin meet" viewBox="258 0 28 28"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#about-icon"></use></svg>';
   $items[] = array(
-    'data' => l($about_icon . '<span>' . t($about_icon . 'About Checkdesk') . '</span>', 'content/about-checkdesk', array(
+    'data' => l($about_icon . '<span>' . t('About Checkdesk') . '</span>', 'content/about-checkdesk', array(
       'attributes' => array('class' => array($a_class, 'about-checkdesk-link')),
       'html' => TRUE,
     )),

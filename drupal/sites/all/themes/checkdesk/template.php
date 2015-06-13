@@ -320,6 +320,8 @@ function checkdesk_preprocess_page(&$variables) {
 
   $variables['secondary_menu'] = checkdesk_menu_navigation_links($tree);
 
+  $layout = checkdesk_core_direction_settings();
+
   // Change links
   foreach ($variables['secondary_menu'] as $id => $item) {
 

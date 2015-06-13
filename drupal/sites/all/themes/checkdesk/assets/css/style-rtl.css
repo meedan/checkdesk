@@ -7090,6 +7090,7 @@ ul#user-menu a:hover {
   color: #50565b;
 }
 ul#user-menu li {
+  position: relative;
   padding: 0 10px;
 }
 ul#user-menu li.first {
@@ -7129,6 +7130,16 @@ ul#user-menu .avatar {
   background-color: #cfd3d5;
 }
 
+#user-menu .dropdown-menu {
+  right: auto;
+  left: 10px;
+  -webkit-border-radius: 0 4px 4px 4px;
+  -moz-border-radius: 0 4px 4px 4px;
+  -ms-border-radius: 0 4px 4px 4px;
+  -o-border-radius: 0 4px 4px 4px;
+  border-radius: 0 4px 4px 4px;
+}
+
 header nav {
   background-color: #3e4c57;
   width: 60px;
@@ -7138,6 +7149,7 @@ header nav {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  z-index: 930;
 }
 body.toolbar-drawer header nav {
   top: 65px;
@@ -7175,15 +7187,68 @@ header nav a {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-header nav a.active:not(.homepage-link) {
-  background: rgba(16, 33, 47, 0.4);
-}
 header nav svg {
   fill: rgba(255, 255, 255, 0.4);
   position: relative;
   display: inline-block;
   top: 6px;
+  transition: fill 0.2s ease;
 }
+header nav a:hover svg {
+  fill: rgba(255, 255, 255, 0.9);
+}
+header nav a:hover span {
+  visibility: visible;
+  opacity: 1;
+  right: 70px;
+}
+header nav a.active:not(.homepage-link) {
+  background: rgba(16, 33, 47, 0.4);
+}
+header nav a.active:not(.homepage-link) svg {
+  fill: rgba(255, 255, 255, 0.9);
+}
+
+header nav ul li a span {
+  position: absolute;
+  top: 8px;
+  right: 50px;
+  background: #3e4c57;
+  color: #fff;
+  font-weight: bold;
+  padding: 0 14px;
+  line-height: 36px;
+  white-space: nowrap;
+  z-index: 930;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, left 0.4s ease;
+}
+header nav ul li a span:after {
+  position: absolute;
+  content: "";
+  background: #3e4c57;
+  width: 8px;
+  height: 8px;
+  top: 14px;
+  right: -4px;
+  -webkit-border-radius: 0 0 0 2px;
+  -moz-border-radius: 0 0 0 2px;
+  -ms-border-radius: 0 0 0 2px;
+  -o-border-radius: 0 0 0 2px;
+  border-radius: 0 0 0 2px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 header nav svg.logo-icon {
   width: 26px;
   height: 38px;
@@ -7237,10 +7302,6 @@ header nav svg.about-icon {
   height: 28px;
   top: 10px;
   right: -2px;
-}
-
-header nav ul li a span {
-  display: none;
 }
 
 .submeta {

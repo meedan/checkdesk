@@ -34,6 +34,7 @@ ul#user-menu {
 	}
 
 	li {
+		position: relative;
 		padding: 0 10px;
 		&.first {
 			border-#{$alpha}: 1px solid $firefly10;
@@ -53,4 +54,19 @@ ul#user-menu {
   	@include cd-avatar('inline');
   }	
 
+}
+
+// Position dropdown menu
+#user-menu {
+  .dropdown-menu {
+    #{$alpha}: auto;
+    #{$omega}: 10px;
+
+    @if $from-direction == left {
+      @include border-radius($radius 0 $radius $radius);
+    }
+    @else {
+      @include border-radius(0 $radius $radius $radius);
+    }
+  }
 }
