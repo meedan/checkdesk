@@ -215,6 +215,22 @@
 
     return html;
   };
+  
+  /**
+   * Handle cTools Modal events
+   */
+  Drupal.behaviors.ctoolsModalEvents = {
+    attach: function(context) {  
+      // Responds to link click with ctools applied
+      $('a.ctools-use-modal').click(function() {
+        $('body').addClass('modal-overflow-hidden');                    
+      });
+      // Responds to cTools modal close
+      $(document).bind('CToolsDetachBehaviors', function() {
+        $('body').removeClass('modal-overflow-hidden');                    
+      });
+    }
+  }
 
   /**
    *  Command for `checkdesk_core_ajax_command_attach_behaviors`.
