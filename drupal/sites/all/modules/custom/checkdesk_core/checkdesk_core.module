@@ -3367,28 +3367,22 @@ function _checkdesk_get_stories_by_activity($show_draft = FALSE) {
   $query->fields('n', array('nid', 'title'));
   $query->join('node', 'n', 'n.nid = ha.nid_target');
   $query->condition('n.type', 'discussion');
-  $query->condition('n.status', 1);
   $query->condition('n.language', $language->language);
-  $query->orderBy('ha.timestamp', 'DESC');
-  $result = $query->execute()->fetchAllKeyed(0);
-
-  $drafts = array();
   if ($show_draft) {
-    // either to show all drafts or owned drafts only
-    $query = db_select('node', 'n');
-    $query->fields('n', array('nid', 'title'));
-    $query->condition('type', 'discussion');
-    $query->condition('status', 0);
-    $query->condition('language', $language->language);
     if (!user_access('access any drafts content')) {
       global $user;
-      $query->condition('uid', $user->uid);
+      $db_or = db_or();
+      $db_and = db_and();
+      $db_and->condition('n.status', 0);
+      $db_and->condition('n.uid', $user->uid);
+      $db_or->condition('n.status', 1);
+      $db_or->condition($db_and);
+      $query->condition($db_or);
     }
-    $query->orderBy('created', 'DESC');
-    $drafts = $query->execute()->fetchAllKeyed(0);
   }
-
-  return $result + $drafts;
+  $query->orderBy('ha.timestamp', 'DESC');
+  $result = $query->execute()->fetchAllKeyed(0);
+  return $result;
 }
 
 /**
