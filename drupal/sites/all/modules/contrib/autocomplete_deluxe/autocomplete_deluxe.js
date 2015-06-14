@@ -203,22 +203,10 @@
       });
     };
 
-    // Add position property for RTL
-    if(Drupal.settings.language.direction == "0") {
-      this.jqObject.autocomplete({
-        'source' : this.source,
-        'minLength': settings.min_length,
-      });
-    } else {
-      this.jqObject.autocomplete({
-        'source' : this.source,
-        'minLength': settings.min_length,
-        'position': {
-          my : "right top",
-          at: "right bottom"
-        }
-      });
-    }
+    this.jqObject.autocomplete({
+      'source' : this.source,
+      'minLength': settings.min_length
+    });
 
     var jqObject = this.jqObject;
 
