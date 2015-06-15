@@ -1,0 +1,22 @@
+<?php
+
+class Redis_Tests_Cache_PredisFlushUnitTestCase extends Redis_Tests_Cache_AbstractFlushUnitTestCase
+{
+    public static function getInfo()
+    {
+        return array(
+            'name'         => 'Predis cache flush',
+            'description'  => 'Tests Redis module cache flush modes feature.',
+            'group'        => 'Redis',
+        );
+    }
+
+    protected function getClientInterface()
+    {
+        Redis_Client_Predis::setPredisAutoload();
+
+        if (class_exists('Predis\Client')) {
+            return 'Predis';
+        }
+    }
+}

@@ -11,6 +11,21 @@ class Redis_Client_Predis implements Redis_Client_Interface {
   static protected $autoloaderRegistered = false;
 
   /**
+   * Predis version major.
+   */
+  static protected $predisVersionMajor = 1;
+
+  /**
+   * Get predis version major.
+   *
+   * @return int
+   */
+  static public function getPredisVersionMajor()
+  {
+      return self::$predisVersionMajor;
+  }
+
+  /**
    * Define Predis base path if not already set, and if we need to set the
    * autoloader by ourself. This will ensure no crash. Best way would have
    * been that Drupal ships a PSR-0 autoloader, in which we could manually
@@ -42,37 +57,62 @@ class Redis_Client_Predis implements Redis_Client_Interface {
     if (!class_exists('Predis\Client')) {
 
       if (!defined('PREDIS_BASE_PATH')) {
-        $search = DRUPAL_ROOT . '/sites/all/libraries/predis/lib/';
-        if (is_dir($search)) {
-          define('PREDIS_BASE_PATH', $search);
-        } else {
-          throw new Exception("PREDIS_BASE_PATH constant must be set, Predis library must live in sites/all/libraries/predis.");
-        }
+        $search = DRUPAL_ROOT . '/sites/all/libraries/predis';
+      } else {
+        $search = PREDIS_BASE_PATH;
       }
 
-      if (class_exists('AutoloadEarly')) {
-        AutoloadEarly::getInstance()->registerNamespace('Predis', PREDIS_BASE_PATH);
+      if (is_dir($search . '/src')) { // Predis v1.x
+        self::$predisVersionMajor = 1;
+        define('PREDIS_BASE_PATH', $search);
+      } else if (is_dir($search . '/lib')) { // Predis v0.x
+        self::$predisVersionMajor = 0;
+        define('PREDIS_BASE_PATH', $search);
       } else {
-        // Register a simple autoloader for Predis library. Since the Predis
-        // library is PHP 5.3 only, we can afford doing closures safely.
-        spl_autoload_register(function($classname) {
-          if (0 === strpos($classname, 'Predis\\')) {
-            $filename = PREDIS_BASE_PATH . str_replace('\\', '/', $classname) . '.php';
-            return (bool)require_once $filename;
-          }
-          return false;
-        });
+        throw new Exception("PREDIS_BASE_PATH constant must be set, Predis library must live in sites/all/libraries/predis.");
+      }
+
+      // Register a simple autoloader for Predis library. Since the Predis
+      // library is PHP 5.3 only, we can afford doing closures safely.
+      switch (self::$predisVersionMajor) {
+
+        case 0:
+          spl_autoload_register(function($classname) { // PSR-0 autoloader.
+            if (0 === strpos($classname, 'Predis\\')) {
+              $filename = PREDIS_BASE_PATH . '/lib/' . str_replace('\\', '/', $classname) . '.php';
+              return (bool)require_once $filename;
+            }
+            return false;
+          });
+          break;
+
+        case 1:
+          // Register a simple autoloader for Predis library. Since the Predis
+          // library is PHP 5.3 only, we can afford doing closures safely.
+          spl_autoload_register(function($classname) { // PSR-4 autoloader
+            if (0 === strpos($classname, 'Predis\\')) {
+              $filename = PREDIS_BASE_PATH . '/src/' . str_replace('\\', '/', substr($classname, 7)) . '.php';
+              return (bool)require_once $filename;
+            }
+            return false;
+          });
+          break;
       }
     }
   }
 
-  public function getClient($host = NULL, $port = NULL, $base = NULL, $password = NULL) {
+  public function getClient($host = NULL, $port = NULL, $base = NULL, $password = NULL, $socket = NULL) {
     $connectionInfo = array(
       'password' => $password,
       'host'     => $host,
       'port'     => $port,
       'database' => $base
     );
+
+    if (!empty($socket)) {
+      $connectionInfo['scheme'] = 'unix';
+      $connectionInfo['path'] = $socket;
+    }
 
     foreach ($connectionInfo as $key => $value) {
       if (!isset($value)) {

@@ -1,0 +1,20 @@
+<?php
+
+class Redis_Tests_Lock_PhpRedisLockingUnitTestCase extends Redis_Tests_Lock_AbstractLockingUnitTestCase
+{
+    public static function getInfo()
+    {
+        return array(
+            'name'        => 'PhpRedis Redis locking',
+            'description' => 'Ensure that Redis locking feature is working OK.',
+            'group'       => 'Redis',
+        );
+    }
+
+    protected function getClientInterface()
+    {
+        if (extension_loaded('redis') && class_exists('Redis')) {
+            return 'PhpRedis';
+        }
+    }
+}

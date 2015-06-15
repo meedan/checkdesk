@@ -21,6 +21,11 @@ class Redis_Client {
   const REDIS_DEFAULT_PORT = 6379;
 
   /**
+   * Redis default socket (not use).
+   */
+  const REDIS_DEFAULT_SOCKET = NULL;
+
+  /**
    * Redis default database: will select none (Database 0).
    */
   const REDIS_DEFAULT_BASE = NULL;
@@ -41,9 +46,19 @@ class Redis_Client {
   const REDIS_IMPL_LOCK = 'Redis_Lock_Backend_';
 
   /**
+   * Cache implementation namespace.
+   */
+  const REDIS_IMPL_QUEUE = 'Redis_Queue_';
+
+  /**
    * Session implementation namespace.
    */
   const REDIS_IMPL_SESSION = 'Redis_Session_Backend_';
+
+  /**
+   * Session implementation namespace.
+   */
+  const REDIS_IMPL_PATH = 'Redis_Path_';
 
   /**
    * Session implementation namespace.
@@ -60,6 +75,16 @@ class Redis_Client {
    */
   protected static $_client;
 
+  /**
+   * @var string
+   */
+  protected static $globalPrefix;
+
+  /**
+   * Has this instance a client set.
+   *
+   * @return boolean
+   */
   public static function hasClient() {
     return isset(self::$_client);
   }
@@ -122,7 +147,7 @@ class Redis_Client {
   }
 
   /**
-   * Get client singleton. 
+   * Get client singleton.
    */
   public static function getClient() {
     if (!isset(self::$_client)) {
@@ -133,7 +158,9 @@ class Redis_Client {
         isset($conf['redis_client_host']) ? $conf['redis_client_host'] : self::REDIS_DEFAULT_HOST,
         isset($conf['redis_client_port']) ? $conf['redis_client_port'] : self::REDIS_DEFAULT_PORT,
         isset($conf['redis_client_base']) ? $conf['redis_client_base'] : self::REDIS_DEFAULT_BASE,
-        isset($conf['redis_client_password']) ? $conf['redis_client_password'] : self::REDIS_DEFAULT_PASSWORD);
+        isset($conf['redis_client_password']) ? $conf['redis_client_password'] : self::REDIS_DEFAULT_PASSWORD,
+        isset($conf['redis_client_socket']) ? $conf['redis_client_socket'] : self::REDIS_DEFAULT_SOCKET
+      );
     }
 
     return self::$_client;
@@ -168,6 +195,7 @@ class Redis_Client {
    * For unit testing only reset internals.
    */
   static public function reset() {
+    self::$globalPrefix = null;
     self::$_clientInterface = null;
     self::$_client = null;
   }

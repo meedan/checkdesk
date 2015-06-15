@@ -3,30 +3,67 @@
 abstract class Redis_AbstractBackend
 {
     /**
-     * Get global default prefix
-     *
-     * @param string $suffix
+     * Key components name separator
+     */
+    const KEY_SEPARATOR = ':';
+
+    /**
+     * @var string
+     */
+    static protected $globalPrefix;
+
+    /**
+     * Get site default global prefix
      *
      * @return string
      */
-    static public function getDefaultPrefix($suffix = null)
+    static public function getGlobalPrefix()
+    {
+        // Provide a fallback for multisite. This is on purpose not inside the
+        // getPrefixForBin() function in order to decouple the unified prefix
+        // variable logic and custom module related security logic, that is not
+        // necessary for all backends. We can't just use HTTP_HOST, as multiple
+        // hosts might be using the same database. Or, more commonly, a site
+        // might not be a multisite at all, but might be using Drush leading to
+        // a separate HTTP_HOST of 'default'. Likewise, we can't rely on
+        // conf_path(), as settings.php might be modifying what database to
+        // connect to. To mirror what core does with database caching we use
+        // the DB credentials to inform our cache key.
+      if (null === self::$globalPrefix) {
+            require_once DRUPAL_ROOT . '/includes/database/database.inc';
+            $dbInfo = Database::getConnectionInfo();
+            $active = $dbInfo['default'];
+            self::$globalPrefix = md5($active['host'] . $active['database'] . $active['prefix']['default']);
+        }
+
+        return self::$globalPrefix;
+    }
+
+    /**
+     * Get global default prefix
+     *
+     * @param string $namespace
+     *
+     * @return string
+     */
+    static public function getDefaultPrefix($namespace = null)
     {
         $ret = null;
 
-        if (isset($GLOBALS['drupal_test_info']) && !empty($test_info['test_run_id'])) {
-            $ret = $test_info['test_run_id'];
+        if (isset($GLOBALS['drupal_test_info']) && !empty($GLOBALS['drupal_test_info']['test_run_id'])) {
+            $ret = $GLOBALS['drupal_test_info']['test_run_id'];
         } else {
-            $prefixes = variable_get('cache_prefix', '');
+            $prefixes = variable_get('cache_prefix', null);
 
             if (is_string($prefixes)) {
                 // Variable can be a string which then considered as a default
                 // behavior.
                 $ret = $prefixes;
-            } else if (null !== $suffix && isset($prefixes[$suffix])) {
-                if (false !== $prefixes[$suffix]) {
+            } else if (null !== $namespace && isset($prefixes[$namespace])) {
+                if (false !== $prefixes[$namespace]) {
                     // If entry is set and not false an explicit prefix is set
                     // for the bin.
-                    $ret = $prefixes[$suffix];
+                    $ret = $prefixes[$namespace];
                 } else {
                     // If we have an explicit false it means no prefix whatever
                     // is the default configuration.
@@ -44,12 +81,8 @@ abstract class Redis_AbstractBackend
             }
         }
 
-        if (empty($ret) && isset($_SERVER['HTTP_HOST'])) {
-            // Provide a fallback for multisite. This is on purpose not inside the
-            // getPrefixForBin() function in order to decouple the unified prefix
-            // variable logic and custom module related security logic, that is not
-            // necessary for all backends.
-            $ret = $_SERVER['HTTP_HOST'] . '_';
+        if (empty($ret)) {
+            $ret = self::getGlobalPrefix();
         }
 
         return $ret;
@@ -63,13 +96,20 @@ abstract class Redis_AbstractBackend
     /**
      * Default constructor
      */
-    public function __construct($prefix = null)
+    public function __construct($namespace = null)
     {
-        if (null === $prefix) {
-            $this->prefix = $prefix = self::getDefaultPrefix();
-        } else {
-            $this->prefix = $prefix;
-        }
+        $this->prefix = self::getDefaultPrefix($namespace);
+    }
+
+    /**
+     * Get redis client
+     *
+     * @return Redis|Predis\Client
+     */
+    public function getClient()
+    {
+        // Ugly stateless and static
+        return Redis_Client::getClient();
     }
 
     /**
@@ -95,16 +135,22 @@ abstract class Redis_AbstractBackend
     /**
      * Get full key name using the set prefix
      *
-     * @param string $name
+     * @param string ...
+     *   Any numer of strings to append to path using the separator
      *
      * @return string
      */
-    public function getKey($name = null)
+    public function getKey()
     {
-        if (null === $name) {
+        $args = array_filter(func_get_args());
+
+        if (empty($args)) {
             return $this->prefix;
+        } else if (is_array($args)) {
+            array_unshift($args, $this->prefix);
+            return implode(self::KEY_SEPARATOR, $args);
         } else {
-            return $this->prefix . ':' . $name;
+            return $this->prefix . self::KEY_SEPARATOR . $args;
         }
     }
 }
