@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * checkdesk_core_feature.features.translations.inc
+ * checkdesk_core_feature.features.translations_ar.inc
  */
 
 /**
- * Implements hook_translations_defaults().
+ * Implements hook_translations_ar_defaults().
  */
-function checkdesk_core_feature_translations_defaults() {
+function checkdesk_core_feature_translations_ar_defaults() {
   $translations = array();
   $translatables = array();
   $translations['ar:default']['0015b64f0747dd1206adf2a68995fd6a'] = array(
@@ -2306,7 +2306,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['337e8f4aa741ef97ec3ed8fd7b1accb7'] = array(
     'source' => 'Collaboration',
     'context' => '',
-    'location' => '/ar/story/35',
+    'location' => '',
     'translation' => 'تعاون',
     'plid' => 0,
     'plural' => 0,
@@ -10027,7 +10027,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['d3d2e617335f08df83599665eef8a418'] = array(
     'source' => 'Close',
     'context' => '',
-    'location' => '/ar/meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=236',
+    'location' => '',
     'translation' => 'أغلق',
     'plid' => 0,
     'plural' => 0,
@@ -11890,7 +11890,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['f8320b26d30ab433c5a54546d21f414c'] = array(
     'source' => 'False',
     'context' => '',
-    'location' => '/ar/administer-users',
+    'location' => '',
     'translation' => 'غير صحيح',
     'plid' => 0,
     'plural' => 0,
