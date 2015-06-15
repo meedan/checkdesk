@@ -47,7 +47,8 @@ ul#user-menu {
 	#{$alpha}: 0;
 	#{$omega}: 0;
 	padding: 0 50px;
-	background: $thatch5;
+	background: #fff;
+  border-bottom: 1px solid rgba($firefly, 0.05);
 	height: $headerHeight;
 	margin-#{$alpha}: $navbarWidth;
 	z-index: $z-index-FixedHeader;
