@@ -4242,7 +4242,6 @@ html {
 
 #main {
   margin-right: 60px;
-  max-width: 1280px;
   top: 80px;
   position: relative;
 }
@@ -4253,8 +4252,13 @@ body.no-sidebars #main {
   margin-top: 72px;
 }
 
+#main #content, #main #widgets, #main footer {
+  position: relative;
+  padding: 0 50px;
+}
+
 #main #content {
-  padding: 0 50px 50px;
+  max-width: 1020px;
 }
 
 h1, h2, h3, h4 {
@@ -5055,16 +5059,6 @@ div.tabs ul.primary li a {
   padding-top: 12px;
 }
 
-body.widgets #main #footer, body.sidebar-first #main #footer {
-  margin-right: 30%;
-}
-body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #footer-inner {
-  max-width: 850px;
-  padding-top: 48px;
-  padding-right: 5.67376%;
-  padding-left: 11.34752%;
-}
-
 #footer-inner {
   padding: 6px 0;
 }
@@ -5186,21 +5180,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   margin: 0;
 }
 
-@media (min-width: 465px) {
-  body.widgets #main #footer {
-    margin-right: 0;
-  }
-}
-@media (min-width: 945px) {
-  body.widgets #main #footer {
-    margin-right: 360px;
-  }
-}
-@media (min-width: 1905px) {
-  body.widgets #main #footer {
-    margin-right: 360px;
-  }
-}
 .static-page {
   margin-bottom: 96px;
 }
@@ -6300,6 +6279,33 @@ div.sensitive-hide {
     top: 200px !important;
   }
 }
+.updates .update-row {
+  display: flex;
+  justify-content: flex-start;
+}
+.updates .update-row .update-body {
+  flex: 5;
+  order: 2;
+}
+.updates .update-row .update-footer {
+  flex: 1;
+  order: 1;
+}
+
+.anchor {
+  display: block;
+  height: 151px;
+  /* this is the height of your header */
+  margin-top: -151px;
+  /* this is again negative value of the height of your header */
+  visibility: hidden;
+}
+
+.updates .update-row {
+  margin-bottom: 24px;
+  border-top: 1px solid rgba(16, 33, 47, 0.1);
+}
+
 .update {
   *zoom: 1;
 }
@@ -6355,6 +6361,7 @@ div.sensitive-hide {
 .update .update-footer {
   margin-left: 30px;
   margin-bottom: 1em;
+  margin-top: 1em;
   font-family: "Droid Arabic Naskh", serif;
 }
 .update .update-footer .update-meta {
@@ -6377,6 +6384,10 @@ div.sensitive-hide {
 .update .update-footer .update-meta > li a:hover {
   color: #6f7a82;
   text-decoration: none;
+}
+.update .update-footer .update-meta > li a:first-child {
+  font-size: 16px;
+  color: #9fa6ac;
 }
 .update .update-footer .update-meta > li:last-child {
   border-bottom: 0px none;
@@ -7053,13 +7064,39 @@ ul.pager {
   cursor: default;
 }
 
-header {
+header#header {
   position: relative;
   max-width: 1040px;
   height: 100%;
 }
-body.toolbar-drawer header {
+body.toolbar-drawer header#header {
   margin-top: 65px !important;
+}
+
+#page-title {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 65px;
+  top: 0;
+  right: 60px;
+  left: 0;
+  padding: 0 50px;
+  z-index: 921;
+  pointer-events: none;
+}
+body.toolbar-drawer #page-title {
+  top: 65px !important;
+}
+
+#page-title h1 {
+  font-size: 28px;
+  font-family: "Droid Arabic Naskh", serif;
+  font-weight: 700;
+  margin-bottom: 0;
 }
 
 ul#user-menu {
@@ -7077,7 +7114,7 @@ ul#user-menu {
   background: #fbfaf9;
   height: 65px;
   margin-right: 60px;
-  z-index: 930;
+  z-index: 920;
 }
 body.toolbar-drawer ul#user-menu {
   top: 65px !important;
@@ -7140,7 +7177,7 @@ ul#user-menu .avatar {
   border-radius: 0 4px 4px 4px;
 }
 
-header nav {
+header#header nav {
   background-color: #3e4c57;
   width: 60px;
   position: fixed;
@@ -7151,15 +7188,15 @@ header nav {
   box-sizing: border-box;
   z-index: 930;
 }
-body.toolbar-drawer header nav {
+body.toolbar-drawer header#header nav {
   top: 65px;
 }
-header nav ul.second-group {
+header#header nav ul.second-group {
   margin-top: 20px;
   padding-top: 10px;
   position: relative;
 }
-header nav ul.second-group:before {
+header#header nav ul.second-group:before {
   position: absolute;
   content: "";
   width: 28px;
@@ -7167,14 +7204,14 @@ header nav ul.second-group:before {
   right: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
-header nav ul.third-group {
+header#header nav ul.third-group {
   position: absolute;
   bottom: 10px;
 }
-header nav li {
+header#header nav li {
   height: 50px;
 }
-header nav a {
+header#header nav a {
   color: #fff;
   margin: 10px 6px;
   padding: 0 12px;
@@ -7187,29 +7224,29 @@ header nav a {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-header nav svg {
+header#header nav svg {
   fill: rgba(255, 255, 255, 0.4);
   position: relative;
   display: inline-block;
   top: 6px;
   transition: fill 0.2s ease;
 }
-header nav a:hover svg {
+header#header nav a:hover svg {
   fill: rgba(255, 255, 255, 0.9);
 }
-header nav a:hover span {
+header#header nav a:hover span {
   visibility: visible;
   opacity: 1;
   right: 70px;
 }
-header nav a.active:not(.homepage-link) {
+header#header nav a.active:not(.homepage-link) {
   background: rgba(16, 33, 47, 0.4);
 }
-header nav a.active:not(.homepage-link) svg {
+header#header nav a.active:not(.homepage-link) svg {
   fill: rgba(255, 255, 255, 0.9);
 }
 
-header nav ul li a span {
+#header nav ul li a span {
   position: absolute;
   top: 8px;
   right: 50px;
@@ -7219,7 +7256,7 @@ header nav ul li a span {
   padding: 0 14px;
   line-height: 36px;
   white-space: nowrap;
-  z-index: 930;
+  z-index: 931;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -7229,7 +7266,7 @@ header nav ul li a span {
   visibility: hidden;
   transition: opacity 0.4s ease, left 0.4s ease;
 }
-header nav ul li a span:after {
+#header nav ul li a span:after {
   position: absolute;
   content: "";
   background: #3e4c57;
@@ -7249,55 +7286,55 @@ header nav ul li a span:after {
   transform: rotate(45deg);
 }
 
-header nav svg.logo-icon {
+#header nav svg.logo-icon {
   width: 26px;
   height: 38px;
 }
-header nav svg.create-report-icon {
+#header nav svg.create-report-icon {
   width: 26px;
   height: 33px;
   top: 8px;
 }
-header nav svg.create-story-icon {
+#header nav svg.create-story-icon {
   width: 30px;
   height: 28px;
   top: 11px;
 }
-header nav svg.search-icon {
+#header nav svg.search-icon {
   width: 24px;
   height: 24px;
   top: 11px;
 }
-header nav svg.reports-icon {
+#header nav svg.reports-icon {
   width: 25px;
   height: 28px;
   top: 11px;
 }
-header nav svg.stories-icon {
+#header nav svg.stories-icon {
   width: 30px;
   height: 24px;
   top: 12px;
   right: -3px;
 }
-header nav svg.updates-icon {
+#header nav svg.updates-icon {
   width: 28px;
   height: 32px;
   top: 8px;
   right: -2px;
 }
-header nav svg.support-icon {
+#header nav svg.support-icon {
   width: 20px;
   height: 30px;
   top: 10px;
   right: 3px;
 }
-header nav svg.settings-icon {
+#header nav svg.settings-icon {
   width: 28px;
   height: 28px;
   top: 10px;
   right: -2px;
 }
-header nav svg.about-icon {
+#header nav svg.about-icon {
   width: 28px;
   height: 28px;
   top: 10px;
@@ -8656,7 +8693,7 @@ body.page-liveblog #main .view-liveblog .desk {
   position: relative;
   *zoom: 1;
   margin-bottom: 0;
-  margin-top: 25px;
+  margin-top: 30px;
   overflow: visible;
 }
 body.page-liveblog #main .view-liveblog .desk:before, body.page-liveblog #main .view-liveblog .desk:after {
@@ -8732,56 +8769,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber .throbber {
   background: url("../imgs/icons/loader_white.gif");
-}
-
-.node-type-discussion #main .update-row .update-body, .page-liveblog #main .update-row .update-body {
-  width: 77.30496%;
-  float: right;
-  margin-left: 2.12766%;
-  display: inline;
-  float: left;
-  min-height: 220px;
-  margin-left: 0;
-}
-.node-type-discussion #main .update-row .update-footer, .page-liveblog #main .update-row .update-footer {
-  width: 20.56738%;
-  float: right;
-  margin-left: 2.12766%;
-  display: inline;
-  float: right;
-}
-
-.anchor {
-  display: block;
-  height: 151px;
-  /* this is the height of your header */
-  margin-top: -151px;
-  /* this is again negative value of the height of your header */
-  visibility: hidden;
-}
-
-.updates .update-row {
-  margin-bottom: 24px;
-  border-top: 1px solid rgba(16, 33, 47, 0.1);
-}
-.updates .update-row .update-info {
-  width: 20.56738%;
-  float: right;
-  margin-left: 2.12766%;
-  display: inline;
-  font-family: "Droid Arabic Naskh", serif;
-  color: #cfd3d5;
-  border-top: 2px solid rgba(16, 33, 47, 0.1);
-  margin-bottom: 24px;
-  padding-top: 20px;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 14px;
-}
-.updates .update-row .update-info b {
-  display: block;
-  padding: 12px 0;
-  font-size: 47px;
 }
 
 .story {
@@ -10404,7 +10391,7 @@ body.sidebar-first #main #sidebar-first.column {
   position: fixed;
   max-width: 360px;
   right: 60px;
-  top: 0;
+  top: 65px;
   width: 30%;
   border-left: 1px solid #e7e8ea;
   background-color: white;
@@ -10481,7 +10468,7 @@ body.sidebar-first #main #content #content-inner:after {
 }
 
 body.toolbar #main #sidebar-first.column {
-  top: 65px;
+  top: 130px;
 }
 
 @media (min-width: 465px) {
@@ -10491,12 +10478,12 @@ body.toolbar #main #sidebar-first.column {
 }
 @media (min-width: 945px) {
   body.sidebar-first #main #content {
-    margin-right: 360px;
+    margin-right: 410px;
   }
 }
 @media (min-width: 1905px) {
   body.sidebar-first #main #content {
-    margin-right: 360px;
+    margin-right: 410px;
   }
 }
 body.toolbar-drawer #main #widgets.column {
@@ -10644,12 +10631,10 @@ body.toolbar-drawer #main #widgets.column {
 
 body.sidebar-second #main {
   position: relative;
+  display: flex;
 }
 
 body.sidebar-second #content {
-  *zoom: 1;
-  width: 80%;
-  margin-top: 38px;
   padding-top: 24px;
   padding-right: 50px;
   padding-left: 75px;
@@ -10657,14 +10642,6 @@ body.sidebar-second #content {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   overflow: auto;
-}
-body.sidebar-second #content:before, body.sidebar-second #content:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-body.sidebar-second #content:after {
-  clear: both;
 }
 body.sidebar-second #content .cd-container {
   *zoom: 1;
@@ -10729,12 +10706,8 @@ body.sidebar-second #content .cd-container .pager-load-more {
 }
 
 body.sidebar-second aside#sidebar-second {
-  width: 20%;
-  position: absolute;
-  left: 30px;
   overflow: auto;
   height: auto;
-  top: 45px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -10742,12 +10715,6 @@ body.sidebar-second aside#sidebar-second {
 
 body.toolbar-drawer #main aside#sidebar-second {
   top: 45px !important;
-}
-
-body.sidebar-second h1 {
-  font-size: 28px;
-  font-family: "Droid Arabic Naskh", serif;
-  font-weight: 700;
 }
 
 .content-filter {

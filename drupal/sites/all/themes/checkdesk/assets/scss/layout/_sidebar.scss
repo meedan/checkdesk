@@ -1,14 +1,12 @@
 // Page with sidebar second
 
 body.sidebar-second #main {
-	// max-width: 1280px;
 	position: relative;
+	display: flex;
 }
 
 body.sidebar-second #content {
-	@include ctb-clearfix;
-	width: 80%;
-	margin-top: $navbarHeight;
+
 	padding-top: $absolute-line-height;
 	padding-#{$from-direction}: 50px;
 	padding-#{opposite-position($from-direction)}: 75px;
@@ -28,21 +26,12 @@ body.sidebar-second #content {
 }	
 
 body.sidebar-second aside#sidebar-second {
-	width: 20%;
-	position: absolute;
-	#{opposite-position($from-direction)}: 30px;
 	overflow: auto;
 	height: auto;
-	top: 45px; // 45px for header
+	// top: 45px; // 45px for header
 	@include box-sizing(border-box);
 }
 
 body.toolbar-drawer {
   #main aside#sidebar-second { top: 45px !important; }
-}
-
-body.sidebar-second h1 {
-	font-size: 28px;
-	@include cd-sans-serif-family;
-	font-weight: 700;
 }

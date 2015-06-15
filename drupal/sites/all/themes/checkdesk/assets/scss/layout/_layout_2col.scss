@@ -16,7 +16,7 @@
     position: fixed;
     max-width: 360px;
     #{$alpha}: $navbarWidth;
-    top: 0;
+    top: $headerHeight;
     width: 30%;
     border-#{$omega}: 1px solid $firefly10;
     background-color: $white;
@@ -64,7 +64,7 @@ body.sidebar-first {
 body.toolbar {
   #main {
     #sidebar-first.column {
-      top: $toolbarHeight;
+      top: $toolbarHeight + $headerHeight;
     }
   }
 }
@@ -94,12 +94,12 @@ body.sidebar-first {
 }  
 @include at-breakpoint($break-medium) {
   body.sidebar-first #main #content {
-    margin-#{$alpha}: 360px;
+    margin-#{$alpha}: 410px;
   }
 }  
 // Breakpoint: large
 @include at-breakpoint($break-large) {
   body.sidebar-first #main #content {
-    margin-#{$alpha}: 360px;
+    margin-#{$alpha}: 410px;
   }
 }

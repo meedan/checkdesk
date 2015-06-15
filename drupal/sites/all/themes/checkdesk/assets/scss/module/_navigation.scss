@@ -4,7 +4,7 @@
 // Vertical navigation toolbar 
 //
 
-header nav {
+header#header nav {
   background-color: $firefly80;
   width: 60px;
   position: fixed;
@@ -80,7 +80,7 @@ header nav {
 }
 
 // nav labels
-header nav ul li a span {
+#header nav ul li a span {
   position: absolute;
   top: 8px;
   #{$alpha}: $navbarWidth - 10px;
@@ -90,7 +90,7 @@ header nav ul li a span {
   padding: 0 14px;
   line-height: 36px;
   white-space: nowrap;
-  z-index: $z-index-Tooltip;
+  z-index: $z-index-FixedNavbar + 1;
   @include border-radius(4px);
   opacity: 0;
   visibility: hidden;
@@ -113,7 +113,7 @@ header nav ul li a span {
 }
 
 // position icons in nav
-header nav {
+#header nav {
   svg.logo-icon {
     width: 26px;
     height: 38px;

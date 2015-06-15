@@ -1,30 +1,8 @@
-@mixin vertical-margin($width) {
-  margin: { top: $width; bottom: $width; }
-}
-
-@mixin liveblog-layout($width, $context) {
-  @include span-columns($width, $context, $gutter-width);
-  @content; // pass in padding if needed
-  
-  .post-row { 
-    @include vertical-margin($base-font-size); 
-    @include span-columns($width, $width);
-  }
-
-  // The .related-updates bib is centered in 28 out of 30 columns
-  .related-updates {
-    @include vertical-margin($base-font-size);
-    @include span-columns(28, 30, $gutter-width);
-    margin-#{$from-direction}: columns(1, 30); // default value is left, so this means margin-#{left}.
-  }
-}
-
 // Liveblog homepage
 //
 // Default liveblog layout overrides global default layout
 body.page-liveblog {
   #main {
-    // @include liveblog-layout($container-width, $container-width);
     // Live blog view
     .view-liveblog {
       @include ctb-clearfix;
@@ -35,7 +13,7 @@ body.page-liveblog {
         @include ctb-clearfix;
         // float: $from-direction;
         margin-bottom: 0;
-        margin-top: ms(1);
+        margin-top: 30px;
         overflow: visible;
         // remove margin for first instance
         &:first-child {
@@ -60,22 +38,5 @@ body.page-liveblog {
       // add styles for load more pager
       @include ctb-load-more-pager;
     }
-  }
-}
-
-// Small breakpoint
-@include at-breakpoint($break-small) {
-  body.page-liveblog #main {
-    // @include liveblog-layout($break-small - 2, $break-small) {
-    // @include pad(1, 1, $break-small);
-    // }
-  }
-}
-// Medium breakpoint
-@include at-breakpoint($break-medium) {
-  body.page-liveblog #main {
-    // @include liveblog-layout($break-medium - 4, $break-medium) {
-      // @include pad(2, 2, $break-medium);
-    // }
   }
 }

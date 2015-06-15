@@ -1,12 +1,39 @@
 
 
   <!-- ______________________ HEADER _______________________ -->
+<header id="header">
+  <?php if ($secondary_nav): ?>
+    <?php print $secondary_nav; ?>
+  <?php endif; ?>
 
-<?php if ($secondary_nav): ?>
-  <?php print $secondary_nav; ?>
-<?php endif; ?>
+  <?php if ($title): ?>
+  <div id="page-title">
+    <h1 class="title">
+      <?php
+        if (arg(0) == 'user' && arg(1) == 'register') {
+          print t('Create an account');
+        } elseif (arg(0) == 'user' && arg(1) == 'password') {
+          print t('Retrieve lost password');
+        } elseif (arg(0) == 'user' && arg(1) == 'login') {
+          print t('Sign In');
+        } elseif (arg(0) == 'user' && arg(1) == '') {
+          print t('Sign In');
+        } elseif (arg(0) == 'user' && is_numeric(arg(1))) {
+          $account = user_load(arg(1));
+          if (arg(2) == 'notifications') {
+            print t('Receive notifications');
+          }
+          else {
+            print t('<strong>@user\'s</strong> reports', array('@user' => $account->name));
+          }
+        } else {
+          print $title;
+        }
+      ?>
+    </h1>
+  </div>
+  <?php endif; ?>
 
-<header>
   <?php if ($page['navigation']) : ?>
     <?php print render($page['navigation']); ?>
   <?php endif; ?>
@@ -31,34 +58,8 @@
         </div>
       <?php endif; ?>
 
-      <?php if ($title|| $messages || $tabs || $action_links): ?>
+      <?php if ($messages || $tabs || $action_links): ?>
         <div id="content-header">
-
-          <?php if ($title): ?>
-            <h1 class="title">
-              <?php
-                if (arg(0) == 'user' && arg(1) == 'register') {
-                  print t('Create an account');
-                } elseif (arg(0) == 'user' && arg(1) == 'password') {
-                  print t('Retrieve lost password');
-                } elseif (arg(0) == 'user' && arg(1) == 'login') {
-                  print t('Sign In');
-                } elseif (arg(0) == 'user' && arg(1) == '') {
-                  print t('Sign In');
-                } elseif (arg(0) == 'user' && is_numeric(arg(1))) {
-                  $account = user_load(arg(1));
-                  if (arg(2) == 'notifications') {
-                    print t('Receive notifications');
-                  }
-                  else {
-                    print t('<strong>@user\'s</strong> reports', array('@user' => $account->name));
-                  }
-                } else {
-                  print $title;
-                }
-              ?>
-            </h1>
-          <?php endif; ?>
 
           <?php print render($title_suffix); ?>
           <div id="messages-container">
@@ -83,9 +84,6 @@
 
       <?php // print $feed_icons; ?>
   </div> <!-- /content -->
-
-
-  
 
   <?php if ($page['sidebar_second']): ?>
     <aside id="sidebar-second" class="column sidebar-second">
@@ -114,8 +112,5 @@
     </footer> <!-- /footer -->
   <?php endif; ?>
   <?php endif; ?>
-
-
-
 
 </div> <!-- /main -->

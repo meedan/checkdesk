@@ -5,22 +5,15 @@
 //
 
 html {
-  // overflow: hidden;
   height: 100%;
-  // background-image: $cream_dust;
   background-color: $thatch5;
-}
-
-body {
-  // @include container($container-width $break-small $break-medium);
-  // establish three breakpoints
 }
 
 #main {
   margin-#{$alpha}: $navbarWidth;
-  max-width: 1280px;
   top: 80px;
   position: relative;
+
   // adjust top for drupal toolbar
   body.toolbar-drawer & {
     margin-top: ($toolbarHeight) !important;
@@ -31,6 +24,11 @@ body {
   }
 }
 
+#main #content, #main #widgets, #main footer {
+  position: relative;
+  padding: 0 50px;
+}
+
 #main #content {
-  padding: 0 50px 50px;
+  max-width: 1020px;
 }

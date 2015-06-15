@@ -1,4 +1,4 @@
-header {
+header#header {
   position: relative;
   max-width: 1040px;
   height: 100%;
@@ -8,12 +8,36 @@ header {
   }
 }
 
+#page-title {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  @include box-sizing(border-box);
+  height: $headerHeight;
+  top: 0;
+  // adjust top for drupal toolbar
+  body.toolbar-drawer & {
+    top: ($toolbarHeight) !important;
+  }
+  #{$alpha}: $navbarWidth;
+  #{$omega}: 0;
+  padding: 0 50px;
+  z-index: $z-index-FixedHeader + 1;
+  pointer-events: none;
+}
+
+#page-title h1 {
+  font-size: 28px;
+  @include cd-sans-serif-family;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
 ul#user-menu {
 	position: fixed;
 	display: flex;
 	flex-direction: row-reverse;
 	align-items: center;
-
 	@include box-sizing(border-box);
 	top: 0;
 	// adjust top for drupal toolbar
