@@ -31,6 +31,7 @@ header#header {
   @include cd-sans-serif-family;
   font-weight: 700;
   margin-bottom: 0;
+  pointer-events: auto;
 }
 
 ul#user-menu {
@@ -47,12 +48,14 @@ ul#user-menu {
 	#{$alpha}: 0;
 	#{$omega}: 0;
 	padding: 0 50px;
-	background: #fff;
-  border-bottom: 1px solid rgba($firefly, 0.05);
 	height: $headerHeight;
 	margin-#{$alpha}: $navbarWidth;
 	z-index: $z-index-FixedHeader;
-
+  background: #fff;
+  body.nofront & {
+    border-bottom: 1px solid rgba($firefly, 0.05);  
+  }
+  
 	a { 
 		@include ctb-linkColor($firefly30); 
 		padding: 0 10px;
@@ -72,6 +75,20 @@ ul#user-menu {
   	&:before {
       margin: 0;
     }
+  }
+
+  .badge {
+    position: absolute;
+    display: block;
+    top: 4px;
+    #{$alpha}: 35px;
+    padding: 4px;
+    line-height: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    @include border-radius(2px);
+    color: $notification-count-color;
+    background: $notification-count-bkg-color;
   }
 
   // apply default avatar styles

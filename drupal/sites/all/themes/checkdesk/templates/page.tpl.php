@@ -51,6 +51,14 @@
     </div>
   <?php endif; ?>
 
+  <?php if ($page['widgets'] && checkdesk_widgets_visibility()): ?>
+    <aside id="widgets" class="column widgets">
+      <div id="widgets-inner" class="inner">
+        <?php print render($page['widgets']); ?>
+      </div>
+     </aside>
+  <?php endif; ?> 
+
   <div id="content">
       <?php if ($page['header']): ?>
         <div id="header-region">

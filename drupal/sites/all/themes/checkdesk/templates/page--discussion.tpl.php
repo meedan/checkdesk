@@ -15,7 +15,6 @@
 
 <div id="main" class="clearfix">
 
-
   <?php if ($page['sidebar_first']): ?>
     <div id="sidebar-first" class="column sidebar first">
       <div id="sidebar-first-inner" class="inner">
@@ -23,15 +22,6 @@
       </div>
     </div>
   <?php endif; ?>
-  
-  <?php if ($page['widgets'] && checkdesk_widgets_visibility()): ?>
-    <aside id="widgets" class="column widgets">
-      <div id="widgets-inner" class="inner">
-        <?php print render($page['widgets']); ?>
-      </div>
-     </aside>
-  <?php endif; ?> 
-
 
   <div id="content">
     <div id="content-inner" class="inner column center">
@@ -45,7 +35,7 @@
         <div id="content-header">
 
           <?php if ($title && (user_access('administer nodes'))): ?>
-            <h1 class="title"><?php print $title; ?></h1>
+            
           <?php endif; ?>
 
           <?php print render($title_suffix); ?>

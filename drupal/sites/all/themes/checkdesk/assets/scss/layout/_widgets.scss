@@ -1,13 +1,11 @@
 // ======================================================================
 // Widgets styles
 
-body.toolbar-drawer {
-  #main #widgets.column { top: ($toolbarHeight + $navbarHeight) !important; }
-}
-
-
 #widgets {
+  background: #fff;
+  border-bottom: 1px solid rgba($firefly, 0.05);
   #widgets-inner {
+    padding-bottom: 50px;
     // remove margin from first block
     .region-widgets :first-child {
       margin-top: 0;

@@ -11,7 +11,7 @@ html {
 
 #main {
   margin-#{$alpha}: $navbarWidth;
-  top: 80px;
+  top: $headerHeight;
   position: relative;
 
   // adjust top for drupal toolbar
@@ -30,5 +30,6 @@ html {
 }
 
 #main #content {
+  padding-top: $absolute-line-height;
   max-width: 1020px;
 }

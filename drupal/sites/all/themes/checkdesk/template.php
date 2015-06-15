@@ -347,12 +347,13 @@ function checkdesk_preprocess_page(&$variables) {
     } else if ($item['link_path'] == 'my-notifications') {
       if (user_is_logged_in()) {
         $count = checkdesk_notifications_number_of_new_items($user);
-        $counter = '';
-        if ($count > 0)
-          $counter = '<span>' . $count . '</span>';
         $variables['secondary_menu'][$id]['attributes']['id'] = 'my-notifications-menu-link';
         $variables['secondary_menu'][$id]['html'] = TRUE;
-        $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span><em class="notifications-count">' . $counter . '</em>';
+        if($count > 0) {
+          $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span><span class="badge">' . $count . '</span>';
+        } else {
+          $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span>';
+        }
       }
       else {
         unset($variables['secondary_menu'][$id]);

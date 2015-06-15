@@ -4245,7 +4245,7 @@ html {
 
 #main {
   margin-left: 60px;
-  top: 80px;
+  top: 65px;
   position: relative;
 }
 body.toolbar-drawer #main {
@@ -4261,6 +4261,7 @@ body.no-sidebars #main {
 }
 
 #main #content {
+  padding-top: 24px;
   max-width: 1020px;
 }
 
@@ -4992,13 +4993,10 @@ div.tabs ul.primary li a {
 }
 
 #partner-header-inner #partner-header-slogan {
-  border-top: 1px solid #e7e8ea;
   margin-top: 24px;
   padding: 16px 30px 0 30px;
   font-size: 16px;
-  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-weight: 400;
-  font-style: italic;
   color: #9fa6ac;
 }
 #partner-header-inner #partner-header-slogan a {
@@ -7108,6 +7106,7 @@ body.toolbar-drawer #page-title {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
   margin-bottom: 0;
+  pointer-events: auto;
 }
 
 ul#user-menu {
@@ -7122,14 +7121,16 @@ ul#user-menu {
   left: 0;
   right: 0;
   padding: 0 50px;
-  background: #fff;
-  border-bottom: 1px solid rgba(16, 33, 47, 0.05);
   height: 65px;
   margin-left: 60px;
   z-index: 920;
+  background: #fff;
 }
 body.toolbar-drawer ul#user-menu {
   top: 65px !important;
+}
+body.nofront ul#user-menu {
+  border-bottom: 1px solid rgba(16, 33, 47, 0.05);
 }
 ul#user-menu a {
   color: #b7bcc0;
@@ -7161,6 +7162,23 @@ ul#user-menu .icon-bell-o:before {
 }
 ul#user-menu .icon-bell-o:before {
   margin: 0;
+}
+ul#user-menu .badge {
+  position: absolute;
+  display: block;
+  top: 4px;
+  left: 35px;
+  padding: 4px;
+  line-height: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  color: white;
+  background: rgba(46, 119, 252, 0.9);
 }
 ul#user-menu .avatar {
   -webkit-background-size: cover;
@@ -7199,9 +7217,6 @@ header#header nav {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   z-index: 930;
-}
-body.toolbar-drawer header#header nav {
-  top: 65px;
 }
 header#header nav ul.second-group {
   margin-top: 20px;
@@ -7388,6 +7403,7 @@ header#header nav a.active:not(.homepage-link) svg {
 }
 
 div.region-page-top #toolbar {
+  left: 60px;
   position: fixed;
   z-index: 930;
   -webkit-box-shadow: 0 0 0 0;
@@ -9016,7 +9032,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 body.page-node-collaboration .story .story-collaboration-header-wrapper {
   border-bottom: 1px solid rgba(16, 33, 47, 0.1);
 }
-.story .story-collaboration-header-wrapper > div {
+.story .story-collaboration-header-wrapper > div, .story .story-collaboration-header-wrapper > ul {
   display: table-cell;
   width: 100%;
   vertical-align: bottom;
@@ -10520,10 +10536,13 @@ body.toolbar #main #sidebar-first.column {
     margin-left: 410px;
   }
 }
-body.toolbar-drawer #main #widgets.column {
-  top: 103px !important;
+#widgets {
+  background: #fff;
+  border-bottom: 1px solid rgba(16, 33, 47, 0.05);
 }
-
+#widgets #widgets-inner {
+  padding-bottom: 50px;
+}
 #widgets #widgets-inner .region-widgets :first-child {
   margin-top: 0;
 }
@@ -10668,28 +10687,27 @@ body.sidebar-second #main {
   display: flex;
 }
 
-body.sidebar-second #content {
-  padding-top: 24px;
-  padding-left: 50px;
-  padding-right: 75px;
+body.sidebar-second #main #content {
+  padding-right: 20px;
+  flex: 4;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   overflow: auto;
 }
-body.sidebar-second #content .cd-container {
+body.sidebar-second #main #content .cd-container {
   *zoom: 1;
   margin-bottom: 160px;
 }
-body.sidebar-second #content .cd-container:before, body.sidebar-second #content .cd-container:after {
+body.sidebar-second #main #content .cd-container:before, body.sidebar-second #main #content .cd-container:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.sidebar-second #content .cd-container:after {
+body.sidebar-second #main #content .cd-container:after {
   clear: both;
 }
-body.sidebar-second #content .cd-container .pager-load-more {
+body.sidebar-second #main #content .cd-container .pager-load-more {
   *zoom: 1;
   margin: 0;
   padding: 0;
@@ -10699,18 +10717,18 @@ body.sidebar-second #content .cd-container .pager-load-more {
   position: relative;
   text-align: center;
 }
-body.sidebar-second #content .cd-container .pager-load-more:before, body.sidebar-second #content .cd-container .pager-load-more:after {
+body.sidebar-second #main #content .cd-container .pager-load-more:before, body.sidebar-second #main #content .cd-container .pager-load-more:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.sidebar-second #content .cd-container .pager-load-more:after {
+body.sidebar-second #main #content .cd-container .pager-load-more:after {
   clear: both;
 }
-body.sidebar-second #content .cd-container .pager-load-more li {
+body.sidebar-second #main #content .cd-container .pager-load-more li {
   list-style: none;
 }
-body.sidebar-second #content .cd-container .pager-load-more a {
+body.sidebar-second #main #content .cd-container .pager-load-more a {
   width: 70%;
   text-align: center;
   letter-spacing: 0.05em;
@@ -10723,33 +10741,33 @@ body.sidebar-second #content .cd-container .pager-load-more a {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-body.sidebar-second #content .cd-container .pager-load-more a:hover {
+body.sidebar-second #main #content .cd-container .pager-load-more a:hover {
   color: white;
   background-color: #2e77fc;
   border: 1px solid #2e77fc;
 }
-body.sidebar-second #content .cd-container .pager-load-more .ajax-progress-throbber {
+body.sidebar-second #main #content .cd-container .pager-load-more .ajax-progress-throbber {
   position: absolute;
   top: 4px;
   right: 15px;
 }
-body.sidebar-second #content .cd-container .pager-load-more .ajax-progress-throbber .throbber {
+body.sidebar-second #main #content .cd-container .pager-load-more .ajax-progress-throbber .throbber {
   background: url("../imgs/icons/loader_white.gif");
 }
-body.sidebar-second #content .cd-container .pager-load-more {
+body.sidebar-second #main #content .cd-container .pager-load-more {
   margin-top: 30px;
 }
 
 body.sidebar-second aside#sidebar-second {
+  flex: 2;
+  padding-top: 24px;
+  padding-right: 50px;
+  max-width: 300px;
   overflow: auto;
   height: auto;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-body.toolbar-drawer #main aside#sidebar-second {
-  top: 45px !important;
 }
 
 .content-filter {

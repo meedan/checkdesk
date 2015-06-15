@@ -5,11 +5,9 @@ body.sidebar-second #main {
 	display: flex;
 }
 
-body.sidebar-second #content {
-
-	padding-top: $absolute-line-height;
-	padding-#{$from-direction}: 50px;
-	padding-#{opposite-position($from-direction)}: 75px;
+body.sidebar-second #main #content {
+	padding-#{opposite-position($from-direction)}: 20px;
+	flex: 4;
 	@include box-sizing(border-box);
 	overflow: auto;
 	// checkdesk search
@@ -20,18 +18,16 @@ body.sidebar-second #content {
     @include ctb-load-more-pager;
     .pager-load-more {
     	margin-top: 30px;
-
     }
 	}
 }	
 
 body.sidebar-second aside#sidebar-second {
+	flex: 2;
+	padding-top: $absolute-line-height;
+	padding-#{opposite-position($from-direction)}: 50px;
+	max-width: 300px;
 	overflow: auto;
 	height: auto;
-	// top: 45px; // 45px for header
 	@include box-sizing(border-box);
-}
-
-body.toolbar-drawer {
-  #main aside#sidebar-second { top: 45px !important; }
 }

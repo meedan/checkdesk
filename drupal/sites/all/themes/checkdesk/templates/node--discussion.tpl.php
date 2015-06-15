@@ -1,10 +1,15 @@
 <section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
 
+    <?php if(isset($content['field_lead_image'])) { ?>
+      <figure>
+        <?php print render($content['field_lead_image']); ?>
+      </figure>
+    <?php } ?>
+
     <h1 class="title">
       <?php print render($node->title); ?>
     </h1>
-
 
     <div class="story-meta">
       <div class="story-attributes">
@@ -21,12 +26,6 @@
       <?php } ?>
       </div>
     </div>
-
-    <?php if(isset($content['field_lead_image'])) { ?>
-      <figure>
-        <?php print render($content['field_lead_image']); ?>
-      </figure>
-    <?php } ?>
 
   	<div class="story-body">
       <?php print render($content['body']); ?>

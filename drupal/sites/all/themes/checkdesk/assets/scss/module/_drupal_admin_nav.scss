@@ -3,7 +3,7 @@
 //
 div.region-page-top {
   #toolbar {
-    // display: none;
+    #{$alpha}: $navbarWidth;
     position: fixed;
     z-index: $zindexFixedNavbar;
     // This can be cleaned up with toolbar css is removed.

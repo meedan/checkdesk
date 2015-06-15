@@ -11,7 +11,7 @@ header#header nav {
   top: 0;
   // adjust top for drupal toolbar
   body.toolbar-drawer & {
-    top: $toolbarHeight;
+    // top: $toolbarHeight;
   }
   bottom: 0;
   @include box-sizing(border-box);
