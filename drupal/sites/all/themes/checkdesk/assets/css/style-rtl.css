@@ -1810,6 +1810,10 @@ nav[role="navigation"] #user-menu .icon-bell:before {
   content: "\f0b0";
 }
 
+.admin-nav-tabs > li span.icon-group:before {
+  content: "\f0c0";
+}
+
 #widgets .elsewhere ul li span.icon-google-plus:before {
   content: "\f0d4";
 }
@@ -2436,6 +2440,20 @@ input[type="checkbox"][readonly] {
   -moz-osx-font-smoothing: grayscale;
 }
 .admin-nav-tabs > li span.icon-wrench:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: white;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.admin-nav-tabs > li span.icon-group:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;

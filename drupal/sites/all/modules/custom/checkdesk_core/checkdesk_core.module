@@ -114,11 +114,13 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['node/%node/collaboration'] = array(
+    'title' => 'Collaboration',
     'page callback' => '_checkdesk_story_collaboration',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'file' => 'checkdesk.collaborate.inc',
     'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
+    'type' => MENU_LOCAL_TASK
   );
   $items['checkdesk/%ctools_js/sign_in_up'] = array(
     'title' => 'Checkdesk',

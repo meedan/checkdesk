@@ -75,6 +75,10 @@ function checkdesk_menu_local_task($variables) {
   if($link['path'] == 'node/%/devel') {
     $icon = '<span class="icon-wrench"></span> ';
   }
+  // devel tab
+  if($link['path'] == 'node/%/collaboration') {
+    $icon = '<span class="icon-group"></span> ';
+  }
   if(isset($icon)) {
     $link_text = $icon . $link_text;  
   }
