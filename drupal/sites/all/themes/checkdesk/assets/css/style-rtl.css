@@ -7775,9 +7775,6 @@ form textarea:focus {
 form textarea {
   height: 250px;
 }
-form .cke_contents {
-  max-height: 250px !important;
-}
 form input[type="checkbox"],
 form input[type="radio"] {
   width: 25px;
@@ -8195,9 +8192,6 @@ form .image-widget .image-widget-data {
 form .image-widget .image-widget-data input[type="submit"] {
   margin-bottom: 0;
 }
-form .image-widget .cke_contents {
-  height: 100px !important;
-}
 form .image-widget input[type="file"] {
   margin: 0;
   padding: 0;
@@ -8352,9 +8346,6 @@ form .form-type-textarea:after {
   }
   form .image-widget .image-widget-data input[type="submit"] {
     margin-bottom: 0;
-  }
-  form .image-widget .cke_contents {
-    height: 100px !important;
   }
   form .image-widget input[type="file"] {
     margin: 0;
@@ -11682,9 +11673,6 @@ body.page-user.logged-in.toolbar #sidebar-first {
 #nav-discussion-form form h2 {
   margin: 0;
   padding: 0;
-}
-#nav-discussion-form .cke_contents {
-  max-height: 120px !important;
 }
 #nav-discussion-form .form-actions {
   padding: 0;
