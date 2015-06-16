@@ -1030,10 +1030,8 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
   }
-  // Customize Chosen default placeholder text "Choose some options" for authors
-  $form['field_additional_authors'][LANGUAGE_NONE]['#chosen'] = TRUE;
-  $form['field_additional_authors'][LANGUAGE_NONE]['#attributes']['data-placeholder'] = t('Choose authors');
-
+  // Customize "Add more items" for authors.
+  $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
 }
 
 /**

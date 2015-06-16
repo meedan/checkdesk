@@ -2306,7 +2306,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['337e8f4aa741ef97ec3ed8fd7b1accb7'] = array(
     'source' => 'Collaboration',
     'context' => '',
-    'location' => '',
+    'location' => '/ar/story/35',
     'translation' => 'تعاون',
     'plid' => 0,
     'plural' => 0,
@@ -10027,7 +10027,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['d3d2e617335f08df83599665eef8a418'] = array(
     'source' => 'Close',
     'context' => '',
-    'location' => '',
+    'location' => '/ar/meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=236',
     'translation' => 'أغلق',
     'plid' => 0,
     'plural' => 0,
@@ -11890,7 +11890,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['f8320b26d30ab433c5a54546d21f414c'] = array(
     'source' => 'False',
     'context' => '',
-    'location' => '',
+    'location' => '/ar/administer-users',
     'translation' => 'غير صحيح',
     'plid' => 0,
     'plural' => 0,
