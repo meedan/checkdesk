@@ -52,6 +52,7 @@
           width: 35px;
           text-align: center;
           color: $firefly30;
+          @include border-radius(4px);
           &:hover { 
             text-decoration: none;
             background-color: $firefly5;

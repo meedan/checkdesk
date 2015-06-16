@@ -5,7 +5,7 @@ header#header {
 }
 
 // adjust header items for drupal toolbar
-#page-title, ul#user-menu {
+ul#breadcrumb, ul#user-menu {
   body.toolbar & {
     top: $toolbarMenuHeight !important;
   }
@@ -14,7 +14,8 @@ header#header {
   }
 }
 
-#page-title {
+ul#breadcrumb {
+  @include reset-list-style;
   position: fixed;
   display: flex;
   align-items: center;
@@ -26,14 +27,22 @@ header#header {
   padding: 0 50px;
   z-index: $z-index-FixedHeader + 1;
   pointer-events: none;
+
+  li {
+    pointer-events: auto;
+  }
+
+  a {
+    display: block;
+  }
+
 }
 
-#page-title h1 {
+ul#breadcrumb h1 {
   font-size: 28px;
   @include cd-sans-serif-family;
   font-weight: 700;
   margin-bottom: 0;
-  pointer-events: auto;
 }
 
 ul#user-menu {

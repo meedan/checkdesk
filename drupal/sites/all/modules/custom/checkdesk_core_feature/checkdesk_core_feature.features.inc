@@ -372,6 +372,22 @@ function checkdesk_core_feature_image_default_styles() {
     'label' => 'footer_partner_logo',
   );
 
+  // Exported image style: header_logo.
+  $styles['header_logo'] = array(
+    'label' => 'header_logo',
+    'effects' => array(
+      6 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => '',
+          'height' => 36,
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: navigation_avatar.
   $styles['navigation_avatar'] = array(
     'effects' => array(
@@ -389,18 +405,18 @@ function checkdesk_core_feature_image_default_styles() {
 
   // Exported image style: partner_logo.
   $styles['partner_logo'] = array(
+    'label' => 'partner_logo',
     'effects' => array(
-      1 => array(
+      5 => array(
         'name' => 'image_scale',
         'data' => array(
-          'width' => 200,
+          'width' => 235,
           'height' => '',
           'upscale' => 0,
         ),
         'weight' => 1,
       ),
     ),
-    'label' => 'partner_logo',
   );
 
   // Exported image style: report_thumbnail.

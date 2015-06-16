@@ -4272,13 +4272,13 @@ body.toolbar-drawer #main {
 #main #content {
   padding-top: 24px;
   max-width: 1020px;
+  margin: 0 auto;
 }
 
 body.page-liveblog #main #content,
 body.node-type-discussion #main #content,
 body.node-type-media #main #content {
   max-width: 720px;
-  margin: 0 auto;
 }
 
 h1, h2, h3, h4 {
@@ -7091,14 +7091,16 @@ header#header {
   height: 100%;
 }
 
-body.toolbar #page-title, body.toolbar ul#user-menu {
+body.toolbar ul#breadcrumb, body.toolbar ul#user-menu {
   top: 30px !important;
 }
-body.toolbar-drawer #page-title, body.toolbar-drawer ul#user-menu {
+body.toolbar-drawer ul#breadcrumb, body.toolbar-drawer ul#user-menu {
   top: 65px !important;
 }
 
-#page-title {
+ul#breadcrumb {
+  margin: 0;
+  padding: 0;
   position: fixed;
   display: flex;
   align-items: center;
@@ -7113,13 +7115,21 @@ body.toolbar-drawer #page-title, body.toolbar-drawer ul#user-menu {
   z-index: 921;
   pointer-events: none;
 }
+ul#breadcrumb li {
+  list-style: none;
+}
+ul#breadcrumb li {
+  pointer-events: auto;
+}
+ul#breadcrumb a {
+  display: block;
+}
 
-#page-title h1 {
+ul#breadcrumb h1 {
   font-size: 28px;
   font-family: "Droid Arabic Naskh", serif;
   font-weight: 700;
   margin-bottom: 0;
-  pointer-events: auto;
 }
 
 ul#user-menu {
@@ -10596,6 +10606,11 @@ body.toolbar #main #sidebar-first.column {
   width: 35px;
   text-align: center;
   color: #b7bcc0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
 }
 #widgets .elsewhere ul li a:hover {
   text-decoration: none;

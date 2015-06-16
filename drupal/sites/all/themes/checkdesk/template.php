@@ -163,21 +163,59 @@ function checkdesk_preprocess_html(&$variables) {
 function checkdesk_preprocess_region(&$variables) {
   global $language;
 
-  if ($variables['region'] == 'widgets') {
-    // define custom header settings
-    $variables['header_image'] = '';
-    $image = theme_get_setting('header_image_path');
+
+  if ($variables['region'] == 'header') {
+    // header logo
+    $variables['header_logo'] = '';
+    $image = theme_get_setting('header_logo_path');
 
     if (!empty($image)) {
-      $header_image_data = array(
+      $header_logo_data = array(
+          'style_name' => 'header_logo',
+          'path' => $image,
+      );
+      $variables['header_logo'] = l(theme('image_style', $header_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('header_logo'))));
+    }
+
+    $variables['header_logo'] = '';
+    $image = theme_get_setting('header_logo_path');
+
+    if (!empty($image)) {
+      $header_logo_data = array(
           'style_name' => 'partner_logo',
           'path' => $image,
       );
-      $variables['header_image'] = l(theme('image_style', $header_image_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
+      $variables['header_logo'] = l(theme('image_style', $header_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
+    }
+  }
+
+  if ($variables['region'] == 'widgets') {
+
+    // frontpage logo
+    $variables['frontpage_logo'] = '';
+    $image = theme_get_setting('frontpage_logo_path');
+
+    if (!empty($image)) {
+      $frontpage_logo_data = array(
+          'style_name' => 'partner_logo',
+          'path' => $image,
+      );
+      $variables['frontpage_logo'] = l(theme('image_style', $frontpage_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
     }
 
-    $position = theme_get_setting('header_image_position');
-    $variables['header_image_position'] = (empty($position) ? 'left' : $position);
+    $variables['frontpage_logo'] = '';
+    $image = theme_get_setting('frontpage_logo_path');
+
+    if (!empty($image)) {
+      $frontpage_logo_data = array(
+          'style_name' => 'partner_logo',
+          'path' => $image,
+      );
+      $variables['frontpage_logo'] = l(theme('image_style', $frontpage_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
+    }
+
+    $position = theme_get_setting('header_logo_position');
+    $variables['header_logo_position'] = (empty($position) ? 'left' : $position);
 
     $bg = theme_get_setting('header_bg_path');
     $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
@@ -481,17 +519,21 @@ function checkdesk_preprocess_page(&$variables) {
     drupal_add_js($modal_style, 'setting');
   }
   // define custom header settings
-  $variables['header_image'] = '';
-  $image = theme_get_setting('header_image_path');
+  $variables['header_logo'] = '';
+  $image = theme_get_setting('header_logo_path');
 
   if (!empty($image)) {
-    $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
+    $variables['header_logo'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
   }
 
   $variables['header_slogan'] = t('A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
 
   // set page variable if widgets should be visible
   $variables['show_widgets'] = checkdesk_widgets_visibility();
+  
+
+  // set page variable if header logo should be visible
+  $variables['show_header'] = checkdesk_header_logo_visibility();
 
   // set page variable if widgets should be visible
   $variables['show_footer'] = checkdesk_footer_visibility();
@@ -855,6 +897,33 @@ function checkdesk_widgets_visibility() {
 }
 
 /**
+ * Utitity function to determine whether to show header image or not
+ */
+function checkdesk_header_logo_visibility() {
+  global $user;
+  $current_node = menu_get_object();
+  // what to check for
+  $pages = array('edit', 'delete');
+  $check_page = array_intersect($pages, array_values(arg()));
+  $check_page = empty($check_page) ? FALSE : TRUE;
+
+  // node types to check
+  $node_types = array('media', 'discussion', 'post');
+
+  // for anonymous user
+  if (isset($current_node->type)) {
+    foreach ($node_types as $node_type) {
+      // matches node types and does not include any pages
+      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
+        return TRUE;
+      }
+    }
+  }
+
+  return FALSE;
+}
+
+/**
  * Utitity function to determine whether to show footer or not
  */
 function checkdesk_footer_visibility() {
@@ -895,6 +964,14 @@ function checkdesk_page_alter(&$page) {
     if (in_array($region, array('footer'))) {
       $page['footer'] = array(
           '#region' => 'footer',
+          '#weight' => '-10',
+          '#theme_wrappers' => array('region'),
+      );
+    }
+    // Header
+    if (in_array($region, array('header'))) {
+      $page['header'] = array(
+          '#region' => 'header',
           '#weight' => '-10',
           '#theme_wrappers' => array('region'),
       );

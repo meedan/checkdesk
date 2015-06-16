@@ -1,37 +1,37 @@
-
-
-  <!-- ______________________ HEADER _______________________ -->
+<!-- ______________________ HEADER _______________________ -->
 <header id="header">
   <?php if ($secondary_nav): ?>
     <?php print $secondary_nav; ?>
   <?php endif; ?>
 
   <?php if ($title): ?>
-  <div id="page-title">
-    <h1 class="title">
-      <?php
-        if (arg(0) == 'user' && arg(1) == 'register') {
-          print t('Create an account');
-        } elseif (arg(0) == 'user' && arg(1) == 'password') {
-          print t('Retrieve lost password');
-        } elseif (arg(0) == 'user' && arg(1) == 'login') {
-          print t('Sign In');
-        } elseif (arg(0) == 'user' && arg(1) == '') {
-          print t('Sign In');
-        } elseif (arg(0) == 'user' && is_numeric(arg(1))) {
-          $account = user_load(arg(1));
-          if (arg(2) == 'notifications') {
-            print t('Receive notifications');
+  <ul id="breadcrumb">
+    <li>
+      <h1 class="title">
+        <?php
+          if (arg(0) == 'user' && arg(1) == 'register') {
+            print t('Create an account');
+          } elseif (arg(0) == 'user' && arg(1) == 'password') {
+            print t('Retrieve lost password');
+          } elseif (arg(0) == 'user' && arg(1) == 'login') {
+            print t('Sign In');
+          } elseif (arg(0) == 'user' && arg(1) == '') {
+            print t('Sign In');
+          } elseif (arg(0) == 'user' && is_numeric(arg(1))) {
+            $account = user_load(arg(1));
+            if (arg(2) == 'notifications') {
+              print t('Receive notifications');
+            }
+            else {
+              print t('<strong>@user\'s</strong> reports', array('@user' => $account->name));
+            }
+          } else {
+            print $title;
           }
-          else {
-            print t('<strong>@user\'s</strong> reports', array('@user' => $account->name));
-          }
-        } else {
-          print $title;
-        }
-      ?>
-    </h1>
-  </div>
+        ?>
+      </h1>
+    </li>
+  </ul>
   <?php endif; ?>
 
   <?php if ($page['navigation']) : ?>
@@ -39,10 +39,10 @@
   <?php endif; ?>
 </header>
 
-
-  <!-- ______________________ MAIN _______________________ -->
+<!-- ______________________ MAIN _______________________ -->
 
 <div id="main" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+
   <?php if ($page['sidebar_first']): ?>
     <div id="sidebar-first" class="column sidebar first">
       <div id="sidebar-first-inner" class="inner">
@@ -60,12 +60,6 @@
   <?php endif; ?> 
 
   <div id="content">
-      <?php if ($page['header']): ?>
-        <div id="header-region">
-          <?php print render($page['header']); ?>
-        </div>
-      <?php endif; ?>
-
       <?php if ($messages || $tabs || $action_links): ?>
         <div id="content-header">
 

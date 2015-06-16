@@ -32,6 +32,7 @@ html {
 #main #content {
   padding-top: $absolute-line-height;
   max-width: 1020px;
+  margin: 0 auto;
 }
 
 // for content pages
@@ -40,5 +41,4 @@ body.page-liveblog #main #content,
 body.node-type-discussion #main #content,
 body.node-type-media #main #content {
   max-width: 720px;
-  margin: 0 auto;
 }

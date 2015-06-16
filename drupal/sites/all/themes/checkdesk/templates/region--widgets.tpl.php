@@ -1,7 +1,7 @@
 <header id="partner-header">
 	<div id="partner-header-inner">
-	  <?php if ($header_image): ?>
-	    <?php print $header_image; ?>
+	  <?php if ($frontpage_logo): ?>
+	    <?php print $frontpage_logo; ?>
 	  <?php endif; ?>
 	  <?php if ($header_slogan): ?>
 	    <div id="partner-header-slogan">

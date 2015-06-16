@@ -1,9 +1,15 @@
-
-
-  <!-- ______________________ HEADER _______________________ -->
+<!-- ______________________ HEADER _______________________ -->
 <header id="header">
   <?php if ($secondary_nav): ?>
     <?php print $secondary_nav; ?>
+  <?php endif; ?>
+
+  <?php if ($page['header']): ?>
+    <ul id="breadcrumb">
+      <li>
+        <?php print render($page['header']); ?>
+      </li>
+    </ul>
   <?php endif; ?>
   
   <?php if ($page['navigation']) : ?>
@@ -11,8 +17,7 @@
   <?php endif; ?>
 </header>
 
-  <!-- ______________________ MAIN _______________________ -->
-
+<!-- ______________________ MAIN _______________________ -->
 <div id="main" class="clearfix">
 
   <?php if ($page['sidebar_first']): ?>
@@ -25,11 +30,6 @@
 
   <div id="content">
     <div id="content-inner" class="inner column center">
-      <?php if ($page['header']): ?>
-        <div id="header-region">
-          <?php print render($page['header']); ?>
-        </div>
-      <?php endif; ?>
 
       <?php if ($title|| $messages || $tabs || $action_links): ?>
         <div id="content-header">
