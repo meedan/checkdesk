@@ -19,6 +19,11 @@
         </div>
       <?php } ?>
       </div>
+      <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
+        <div class="story-links pull-<?php print $layout['omega']; ?>">
+          <?php print render($content['links']); ?>
+        </div>
+      <?php } ?>
     </div>
 
   	<div class="story-body">
@@ -63,11 +68,6 @@
           <div class="story-updated-at pull-<?php print $layout['alpha']; ?>">
             <span class="icon-clock-o"></span><span class="story-updated-at-text"><?php print t('Updated at ') . $updated_at; ?></span>
           </div>
-          <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
-            <div class="story-links pull-<?php print $layout['omega']; ?>">
-              <?php print render($content['links']); ?>
-            </div>
-          <?php } ?>
         </div>
       </section>
  

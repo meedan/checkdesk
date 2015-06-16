@@ -1750,7 +1750,7 @@ label.option.not-applicable:before {
 }
 
 .update .update-footer .icon-share:before,
-.story .story-footer .content-actions .share-on > a .icon-share:before,
+.story .story-meta .content-actions .share-on > a .icon-share:before,
 .icon-share:before {
   content: "\f064";
 }
@@ -1808,6 +1808,10 @@ nav[role="navigation"] #user-menu .icon-bell:before {
 
 #incoming-reports-filters .icon-filter:before {
   content: "\f0b0";
+}
+
+.admin-nav-tabs > li span.icon-group:before {
+  content: "\f0c0";
 }
 
 #widgets .elsewhere ul li span.icon-google-plus:before {
@@ -2436,6 +2440,20 @@ input[type="checkbox"][readonly] {
   -moz-osx-font-smoothing: grayscale;
 }
 .admin-nav-tabs > li span.icon-wrench:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: white;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.admin-nav-tabs > li span.icon-group:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -7775,9 +7793,6 @@ form textarea:focus {
 form textarea {
   height: 250px;
 }
-form .cke_contents {
-  max-height: 250px !important;
-}
 form input[type="checkbox"],
 form input[type="radio"] {
   width: 25px;
@@ -8195,9 +8210,6 @@ form .image-widget .image-widget-data {
 form .image-widget .image-widget-data input[type="submit"] {
   margin-bottom: 0;
 }
-form .image-widget .cke_contents {
-  height: 100px !important;
-}
 form .image-widget input[type="file"] {
   margin: 0;
   padding: 0;
@@ -8352,9 +8364,6 @@ form .form-type-textarea:after {
   }
   form .image-widget .image-widget-data input[type="submit"] {
     margin-bottom: 0;
-  }
-  form .image-widget .cke_contents {
-    height: 100px !important;
   }
   form .image-widget input[type="file"] {
     margin: 0;
@@ -9020,6 +9029,39 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.story .story-meta .content-actions {
+  margin: 0;
+  padding: 0;
+}
+.story .story-meta .content-actions li {
+  list-style: none;
+}
+.story .story-meta .content-actions .add-to {
+  display: none;
+}
+.story .story-meta .content-actions .share-on > a {
+  cursor: pointer;
+  font-weight: 700;
+  color: #9fa6ac;
+}
+.story .story-meta .content-actions .share-on > a .icon-share:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.story .story-meta .content-actions .share-on > a:hover {
+  color: #3e4c57;
+  text-decoration: none;
+}
 .story .story-body {
   *zoom: 1;
   margin: 30px 0 0;
@@ -9558,39 +9600,6 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
 }
 .story .story-footer:after {
   clear: both;
-}
-.story .story-footer .content-actions {
-  margin: 0;
-  padding: 0;
-}
-.story .story-footer .content-actions li {
-  list-style: none;
-}
-.story .story-footer .content-actions .add-to {
-  display: none;
-}
-.story .story-footer .content-actions .share-on > a {
-  cursor: pointer;
-  font-weight: 700;
-  color: #9fa6ac;
-}
-.story .story-footer .content-actions .share-on > a .icon-share:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.story .story-footer .content-actions .share-on > a:hover {
-  color: #3e4c57;
-  text-decoration: none;
 }
 .story .story-updated-at .icon-clock-o:before {
   font-family: "FontAwesome";
@@ -11682,9 +11691,6 @@ body.page-user.logged-in.toolbar #sidebar-first {
 #nav-discussion-form form h2 {
   margin: 0;
   padding: 0;
-}
-#nav-discussion-form .cke_contents {
-  max-height: 120px !important;
 }
 #nav-discussion-form .form-actions {
   padding: 0;

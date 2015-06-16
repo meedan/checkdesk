@@ -114,11 +114,13 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['node/%node/collaboration'] = array(
+    'title' => 'Collaboration',
     'page callback' => '_checkdesk_story_collaboration',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'file' => 'checkdesk.collaborate.inc',
     'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
+    'type' => MENU_LOCAL_TASK
   );
   $items['checkdesk/%ctools_js/sign_in_up'] = array(
     'title' => 'Checkdesk',
@@ -1030,10 +1032,8 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
   }
-  // Customize Chosen default placeholder text "Choose some options" for authors
-  $form['field_additional_authors'][LANGUAGE_NONE]['#chosen'] = TRUE;
-  $form['field_additional_authors'][LANGUAGE_NONE]['#attributes']['data-placeholder'] = t('Choose authors');
-
+  // Customize "Add more items" for authors.
+  $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
 }
 
 /**

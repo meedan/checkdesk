@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * checkdesk_core_feature.features.translations.inc
+ * checkdesk_core_feature.features.translations_ar.inc
  */
 
 /**
- * Implements hook_translations_defaults().
+ * Implements hook_translations_ar_defaults().
  */
-function checkdesk_core_feature_translations_defaults() {
+function checkdesk_core_feature_translations_ar_defaults() {
   $translations = array();
   $translatables = array();
   $translations['ar:default']['0015b64f0747dd1206adf2a68995fd6a'] = array(

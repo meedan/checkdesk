@@ -3,9 +3,6 @@ PhpRedis cache backend
 
 This client, for now, is only able to use the PhpRedis extension.
 
-This code is ALPHA code. This means: DO NOT USE IT IN PRODUCTION. Not until
-I don't ship any BETA release as a full Drupal.org module.
-
 Get PhpRedis
 ------------
 

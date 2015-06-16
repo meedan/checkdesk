@@ -1,0 +1,22 @@
+<?php
+
+class Redis_Tests_Cache_PredisFixesUnitTestCase extends Redis_Tests_Cache_AbstractFixesUnitTestCase
+{
+    public static function getInfo()
+    {
+        return array(
+            'name'         => 'Predis cache fixes',
+            'description'  => 'Tests Redis module cache fixes feature.',
+            'group'        => 'Redis',
+        );
+    }
+
+    protected function getClientInterface()
+    {
+        Redis_Client_Predis::setPredisAutoload();
+
+        if (class_exists('Predis\Client')) {
+            return 'Predis';
+        }
+    }
+}

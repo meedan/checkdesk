@@ -1,9 +1,6 @@
 <?php
 
-/**
- * Base implementation for locking functionnal testing.
- */
-abstract class AbstractRedisCacheFlushUnitTestCase extends AbstractRedisCacheUnitTestCase
+abstract class Redis_Tests_Cache_AbstractFlushUnitTestCase extends Redis_Tests_Cache_AbstractUnitTestCase
 {
     /**
      * Test that the flush all flush mode flushes everything.
@@ -115,6 +112,71 @@ abstract class AbstractRedisCacheFlushUnitTestCase extends AbstractRedisCacheUni
         $this->assertFalse($backend->get('test12'));
     }
 
+    public function testFlushALotWithEval()
+    {
+        global $conf;
+
+        $conf['redis_eval_enabled'] = true;
+        $conf['redis_flush_mode_cache'] = 2;
+        $backend = $this->getBackend();
+
+        $this->assertTrue($backend->canUseEval());
+
+        $cids = array();
+
+        for ($i = 0; $i < 30; ++$i) {
+          $cids[] = $cid = 'test' . $i;
+          $backend->set($cid, 42, CACHE_PERMANENT);
+        }
+
+        $backend->clear('*', true);
+
+        foreach ($cids as $cid) {
+          $this->assertFalse($backend->get($cid));
+        }
+    }
+
+    public function doTestFlushPrefix($withEval)
+    {
+        global $conf;
+
+        $conf['redis_eval_enabled'] = $withEval;
+        $conf['redis_flush_mode_cache'] = 2;
+        $backend = $this->getBackend();
+        $this->assertEqual($withEval, $backend->canUseEval());
+
+        $backend->set('testprefix10', 'foo');
+        $backend->set('testprefix11', 'foo');
+        $backend->set('testprefix:12', 'bar');
+        $backend->set('testprefix:13', 'baz');
+        $backend->set('testnoprefix14', 'giraffe');
+        $backend->set('testnoprefix:15', 'elephant');
+
+        $backend->clear('testprefix:', true);
+        $this->assertFalse($backend->get('testprefix:12'));
+        $this->assertFalse($backend->get('testprefix:13'));
+        $this->assertNotIdentical(false, $backend->get('testprefix10'));
+        $this->assertNotIdentical(false, $backend->get('testprefix11'));
+        $this->assertNotIdentical(false, $backend->get('testnoprefix14'));
+        $this->assertNotIdentical(false, $backend->get('testnoprefix:15'));
+
+        $backend->clear('testprefix', true);
+        $this->assertFalse($backend->get('testprefix10'));
+        $this->assertFalse($backend->get('testprefix11'));
+        $this->assertNotIdentical(false, $backend->get('testnoprefix14'));
+        $this->assertNotIdentical(false, $backend->get('testnoprefix:15'));
+    }
+
+    public function testFlushPrefixWithEval()
+    {
+        $this->doTestFlushPrefix(true);
+    }
+
+    public function testFlushPrefixWithoutEval()
+    {
+        $this->doTestFlushPrefix(false);
+    }
+
     /**
      * Flushing more than 20 elements should switch to a pipeline that
      * sends multiple DEL batches.
@@ -137,74 +199,6 @@ abstract class AbstractRedisCacheFlushUnitTestCase extends AbstractRedisCacheUni
 
         foreach ($cids as $cid) {
             $this->assertFalse($backend->get($cid));
-        }
-    }
-}
-
-/**
- * Predis cache flush testing.
- */
-class PredisCacheFlushUnitTestCase extends AbstractRedisCacheFlushUnitTestCase
-{
-
-    public static function getInfo()
-    {
-        return array(
-            'name'         => 'Predis cache flush',
-            'description'  => 'Tests Redis module cache flush modes feature.',
-            'group'        => 'Redis',
-        );
-    }
-
-    protected function getCacheBackendClass()
-    {
-        global $conf;
-
-        // FIXME: This is definitely ugly but we have no choice: during unit
-        // testing Drupal will attempt to reach the database if do not prepend
-        // our autoloader manually. We can't do class_exists() calls either,
-        // they will lead to Drupal crash in all case.
-        if (!defined('PREDIS_BASE_PATH')) {
-            define('PREDIS_BASE_PATH', DRUPAL_ROOT . '/sites/all/libraries/predis/lib/');
-        }
-
-        spl_autoload_register(function($className) {
-            $parts = explode('\\', $className);
-            if ('Predis' === $parts[0]) {
-                $filename = PREDIS_BASE_PATH . implode('/', $parts) . '.php';
-                return (bool)include_once $filename;
-            }
-            return false;
-        }, null, true);
-
-        $conf['redis_client_interface'] = 'Predis';
-
-        return 'Redis_Cache_Predis';
-    }
-}
-
-/**
- * PhpRedis cache flush testing.
- */
-class PhpRedisCacheFlushUnitTestCase extends AbstractRedisCacheFlushUnitTestCase
-{
-    public static function getInfo()
-    {
-        return array(
-            'name'        => 'PhpRedis cache flush',
-            'description' => 'Tests Redis module cache flush modes feature.',
-            'group'       => 'Redis',
-        );
-    }
-
-    protected function getCacheBackendClass()
-    {
-        global $conf;
-
-        if (extension_loaded('redis') && class_exists('Redis')) {
-            $conf['redis_client_interface'] = 'PhpRedis';
-
-            return 'Redis_Cache_PhpRedis';
         }
     }
 }
