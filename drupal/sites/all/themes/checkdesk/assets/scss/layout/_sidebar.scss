@@ -3,11 +3,14 @@
 body.sidebar-second #main {
 	position: relative;
 	display: flex;
+	justify-content: flex-start;
+
 }
 
 body.sidebar-second #main #content {
 	padding-#{opposite-position($from-direction)}: 20px;
 	flex: 4;
+	margin: 0;
 	@include box-sizing(border-box);
 	overflow: auto;
 	// checkdesk search

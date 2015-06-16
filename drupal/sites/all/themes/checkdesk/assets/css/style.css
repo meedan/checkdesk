@@ -4274,7 +4274,7 @@ body.toolbar-drawer #main {
 
 #main #content {
   padding-top: 24px;
-  max-width: 1020px;
+  max-width: 1040px;
   margin: 0 auto;
 }
 
@@ -7096,7 +7096,6 @@ ul.pager {
 
 header#header {
   position: relative;
-  max-width: 1040px;
   height: 100%;
 }
 
@@ -10721,11 +10720,13 @@ body.toolbar #main #sidebar-first.column {
 body.sidebar-second #main {
   position: relative;
   display: flex;
+  justify-content: flex-start;
 }
 
 body.sidebar-second #main #content {
   padding-right: 20px;
   flex: 4;
+  margin: 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
