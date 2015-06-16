@@ -20,7 +20,7 @@ html {
   }
   // when no sidebars
   body.no-sidebars & {
-    margin-top: $absolute-line-height * 3;
+    // margin-top: $absolute-line-height * 3;
   }
 }
 
@@ -32,4 +32,13 @@ html {
 #main #content {
   padding-top: $absolute-line-height;
   max-width: 1020px;
+}
+
+// for content pages
+// until sidebars are added as in search page
+body.page-liveblog #main #content, 
+body.node-type-discussion #main #content,
+body.node-type-media #main #content {
+  max-width: 720px;
+  margin: 0 auto;
 }

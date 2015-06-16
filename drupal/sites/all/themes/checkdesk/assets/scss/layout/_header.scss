@@ -2,9 +2,15 @@ header#header {
   position: relative;
   max-width: 1040px;
   height: 100%;
-  // adjust top for drupal toolbar
+}
+
+// adjust header items for drupal toolbar
+#page-title, ul#user-menu {
+  body.toolbar & {
+    top: $toolbarMenuHeight !important;
+  }
   body.toolbar-drawer & {
-    margin-top: $toolbarHeight !important;
+    top: $toolbarHeight !important;
   }
 }
 
@@ -15,10 +21,6 @@ header#header {
   @include box-sizing(border-box);
   height: $headerHeight;
   top: 0;
-  // adjust top for drupal toolbar
-  body.toolbar-drawer & {
-    top: ($toolbarHeight) !important;
-  }
   #{$alpha}: $navbarWidth;
   #{$omega}: 0;
   padding: 0 50px;
@@ -41,10 +43,6 @@ ul#user-menu {
 	align-items: center;
 	@include box-sizing(border-box);
 	top: 0;
-	// adjust top for drupal toolbar
-  body.toolbar-drawer & {
-    top: ($toolbarHeight) !important;
-  }
 	#{$alpha}: 0;
 	#{$omega}: 0;
 	padding: 0 50px;

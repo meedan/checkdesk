@@ -847,54 +847,8 @@ function checkdesk_links__node($variables) {
  */
 function checkdesk_widgets_visibility() {
   global $user;
-  // Always display on front page
+  // Only display on front page
   if (drupal_is_front_page()) {
-    return TRUE;
-  }
-
-  $current_node = menu_get_object();
-
-  // Display on collaboration page
-  if (!empty($current_node) && $current_node->type == 'discussion' && arg(0) == 'story-collaboration' && is_numeric(arg(1))) {
-    return TRUE;
-  }
-  // what to check for
-  $roles = array('administrator', 'journalist');
-  $check_role = array_intersect($roles, array_values($user->roles));
-  $check_role = empty($check_role) ? FALSE : TRUE;
-  // for 404s
-  $status = drupal_get_http_header("status");
-
-  $pages = array('edit', 'delete');
-  $check_page = array_intersect($pages, array_values(arg()));
-  $check_page = empty($check_page) ? FALSE : TRUE;
-
-  $user_pages = array('login', 'password', 'register');
-  $check_user_page = array_intersect($user_pages, array_values(arg()));
-  $check_user_page = empty($check_user_page) ? FALSE : TRUE;
-
-  // node types to check for anonymous user
-  $anon_node_types = array('media', 'post', 'discussion');
-  // node types to check for logged in user
-  $user_node_types = array('media', 'post', 'discussion');
-
-  // for anonymous user
-  if (isset($current_node->type) && !$check_role && $status != "404 Not Found") {
-    foreach ($anon_node_types as $node_type) {
-      // matches node types
-      if ($node_type == $current_node->type)
-        return TRUE;
-    }
-    // for logged in users with specific role
-  } elseif (isset($current_node->type) && $check_role) {
-    foreach ($user_node_types as $node_type) {
-      // matches node types and does not include any pages
-      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page && $status != "404 Not Found") {
-        return TRUE;
-      }
-    }
-    // for user login, register and forgot pass page
-  } elseif (arg(0) == 'user' && $check_user_page) {
     return TRUE;
   }
   return FALSE;

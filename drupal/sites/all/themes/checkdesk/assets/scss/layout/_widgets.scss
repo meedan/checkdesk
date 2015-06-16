@@ -3,9 +3,8 @@
 
 #widgets {
   background: #fff;
-  border-bottom: 1px solid rgba($firefly, 0.05);
   #widgets-inner {
-    padding-bottom: 50px;
+    padding-bottom: 10px;
     // remove margin from first block
     .region-widgets :first-child {
       margin-top: 0;
@@ -46,12 +45,13 @@
         display: inline-block;
         a {
           display: block;
-          padding: $absolute-line-height/4 $gutter-width/2;
+          padding: 8px 5px;
           vertical-align: top;
           line-height: 1.4;
           height: 36px;
           width: 35px;
           text-align: center;
+          color: $firefly30;
           &:hover { 
             text-decoration: none;
             background-color: $firefly5;
@@ -59,13 +59,13 @@
         }
 
         span {
-          &.icon-facebook  { @include icon("facebook", $larger-font-size, $facebook-blue); } 
-          &.icon-twitter  { @include icon("twitter", $larger-font-size, $twitter-blue); }
-          &.icon-google-plus  { @include icon("google-plus-square", $larger-font-size, $google-plus-red); }
-          &.icon-tumblr  { @include icon("tumblr", $larger-font-size, $tumblr-blue); }
+          &.icon-facebook  { @include icon("facebook", $larger-font-size); } 
+          &.icon-twitter  { @include icon("twitter", $larger-font-size); }
+          &.icon-google-plus  { @include icon("google-plus-square", $larger-font-size); }
+          &.icon-tumblr  { @include icon("tumblr", $larger-font-size); }
           // social icons seem to be larger
           &.icon-youtube  { 
-            @include icon("youtube", $larger-font-size, $youtube-red); 
+            @include icon("youtube", $larger-font-size); 
           }
         }
       }

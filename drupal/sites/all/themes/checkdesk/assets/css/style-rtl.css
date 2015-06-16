@@ -723,7 +723,7 @@ body.toolbar-drawer {
   position: absolute;
   right: 10px;
   /* LTR */
-  text-indent: -9999px;
+  color: #ccc;
   width: 25px;
 }
 
@@ -789,13 +789,13 @@ div#toolbar a#edit-shortcuts {
   float: right;
   padding: 5px 10px 5px 5px;
   line-height: 24px;
-  color: #fefefe;
+  color: #ccc;
 }
 
 div#toolbar a#edit-shortcuts:focus,
 div#toolbar a#edit-shortcuts:hover,
 div#toolbar a#edit-shortcuts.active {
-  color: #fff;
+  color: #ddd;
   text-decoration: underline;
 }
 
@@ -1805,7 +1805,7 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f0d4";
 }
 
-#incoming-reports-filters .icon-caret-down:before {
+.caret:after, #incoming-reports-filters .icon-caret-down:before {
   content: "\f0d7";
 }
 
@@ -3245,6 +3245,21 @@ textarea {
   opacity: 0.4;
 }
 
+.caret:after {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: #b7bcc0;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .dropup,
 .dropdown {
   position: relative;
@@ -4248,9 +4263,6 @@ html {
 body.toolbar-drawer #main {
   margin-top: 65px !important;
 }
-body.no-sidebars #main {
-  margin-top: 72px;
-}
 
 #main #content, #main #widgets, #main footer {
   position: relative;
@@ -4260,6 +4272,13 @@ body.no-sidebars #main {
 #main #content {
   padding-top: 24px;
   max-width: 1020px;
+}
+
+body.page-liveblog #main #content,
+body.node-type-discussion #main #content,
+body.node-type-media #main #content {
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 h1, h2, h3, h4 {
@@ -4485,6 +4504,7 @@ nav {
 div.tabs {
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 ul.tabs {
@@ -6286,6 +6306,7 @@ div.sensitive-hide {
 .updates .update-row .update-body {
   flex: 5;
   order: 2;
+  max-width: 520px;
 }
 .updates .update-row .update-footer {
   flex: 1;
@@ -7069,8 +7090,12 @@ header#header {
   max-width: 1040px;
   height: 100%;
 }
-body.toolbar-drawer header#header {
-  margin-top: 65px !important;
+
+body.toolbar #page-title, body.toolbar ul#user-menu {
+  top: 30px !important;
+}
+body.toolbar-drawer #page-title, body.toolbar-drawer ul#user-menu {
+  top: 65px !important;
 }
 
 #page-title {
@@ -7087,9 +7112,6 @@ body.toolbar-drawer header#header {
   padding: 0 50px;
   z-index: 921;
   pointer-events: none;
-}
-body.toolbar-drawer #page-title {
-  top: 65px !important;
 }
 
 #page-title h1 {
@@ -7116,9 +7138,6 @@ ul#user-menu {
   margin-right: 60px;
   z-index: 920;
   background: #fff;
-}
-body.toolbar-drawer ul#user-menu {
-  top: 65px !important;
 }
 body.nofront ul#user-menu {
   border-bottom: 1px solid rgba(16, 33, 47, 0.05);
@@ -7507,6 +7526,7 @@ div.region-page-top #toolbar li a {
 div.tabs {
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 /**
@@ -8804,6 +8824,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   clear: both;
 }
 .story figure {
+  text-align: center;
   margin-bottom: 30px;
   margin-top: 30px;
 }
@@ -8815,6 +8836,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin-top: 5px;
 }
 .story h1 {
+  text-align: center;
   font-style: normal;
   font-size: 38px;
   line-height: 58px;
@@ -8852,8 +8874,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   text-decoration: none;
 }
 .story .story-meta .story-attributes {
-  float: right;
-  width: 80%;
+  text-align: center;
 }
 .story .story-meta .story-attributes .story-commentcount {
   margin-right: 7.5px;
@@ -10507,10 +10528,9 @@ body.toolbar #main #sidebar-first.column {
 }
 #widgets {
   background: #fff;
-  border-bottom: 1px solid rgba(16, 33, 47, 0.05);
 }
 #widgets #widgets-inner {
-  padding-bottom: 50px;
+  padding-bottom: 10px;
 }
 #widgets #widgets-inner .region-widgets :first-child {
   margin-top: 0;
@@ -10569,12 +10589,13 @@ body.toolbar #main #sidebar-first.column {
 }
 #widgets .elsewhere ul li a {
   display: block;
-  padding: 6px 7.5px;
+  padding: 8px 5px;
   vertical-align: top;
   line-height: 1.4;
   height: 36px;
   width: 35px;
   text-align: center;
+  color: #b7bcc0;
 }
 #widgets .elsewhere ul li a:hover {
   text-decoration: none;
@@ -10585,7 +10606,7 @@ body.toolbar #main #sidebar-first.column {
   display: inline-block;
   margin: 0 7.5px;
   *margin-right: .3em;
-  color: #264887;
+  color: "black";
   font-size: 25px;
   font-style: normal;
   font-weight: normal;
@@ -10599,7 +10620,7 @@ body.toolbar #main #sidebar-first.column {
   display: inline-block;
   margin: 0 7.5px;
   *margin-right: .3em;
-  color: #1d87c9;
+  color: "black";
   font-size: 25px;
   font-style: normal;
   font-weight: normal;
@@ -10613,7 +10634,7 @@ body.toolbar #main #sidebar-first.column {
   display: inline-block;
   margin: 0 7.5px;
   *margin-right: .3em;
-  color: #dd4b39;
+  color: "black";
   font-size: 25px;
   font-style: normal;
   font-weight: normal;
@@ -10627,7 +10648,7 @@ body.toolbar #main #sidebar-first.column {
   display: inline-block;
   margin: 0 7.5px;
   *margin-right: .3em;
-  color: #36465d;
+  color: "black";
   font-size: 25px;
   font-style: normal;
   font-weight: normal;
@@ -10641,7 +10662,7 @@ body.toolbar #main #sidebar-first.column {
   display: inline-block;
   margin: 0 7.5px;
   *margin-right: .3em;
-  color: #cd201f;
+  color: "black";
   font-size: 25px;
   font-style: normal;
   font-weight: normal;

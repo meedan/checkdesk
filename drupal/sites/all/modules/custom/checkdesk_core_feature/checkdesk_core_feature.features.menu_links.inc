@@ -270,7 +270,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => 1,
     'external' => 0,
     'has_children' => 1,
-    'hidden' => 0,
+    'hidden' => 1,
     'language' => 'und',
     'link_path' => '<nolink>',
     'link_title' => 'Information',
@@ -368,7 +368,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => 0,
     'external' => 0,
     'has_children' => 0,
-    'hidden' => 0,
+    'hidden' => 1,
     'language' => 'und',
     'link_path' => 'search',
     'link_title' => 'Search',
@@ -557,118 +557,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => '6b224c9f-ab09-421d-a672-0305c98e1fa2',
     'weight' => -48,
   );
-  // Exported menu link: menu-information_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح
-  $menu_links['menu-information_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'ar',
-    'link_path' => 'content/تنصيب-إضافة-المتصفح',
-    'link_title' => 'إضافة المتصفح',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'ar',
-    'menu_name' => 'menu-information',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(
-        'class' => array(
-          0 => 'checkdesk-use-modal',
-        ),
-      ),
-      'alter' => TRUE,
-      'identifier' => 'menu-information_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح',
-    ),
-    'router_path' => 'modal/%',
-    'uuid' => '70468a91-c4d2-4a27-9a1b-c85b7f133967',
-    'weight' => 0,
-  );
-  // Exported menu link: menu-information_بيان-التحقق-من-صحة-المعلومات:content/بيان-التحقق-من-صحة-المعلومات
-  $menu_links['menu-information_بيان-التحقق-من-صحة-المعلومات:content/بيان-التحقق-من-صحة-المعلومات'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'ar',
-    'link_path' => 'content/بيان-التحقق-من-صحة-المعلومات',
-    'link_title' => 'بيان التحقق من صحة المعلومات',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'ar',
-    'menu_name' => 'menu-information',
-    'module' => 'menu',
-    'options' => array(
-      'alter' => TRUE,
-      'attributes' => array(
-        'class' => array(
-          0 => 'checkdesk-use-modal',
-        ),
-      ),
-      'identifier' => 'menu-information_بيان-التحقق-من-صحة-المعلومات:content/بيان-التحقق-من-صحة-المعلومات',
-    ),
-    'router_path' => 'modal/%',
-    'uuid' => '3daae1f4-caac-41f1-b00c-7ada7412206e',
-    'weight' => -49,
-  );
-  // Exported menu link: menu-information_شروط-الاستخدام:content/شروط-الاستخدام
-  $menu_links['menu-information_شروط-الاستخدام:content/شروط-الاستخدام'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'ar',
-    'link_path' => 'content/شروط-الاستخدام',
-    'link_title' => 'شروط الاستخدام',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'ar',
-    'menu_name' => 'menu-information',
-    'module' => 'menu',
-    'options' => array(
-      'alter' => TRUE,
-      'attributes' => array(
-        'class' => array(
-          0 => 'checkdesk-use-modal',
-        ),
-      ),
-      'identifier' => 'menu-information_شروط-الاستخدام:content/شروط-الاستخدام',
-    ),
-    'router_path' => 'modal/%',
-    'uuid' => '9c0aaf8e-aa8f-440b-a85a-9cfee6ca33f7',
-    'weight' => -47,
-  );
-  // Exported menu link: menu-information_عن-checkdesk:content/عن-checkdesk
-  $menu_links['menu-information_عن-checkdesk:content/عن-checkdesk'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'ar',
-    'link_path' => 'content/عن-checkdesk',
-    'link_title' => 'عن Checkdesk',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'ar',
-    'menu_name' => 'menu-information',
-    'module' => 'menu',
-    'options' => array(
-      'alter' => TRUE,
-      'attributes' => array(
-        'class' => array(
-          0 => 'checkdesk-use-modal',
-        ),
-      ),
-      'identifier' => 'menu-information_عن-checkdesk:content/عن-checkdesk',
-    ),
-    'router_path' => 'modal/%',
-    'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
-    'weight' => -44,
-  );
   // Translatables
   // Included for use with string extractors like potx.
   t('...');
@@ -692,10 +580,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Terms of use');
   t('Update story');
   t('View incoming citizen reports');
-  t('إضافة المتصفح');
-  t('بيان التحقق من صحة المعلومات');
-  t('شروط الاستخدام');
-  t('عن Checkdesk');
 
 
   return $menu_links;

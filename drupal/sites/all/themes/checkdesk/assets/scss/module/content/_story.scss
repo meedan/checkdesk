@@ -1,11 +1,13 @@
 // Citizen's view of Story page 
 // aka Discussion Node 
+
 .story {
   @include ctb-clearfix;
   text-align: $alpha;
   margin-bottom: $absolute-line-height/2;
 
   figure {
+    text-align: center;
     margin-bottom: 30px;
     margin-top: 30px;
     blockquote {
@@ -19,6 +21,7 @@
   }
 
   h1 {
+    text-align: center;
     font-style: normal;
     @if $from-direction == 'right' {
       font-size: 38px;
@@ -57,8 +60,7 @@
       }
     }
     .story-attributes {
-      float: $alpha;
-      width: 80%;
+      text-align: center;
       .story-commentcount {
         margin-#{$from-direction}: $gutter-width/2;
         display: inline-block;
