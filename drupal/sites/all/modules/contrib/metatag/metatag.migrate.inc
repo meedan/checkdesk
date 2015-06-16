@@ -81,13 +81,13 @@ function metatag_migrate_api() {
  */
 class MigrateMetatagHandler extends MigrateDestinationHandler {
 
+  /**
+   * Identify a list of supported entity types.
+   */
   public function __construct() {
-    $entity_types = array();
-    foreach (entity_get_info() as $entity_type => $entity_info) {
-      if (isset($entity_info['metatags']) && $entity_info['metatags']) {
-        $entity_types[] = $entity_type;
-      }
-    }
+    $entity_types = metatag_entity_supports_metatags();
+    $entity_types = array_filter($entity_types);
+    $entity_types = array_keys($entity_types);
 
     $this->registerTypes($entity_types);
   }
@@ -116,7 +116,8 @@ class MigrateMetatagHandler extends MigrateDestinationHandler {
     foreach ($elements['tags'] as $value) {
       $metatag_field = 'metatag_' . $value['name'];
       if (isset($entity->$metatag_field)) {
-        $entity->metatags[$value['name']]['value'] = $entity->$metatag_field;
+        $language = isset($entity->language) ? $entity->language : LANGUAGE_NONE;
+        $entity->metatags[$language][$value['name']]['value'] = $entity->$metatag_field;
         unset($entity->$metatag_field);
       }
     }

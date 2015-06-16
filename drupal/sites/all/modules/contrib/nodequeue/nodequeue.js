@@ -1,3 +1,4 @@
+(function ($) {
 
 /**
  * Nodequeue object
@@ -417,9 +418,6 @@ Drupal.nodequeue.autoAttach = function() {
 
 }
 
-if (Drupal.jsEnabled) {
-  $(document).ready(Drupal.nodequeue.autoAttach);
-}
+$(document).ready(Drupal.nodequeue.autoAttach);
 
-
-
+})(jQuery);

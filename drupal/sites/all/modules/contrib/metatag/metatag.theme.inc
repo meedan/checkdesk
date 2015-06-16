@@ -13,7 +13,11 @@
  */
 function theme_metatag($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array('name', '#value' => 'content'));
+  $args = array(
+    '#name'  => 'name',
+    '#value' => 'content',
+  );
+  element_set_attributes($element, $args);
   unset($element['#value']);
   return theme('html_tag', $variables);
 }
@@ -26,7 +30,11 @@ function theme_metatag($variables) {
  */
 function theme_metatag_http_equiv($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array('#name' => 'http-equiv', '#value' => 'content'));
+  $args = array(
+    '#name' => 'http-equiv',
+    '#value' => 'content',
+  );
+  element_set_attributes($element, $args);
   unset($element['#value']);
   return theme('html_tag', $variables);
 }
@@ -39,7 +47,11 @@ function theme_metatag_http_equiv($variables) {
  */
 function theme_metatag_link_rel($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array('#name' => 'rel', '#value' => 'href'));
+  $args = array(
+    '#name' => 'rel',
+    '#value' => 'href',
+  );
+  element_set_attributes($element, $args);
   unset($element['#value']);
   return theme('html_tag', $variables);
 }
@@ -52,7 +64,11 @@ function theme_metatag_link_rel($variables) {
  */
 function theme_metatag_link_rev($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array('#name' => 'rev', '#value' => 'href'));
+  $args = array(
+    '#name' => 'rev',
+    '#value' => 'href',
+  );
+  element_set_attributes($element, $args);
   unset($element['#value']);
   return theme('html_tag', $variables);
 }
@@ -65,7 +81,11 @@ function theme_metatag_link_rev($variables) {
  */
 function theme_metatag_property($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array('#name' => 'property', '#value' => 'content'));
+  $args = array(
+    '#name' => 'property',
+    '#value' => 'content',
+  );
+  element_set_attributes($element, $args);
   unset($element['#value']);
   return theme('html_tag', $variables);
 }

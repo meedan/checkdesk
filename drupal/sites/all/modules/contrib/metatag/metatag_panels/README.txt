@@ -22,6 +22,6 @@ This module is based on Panels Breadcrumbs [3] and the Meta tag: Context module.
 
 References
 --------------------------------------------------------------------------------
-1: http://drupal.org/user/887060
+1: https://www.drupal.org/u/devuo
 2: http://dri-global.com
-3: http://drupal.org/project/panels_breadcrumbs
+3: https://www.drupal.org/project/panels_breadcrumbs

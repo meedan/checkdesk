@@ -217,7 +217,6 @@ function checkdesk_core_feature_uuid_features_default_content() {
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'foaf:Document',
@@ -325,7 +324,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'foaf:Document',
@@ -404,7 +402,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => 153,
   'translate' => 0,
   'uuid' => '31710726-27dc-4c80-99fc-cb2c79a84053',
-  'revision_uid' => 0,
+  'revision_uid' => 1,
   'body' => array(
     'und' => array(
       0 => array(
@@ -412,7 +410,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 
 <h2>Welcome to Checkdesk</h2>
 
-<p>Checkdesk is a web application developed by Meedan. Our goal in developing Checkdesk was to make the world a better place. Really. So, you can take these terms and conditions as our best effort to inform you of your legal obligations as a user and our legal obligations to you as the company that has designed and deployed this software.</p>
+<p>Checkdesk is a web application developed by Meedan, Inc, a San Francisco based 501 c3 nonprofit international media and open source technology do-tank. Our goal in developing Checkdesk was to make the world a better place. Really. So, you can take these terms and conditions as our best effort to inform you of your legal obligations as a user and our legal obligations to you as the company that has designed and deployed this software.</p>
 
 <p>We recognize that as a user of our services you are extending to us certain aspects of your reputation and identity. We take this seriously and we&rsquo;ve crafted these Terms of Service (the &ldquo;Terms&rdquo;) reflect that.</p>
 
@@ -538,7 +536,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 
 <h2>Contact</h2>
 
-<p>If you are interested in discussing this agreement or have any thoughts on your mind, please contact us at termsofservice@meedan.net</p>
+<p>If you are interested in discussing this agreement or have any thoughts on your mind, please contact us at TOS@meedan.com</p>
 
 <p>These Terms are licensed under <img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />. Some rights reserved, with attribution and thanks to the Citizens Media and Law Project at the Berkman Center (http://www.citmedialaw.org/)</p>
 
@@ -559,8 +557,8 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 	<ul>
 
 		<li>Ed Bice <br />
-			Email: ebice@meedan.net <br />
-			Physical Mail: 1255 Post Suite 540 San Francisco, CA 94109 USA <br />
+			Email: TOS@meedan.com <br />
+			Physical Mail: 972 Mission Street, 5th Floor, San Francisco, CA 94103 USA <br />
 			Upon receipt of proper notification of claimed infringement, Meedan will follow the procedures outlined herein and in the DMCA.
 		</li>
 	</ul>
@@ -622,7 +620,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'foaf:Document',
@@ -746,7 +743,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'foaf:Document',
@@ -859,7 +855,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'foaf:Document',
@@ -967,7 +962,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'foaf:Document',
@@ -1091,7 +1085,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'foaf:Document',
@@ -1181,7 +1174,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'foaf:Document',

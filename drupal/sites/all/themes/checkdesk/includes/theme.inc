@@ -124,6 +124,7 @@ function checkdesk_checkdesk_links($variables) {
             $link['attributes']['class'][] = 'ctools_checkdesk_sign_in_up';
             $link['attributes']['class'][] = 'ctools-use-modal';
             $link['attributes']['class'][] = 'ctools-modal-modal-popup-medium';
+            $link['query'] = drupal_get_destination();
             $output .= l($link['title'], $link['href'], $link);
           }
           else {

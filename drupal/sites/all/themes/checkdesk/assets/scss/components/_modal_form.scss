@@ -10,29 +10,37 @@
   @if $from-direction == 'left' {
     letter-spacing: -1.1px;    
   }
+  @if $from-direction == 'right' {
+    margin-top: 20px;
+  }
 
   // For mobile screens
   @media screen and (max-width: 767px) {
     & {
       font-size: 26px;
+      margin-top: 6px;
       @if $from-direction == 'left' {
         letter-spacing: -1.2px;
+        margin-top: 12px;
       }
-      margin-bottom: 6px;
     }
   }
 
 }
 
 .modal-dialog-signin .modal-dialog-description {
-  margin: 12px 0 30px 0;
   color: $firefly30;
   font-size: 20px;
   line-height: 1.4;
   @if $from-direction == 'left' {
+    margin: 16px 0 30px 0;
     @include cd-serif-family;
-    letter-spacing: -0.8px;    
+    letter-spacing: -0.8px;
   }
+  @if $from-direction == 'right' {
+    margin: 20px 0 34px 0;
+  }
+
 
   // For mobile screens
   @media screen and (max-width: 767px) {
@@ -62,6 +70,7 @@
   }    
   a {
     @include checkdesk-button();
+    @include box-sizing(border-box);
     display: block;
     margin: 0 auto 10px;
     width: 260px;
@@ -71,7 +80,26 @@
     height: 48px;
     line-height: 47px;
     @if $from-direction == 'right' {
-      font-size: 16.5px;
+      font-size: 14.5px;
+      line-height: 32px;
+    }
+
+    @media screen and (max-width: 767px) {
+      & {
+        height: 42px;
+        @if $from-direction == 'left' {
+          line-height: 41px;
+        }
+        @if $from-direction == 'right' {
+          font-size: 14.5px;
+          line-height: 32px;
+        }
+        &:before, &:after {
+          font-size: 20px; 
+          margin-#{$omega}: 10px;
+          line-height: 41px;
+        }
+      }
     }
 
     // add icons and colors
@@ -109,18 +137,10 @@
     &:before, &:after { 
       font-size: 24px !important;
       margin: 0 0 0 0 !important;
-      margin-#{$omega}: 15px !important;
-    }
-
-    @media screen and (max-width: 767px) {
-      & {
-        height: 42px;
-        line-height: 41px;
-        &:before, &:after {
-          font-size: 20px; 
-          margin-#{$omega}: 10px;
-        }
+      @if $from-direction == 'right' {
+        margin: 5px 0 0 0 !important;
       }
+      margin-#{$omega}: 15px !important;
     }
 
   }

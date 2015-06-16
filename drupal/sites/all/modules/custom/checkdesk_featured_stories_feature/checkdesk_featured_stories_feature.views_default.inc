@@ -559,7 +559,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
     'field_additional_authors' => 'field_additional_authors',
   );
   $handler->display->display_options['row_options']['separator'] = ',';
-  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
   /* Relationship: Entity Reference: Referencing entity */
   $handler->display->display_options['relationships']['reverse_field_additional_authors_node']['id'] = 'reverse_field_additional_authors_node';
   $handler->display->display_options['relationships']['reverse_field_additional_authors_node']['table'] = 'users';
@@ -621,10 +620,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'story-authors';
-
   /* Display: Entity Reference */
   $handler = $view->new_display('entityreference', 'Entity Reference', 'entityreference_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -672,9 +667,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
     3 => '3',
     5 => '5',
   );
-
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block_1');
   $translatables['story_authors'] = array(
     t('Master'),
     t('Story authors'),
@@ -687,9 +679,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('Content referencing User from field_additional_authors'),
     t('author'),
     t('All'),
-    t('Page'),
     t('Entity Reference'),
-    t('Block'),
   );
   $export['story_authors'] = $view;
 

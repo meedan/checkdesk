@@ -89,7 +89,9 @@ function metatag_context_page_build(&$page) {
   $metatags = drupal_static('metatag_context', array());
 
   if (!empty($metatags)) {
-    $page['content']['metatags']['global'] = $metatags;
+    // The page region can be changed.
+    $region = variable_get('metatag_page_region', 'content');
+    $page[$region]['metatags']['global'] = $metatags;
   }
 }
 

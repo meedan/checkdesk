@@ -10,7 +10,7 @@ interface Redis_Client_Interface {
    * @return mixed
    *   Real client depends from the library behind.
    */
-  public function getClient($host = NULL, $port = NULL, $base = NULL);
+  public function getClient($host = NULL, $port = NULL, $base = NULL, $socket = NULL);
 
   /**
    * Get underlaying library name used.

@@ -36,7 +36,11 @@ function theme_metatag_google_plus($variables) {
   // The format is e.g. 'itemprop:name'. Remove 'itemprop:' and store the rest
   // in '#itemprop'.
   $element['#itemprop'] = substr($element['#name'], 9);
-  element_set_attributes($element, array('#itemprop' => 'itemprop', '#value' => 'content'));
+  $args = array(
+    '#itemprop' => 'itemprop',
+    '#value' => 'content',
+  );
+  element_set_attributes($element, $args);
   unset($element['#value']);
 
   return theme('html_tag', $variables);
@@ -55,6 +59,6 @@ function theme_metatag_google_plus($variables) {
  */
 function metatag_google_plus_preprocess_html(&$variables) {
   if (isset($variables['itemtype']) && !function_exists('zen_preprocess_html')) {
-    $variables['rdf_namespaces'] .= "\n  itemscope itemtype= \"http://schema.org/{$variables['itemtype']}\"";
+    $variables['rdf_namespaces'] .= "\n  itemscope itemtype=\"http://schema.org/{$variables['itemtype']}\"";
   }
 }

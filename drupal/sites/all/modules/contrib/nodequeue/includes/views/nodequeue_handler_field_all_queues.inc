@@ -10,11 +10,14 @@ class nodequeue_handler_field_all_queues extends views_handler_field_prerender_l
   /**
    * Provide meaningful defaults.
    */
-  function options(&$options) {
-    parent::options($options);
-    $options['link_to_queue'] = TRUE;
-    $options['limit'] = FALSE;
-    $options['qids'] = array();
+  function option_definition() {
+    $options = parent::option_definition();
+
+    $options['link_to_queue'] = array('default' => TRUE);
+    $options['limit'] = array('default' => FALSE);
+    $options['qids'] = array('default' => array());
+
+    return $options;
   }
 
   /**
@@ -25,7 +28,7 @@ class nodequeue_handler_field_all_queues extends views_handler_field_prerender_l
     $form['link_to_queue'] = array(
       '#title' => t('Link this field to queue arrange page'),
       '#type' => 'checkbox',
-      '#default_value' => !empty($this->options['link_to_taxonomy']),
+      '#default_value' => !empty($this->options['link_to_queue']),
     );
 
     $form['limit'] = array(
@@ -47,36 +50,41 @@ class nodequeue_handler_field_all_queues extends views_handler_field_prerender_l
       '#title' => t('Queues'),
       '#options' => $options,
       '#default_value' => $this->options['qids'],
-      '#states' => array(
-        'visible' => array(
-          ':input[name="options[limit]"]' => array('checked' => TRUE)
-        ),
-      ),
+      '#dependency' => array('edit-options-limit' => array(TRUE)),
     );
   }
 
-  function pre_render($values) {
+  function pre_render(&$values) {
     $nids = array();
     foreach ($values as $result) {
       $nids[] = $result->{$this->field_alias};
     }
 
     if ($nids) {
-      $queue = '';
-      if (!empty($this->options['limit']) && !empty($this->options['qids'])) {
-        $queue = " AND nn.qid IN (" . implode(', ', array_keys(array_filter($this->options['qids']))) . ")";
+      $query = db_select('nodequeue_nodes', 'nn');
+      $query->innerJoin('nodequeue_queue', 'nq', 'nn.qid = nq.qid');
+      $query->fields('nn', array('nid', 'qid'));
+      $query->fields('nq', array('title'));
+      $query->orderby('nq.title');
+      $query->condition('nn.nid', $nids);
+      $qids = array_filter($this->options['qids']);
+      if (!empty($this->options['limit']) && !empty($qids)) {
+        $query->condition('nn.qid', $qids);
       }
-
-      $result = db_query("SELECT nn.nid, nn.qid, nq.title FROM {nodequeue_nodes} nn INNER JOIN {nodequeue_queue} nq ON nq.qid = nn.qid WHERE nn.nid IN (" . implode(', ', $nids) . ")$queue ORDER BY nq.title");
+      $result = $query->execute();
 
       foreach ($result as $queue) {
-        if (empty($this->options['link_to_queue'])) {
-          $this->items[$queue->nid][$queue->qid] = check_plain($queue->title);
-        }
-        else {
-          $this->items[$queue->nid][$queue->qid] = l($queue->title, "admin/structure/nodequeue/$queue->qid");
+        $this->items[$queue->nid][$queue->qid]['title'] = check_plain($queue->title);
+
+        if (!empty($this->options['link_to_queue'])) {
+          $this->items[$queue->nid][$queue->qid]['make_link'] = TRUE;
+          $this->items[$queue->nid][$queue->qid]['path'] = 'admin/structure/nodequeue/' . $queue->qid;
         }
       }
     }
+  }
+
+  function render_item($count, $item) {
+    return $item['title'];
   }
 }

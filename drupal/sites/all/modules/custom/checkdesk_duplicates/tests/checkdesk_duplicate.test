@@ -1,0 +1,19 @@
+<?php
+
+class CheckdeskDuplicateTestCase extends DrupalUnitTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Checkdesk duplicate unit tests',
+      'description' => 'Test that _checkdesk_normalize_url works properly.',
+      'group' => 'CheckdeskDuplicate',
+    );
+  }
+
+  function testCheckdeskNormalizeURL() {
+    $url = 'http://meedan.com:80';
+    $result = _checkdesk_normalize_url($url);
+    $this->assertEqual($result, 'http://meedan.com/', t('Normalize is correct'));
+  }
+}
+ 

@@ -171,13 +171,25 @@ function smartqueue_taxonomy_nodequeue_subqueues(&$queue, $node) {
 function smartqueue_nodequeue_alter(&$data, $type) {
   switch ($type) {
     case 'load_queues':
-      $qids = array_keys($data);
-      $result = db_query("SELECT qid, use_parents FROM {smartqueue} WHERE qid IN (:qids)", array(':qids' => $qids));
-      foreach ($result as $queue) {
-        $data[$queue->qid]->use_parents = $queue->use_parents;
+      if (!empty($data)) {
+        $qids = array_keys($data);
+        $result = db_query("SELECT qid, use_parents FROM {smartqueue} WHERE qid IN (:qids)", array(':qids' => $qids));
+        foreach ($result as $queue) {
+          $data[$queue->qid]->use_parents = $queue->use_parents;
+        }
       }
       break;
   }
+}
+
+/**
+ * Implements hook_nodequeue_delete().
+ */
+function smartqueue_nodequeue_delete($qid) {
+  // Remove data from the smartqueue table.
+  db_delete('smartqueue')
+    ->condition('qid', $qid)
+    ->execute();
 }
 
 /**
@@ -292,4 +304,25 @@ function smartqueue_taxonomy_get_parents($tids) {
   else {
     return array();
   }
+}
+
+/**
+ * Implements hook_nodequeue_autocomplete().
+ */
+function smartqueue_taxonomy_nodequeue_autocomplete($queue, $subqueue, $string, &$query) {
+  $matches = array();
+
+  // Filtering by the reference
+  $query->join('taxonomy_index', 'ti', 'n.nid = ti.nid');
+  $query->condition('ti.tid', $subqueue->reference, '=');
+
+  $query->addTag('i18n_select');
+  $result = $query->execute();
+
+  foreach ($result as $node) {
+    $id = nodequeue_get_content_id($queue, $node);
+    $matches[$node->nid] = check_plain($node->title) . " [nid: $id]";
+  }
+
+  return $matches;
 }

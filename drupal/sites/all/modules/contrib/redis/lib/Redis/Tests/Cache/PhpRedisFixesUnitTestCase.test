@@ -1,0 +1,20 @@
+<?php
+
+class Redis_Tests_Cache_PhpRedisFixesUnitTestCase extends Redis_Tests_Cache_AbstractFixesUnitTestCase
+{
+    public static function getInfo()
+    {
+        return array(
+            'name'        => 'PhpRedis cache fixes',
+            'description' => 'Tests Redis module cache fixes feature.',
+            'group'       => 'Redis',
+        );
+    }
+
+    protected function getClientInterface()
+    {
+        if (extension_loaded('redis') && class_exists('Redis')) {
+            return 'PhpRedis';
+        }
+    }
+}

@@ -1419,15 +1419,22 @@ function _checkdesk_story_authors($node) {
   if (is_numeric($node)) {
     $node = node_load($node);
   }
-  // get updates for a particular story
-  $view = views_get_view('story_authors');
-  $view->set_arguments(array($node->nid));
-  $view->get_total_rows = TRUE;
-  $view_output = $view->preview('block_1');
-  $total_rows = $view->total_rows;
-  $view->destroy();
-  if ($total_rows) {
-    $story_authors = $view_output;
+  $query = db_select('field_data_field_additional_authors', 'fa');
+  $query->fields('u', array('uid', 'name'));
+  $query->join('users', 'u', 'u.uid = fa.field_additional_authors_target_id');
+  $query->condition('fa.entity_id', $node->nid);
+  $query->orderBy('fa.delta');
+  $authors = $query->execute()->fetchAllKeyed(0);
+
+  if (count($authors)) {
+    $output = array();
+    if (!array_key_exists($node->uid, $authors)) {
+      $authors = array($node->uid => $node->name) + $authors;
+    }
+    foreach ($authors as $uid => $name) {
+      $output[] = l($name, 'user/'. $uid, array('attributes' => array('class' => 'contributor')));
+    }
+    $story_authors = implode(', ', $output);
   }
   else {
     $story_authors = l($node->name, 'user/'. $node->uid, array('attributes' => array('class' => 'contributor')));

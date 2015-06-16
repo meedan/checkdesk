@@ -407,3 +407,10 @@ function checkdesk_core_update_7043() {
   , array(':promote' => 1, ':type' => 'discussion', ':status' => 1)
   );
 }
+
+/**
+ * Disable chosen
+ */
+function checkdesk_core_update_7044() {
+  module_disable(array('chosen'));
+}
