@@ -96,9 +96,10 @@
       position: relative;
     	& > li {
         font-size: 14px;
-        color: $firefly20;
+        color: $firefly40;
         a { 
-          color: $firefly20; 
+          font-size: 15px;
+          color: $firefly40; 
           &:hover { 
             color: $firefly60; 
             text-decoration: none;
@@ -114,6 +115,10 @@
     		&:last-child { border-bottom: 0px none; }
         span { font-weight: 400; }
     	}
+    }
+
+    .actor {
+      margin-#{$alpha}: 5px;
     }
 
     // share
