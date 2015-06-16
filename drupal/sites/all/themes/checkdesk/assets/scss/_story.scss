@@ -151,6 +151,27 @@
         
       }
     }
+    .content-actions {
+      @include reset-list-style;
+      .add-to {
+        display: none;
+      }
+      .share-on > a {
+        cursor: pointer;
+        font-weight: 700;
+        color: $firefly40;
+        .icon-share { @include icon("share"); }
+        &:hover {
+          color: $firefly80;
+          text-decoration: none;
+        }
+        @if $from-direction == 'left' {
+          .icon-share { @include icon("share", $small-font-size, $firefly30); }
+          font-size: $small-font-size;
+          color: $firefly30;
+        }
+      }
+    }
   }
 
   .story-body {  
@@ -477,28 +498,6 @@
     color: $firefly40;
     @include cd-sans-serif-family;
     font-size: $small-font-size;
-
-    .content-actions {
-      @include reset-list-style;
-      .add-to {
-        display: none;
-      }
-      .share-on > a {
-        cursor: pointer;
-        font-weight: 700;
-        color: $firefly40;
-        .icon-share { @include icon("share"); }
-        &:hover {
-          color: $firefly80;
-          text-decoration: none;
-        }
-        @if $from-direction == 'left' {
-          .icon-share { @include icon("share", $small-font-size, $firefly30); }
-          font-size: $small-font-size;
-          color: $firefly30;
-        }
-      }
-    }
   }
 
   .story-updated-at {
