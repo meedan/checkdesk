@@ -94,7 +94,7 @@ function checkdesk_core_feature_wysiwyg_default_profiles() {
       'apply_source_formatting' => 1,
       'paste_auto_cleanup_on_paste' => 1,
       'block_formats' => 'p,h2,h3',
-      'css_setting' => 'theme',
+      'css_setting' => 'none',
       'css_path' => '',
       'css_classes' => 'Normal=p
 Summary=h3
