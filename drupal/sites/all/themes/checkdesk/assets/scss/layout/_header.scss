@@ -104,6 +104,12 @@ ul#user-menu {
 
 }
 
+#my-account {
+  ul {
+    @include reset-list-style;
+  }
+}
+
 // Position dropdown menu
 #user-menu {
   .dropdown-menu {
