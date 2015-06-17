@@ -259,11 +259,6 @@
       height: 250px; 
     } // starting height
 
-    // set textarea height under 
-    .cke_contents { 
-      max-height: 250px !important;
-    }
-
     // checkboxes and radios
     input[type="checkbox"], 
     input[type="radio"] {
@@ -410,10 +405,6 @@
         // display: inline;
       }
 
-      .cke_contents {
-        height: 100px !important;
-      }
-      
       input[type="file"] {
         @include reset-box-model;
         display: inline-block;

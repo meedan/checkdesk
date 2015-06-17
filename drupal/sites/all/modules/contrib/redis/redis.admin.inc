@@ -21,7 +21,7 @@ function redis_settings_form($form, &$form_state) {
     '#title' => t("Scheme"),
     '#default_value' => 'tcp',
     '#disabled' => TRUE,
-    '#description' => t("Connection scheme.") . " " . t("Only <em>tcp</em> is currently supported."),
+    '#description' => t("Connection scheme.") . " " . t("Only <em>tcp</em> is currently supported. This is ignored when using a UNIX socket."),
   );
   $form['connection']['redis_client_host'] = array(
     '#type' => 'textfield',
@@ -34,6 +34,12 @@ function redis_settings_form($form, &$form_state) {
     '#title' => t("Port"),
     '#default_value' => variable_get('redis_client_port', NULL),
     '#description' => t("Redis server port. Default is <em>@default</em>.", array('@default' => Redis_Client::REDIS_DEFAULT_PORT)),
+  );
+  $form['connection']['redis_client_socket'] = array(
+    '#type' => 'textfield',
+    '#title' => t("UNIX socket"),
+    '#default_value' => variable_get('redis_client_socket', NULL),
+    '#description' => t("Redis UNIX socket for connection. If set remote server host and port will be ignored."),
   );
   $form['connection']['redis_client_base'] = array(
     '#type' => 'textfield',

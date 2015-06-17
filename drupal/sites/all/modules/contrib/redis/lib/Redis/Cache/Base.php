@@ -6,6 +6,10 @@
  *
  * For a detailed history of flush modes see:
  *   https://drupal.org/node/1980250
+ *
+ * You will find the driver specific implementation in the Redis_Cache_*
+ * classes as they may differ in how the API handles transaction, pipelining
+ * and return values.
  */
 abstract class Redis_Cache_Base extends Redis_AbstractBackend implements
     DrupalCacheInterface
@@ -71,6 +75,30 @@ abstract class Redis_Cache_Base extends Redis_AbstractBackend implements
   const TEMP_SET = 'temporary_items';
 
   /**
+   * Delete by prefix lua script
+   */
+  const EVAL_DELETE_PREFIX = <<<EOT
+local keys = redis.call("KEYS", ARGV[1])
+for i, k in ipairs(keys) do
+    redis.call("DEL", k)
+end
+return 1
+EOT;
+
+  /**
+   * Delete volatile by prefix lua script
+   */
+  const EVAL_DELETE_VOLATILE = <<<EOT
+local keys = redis.call('KEYS', ARGV[1])
+for i, k in ipairs(keys) do
+    if "1" == redis.call("HGET", k, "volatile") then
+        redis.call("DEL", k)
+    end
+end
+return 1
+EOT;
+
+  /**
    * @var string
    */
   protected $bin;
@@ -79,6 +107,20 @@ abstract class Redis_Cache_Base extends Redis_AbstractBackend implements
    * @var int
    */
   protected $clearMode = self::FLUSH_TEMPORARY;
+
+  /**
+   * Can this instance use EVAL.
+   *
+   * @var boolean
+   */
+  protected $useEval = false;
+
+  /**
+   * Tell if the backend can use EVAL commands.
+   */
+  public function canUseEval() {
+    return $this->useEval;
+  }
 
   /**
    * Default TTL for CACHE_PERMANENT items.
@@ -112,9 +154,14 @@ abstract class Redis_Cache_Base extends Redis_AbstractBackend implements
 
   public function __construct($bin) {
 
-    parent::__construct();
+    parent::__construct($bin);
 
     $this->bin = $bin;
+
+    // Check if the server can use EVAL
+    if (variable_get('redis_eval_enabled', false)) {
+      $this->useEval = true;
+    }
 
     if (null !== ($mode = variable_get('redis_flush_mode_' . $this->bin, null))) {
       // A bin specific flush mode has been set.

@@ -2,6 +2,9 @@
 
 /**
  * Predis lock backend implementation.
+ *
+ * This implementation works with a single key per lock so is viable when
+ * doing client side sharding and/or using consistent hashing algorithm.
  */
 class Redis_Lock_Backend_Predis extends Redis_Lock_Backend_Default {
 
@@ -30,11 +33,22 @@ class Redis_Lock_Backend_Predis extends Redis_Lock_Backend_Default {
         return FALSE;
       }
 
-      $replies = $client->pipeline(function($pipe) use ($key, $timeout, $id) {
-        $pipe->multi();
-        $pipe->setex($key, $timeout, $id);
-        $pipe->exec();
-      });
+      switch (Redis_Client_Predis::getPredisVersionMajor()) {
+
+        case 0:
+          $replies = $client->pipeline(function($pipe) use ($key, $timeout, $id) {
+            $pipe->multi();
+            $pipe->setex($key, $timeout, $id);
+            $pipe->exec();
+          });
+          break;
+
+        default:
+          $replies = $client->transaction(function($pipe) use ($key, $timeout, $id) {
+            $pipe->setex($key, $timeout, $id);
+          });
+          break;
+      }
 
       $execReply = array_pop($replies);
 

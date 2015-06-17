@@ -2,6 +2,9 @@
 
 /**
  * Predis lock backend implementation.
+ *
+ * This implementation works with a single key per lock so is viable when
+ * doing client side sharding and/or using consistent hashing algorithm.
  */
 class Redis_Lock_Backend_PhpRedis extends Redis_Lock_Backend_Default {
 

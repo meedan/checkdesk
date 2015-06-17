@@ -1,0 +1,20 @@
+<?php
+
+class Redis_Tests_Queue_PhpRedisQueueUnitTestCase extends Redis_Tests_Queue_AbstractQueueUnitTestCase
+{
+    public static function getInfo()
+    {
+        return array(
+            'name'        => 'PhpRedis Redis queue',
+            'description' => 'Ensure that Redis queue feature is working OK.',
+            'group'       => 'Redis',
+        );
+    }
+
+    protected function getClientInterface()
+    {
+        if (extension_loaded('redis') && class_exists('Redis')) {
+            return 'PhpRedis';
+        }
+    }
+}

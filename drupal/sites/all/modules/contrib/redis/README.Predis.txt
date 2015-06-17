@@ -6,9 +6,6 @@ This client, for now, is only able to use the Predis PHP library.
 The Predis library requires PHP 5.3 minimum. If your hosted environment does
 not ships with at least PHP 5.3, please do not use this cache backend.
 
-This code is ALPHA code. This means: DO NOT USE IT IN PRODUCTION. Not until
-I don't ship any BETA release as a full Drupal.org module.
-
 Please consider using an OPCode cache such as APC. Predis is a good and fully
 featured API, the cost is that the code is a lot more than a single file in
 opposition to some other backends such as the APC one.
