@@ -33,21 +33,6 @@
   }
 }
 
-// Treating footer as same as content/content-inner
-// 
-body.widgets, body.sidebar-first {
-  #main {
-    #footer {
-      margin-#{$alpha}: 30%;
-      #footer-inner {
-        max-width: 850px;
-        padding-top: $base-line-height*2;
-        @include pad(1, 2, $container-width);
-      }   
-    }
-  }
-}
-
 #footer-inner {
   padding: $absolute-line-height/4 0;
   ul {
@@ -124,26 +109,3 @@ body.widgets, body.sidebar-first {
     }
   }
 }
-
-
-// Small breakpoint
-@include at-breakpoint($break-small) {
-  body.widgets #main #footer {
-    margin-#{$alpha}: 0;
-  }
-}
-
-// Medium breakpoint
-@include at-breakpoint($break-medium) {
-  body.widgets #main #footer {
-    margin-#{$alpha}: 360px;
-  }
-}
-
-// Large breakpoint
-@include at-breakpoint($break-large) {
-  body.widgets #main #footer {
-    margin-#{$alpha}: 360px;
-  }
-}
-

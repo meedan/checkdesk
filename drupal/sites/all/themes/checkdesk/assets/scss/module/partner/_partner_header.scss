@@ -10,14 +10,12 @@
   }
 
   #partner-header-slogan {
-    border-top: 1px solid $firefly10;
+    
     margin-top: $absolute-line-height;
     padding: $absolute-line-height/1.5 $gutter-width*2 0 $gutter-width*2;
     @if $from-direction == 'left' {
       font-size: 16px;
-      font-family: $en-header-font-stack;
       font-weight: 400;
-      font-style: italic;
     }
     color: $firefly40;
     

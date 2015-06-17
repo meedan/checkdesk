@@ -3245,8 +3245,7 @@ function checkdesk_core_actions_set_followers($node) {
   }
 }
 
-function _set_user_avatar_bg($account, $classes = array()) {
-
+function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
   if (isset($account->picture->uri)) {
     $avatar_uri = $account->picture->uri;
   }
@@ -3260,12 +3259,28 @@ function _set_user_avatar_bg($account, $classes = array()) {
     $success = file_exists($derivative_uri) || image_style_create_derivative('activity_avatar', $avatar_uri, $derivative_uri);
 
     $new_image_url = file_create_url($derivative_uri);
-    $avatar = l('', 'user/' . $account->uid, array('html' => TRUE,
+    
+    if($link == FALSE) {
+      $avatar = theme('html_tag', array(
+        'element' => array(
+          '#tag' => 'div',
+          '#attributes' => array(
+            'class' => is_array($classes) ? $classes : array(),
+            'title' => $account->name,
+            'style' => 'background-image: url("' . $new_image_url . '")'
+            ),
+          '#value' => '',
+        ),
+      ));
+    } else {
+      $avatar = l('', 'user/' . $account->uid, array('html' => TRUE,
       'attributes' => array(
         'class' => is_array($classes) ? $classes : array(),
         'title' => $account->name,
         'style' => 'background-image: url("' . $new_image_url . '")'
       )));
+    }
+    
   }
   return $avatar;
 }
@@ -3654,11 +3669,14 @@ function _checkdesk_main_navigation() {
   $items = array();
   $a_class = 'main-navigation-link'; //global class for a
   $li_class = 'main-navigation-item'; //global class for item
+  $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
   //Build first group links
   //homepage, add a report, write a story and search
+  $logo_icon = '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
   $items[] = array(
-    'data' => l(t('Homepage'), '<front>', array(
-      'attributes' => array('class' => array($a_class, 'homepage-link'))
+    'data' => l($logo_icon . '<span>' . t('Homepage') . '</span>', '<front>', array(
+      'attributes' => array('class' => array($a_class, 'homepage-link')),
+      'html' => TRUE,      
     )),
     'class' => array($li_class, 'homepage'),
   );
@@ -3668,9 +3686,11 @@ function _checkdesk_main_navigation() {
   }
 
   if (user_access('create media content')) {
+    $create_report_icon = '<svg class="create-report-icon" preserveAspectRatio="xMinYMin meet" viewBox="29 0 26 34"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#create-report-icon"></use></svg>';
     $items[] = array(
-      'data' => l(t('Submit report'), 'node/add/media', array(
+      'data' => l($create_report_icon . '<span>' . t('Create report') . '</span>', 'node/add/media', array(
         'attributes' => array('class' => array($a_class, 'create-report-link')),
+        'html' => TRUE,
         'query' => array('ref_nid' => $ref_nid),
       )),
       'class' => array($li_class, 'create-report'),
@@ -3678,17 +3698,21 @@ function _checkdesk_main_navigation() {
   }
 
   if (user_access('create discussion content')) {
+    $create_story_icon = '<svg class="create-story-icon" preserveAspectRatio="xMinYMin meet" viewBox="57 0 32 28"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#create-story-icon"></use></svg>';
     $items[] = array(
-      'data' => l(t('Create story'), 'node/add/discussion', array(
+      'data' => l($create_story_icon . '<span>' . t('Create story') . '</span>', 'node/add/discussion', array(
         'attributes' => array('class' => array($a_class, 'create-story-link')),
+        'html' => TRUE,
         'query' => array('ref_nid' => arg(1)),
       )),
       'class' => array($li_class, 'create-story'),
     );
   }
+  $search_icon = '<svg class="search-icon" preserveAspectRatio="xMinYMin meet" viewBox="91 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#search-icon"></use></svg>';
   $items[] = array(
-    'data' => l(t('Search'), 'search', array(
+    'data' => l($search_icon . '<span>' . t('Search') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'checkdesk-search-link')),
+      'html' => TRUE,
     )),
     'class' => array($li_class, 'checkdesk-search'),
   );
@@ -3697,29 +3721,35 @@ function _checkdesk_main_navigation() {
     'items' => $items,
     'title' => '',
     'type' => 'ul',
-    'attributes' => array('class' => 'first-group')
+    'attributes' => array('class' => 'first-group'),
   ));
   // Second group
   // reports, stories and updates
   $items = array();
+  $reports_icon = '<svg class="reports-icon" preserveAspectRatio="xMinYMin meet" viewBox="117 0 25 29"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#reports-icon"></use></svg>';
   $items[] = array(
-    'data' => l(t('Reports'), 'search', array(
+    'data' => l($reports_icon . '<span>' . t('Reports') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'reports-link')),
-      'query' => array('type' => 'media'),
+      'html' => TRUE,
+      'query' => array('type' => 'report'),
     )),
     'class' => array($li_class, 'reports'),
   );
+  $stories_icon = '<svg class="stories-icon" preserveAspectRatio="xMinYMin meet" viewBox="144 0 30 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#stories-icon"></use></svg>';
   $items[] = array(
-    'data' => l(t('Stories'), 'search', array(
+    'data' => l($stories_icon . '<span>' . t('Stories') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'stories-link')),
-      'query' => array('type' => 'discussion'),
+      'html' => TRUE,
+      'query' => array('type' => 'story'),
     )),
     'class' => array($li_class, 'stories'),
   );
+  $updates_icon = '<svg class="updates-icon" preserveAspectRatio="xMinYMin meet" viewBox="176 0 28 32"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#updates-icon"></use></svg>';
   $items[] = array(
-    'data' => l(t('Updates'), 'search', array(
+    'data' => l($updates_icon . '<span>' . t('Updates') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'updates-link')),
-      'query' => array('type' => 'post'),
+      'html' => TRUE,
+      'query' => array('type' => 'update'),
     )),
     'class' => array($li_class, 'updates'),
   );
@@ -3732,19 +3762,33 @@ function _checkdesk_main_navigation() {
   ));
 
   // Third group
-  // manage users and about checkdesk
+  // support link, manage users and about checkdesk
   $items = array();
-  if (user_access('administer users')) {
+  $support_icon = '<svg class="support-icon" preserveAspectRatio="xMinYMin meet" viewBox="206 0 20 31"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#support-icon"></use></svg>';
     $items[] = array(
-      'data' => l(t('Administer users'), 'admin/people', array(
+      'data' => l($support_icon . '<span>' . t('Support') . '</span>', 'https://groups.google.com/forum/#!forum/checkdesk', array(
+        'attributes' => array('class' => array($a_class, 'support-link')),
+        'html' => TRUE,
+      )),
+      'class' => array($li_class, 'support'),
+    );
+  /*
+  if (user_access('administer users')) {
+    $settings_icon = '<svg class="settings-icon" preserveAspectRatio="xMinYMin meet" viewBox="228 0 28 28"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#settings-icon"></use></svg>';
+    $items[] = array(
+      'data' => l($settings_icon . '<span>' . t('Administer users') . '</span>', 'admin/people', array(
         'attributes' => array('class' => array($a_class, 'administer-users-link')),
+        'html' => TRUE,
       )),
       'class' => array($li_class, 'administer-users'),
     );
   }
+  */
+  $about_icon = '<svg class="about-icon" preserveAspectRatio="xMinYMin meet" viewBox="258 0 28 28"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#about-icon"></use></svg>';
   $items[] = array(
-    'data' => l(t('About Checkdesk'), 'content/about-checkdesk', array(
+    'data' => l($about_icon . '<span>' . t('About Checkdesk') . '</span>', 'content/about-checkdesk', array(
       'attributes' => array('class' => array($a_class, 'about-checkdesk-link')),
+      'html' => TRUE,
     )),
     'class' => array($li_class, 'about-checkdesk'),
   );

@@ -1,8 +1,16 @@
 @charset "UTF-8";
 
 
-// Checkdesk Sass Theme
-@import "base/base";
+// Variables and Mixins
+@import "variables";
+@import "mixins";
+
+// Checkdesk Global
+@import "global";
+
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
 
 // Tell the browser about these files and define the font name
 // See base.scss configuration, with overrides in style-rtl.scss
@@ -11,14 +19,11 @@
 @include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
 
 // English fonts
-@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Merriweather:400,400italic,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,400italic,700|Merriweather:400,400italic,700);
 
 // Modular scale  
 // via: gem
 @import "modular-scale";
-
-// Mixins
-@import "mixins";
 
 // Colors
 // via: bowerbird sass extension
@@ -30,17 +35,6 @@
 // See also README.md and ../bowerbird/README.md
 // Requires: base
 @import "bowerbird";
-
-// Aliases for bidirectional stuff
-// Todo load susy earlier and move this file to base CGB Jan 2013
-$alpha: $from-direction;
-$omega: opposite-position($from-direction);
-
-// Set the default position of icons
-// $icon-position: 'before';
-// @if $from-direction == 'right' {
-//  $icon-position: 'after';
-// }
 
 // Drupal styles
 // Drupal itself should not emit *any* CSS. 
@@ -118,9 +112,6 @@ $omega: opposite-position($from-direction);
 //
 // Deprecated: use our own mixins wherever possible. Also, use unmodified versions straight from bowerbird whenever possible.
 
-// Twitter Bootstrap Recognizable by their $camelCase variables
-@import "replace_ctb/variables";
-
 // Our overrides and replacement for TB mixins
 //
 // All of them are namespaced ctb-mixinname
@@ -135,48 +126,16 @@ $omega: opposite-position($from-direction);
 // TB utilities
 @import "compass_twitter_bootstrap/utilities";
 
-// Should come last of TB
-
-// Checkdesk mixins
-//
-@import "mixins";
-
 // Completely unrelated to Twitter Bootstrap mixins file
-@import "alerts";
+@import "components/alerts";
 
 // Mix of Drupal alerts and Twitter Bootstrap alerts.
-@import "dropdowns";
-@import "chosen"; 
+@import "components/dropdowns";
+@import "components/chosen"; 
 
 // Modals
-@import "responsive_modals";
-@import "modal_form";
-
-// ====================================================================== 
-//  Default checkdesk layout
-//
-
-html {
-  // overflow: hidden;
-  height: 100%;
-  // background-image: $cream_dust;
-  background-color: $thatch5;
-}
-
-body {
-  @include container($container-width $break-small $break-medium);
-  // establish three breakpoints
-}
-
-// when no sidebars
-body.no-sidebars {
-  #main {
-    @include span-columns($container-width - 2, $container-width);
-    //outermost container
-    @include pad(1, 1, $container-width);
-    margin-top: $absolute-line-height * 3;
-  }
-}
+@import "components/responsive_modals";
+@import "components/modal_form";
 
 // ====================================================================== 
 // Main Checkdesk Sass files
@@ -187,9 +146,10 @@ body.no-sidebars {
 @import "bowerbird/_typography";
 
 //defaults
+@import "base/base";
 @import "base/typography";
 @import "base/lists";
-@import "buttons";
+@import "components/buttons";
 
 //checkdesk specific
 
@@ -198,56 +158,58 @@ body.no-sidebars {
 @import "bowerbird/tabs";
 
 // defaults
-@import "tabs";
+@import "module/tabs";
 
 // Checkdesk notifications
 // #block-views-my-notifications-block - the main notification list in the top bar
-@import "notifications";
+@import "module/notifications";
 
 // Filters
-@import "filters";
+@import "module/filters";
 
 // Partner stuff
-@import "partner_header";
-@import "branding";
-@import "footer";
-@import "static";
+@import "module/partner/partner_header";
+@import "module/branding";
+@import "layout/footer";
+@import "module/content/static";
 
 // Container
-@import "container";
-@import "containers";
+@import "components/container/container";
+@import "components/container/containers";
 
 // Tags
-@import "tag-list";
+@import "module/tag-list";
 
 // Checkdesk media
-@import "media";
+@import "module/content/media";
 
 // Checkdesk reports
-@import "report";
-@import "report_detail";
-@import "reports_incoming";
+@import "module/content/report/report";
+@import "module/content/report/report_detail";
+@import "module/content/report/reports_incoming";
 
 // Checkdesk updates
-@import "update";
+@import "module/content/update";
 
 // Checkdesk commenting plugins
-@import "livefyre";
-@import "facebook_comments";
+@import "components/livefyre";
+@import "components/facebook_comments";
 
 // Checkdesk bookmarklet stuff
-@import "bookmarklet";
-@import "install_bookmarklet";
+@import "components/bookmarklet/bookmarklet";
+@import "components/bookmarklet/install_bookmarklet";
 
 // Checkdesk Pagination
-@import "pagination";
+@import "components/pagination";
 
-// Primary Navigation and Drupal nav at very top
-@import "navigation";
-@import "submeta";
+// Global Navigation, user menu and Drupal nav at very top
+@import "layout/header";
+@import "module/navigation";
+@import "module/submeta";
+@import "module/drupal_admin_nav";
 
 // Checkdesk user accounts
-@import "account";
+@import "module/user/account";
 
 // Tabs
 @import "bowerbird/tabs";
@@ -256,10 +218,10 @@ body.no-sidebars {
 // @import "tabs";  // checkdesk styles
 
 // Form: password strength section
-@import "form_password";
+@import "components/forms/form_password";
 
 // Forms, Tables
-@import "forms";
+@import "components/forms/forms";
 @import "base/tables";
 
 // Forms autocomplete and jquery ui
@@ -271,39 +233,39 @@ body.no-sidebars {
 //
 
 // Checkdesk reports
-@import "administer_users";
+@import "module/user/administer_users";
 
 // Liveblog page
-@import "liveblog";
+@import "module/content/liveblog";
 
 // Story blog page with discussion
-@import "story";
+@import "module/content/story";
 
 // Common item styles
-@import "items";
-@import "item";
+@import "components/container/items";
+@import "components/container/item";
 
 // Story colloboration activity
-@import "activity";
+@import "module/activity";
 
 // Create update page
 // Sidebar layout with main and secondary cols
-@import "_layout_2col";
+@import "layout/_layout_2col";
 
 // Widgets
-@import "widgets";
-@import "sidebar";
-@import "sidebar_filters";
+@import "layout/widgets";
+@import "layout/sidebar";
+@import "module/sidebar_filters";
 
 // User section
-@import "user";
+@import "module/user/user";
 
 // Create node page and form
-@import "create_node";
-@import "create_story";
+@import "components/forms/create_node";
+@import "components/forms/create_story";
 
 // Reports pages
-@import "reports_page";
+@import "module/content/report/reports_page";
 
 // ======================================================================
 
@@ -323,7 +285,7 @@ body.no-sidebars {
   direction: ltr;
 }
 
-@import "tour";
+@import "module/tour";
 
 // Based on bootstrap-tour default CSS
 

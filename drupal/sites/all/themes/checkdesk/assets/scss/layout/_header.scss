@@ -1,0 +1,126 @@
+header#header {
+  position: relative;
+  height: 100%;
+}
+
+// adjust header items for drupal toolbar
+ul#breadcrumb, ul#user-menu {
+  body.toolbar & {
+    top: $toolbarMenuHeight !important;
+  }
+  body.toolbar-drawer & {
+    top: $toolbarHeight !important;
+  }
+}
+
+ul#breadcrumb {
+  @include reset-list-style;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  @include box-sizing(border-box);
+  height: $headerHeight;
+  top: 0;
+  #{$alpha}: $navbarWidth;
+  #{$omega}: 0;
+  padding: 0 50px;
+  z-index: $z-index-FixedHeader + 1;
+  pointer-events: none;
+
+  li {
+    pointer-events: auto;
+  }
+
+  a {
+    display: block;
+  }
+
+}
+
+ul#breadcrumb h1 {
+  font-size: 28px;
+  @include cd-sans-serif-family;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+ul#user-menu {
+	position: fixed;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	@include box-sizing(border-box);
+	top: 0;
+	#{$alpha}: 0;
+	#{$omega}: 0;
+	padding: 0 50px;
+	height: $headerHeight;
+	margin-#{$alpha}: $navbarWidth;
+	z-index: $z-index-FixedHeader;
+  background: #fff;
+  body.nofront & {
+    border-bottom: 1px solid rgba($firefly, 0.05);  
+  }
+  
+	a { 
+		@include ctb-linkColor($firefly30); 
+		padding: 0 10px;
+	}
+
+	li {
+		position: relative;
+		padding: 0 10px;
+		&.first {
+			border-#{$alpha}: 1px solid $firefly10;
+		}
+	}
+
+	// add bell icon for notifications.
+  .icon-bell-o { 
+  	@include icon("bell-o", 26px); 
+  	&:before {
+      margin: 0;
+    }
+  }
+
+  .badge {
+    position: absolute;
+    display: block;
+    top: 4px;
+    #{$alpha}: 35px;
+    padding: 4px;
+    line-height: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    @include border-radius(2px);
+    color: $notification-count-color;
+    background: $notification-count-bkg-color;
+  }
+
+  // apply default avatar styles
+  .avatar {
+  	@include cd-avatar('inline');
+  }	
+
+}
+
+#my-account {
+  ul {
+    @include reset-list-style;
+  }
+}
+
+// Position dropdown menu
+#user-menu {
+  .dropdown-menu {
+    #{$alpha}: auto;
+    #{$omega}: 10px;
+
+    @if $from-direction == left {
+      @include border-radius($radius 0 $radius $radius);
+    }
+    @else {
+      @include border-radius(0 $radius $radius $radius);
+    }
+  }
+}

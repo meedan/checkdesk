@@ -163,21 +163,59 @@ function checkdesk_preprocess_html(&$variables) {
 function checkdesk_preprocess_region(&$variables) {
   global $language;
 
-  if ($variables['region'] == 'widgets') {
-    // define custom header settings
-    $variables['header_image'] = '';
-    $image = theme_get_setting('header_image_path');
+
+  if ($variables['region'] == 'header') {
+    // header logo
+    $variables['header_logo'] = '';
+    $image = theme_get_setting('header_logo_path');
 
     if (!empty($image)) {
-      $header_image_data = array(
+      $header_logo_data = array(
+          'style_name' => 'header_logo',
+          'path' => $image,
+      );
+      $variables['header_logo'] = l(theme('image_style', $header_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('header_logo'))));
+    }
+
+    $variables['header_logo'] = '';
+    $image = theme_get_setting('header_logo_path');
+
+    if (!empty($image)) {
+      $header_logo_data = array(
           'style_name' => 'partner_logo',
           'path' => $image,
       );
-      $variables['header_image'] = l(theme('image_style', $header_image_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
+      $variables['header_logo'] = l(theme('image_style', $header_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
+    }
+  }
+
+  if ($variables['region'] == 'widgets') {
+
+    // frontpage logo
+    $variables['frontpage_logo'] = '';
+    $image = theme_get_setting('frontpage_logo_path');
+
+    if (!empty($image)) {
+      $frontpage_logo_data = array(
+          'style_name' => 'partner_logo',
+          'path' => $image,
+      );
+      $variables['frontpage_logo'] = l(theme('image_style', $frontpage_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
     }
 
-    $position = theme_get_setting('header_image_position');
-    $variables['header_image_position'] = (empty($position) ? 'left' : $position);
+    $variables['frontpage_logo'] = '';
+    $image = theme_get_setting('frontpage_logo_path');
+
+    if (!empty($image)) {
+      $frontpage_logo_data = array(
+          'style_name' => 'partner_logo',
+          'path' => $image,
+      );
+      $variables['frontpage_logo'] = l(theme('image_style', $frontpage_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
+    }
+
+    $position = theme_get_setting('header_logo_position');
+    $variables['header_logo_position'] = (empty($position) ? 'left' : $position);
 
     $bg = theme_get_setting('header_bg_path');
     $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
@@ -320,6 +358,8 @@ function checkdesk_preprocess_page(&$variables) {
 
   $variables['secondary_menu'] = checkdesk_menu_navigation_links($tree);
 
+  $layout = checkdesk_core_direction_settings();
+
   // Change links
   foreach ($variables['secondary_menu'] as $id => $item) {
 
@@ -337,6 +377,7 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
         $variables['secondary_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
         $variables['secondary_menu'][$id]['attributes']['class'] = 'dropdown-toggle';
+        $variables['secondary_menu'][$id]['attributes']['id'] = 'my-account-link';
         $variables['secondary_menu'][$id]['suffix'] = theme('checkdesk_user_menu_content', array('items' => $variables['secondary_menu'][$id]['below']));
 
         unset($variables['secondary_menu'][$id]['below']);
@@ -344,12 +385,13 @@ function checkdesk_preprocess_page(&$variables) {
     } else if ($item['link_path'] == 'my-notifications') {
       if (user_is_logged_in()) {
         $count = checkdesk_notifications_number_of_new_items($user);
-        $counter = '';
-        if ($count > 0)
-          $counter = '<span>' . $count . '</span>';
         $variables['secondary_menu'][$id]['attributes']['id'] = 'my-notifications-menu-link';
         $variables['secondary_menu'][$id]['html'] = TRUE;
-        $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell"></span><span class="notifications-count">' . $counter . '</span>';
+        if($count > 0) {
+          $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span><span class="badge">' . $count . '</span>';
+        } else {
+          $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span>';
+        }
       }
       else {
         unset($variables['secondary_menu'][$id]);
@@ -477,17 +519,21 @@ function checkdesk_preprocess_page(&$variables) {
     drupal_add_js($modal_style, 'setting');
   }
   // define custom header settings
-  $variables['header_image'] = '';
-  $image = theme_get_setting('header_image_path');
+  $variables['header_logo'] = '';
+  $image = theme_get_setting('header_logo_path');
 
   if (!empty($image)) {
-    $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
+    $variables['header_logo'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
   }
 
   $variables['header_slogan'] = t('A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
 
   // set page variable if widgets should be visible
   $variables['show_widgets'] = checkdesk_widgets_visibility();
+  
+
+  // set page variable if header logo should be visible
+  $variables['show_header'] = checkdesk_header_logo_visibility();
 
   // set page variable if widgets should be visible
   $variables['show_footer'] = checkdesk_footer_visibility();
@@ -843,56 +889,37 @@ function checkdesk_links__node($variables) {
  */
 function checkdesk_widgets_visibility() {
   global $user;
-  // Always display on front page
+  // Only display on front page
   if (drupal_is_front_page()) {
     return TRUE;
   }
+  return FALSE;
+}
 
+/**
+ * Utitity function to determine whether to show header image or not
+ */
+function checkdesk_header_logo_visibility() {
+  global $user;
   $current_node = menu_get_object();
-
-  // Display on collaboration page
-  if (!empty($current_node) && $current_node->type == 'discussion' && arg(0) == 'story-collaboration' && is_numeric(arg(1))) {
-    return TRUE;
-  }
   // what to check for
-  $roles = array('administrator', 'journalist');
-  $check_role = array_intersect($roles, array_values($user->roles));
-  $check_role = empty($check_role) ? FALSE : TRUE;
-  // for 404s
-  $status = drupal_get_http_header("status");
-
   $pages = array('edit', 'delete');
   $check_page = array_intersect($pages, array_values(arg()));
   $check_page = empty($check_page) ? FALSE : TRUE;
 
-  $user_pages = array('login', 'password', 'register');
-  $check_user_page = array_intersect($user_pages, array_values(arg()));
-  $check_user_page = empty($check_user_page) ? FALSE : TRUE;
-
-  // node types to check for anonymous user
-  $anon_node_types = array('media', 'post', 'discussion');
-  // node types to check for logged in user
-  $user_node_types = array('media', 'post', 'discussion');
+  // node types to check
+  $node_types = array('media', 'discussion', 'post');
 
   // for anonymous user
-  if (isset($current_node->type) && !$check_role && $status != "404 Not Found") {
-    foreach ($anon_node_types as $node_type) {
-      // matches node types
-      if ($node_type == $current_node->type)
-        return TRUE;
-    }
-    // for logged in users with specific role
-  } elseif (isset($current_node->type) && $check_role) {
-    foreach ($user_node_types as $node_type) {
+  if (isset($current_node->type)) {
+    foreach ($node_types as $node_type) {
       // matches node types and does not include any pages
-      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page && $status != "404 Not Found") {
+      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
         return TRUE;
       }
     }
-    // for user login, register and forgot pass page
-  } elseif (arg(0) == 'user' && $check_user_page) {
-    return TRUE;
   }
+
   return FALSE;
 }
 
@@ -941,11 +968,28 @@ function checkdesk_page_alter(&$page) {
           '#theme_wrappers' => array('region'),
       );
     }
+    // Header
+    if (in_array($region, array('header'))) {
+      $page['header'] = array(
+          '#region' => 'header',
+          '#weight' => '-10',
+          '#theme_wrappers' => array('region'),
+      );
+    }
     // Sidebar
     if (!isset($page['widgets'])) {
       if (in_array($region, array('widgets'))) {
         $page['widgets'] = array(
             '#region' => 'widgets',
+            '#theme_wrappers' => array('region'),
+        );
+      }
+    }
+    // Navigation as toolbar
+    if (!isset($page['navigation'])) {
+      if (in_array($region, array('navigation'))) {
+        $page['navigation'] = array(
+            '#region' => 'navigation',
             '#theme_wrappers' => array('region'),
         );
       }

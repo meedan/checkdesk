@@ -71,7 +71,7 @@ $large-icon-font-size: 18px;
 
 // A small triangle, eg for dropdowns
 @mixin caret {
-  @include icon('caret-down', 12px, white, 'after');
+  @include icon('caret-down', 18px, $firefly30, 'after');
 }
 
 // Enable icons

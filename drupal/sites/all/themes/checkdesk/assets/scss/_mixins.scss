@@ -153,9 +153,9 @@
 }
 
 @mixin cd-avatar($style: 'pulled-out', $top: 0, $indent: 0) {
-  position: absolute;
   
   @if $style == 'pulled-out' {
+    position: absolute;
     float: $from-direction;
     top: $top; 
     #{$from-direction}: $indent;
@@ -167,6 +167,7 @@
   background-position: center center;
   background-repeat: no-repeat;
   display: inline-block;
+  vertical-align: middle;
   @include border-radius(4px);
   background-color: $firefly20;
 }

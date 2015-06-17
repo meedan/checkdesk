@@ -1,3 +1,39 @@
+// Updates
+//
+
+.updates {
+  .update-row {
+    display: flex;
+    justify-content: flex-start;
+    .update-body {
+      flex: 5;
+      order: 2;
+      max-width: 520px;
+    }
+    .update-footer {
+      flex: 1;
+      order: 1;
+    }
+  }
+}
+
+// Psuedo div for anchors
+// Adds head room for updates in presence of navbars
+.anchor {
+  display: block;
+  height: (($toolbarHeight + $navbarHeight) + ($absolute-line-height*2)); /* this is the height of your header */
+  margin-top: -(($toolbarHeight + $navbarHeight) + ($absolute-line-height*2)); /* this is again negative value of the height of your header */
+  visibility: hidden;
+}
+
+// "Published" updates
+.updates {
+  .update-row {
+    margin-bottom: $base-line-height;
+    border-top: 1px solid rgba($firefly, 0.1);
+  }
+}
+
 // A Liveblog Update
 //
 
@@ -52,6 +88,7 @@
   .update-footer {
   	margin-#{$omega}: $gutter-width*2;
     margin-bottom: 1em;
+    margin-top: 1em;
     @include cd-sans-serif-family;
 
     .update-meta {
@@ -59,12 +96,17 @@
       position: relative;
     	& > li {
         font-size: 14px;
-        color: $firefly20;
+        color: $firefly40;
         a { 
-          color: $firefly20; 
+          font-size: 15px;
+          color: $firefly40; 
           &:hover { 
             color: $firefly60; 
             text-decoration: none;
+          }
+          &:first-child {
+            font-size: 16px;
+            color: $firefly40; 
           }
         }
 
@@ -73,6 +115,10 @@
     		&:last-child { border-bottom: 0px none; }
         span { font-weight: 400; }
     	}
+    }
+
+    .actor {
+      margin-#{$alpha}: 5px;
     }
 
     // share
@@ -103,10 +149,6 @@
 
     .avatar {
       @include cd-avatar('inline', 20px, 0);
-    }
-
-    .actor {
-      margin-#{$from-direction}: 30px;
     }
 
   } // update footer
