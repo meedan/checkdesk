@@ -1,0 +1,27 @@
+.story .story-body {  
+  @include ctb-clearfix;
+  margin: 30px 0 0;
+  color: $firefly80;
+  @include cd-serif-family;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: normal;
+  font-weight: 400;
+  word-wrap: break-word;
+  @if $from-direction == left {
+    letter-spacing: -0.45px;
+  }
+  p {
+    margin: 0 0 $absolute-line-height/2.4 0;
+    &:last-child {
+      margin: 0 0;
+    }
+  }
+  & > ul, & > ol {
+    margin: 0 0 $absolute-line-height/2.4 0; // 10px 
+    padding-#{$alpha}: $gutter-width*2;
+    ul, ol {
+      padding-#{$alpha}: $gutter-width*2;
+    }
+  }
+}

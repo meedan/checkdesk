@@ -112,25 +112,6 @@
 
   Drupal.behaviors.searchPage = {
     attach: function (context, settings) {
-      // set focus on search field when /search page is loaded
-      var pathname = window.location.pathname;
-      var url = window.location.href; 
-      var search = window.location.search;
-      var path = pathname.split('/');
-
-      if((path[1] == 'search' || path[2] == 'search') && (search == '')) {
-        var target = $('.filter-list > .views-exposed-widget input[type=text]');
-        target.focus().select().parent().addClass('selected');
-      }
-
-      $('.filter-list > .views-exposed-widget input[type=text]').focus(function() {
-        $(this).parent().addClass('selected');
-      });
-
-      $('.filter-list > .views-exposed-widget input[type=text]').focusout(function() {
-        $(this).parent().removeClass('selected');
-      });
-
       // set default to open
       $('.filter-list > .views-exposed-widget label').parent().addClass('open');
       // filter group collapse/expand
