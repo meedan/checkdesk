@@ -74,7 +74,6 @@ function checkdesk_core_feature_wysiwyg_default_profiles() {
           'NumberedList' => 1,
           'Link' => 1,
           'HorizontalRule' => 1,
-          'Styles' => 1,
           'Maximize' => 1,
         ),
         'confighelper' => array(
