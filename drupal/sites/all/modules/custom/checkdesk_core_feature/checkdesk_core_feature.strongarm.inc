@@ -384,7 +384,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'extlink_css_exclude';
-  $strongarm->value = '';
+  $strongarm->value = 'div.modal-dialog-actions';
   $export['extlink_css_exclude'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -1139,10 +1139,10 @@ return _checkdesk_core_auto_title($node);
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_facebook_comments_types';
   $strongarm->value = array(
-    'post' => 0,
     'discussion' => 'discussion',
     'media' => 0,
     'page' => 0,
+    'post' => 0,
     'article' => 0,
   );
   $export['meedan_facebook_comments_types'] = $strongarm;
@@ -1159,10 +1159,10 @@ return _checkdesk_core_auto_title($node);
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_livefyre_types';
   $strongarm->value = array(
-    'post' => 0,
     'discussion' => 'discussion',
     'media' => 0,
     'page' => 0,
+    'post' => 0,
     'article' => 0,
   );
   $export['meedan_livefyre_types'] = $strongarm;
