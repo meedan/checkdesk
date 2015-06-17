@@ -4,6 +4,10 @@
  * A modal login callback.
  */
 function checkdesk_sign_in_up_callback($js = NULL) {
+  global $user;
+  if ($user->uid) {
+    drupal_goto('<front>');
+  }
   $output = '';
   $links = array();
   if (twitter_api_keys()) {
