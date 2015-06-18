@@ -3680,6 +3680,21 @@ function _checkdesk_main_navigation() {
   $a_class = 'main-navigation-link'; //global class for a
   $li_class = 'main-navigation-item'; //global class for item
   $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
+  $s_search = array_fill_keys(array('All', 'report', 'update', 'story'), '');
+  if (arg(0) == 'search') {
+    if (count($_GET) == 2) {
+      $s_search[$_GET['type']] = 'search-nav-selected';
+    }
+    else {
+      $s_search['All'] = 'search-nav-selected';
+    }
+    // Add js to remove other active classes
+    drupal_add_js('
+      jQuery(function() {
+       jQuery("nav a.active:not(a.search-nav-selected)").removeClass("active");
+      });
+      ', 'inline');
+  }
   //Build first group links
   //homepage, add a report, write a story and search
   $logo_icon = '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
@@ -3721,7 +3736,7 @@ function _checkdesk_main_navigation() {
   $search_icon = '<svg class="search-icon" preserveAspectRatio="xMinYMin meet" viewBox="91 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#search-icon"></use></svg>';
   $items[] = array(
     'data' => l($search_icon . '<span>' . t('Search') . '</span>', 'search', array(
-      'attributes' => array('class' => array($a_class, 'checkdesk-search-link')),
+      'attributes' => array('class' => array($a_class, 'checkdesk-search-link', $s_search['All'])),
       'html' => TRUE,
     )),
     'class' => array($li_class, 'checkdesk-search'),
@@ -3739,7 +3754,7 @@ function _checkdesk_main_navigation() {
   $reports_icon = '<svg class="reports-icon" preserveAspectRatio="xMinYMin meet" viewBox="117 0 25 29"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#reports-icon"></use></svg>';
   $items[] = array(
     'data' => l($reports_icon . '<span>' . t('Reports') . '</span>', 'search', array(
-      'attributes' => array('class' => array($a_class, 'reports-link')),
+      'attributes' => array('class' => array($a_class, 'reports-link', $s_search['report'])),
       'html' => TRUE,
       'query' => array('type' => 'report'),
     )),
@@ -3748,7 +3763,7 @@ function _checkdesk_main_navigation() {
   $stories_icon = '<svg class="stories-icon" preserveAspectRatio="xMinYMin meet" viewBox="144 0 30 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#stories-icon"></use></svg>';
   $items[] = array(
     'data' => l($stories_icon . '<span>' . t('Stories') . '</span>', 'search', array(
-      'attributes' => array('class' => array($a_class, 'stories-link')),
+      'attributes' => array('class' => array($a_class, 'stories-link', $s_search['story'])),
       'html' => TRUE,
       'query' => array('type' => 'story'),
     )),
@@ -3757,7 +3772,7 @@ function _checkdesk_main_navigation() {
   $updates_icon = '<svg class="updates-icon" preserveAspectRatio="xMinYMin meet" viewBox="176 0 28 32"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#updates-icon"></use></svg>';
   $items[] = array(
     'data' => l($updates_icon . '<span>' . t('Updates') . '</span>', 'search', array(
-      'attributes' => array('class' => array($a_class, 'updates-link')),
+      'attributes' => array('class' => array($a_class, 'updates-link', $s_search['update'])),
       'html' => TRUE,
       'query' => array('type' => 'update'),
     )),
@@ -3782,18 +3797,6 @@ function _checkdesk_main_navigation() {
       )),
       'class' => array($li_class, 'support'),
     );
-  /*
-  if (user_access('administer users')) {
-    $settings_icon = '<svg class="settings-icon" preserveAspectRatio="xMinYMin meet" viewBox="228 0 28 28"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#settings-icon"></use></svg>';
-    $items[] = array(
-      'data' => l($settings_icon . '<span>' . t('Administer users') . '</span>', 'admin/people', array(
-        'attributes' => array('class' => array($a_class, 'administer-users-link')),
-        'html' => TRUE,
-      )),
-      'class' => array($li_class, 'administer-users'),
-    );
-  }
-  */
   $about_icon = '<svg class="about-icon" preserveAspectRatio="xMinYMin meet" viewBox="258 0 28 28"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#about-icon"></use></svg>';
   $items[] = array(
     'data' => l($about_icon . '<span>' . t('About Checkdesk') . '</span>', 'content/about-checkdesk', array(
