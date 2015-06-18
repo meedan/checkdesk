@@ -96,8 +96,7 @@ function checkdesk_core_feature_wysiwyg_default_profiles() {
       'css_path' => '',
       'css_classes' => 'Paragraph=p
 Heading 2=h2
-Heading 3=h3
-Pullquote=blockquote',
+Heading 3=h3',
     ),
     'rdf_mapping' => array(),
   );
