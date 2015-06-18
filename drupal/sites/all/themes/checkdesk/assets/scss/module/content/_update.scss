@@ -3,16 +3,16 @@
 
 .updates {
   .update-row {
-    display: flex;
-    justify-content: flex-start;
+    @include flexbox;
+    @include justify-content(flex-start);
     .update-body {
-      flex: 5;
-      order: 2;
+      @include flex(5);
+      @include order(2);
       max-width: 520px;
     }
     .update-footer {
-      flex: 1;
-      order: 1;
+      @include flex(1);
+      @include order(1);
     }
   }
 }

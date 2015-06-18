@@ -2362,10 +2362,19 @@ input[type="checkbox"][readonly] {
 }
 
 .admin-nav-tabs {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  align-content: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
   justify-content: center;
   padding: 6px 0;
   margin-bottom: 12px;
@@ -6162,16 +6171,42 @@ div.sensitive-hide {
   }
 }
 .updates .update-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
   justify-content: flex-start;
 }
 .updates .update-row .update-body {
+  -webkit-box-flex: 5;
+  -webkit-flex: 5;
+  -moz-box-flex: 5;
+  -moz-flex: 5;
+  -ms-flex: 5;
   flex: 5;
+  -webkit-box-ordinal-group: 3;
+  -webkit-order: 2;
+  -moz-order: 2;
+  -ms-flex-order: 2;
   order: 2;
   max-width: 520px;
 }
 .updates .update-row .update-footer {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
   flex: 1;
+  -webkit-box-ordinal-group: 2;
+  -webkit-order: 1;
+  -moz-order: 1;
+  -ms-flex-order: 1;
   order: 1;
 }
 
@@ -6967,7 +7002,15 @@ ul#breadcrumb {
   margin: 0;
   padding: 0;
   position: fixed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
   align-items: center;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -6999,8 +7042,21 @@ ul#breadcrumb h1 {
 
 ul#user-menu {
   position: fixed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-direction: reverse;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row-reverse;
+  -moz-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
   align-items: center;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -10495,9 +10551,37 @@ body.cke_editable blockquote:after {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.toolbar-drawer #sidebar-first.column {
+  top: 130px !important;
+}
+
+body.sidebar-first #main {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body.sidebar-first #main #content {
+  margin-right: 360px;
+  -webkit-box-flex: 4;
+  -webkit-flex: 4;
+  -moz-box-flex: 4;
+  -moz-flex: 4;
+  -ms-flex: 4;
+  flex: 4;
+}
+
 body.sidebar-first #sidebar-first.column {
   position: fixed;
-  width: 30%;
+  -webkit-box-flex: 2;
+  -webkit-flex: 2 1 360px;
+  -moz-box-flex: 2;
+  -moz-flex: 2 1 360px;
+  -ms-flex: 2 1 360px;
+  flex: 2 1 360px;
   max-width: 360px;
   right: 60px;
   top: 65px;
@@ -10557,25 +10641,22 @@ body.sidebar-first #sidebar-first.column .pager-load-more .ajax-progress-throbbe
   background: url("../imgs/icons/loader_white.gif");
 }
 
-body.toolbar-drawer #sidebar-first.column {
-  top: 130px !important;
-}
-
-body.sidebar-first #main {
-  position: relative;
-}
-
-body.sidebar-first #main #content {
-  margin-right: 360px;
-}
-
 body.sidebar-second #main {
   position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
   display: flex;
 }
 
 body.sidebar-second #main #content {
   padding-left: 20px;
+  -webkit-box-flex: 4;
+  -webkit-flex: 4;
+  -moz-box-flex: 4;
+  -moz-flex: 4;
+  -ms-flex: 4;
   flex: 4;
   margin: 0;
   max-width: 860px;
@@ -10647,6 +10728,11 @@ body.sidebar-second #main #content .cd-container .pager-load-more {
 }
 
 body.sidebar-second aside#sidebar-second {
+  -webkit-box-flex: 2;
+  -webkit-flex: 2;
+  -moz-box-flex: 2;
+  -moz-flex: 2;
+  -ms-flex: 2;
   flex: 2;
   padding-top: 24px;
   padding-left: 50px;

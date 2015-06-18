@@ -16,8 +16,8 @@ ul#breadcrumb, ul#user-menu {
 ul#breadcrumb {
   @include reset-list-style;
   position: fixed;
-  display: flex;
-  align-items: center;
+  @include flexbox;
+  @include align-items(center);
   @include box-sizing(border-box);
   height: $headerHeight;
   top: 0;
@@ -46,9 +46,9 @@ ul#breadcrumb h1 {
 
 ul#user-menu {
 	position: fixed;
-	display: flex;
-	flex-direction: row-reverse;
-	align-items: center;
+	@include flexbox;
+	@include flex-direction(row-reverse);
+	@include align-items(center);
 	@include box-sizing(border-box);
 	top: 0;
 	#{$alpha}: 0;

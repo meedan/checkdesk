@@ -141,11 +141,9 @@
 // ADMIN NAV TABS
 // ---------------
 .admin-nav-tabs {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
+  @include flexbox;
+  @include flex-wrap(wrap);
+  @include justify-content(center);
   padding: $absolute-line-height/4 0;
   margin-bottom: $absolute-line-height/2;
 }
