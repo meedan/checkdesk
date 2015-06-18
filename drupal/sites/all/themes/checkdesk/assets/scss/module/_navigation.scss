@@ -129,6 +129,9 @@ header#header nav {
     width: 30px;
     height: 28px;
     top: 11px;
+    @if $from-direction == right {
+      #{$alpha}: -3px;
+    }
   }
 
   svg.search-icon {

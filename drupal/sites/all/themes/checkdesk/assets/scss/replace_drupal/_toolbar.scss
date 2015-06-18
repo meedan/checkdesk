@@ -37,11 +37,11 @@ body.toolbar-drawer {
   background: #666;
   color: #ccc;
   font: normal small "Lucida Grande", Verdana, sans-serif;
-  left: 0;
+  #{$alpha}: 0;
   margin: 0 -20px;
   padding: 0 20px;
   position: fixed;
-  right: 0;
+  #{$omega}: 0;
   top: 0;
   -moz-box-shadow: 0 3px 20px #000;
   -webkit-box-shadow: 0 3px 20px #000;
@@ -61,7 +61,7 @@ body.toolbar-drawer {
 }
 #toolbar ul li,
 #toolbar ul li a {
-  float: left; /* LTR */
+  float: $alpha; /* LTR */
 }
 
 /**
@@ -70,7 +70,11 @@ body.toolbar-drawer {
 #toolbar div.toolbar-menu {
   background: #000;
   line-height: 20px;
-  padding: 5px 50px 5px 10px; /* LTR */
+  @if $from-direction == left {
+    padding: 5px 50px 5px 10px; /* LTR */
+  } @else {
+    padding: 5px 10px 5px 50px; /* LTR */
+  }
   position: relative;
 }
 #toolbar-home a span {
@@ -83,10 +87,10 @@ body.toolbar-drawer {
   width: 11px;
 }
 #toolbar-user {
-  float: right; /* LTR */
+  float: $omega; /* LTR */
 }
 #toolbar-menu {
-  float: left; /* LTR */
+  float: $alpha; /* LTR */
 }
 #toolbar div.toolbar-menu a.toggle {
   // background: url(toolbar.png) 0 -20px no-repeat;
@@ -95,7 +99,7 @@ body.toolbar-drawer {
   height: 25px;
   overflow: hidden;
   position: absolute;
-  right: 10px; /* LTR */
+  #{$omega}: 10px; /* LTR */
   // text-indent: -9999px;
   color: #ccc;
   width: 25px;
@@ -146,10 +150,10 @@ body.toolbar-drawer {
  * it with position:absolute; toolbar needs its z-index to stay above overlay.
  */
 * html #toolbar {
-  left: -20px;
+  #{$alpha}: -20px;
   margin: 0;
-  padding-right: 0;
+  padding-#{$omega}: 0;
   position: absolute;
-  right: 0;
+  #{$omega}: 0;
   width: 100%;
 }

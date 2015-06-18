@@ -1,5 +1,43 @@
-// Page with sidebar second
+// Page with sidebar first
+// as in incoming reports
+body.sidebar-first {
+  #sidebar-first.column {
+    position: fixed;
+    width: 30%;
+    max-width: 360px;
+    #{$alpha}: $navbarWidth;
+    top: $headerHeight;
+    height: 100%;
+    border-#{$omega}: 1px solid $firefly10;
+    background-color: $white;
+    z-index: 1;
+    .view-desk-reports {
+      .view-content {
+        height: 400px; // default height adjusted by jQuery in reports.js
+        overflow-y: auto;
+      }
+    }
+    // add styles for load more pager
+    @include ctb-load-more-pager;
+  }
+}
 
+// adjust top for drupal toolbar
+body.toolbar-drawer #sidebar-first.column {
+  top: $toolbarHeight + $headerHeight !important;
+}
+
+body.sidebar-first #main {
+  position: relative;
+}
+
+body.sidebar-first #main #content {
+  margin-#{$alpha}: 360px;
+}
+
+// Page with sidebar second
+// as in search page
+// using flex
 body.sidebar-second #main {
 	position: relative;
 	display: flex;
@@ -33,3 +71,4 @@ body.sidebar-second aside#sidebar-second {
 	height: auto;
 	@include box-sizing(border-box);
 }
+

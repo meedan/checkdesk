@@ -141,42 +141,44 @@
 // ADMIN NAV TABS
 // ---------------
 .admin-nav-tabs {
-  @include reset-box-model;
-  @include reset-list-style;
-  display: block;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
   padding: $absolute-line-height/4 0;
   margin-bottom: $absolute-line-height/2;
 }
 
 .admin-nav-tabs > li {
-  display: inline-block;
+  margin: 0 auto 10px auto;
   // icons in tabs
   span {
-    &.icon-file    { @include icon(file-o, $small-font-size, $white); }
-    &.icon-pencil  { @include icon(edit, $small-font-size, $white); }
-    &.icon-plus    { @include icon(plus-square, $small-font-size, $white); }
-    &.icon-trash-o   { @include icon(trash-o, $small-font-size, $white); }
-    &.icon-wrench  { @include icon(wrench, $small-font-size, $white); }
-    &.icon-group  { @include icon(group, $small-font-size, $white); };
+    margin-#{$omega}: 5px;
+    &.icon-file    { @include icon(file-o); }
+    &.icon-pencil  { @include icon(edit); }
+    &.icon-plus    { @include icon(plus-square); }
+    &.icon-trash-o   { @include icon(trash-o); }
+    &.icon-wrench  { @include icon(wrench); }
+    &.icon-group  { @include icon(group); }
   }
-
+  @include clear-icon-margins;
 }
 
 .admin-nav-tabs > li > a {
-  @include checkdesk-button(rgba($firefly, 0.4));
-  @include button-size(13px);
-  @include box-shadow(0 1px 2px rgba($firefly, 0.05));
+  padding: 4px 12px;
+  border: 1px solid $firefly10;
+  color: $firefly40;
+  @include border-radius(4px);
+  transition: background 0.2s ease;
   &:hover {
-    @include checkdesk-button(rgba($firefly, 0.6));
-    @include button-size(13px);
+    background-color: #fff;
   }
+
 }
 
 .admin-nav-tabs > .active > a,
 .admin-nav-tabs > .active > a:hover {
-  @include checkdesk-button(rgba($firefly, 0.8));
-  @include button-size(13px);
-  @include box-shadow(0 1px 2px rgba($firefly, 0.05));
+  
 }
 
 
