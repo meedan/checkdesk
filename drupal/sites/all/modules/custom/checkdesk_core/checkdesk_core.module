@@ -113,7 +113,7 @@ function checkdesk_core_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-  $items['node/%node/collaboration'] = array(
+  $items['node/%checkdesk_story/collaboration'] = array(
     'title' => 'Collaboration',
     'page callback' => '_checkdesk_story_collaboration',
     'page arguments' => array(1),
@@ -281,12 +281,22 @@ function checkdesk_core_ajax_render_alter(&$commands) {
  */
 function checkdesk_report_load($nid) {
   $report = node_load($nid);
-  if ($report && $report->type == 'media') {
+  if ($report && $report->type === 'media') {
     return $report;
   }
   return FALSE;
 }
 
+/**
+ * Load function for stories.
+ */
+function checkdesk_story_load($nid) {
+  $story = node_load($nid);
+  if ($story && $story->type === 'discussion') {
+    return $story;
+  }
+  return FALSE;
+}
 
 /**
  * Implements hook_flag_link_type_info().
