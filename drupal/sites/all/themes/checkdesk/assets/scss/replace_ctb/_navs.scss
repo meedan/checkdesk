@@ -145,12 +145,13 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
+  justify-content: center;
   padding: $absolute-line-height/4 0;
   margin-bottom: $absolute-line-height/2;
 }
 
 .admin-nav-tabs > li {
-  margin: 0 auto 10px auto;
+  margin-#{$omega}: 10px;
   // icons in tabs
   span {
     margin-#{$omega}: 5px;

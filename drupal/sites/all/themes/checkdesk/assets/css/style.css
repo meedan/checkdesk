@@ -2365,12 +2365,13 @@ input[type="checkbox"][readonly] {
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
+  justify-content: center;
   padding: 6px 0;
   margin-bottom: 12px;
 }
 
 .admin-nav-tabs > li {
-  margin: 0 auto 10px auto;
+  margin-right: 10px;
 }
 .admin-nav-tabs > li span {
   margin-right: 5px;
