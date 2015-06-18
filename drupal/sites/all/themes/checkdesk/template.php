@@ -278,8 +278,10 @@ function checkdesk_preprocess_page(&$variables) {
   // Page templates for each node type
   if (isset($variables['node'])) {
     // If the node type is "discussion" the template suggestion will be "page--discussion.tpl.php".
-    $variables['theme_hook_suggestions'][] = 'page__' . str_replace('_', '--', $variables['node']->type);
-  }
+    if($variables['node']->type == 'discussion' || $variables['node']->type == 'media') {
+      $variables['theme_hook_suggestions'][] = 'page__content';
+    }
+  } 
 
   // dsm($variables['language']->language);
   // Unescape HTML in title
