@@ -87,16 +87,6 @@ Drupal.behaviors.meedan_facebook_comments = {
         ref.parentNode.insertBefore(js, ref);
       }
     }(document, /*debug*/ false));
-
-    // Show or hide comments
-    $('.fb-comments-header').die('click').live('click', function() {
-      var header = $(this),
-          comments = $('.fb-comments, .fb_iframe_widget', header.parent());
-      comments.toggleClass('fb-comments-visible');
-      if (comments.hasClass('fb-comments-visible')) {
-        $('html, body').animate({ scrollTop : header.offset().top }, 1000);
-      }
-    });
   }
 };
 

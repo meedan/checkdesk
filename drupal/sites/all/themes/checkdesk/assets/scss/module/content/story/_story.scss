@@ -400,23 +400,6 @@
 .story .story-comments {
   margin-top: $absolute-line-height;
   margin-bottom: 60px;
-  .livefyre-header, .fb-comments-header {
-    @include icon(comments, $large-font-size);
-    @include cd-sans-serif-family;
-    font-size: $large-font-size;
-    @if $from-direction == 'right' {
-      font-size: $larger-font-size;
-    }
-    color: $firefly80;
-    background-color: rgba(0,0,0,.02);
-    padding: $absolute-line-height/2 $gutter-width/2;
-    @include border-radius(4px);
-    cursor: pointer;
-    &:hover {
-      color: $white;
-      background-color: rgb(239,202,43);
-    }
-  }
   .fb-comments {
     margin-top: $absolute-line-height/2;
   }

@@ -113,11 +113,12 @@ function checkdesk_core_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-  $items['node/%checkdesk_story/collaboration'] = array(
+  $items['node/%node/collaboration'] = array(
     'title' => 'Collaboration',
     'page callback' => '_checkdesk_story_collaboration',
     'page arguments' => array(1),
-    'access arguments' => array('access content'),
+    'access callback' => '_checkdesk_access_content_type',
+    'access arguments' => array('discussion', 1),
     'file' => 'checkdesk.collaborate.inc',
     'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
     'type' => MENU_LOCAL_TASK
@@ -288,14 +289,10 @@ function checkdesk_report_load($nid) {
 }
 
 /**
- * Load function for stories.
+ * Access function to a certain content type.
  */
-function checkdesk_story_load($nid) {
-  $story = node_load($nid);
-  if ($story && $story->type === 'discussion') {
-    return $story;
-  }
-  return FALSE;
+function _checkdesk_access_content_type($type, $node) {
+  return $node->type === $type && user_access($node);
 }
 
 /**
