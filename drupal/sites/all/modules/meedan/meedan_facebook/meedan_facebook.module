@@ -63,7 +63,7 @@ function theme_facebook_commentcount($variables) {
   $nid = $node->nid;
   $path = _meedan_facebook_get_path($nid);
   $output  = '<span class="fb-commentscount" data-url="'. $path .'" id="fb-commentscount-'. $nid .'">';
-  $output .= t('@count', array('@count' => 0));
+  $output .= format_plural(0, '1 comment', '@count comments');
   $output .= '</span>';
   return $output;
 }
