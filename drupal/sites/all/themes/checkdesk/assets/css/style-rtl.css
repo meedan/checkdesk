@@ -4147,8 +4147,7 @@ body.toolbar-drawer #main {
 }
 
 body.page-liveblog #main #content,
-body.node-type-discussion #main #content,
-body.node-type-media #main #content {
+body.page-node #main #content {
   max-width: 720px;
 }
 
@@ -6189,11 +6188,6 @@ div.sensitive-hide {
   -moz-flex: 5;
   -ms-flex: 5;
   flex: 5;
-  -webkit-box-ordinal-group: 3;
-  -webkit-order: 2;
-  -moz-order: 2;
-  -ms-flex-order: 2;
-  order: 2;
   max-width: 520px;
 }
 .updates .update-row .update-footer {
@@ -6203,11 +6197,11 @@ div.sensitive-hide {
   -moz-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  -webkit-box-ordinal-group: 2;
-  -webkit-order: 1;
-  -moz-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
+  -webkit-box-ordinal-group: 0;
+  -webkit-order: -1;
+  -moz-order: -1;
+  -ms-flex-order: -1;
+  order: -1;
 }
 
 .anchor {
@@ -9498,10 +9492,10 @@ body.cke_editable p {
   color: #3e4c57;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 18px;
-  line-height: 1.6;
   font-weight: normal;
   font-weight: 400;
   word-wrap: break-word;
+  line-height: 30px;
 }
 .story .story-body > ul, .story .story-body > ol,
 body.cke_editable > ul,
@@ -9516,6 +9510,12 @@ body.cke_editable > ol ul,
 body.cke_editable > ol ol {
   padding-right: 30px;
 }
+.story .story-body h2, .story .story-body blockquote,
+body.cke_editable h2,
+body.cke_editable blockquote {
+  font-size: 20px;
+  line-height: 32px;
+}
 .story .story-body h2,
 body.cke_editable h2 {
   color: #283743;
@@ -9525,6 +9525,8 @@ body.cke_editable h2 {
 body.cke_editable h3 {
   color: #6f7a82;
   margin-bottom: 30px;
+  font-size: 22px;
+  line-height: 34px;
 }
 .story .story-body hr,
 body.cke_editable hr {
@@ -12009,16 +12011,6 @@ html body.i18n-ar,
 #partner-header-slogan {
   font-family: "Droid Arabic Naskh", serif;
   font-size: 18px;
-}
-
-.story .story-body {
-  font-size: 18px;
-  line-height: 30px;
-}
-
-.stories .story-row h3 {
-  font-size: 16px;
-  line-height: 26px;
 }
 
 .posts h3 a {

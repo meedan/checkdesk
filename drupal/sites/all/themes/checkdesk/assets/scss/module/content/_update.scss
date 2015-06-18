@@ -7,12 +7,11 @@
     @include justify-content(flex-start);
     .update-body {
       @include flex(5);
-      @include order(2);
       max-width: 520px;
     }
     .update-footer {
       @include flex(1);
-      @include order(1);
+      @include order(-1);
     }
   }
 }

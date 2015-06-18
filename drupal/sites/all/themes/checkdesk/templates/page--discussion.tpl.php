@@ -34,10 +34,6 @@
       <?php if ($title|| $messages || $tabs || $action_links): ?>
         <div id="content-header">
 
-          <?php if ($title && (user_access('administer nodes'))): ?>
-            
-          <?php endif; ?>
-
           <?php print render($title_suffix); ?>
           <div id="messages-container">
             <?php print $messages; ?>

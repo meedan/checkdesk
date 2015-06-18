@@ -11,13 +11,15 @@ body.cke_editable {
     color: $firefly80;
     @include cd-serif-family;
     font-size: 18px;
-    line-height: 1.6;
     font-weight: normal;
     font-weight: 400;
     word-wrap: break-word;
     @if $from-direction == left {
+      line-height: 26px;
       letter-spacing: -0.23px;
-    }  
+    } @else {
+      line-height: 30px;
+    }
   }
   // lists
   & > ul, & > ol {
@@ -29,10 +31,12 @@ body.cke_editable {
   }
 
   h2, blockquote {
+    font-size: 20px;
     @if $from-direction == left {
-      font-size: 20px;
       line-height: 28px;
-      letter-spacing: -0.64px;
+      letter-spacing: -0.64px; 
+    } @else {
+      line-height: 32px;
     }
   }
 
@@ -47,10 +51,12 @@ body.cke_editable {
   h3 {
     color: $firefly60;
     margin-bottom: 30px;
+    font-size: 22px;
     @if $from-direction == left {
-      font-size: 22px;
       line-height: 30px;
       letter-spacing: -0.64px;
+    } @else {
+      line-height: 34px;
     }
   }
 
