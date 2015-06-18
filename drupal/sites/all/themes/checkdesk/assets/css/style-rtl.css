@@ -1776,10 +1776,6 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f081";
 }
 
-.story .story-comments .livefyre-header:before, .story .story-comments .fb-comments-header:before {
-  content: "\f086";
-}
-
 .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:before, .icon-twitter:before, #widgets .elsewhere ul li span.icon-twitter:before {
   content: "\f099";
 }
@@ -6387,48 +6383,6 @@ div.sensitive-hide {
   background-color: #cfd3d5;
 }
 
-html body .fyre-widget {
-  padding: 1em;
-}
-html body .fyre-widget .img {
-  width: 83px !important;
-}
-html body .fyre-widget .fyre-stream-stats {
-  display: none;
-}
-html body .fyre-widget .fyre-editor {
-  margin-top: 0;
-}
-html body .fyre-box-wrapper {
-  display: none !important;
-}
-html body .livefyre-comments {
-  display: none;
-}
-html body img.fyre-logo-drop {
-  width: auto !important;
-}
-html body .livefyre-wrapper {
-  clear: both;
-  display: block;
-}
-
-.fb-comments-header {
-  cursor: pointer;
-}
-
-.fb-comments {
-  display: none !important;
-}
-
-.fb-comments.fb-comments-visible {
-  display: block !important;
-}
-
-.fb-comments-wrapper, .fb-comments > span, .fb-comments, .fb-comments iframe[style] {
-  width: 100% !important;
-}
-
 #nav-media-form {
   width: 366px;
   overflow-y: scroll;
@@ -9393,38 +9347,6 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
 .story .story-comments {
   margin-top: 24px;
   margin-bottom: 60px;
-}
-.story .story-comments .livefyre-header, .story .story-comments .fb-comments-header {
-  font-family: "Droid Arabic Naskh", serif;
-  font-size: 20px;
-  font-size: 25px;
-  color: #3e4c57;
-  background-color: rgba(0, 0, 0, 0.02);
-  padding: 12px 7.5px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.story .story-comments .livefyre-header:before, .story .story-comments .fb-comments-header:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.story .story-comments .livefyre-header:hover, .story .story-comments .fb-comments-header:hover {
-  color: white;
-  background-color: #efca2b;
 }
 .story .story-comments .fb-comments {
   margin-top: 12px;

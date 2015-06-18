@@ -87,12 +87,7 @@ function theme_facebook_comments($variables) {
 
   $path = _meedan_facebook_get_path($nid);
 
-  $output  = '<div class="fb-comments-wrapper">';
-  $output .= '<div class="fb-comments-header">';
-  $output .= theme('facebook_commentcount', array('node' => $node));
-  $output .= '</div>';
-  $output .= '<div class="fb-comments" data-href="'.$path.'" data-num-posts="' . $per_page . '" data-nid="' . $nid . '" id="fb-comments-' . $nid . '"></div>';
-  $output .= '</div>';
+  $output = '<div class="fb-comments" data-href="'.$path.'" data-num-posts="' . $per_page . '" data-nid="' . $nid . '" id="fb-comments-' . $nid . '"></div>';
   return $output;
 }
 
@@ -115,8 +110,8 @@ function meedan_facebook_menu() {
   $items = array();
 
   $items['admin/config/content/facebook'] = array(
-    'title' => 'Facebook',
-    'description' => 'Administer Facebook settings.',
+    'title' => 'Facebook Comments',
+    'description' => 'Administer Facebook Comments settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('meedan_facebook_admin_settings'),
     'access arguments' => array('administer site configuration'),

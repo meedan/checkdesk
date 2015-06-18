@@ -205,12 +205,9 @@
 
             this.className = classes;
 
-            // Lazy-load tweets and livefyre comments
+            // Lazy-load tweets comments
             if (window.twttr && window.twttr.widgets) {
               window.twttr.widgets.load();
-            }
-            if (Drupal.livefyreCommentCount) {
-              Drupal.livefyreCommentCount.callback();
             }
           }
         });
@@ -226,12 +223,6 @@
       // kick the event to pick up any lazy elements already in view.
       $(window).scroll(false); // Disable scrolling the page when this event is triggered
       $(window).scroll();
-
-      // Open story comments if anchor is present
-      var match = window.location.hash.match(/^#story-comments-([0-9]+)$/);
-      if (match) {
-        $(match[0]).find('.fb-comments-header, .livefyre-header').click();
-      }
 
    });
 

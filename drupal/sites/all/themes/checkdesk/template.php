@@ -648,19 +648,10 @@ function checkdesk_preprocess_node(&$variables) {
       // Collaboration header for story.
       $variables['story_links'] = _checkdesk_story_links($variables['nid']);
       $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
-      // Comments count
-      $theme = NULL;
-      // Livefyre comments count
-      if (!variable_get('meedan_livefyre_disable', FALSE)) {
-        $theme = 'livefyre_commentcount';
-      }
       // Facebook comments count
-      else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
-        $theme = 'facebook_commentcount';
-      }
-      if ($theme) {
+      if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
         $variables['story_commentcount'] = array(
-          '#theme' => $theme,
+          '#theme' => 'facebook_commentcount',
           '#node' => node_load($variables['nid']),
         );
       }
@@ -1218,19 +1209,10 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if ($vars['view']->name === 'liveblog') {
     $vars['updates'] = isset($vars['view']->result[$vars['view']->row_index]->updates) ? $vars['view']->result[$vars['view']->row_index]->updates : '';
 
-    // Comments count
-    $theme = NULL;
-    // Livefyre comments count
-    if (!variable_get('meedan_livefyre_disable', FALSE)) {
-      $theme = 'livefyre_commentcount';
-    }
     // Facebook comments count
-    else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
-      $theme = 'facebook_commentcount';
-    }
-    if ($theme) {
+    if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
       $vars['story_commentcount'] = array(
-          '#theme' => $theme,
+          '#theme' => 'facebook_commentcount',
           '#node' => node_load($vars['fields']['nid']->raw),
       );
     }

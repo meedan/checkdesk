@@ -952,15 +952,6 @@ This was an auto-generated email from !site; please do not respond directly to t
 
 <a href="!url">Click here </a> to view this report.
 ', array(), array('context' => ''));
-  $translations['ar:default']['13d494fd35f9f5b14309b84466cbddf2'] = array(
-    'source' => 'loading...',
-    'context' => '',
-    'location' => 'sites/all/modules/meedan/meedan_livefyre/meedan_livefyre.js',
-    'translation' => 'جاري التحميل ...',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translatables[] = t('loading...', array(), array('context' => ''));
   $translations['ar:default']['13f08c4bacc86b3ea9ba0eca7586df7f'] = array(
     'source' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged for fact-checking.',
     'context' => '',
