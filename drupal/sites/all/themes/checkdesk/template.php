@@ -404,7 +404,7 @@ function checkdesk_preprocess_page(&$variables) {
       'links' => $variables['secondary_menu'],
       'attributes' => array(
           'id' => 'user-menu',
-          'class' => array('nav'),
+          'class' => array('nav', 'nav-down'),
       ),
       'heading' => NULL,
   ));

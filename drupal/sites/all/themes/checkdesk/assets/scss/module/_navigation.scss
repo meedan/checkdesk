@@ -123,6 +123,7 @@ header#header nav {
     width: 26px;
     height: 33px;
     top: 8px;
+    #{$alpha}: -1px;
   }
 
   svg.create-story-icon {
@@ -130,7 +131,7 @@ header#header nav {
     height: 28px;
     top: 11px;
     @if $from-direction == right {
-      #{$alpha}: -3px;
+      #{$alpha}: -5px;
     }
   }
 
