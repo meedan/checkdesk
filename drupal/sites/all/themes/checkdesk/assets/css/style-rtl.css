@@ -9424,8 +9424,9 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
   clear: both;
 }
 
-.story .story-body,
-body.cke_editable {
+.story .story-body p,
+body.cke_editable p {
+  margin: 0 0 26px 0;
   color: #3e4c57;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 18px;
@@ -9433,10 +9434,6 @@ body.cke_editable {
   font-weight: normal;
   font-weight: 400;
   word-wrap: break-word;
-}
-.story .story-body p,
-body.cke_editable p {
-  margin: 0 0 26px 0;
 }
 .story .story-body > ul, .story .story-body > ol,
 body.cke_editable > ul,

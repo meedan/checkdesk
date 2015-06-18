@@ -9431,8 +9431,9 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
   clear: both;
 }
 
-.story .story-body,
-body.cke_editable {
+.story .story-body p,
+body.cke_editable p {
+  margin: 0 0 26px 0;
   color: #3e4c57;
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 18px;
@@ -9441,10 +9442,6 @@ body.cke_editable {
   font-weight: 400;
   word-wrap: break-word;
   letter-spacing: -0.23px;
-}
-.story .story-body p,
-body.cke_editable p {
-  margin: 0 0 26px 0;
 }
 .story .story-body > ul, .story .story-body > ol,
 body.cke_editable > ul,
