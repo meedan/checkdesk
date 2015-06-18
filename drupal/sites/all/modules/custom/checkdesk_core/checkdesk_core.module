@@ -3748,16 +3748,7 @@ function _checkdesk_main_navigation() {
   // Second group
   // reports, stories and updates
   $items = array();
-  $reports_icon = '<svg class="reports-icon" preserveAspectRatio="xMinYMin meet" viewBox="117 0 25 29"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#reports-icon"></use></svg>';
-  $items[] = array(
-    'data' => l($reports_icon . '<span>' . t('Reports') . '</span>', 'search', array(
-      'attributes' => array('class' => array($a_class, 'reports-link', $s_search['report'])),
-      'html' => TRUE,
-      'query' => array('type' => 'report'),
-    )),
-    'class' => array($li_class, 'reports'),
-  );
-  $stories_icon = '<svg class="stories-icon" preserveAspectRatio="xMinYMin meet" viewBox="144 0 30 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#stories-icon"></use></svg>';
+  $stories_icon = '<svg class="reports-icon" preserveAspectRatio="xMinYMin meet" viewBox="117 0 25 29"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#reports-icon"></use></svg>';
   $items[] = array(
     'data' => l($stories_icon . '<span>' . t('Stories') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'stories-link', $s_search['story'])),
@@ -3766,14 +3757,14 @@ function _checkdesk_main_navigation() {
     )),
     'class' => array($li_class, 'stories'),
   );
-  $updates_icon = '<svg class="updates-icon" preserveAspectRatio="xMinYMin meet" viewBox="176 0 28 32"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#updates-icon"></use></svg>';
+  $reports_icon = '<svg class="stories-icon" preserveAspectRatio="xMinYMin meet" viewBox="144 0 30 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#stories-icon"></use></svg>';
   $items[] = array(
-    'data' => l($updates_icon . '<span>' . t('Updates') . '</span>', 'search', array(
-      'attributes' => array('class' => array($a_class, 'updates-link', $s_search['update'])),
+    'data' => l($reports_icon . '<span>' . t('Reports') . '</span>', 'search', array(
+      'attributes' => array('class' => array($a_class, 'reports-link', $s_search['report'])),
       'html' => TRUE,
-      'query' => array('type' => 'update'),
+      'query' => array('type' => 'report'),
     )),
-    'class' => array($li_class, 'updates'),
+    'class' => array($li_class, 'reports'),
   );
 
   $second_group = theme('item_list', array(
