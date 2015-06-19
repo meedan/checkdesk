@@ -2,51 +2,47 @@
 (function ($) {
 'use strict';
 
-Drupal.behaviors.meedan_facebook_comments = {
+Drupal.behaviors.meedanFacebookComments = {
 
-  updateCommentsCount: function(url, value) {
-    $('.fb-commentscount[data-url="' + url + '"]').html(Drupal.formatPlural(value, '1 comment', '@count comments')).addClass('fb-commentscount-processed');
+  comments: {},
+
+  updateCommentsCount: function(path) {
+    var value = Drupal.behaviors.meedanFacebookComments.comments[path] || 0;
+    $('.fb-commentscount[data-url="' + path + '"]').html(Drupal.formatPlural(value, '1 comment', '@count comments')).addClass('fb-commentscount-processed');
   },
 
   attach: function(context, settings) {
-
     window.fbAsyncInit = function() {
-
       // Init the FB JS SDK
       FB.init({
-        appId      : Drupal.settings.meedan_facebook.appId, // App ID from the App Dashboard
-        channelUrl : Drupal.settings.meedan_facebook.channelUrl, // Channel File for x-domain communication
+        appId      : Drupal.settings.meedanFacebookComments.appId, // App ID from the App Dashboard
+        channelUrl : Drupal.settings.meedanFacebookComments.channelUrl, // Channel File for x-domain communication
         status     : true, // check the login status upon init?
         cookie     : true, // set sessions cookies to allow your server to access the session?
         xfbml      : true  // parse XFBML tags on this page?
       });
 
-      // Additional initialization code such as adding Event Listeners goes here
-
       // Comments count
       FB.Event.subscribe('xfbml.render',
         function(response) {
-          var paths = [], value;
+          var paths = [], path;
           $('.fb-commentscount').each(function() {
-            var path;
             if (!$(this).hasClass('fb-commentscount-processed')) {
               path = $(this).attr('data-url');
+              Drupal.behaviors.meedanFacebookComments.comments[path] = 0;
               paths.push(path);
             }
           });
           if (paths.length) {
             FB.api('/', { ids : paths.join() }, function(response) {
-              var path;
               if (response.error) {
                 console.log('Error while fetching number of Facebook comments: ' + response.error.message);
               } else {
-                for (path in response) {
+                for (var path in response) {
                   if (response.hasOwnProperty(path)) {
-                    // Looks like "shares" returns total number of comments,
-                    // and "comments" return number of comments you can see (?)
-                    value = response[path].comments;
-                    if (value) {
-                      Drupal.behaviors.meedan_facebook_comments.updateCommentsCount(path, value);
+                    if (typeof(response[path].comments) !== 'undefined') {
+                      Drupal.behaviors.meedanFacebookComments.comments[path] = response[path].comments;
+                      Drupal.behaviors.meedanFacebookComments.updateCommentsCount(path);
                     }
                   }
                 }
@@ -59,16 +55,14 @@ Drupal.behaviors.meedan_facebook_comments = {
       // Refresh comments count when comment is added or removed
       FB.Event.subscribe('comment.create',
         function(response) {
-          var counter = $('.fb-commentscount[data-url="' + response.href + '"]'),
-              value = (isNaN(parseInt(counter.html(), 10)) ? 0 : parseInt(counter.html(), 10));
-          Drupal.behaviors.meedan_facebook_comments.updateCommentsCount(response.href, value + 1);
+          Drupal.behaviors.meedanFacebookComments.comments[response.href]++;
+          Drupal.behaviors.meedanFacebookComments.updateCommentsCount(response.href);
         }
       );
       FB.Event.subscribe('comment.remove',
         function(response) {
-          var counter = $('.fb-commentscount[data-url="' + response.href + '"]'),
-              value = (isNaN(parseInt(counter.html(), 10)) ? 0 : parseInt(counter.html(), 10));
-          Drupal.behaviors.meedan_facebook_comments.updateCommentsCount(response.href, value - 1);
+          Drupal.behaviors.meedanFacebookComments.comments[response.href]--;
+          Drupal.behaviors.meedanFacebookComments.updateCommentsCount(response.href);
         }
       );
     };
@@ -83,7 +77,7 @@ Drupal.behaviors.meedan_facebook_comments = {
         FB.XFBML.parse();
       } else {
         js = d.createElement('script'); js.id = id; js.async = true;
-        js.src = "//connect.facebook.net/" + Drupal.settings.meedan_facebook.language + "/all" + (debug ? "/debug" : "") + ".js";
+        js.src = "//connect.facebook.net/" + Drupal.settings.meedanFacebookComments.language + "/all" + (debug ? "/debug" : "") + ".js";
         ref.parentNode.insertBefore(js, ref);
       }
     }(document, /*debug*/ false));

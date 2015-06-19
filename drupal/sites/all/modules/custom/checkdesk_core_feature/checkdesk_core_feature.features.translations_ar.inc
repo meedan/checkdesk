@@ -9480,6 +9480,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Are you sure you want to flag this report?', array(), array('context' => ''));
+  $translations['ar:default']['c91c7b93c28cd18741b71f727ee81ee3'] = array(
+    'source' => 'Reports',
+    'context' => '',
+    'location' => '',
+    'translation' => 'تقارير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Reports', array(), array('context' => ''));
   $translations['ar:default']['c9266039677d85728d48d01d61a49bc4'] = array(
     'source' => 'Date in the form of MM (01 - 12).',
     'context' => '',
@@ -9498,15 +9507,6 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('In Progress', array(), array('context' => ''));
-  $translations['ar:default']['c974d6d1ee16df174cd3620eb8cadd99'] = array(
-    'source' => '<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">No comments</span>',
-    'context' => '',
-    'location' => '',
-    'translation' => '<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">لا تعليقات</span>',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translatables[] = t('<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">No comments</span>', array(), array('context' => ''));
   $translations['ar:default']['c9755f2fcfe04bd1c16c77a3314d476d'] = array(
     'source' => 'Relate all comments on the node. This will create 1 duplicate record for every comment. Usually if you need this it is better to create a comment view.',
     'context' => '',
@@ -10046,7 +10046,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create story',
     'context' => '',
     'location' => '',
-    'translation' => 'أنشئ قصة',
+    'translation' => 'انشئ قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -10453,6 +10453,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Wrong username or password.', array(), array('context' => ''));
+  $translations['ar:default']['d9c75c79440b3db3ac3e86ae04bc9f19'] = array(
+    'source' => 'Create report',
+    'context' => '',
+    'location' => '/ar/story/1953',
+    'translation' => 'انشئ تقرير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Create report', array(), array('context' => ''));
   $translations['ar:default']['d9e8945a7b0e43bcac1b8b4f7f18fff7'] = array(
     'source' => 'Queue title',
     'context' => '',
@@ -12211,6 +12220,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Reason', array(), array('context' => ''));
+  $translations['ar:default']['61da704d7348f397676d403cf170a5a3'] = array(
+    'source' => '@count comments',
+    'context' => '',
+    'location' => '; sites/all/modules/meedan/meedan_livefyre/meedan_livefyre.js; sites/all/modules/meedan/meedan_livefyre/meedan_livefyre_commentcount.js; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'translation' => '@count تعليقات',
+    'plid' => 0,
+    'plural' => 1,
+  );
+  $translatables[] = t('@count comments', array(), array('context' => ''));
   $translations['ar:field']['0367519a2eeb0f7c3317ae7732f8e523'] = array(
     'source' => 'Body',
     'context' => 'body:page:label',
@@ -12503,7 +12521,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create story',
     'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
     'location' => 'checkdesk_core_feature.features.translations.inc:12120',
-    'translation' => 'أنشئ قصة',
+    'translation' => 'انشئ قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -12548,7 +12566,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create story',
     'context' => 'item:edc54df9-4aa8-bf84-dd89-ca0a351af23b:title',
     'location' => 'checkdesk_core_feature.features.translations.inc:12165',
-    'translation' => 'أنشئ قصة',
+    'translation' => 'انشئ قصة',
     'plid' => 0,
     'plural' => 0,
   );
