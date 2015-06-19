@@ -91,26 +91,23 @@
 }
 
 .story .story-follow {
-  @include ctb-clearfix;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  color: $thatch;
+  display: inline-block;
+  color: $dodgerBlue60;
+  margin-#{$from-direction}: 7.5px;
+
   a {
-    @include ctb-linkColor($thatch);
-    text-decoration: none;
+    color: $dodgerBlue60; 
+    &:hover {
+      color: $dodgerBlue80; 
+      text-decoration: none;
+    }
   }
 
-  a:first-child { 
-    float: $from-direction;
-    font-size: 18px;
-    font-weight: 700;
-  }
-  
   a.flag-action {
     @include icon("plus");
     &:before, &:after { 
       margin: 0 0 0 0;
-      margin-#{$omega}: 7.5px;
+      margin-#{$omega}: 5px;
     }
   }
   
@@ -118,13 +115,13 @@
     @include icon("minus");
     &:before, &:after { 
       margin: 0 0 0 0;
-      margin-#{$omega}: 7.5px;
+      margin-#{$omega}: 5px;
     }
   }
 
   .follow-count {
-    float: $from-direction;
-    margin-#{$from-direction}: $gutter-width;
+    float: $omega;
+    margin-#{$from-direction}: 5px;
   }
 }
 

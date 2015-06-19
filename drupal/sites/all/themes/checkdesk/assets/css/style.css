@@ -8852,30 +8852,16 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 
 .story .story-follow {
-  *zoom: 1;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  color: #b89892;
-}
-.story .story-follow:before, .story .story-follow:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.story .story-follow:after {
-  clear: both;
+  display: inline-block;
+  color: #7db1fe;
+  margin-left: 7.5px;
 }
 .story .story-follow a {
-  color: #b89892;
-  text-decoration: none;
+  color: #7db1fe;
 }
 .story .story-follow a:hover {
-  color: #4c3632;
-}
-.story .story-follow a:first-child {
-  float: left;
-  font-size: 18px;
-  font-weight: 700;
+  color: #3b8afd;
+  text-decoration: none;
 }
 .story .story-follow a.flag-action:before {
   font-family: "FontAwesome";
@@ -8893,7 +8879,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-follow a.flag-action:before, .story .story-follow a.flag-action:after {
   margin: 0 0 0 0;
-  margin-right: 7.5px;
+  margin-right: 5px;
 }
 .story .story-follow a.unflag-action:before {
   font-family: "FontAwesome";
@@ -8911,11 +8897,11 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-follow a.unflag-action:before, .story .story-follow a.unflag-action:after {
   margin: 0 0 0 0;
-  margin-right: 7.5px;
+  margin-right: 5px;
 }
 .story .story-follow .follow-count {
-  float: left;
-  margin-left: 15px;
+  float: right;
+  margin-left: 5px;
 }
 
 .story .story-tabs-wrapper {
