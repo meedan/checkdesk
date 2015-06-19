@@ -12223,12 +12223,48 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['61da704d7348f397676d403cf170a5a3'] = array(
     'source' => '@count comments',
     'context' => '',
-    'location' => '; sites/all/modules/meedan/meedan_livefyre/meedan_livefyre.js; sites/all/modules/meedan/meedan_livefyre/meedan_livefyre_commentcount.js; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'location' => '; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
     'translation' => '@count تعليقات',
     'plid' => 0,
     'plural' => 1,
   );
   $translatables[] = t('@count comments', array(), array('context' => ''));
+  $translations['ar:default']['c82a144b4bfbc3cbd9149be906645ee6'] = array(
+    'source' => '@count[2] comments',
+    'context' => '',
+    'location' => '; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'translation' => 'تعليقان',
+    'plid' => '61da704d7348f397676d403cf170a5a3',
+    'plural' => 2,
+  );
+  $translatables[] = t('@count[2] comments', array(), array('context' => ''));
+  $translations['ar:default']['d1db75f45c2998cd57c639cabb9574c2'] = array(
+    'source' => '@count[3] comments',
+    'context' => '',
+    'location' => '; sites/all/modules/meedan/meedan_livefyre/meedan_livefyre.js; sites/all/modules/meedan/meedan_livefyre/meedan_livefyre_commentcount.js; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'translation' => '@count[3] تعليقات',
+    'plid' => 'c82a144b4bfbc3cbd9149be906645ee6',
+    'plural' => 3,
+  );
+  $translatables[] = t('@count[3] comments', array(), array('context' => ''));
+  $translations['ar:default']['221118a2a7f9441e7070fe5624491d90'] = array(
+    'source' => '@count[4] comments',
+    'context' => '',
+    'location' => '; sites/all/modules/meedan/meedan_livefyre/meedan_livefyre.js; sites/all/modules/meedan/meedan_livefyre/meedan_livefyre_commentcount.js; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'translation' => '@count[4] تعليقا',
+    'plid' => 'd1db75f45c2998cd57c639cabb9574c2',
+    'plural' => 4,
+  );
+  $translatables[] = t('@count[4] comments', array(), array('context' => ''));
+  $translations['ar:default']['38838ea0b6ec8fdd11f04cb577055a3c'] = array(
+    'source' => '@count[5] comments',
+    'context' => '',
+    'location' => '; sites/all/modules/meedan/meedan_livefyre/meedan_livefyre.js; sites/all/modules/meedan/meedan_livefyre/meedan_livefyre_commentcount.js; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'translation' => '@count[5] تعليق',
+    'plid' => '221118a2a7f9441e7070fe5624491d90',
+    'plural' => 5,
+  );
+  $translatables[] = t('@count[5] comments', array(), array('context' => ''));
   $translations['ar:field']['0367519a2eeb0f7c3317ae7732f8e523'] = array(
     'source' => 'Body',
     'context' => 'body:page:label',
