@@ -102,7 +102,22 @@ ul#user-menu {
   	@include cd-avatar('inline');
     @include border-radius(50%);
     border: 3px solid $firefly20;
-  }	
+  }
+
+  .sign-in-up {
+    padding: 0 15px;
+    font-size: 16px;
+    color: $dodgerBlue80;
+    border: 1px solid $dodgerBlue80;
+    @include border-radius(4px);
+    line-height: 36px;
+    &:hover {
+      color: $dodgerBlue;
+      border-color: $dodgerBlue;
+    }
+  }
+
+
 
 }
 

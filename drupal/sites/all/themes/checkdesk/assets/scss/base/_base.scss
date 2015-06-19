@@ -6,7 +6,7 @@
 
 html {
   height: 100%;
-  background-color: $thatch5;
+  background-color: $thatch5Alt;
 }
 
 #main {
@@ -17,10 +17,6 @@ html {
   // adjust top for drupal toolbar
   body.toolbar-drawer & {
     margin-top: ($toolbarHeight) !important;
-  }
-  // when no sidebars
-  body.no-sidebars & {
-    // margin-top: $absolute-line-height * 3;
   }
 }
 
