@@ -176,21 +176,9 @@ function checkdesk_preprocess_region(&$variables) {
       );
       $variables['header_logo'] = l(theme('image_style', $header_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('header_logo'))));
     }
-
-    $variables['header_logo'] = '';
-    $image = theme_get_setting('header_logo_path');
-
-    if (!empty($image)) {
-      $header_logo_data = array(
-          'style_name' => 'partner_logo',
-          'path' => $image,
-      );
-      $variables['header_logo'] = l(theme('image_style', $header_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
-    }
   }
 
   if ($variables['region'] == 'widgets') {
-
     // frontpage logo
     $variables['frontpage_logo'] = '';
     $image = theme_get_setting('frontpage_logo_path');
@@ -200,18 +188,7 @@ function checkdesk_preprocess_region(&$variables) {
           'style_name' => 'partner_logo',
           'path' => $image,
       );
-      $variables['frontpage_logo'] = l(theme('image_style', $frontpage_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
-    }
-
-    $variables['frontpage_logo'] = '';
-    $image = theme_get_setting('frontpage_logo_path');
-
-    if (!empty($image)) {
-      $frontpage_logo_data = array(
-          'style_name' => 'partner_logo',
-          'path' => $image,
-      );
-      $variables['frontpage_logo'] = l(theme('image_style', $frontpage_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
+      $variables['frontpage_logo'] = theme('image_style', $frontpage_logo_data);
     }
 
     $position = theme_get_setting('header_logo_position');
