@@ -65,6 +65,8 @@ ul#user-menu {
 	a { 
 		@include ctb-linkColor($firefly30); 
 		padding: 0 10px;
+    @include transition(border 0.2s ease);
+    @include transition(color 0.2s ease);
 	}
 
 	li {

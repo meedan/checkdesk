@@ -414,3 +414,13 @@ function checkdesk_core_update_7043() {
 function checkdesk_core_update_7044() {
   module_disable(array('chosen'));
 }
+
+/**
+ * Update plural formula for Arabic.
+ */
+function checkdesk_core_update_7045() {
+  db_query('UPDATE {languages} set formula = :formula WHERE language = :language', array(
+    ':formula' => '(($n==0)?(1):(($n==1)?(0):(($n==2)?(2):(((($n%100)>=3)&&(($n%100)<=10))?(3):(((($n%100)>=11)&&(($n%100)<=99))?(4):5)))))',
+    ':language' => 'ar'
+  ));
+}

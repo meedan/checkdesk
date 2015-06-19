@@ -142,6 +142,7 @@ function honeypot_get_protected_forms() {
       $forms = $cache->data;
     }
     else {
+      $forms = array();
       // Look up all the honeypot forms in the variables table.
       $result = db_query("SELECT name FROM {variable} WHERE name LIKE 'honeypot_form_%'")->fetchCol();
       // Add each form that's enabled to the $forms array.
@@ -185,6 +186,12 @@ function honeypot_add_form_protection(&$form, &$form_state, $options = array()) 
     // Get the element name (default is generic 'url').
     $honeypot_element = variable_get('honeypot_element_name', 'url');
 
+    // Add 'autocomplete="off"' if configured.
+    $attributes = array();
+    if (variable_get('honeypot_autocomplete_attribute', 1)) {
+      $attributes = array('autocomplete' => 'off');
+    }
+
     // Build the honeypot element.
     $honeypot_class = $honeypot_element . '-textfield';
     $form[$honeypot_element] = array(
@@ -192,14 +199,14 @@ function honeypot_add_form_protection(&$form, &$form_state, $options = array()) 
       '#title' => t('Leave this field blank'),
       '#size' => 20,
       '#weight' => 100,
-      '#attributes' => array('autocomplete' => 'off'),
+      '#attributes' => $attributes,
       '#element_validate' => array('_honeypot_honeypot_validate'),
       '#prefix' => '<div class="' . $honeypot_class . '">',
       '#suffix' => '</div>',
-      // Hide honeypot.
+      // Hide honeypot using CSS.
       '#attached' => array(
         'css' => array(
-          '.' . $honeypot_class . ' { display: none !important; }' => array('type' => 'inline'),
+          'data' => variable_get('file_public_path', conf_path() . '/files') . '/honeypot/honeypot.css',
         ),
       ),
     );
@@ -370,5 +377,21 @@ function honeypot_log_failure($form_id, $type) {
   // Trigger rules honeypot_reject event.
   if (module_exists('rules')) {
     rules_invoke_event('honeypot_reject', $form_id, $type);
+  }
+}
+
+/**
+ * Create CSS file for Honeypot.
+ */
+function honeypot_create_css($element_name) {
+  $path = 'public://honeypot';
+
+  if (!file_prepare_directory($path, FILE_CREATE_DIRECTORY)) {
+    drupal_set_message(t('Unable to create Honeypot CSS directory, %path. Check the permissions on your files directory.', array('%path' => file_uri_target($path))), 'error');
+  }
+  else {
+    $filename = $path . '/honeypot.css';
+    $data = '.' . $element_name . '-textfield { display: none !important; }';
+    file_unmanaged_save_data($data, $filename, FILE_EXISTS_REPLACE);
   }
 }

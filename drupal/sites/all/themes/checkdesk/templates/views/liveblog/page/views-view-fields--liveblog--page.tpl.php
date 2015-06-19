@@ -45,18 +45,17 @@
             </a>
           </div>
         <?php } ?>
+        <?php if (isset($follow_story)) { ?>
+          <div class="story-follow">
+            <?php print $follow_story; ?>
+          </div>
+        <?php } ?>
       </div>
     </div>
 
     <div class="story-body">
       <?php print render($fields['body']->content); ?>
     </div>
-
-    <?php if (isset($follow_story)) : ?>
-      <div class="story-follow">
-        <?php print $follow_story; ?>
-      </div>
-    <?php endif; ?>
 
     <div class="story-updates-wrapper">
       <?php print $updates; ?>

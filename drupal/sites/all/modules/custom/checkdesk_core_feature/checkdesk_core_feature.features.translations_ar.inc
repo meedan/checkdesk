@@ -6577,6 +6577,29 @@ Story "!title" which you followed has a <a href="!url">new update</a>.', array()
     'plural' => 0,
   );
   $translatables[] = t('Twitter status messages.', array(), array('context' => ''));
+  $translations['ar:default']['8b9fc3ae85e983df31be71bb6963312d'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has added a new report !report.
+
+<a href="!url">Click here </a> to view this report.
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name, 
+
+قام !author بإضافة تقرير جديد !report.
+
+ <a href="!url"> اضغط هنا </a> لمعرفة هذا التقرير.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+!author has added a new report !report.
+
+<a href="!url">Click here </a> to view this report.
+', array(), array('context' => ''));
   $translations['ar:default']['8bb89935c67ac7fc29c2d9e8ca0afdea'] = array(
     'source' => 'The language this translation is in.',
     'context' => '',
@@ -9480,6 +9503,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Are you sure you want to flag this report?', array(), array('context' => ''));
+  $translations['ar:default']['c91c7b93c28cd18741b71f727ee81ee3'] = array(
+    'source' => 'Reports',
+    'context' => '',
+    'location' => '',
+    'translation' => 'تقارير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Reports', array(), array('context' => ''));
   $translations['ar:default']['c9266039677d85728d48d01d61a49bc4'] = array(
     'source' => 'Date in the form of MM (01 - 12).',
     'context' => '',
@@ -9498,15 +9530,6 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('In Progress', array(), array('context' => ''));
-  $translations['ar:default']['c974d6d1ee16df174cd3620eb8cadd99'] = array(
-    'source' => '<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">No comments</span>',
-    'context' => '',
-    'location' => '',
-    'translation' => '<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">لا تعليقات</span>',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translatables[] = t('<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">No comments</span>', array(), array('context' => ''));
   $translations['ar:default']['c9755f2fcfe04bd1c16c77a3314d476d'] = array(
     'source' => 'Relate all comments on the node. This will create 1 duplicate record for every comment. Usually if you need this it is better to create a comment view.',
     'context' => '',
@@ -9678,6 +9701,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Get the actual content from a content revision.', array(), array('context' => ''));
+  $translations['ar:default']['ce8224b430516de9d426da746e19330d'] = array(
+    'source' => 'About Checkdesk',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'عن الموقع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('About Checkdesk', array(), array('context' => ''));
   $translations['ar:default']['ce9cabcdfc4476e6f338471b753f980f'] = array(
     'source' => 'Administer Twitter accounts',
     'context' => '',
@@ -10046,7 +10078,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create story',
     'context' => '',
     'location' => '',
-    'translation' => 'أنشئ قصة',
+    'translation' => 'انشئ قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -10453,6 +10485,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Wrong username or password.', array(), array('context' => ''));
+  $translations['ar:default']['d9c75c79440b3db3ac3e86ae04bc9f19'] = array(
+    'source' => 'Create report',
+    'context' => '',
+    'location' => '/ar/story/1953',
+    'translation' => 'انشئ تقرير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Create report', array(), array('context' => ''));
   $translations['ar:default']['d9e8945a7b0e43bcac1b8b4f7f18fff7'] = array(
     'source' => 'Queue title',
     'context' => '',
@@ -10507,6 +10548,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Drafts', array(), array('context' => ''));
+  $translations['ar:default']['db5eb84117d06047c97c9a0191b5fffe'] = array(
+    'source' => 'Support',
+    'context' => '',
+    'location' => '/ar/story/1953',
+    'translation' => 'دعم و مساعدة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Support', array(), array('context' => ''));
   $translations['ar:default']['dbbd2a35bb08788c9180b67dd1e86a95'] = array(
     'source' => 'Reply to',
     'context' => '',
@@ -12211,6 +12261,51 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Reason', array(), array('context' => ''));
+  $translations['ar:default']['61da704d7348f397676d403cf170a5a3'] = array(
+    'source' => '@count comments',
+    'context' => '',
+    'location' => '; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'translation' => '@count تعليقات',
+    'plid' => 0,
+    'plural' => 1,
+  );
+  $translatables[] = t('@count comments', array(), array('context' => ''));
+  $translations['ar:default']['c82a144b4bfbc3cbd9149be906645ee6'] = array(
+    'source' => '@count[2] comments',
+    'context' => '',
+    'location' => '; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'translation' => 'تعليقان',
+    'plid' => '61da704d7348f397676d403cf170a5a3',
+    'plural' => 2,
+  );
+  $translatables[] = t('@count[2] comments', array(), array('context' => ''));
+  $translations['ar:default']['d1db75f45c2998cd57c639cabb9574c2'] = array(
+    'source' => '@count[3] comments',
+    'context' => '',
+    'location' => '; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'translation' => '@count[3] تعليقات',
+    'plid' => 'c82a144b4bfbc3cbd9149be906645ee6',
+    'plural' => 3,
+  );
+  $translatables[] = t('@count[3] comments', array(), array('context' => ''));
+  $translations['ar:default']['221118a2a7f9441e7070fe5624491d90'] = array(
+    'source' => '@count[4] comments',
+    'context' => '',
+    'location' => '; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'translation' => '@count[4] تعليقا',
+    'plid' => 'd1db75f45c2998cd57c639cabb9574c2',
+    'plural' => 4,
+  );
+  $translatables[] = t('@count[4] comments', array(), array('context' => ''));
+  $translations['ar:default']['38838ea0b6ec8fdd11f04cb577055a3c'] = array(
+    'source' => '@count[5] comments',
+    'context' => '',
+    'location' => '; sites/all/modules/meedan/meedan_facebook/meedan_facebook.js',
+    'translation' => '@count[5] تعليق',
+    'plid' => '221118a2a7f9441e7070fe5624491d90',
+    'plural' => 5,
+  );
+  $translatables[] = t('@count[5] comments', array(), array('context' => ''));
   $translations['ar:field']['0367519a2eeb0f7c3317ae7732f8e523'] = array(
     'source' => 'Body',
     'context' => 'body:page:label',
@@ -12503,7 +12598,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create story',
     'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
     'location' => 'checkdesk_core_feature.features.translations.inc:12120',
-    'translation' => 'أنشئ قصة',
+    'translation' => 'انشئ قصة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -12548,7 +12643,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create story',
     'context' => 'item:edc54df9-4aa8-bf84-dd89-ca0a351af23b:title',
     'location' => 'checkdesk_core_feature.features.translations.inc:12165',
-    'translation' => 'أنشئ قصة',
+    'translation' => 'انشئ قصة',
     'plid' => 0,
     'plural' => 0,
   );
