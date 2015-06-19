@@ -5,14 +5,14 @@
 }
 
 #partner-header-inner {
-  img {
-    // max-height: 140px;
+
+  .partner_logo {
+    display: block;
   }
 
   #partner-header-slogan {
-    
-    margin-top: $absolute-line-height;
-    padding: $absolute-line-height/1.5 $gutter-width*2 0 $gutter-width*2;
+    display: block;
+    padding-top: 36px;
     @if $from-direction == 'left' {
       font-size: 16px;
       font-weight: 400;
