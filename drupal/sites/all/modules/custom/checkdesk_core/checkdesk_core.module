@@ -132,23 +132,22 @@ function checkdesk_core_menu() {
     'file' => 'checkdesk.sign_in_up.inc',
     'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
-  $items['checkdesk/reports'] = array(
-    'title' => 'Reports',
+  $items['checkdesk/my_drafts'] = array(
+    'title' => 'My drafts',
     'page callback' => 'drupal_goto',
     'page arguments' => array('search'),
-    'access callback' => '_checkdesk_is_journalist',
+    'access arguments' => array('view own unpublished content'),
   );
-  $items['checkdesk/draft_stories'] = array(
-    'title' => 'Draft stories',
-    'page callback' => 'drupal_goto',
-    'page arguments' => array('search'),
-    'access arguments' => array('access any drafts content'),
-  );
-  $items['checkdesk/draft_updates'] = array(
+  $items['checkdesk/my_stories'] = array(
     'title' => 'Draft updates',
     'page callback' => 'drupal_goto',
     'page arguments' => array('search'),
-    'access arguments' => array('access any drafts content'),
+    'access arguments' => array('access content'),
+  );
+  $items['checkdesk/settings'] = array(
+    'title' => 'Settings',
+    'page callback' => '_checkdesk_core_user_settings',
+    'access callback' => 'user_is_logged_in',
   );
   $items['checkdesk_resend_pass/%'] = array(
     'title' => 'Resend rest-password mail',
@@ -158,6 +157,11 @@ function checkdesk_core_menu() {
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
   return $items;
+}
+
+function _checkdesk_core_user_settings() {
+  global $user;
+  drupal_goto('user/' . $user->uid . '/edit');
 }
 
 /**
@@ -175,17 +179,6 @@ function _checkdesk_resend_pass($uid) {
 }
 
 /**
- *check if login user is journalist or super admin
- */
-function _checkdesk_is_journalist() {
-  global $user;
-  if ($user->uid == 1 || in_array('journalist', $user->roles)) {
-    return TRUE;
-  }
-  return FALSE;
-}
-
-/**
  * Implements hook_menu_alter().
  */
 function checkdesk_core_menu_alter(&$items) {
@@ -193,8 +186,13 @@ function checkdesk_core_menu_alter(&$items) {
   $items['node/%node/delete']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
   // make nodequeue tab localizable
   $items['node/%node/nodequeue']['title callback'] = 'checkdesk_core_nodequeue_tab_title';
-  //deny access to node page
+  // deny access to node page
   $items['node']['access callback'] = FALSE;
+  // fix edit account
+  $items['user/%user/edit/account'] = array(
+    'title' => 'Account',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
 }
 
 /**
@@ -1393,13 +1391,6 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
-  $themes['checkdesk_core_user_info'] = array(
-    'template' => 'user_info',
-    'variables' => array(
-      'user' => NULL,
-    ),
-  ) + $base;
-
   $themes['checkdesk_core_update_reports'] = array(
     'template' => 'update_reports',
     'variables' => array(
@@ -1523,10 +1514,6 @@ function checkdesk_core_block_info() {
     'info' => 'Report form block',
     'cache' => DRUPAL_NO_CACHE,
   );
-  $blocks['checkdesk_user_info'] = array(
-    'info'   => t('Checkdesk user information'),
-    'cache'  => DRUPAL_NO_CACHE,
-  );
 
   return $blocks;
 }
@@ -1538,8 +1525,6 @@ function checkdesk_core_block_view($delta = '') {
   switch ($delta) {
     case 'post':
       return checkdesk_core_report_form_block();
-    case 'checkdesk_user_info':
-      return checkdesk_core_user_info_block();
   }
 }
 
@@ -1581,18 +1566,6 @@ AND n.uid = :uid
 
   drupal_set_title($title);
   return array('subject' => $subject, 'content' => $content);
-}
-
-/**
- * Generates a block with user information.
- */
-function checkdesk_core_user_info_block() {
-  $content = '';
-  if (arg(0) == 'user' && is_numeric(arg(1))) {
-    $profile = user_load(arg(1));
-    $content = theme('checkdesk_core_user_info', array('user' => $profile));
-  }
-  return array('subject' => '<none>', 'content' => $content);
 }
 
 /**
@@ -3644,6 +3617,7 @@ function _checkdesk_search_header() {
  * Implements of hook_url_outbound_alter().
  */
 function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
+  global $user;
   //This is a taxonomy page
   if (preg_match('|^taxonomy/term/([0-9]*)|', $original_path, $matches)) {
     if (is_numeric($matches[1])) {
@@ -3659,13 +3633,13 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
     $path = 'search';
     $options['query']['type'] = 'report';
   }
-  elseif ($original_path == 'checkdesk/draft_stories') {
+  elseif ($original_path == 'checkdesk/my_stories') {
     $path = 'search';
-    $options['query'] = array('type' => 'story', 'status' => 0);
+    $options['query'] = array('type' => 'story', 'author' => $user->name);
   }
-  elseif ($original_path == 'checkdesk/draft_updates') {
+  elseif ($original_path == 'checkdesk/my_drafts') {
     $path = 'search';
-    $options['query'] = array('type' => 'update', 'status' => 0);
+    $options['query'] = array('status' => 0, 'author' => $user->name);
   }
 }
 

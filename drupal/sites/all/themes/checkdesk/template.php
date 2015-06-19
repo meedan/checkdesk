@@ -766,7 +766,7 @@ function checkdesk_preprocess_node(&$variables) {
       // Set published stories
       $variables['published_stories'] = '';
       $published_stories_links = array();
-      $published_cond = _checkdesk_is_journalist() ? array(0, 1) : array(1);
+      $published_cond = user_access('access any drafts content') ? array(0, 1) : array(1);
       $published_stories = db_query('
           SELECT DISTINCT nid_target, n.title
           FROM {heartbeat_activity} ha

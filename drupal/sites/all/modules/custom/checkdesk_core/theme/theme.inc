@@ -72,43 +72,6 @@ function checkdesk_core_preprocess_checkdesk_core_report_source(&$variables) {
 }
 
 /**
- * Template preprocessor for `checkdesk_core_user_info`.
- */
-function checkdesk_core_preprocess_checkdesk_core_user_info(&$variables) {
-  global $user;
-  $account = $variables['user'];
-
-  // Avatar
-  $variables['user_picture'] = theme('user_picture', array('account' => $account));
-
-  // Linked accounts
-  $linked_accounts = '';
-  if ($account->twitter_accounts) {
-    $linked_accounts = '<span class="icon-twitter"></span> ';
-
-    $to_join = array();
-    foreach ($account->twitter_accounts as $twitter_account) {
-      // See: http://stackoverflow.com/a/8920821/806988
-      $to_join[] = l(
-        '@' . $twitter_account->screen_name,
-        'https://twitter.com/account/redirect_by_id?id=' . $twitter_account->id,
-        array(
-          'attributes' => array('class' => array('twitter-name'))
-        )
-      );
-    }
-    $linked_accounts .= implode(', ', $to_join);
-  }
-  $variables['linked_accounts'] = $linked_accounts;
-  // Just show links when the current user is seeing his own profile
-  if ($user->uid === $account->uid) {
-    $variables['followed_stories'] = l(t('Followed stories'), 'user-followed-stories');
-    $variables['edit_profile'] = l(t('Edit profile'), 'user/' . $account->uid . '/edit');
-    $variables['edit_notifications'] = l(t('Notifications'), 'user/' . $account->uid . '/notifications');
-  }
-}
-
-/**
  * Template preprocessor for `checkdesk_core_update_reports`.
  */
 function checkdesk_core_preprocess_checkdesk_core_update_reports(&$variables) {

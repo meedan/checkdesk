@@ -5,7 +5,7 @@
  */
 function meedan_notifications_menu() {
   $items = array();
-  $items['user/%user/notifications'] = array(
+  $items['user/%user/edit/notifications'] = array(
     'type' => MENU_LOCAL_TASK,
     'access callback' => 'meedan_notifications_access',
     'access arguments' => array(1),

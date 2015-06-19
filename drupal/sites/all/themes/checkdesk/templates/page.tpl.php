@@ -23,7 +23,7 @@
               print t('Receive notifications');
             }
             else {
-              print t('<strong>@user\'s</strong> reports', array('@user' => $account->name));
+              print $account->name;
             }
           } else {
             print $title;
