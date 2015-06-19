@@ -100,6 +100,8 @@ ul#user-menu {
   // apply default avatar styles
   .avatar {
   	@include cd-avatar('inline');
+    @include border-radius(50%);
+    border: 3px solid $firefly20;
   }	
 
 }
