@@ -6577,6 +6577,29 @@ Story "!title" which you followed has a <a href="!url">new update</a>.', array()
     'plural' => 0,
   );
   $translatables[] = t('Twitter status messages.', array(), array('context' => ''));
+  $translations['ar:default']['8b9fc3ae85e983df31be71bb6963312d'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has added a new report !report.
+
+<a href="!url">Click here </a> to view this report.
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name, 
+
+قام !author بإضافة تقرير جديد !report.
+
+ <a href="!url"> اضغط هنا </a> لمعرفة هذا التقرير.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+!author has added a new report !report.
+
+<a href="!url">Click here </a> to view this report.
+', array(), array('context' => ''));
   $translations['ar:default']['8bb89935c67ac7fc29c2d9e8ca0afdea'] = array(
     'source' => 'The language this translation is in.',
     'context' => '',
@@ -9678,6 +9701,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Get the actual content from a content revision.', array(), array('context' => ''));
+  $translations['ar:default']['ce8224b430516de9d426da746e19330d'] = array(
+    'source' => 'About Checkdesk',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'عن الموقع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('About Checkdesk', array(), array('context' => ''));
   $translations['ar:default']['ce9cabcdfc4476e6f338471b753f980f'] = array(
     'source' => 'Administer Twitter accounts',
     'context' => '',
@@ -10516,6 +10548,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Drafts', array(), array('context' => ''));
+  $translations['ar:default']['db5eb84117d06047c97c9a0191b5fffe'] = array(
+    'source' => 'Support',
+    'context' => '',
+    'location' => '/ar/story/1953',
+    'translation' => 'دعم و مساعدة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Support', array(), array('context' => ''));
   $translations['ar:default']['dbbd2a35bb08788c9180b67dd1e86a95'] = array(
     'source' => 'Reply to',
     'context' => '',
