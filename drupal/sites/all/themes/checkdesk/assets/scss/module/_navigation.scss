@@ -9,11 +9,8 @@ header#header nav {
   width: 60px;
   position: fixed;
   top: 0;
-  // adjust top for drupal toolbar
-  body.toolbar-drawer & {
-    // top: $toolbarHeight;
-  }
   bottom: 0;
+  color: #fff;
   @include box-sizing(border-box);
   z-index: $z-index-FixedNavbar;
 

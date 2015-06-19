@@ -72,9 +72,13 @@ body.cke_editable {
     position: relative;
     color: $firefly60;
     padding-#{$alpha}: 50px;
+    margin: 0 0 26px 0;
     border: 0 none;
     min-height: 56px; // two lines
     width: 75%;
+    p {
+      margin-bottom: 0;
+    }
     &:before {
       position: absolute;
       content: "";

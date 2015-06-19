@@ -7117,6 +7117,7 @@ header#header nav {
   position: fixed;
   top: 0;
   bottom: 0;
+  color: #fff;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -9480,9 +9481,14 @@ body.cke_editable blockquote {
   position: relative;
   color: #6f7a82;
   padding-right: 50px;
+  margin: 0 0 26px 0;
   border: 0 none;
   min-height: 56px;
   width: 75%;
+}
+.story .story-body blockquote p,
+body.cke_editable blockquote p {
+  margin-bottom: 0;
 }
 .story .story-body blockquote:before,
 body.cke_editable blockquote:before {
