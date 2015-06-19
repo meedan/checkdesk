@@ -169,8 +169,8 @@
   border: 1px solid $firefly10;
   color: $firefly40;
   @include border-radius(4px);
-  transition: background 0.2s ease,
-    border 0.2s ease;
+  @include transition(background 0.2s ease);
+  @include transition(border 0.2s ease);
   &:hover {
     background-color: #fff;
     background-color: #fff;
