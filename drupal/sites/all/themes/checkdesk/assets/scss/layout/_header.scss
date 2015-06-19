@@ -65,6 +65,8 @@ ul#user-menu {
 	a { 
 		@include ctb-linkColor($firefly30); 
 		padding: 0 10px;
+    @include transition(border 0.2s ease);
+    @include transition(color 0.2s ease);
 	}
 
 	li {
@@ -102,7 +104,22 @@ ul#user-menu {
   	@include cd-avatar('inline');
     @include border-radius(50%);
     border: 3px solid $firefly20;
-  }	
+  }
+
+  .sign-in-up {
+    padding: 0 15px;
+    font-size: 16px;
+    color: $dodgerBlue80;
+    border: 1px solid $dodgerBlue80;
+    @include border-radius(4px);
+    line-height: 36px;
+    &:hover {
+      color: $dodgerBlue;
+      border-color: $dodgerBlue;
+    }
+  }
+
+
 
 }
 
