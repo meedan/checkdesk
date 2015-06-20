@@ -5135,6 +5135,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('@count[2] collaborators', array(), array('context' => ''));
+  $translations['ar:default']['6f796b0e6deb4f4c2c0ee0ed5e10e117'] = array(
+    'source' => 'Following',
+    'context' => '',
+    'location' => '/ar/user/1/edit',
+    'translation' => 'قصص مُتابَعة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Following', array(), array('context' => ''));
   $translations['ar:default']['6f8063417ab31f38d864c28302f3de2f'] = array(
     'source' => 'Approved',
     'context' => '',
@@ -9480,7 +9489,7 @@ Go to !story_url to compose a new update to the story using that report.', array
     'source' => 'Followed stories',
     'context' => '',
     'location' => '/index.php',
-    'translation' => 'موضوعات متتبعه',
+    'translation' => 'قصص مُتابَعة',
     'plid' => 0,
     'plural' => 0,
   );

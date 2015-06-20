@@ -1027,7 +1027,12 @@ function checkdesk_featured_stories_feature_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'user-followed-stories';
+  $handler->display->display_options['path'] = 'user/%/edit/following';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Following';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
   $translatables['user_followed_stories'] = array(
     t('Master'),
     t('Followed stories'),
