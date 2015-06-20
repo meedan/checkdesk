@@ -60,15 +60,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => '391be377-17db-a134-4d21-c6742d07ca4e',
     'weight' => -45,
   );
-  // Exported menu link: menu-common_manage-users:admin/people
-  $menu_links['menu-common_manage-users:admin/people'] = array(
+  // Exported menu link: menu-common_manage-users:checkdesk/people
+  $menu_links['menu-common_manage-users:checkdesk/people'] = array(
     'customized' => 1,
     'expanded' => 0,
     'external' => 0,
     'has_children' => 0,
     'hidden' => 0,
     'language' => 'und',
-    'link_path' => 'admin/people',
+    'link_path' => 'checkdesk/people',
     'link_title' => 'Manage users',
     'menu_links_customized' => 1,
     'menu_links_customized_2' => 1,
@@ -77,7 +77,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'module' => 'menu',
     'options' => array(
       'alter' => TRUE,
-      'identifier' => 'menu-common_manage-users:admin/people',
+      'identifier' => 'menu-common_manage-users:checkdesk/people',
       'attributes' => array(),
       'item_attributes' => array(
         'id' => '',
@@ -86,7 +86,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       ),
     ),
     'parent_identifier' => 'menu-common_user:<sub>',
-    'router_path' => 'admin/people',
+    'router_path' => 'checkdesk/people',
     'uuid' => '485c5e2e-cc65-4904-91e1-1ec580b522d5',
     'weight' => -46,
   );

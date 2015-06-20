@@ -149,6 +149,12 @@ function checkdesk_core_menu() {
     'page callback' => '_checkdesk_core_user_settings',
     'access callback' => 'user_is_logged_in',
   );
+  $items['checkdesk/people'] = array(
+    'title' => 'Manage users',
+    'page callback' => 'drupal_goto',
+    'page arguments' => array('admin/people'),
+    'access arguments' => array('administer users'),
+  );
   $items['checkdesk_resend_pass/%'] = array(
     'title' => 'Resend rest-password mail',
     'page callback' => '_checkdesk_resend_pass',
