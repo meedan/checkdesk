@@ -3686,30 +3686,50 @@ function _checkdesk_main_navigation() {
   if (arg(0) == 'node' && is_numeric(arg(1)) /*&& $node->type == 'discussion'*/) {
     $ref_nid = arg(1);
   }
-
-  if (user_access('create media content')) {
-    $create_report_icon = '<svg class="create-report-icon" preserveAspectRatio="xMinYMin meet" viewBox="29 0 26 34"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#create-report-icon"></use></svg>';
-    $items[] = array(
-      'data' => l($create_report_icon . '<span>' . t('Create report') . '</span>', 'node/add/media', array(
-        'attributes' => array('class' => array($a_class, 'create-report-link')),
-        'html' => TRUE,
-        'query' => array('ref_nid' => $ref_nid),
-      )),
-      'class' => array($li_class, 'create-report'),
-    );
+  // Create links for anonymous users
+  $create_query = array();
+  $create_query['ref_nid'] = $ref_nid;
+  global $user;
+  if (!$user->uid) {
+    $create_ano_link = 'checkdesk/nojs/sign_in_up';
+    $create_ano_class = array('ctools-use-modal', 'ctools-modal-modal-popup-medium');
   }
-
-  if (user_access('create discussion content')) {
-    $create_story_icon = '<svg class="create-story-icon" preserveAspectRatio="xMinYMin meet" viewBox="57 0 32 28"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#create-story-icon"></use></svg>';
-    $items[] = array(
-      'data' => l($create_story_icon . '<span>' . t('Create story') . '</span>', 'node/add/discussion', array(
-        'attributes' => array('class' => array($a_class, 'create-story-link')),
-        'html' => TRUE,
-        'query' => array('ref_nid' => arg(1)),
-      )),
-      'class' => array($li_class, 'create-story'),
-    );
+  // Create report link
+  $create_report_icon = '<svg class="create-report-icon" preserveAspectRatio="xMinYMin meet" viewBox="29 0 26 34"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#create-report-icon"></use></svg>';
+  $create_link = 'node/add/media';
+  $create_classes = array($a_class, 'create-report-link');
+  if (!user_access('create media content')) {
+    $create_query['destination'] = $create_link;
+    $create_link = $create_ano_link;
+    $create_classes = array_merge($create_classes, $create_ano_class);
   }
+  $items[] = array(
+    'data' => l($create_report_icon . '<span>' . t('Create report') . '</span>', $create_link, array(
+      'attributes' => array('class' => $create_classes),
+      'html' => TRUE,
+      'query' => $create_query,
+    )),
+    'class' => array($li_class, 'create-report'),
+  );
+
+  // Create story
+  $create_story_icon = '<svg class="create-story-icon" preserveAspectRatio="xMinYMin meet" viewBox="57 0 32 28"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#create-story-icon"></use></svg>';
+  $create_link = 'node/add/discussion';
+  $create_classes = array($a_class, 'create-story-link');
+  if (!user_access('create discussion content')) {
+    $create_query['destination'] = $create_link;
+    $create_link = $create_ano_link;
+    $create_classes = array_merge($create_classes, $create_ano_class);
+  }
+  $items[] = array(
+    'data' => l($create_story_icon . '<span>' . t('Create story') . '</span>', $create_link, array(
+      'attributes' => array('class' => $create_classes),
+      'html' => TRUE,
+      'query' => $create_query,
+    )),
+    'class' => array($li_class, 'create-story'),
+  );
+
   $search_icon = '<svg class="search-icon" preserveAspectRatio="xMinYMin meet" viewBox="91 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#search-icon"></use></svg>';
   $items[] = array(
     'data' => l($search_icon . '<span>' . t('Search') . '</span>', 'search', array(
