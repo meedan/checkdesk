@@ -1304,6 +1304,27 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'metatag_enable_node';
+  $strongarm->value = 1;
+  $export['metatag_enable_node'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'metatag_enable_node__discussion';
+  $strongarm->value = 1;
+  $export['metatag_enable_node__discussion'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'metatag_enable_node__media';
+  $strongarm->value = 1;
+  $export['metatag_enable_node__media'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'modal_forms_login';
   $strongarm->value = 1;
   $export['modal_forms_login'] = $strongarm;
