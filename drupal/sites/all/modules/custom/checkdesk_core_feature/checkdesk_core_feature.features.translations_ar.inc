@@ -12684,6 +12684,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Settings', array(), array('context' => 'item:99759df7-5990-47f8-9a09-273b3cc268dd:title'));
+  $translations['ar:menu']['f37536d2c24b78179278873dbc4f4f9d'] = array(
+    'source' => 'Manage users',
+    'context' => 'item:485c5e2e-cc65-4904-91e1-1ec580b522d5:title',
+    'location' => 'menu:item:485c5e2e-cc65-4904-91e1-1ec580b522d5:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Manage users', array(), array('context' => 'item:485c5e2e-cc65-4904-91e1-1ec580b522d5:title'));
   $translations['ar:menu']['f62799e0b42171ab73ee0e833dabe923'] = array(
     'source' => 'Edit fact-checking statement',
     'context' => 'item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
