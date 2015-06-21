@@ -296,7 +296,7 @@ function checkdesk_report_load($nid) {
  * Access function to a certain content type.
  */
 function _checkdesk_access_content_type($type, $node) {
-  return $node->type === $type && user_access($node);
+  return $node->type === $type && node_access('view', $node);
 }
 
 /**
