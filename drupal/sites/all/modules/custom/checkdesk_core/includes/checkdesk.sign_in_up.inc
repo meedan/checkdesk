@@ -20,9 +20,16 @@ function checkdesk_sign_in_up_callback($js = NULL) {
     $redirect = (arg(0) === 'user' && (arg(1) === 'login' || arg(1) == '')) ? NULL : $_GET['destination'];
     $links['facebook'] = fboauth_action_display('connect', $redirect);
   }
+  $options = array();
+  $options['attributes'] = array('class' => array('email-signin'));
+  if (isset($_GET['destination'])) {
+    $options['query'] = array('destination' => $_GET['destination']);
+  }
+  $links['login'] = l(t('Sign in with your email'), 'user/login', $options);
 
-  $links['login'] = l(t('Sign in with your email'), 'user/login', array('attributes' => array('class' => array('email-signin'))));
-  $links['register'] = l(t('Create a new account'), 'user/register', array('attributes' => array('class' => array('email-signup'))));
+  $options['attributes']['class'] = array('email-signup');
+  $links['register'] = l(t('Create a new account'), 'user/register', $options);
+
   $output = theme('checkdesk_core_sign_in_up', array('links' => $links));
   // built sign in/ sign up modal content
   if (!$js) {
