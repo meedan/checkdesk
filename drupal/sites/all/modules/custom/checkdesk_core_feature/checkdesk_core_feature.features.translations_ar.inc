@@ -10264,14 +10264,14 @@ This was an auto-generated email from !site; please do not respond directly to t
   );
   $translatables[] = t('Whether or not the content is published.', array(), array('context' => ''));
   $translations['ar:default']['d67850bd126f070221dcfd5fa6317043'] = array(
-    'source' => 'Sign Up',
+    'source' => 'Sign up',
     'context' => '',
     'location' => '/ar/user/login',
     'translation' => 'سجّل',
     'plid' => 0,
     'plural' => 0,
   );
-  $translatables[] = t('Sign Up', array(), array('context' => ''));
+  $translatables[] = t('Sign up', array(), array('context' => ''));
   $translations['ar:default']['d7085e2b5b40144896a996a297e3847d'] = array(
     'source' => 'Sign in with Facebook',
     'context' => '',

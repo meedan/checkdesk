@@ -10,7 +10,7 @@ function checkdesk_sign_in_up_callback($js = NULL) {
   }
   $output = '';
   $links = array();
-  drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_sing_in_up.js');
+  drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_sign_in_up.js');
   if (twitter_api_keys()) {
     $links['twitter'] = twitter_signin_button();
   }

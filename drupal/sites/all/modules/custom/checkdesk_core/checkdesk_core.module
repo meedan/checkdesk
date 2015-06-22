@@ -1794,7 +1794,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
 
     if (!$user->uid) {
       $form['account']['mail']['#title'] = t('Email address');
-      $form['actions']['submit']['#value'] = t('Sign Up');
+      $form['actions']['submit']['#value'] = t('Sign up');
       // add extra modal classes
       $form['#prefix'] = '<div class="user-register-wrapper modal-dialog-signin modal-dialog-signin-register">';
       $form['#suffix'] = '</div>';
@@ -2704,10 +2704,6 @@ function checkdesk_core_clientside_validation_form_alter(&$form, &$form_state, &
 
     // E-mail must be valid
     _clientside_validation_set_email($form['account']['mail']['#name'], $form['account']['mail']['#title'], $js_rules, t('invalid'));
-
-    // Captcha
-    //_clientside_validation_set_captcha('recaptcha_response_field', t('Captcha'), $form['captcha']['#captcha_validate'], $js_rules, t('wrong'));
-    //_clientside_validation_set_required('recaptcha_response_field', t('Captcha'), TRUE, $js_rules, t('required'));
 
     // Customize error messages to shorter strings
     foreach (array('name', 'mail', 'pass[pass1]', 'pass[pass2]') as $field) {
