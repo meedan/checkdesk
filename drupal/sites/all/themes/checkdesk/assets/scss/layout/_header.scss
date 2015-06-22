@@ -42,6 +42,10 @@ ul#breadcrumb h1 {
   @include cd-sans-serif-family;
   font-weight: 700;
   margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-#{$omega}: 200px;
 }
 
 ul#user-menu {
@@ -64,15 +68,14 @@ ul#user-menu {
   
 	a { 
 		@include ctb-linkColor($firefly30); 
-		padding: 0 10px;
+		padding: 0 20px;
     @include transition(border 0.2s ease);
     @include transition(color 0.2s ease);
 	}
 
 	li {
 		position: relative;
-		padding: 0 10px;
-		&.first {
+		#my-notifications-menu-link {
 			border-#{$alpha}: 1px solid $firefly10;
 		}
 	}

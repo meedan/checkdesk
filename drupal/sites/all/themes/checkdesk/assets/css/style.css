@@ -7002,6 +7002,10 @@ ul#breadcrumb h1 {
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
   margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 200px;
 }
 
 ul#user-menu {
@@ -7039,7 +7043,7 @@ body.nofront ul#user-menu {
 }
 ul#user-menu a {
   color: #b7bcc0;
-  padding: 0 10px;
+  padding: 0 20px;
   -webkit-transition: border 0.2s ease;
   -moz-transition: border 0.2s ease;
   -o-transition: border 0.2s ease;
@@ -7054,9 +7058,8 @@ ul#user-menu a:hover {
 }
 ul#user-menu li {
   position: relative;
-  padding: 0 10px;
 }
-ul#user-menu li.first {
+ul#user-menu li #my-notifications-menu-link {
   border-left: 1px solid #e7e8ea;
 }
 ul#user-menu .icon-bell-o:before {

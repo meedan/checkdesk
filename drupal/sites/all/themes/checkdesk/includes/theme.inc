@@ -101,11 +101,7 @@ function checkdesk_checkdesk_links($variables) {
           $link['title'] .= '<span class="caret"></span>';
           $output .=  '<a' . drupal_attributes($link['attributes']) . ' href="#">'. $link['title'] .'</a>';
         } else {
-          // add home icon for homepage menu item link
-          if($link['href'] == '<front>') {
-            $output .= '<a href="' . url('<front>') . '"><span class="icon-home"></span></a>';
-          } 
-          elseif($link['href'] == 'search') {
+          if($link['href'] == 'search') {
             $output .= '<a href="' . url('search') . '"><span class="icon-search"></span></a>';
           }
           // add notifications panel as drop down
