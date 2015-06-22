@@ -262,36 +262,6 @@
   Drupal.behaviors.clientSideValidations = {
     attach: function (context) {
       $(document).bind('clientsideValidationAddCustomRules', function(event) {
-        /*
-        // Overwrite default captcha validator to support reCAPTCHA
-        jQuery.validator.addMethod('captcha', function (value, element, param) {
-          var result = false;
-          var sid = $(element).closest('.captcha').find('input[name=captcha_sid]').val();
-          var challenge = $(element).parent().find('#recaptcha_challenge_field').val();
-          jQuery.ajax({
-            'url': Drupal.settings.basePath + 'clientside_validation/captcha',
-            'type': 'POST',
-            'data': {
-              'recaptcha_challenge_field' : challenge,
-              'recaptcha_response_field' : value,
-              'value': 'reCAPTCHA',
-              'param': [sid, param]
-            },
-            'dataType': 'json',
-            'async': false,
-            'success': function(res) {
-              result = res;
-            }
-          });
-          if (result.result == false) {
-            $(element).closest('#recaptcha_area').find('#recaptcha_reload').click();
-            jQuery.extend(jQuery.validator.messages, {
-              'captcha': Drupal.t('wrong')
-            });
-          }
-          return result.result;
-        }, jQuery.format(Drupal.t('wrong')));
-        */
         // Check if username or e-mail is taken
         jQuery.validator.addMethod('unique', function (value, element, param) {
           var result = false;
