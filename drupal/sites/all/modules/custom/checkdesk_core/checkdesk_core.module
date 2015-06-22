@@ -1794,7 +1794,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
 
     if (!$user->uid) {
       $form['account']['mail']['#title'] = t('Email address');
-      $form['actions']['submit']['#value'] = t('Sign Up');
+      $form['actions']['submit']['#value'] = t('Sign up');
       // add extra modal classes
       $form['#prefix'] = '<div class="user-register-wrapper modal-dialog-signin modal-dialog-signin-register">';
       $form['#suffix'] = '</div>';

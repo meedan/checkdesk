@@ -1,6 +1,6 @@
 jQuery(function() {
 
-    Drupal.behaviors.checkdesk_sing_in_up = {
+    Drupal.behaviors.checkdesk_sign_in_up = {
         attach: function (context, settings) {
             jQuery('a.twitter-action-signin, a.facebook-action-connect').click(function() {
                 var throbber = Drupal.settings["modal-popup-medium"].throbber;
