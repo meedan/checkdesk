@@ -326,11 +326,14 @@ function checkdesk_preprocess_page(&$variables) {
       unset($tree[$id]);
     }
 
-    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language)
+    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) {
       unset($tree[$id]);
+    }
+
     foreach ($item['below'] as $subid => $subitem) {
-      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language)
+      if ( $subitem['link']['hidden'] || ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language)) {
         unset($tree[$id]['below'][$subid]);
+      }
     }
   }
 
