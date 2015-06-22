@@ -94,7 +94,7 @@ function theme_facebook_comments($variables) {
  * Implements hook_node_view().
  */
 function meedan_facebook_node_view($node, $view_mode, $langcode) {
-  if (!variable_get('meedan_facebook_comments_disable', FALSE) && in_array($node->type, array_filter(variable_get('meedan_facebook_comments_types', array())))) {
+  if (!variable_get('meedan_facebook_comments_disable', FALSE) && in_array($node->type, array_filter(variable_get('meedan_facebook_comments_types', array()))) && !empty($node->status)) {
     $node->content['custom_comments'] = array(
       '#theme' => 'facebook_comments',
       '#node' => $node,
