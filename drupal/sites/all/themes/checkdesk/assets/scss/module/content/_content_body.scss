@@ -6,6 +6,11 @@
 .story .story-body,
 .update .update-body,
  body.cke_editable {  
+
+  // inform browser that this will load on scroll
+  .node-media .media {
+    will-change: transform;
+  }
   
   p {
     margin: 0 0 26px 0;
@@ -145,8 +150,6 @@
 .update .update-body .node-media {
   @include ctb-clearfix;
   margin: 0 0 $absolute-line-height/4 0;
-  // inform browser that this will load on scroll
-  will-change: transform;
 }
 
 .update .update-body .report {

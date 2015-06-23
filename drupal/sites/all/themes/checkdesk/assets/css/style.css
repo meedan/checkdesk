@@ -9415,6 +9415,11 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
   clear: both;
 }
 
+.story .story-body .node-media .media,
+.update .update-body .node-media .media,
+body.cke_editable .node-media .media {
+  will-change: transform;
+}
 .story .story-body p,
 .update .update-body p,
 body.cke_editable p {
@@ -9566,7 +9571,6 @@ body.cke_editable blockquote:after {
 .update .update-body .node-media {
   *zoom: 1;
   margin: 0 0 6px 0;
-  will-change: transform;
 }
 .update .update-body .node-media:before, .update .update-body .node-media:after {
   display: table;
@@ -10329,6 +10333,9 @@ body.cke_editable blockquote:after {
   -ms-border-radius: 0px;
   -o-border-radius: 0px;
   border-radius: 0px;
+}
+.activity-item .media {
+  will-change: transform;
 }
 .activity-item .media-status .status-name {
   font-weight: 700;

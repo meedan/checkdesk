@@ -131,6 +131,10 @@ $position:  "before";
 		@include border-radius(0px);
 	}
 
+	.media {
+		will-change: transform;
+	}
+
 	.media-status {
 		// add styles for media status
 		@include media-status-styles;
