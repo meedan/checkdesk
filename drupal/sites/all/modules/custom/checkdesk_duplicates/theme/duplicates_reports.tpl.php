@@ -11,18 +11,19 @@
  */
 ?>
 
-<div class="cd-duplicates-reports">
+<div class="activity cd-duplicates-reports">
 <?php foreach ($reports as $nid => $data) : ?>
-  <!--
-   Added  "report-existing" class if the report exists in same story
-   @ark I think we should highlighted this one as user will not be allowed to add the current report
-   based on requirement [If at least one duplicate report exists in same story: prevent submission by disabling submit button]
-   -->
-  <div class="duplicates-reports-row <?php print ($nid == $duplicate_report_nid) ? 'cd-report-existing' : '' ?>">
-    <?php print $data; ?>
-    <span class="cd-report-link ">
-      <?php print l(t('View the link'), 'node/' . $nid, array('attributes' => array('target'=>'_blank'))); ?>
-    </span>
+  <div class="activity-item item duplicates-reports-row <?php print ($nid == $duplicate_report_nid) ? 'cd-report-existing' : '' ?>">
+    <div class="activity-item-wrapper item-wrapper">
+      <div class="activity-item-message item-message">
+        <?php print $data; ?>
+      </div>
+      <div class="activity-item-content-wrapper item-content-wrapper cd-report-link">
+        <span class="activity-item-content item-content">
+          <?php print l(t('View the link'), 'node/' . $nid, array('attributes' => array('target'=>'_blank'))); ?>
+        </span>
+      </div>
+    </div>
   </div>
 <?php endforeach;?>
 </div>
