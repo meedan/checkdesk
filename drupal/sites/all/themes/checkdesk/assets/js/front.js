@@ -12,17 +12,22 @@
           widgetsLimit = (widgets.offset().top + widgets.height()) - (headerHeight + buffer),
           headerLimit = headerHeight + buffer,
           st = $(window).scrollTop();
+
         // fade out the large logo in widgets
-        if(st <= 200) {
-          $('#widgets').css({ 'opacity' : (1 - st/200), 'visibility': 'inherit' });
+        if(st <= widgetsLimit) {
+          $('#widgets').css({ 'opacity' : (1 - st/headerLimit), 'visibility': 'inherit' });
         }
         // fade in small logo in header
-        if (st <= 300) {
-          $('header .header_logo').css({ 'opacity' : (0 + st/300), 'visibility': 'inherit' });
+        if (st <= headerLimit) {
+          $('header .header_logo').css({ 'opacity' : (0 + st/headerLimit), 'visibility': 'inherit' });
         }
         // if scroll is past widgets set opacity to 1
         if (st > widgetsLimit) {
           $('header .header_logo').css({ 'opacity' : 1, 'visibility': 'inherit' }); 
+        }
+        // if at top hide the small logo
+        if (st == 0) {
+          $('header .header_logo').css({ 'opacity' : 0, 'visibility': 'hidden' }); 
         }
       });
     }
