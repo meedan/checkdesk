@@ -1,17 +1,17 @@
 // Updates
 //
-
 .updates {
   .update-row {
     @include flexbox;
-    @include justify-content(flex-start);
     .update-body {
-      @include flex(5);
-      max-width: 520px;
+      @include flex(4);
+      max-width: 620px;
     }
     .update-footer {
       @include flex(1);
       @include order(-1);
+      @include flex(2 1 150px);
+      max-width: 150px;
     }
   }
 }
@@ -39,21 +39,6 @@
 .update {
 	@include ctb-clearfix;
 } // update
-
-.update .update-body {
-  padding-top: $absolute-line-height/1.6; // to align with update number
-  // color: $firefly80;
-  // word-wrap: break-word;
-} // body
-
-.update .update-body .node-media {
-  @include ctb-clearfix;
-  margin: 0 0 $absolute-line-height/4 0;
-}
-
-.update .update-body .report {
-  margin-top: 0;
-}
 
 .update .update-footer {
   margin-#{$omega}: $gutter-width*2;

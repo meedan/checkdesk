@@ -6181,20 +6181,15 @@ div.sensitive-hide {
   display: -moz-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  -webkit-justify-content: flex-start;
-  -moz-justify-content: flex-start;
-  justify-content: flex-start;
 }
 .updates .update-row .update-body {
-  -webkit-box-flex: 5;
-  -webkit-flex: 5;
-  -moz-box-flex: 5;
-  -moz-flex: 5;
-  -ms-flex: 5;
-  flex: 5;
-  max-width: 520px;
+  -webkit-box-flex: 4;
+  -webkit-flex: 4;
+  -moz-box-flex: 4;
+  -moz-flex: 4;
+  -ms-flex: 4;
+  flex: 4;
+  max-width: 620px;
 }
 .updates .update-row .update-footer {
   -webkit-box-flex: 1;
@@ -6208,6 +6203,13 @@ div.sensitive-hide {
   -moz-order: -1;
   -ms-flex-order: -1;
   order: -1;
+  -webkit-box-flex: 2;
+  -webkit-flex: 2 1 150px;
+  -moz-box-flex: 2;
+  -moz-flex: 2 1 150px;
+  -ms-flex: 2 1 150px;
+  flex: 2 1 150px;
+  max-width: 150px;
 }
 
 .update .anchor {
@@ -6234,27 +6236,6 @@ div.sensitive-hide {
 }
 .update:after {
   clear: both;
-}
-
-.update .update-body {
-  padding-top: 15px;
-}
-
-.update .update-body .node-media {
-  *zoom: 1;
-  margin: 0 0 6px 0;
-}
-.update .update-body .node-media:before, .update .update-body .node-media:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.update .update-body .node-media:after {
-  clear: both;
-}
-
-.update .update-body .report {
-  margin-top: 0;
 }
 
 .update .update-footer {
@@ -9456,7 +9437,7 @@ body.cke_editable > ol ol {
 .update .update-body > ol li,
 body.cke_editable > ul li,
 body.cke_editable > ol li {
-  margin: 0 0 20px 0;
+  margin: 0 0 6px 0;
   position: relative;
   list-style: none;
 }
@@ -9557,6 +9538,27 @@ body.cke_editable blockquote:after {
   z-index: 2;
   transform: rotate(180deg);
   background-position: bottom center;
+}
+
+.update .update-body .update-title {
+  padding-top: 20px;
+}
+
+.update .update-body .node-media {
+  *zoom: 1;
+  margin: 0 0 6px 0;
+}
+.update .update-body .node-media:before, .update .update-body .node-media:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.update .update-body .node-media:after {
+  clear: both;
+}
+
+.update .update-body .report {
+  margin-top: 0;
 }
 
 .contained {

@@ -37,7 +37,7 @@
       padding-#{$alpha}: $gutter-width*2;
     }
     li {
-      margin: 0 0 20px 0;
+      margin: 0 0 6px 0;
       position: relative;
       list-style: none;
       &:before {
@@ -136,5 +136,17 @@
       }
     }
   }
+}
 
+// update body
+.update .update-body .update-title { 
+  padding-top: 20px; // to align with update number
+}
+.update .update-body .node-media {
+  @include ctb-clearfix;
+  margin: 0 0 $absolute-line-height/4 0;
+}
+
+.update .update-body .report {
+  margin-top: 0;
 }

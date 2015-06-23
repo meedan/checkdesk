@@ -59,7 +59,7 @@
     <aside class="story-footer">
       <section class="cd-container cd-container--first">
         <div clas="cd-container__inner">
-          <div class="story-updated-at pull-<?php print $layout['alpha']; ?>">
+          <div class="story-updated-at">
             <span class="icon-clock-o"></span><span class="story-updated-at-text"><?php print t('Updated at ') . $updated_at; ?></span>
           </div>
         </div>
