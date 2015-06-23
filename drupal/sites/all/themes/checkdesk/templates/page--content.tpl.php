@@ -40,7 +40,7 @@
           </div>
           <?php print render($page['help']); ?>
 
-          <?php if ($tabs): ?>
+          <?php if ($tabs && $logged_in): ?>
             <div class="tabs"><?php print render($tabs); ?></div>
           <?php endif; ?>
 
