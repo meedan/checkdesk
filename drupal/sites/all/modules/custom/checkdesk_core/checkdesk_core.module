@@ -2104,16 +2104,15 @@ function checkdesk_core_wysiwyg_plugin($editor, $version) {
             ),
             'load' => TRUE,
           ),
-          //
-          'mediaoembed' => array(
-            'path' => drupal_get_path('module', 'checkdesk_core') . '/ckeditor/plugins/mediaoembed',
+          'reportembed' => array(
+            'path' => drupal_get_path('module', 'checkdesk_core') . '/ckeditor/plugins/reportembed',
             'filename' => 'plugin.js',
             'extensions' => array(
-              'mediaoembed' => t('Media Oembed'),
+              'reportembed' => t('Report Embed'),
             ),
             'load' => TRUE,
             'buttons' => array(
-              'mediaoembed' => t('Media Oembed'),
+              'reportembed' => t('Report Embed'),
             ),
           ),
           // mediaembed plugin from https://github.com/frozeman/MediaEmbed
