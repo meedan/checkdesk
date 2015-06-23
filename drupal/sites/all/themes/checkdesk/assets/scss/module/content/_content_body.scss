@@ -25,6 +25,7 @@
       line-height: 30px;
     }
   }
+
   // lists
   & > ul, & > ol {
     counter-reset: li;
@@ -150,6 +151,12 @@
 .update .update-body .node-media {
   @include ctb-clearfix;
   margin: 0 0 $absolute-line-height/4 0;
+}
+
+// add margin when there is no
+// update title
+.update .update-body > p:first-child {
+  margin-top: 22px;
 }
 
 .update .update-body .report {
