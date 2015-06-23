@@ -163,7 +163,6 @@ function checkdesk_preprocess_html(&$variables) {
 function checkdesk_preprocess_region(&$variables) {
   global $language;
 
-
   if ($variables['region'] == 'header') {
     // header logo
     $variables['header_logo'] = '';
@@ -174,7 +173,21 @@ function checkdesk_preprocess_region(&$variables) {
           'style_name' => 'header_logo',
           'path' => $image,
       );
-      $variables['header_logo'] = l(theme('image_style', $header_logo_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('header_logo'))));
+        
+      // add hidden class to logo with default class
+      if($variables['is_front']) {
+        $logo_classes = array('header_logo', 'hidden-on-frontpage');
+      } else {
+        $logo_classes = array('header_logo');
+      }
+
+      $variables['header_logo'] = l(theme('image_style', $header_logo_data), '<front>', array(
+          'html' => TRUE, 
+          'attributes' => array(
+            'class' => $logo_classes,
+          )
+        )
+      );
     }
   }
 
@@ -187,6 +200,9 @@ function checkdesk_preprocess_region(&$variables) {
       $frontpage_logo_data = array(
           'style_name' => 'partner_logo',
           'path' => $image,
+          'attributes' => array(
+            'class' => 'partner-logo',
+          )
       );
       $variables['frontpage_logo'] = theme('image_style', $frontpage_logo_data);
     }
@@ -260,13 +276,17 @@ function checkdesk_preprocess_page(&$variables) {
     }
   } 
 
-  // dsm($variables['language']->language);
   // Unescape HTML in title
   $variables['title'] = htmlspecialchars_decode(drupal_get_title());
 
   // Add a path to the theme so checkdesk_inject_bootstrap.js can load libraries
   $variables['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
   drupal_add_js(array('basePathCheckdeskTheme' => $variables['basePathCheckdeskTheme']), 'setting');
+
+  // Add JS file for front page only
+  if ($variables['is_front']) {
+    drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/front.js', array('scope' => 'footer', 'weight' => 99));
+  }
 
   // Primary nav
   $variables['primary_nav'] = FALSE;
@@ -890,6 +910,11 @@ function checkdesk_header_logo_visibility() {
         return TRUE;
       }
     }
+  }
+
+  // Always display on front page
+  if (drupal_is_front_page()) {
+    return TRUE;
   }
 
   return FALSE;

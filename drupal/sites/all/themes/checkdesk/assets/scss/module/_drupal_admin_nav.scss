@@ -3,6 +3,7 @@
 //
 div.region-page-top {
   #toolbar {
+    will-change: transform;
     #{$alpha}: $navbarWidth;
     position: fixed;
     z-index: $zindexFixedNavbar;

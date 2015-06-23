@@ -6913,7 +6913,14 @@ header#header {
   height: 100%;
 }
 
+.hidden-on-frontpage {
+  visibility: hidden;
+  opacity: 0;
+  will-change: opacity;
+}
+
 ul#breadcrumb, ul#user-menu, ul#utility-menu {
+  will-change: transform;
   position: fixed;
   top: 0;
   left: 0;
@@ -7110,6 +7117,7 @@ ul#utility-menu a.language-link {
 }
 
 header#header nav {
+  will-change: transform;
   background-color: #3e4c57;
   width: 60px;
   position: fixed;
@@ -7168,6 +7176,7 @@ header#header nav a:hover svg {
   fill: rgba(255, 255, 255, 0.9);
 }
 header#header nav a:hover span {
+  will-change: transform, opacity;
   visibility: visible;
   opacity: 1;
   right: 70px;
@@ -7317,6 +7326,7 @@ header#header nav a.active:not(.homepage-link) svg {
 }
 
 div.region-page-top #toolbar {
+  will-change: transform;
   right: 60px;
   position: fixed;
   z-index: 930;
@@ -9547,6 +9557,7 @@ body.cke_editable blockquote:after {
 .update .update-body .node-media {
   *zoom: 1;
   margin: 0 0 6px 0;
+  will-change: transform;
 }
 .update .update-body .node-media:before, .update .update-body .node-media:after {
   display: table;
@@ -10394,6 +10405,7 @@ body.cke_editable blockquote:after {
 
 #widgets {
   background: #fff;
+  will-change: transform, opacity;
 }
 #widgets #widgets-inner {
   padding-bottom: 10px;

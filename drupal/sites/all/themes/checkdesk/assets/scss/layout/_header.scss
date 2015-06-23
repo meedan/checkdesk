@@ -3,8 +3,16 @@ header#header {
   height: 100%;
 }
 
+// utility classes for animating header
+.hidden-on-frontpage {
+  visibility: hidden;
+  opacity: 0;
+  will-change: opacity;
+}
+
 // adjust header items for drupal toolbar
 ul#breadcrumb, ul#user-menu, ul#utility-menu {
+  will-change: transform;
   body.toolbar & {
     top: $toolbarMenuHeight !important;
   }

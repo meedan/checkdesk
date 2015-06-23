@@ -145,6 +145,8 @@
 .update .update-body .node-media {
   @include ctb-clearfix;
   margin: 0 0 $absolute-line-height/4 0;
+  // inform browser that this will load on scroll
+  will-change: transform;
 }
 
 .update .update-body .report {

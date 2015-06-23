@@ -5,6 +5,7 @@
 //
 
 header#header nav {
+  will-change: transform;
   background-color: $firefly80;
   width: 60px;
   position: fixed;
@@ -60,6 +61,7 @@ header#header nav {
       fill: rgba(255,255,255,.9);
     } 
     span {
+      will-change: transform, opacity;
       visibility: visible;
       opacity: 1;
       #{$alpha}: $navbarWidth + 10px;
