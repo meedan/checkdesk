@@ -7,3 +7,7 @@
 	<?php print $navigation; ?>
 </nav>
 <?php endif; ?>
+
+<ul id="utility-menu">
+	<li><?php print $content; ?></li>
+</ul>

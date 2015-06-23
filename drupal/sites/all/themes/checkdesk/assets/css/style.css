@@ -6953,17 +6953,14 @@ header#header {
   height: 100%;
 }
 
-body.toolbar ul#breadcrumb, body.toolbar ul#user-menu {
-  top: 30px !important;
-}
-body.toolbar-drawer ul#breadcrumb, body.toolbar-drawer ul#user-menu {
-  top: 65px !important;
-}
-
-ul#breadcrumb {
+ul#breadcrumb, ul#user-menu, ul#utility-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 65px;
   margin: 0;
   padding: 0;
-  position: fixed;
+  padding: 0 50px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-flex;
@@ -6977,16 +6974,27 @@ ul#breadcrumb {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  height: 65px;
-  top: 0;
+}
+body.toolbar ul#breadcrumb, body.toolbar ul#user-menu, body.toolbar ul#utility-menu {
+  top: 30px !important;
+}
+body.toolbar-drawer ul#breadcrumb, body.toolbar-drawer ul#user-menu, body.toolbar-drawer ul#utility-menu {
+  top: 65px !important;
+}
+ul#breadcrumb li, ul#user-menu li, ul#utility-menu li {
+  list-style: none;
+}
+ul#breadcrumb a, ul#user-menu a, ul#utility-menu a {
+  color: #b7bcc0;
+}
+ul#breadcrumb a:hover, ul#user-menu a:hover, ul#utility-menu a:hover {
+  color: #50565b;
+}
+
+ul#breadcrumb {
   left: 60px;
-  right: 0;
-  padding: 0 50px;
   z-index: 921;
   pointer-events: none;
-}
-ul#breadcrumb li {
-  list-style: none;
 }
 ul#breadcrumb li {
   pointer-events: auto;
@@ -7007,31 +7015,13 @@ ul#breadcrumb h1 {
 }
 
 ul#user-menu {
-  position: fixed;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-direction: reverse;
   -webkit-box-orient: horizontal;
   -webkit-flex-direction: row-reverse;
   -moz-flex-direction: row-reverse;
   -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  -moz-align-items: center;
-  align-items: center;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  top: 0;
   left: 0;
-  right: 0;
-  padding: 0 50px;
-  height: 65px;
   margin-left: 60px;
   z-index: 920;
   background: #fff;
@@ -7040,7 +7030,6 @@ body.nofront ul#user-menu {
   border-bottom: 1px solid rgba(16, 33, 47, 0.05);
 }
 ul#user-menu a {
-  color: #b7bcc0;
   padding: 0 20px;
   -webkit-transition: border 0.2s ease;
   -moz-transition: border 0.2s ease;
@@ -7050,9 +7039,6 @@ ul#user-menu a {
   -moz-transition: color 0.2s ease;
   -o-transition: color 0.2s ease;
   transition: color 0.2s ease;
-}
-ul#user-menu a:hover {
-  color: #50565b;
 }
 ul#user-menu li {
   position: relative;
@@ -7077,6 +7063,7 @@ ul#user-menu .icon-bell-o:before {
 ul#user-menu .icon-bell-o:before {
   margin: 0;
 }
+
 ul#user-menu .badge {
   position: absolute;
   display: block;
@@ -7094,6 +7081,7 @@ ul#user-menu .badge {
   color: white;
   background: rgba(46, 119, 252, 0.9);
 }
+
 ul#user-menu .avatar {
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -7116,6 +7104,7 @@ ul#user-menu .avatar {
   border-radius: 50%;
   border: 3px solid #cfd3d5;
 }
+
 ul#user-menu .sign-in-up {
   padding: 0 15px;
   font-size: 16px;
@@ -7131,6 +7120,15 @@ ul#user-menu .sign-in-up {
 ul#user-menu .sign-in-up:hover {
   color: #2e77fc;
   border-color: #2e77fc;
+}
+
+ul#utility-menu {
+  right: 200px;
+  padding: 0 20px;
+  z-index: 921;
+}
+ul#utility-menu a.language-link {
+  padding: 10px;
 }
 
 #my-account ul {

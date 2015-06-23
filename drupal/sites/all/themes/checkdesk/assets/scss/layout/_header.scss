@@ -4,26 +4,27 @@ header#header {
 }
 
 // adjust header items for drupal toolbar
-ul#breadcrumb, ul#user-menu {
+ul#breadcrumb, ul#user-menu, ul#utility-menu {
   body.toolbar & {
     top: $toolbarMenuHeight !important;
   }
   body.toolbar-drawer & {
     top: $toolbarHeight !important;
   }
-}
-
-ul#breadcrumb {
-  @include reset-list-style;
   position: fixed;
+  top: 0;
+  #{$omega}: 0;
+  height: $headerHeight;
+  @include reset-list-style;
+  padding: 0 50px;
   @include flexbox;
   @include align-items(center);
   @include box-sizing(border-box);
-  height: $headerHeight;
-  top: 0;
+  a { @include ctb-linkColor($firefly30); }
+}
+
+ul#breadcrumb {
   #{$alpha}: $navbarWidth;
-  #{$omega}: 0;
-  padding: 0 50px;
   z-index: $z-index-FixedHeader + 1;
   pointer-events: none;
 
@@ -49,16 +50,8 @@ ul#breadcrumb h1 {
 }
 
 ul#user-menu {
-	position: fixed;
-	@include flexbox;
 	@include flex-direction(row-reverse);
-	@include align-items(center);
-	@include box-sizing(border-box);
-	top: 0;
 	#{$alpha}: 0;
-	#{$omega}: 0;
-	padding: 0 50px;
-	height: $headerHeight;
 	margin-#{$alpha}: $navbarWidth;
 	z-index: $z-index-FixedHeader;
   background: #fff;
@@ -67,7 +60,6 @@ ul#user-menu {
   }
   
 	a { 
-		@include ctb-linkColor($firefly30); 
 		padding: 0 20px;
     @include transition(border 0.2s ease);
     @include transition(color 0.2s ease);
@@ -87,43 +79,49 @@ ul#user-menu {
       margin: 0;
     }
   }
+}
 
-  .badge {
-    position: absolute;
-    display: block;
-    top: 4px;
-    #{$alpha}: 35px;
-    padding: 4px;
-    line-height: 10px;
-    font-size: 12px;
-    font-weight: bold;
-    @include border-radius(2px);
-    color: $notification-count-color;
-    background: $notification-count-bkg-color;
+ul#user-menu .badge {
+  position: absolute;
+  display: block;
+  top: 4px;
+  #{$alpha}: 35px;
+  padding: 4px;
+  line-height: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  @include border-radius(2px);
+  color: $notification-count-color;
+  background: $notification-count-bkg-color;
+}
+
+// apply default avatar styles
+ul#user-menu .avatar {
+  @include cd-avatar('inline');
+  @include border-radius(50%);
+  border: 3px solid $firefly20;
+}
+
+ul#user-menu .sign-in-up {
+  padding: 0 15px;
+  font-size: 16px;
+  color: $dodgerBlue80;
+  border: 1px solid $dodgerBlue80;
+  @include border-radius(4px);
+  line-height: 36px;
+  &:hover {
+    color: $dodgerBlue;
+    border-color: $dodgerBlue;
   }
+}
 
-  // apply default avatar styles
-  .avatar {
-  	@include cd-avatar('inline');
-    @include border-radius(50%);
-    border: 3px solid $firefly20;
+ul#utility-menu {
+  #{$omega}: 200px;
+  padding: 0 20px;
+  z-index: $z-index-FixedHeader + 1;
+  a.language-link {
+    padding: 10px;
   }
-
-  .sign-in-up {
-    padding: 0 15px;
-    font-size: 16px;
-    color: $dodgerBlue80;
-    border: 1px solid $dodgerBlue80;
-    @include border-radius(4px);
-    line-height: 36px;
-    &:hover {
-      color: $dodgerBlue;
-      border-color: $dodgerBlue;
-    }
-  }
-
-
-
 }
 
 #my-account {
