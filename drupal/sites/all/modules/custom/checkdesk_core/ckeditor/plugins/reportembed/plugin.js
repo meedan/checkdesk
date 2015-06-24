@@ -55,7 +55,16 @@ CKEDITOR.plugins.add('reportembed', {
                 jQuery(this).replaceWith(script);
               }
               else {
-                jQuery.globalEval(this.text || this.textContent || this.innerHTML || '');
+                var globalEval = function(code, context) {
+                  context = context || document;
+                  var script = context.createElement("script");
+                  
+                  script.text = code;
+                  context.head.appendChild(script).parentNode.removeChild(script);
+                }
+                var ck = CKEDITOR.instances['edit-body-und-0-value'],
+                    txt = this.text || this.textContent || this.innerHTML || '';
+                globalEval(txt, ck.document.$);
               }
             });
           },
