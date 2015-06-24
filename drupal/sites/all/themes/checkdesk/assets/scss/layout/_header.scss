@@ -67,18 +67,18 @@ ul#user-menu {
     border-bottom: 1px solid rgba($firefly, 0.05);  
   }
   
-	a { 
-		padding: 0 20px;
-    @include transition(border 0.2s ease);
-    @include transition(color 0.2s ease);
-	}
-
 	li {
 		position: relative;
 		#my-notifications-menu-link {
 			border-#{$alpha}: 1px solid $firefly10;
 		}
 	}
+
+  li > a { 
+    padding: 0 20px;
+    @include transition(border 0.2s ease);
+    @include transition(color 0.2s ease);
+  }
 
 	// add bell icon for notifications.
   .icon-bell-o { 

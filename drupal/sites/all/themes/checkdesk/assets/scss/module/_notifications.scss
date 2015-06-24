@@ -25,26 +25,25 @@ $omega: opposite-position($from-direction);
     overflow: hidden;
 
     a {
-      // @include ctb-linkColor($gray);
+      @include ctb-linkColor($identity);
     }
 
     .activity-data {
-      @include ctb-clearfix();
+      @include flexbox;
+      @include align-items(center);
       .activity-data-image {
-        float: $from-direction;
         margin-#{$omega}: $gutter-width;
         vertical-align: text-bottom;
-        @include ctb-square(20px);
       }
 
       .activity-data-message {
-        float: $from-direction;
-        width: 80%;
+        
       }
     }
 
     .activity-meta {
       margin-top: $absolute-line-height/4;
+      padding-#{$alpha}: 40px;
       color: $firefly40;
     }
   }

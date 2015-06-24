@@ -4520,30 +4520,31 @@ div.tabs ul.primary li a {
 #my-notifications .heartbeat-activity:after {
   clear: both;
 }
+#my-notifications .heartbeat-activity a {
+  color: #2e77fc;
+}
+#my-notifications .heartbeat-activity a:hover {
+  color: #01225d;
+}
 #my-notifications .heartbeat-activity .activity-data {
-  *zoom: 1;
-}
-#my-notifications .heartbeat-activity .activity-data:before, #my-notifications .heartbeat-activity .activity-data:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-#my-notifications .heartbeat-activity .activity-data:after {
-  clear: both;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
 }
 #my-notifications .heartbeat-activity .activity-data .activity-data-image {
-  float: left;
   margin-right: 15px;
   vertical-align: text-bottom;
-  width: 20px;
-  height: 20px;
-}
-#my-notifications .heartbeat-activity .activity-data .activity-data-message {
-  float: left;
-  width: 80%;
 }
 #my-notifications .heartbeat-activity .activity-meta {
   margin-top: 6px;
+  padding-left: 40px;
   color: #9fa6ac;
 }
 #my-notifications ul.pager-load-more {
@@ -7001,7 +7002,13 @@ ul#user-menu {
 body.nofront ul#user-menu {
   border-bottom: 1px solid rgba(16, 33, 47, 0.05);
 }
-ul#user-menu a {
+ul#user-menu li {
+  position: relative;
+}
+ul#user-menu li #my-notifications-menu-link {
+  border-left: 1px solid #e7e8ea;
+}
+ul#user-menu li > a {
   padding: 0 20px;
   -webkit-transition: border 0.2s ease;
   -moz-transition: border 0.2s ease;
@@ -7011,12 +7018,6 @@ ul#user-menu a {
   -moz-transition: color 0.2s ease;
   -o-transition: color 0.2s ease;
   transition: color 0.2s ease;
-}
-ul#user-menu li {
-  position: relative;
-}
-ul#user-menu li #my-notifications-menu-link {
-  border-left: 1px solid #e7e8ea;
 }
 ul#user-menu .icon-bell-o:before {
   font-family: "FontAwesome";
