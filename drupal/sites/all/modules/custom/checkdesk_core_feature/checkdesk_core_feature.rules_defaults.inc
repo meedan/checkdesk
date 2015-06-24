@@ -498,7 +498,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "heartbeat_rules", "rules", "rules_scheduler" ],
+      "REQUIRES" : [ "heartbeat_rules", "rules", "rules_scheduler", "checkdesk_core" ],
       "ON" : { "node_insert--discussion" : { "bundle" : "discussion" } },
       "DO" : [
         { "heartbeat_activity_checkdesk_add_story" : {
@@ -516,7 +516,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "date" : "now",
             "param_story" : [ "node" ]
           }
-        }
+        },
+        { "checkdesk_core_actions_set_followers" : { "node" : [ "node" ] } }
       ]
     }
   }');
