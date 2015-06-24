@@ -65,7 +65,7 @@ function template_preprocess_meedan_full_mode(&$vars) {
         '@user' => url('user/'. $node->uid),
         '!user' => $node->name,
       ));
-  
+
   // check for photos
   if($embed->type == 'photo') {
     // set full image
@@ -218,23 +218,17 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
       ));
 
   if($embed->type == 'photo') {
-
-    dsm($embed);
-
     // Inline thumbnail
     if(isset($embed->thumbnail_url)) {
       $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
     }
   }
-
   // Load report status
   if(isset($node->field_rating)) {
     if($node->field_rating['und'][0]['tid'] == 2) {
       $vars['report_status'] = _checkdesk_report_status($node);
     }
   }
- 
-
 }
 
 /**
