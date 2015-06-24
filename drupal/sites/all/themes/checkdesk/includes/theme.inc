@@ -112,7 +112,7 @@ function checkdesk_checkdesk_links($variables) {
             $output .= '<div id="my-notifications" class="dropdown-menu">';
             checkdesk_notifications_load_js();
             $block = module_invoke('views', 'block_view', 'my_notifications-block');
-            @$block['content']['#markup'] .= '<p class="notifications-settings-link">' . l(t('Settings'), url('user/' . $user->uid . '/notifications', array('absolute' => TRUE))) . '</p>';
+            @$block['content']['#markup'] .= '<p class="notifications-settings-link">' . l(t('Settings'), url('user/' . $user->uid . '/edit/notifications', array('absolute' => TRUE))) . '</p>';
             $output .= render($block['content']);
             $output .= '</div>';
           }
