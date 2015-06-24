@@ -78,7 +78,7 @@ function checkdesk_checkdesk_dropdown_menu_item($variables) {
 function checkdesk_checkdesk_user_menu_item($variables) {
   global $user;
   $account = user_load($user->uid);
-  $title = _set_user_avatar_bg($account, array('avatar', 'thumb-40'), FALSE);
+  $title = _set_user_avatar_bg($account, array('avatar', 'avatar__menu', 'thumb-40'), FALSE);
   return theme('checkdesk_dropdown_menu_item', array('title' => $title));
 }
 
