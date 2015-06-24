@@ -101,11 +101,7 @@ function checkdesk_checkdesk_links($variables) {
           $link['title'] .= '<span class="caret"></span>';
           $output .=  '<a' . drupal_attributes($link['attributes']) . ' href="#">'. $link['title'] .'</a>';
         } else {
-          // add home icon for homepage menu item link
-          if($link['href'] == '<front>') {
-            $output .= '<a href="' . url('<front>') . '"><span class="icon-home"></span></a>';
-          } 
-          elseif($link['href'] == 'search') {
+          if($link['href'] == 'search') {
             $output .= '<a href="' . url('search') . '"><span class="icon-search"></span></a>';
           }
           // add notifications panel as drop down
@@ -116,11 +112,12 @@ function checkdesk_checkdesk_links($variables) {
             $output .= '<div id="my-notifications" class="dropdown-menu">';
             checkdesk_notifications_load_js();
             $block = module_invoke('views', 'block_view', 'my_notifications-block');
-            @$block['content']['#markup'] .= '<p class="notifications-settings-link">' . l(t('Settings'), url('user/' . $user->uid . '/notifications', array('absolute' => TRUE))) . '</p>';
+            @$block['content']['#markup'] .= '<p class="notifications-settings-link">' . l(t('Settings'), url('user/' . $user->uid . '/edit/notifications', array('absolute' => TRUE))) . '</p>';
             $output .= render($block['content']);
             $output .= '</div>';
           }
           elseif($link['href'] == 'checkdesk/nojs/sign_in_up') {
+            $link['attributes']['class'][] = 'sign-in-up';
             $link['attributes']['class'][] = 'ctools_checkdesk_sign_in_up';
             $link['attributes']['class'][] = 'ctools-use-modal';
             $link['attributes']['class'][] = 'ctools-modal-modal-popup-medium';
@@ -365,3 +362,78 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   return $output;
 }
 
+/**
+ * Returns HTML for a list or nested list of items with custom container id or class
+ * If a container class or id isn't specified it will not create a wrapping div
+ * See: https://api.drupal.org/api/drupal/includes%21theme.inc/function/theme_item_list/7
+ */
+
+function checkdesk_item_list($variables) {
+  $items = $variables ['items'];
+  $title = $variables ['title'];
+  $type = $variables ['type'];
+  $attributes = $variables ['attributes'];
+
+  // set custom container id or class
+  $container_class = isset($variables['container_class']) ? ' class="' . $variables['container_class'] . '"' : '';
+  $container_id = isset($variables['container_id']) ? ' id="' . $variables['container_id'] . '"' : '';
+
+  // Only output the list container and title, if there are any list items.
+  // Check to see whether the block title exists before adding a header.
+  // Empty headers are not semantic and present accessibility challenges.
+
+  // Add container id or class
+  if (!empty($container_class) || !empty($container_id)) {
+    $output = '<div' . $container_class . $container_id . '>';  
+  } else {
+    $output = '';
+  }
+  
+  if (isset($title) && $title !== '') {
+    $output .= '<h3>' . $title . '</h3>';
+  }
+
+  if (!empty($items)) {
+    $output .= "<$type" . drupal_attributes($attributes) . '>';
+    $num_items = count($items);
+    $i = 0;
+    foreach ($items as $item) {
+      $attributes = array();
+      $children = array();
+      $data = '';
+      $i++;
+      if (is_array($item)) {
+        foreach ($item as $key => $value) {
+          if ($key == 'data') {
+            $data = $value;
+          }
+          elseif ($key == 'children') {
+            $children = $value;
+          }
+          else {
+            $attributes [$key] = $value;
+          }
+        }
+      }
+      else {
+        $data = $item;
+      }
+      if (count($children) > 0) {
+        // Render nested list.
+        $data .= theme_item_list(array('items' => $children, 'title' => NULL, 'type' => $type, 'attributes' => $attributes));
+      }
+      if ($i == 1) {
+        $attributes ['class'][] = 'first';
+      }
+      if ($i == $num_items) {
+        $attributes ['class'][] = 'last';
+      }
+      $output .= '<li' . drupal_attributes($attributes) . '>' . $data . "</li>\n";
+    }
+    $output .= "</$type>";
+  }
+  if (!empty($container_class) || !empty($container_id)) {
+    $output .= '</div>';
+  }
+  return $output;
+}

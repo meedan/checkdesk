@@ -27,6 +27,12 @@
 <div class="desk" id="desk-<?php print $fields['nid']->raw; ?>" style="clear: both;">
   <article class="story">
 
+    <?php if(isset($fields['field_lead_image']->content)) { ?>
+      <figure>
+        <?php print render($fields['field_lead_image']->content); ?>
+      </figure>
+    <?php } ?>
+
     <h1><?php print l($fields['title']->raw, 'node/' . $fields['nid']->raw); ?></h1>
 
     <div class="story-meta">
@@ -39,24 +45,17 @@
             </a>
           </div>
         <?php } ?>
+        <?php if (isset($follow_story)) { ?>
+          <div class="story-follow">
+            <?php print $follow_story; ?>
+          </div>
+        <?php } ?>
       </div>
     </div>
-
-    <?php if(isset($fields['field_lead_image']->content)) { ?>
-      <figure>
-        <?php print render($fields['field_lead_image']->content); ?>
-      </figure>
-    <?php } ?>
 
     <div class="story-body">
       <?php print render($fields['body']->content); ?>
     </div>
-
-    <?php if (isset($follow_story)) : ?>
-      <div class="story-follow">
-        <?php print $follow_story; ?>
-      </div>
-    <?php endif; ?>
 
     <div class="story-updates-wrapper">
       <?php print $updates; ?>

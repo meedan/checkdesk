@@ -1,0 +1,164 @@
+.story .story-body {
+  @include ctb-clearfix;
+  margin: 30px 0 0;
+}
+
+.story .story-body,
+.update .update-body,
+ body.cke_editable {  
+
+  // inform browser that this will load on scroll
+  .node-media .media {
+    will-change: transform;
+  }
+  
+  p {
+    margin: 0 0 26px 0;
+    color: $firefly80;
+    @include cd-serif-family;
+    font-size: 18px;
+    word-wrap: break-word;
+    @if $from-direction == left {
+      line-height: 26px;
+      letter-spacing: -0.23px;
+    } @else {
+      line-height: 30px;
+    }
+  }
+
+  // lists
+  & > ul, & > ol {
+    counter-reset: li;
+    margin: 0 0 26px 0;
+    @include cd-serif-family;
+    font-size: 18px;
+    color: $firefly80;
+    @if $from-direction == left {
+      line-height: 26px;
+      letter-spacing: -0.23px;
+    } @else {
+      line-height: 30px;
+    }
+    ul, ol {
+      padding-#{$alpha}: $gutter-width*2;
+    }
+    li {
+      margin: 0 0 6px 0;
+      position: relative;
+      list-style: none;
+      &:before {
+        display: inline-block;
+        margin-#{$omega}: $gutter-width/2;
+      }
+    }
+  }
+
+  & > ol li:before {
+    content: counter(li) ".";
+    counter-increment: li;
+  }
+
+  & > ul li:before {
+    content: '';
+    background-color: $firefly10;
+    width: 12px;
+    height: 12px;
+    margin-#{$omega}: $gutter-width/2;
+    @include border-radius(50%);
+  }
+
+  h2, blockquote {
+    font-size: 20px;
+    @if $from-direction == left {
+      line-height: 28px;
+      letter-spacing: -0.64px; 
+    } @else {
+      line-height: 32px;
+    }
+  }
+
+  h2 {
+    color: $firefly90;
+    @if $from-direction == left {
+      font-weight: bold;
+    }
+  }
+
+  h3 {
+    color: $firefly60;
+    margin-bottom: 30px;
+    font-size: 22px;
+    @if $from-direction == left {
+      line-height: 30px;
+      letter-spacing: -0.64px;
+    } @else {
+      line-height: 34px;
+    }
+  }
+
+  hr {
+    display: block;
+    width: 80px;
+    border-top: 1px solid $firefly20;
+    border-bottom: 0 none;
+    margin: 30px 0 20px 0;
+  }
+
+  blockquote {
+    position: relative;
+    color: $firefly60;
+    padding-#{$alpha}: 50px;
+    margin: 0 0 26px 0;
+    border: 0 none;
+    min-height: 56px; // two lines
+    width: 80%;
+    z-index: 1
+    p {
+      margin-bottom: 0;
+    }
+    &:before {
+      position: absolute;
+      content: '';
+      top: 0;
+      #{$alpha}: 0;
+      width: 30px;
+      height: 100%;
+      background-color: $firefly10; 
+      z-index: 2;
+    }
+    &:after {
+      position: absolute;
+      content: '';
+      background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjI3cHgiIGhlaWdodD0iMjNweCIgdmlld0JveD0iMCAwIDI3IDIzIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggMy4zLjIgKDEyMDQzKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5xdW90ZTwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHNrZXRjaDp0eXBlPSJNU1BhZ2UiPgogICAgICAgIDxwYXRoIGQ9Ik0xMi40Mjg1NzE0LDEzLjI4NTY5NTYgQzEyLjQyODU3MTQsMTEuNjI5NDQ1NiAxMS4wODQ4MjE0LDEwLjI4NTY5NTYgOS40Mjg1NzE0MywxMC4yODU2OTU2IEw1LjkyODU3MTQzLDEwLjI4NTY5NTYgQzUuMTAwNDQ2NDMsMTAuMjg1Njk1NiA0LjQyODU3MTQzLDkuNjEzODIwNTUgNC40Mjg1NzE0Myw4Ljc4NTY5NTU1IEw0LjQyODU3MTQzLDguMjg1Njk1NTUgQzQuNDI4NTcxNDMsNi4wODI1NzA1NSA2LjIyNTQ0NjQzLDQuMjg1Njk1NTUgOC40Mjg1NzE0Myw0LjI4NTY5NTU1IEw5LjQyODU3MTQzLDQuMjg1Njk1NTUgQzkuOTc1NDQ2NDMsNC4yODU2OTU1NSAxMC40Mjg1NzE0LDMuODMyNTcwNTUgMTAuNDI4NTcxNCwzLjI4NTY5NTU1IEwxMC40Mjg1NzE0LDEuMjg1Njk1NTUgQzEwLjQyODU3MTQsMC43Mzg4MjA1NTMgOS45NzU0NDY0MywwLjI4NTY5NTU1MyA5LjQyODU3MTQzLDAuMjg1Njk1NTUzIEw4LjQyODU3MTQzLDAuMjg1Njk1NTUzIEM0LjAyMjMyMTQzLDAuMjg1Njk1NTUzIDAuNDI4NTcxNDI5LDMuODc5NDQ1NTUgMC40Mjg1NzE0MjksOC4yODU2OTU1NSBMMC40Mjg1NzE0MjksMTkuMjg1Njk1NiBDMC40Mjg1NzE0MjksMjAuOTQxOTQ1NiAxLjc3MjMyMTQzLDIyLjI4NTY5NTYgMy40Mjg1NzE0MywyMi4yODU2OTU2IEw5LjQyODU3MTQzLDIyLjI4NTY5NTYgQzExLjA4NDgyMTQsMjIuMjg1Njk1NiAxMi40Mjg1NzE0LDIwLjk0MTk0NTYgMTIuNDI4NTcxNCwxOS4yODU2OTU2IEwxMi40Mjg1NzE0LDEzLjI4NTY5NTYgWiBNMjYuNDI4NTcxNCwxMy4yODU2OTU2IEMyNi40Mjg1NzE0LDExLjYyOTQ0NTYgMjUuMDg0ODIxNCwxMC4yODU2OTU2IDIzLjQyODU3MTQsMTAuMjg1Njk1NiBMMTkuOTI4NTcxNCwxMC4yODU2OTU2IEMxOS4xMDA0NDY0LDEwLjI4NTY5NTYgMTguNDI4NTcxNCw5LjYxMzgyMDU1IDE4LjQyODU3MTQsOC43ODU2OTU1NSBMMTguNDI4NTcxNCw4LjI4NTY5NTU1IEMxOC40Mjg1NzE0LDYuMDgyNTcwNTUgMjAuMjI1NDQ2NCw0LjI4NTY5NTU1IDIyLjQyODU3MTQsNC4yODU2OTU1NSBMMjMuNDI4NTcxNCw0LjI4NTY5NTU1IEMyMy45NzU0NDY0LDQuMjg1Njk1NTUgMjQuNDI4NTcxNCwzLjgzMjU3MDU1IDI0LjQyODU3MTQsMy4yODU2OTU1NSBMMjQuNDI4NTcxNCwxLjI4NTY5NTU1IEMyNC40Mjg1NzE0LDAuNzM4ODIwNTUzIDIzLjk3NTQ0NjQsMC4yODU2OTU1NTMgMjMuNDI4NTcxNCwwLjI4NTY5NTU1MyBMMjIuNDI4NTcxNCwwLjI4NTY5NTU1MyBDMTguMDIyMzIxNCwwLjI4NTY5NTU1MyAxNC40Mjg1NzE0LDMuODc5NDQ1NTUgMTQuNDI4NTcxNCw4LjI4NTY5NTU1IEwxNC40Mjg1NzE0LDE5LjI4NTY5NTYgQzE0LjQyODU3MTQsMjAuOTQxOTQ1NiAxNS43NzIzMjE0LDIyLjI4NTY5NTYgMTcuNDI4NTcxNCwyMi4yODU2OTU2IEwyMy40Mjg1NzE0LDIyLjI4NTY5NTYgQzI1LjA4NDgyMTQsMjIuMjg1Njk1NiAyNi40Mjg1NzE0LDIwLjk0MTk0NTYgMjYuNDI4NTcxNCwxOS4yODU2OTU2IEwyNi40Mjg1NzE0LDEzLjI4NTY5NTYgWiIgaWQ9InF1b3RlIiBmaWxsPSIjRkZGRkZGIiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICA8L2c+Cjwvc3ZnPg==) no-repeat top center;
+      background-size: 18px auto;
+      top: 10px;
+      #{$alpha}: 0;
+      width: 30px;
+      height: 100%;
+      z-index: 2;
+      @if $from-direction == right {
+        transform: rotate(180deg);
+        background-position: bottom center;
+      }
+    }
+  }
+}
+
+// update body
+.update .update-body .update-title { 
+  padding-top: 20px; // to align with update number
+}
+.update .update-body .node-media {
+  @include ctb-clearfix;
+  margin: 0 0 $absolute-line-height/4 0;
+}
+
+// add margin when there is no
+// update title
+.update .update-body > p:first-child {
+  margin-top: 22px;
+}
+
+.update .update-body .report {
+  margin-top: 0;
+}

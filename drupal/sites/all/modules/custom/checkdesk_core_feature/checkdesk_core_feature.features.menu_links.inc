@@ -10,139 +10,6 @@
 function checkdesk_core_feature_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: main-menu_:<sub>
-  $menu_links['main-menu_:<sub>'] = array(
-    'customized' => 1,
-    'expanded' => 1,
-    'external' => 0,
-    'has_children' => 1,
-    'hidden' => 0,
-    'language' => 'und',
-    'link_path' => '<sub>',
-    'link_title' => '...',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'main-menu',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(),
-      'alter' => TRUE,
-      'identifier' => 'main-menu_:<sub>',
-    ),
-    'router_path' => '<sub>',
-    'uuid' => 'b54b8beb-654c-c3b4-1938-db4fae8838fe',
-    'weight' => -45,
-  );
-  // Exported menu link: main-menu_administer-users:admin/people
-  $menu_links['main-menu_administer-users:admin/people'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'und',
-    'link_path' => 'admin/people',
-    'link_title' => 'Administer users',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'main-menu',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(),
-      'alter' => TRUE,
-      'identifier' => 'main-menu_administer-users:admin/people',
-    ),
-    'parent_identifier' => 'main-menu_:<sub>',
-    'router_path' => 'admin/people',
-    'uuid' => '485c5e2e-cc65-4904-91e1-1ec580b522d5',
-    'weight' => -49,
-  );
-  // Exported menu link: main-menu_create-story:node/add/discussion
-  $menu_links['main-menu_create-story:node/add/discussion'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'und',
-    'link_path' => 'node/add/discussion',
-    'link_title' => 'Create story',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'main-menu',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(),
-      'alter' => TRUE,
-      'identifier' => 'main-menu_create-story:node/add/discussion',
-    ),
-    'router_path' => 'node/add/discussion',
-    'uuid' => 'edc54df9-4aa8-bf84-dd89-ca0a351af23b',
-    'weight' => -49,
-  );
-  // Exported menu link: main-menu_draft--stories:checkdesk/draft_stories
-  $menu_links['main-menu_draft--stories:checkdesk/draft_stories'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'und',
-    'link_path' => 'checkdesk/draft_stories',
-    'link_title' => 'Draft  stories',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'main-menu',
-    'module' => 'menu',
-    'options' => array(
-      'alter' => TRUE,
-      'identifier' => 'main-menu_draft--stories:checkdesk/draft_stories',
-      'attributes' => array(),
-      'item_attributes' => array(
-        'id' => '',
-        'class' => '',
-        'style' => '',
-      ),
-    ),
-    'parent_identifier' => 'main-menu_:<sub>',
-    'router_path' => 'checkdesk/draft_stories',
-    'uuid' => '2821e682-4a21-4a62-87b5-9c98675c7813',
-    'weight' => -47,
-  );
-  // Exported menu link: main-menu_draft--updates:checkdesk/draft_updates
-  $menu_links['main-menu_draft--updates:checkdesk/draft_updates'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'und',
-    'link_path' => 'checkdesk/draft_updates',
-    'link_title' => 'Draft  updates',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'main-menu',
-    'module' => 'menu',
-    'options' => array(
-      'alter' => TRUE,
-      'identifier' => 'main-menu_draft--updates:checkdesk/draft_updates',
-      'attributes' => array(),
-      'item_attributes' => array(
-        'id' => '',
-        'class' => '',
-        'style' => '',
-      ),
-    ),
-    'parent_identifier' => 'main-menu_:<sub>',
-    'router_path' => 'checkdesk/draft_updates',
-    'uuid' => '5452488b-84b8-4398-9078-9814050cc153',
-    'weight' => -46,
-  );
   // Exported menu link: main-menu_edit-fact-checking-statement:admin/config/system/checkdesk
   $menu_links['main-menu_edit-fact-checking-statement:admin/config/system/checkdesk'] = array(
     'customized' => 1,
@@ -168,109 +35,13 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => '2643d8bd-eb4d-16f4-1928-3013705c11af',
     'weight' => -48,
   );
-  // Exported menu link: main-menu_home:<front>
-  $menu_links['main-menu_home:<front>'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 1,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'und',
-    'link_path' => '<front>',
-    'link_title' => 'Home',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'main-menu',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(),
-      'alter' => TRUE,
-      'identifier' => 'main-menu_home:<front>',
-    ),
-    'router_path' => '',
-    'uuid' => 'd5f3370f-db5f-d074-d189-cbac6703dd49',
-    'weight' => -50,
-  );
-  // Exported menu link: main-menu_submit-report:node/add/media
-  $menu_links['main-menu_submit-report:node/add/media'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'und',
-    'link_path' => 'node/add/media',
-    'link_title' => 'Submit report',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'main-menu',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(),
-      'alter' => TRUE,
-      'identifier' => 'main-menu_submit-report:node/add/media',
-    ),
-    'router_path' => 'node/add/media',
-    'uuid' => '0bc3af5d-28a8-c864-bd93-f17d8bea2366',
-    'weight' => -48,
-  );
-  // Exported menu link: main-menu_update-story:node/add/post
-  $menu_links['main-menu_update-story:node/add/post'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'und',
-    'link_path' => 'node/add/post',
-    'link_title' => 'Update story',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'main-menu',
-    'module' => 'menu',
-    'options' => array(
-      'alter' => TRUE,
-      'attributes' => array(),
-      'identifier' => 'main-menu_update-story:node/add/post',
-    ),
-    'router_path' => 'node/add/post',
-    'uuid' => 'd1a4a4e9-b0c3-8d94-11a4-34f35bda25c1',
-    'weight' => -47,
-  );
-  // Exported menu link: main-menu_view-incoming-citizen-reports:checkdesk/reports
-  $menu_links['main-menu_view-incoming-citizen-reports:checkdesk/reports'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'und',
-    'link_path' => 'checkdesk/reports',
-    'link_title' => 'View incoming citizen reports',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'main-menu',
-    'module' => 'menu',
-    'options' => array(
-      'identifier' => 'main-menu_view-incoming-citizen-reports:checkdesk/reports',
-      'alter' => TRUE,
-    ),
-    'parent_identifier' => 'main-menu_:<sub>',
-    'router_path' => 'checkdesk/reports',
-    'uuid' => 'e48d5c0f-0c1a-49ca-8a8d-b785b7bc8514',
-    'weight' => -50,
-  );
   // Exported menu link: menu-common_information:<nolink>
   $menu_links['menu-common_information:<nolink>'] = array(
     'customized' => 1,
     'expanded' => 1,
     'external' => 0,
     'has_children' => 1,
-    'hidden' => 0,
+    'hidden' => 1,
     'language' => 'und',
     'link_path' => '<nolink>',
     'link_title' => 'Information',
@@ -311,7 +82,37 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'parent_identifier' => 'menu-common_user:<sub>',
     'router_path' => 'user/logout',
     'uuid' => '391be377-17db-a134-4d21-c6742d07ca4e',
-    'weight' => -48,
+    'weight' => -45,
+  );
+  // Exported menu link: menu-common_manage-users:checkdesk/people
+  $menu_links['menu-common_manage-users:checkdesk/people'] = array(
+    'customized' => 1,
+    'expanded' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'hidden' => 0,
+    'language' => 'und',
+    'link_path' => 'checkdesk/people',
+    'link_title' => 'Manage users',
+    'menu_links_customized' => 1,
+    'menu_links_customized_2' => 1,
+    'menu_links_language' => 'und',
+    'menu_name' => 'menu-common',
+    'module' => 'menu',
+    'options' => array(
+      'alter' => TRUE,
+      'identifier' => 'menu-common_manage-users:checkdesk/people',
+      'attributes' => array(),
+      'item_attributes' => array(
+        'id' => '',
+        'class' => '',
+        'style' => '',
+      ),
+    ),
+    'parent_identifier' => 'menu-common_user:<sub>',
+    'router_path' => 'checkdesk/people',
+    'uuid' => '485c5e2e-cc65-4904-91e1-1ec580b522d5',
+    'weight' => -46,
   );
   // Exported menu link: menu-common_my-account:user
   $menu_links['menu-common_my-account:user'] = array(
@@ -319,7 +120,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => 0,
     'external' => 0,
     'has_children' => 0,
-    'hidden' => 0,
+    'hidden' => 1,
     'language' => 'und',
     'link_path' => 'user',
     'link_title' => 'My account',
@@ -336,6 +137,66 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'parent_identifier' => 'menu-common_user:<sub>',
     'router_path' => 'user',
     'uuid' => '42e9e86e-42ae-8d04-0d50-e42bde8cbbda',
+    'weight' => -49,
+  );
+  // Exported menu link: menu-common_my-drafts:checkdesk/my_drafts
+  $menu_links['menu-common_my-drafts:checkdesk/my_drafts'] = array(
+    'customized' => 1,
+    'expanded' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'hidden' => 0,
+    'language' => 'und',
+    'link_path' => 'checkdesk/my_drafts',
+    'link_title' => 'My drafts',
+    'menu_links_customized' => 1,
+    'menu_links_customized_2' => 1,
+    'menu_links_language' => 'und',
+    'menu_name' => 'menu-common',
+    'module' => 'menu',
+    'options' => array(
+      'attributes' => array(),
+      'item_attributes' => array(
+        'id' => '',
+        'class' => '',
+        'style' => '',
+      ),
+      'alter' => TRUE,
+      'identifier' => 'menu-common_my-drafts:checkdesk/my_drafts',
+    ),
+    'parent_identifier' => 'menu-common_user:<sub>',
+    'router_path' => 'checkdesk/my_drafts',
+    'uuid' => '1bca7663-deb6-4a6f-8172-955649ecb507',
+    'weight' => -48,
+  );
+  // Exported menu link: menu-common_my-stories:checkdesk/my_stories
+  $menu_links['menu-common_my-stories:checkdesk/my_stories'] = array(
+    'customized' => 1,
+    'expanded' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'hidden' => 0,
+    'language' => 'und',
+    'link_path' => 'checkdesk/my_stories',
+    'link_title' => 'My stories',
+    'menu_links_customized' => 1,
+    'menu_links_customized_2' => 1,
+    'menu_links_language' => 'und',
+    'menu_name' => 'menu-common',
+    'module' => 'menu',
+    'options' => array(
+      'attributes' => array(),
+      'item_attributes' => array(
+        'id' => '',
+        'class' => '',
+        'style' => '',
+      ),
+      'alter' => TRUE,
+      'identifier' => 'menu-common_my-stories:checkdesk/my_stories',
+    ),
+    'parent_identifier' => 'menu-common_user:<sub>',
+    'router_path' => 'checkdesk/my_stories',
+    'uuid' => 'ae44ca85-2011-439a-a2ee-98bfa24187df',
     'weight' => -49,
   );
   // Exported menu link: menu-common_notifications:my-notifications
@@ -368,7 +229,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => 0,
     'external' => 0,
     'has_children' => 0,
-    'hidden' => 0,
+    'hidden' => 1,
     'language' => 'und',
     'link_path' => 'search',
     'link_title' => 'Search',
@@ -390,6 +251,36 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'search',
     'uuid' => '4f72ba17-81dc-46f1-96bf-ab4ae0bed92e',
     'weight' => -48,
+  );
+  // Exported menu link: menu-common_settings:checkdesk/settings
+  $menu_links['menu-common_settings:checkdesk/settings'] = array(
+    'customized' => 1,
+    'expanded' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'hidden' => 0,
+    'language' => 'und',
+    'link_path' => 'checkdesk/settings',
+    'link_title' => 'Settings',
+    'menu_links_customized' => 1,
+    'menu_links_customized_2' => 1,
+    'menu_links_language' => 'und',
+    'menu_name' => 'menu-common',
+    'module' => 'menu',
+    'options' => array(
+      'attributes' => array(),
+      'item_attributes' => array(
+        'id' => '',
+        'class' => '',
+        'style' => '',
+      ),
+      'alter' => TRUE,
+      'identifier' => 'menu-common_settings:checkdesk/settings',
+    ),
+    'parent_identifier' => 'menu-common_user:<sub>',
+    'router_path' => 'checkdesk/settings',
+    'uuid' => '99759df7-5990-47f8-9a09-273b3cc268dd',
+    'weight' => -47,
   );
   // Exported menu link: menu-common_sign-in--sign-up:checkdesk/nojs/sign_in_up
   $menu_links['menu-common_sign-in--sign-up:checkdesk/nojs/sign_in_up'] = array(
@@ -418,6 +309,31 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'parent_identifier' => 'menu-common_user:<sub>',
     'router_path' => 'checkdesk/%/sign_in_up',
+    'uuid' => '9a684326-a352-d454-517b-878bb9468e91',
+    'weight' => -50,
+  );
+  // Exported menu link: menu-common_sign-in:user/login
+  $menu_links['menu-common_sign-in:user/login'] = array(
+    'customized' => 1,
+    'expanded' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'hidden' => 1,
+    'language' => 'und',
+    'link_path' => 'user/login',
+    'link_title' => 'Sign in',
+    'menu_links_customized' => 1,
+    'menu_links_customized_2' => 1,
+    'menu_links_language' => 'und',
+    'menu_name' => 'menu-common',
+    'module' => 'menu',
+    'options' => array(
+      'attributes' => array(),
+      'alter' => TRUE,
+      'identifier' => 'menu-common_sign-in:user/login',
+    ),
+    'parent_identifier' => 'menu-common_user:<sub>',
+    'router_path' => 'user/login',
     'uuid' => '9a684326-a352-d454-517b-878bb9468e91',
     'weight' => -47,
   );
@@ -671,27 +587,23 @@ function checkdesk_core_feature_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('...');
   t('<user>');
   t('About Checkdesk');
-  t('Administer users');
   t('Bookmarklet');
-  t('Create story');
-  t('Draft  stories');
-  t('Draft  updates');
   t('Edit fact-checking statement');
   t('Fact-checking statement');
-  t('Home');
   t('Information');
   t('Logout');
+  t('Manage users');
   t('My account');
+  t('My drafts');
+  t('My stories');
   t('Notifications');
   t('Search');
+  t('Settings');
+  t('Sign in');
   t('Sign in / Sign up');
-  t('Submit report');
   t('Terms of use');
-  t('Update story');
-  t('View incoming citizen reports');
   t('إضافة المتصفح');
   t('بيان التحقق من صحة المعلومات');
   t('شروط الاستخدام');

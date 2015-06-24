@@ -20,7 +20,6 @@
 // To add a new font put it in bowerbord/fonts
 // If you are missing a font style (esp. .woff), generate it with http://www.fontsquirrel.com/tools/webfont-generator
 @mixin bowerbird-font-face($name: "FontName", $file: "fontname-webfont", $weight: normal, $style: normal) {
-  @if $debug {  @debug ">>> loading #{$file}" }
   @include font-face(  
   $name,
   font-files(

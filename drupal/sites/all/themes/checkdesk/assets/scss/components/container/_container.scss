@@ -1,0 +1,33 @@
+.cd-container {
+	@include ctb-clearfix;
+}
+
+.cd-container__inner {
+	margin: $absolute-line-height/1.2 0 $absolute-line-height*1.25 0;
+  padding: $absolute-line-height/1.2 0;
+
+	.cd-container & {
+		border-top: 1px solid $firefly10;	
+	}
+
+}
+
+.cd-container__header {
+	float: $from-direction;
+	width: 140px;
+	@include span-columns(4);
+}
+
+.cd-container__header__title {
+  @include cd-sans-serif-family;
+  color: $firefly40;
+  text-transform: uppercase;
+  font-size: modular-scale(0) - modular-scale(-3); // 14px
+  @if $from-direction == 'left' {
+    letter-spacing: 0.15em;
+  }
+}
+
+.cd-container__body {
+  padding-bottom: $absolute-line-height/1.2;
+}

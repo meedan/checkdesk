@@ -41,15 +41,13 @@ label,
 input,
 button,
 select,
-textarea,
-body.cke_editable {
+textarea {
   font: normal $base-font-size/$absolute-line-height; // Set size, weight, line-height here
 }
 input,
 button,
 select,
-textarea,
-body.cke_editable {
+textarea {
   font-family: $header-font-stack; // And only set font-family here for those that need it (note the missing label element)
 }
 
@@ -104,7 +102,7 @@ body.cke_editable,
 // Reset height since textareas have rows
 textarea,
 body.cke_editable {
-  height: auto;
+  height: 100%;
 }
 // Everything else
 textarea,

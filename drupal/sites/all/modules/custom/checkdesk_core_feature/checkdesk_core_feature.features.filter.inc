@@ -10,19 +10,14 @@
 function checkdesk_core_feature_filter_default_formats() {
   $formats = array();
 
-  // Exported format: Filtered HTML + Markdown.
+  // Exported format: Basic text used in report description and others.
   $formats['filtered_html'] = array(
     'format' => 'filtered_html',
-    'name' => 'Filtered HTML + Markdown',
+    'name' => 'Basic text used in report description and others',
     'cache' => 0,
     'status' => 1,
     'weight' => -99,
     'filters' => array(
-      'filter_markdown' => array(
-        'weight' => -50,
-        'status' => 1,
-        'settings' => array(),
-      ),
       'filter_url' => array(
         'weight' => -49,
         'status' => 1,
@@ -90,10 +85,10 @@ function checkdesk_core_feature_filter_default_formats() {
     ),
   );
 
-  // Exported format: Liveblog.
+  // Exported format: Rich text used in story and update.
   $formats['liveblog'] = array(
     'format' => 'liveblog',
-    'name' => 'Liveblog',
+    'name' => 'Rich text used in story and update',
     'cache' => 0,
     'status' => 1,
     'weight' => -98,
@@ -102,7 +97,7 @@ function checkdesk_core_feature_filter_default_formats() {
         'weight' => -10,
         'status' => 1,
         'settings' => array(
-          'allowed_html' => '<a> <em> <strong> <blockquote> <ul> <ol> <li> <p> <div> <iframe>',
+          'allowed_html' => '<a> <em> <strong> <blockquote> <ul> <ol> <li> <p> <div> <iframe><h2><h3><hr>',
           'filter_html_help' => 1,
           'filter_html_nofollow' => 0,
         ),
@@ -123,11 +118,6 @@ function checkdesk_core_feature_filter_default_formats() {
         'settings' => array(
           'filter_url_length' => 72,
         ),
-      ),
-      'filter_markdown' => array(
-        'weight' => 0,
-        'status' => 1,
-        'settings' => array(),
       ),
       'filter_meedan_oembed' => array(
         'weight' => 0,

@@ -173,8 +173,12 @@ function honeypot_admin_form_validate($form, &$form_state) {
 }
 
 /**
- * Clear the honeypot form cache on submit.
+ * Honeypot admin form submit callback.
  */
 function honeypot_admin_form_submit($form, &$form_state) {
+  // Create CSS file for honeypot.
+  honeypot_create_css($form_state['values']['honeypot_element_name']);
+
+  // Clear the Honeypot form cache on submit.
   cache_clear_all('honeypot_protected_forms', 'cache');
 }

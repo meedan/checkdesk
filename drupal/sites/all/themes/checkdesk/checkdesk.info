@@ -15,7 +15,6 @@ stylesheets[all][] = assets/css/libs/main.css
 stylesheets[all][] = assets/css/style.css
 
 ; JAVASCRIPT
-scripts[] = assets/js/libs/modernizr-2.6.2.min.js
 scripts[] = assets/js/libs/jquery.watch-2.0.min.js
 scripts[] = assets/js/libs/jquery.inview.js
 scripts[] = assets/js/libs/jquery.expanding.js
@@ -23,7 +22,6 @@ scripts[] = assets/js/libs/chosen.jquery.min.js
 scripts[] = assets/js/libs/jquery.expander.min.js
 scripts[] = assets/js/checkdesk_inject_bootstrap.js
 scripts[] = assets/js/master.js
-scripts[] = assets/js/navigation.js
 scripts[] = assets/js/report.js
 scripts[] = assets/js/inline_errors.js
 scripts[] = assets/js/hacks.js
@@ -43,6 +41,5 @@ regions[widgets] = Widgets
 
 ; EXCLUDE CSS
 exclude[css][] = 'sites/all/modules/contrib/*'
-exclude[css][] = 'sites/all/modules/meedan/meedan_livefyre/*'
 exclude[css][] = 'misc/*'
 exclude[css][] = 'modules/*'

@@ -11,7 +11,10 @@
         $('#navbar ul.nav > li').add('a').removeClass('active');
 
         // Add active state to this link
-        $(this).parents('li:first').addClass('active');
+        $(this).parents('li:first').addC  
+        lass('active');
+
+        
         $(this).addClass('active');
       });
     }

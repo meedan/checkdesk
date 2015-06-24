@@ -9,7 +9,10 @@
 // http://compass-style.org/reference/compass/reset/
 
 // Reset the outer div
-div.tabs {  @include reset-box-model; }
+div.tabs {  
+  @include reset-box-model; 
+  text-align: center;
+}
 
 // bowerbird tabs mixin 
 //

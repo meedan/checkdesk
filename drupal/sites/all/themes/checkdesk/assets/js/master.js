@@ -112,25 +112,6 @@
 
   Drupal.behaviors.searchPage = {
     attach: function (context, settings) {
-      // set focus on search field when /search page is loaded
-      var pathname = window.location.pathname;
-      var url = window.location.href; 
-      var search = window.location.search;
-      var path = pathname.split('/');
-
-      if((path[1] == 'search' || path[2] == 'search') && (search == '')) {
-        var target = $('.filter-list > .views-exposed-widget input[type=text]');
-        target.focus().select().parent().addClass('selected');
-      }
-
-      $('.filter-list > .views-exposed-widget input[type=text]').focus(function() {
-        $(this).parent().addClass('selected');
-      });
-
-      $('.filter-list > .views-exposed-widget input[type=text]').focusout(function() {
-        $(this).parent().removeClass('selected');
-      });
-
       // set default to open
       $('.filter-list > .views-exposed-widget label').parent().addClass('open');
       // filter group collapse/expand
@@ -224,12 +205,9 @@
 
             this.className = classes;
 
-            // Lazy-load tweets and livefyre comments
+            // Lazy-load tweets comments
             if (window.twttr && window.twttr.widgets) {
               window.twttr.widgets.load();
-            }
-            if (Drupal.livefyreCommentCount) {
-              Drupal.livefyreCommentCount.callback();
             }
           }
         });
@@ -245,12 +223,6 @@
       // kick the event to pick up any lazy elements already in view.
       $(window).scroll(false); // Disable scrolling the page when this event is triggered
       $(window).scroll();
-
-      // Open story comments if anchor is present
-      var match = window.location.hash.match(/^#story-comments-([0-9]+)$/);
-      if (match) {
-        $(match[0]).find('.fb-comments-header, .livefyre-header').click();
-      }
 
    });
 

@@ -1,0 +1,154 @@
+header#header {
+  position: relative;
+  height: 100%;
+}
+
+// utility classes for animating header
+.hidden-on-frontpage {
+  visibility: hidden;
+  opacity: 0;
+  will-change: opacity;
+}
+
+// adjust header items for drupal toolbar
+ul#breadcrumb, ul#user-menu, ul#utility-menu {
+  will-change: transform;
+  body.toolbar & {
+    top: $toolbarMenuHeight !important;
+  }
+  body.toolbar-drawer & {
+    top: $toolbarHeight !important;
+  }
+  position: fixed;
+  top: 0;
+  #{$omega}: 0;
+  height: $headerHeight;
+  @include reset-list-style;
+  padding: 0 50px;
+  @include flexbox;
+  @include align-items(center);
+  @include box-sizing(border-box);
+  a { @include ctb-linkColor($firefly30); }
+}
+
+ul#breadcrumb {
+  #{$alpha}: $navbarWidth;
+  z-index: $z-index-FixedHeader + 1;
+  pointer-events: none;
+
+  li {
+    pointer-events: auto;
+  }
+
+  a {
+    display: block;
+  }
+
+}
+
+ul#breadcrumb h1 {
+  font-size: 28px;
+  @include cd-sans-serif-family;
+  font-weight: 700;
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-#{$omega}: 200px;
+}
+
+ul#user-menu {
+	@include flex-direction(row-reverse);
+	#{$alpha}: 0;
+	margin-#{$alpha}: $navbarWidth;
+	z-index: $z-index-FixedHeader;
+  background: #fff;
+  body.nofront & {
+    border-bottom: 1px solid rgba($firefly, 0.05);  
+  }
+  
+	li {
+		position: relative;
+		#my-notifications-menu-link {
+			border-#{$alpha}: 1px solid $firefly10;
+		}
+	}
+
+  li > a { 
+    padding: 0 20px;
+    @include transition(border 0.2s ease);
+    @include transition(color 0.2s ease);
+  }
+
+	// add bell icon for notifications.
+  .icon-bell-o { 
+  	@include icon("bell-o", 26px); 
+  	&:before {
+      margin: 0;
+    }
+  }
+}
+
+ul#user-menu .badge {
+  position: absolute;
+  display: block;
+  top: 4px;
+  #{$alpha}: 35px;
+  padding: 4px;
+  line-height: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  @include border-radius(2px);
+  color: $notification-count-color;
+  background: $notification-count-bkg-color;
+}
+
+// apply default avatar styles
+ul#user-menu .avatar__menu {
+  @include cd-avatar('inline');
+  @include border-radius(50%);
+  border: 3px solid $firefly20;
+}
+
+ul#user-menu .sign-in-up {
+  padding: 0 15px;
+  font-size: 16px;
+  color: $dodgerBlue80;
+  border: 1px solid $dodgerBlue80;
+  @include border-radius(4px);
+  line-height: 36px;
+  &:hover {
+    color: $dodgerBlue;
+    border-color: $dodgerBlue;
+  }
+}
+
+ul#utility-menu {
+  #{$omega}: 200px;
+  padding: 0 20px;
+  z-index: $z-index-FixedHeader + 1;
+  a.language-link {
+    padding: 10px;
+  }
+}
+
+#my-account {
+  ul {
+    @include reset-list-style;
+  }
+}
+
+// Position dropdown menu
+#user-menu {
+  .dropdown-menu {
+    #{$alpha}: auto;
+    #{$omega}: 10px;
+
+    @if $from-direction == left {
+      @include border-radius($radius 0 $radius $radius);
+    }
+    @else {
+      @include border-radius(0 $radius $radius $radius);
+    }
+  }
+}

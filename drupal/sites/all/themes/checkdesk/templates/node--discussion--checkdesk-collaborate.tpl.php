@@ -1,46 +1,40 @@
 <section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
 
+    <?php if(isset($content['field_lead_image'])) { ?>
+      <figure>
+        <?php print render($content['field_lead_image']); ?>
+      </figure>
+    <?php } ?>
+
     <h1 class="title">
       <?php print render($node->title); ?>
     </h1>
 
     <div class="story-meta">
       <div class="story-attributes">
-        <?php if (isset($user_avatar)) : ?>
-          <?php print $user_avatar; ?>
-        <?php endif; ?>
         <?php print $creation_info_short; ?>
         <?php if (isset($story_commentcount)) { ?>
-        <div class="story-commentcount">
-          <a href="<?php print url('node/' . $node->nid, array('fragment' => 'story-comments-' . $node->nid)); ?>">
-            <span class="icon-comment-o"><?php print render($story_commentcount); ?></span>
-          </a>
-        </div>
-      <?php } ?>
-      </div>
-      <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
-        <div class="story-links pull-<?php print $layout['omega']; ?>">
+          <div class="story-commentcount">
+            <a href="<?php print url('node/' . $node->nid, array('fragment' => 'story-comments-' . $node->nid)); ?>">
+              <span class="icon-comment-o"><?php print render($story_commentcount); ?></span>
+            </a>
+          </div>
+        <?php } ?>
+        <?php if (isset($content['links']['checkdesk']['#links'])) { ?>
           <?php print render($content['links']); ?>
-        </div>
-      <?php } ?>
+        <?php } ?>
+        <?php if (isset($follow_story)) { ?>
+          <div class="story-follow">
+            <?php print $follow_story; ?>
+          </div>
+        <?php } ?>
+      </div>
     </div>
 
   	<div class="story-body">
       <?php print render($content['body']); ?>
     </div>
-
-    <?php if (isset($follow_story)) : ?>
-      <div class="story-follow">
-        <?php print $follow_story; ?>
-      </div>
-    <?php endif; ?>
-
-    <?php if(isset($content['field_lead_image'])) { ?>
-      <figure>
-        <?php print render($content['field_lead_image']); ?>
-      </figure>
-    <?php } ?>
         
     <div class="story-tabs-wrapper">
       <?php print $story_tabs; ?>
@@ -65,7 +59,7 @@
     <aside class="story-footer">
       <section class="cd-container cd-container--first">
         <div clas="cd-container__inner">
-          <div class="story-updated-at pull-<?php print $layout['alpha']; ?>">
+          <div class="story-updated-at">
             <span class="icon-clock-o"></span><span class="story-updated-at-text"><?php print t('Updated at ') . $updated_at; ?></span>
           </div>
         </div>

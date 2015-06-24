@@ -75,7 +75,8 @@ function better_exposed_filters_views_api() {
  * Unpacks sort_by and sort_order from the sort_bef_combine element.
  */
 function bef_sort_combine_submit($form, &$form_state) {
-  $combine_param = $form_state['#combine_param'];
+  // Same default as better_exposed_filters_exposed_form_plugin::options_form.
+  $combine_param = empty($form_state['#combine_param']) ? 'sort_bef_combine' : $form_state['#combine_param'];
   if (empty($form_state['values'][$combine_param])) {
     $form_state['values']['sort_by'] = $form_state['values']['sort_order'] = '';
   }

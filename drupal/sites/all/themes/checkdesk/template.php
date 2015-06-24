@@ -163,21 +163,52 @@ function checkdesk_preprocess_html(&$variables) {
 function checkdesk_preprocess_region(&$variables) {
   global $language;
 
-  if ($variables['region'] == 'widgets') {
-    // define custom header settings
-    $variables['header_image'] = '';
-    $image = theme_get_setting('header_image_path');
+  if ($variables['region'] == 'header') {
+    // header logo
+    $variables['header_logo'] = '';
+    $image = theme_get_setting('header_logo_path');
 
     if (!empty($image)) {
-      $header_image_data = array(
-          'style_name' => 'partner_logo',
+      $header_logo_data = array(
+          'style_name' => 'header_logo',
           'path' => $image,
       );
-      $variables['header_image'] = l(theme('image_style', $header_image_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
+        
+      // add hidden class to logo with default class
+      if($variables['is_front']) {
+        $logo_classes = array('header_logo', 'hidden-on-frontpage');
+      } else {
+        $logo_classes = array('header_logo');
+      }
+
+      $variables['header_logo'] = l(theme('image_style', $header_logo_data), '<front>', array(
+          'html' => TRUE, 
+          'attributes' => array(
+            'class' => $logo_classes,
+          )
+        )
+      );
+    }
+  }
+
+  if ($variables['region'] == 'widgets') {
+    // frontpage logo
+    $variables['frontpage_logo'] = '';
+    $image = theme_get_setting('frontpage_logo_path');
+
+    if (!empty($image)) {
+      $frontpage_logo_data = array(
+          'style_name' => 'partner_logo',
+          'path' => $image,
+          'attributes' => array(
+            'class' => 'partner-logo',
+          )
+      );
+      $variables['frontpage_logo'] = theme('image_style', $frontpage_logo_data);
     }
 
-    $position = theme_get_setting('header_image_position');
-    $variables['header_image_position'] = (empty($position) ? 'left' : $position);
+    $position = theme_get_setting('header_logo_position');
+    $variables['header_logo_position'] = (empty($position) ? 'left' : $position);
 
     $bg = theme_get_setting('header_bg_path');
     $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
@@ -240,16 +271,22 @@ function checkdesk_preprocess_page(&$variables) {
   // Page templates for each node type
   if (isset($variables['node'])) {
     // If the node type is "discussion" the template suggestion will be "page--discussion.tpl.php".
-    $variables['theme_hook_suggestions'][] = 'page__' . str_replace('_', '--', $variables['node']->type);
-  }
+    if($variables['node']->type == 'discussion' || $variables['node']->type == 'media') {
+      $variables['theme_hook_suggestions'][] = 'page__content';
+    }
+  } 
 
-  // dsm($variables['language']->language);
   // Unescape HTML in title
   $variables['title'] = htmlspecialchars_decode(drupal_get_title());
 
   // Add a path to the theme so checkdesk_inject_bootstrap.js can load libraries
   $variables['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
   drupal_add_js(array('basePathCheckdeskTheme' => $variables['basePathCheckdeskTheme']), 'setting');
+
+  // Add JS file for front page only
+  if ($variables['is_front']) {
+    drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/front.js', array('scope' => 'footer', 'weight' => 99));
+  }
 
   // Primary nav
   $variables['primary_nav'] = FALSE;
@@ -271,18 +308,17 @@ function checkdesk_preprocess_page(&$variables) {
     }
 
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
-
     foreach ($variables['main_menu'] as $id => $item) {
       if ($item['link_path'] == 'node/add/media') {
         $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
-        if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1)) && $variables['node']->type == 'discussion') {
+        if (arg(0) == 'node' && is_numeric(arg(1)) && $variables['node']->type === 'discussion') {
           $variables['main_menu'][$id]['query'] = array('ref_nid' => arg(1));
         }
       } else if ($item['link_path'] == 'node/add/discussion') {
         $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
       } else if ($item['link_path'] == 'node/add/post') {
         $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
-        if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1)) && $variables['node']->type == 'discussion') {
+        if (arg(0) == 'node' && is_numeric(arg(1)) && $variables['node']->type === 'discussion') {
           $variables['main_menu'][$id]['query'] = array('story' => arg(1));
         }
       }
@@ -310,15 +346,20 @@ function checkdesk_preprocess_page(&$variables) {
       unset($tree[$id]);
     }
 
-    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language)
+    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) {
       unset($tree[$id]);
+    }
+
     foreach ($item['below'] as $subid => $subitem) {
-      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language)
+      if ( $subitem['link']['hidden'] || ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language)) {
         unset($tree[$id]['below'][$subid]);
+      }
     }
   }
 
   $variables['secondary_menu'] = checkdesk_menu_navigation_links($tree);
+
+  $layout = checkdesk_core_direction_settings();
 
   // Change links
   foreach ($variables['secondary_menu'] as $id => $item) {
@@ -337,6 +378,7 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
         $variables['secondary_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
         $variables['secondary_menu'][$id]['attributes']['class'] = 'dropdown-toggle';
+        $variables['secondary_menu'][$id]['attributes']['id'] = 'my-account-link';
         $variables['secondary_menu'][$id]['suffix'] = theme('checkdesk_user_menu_content', array('items' => $variables['secondary_menu'][$id]['below']));
 
         unset($variables['secondary_menu'][$id]['below']);
@@ -344,12 +386,13 @@ function checkdesk_preprocess_page(&$variables) {
     } else if ($item['link_path'] == 'my-notifications') {
       if (user_is_logged_in()) {
         $count = checkdesk_notifications_number_of_new_items($user);
-        $counter = '';
-        if ($count > 0)
-          $counter = '<span>' . $count . '</span>';
         $variables['secondary_menu'][$id]['attributes']['id'] = 'my-notifications-menu-link';
         $variables['secondary_menu'][$id]['html'] = TRUE;
-        $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell"></span><span class="notifications-count">' . $counter . '</span>';
+        if($count > 0) {
+          $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span><span class="badge notifications-count">' . $count . '</span>';
+        } else {
+          $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span><span class="notifications-count"></span>';
+        }
       }
       else {
         unset($variables['secondary_menu'][$id]);
@@ -362,7 +405,7 @@ function checkdesk_preprocess_page(&$variables) {
       'links' => $variables['secondary_menu'],
       'attributes' => array(
           'id' => 'user-menu',
-          'class' => array('nav'),
+          'class' => array('nav', 'nav-down'),
       ),
       'heading' => NULL,
   ));
@@ -477,17 +520,21 @@ function checkdesk_preprocess_page(&$variables) {
     drupal_add_js($modal_style, 'setting');
   }
   // define custom header settings
-  $variables['header_image'] = '';
-  $image = theme_get_setting('header_image_path');
+  $variables['header_logo'] = '';
+  $image = theme_get_setting('header_logo_path');
 
   if (!empty($image)) {
-    $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
+    $variables['header_logo'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
   }
 
   $variables['header_slogan'] = t('A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
 
   // set page variable if widgets should be visible
   $variables['show_widgets'] = checkdesk_widgets_visibility();
+  
+
+  // set page variable if header logo should be visible
+  $variables['show_header'] = checkdesk_header_logo_visibility();
 
   // set page variable if widgets should be visible
   $variables['show_footer'] = checkdesk_footer_visibility();
@@ -602,19 +649,10 @@ function checkdesk_preprocess_node(&$variables) {
       // Collaboration header for story.
       $variables['story_links'] = _checkdesk_story_links($variables['nid']);
       $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
-      // Comments count
-      $theme = NULL;
-      // Livefyre comments count
-      if (!variable_get('meedan_livefyre_disable', FALSE)) {
-        $theme = 'livefyre_commentcount';
-      }
       // Facebook comments count
-      else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
-        $theme = 'facebook_commentcount';
-      }
-      if ($theme) {
+      if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
         $variables['story_commentcount'] = array(
-          '#theme' => $theme,
+          '#theme' => 'facebook_commentcount',
           '#node' => node_load($variables['nid']),
         );
       }
@@ -728,7 +766,7 @@ function checkdesk_preprocess_node(&$variables) {
       // Set published stories
       $variables['published_stories'] = '';
       $published_stories_links = array();
-      $published_cond = _checkdesk_is_journalist() ? array(0, 1) : array(1);
+      $published_cond = user_access('access any drafts content') ? array(0, 1) : array(1);
       $published_stories = db_query('
           SELECT DISTINCT nid_target, n.title
           FROM {heartbeat_activity} ha
@@ -843,56 +881,42 @@ function checkdesk_links__node($variables) {
  */
 function checkdesk_widgets_visibility() {
   global $user;
+  // Only display on front page
+  if (drupal_is_front_page()) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Utitity function to determine whether to show header image or not
+ */
+function checkdesk_header_logo_visibility() {
+  global $user;
+  $current_node = menu_get_object();
+  // what to check for
+  $pages = array('edit', 'delete');
+  $check_page = array_intersect($pages, array_values(arg()));
+  $check_page = empty($check_page) ? FALSE : TRUE;
+
+  // node types to check
+  $node_types = array('media', 'discussion', 'post');
+
+  // for anonymous user
+  if (isset($current_node->type)) {
+    foreach ($node_types as $node_type) {
+      // matches node types and does not include any pages
+      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
+        return TRUE;
+      }
+    }
+  }
+
   // Always display on front page
   if (drupal_is_front_page()) {
     return TRUE;
   }
 
-  $current_node = menu_get_object();
-
-  // Display on collaboration page
-  if (!empty($current_node) && $current_node->type == 'discussion' && arg(0) == 'story-collaboration' && is_numeric(arg(1))) {
-    return TRUE;
-  }
-  // what to check for
-  $roles = array('administrator', 'journalist');
-  $check_role = array_intersect($roles, array_values($user->roles));
-  $check_role = empty($check_role) ? FALSE : TRUE;
-  // for 404s
-  $status = drupal_get_http_header("status");
-
-  $pages = array('edit', 'delete');
-  $check_page = array_intersect($pages, array_values(arg()));
-  $check_page = empty($check_page) ? FALSE : TRUE;
-
-  $user_pages = array('login', 'password', 'register');
-  $check_user_page = array_intersect($user_pages, array_values(arg()));
-  $check_user_page = empty($check_user_page) ? FALSE : TRUE;
-
-  // node types to check for anonymous user
-  $anon_node_types = array('media', 'post', 'discussion');
-  // node types to check for logged in user
-  $user_node_types = array('media', 'post', 'discussion');
-
-  // for anonymous user
-  if (isset($current_node->type) && !$check_role && $status != "404 Not Found") {
-    foreach ($anon_node_types as $node_type) {
-      // matches node types
-      if ($node_type == $current_node->type)
-        return TRUE;
-    }
-    // for logged in users with specific role
-  } elseif (isset($current_node->type) && $check_role) {
-    foreach ($user_node_types as $node_type) {
-      // matches node types and does not include any pages
-      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page && $status != "404 Not Found") {
-        return TRUE;
-      }
-    }
-    // for user login, register and forgot pass page
-  } elseif (arg(0) == 'user' && $check_user_page) {
-    return TRUE;
-  }
   return FALSE;
 }
 
@@ -941,11 +965,28 @@ function checkdesk_page_alter(&$page) {
           '#theme_wrappers' => array('region'),
       );
     }
+    // Header
+    if (in_array($region, array('header'))) {
+      $page['header'] = array(
+          '#region' => 'header',
+          '#weight' => '-10',
+          '#theme_wrappers' => array('region'),
+      );
+    }
     // Sidebar
     if (!isset($page['widgets'])) {
       if (in_array($region, array('widgets'))) {
         $page['widgets'] = array(
             '#region' => 'widgets',
+            '#theme_wrappers' => array('region'),
+        );
+      }
+    }
+    // Navigation as toolbar
+    if (!isset($page['navigation'])) {
+      if (in_array($region, array('navigation'))) {
+        $page['navigation'] = array(
+            '#region' => 'navigation',
             '#theme_wrappers' => array('region'),
         );
       }
@@ -1174,19 +1215,10 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if ($vars['view']->name === 'liveblog') {
     $vars['updates'] = isset($vars['view']->result[$vars['view']->row_index]->updates) ? $vars['view']->result[$vars['view']->row_index]->updates : '';
 
-    // Comments count
-    $theme = NULL;
-    // Livefyre comments count
-    if (!variable_get('meedan_livefyre_disable', FALSE)) {
-      $theme = 'livefyre_commentcount';
-    }
     // Facebook comments count
-    else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
-      $theme = 'facebook_commentcount';
-    }
-    if ($theme) {
+    if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
       $vars['story_commentcount'] = array(
-          '#theme' => $theme,
+          '#theme' => 'facebook_commentcount',
           '#node' => node_load($vars['fields']['nid']->raw),
       );
     }

@@ -1,0 +1,288 @@
+@charset "UTF-8";
+// // Variables forked from compass-twitter-bootstrap variables.scss
+// // To reset to defaults delete this file and do
+// // @import compass_twitter_bootstrap/variables;
+// //
+// // for info on compass configuration see
+// // http://compass-style.org/help/tutorials/configurable-variables/
+
+
+// Typography configuration
+//
+// See also typography.scss and bowerbird/typography.scss
+//
+// @import "compass/css3/font-face";
+// @import "bowerbird/typography";
+// @import "fonts";
+
+// Compass utility configuration
+//
+// vertical baseline support
+// http://compass-style.org/reference/compass/typography/vertical_rhythm/
+// $round-to-nearest-half-line: true !default;
+// $relative-font-sizing: false !default;
+$relative-line-height: 1.5 !default;
+$absolute-line-height: 24px !default;
+// $base-line-height: $absolute-line-height !default; // for compass calculations only
+
+// Susy configuration
+//
+// For more information: `gem unpack susy`
+// Note that these also feed Twitter Bootstrap variables; see variables.scss.
+// Further reading: http://susy.oddbird.net
+//
+$container-style: magic;
+
+// Columns count and breakpoints
+$container-width: 18; // Mobile first
+$total-columns: $container-width; // Alias for Susy
+$break-small: 12; 
+$break-medium: 24;
+$break-large: 48;
+
+// Checkdesk layout sections
+$total-width: $container-width; // Alias for Chris
+$sidebar-width: 4; // default sidebar width
+$tabs-width: $container-width; // Tabs inside forms and nodes
+$gutter-width: 15px; // The distance between grid columns
+$column-width: 25px; // The width of columns
+$grid-padding: 10px; // The padding on the sides of the outer <container>
+
+// Modular scale setup
+//
+// Font sizes based on the modular-scale calculations.
+// http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
+//
+$base-size: 18px 1168px; // Two scales based on original photoshop proportions
+$round_pixels: true; //don't return fractional px
+
+// Modular scale-based typography
+$smallest-font-size:  7px; // -2
+$smaller-font-size:   11px; // -1
+$small-font-size:     15px; // -0.5
+$base-font-size:      18px; // 0 
+$large-font-size:     20px; // 0.5
+$larger-font-size:    25px; // 1
+$x-large-font-size:   29px; // 2
+$xx-large-font-size:  40px; // 3
+$xxx-large-font-size: 47px; // 4
+$largest-font-size:   65px; // 5
+
+// Main sections
+// =============================================================================
+
+// Navigation
+$nav-width: $container-width;
+$nav-font-size: 14px;
+$nav-icon-height: 15px;
+$nav-line-height: $nav-icon-height;
+$nav-height: $nav-icon-height + 7*2;
+$nav-gutter: 11px;
+
+// Notifications
+$notification-dropdown-width: modular-scale(11);
+$notification-width: 5;
+$notification-icon-size: $small-font-size;
+$notification-image-width: 5%;
+$notifications-icon-selector: '.heartbeat-time-ago';
+
+// Based on twitter bootstrap
+// Do not change these
+$z-index-Dropdown:          900 !default;
+$z-index-Popover:           910 !default;
+$z-index-Tooltip:           920 !default;
+$z-index-FixedHeader:       920 !default;
+$z-index-FixedNavbar:       930 !default;
+$z-index-ModalBackdrop:     940 !default;
+$z-index-Modal:             950 !default;
+
+// Reports
+$report-width-px: 400px; // for grid view, don't use columns or percents for now
+$report-width: $container-width;
+
+// Install Bookmarklet
+$install-bookmarklet-abs-width: 600px;
+
+// Aliases
+// =============================================================================
+$container-width: $container-width;
+$tw: $tabs-width; 
+$gutter-width: $gutter-width; 
+$rw: $report-width;
+$nw: $nav-width;
+
+// Forms
+// =============================================================================
+$label-width: $container-width/2;
+$checkbox-width: 25px;
+
+// Misc Values
+// =============================================================================
+
+// Standardize our box-radius
+$radius: 4px;
+
+// Colors
+// =============================================================================
+// ... live in colors.css
+
+$firefly: 			#10212F;
+$firefly90: 		#283743;
+$firefly80: 		#3E4C57;
+$firefly60: 		#6F7A82;
+$firefly40: 		#9FA6AC;
+$firefly30: 		#B7BCC0;
+$firefly20: 		#CFD3D5;
+$firefly10:			#E7E8EA;
+$firefly5:			#F3F4F4;
+$firefly2:			#FAFBFB;
+
+$dodgerBlue: 		#2E77FC;
+$dodgerBlue80:	#3B8AFD;
+$dodgerBlue60: 	#7DB1FE;
+$dodgerStrong:	#2155B4;
+
+$thatch: 				#B89892;
+$thatch80:			#BFA29C;
+$thatch5: 			#EFE9E6;
+$thatch5Alt:		#FBFAF9;
+$thatch2:				#FEFDFD;
+
+$strongBlue:		#2155B4;
+$strongBlue80: 	#4A74C0;
+$strongBlue60: 	#7A99D2;
+
+$verified:			#399664;
+$undetermined:	#EC9131;
+$false:					#CC4F43;
+$in-progress:		#F5A623;
+
+
+// Debugger
+// =============================================================================
+// debug mode for @debug statements and other sass debuggers
+$debug: true !default;
+
+
+
+// // Typography
+// //
+// // Overriden where appropriate with values from checkdesk. - Nov 2012 CGB
+// // -------------------------
+// $sansFontFamily: $body-font-stack;
+// $serifFontFamily: $header-font-stack;
+// $monoFontFamily: $mono-font-stack;
+
+// $base-font-size:          $base-font-size !default;
+// $baseFontFamily:        $body-font-stack !default;
+// $altFontFamily:         $header-font-stack !default;
+
+// $headingsFontFamily:    inherit !default; // empty to use BS default, $baseFontFamily
+// $headingsFontWeight:    bold !default;    // instead of browser default, bold
+// $headingsColor:         inherit !default; // empty to use BS default, $textColor
+
+// // Component sizing
+// // -------------------------
+// // Based on 14px font-size and 20px line-height
+
+// Depracated
+// 
+// to #review and #remove
+// we should only use variables in base — CGB
+$fontSizeLarge:         $base-font-size * 1.25; // ~18px
+$fontSizeSmall:         $base-font-size * 0.85; // ~12px
+$fontSizeMini:          $base-font-size * 0.75; // ~11px
+
+$zindexDropdown:          900 !default;
+$zindexPopover:           910 !default;
+$zindexTooltip:           930 !default;
+$zindexFixedNavbar:       930 !default;
+$zindexModalBackdrop:     940 !default;
+$zindexModal:             950 !default;
+
+
+// $paddingLarge:          11px 19px; // 44px
+// $paddingSmall:          2px 10px;  // 26px
+// $paddingMini:           1px 6px;   // 24px
+
+// $radius:      3px;
+// $borderRadiusLarge:     6px;
+// $borderRadiusSmall:     3px;
+
+
+
+
+// // COMPONENT VARIABLES
+// // --------------------------------------------------
+
+// // Hr border color
+// // -------------------------
+// $hrBorder:                $grayLighter !default;
+
+
+// // Navbar
+// // -------------------------
+// $navbarCollapseWidth:             979px !default;
+
+$navbarHeight:                    38px !default;
+$navbarWidth:                     	60px !default;
+$headerHeight:											65px !default;
+// $navbarBackgroundHighlight:       $grayDarker !default;
+// $navbarBackground:                $grayDarker;
+// $navbarBorder:                    darken($navbarBackground, 12%) !default;
+
+// $navbarText:                      $grayLight !default;
+// $navbarLinkColor:                 $grayLight !default;
+// $navbarLinkColorHover:            $white !default;
+// $navbarLinkColorActive:           $white !default;
+// $navbarLinkBackgroundHover:       transparent !default;
+// $navbarLinkBackgroundActive:      darken($navbarBackground, 5%) !default;
+
+// Drupal admin toolbar and drawer
+$toolbarMenuHeight:				  30px;
+$drawerMenuHeight:				  35px;
+$toolbarHeight:					  $toolbarMenuHeight + $drawerMenuHeight;
+
+// Backgrounds
+$cream_dust: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAD1BMVEX9/f35+fn8/Pz7+/v6+vreGhydAAACQUlEQVQYGQXBAY0EMAhFwWYdkEXABWpgAQP0P/+abuaYV8QY6xp15LquT1MH1LNgDq666z3eQZ2Xa2Yv1xznDaTZi+xTY2YGawBqaHgZfXoNMzNzvausaUXWVB6a7lkwNACAGvoQEZG8WdcAAErgTATvKgaULDBoKjldybuKabwBvIGXHKAiRijBYI0xAx2A7oVKsAcwC+ismTlmL+Z7eUOieVccAB94kS956wAvR0foeoM6IuatGY5idKD53hWK1GgBXQ0c80HjWsWlBw11hfkBLlCrSDQExMD6ASXAvkjUHSgHLQe64q55fS5T0XTNCg5kN7DK8e4e0PCo0zTmaAGvnzADxfydBmChgfqBOQCcXHPWTDHeNeYGYHAKWHNIFCOge0T1KYB1aF6MgIh5t/I0482a17yrWfP43BcxBwAAqIvWiA+a5ph5oqlckn3rimtm2DE8gQpQzbugyxocg2T9xaC4L8EHQMeDu2hA+S4AwLoOwTgFKN8FA2Dp0wGqAQAQwLKVJxtXLw0MNO2sWeVJDFgr+N59Q3tizpyBAVaDD3RnN2ZwFq7zlsDRvojoMTOdBXxZ1KOBSOrC1lkwBwPdd6GuVyLiAKauLUDRFK5LZRwYV/YWQA3garrrmJK4UEtcFvDRBY4JNVDQOCzkuwvH8B57U4mZv1gUcVccAKgl10wRQMRAnRigYr3X7EVMEzFOnBjMFblgPhUxqGbVpwdDkeugeRE99FBzqOsVMRi6UJFdCcGhxyviAgwohhdL8w9WegM3i2rjpwAAAABJRU5ErkJggg==);
+$striped_lens: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
+
+// Checkdesk logo
+$checkdesk_logo: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAYAAAA4E5OyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA31JREFUeNrsmr9v01AQx18SdsyCqkpI5j8IGxNNmdigAwMsSfgHSPdKSaSOSEnETsOCKjEk/QeIYWIj/QuSCqnqRtgYuQtn5BpT+/2yn6076cmKFOe9fPy9e3f3LATbNasVMem7Dx99uLRg4HXvhq+uYVzACF69fB5UCghBeA3jGYFQsTmMM7wCoE0pgQAIVEKfFGHKEMYExtg0mJpFEB5cRjA6FnkjjEOAMnUaCKliBsPLySPRlbom1FK3AAMVscgRhqC4tIC5m04pBBZ0YtlFQgsoMPsJLrQPSlkWrpDhm7eDnGA8gD+Mf/o+uUrUPF2lGAHSOzru/Nj87H+/vLKujNjTnyR8B6G0CwMCMHzaTQRAEZahNGn3Ci0pn5kCtEPVCW4ZWOS13QShNOp1sbtz1waQ0CWGCIcSvTiMbmFBFdTRC9URt3u7O+KOd1sm+1xG3YHiQJNS+yyxSRuGFhCAgU9rddP2mgJlTknVOmPaP6Lt1RoMXZfppeUaYTxJgNKVyS4J2gGASVKkMRi6QTVTJEcoGFdUYcTAjPH+2K7TNRmk6oru0pKpWCNQtOsOuh8hYLw5cKLaBSAjchmpHGJ8fLTveoNI1WVUSvmhKIGpApFNjZegjqCSQMBdVOqE96IkpqIQlbI+qDIQX/YGcJclAymp1QUbAzENZM1ANIFQql9ZICqt/mZlgShuoe0qK0RQpSmlEBtuQ/1cJ4CoZJ59wzAQ8Mo0aFUgn1UqZOrBmoCBMWlGH2eK9VWi6fRUV4pZaxfi0FRj3m3nPRaotyd2JkoEncRMtYI9wYMtDWV8S9i1PPpdr0iFpHbdU2zbdYenus44Vy9DHFqSUja5A6GFDgwEy7/nMlHJkxrQJZ+KP8cPWcFrtSp1gXgkYdcq4ClAUerGN3Rm/frl06+Hjx6fi3xO/aXyHlhXDdYnnR5oV7vUK3WtgbwR/74qYV8hEaUE8ER8h2qWF6pN7YapFQCUM0egYJ5zqnpzw+RKCoayIWWc6vxIw/SqCAqeWz7JEcb2WNPE2Y+191Qpj8Ajz5ZlVUwAxKDwWkYCTIeSN98wCNxFhlkyXaeAxMr1tmTW+b+sdq6TnjsBJMGdWgRmLyU2XIgSnQ2zsbGxsbGxsbGx2TGp1L1MrzVE03+Zukf25f9FCYHgkUTmOohfqWIgDISBMBAGwkAYSFH2W4ABAJ4fORIuBulhAAAAAElFTkSuQmCC);
+
+
+
+// // GRID
+// // --------------------------------------------------
+
+
+// // Default 940px grid
+// // // -------------------------
+// $gridColumns:             $total-width !default;
+// $gridColumnWidth:         $column-width !default;
+// $gridGutterWidth:         $gutter-width !default;
+// $gridRowWidth:            ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1)) !default;
+
+// // Horizontal forms & lists
+// // -------------------------
+// $horizontalComponentOffset:       180px !default;
+
+// $placeholderText:         $grayLight !default;
+
+
+// // Tooltips and popovers
+// // -------------------------
+// $tooltipColor:            #fff !default;
+// $tooltipBackground:       #000 !default;
+// $tooltipArrowWidth:       5px !default;
+// $tooltipArrowColor:       $tooltipBackground !default;
+
+// $popoverBackground:       #fff !default;
+// $popoverArrowWidth:       10px !default;
+// $popoverArrowColor:       #fff !default;
+// $popoverTitleBackground:  darken($popoverBackground, 3%) !default;
+
+// // Special enhancement for popovers
+// $popoverArrowOuterWidth:  $popoverArrowWidth + 1 !default;
+// $popoverArrowOuterColor:  rgba(0,0,0,.25) !default;
+
