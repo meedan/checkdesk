@@ -52,10 +52,10 @@ Drupal.behaviors.alert_new_notifications = {
     block.bind('autorefresh_ping', function(e, count) {
       counter = $('#my-notifications-menu-link').find('.notifications-count');
       if (counter.html() === '') {
-        counter.replaceWith('<span class="badge notifications-count">' + count + '</span>');
+        counter.addClass('badge').html(count);
       }
       else {
-        counter.replaceWith('<span class="badge notifications-count">' + (parseInt(counter.html(), 10) + parseInt(count, 10)) + '</span>');
+        counter.addClass('badge').html((parseInt(counter.html(), 10) + parseInt(count, 10)));
       }
     });
   }
