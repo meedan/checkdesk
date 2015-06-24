@@ -8,6 +8,12 @@
             <?php print $inline_thumbnail; ?>
           </div>
         </div>
+      <?php elseif(isset($full_image)) : ?>
+        <div class="media">
+          <div class="img-holder">
+            <?php print $full_image; ?>
+          </div>
+        </div>
       <?php endif; ?>
       <div class="media-content">
         <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
