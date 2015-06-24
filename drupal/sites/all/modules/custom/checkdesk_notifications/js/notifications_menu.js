@@ -18,7 +18,7 @@ Drupal.behaviors.meedan_notifications_menu_visibility = {
           success: function(data) {
             if (data.timestamp) {
               // Don't hide the notification count
-              that.find('.notifications-count').html('');
+              that.find('.notifications-count').removeClass('badge').html('');
             }
           }
         });
@@ -52,10 +52,10 @@ Drupal.behaviors.alert_new_notifications = {
     block.bind('autorefresh_ping', function(e, count) {
       counter = $('#my-notifications-menu-link').find('.notifications-count');
       if (counter.html() === '') {
-        counter.html('<span>' + count + '</span>');
+        counter.replaceWith('<span class="badge notifications-count">' + count + '</span>');
       }
       else {
-        counter.html('<span>' + (parseInt(counter.find('span').html(), 10) + parseInt(count, 10)) + '</span>');
+        counter.replaceWith('<span class="badge notifications-count">' + (parseInt(counter.html(), 10) + parseInt(count, 10)) + '</span>');
       }
     });
   }

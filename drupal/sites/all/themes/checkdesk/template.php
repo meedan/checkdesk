@@ -389,9 +389,9 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['secondary_menu'][$id]['attributes']['id'] = 'my-notifications-menu-link';
         $variables['secondary_menu'][$id]['html'] = TRUE;
         if($count > 0) {
-          $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span><span class="badge">' . $count . '</span>';
+          $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span><span class="badge notifications-count">' . $count . '</span>';
         } else {
-          $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span>';
+          $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell-o"></span><span class="notifications-count"></span>';
         }
       }
       else {
