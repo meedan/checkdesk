@@ -175,7 +175,7 @@ input[type="radio"]:checked + label {
 		  background: $firefly5;
 		  color: $firefly80;
 		  position: absolute;
-		  left: 0;
+		  #{$alpha}: 0;
 		  top: 0;
 		  height: 30px;
 		  line-height: 30px;
@@ -184,11 +184,12 @@ input[type="radio"]:checked + label {
 		}
 
 		.description {
-		  padding: 5px $gutter-width 0;
+		  padding-top: 5px;
+		  padding: 0 $gutter-width;
 		  height: 30px;
 		  width: 310px;
 		  position: absolute;
-		  left: 0;
+		  #{$alpha}: 0;
 		  top: 34px;
 		  font-size: 14px !important;
 			color: $firefly40 !important;
@@ -201,11 +202,11 @@ input[type="radio"]:checked + label {
 		.form-radios {
 		  position: absolute;
 		  top: 70px;
-		  left: 0;
+		  #{$alpha}: 0;
 
 		  .form-type-radio {
 				float: $alpha;
-			  padding-left: 0;
+			  padding-#{$alpha}: 0;
 			  min-height: 0;
 			}
 

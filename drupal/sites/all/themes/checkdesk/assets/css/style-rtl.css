@@ -5695,7 +5695,7 @@ input[type="radio"]:checked + label.not-applicable {
   background: #f3f4f4;
   color: #3e4c57;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   height: 30px;
   line-height: 30px;
@@ -5707,11 +5707,12 @@ input[type="radio"]:checked + label.not-applicable {
   border-radius: 5px 5px 0 0;
 }
 .report-activity-edit-status.popover .description {
-  padding: 5px 15px 0;
+  padding-top: 5px;
+  padding: 0 15px;
   height: 30px;
   width: 310px;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 34px;
   font-size: 14px !important;
   color: #9fa6ac !important;
@@ -5723,11 +5724,11 @@ input[type="radio"]:checked + label.not-applicable {
 .report-activity-edit-status.popover .form-radios {
   position: absolute;
   top: 70px;
-  left: 0;
+  right: 0;
 }
 .report-activity-edit-status.popover .form-radios .form-type-radio {
   float: right;
-  padding-left: 0;
+  padding-right: 0;
   min-height: 0;
 }
 .report-activity-edit-status.popover .form-radios .form-radio {
