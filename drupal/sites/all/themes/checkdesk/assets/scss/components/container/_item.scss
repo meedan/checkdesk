@@ -1,6 +1,5 @@
 // generalized item with white background and grey
 .item {
-
 	font-size: 16px;
 	color: $firefly60;
 	word-wrap: break-word;
@@ -26,11 +25,9 @@
 		p {
 			@include reset-box-model;
 			color: $firefly80;
+			font-size: inherit;
+			font-family: inherit;
 			a { @include ctb-linkColor($strongBlue80); }
-			// &:first-child {
-				// @include reset-box-model;
-				// margin-top: 5px;
-			// }
 		}
 
 		.item-body-text {
