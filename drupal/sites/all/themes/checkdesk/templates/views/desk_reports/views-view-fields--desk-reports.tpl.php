@@ -6,7 +6,7 @@ if (isset($fields['field_rating']->content)) {
 // Use google getFavicon service http://getfavicon.appspot.com/
 $favicon = NULL;
 if (isset($fields['source_url'])) {
-  $favicon_url = url('http://g.etfv.co/'. $fields['source_url']->raw, array('absolute' => TRUE));
+  $favicon_url = _meedan_oembed_fetch_favicon($fields['source_url']->raw);
   $favicon = theme('image', array('path' => $favicon_url));
 }
 ?>

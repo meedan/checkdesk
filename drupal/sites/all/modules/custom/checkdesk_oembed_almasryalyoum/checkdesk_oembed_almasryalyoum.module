@@ -40,7 +40,7 @@ function checkdesk_oembed_almasryalyoum_handler($provider, $url) {
   $embed = new stdclass();
   $embed->url = $url;
   $embed->original_url = $url;
-  $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
+  $embed->favicon_link = _meedan_oembed_fetch_favicon($embed->original_url);
   $embed->provider = $provider;
   $embed->provider_url = $provider_url;
   $embed->provider_name = 'Al-Masry Al-Youm';
