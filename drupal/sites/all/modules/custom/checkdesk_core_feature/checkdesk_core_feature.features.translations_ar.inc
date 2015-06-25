@@ -952,6 +952,15 @@ This was an auto-generated email from !site; please do not respond directly to t
 
 <a href="!url">Click here </a> to view this report.
 ', array(), array('context' => ''));
+  $translations['ar:default']['13d494fd35f9f5b14309b84466cbddf2'] = array(
+    'source' => 'loading...',
+    'context' => '',
+    'location' => 'sites/all/modules/meedan/meedan_livefyre/meedan_livefyre.js',
+    'translation' => 'جاري التحميل ...',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('loading...', array(), array('context' => ''));
   $translations['ar:default']['13f08c4bacc86b3ea9ba0eca7586df7f'] = array(
     'source' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged for fact-checking.',
     'context' => '',
@@ -9557,6 +9566,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('In Progress', array(), array('context' => ''));
+  $translations['ar:default']['c974d6d1ee16df174cd3620eb8cadd99'] = array(
+    'source' => '<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">No comments</span>',
+    'context' => '',
+    'location' => '',
+    'translation' => '<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">لا تعليقات</span>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">No comments</span>', array(), array('context' => ''));
   $translations['ar:default']['c9755f2fcfe04bd1c16c77a3314d476d'] = array(
     'source' => 'Relate all comments on the node. This will create 1 duplicate record for every comment. Usually if you need this it is better to create a comment view.',
     'context' => '',
@@ -10264,14 +10282,14 @@ This was an auto-generated email from !site; please do not respond directly to t
   );
   $translatables[] = t('Whether or not the content is published.', array(), array('context' => ''));
   $translations['ar:default']['d67850bd126f070221dcfd5fa6317043'] = array(
-    'source' => 'Sign up',
+    'source' => 'Sign Up',
     'context' => '',
     'location' => '/ar/user/login',
     'translation' => 'سجّل',
     'plid' => 0,
     'plural' => 0,
   );
-  $translatables[] = t('Sign up', array(), array('context' => ''));
+  $translatables[] = t('Sign Up', array(), array('context' => ''));
   $translations['ar:default']['d7085e2b5b40144896a996a297e3847d'] = array(
     'source' => 'Sign in with Facebook',
     'context' => '',
@@ -10485,6 +10503,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Thread', array(), array('context' => ''));
+  $translations['ar:default']['d9776f0775997b2e698c6975420b5c5d'] = array(
+    'source' => 'Sign up',
+    'context' => '',
+    'location' => '/ar/user/login',
+    'translation' => 'سجّل',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sign up', array(), array('context' => ''));
   $translations['ar:default']['d98632f555f6bc0890ccb620a6c6d27b'] = array(
     'source' => 'Contextual filter',
     'context' => '',
@@ -12576,6 +12603,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Main menu', array(), array('context' => 'menu:main-menu:title'));
+  $translations['ar:menu']['5d1ed88d7b62faf70088c982fa425477'] = array(
+    'source' => 'My account',
+    'context' => 'item:42e9e86e-42ae-8d04-0d50-e42bde8cbbda:title',
+    'location' => 'menu:item:42e9e86e-42ae-8d04-0d50-e42bde8cbbda:title',
+    'translation' => 'حسابي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('My account', array(), array('context' => 'item:42e9e86e-42ae-8d04-0d50-e42bde8cbbda:title'));
   $translations['ar:menu']['66124c1bf88fc3c69212b7baa7ec4020'] = array(
     'source' => 'Create story',
     'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
@@ -12603,6 +12639,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Edit fact-checking statement', array(), array('context' => 'item:2643d8bd-eb4d-16f4-1928-3013705c11af:title'));
+  $translations['ar:menu']['7d2e19a2830737e72b8ccbb648fca6fc'] = array(
+    'source' => 'Draft  updates',
+    'context' => 'item:5452488b-84b8-4398-9078-9814050cc153:title',
+    'location' => 'menu:item:5452488b-84b8-4398-9078-9814050cc153:title',
+    'translation' => 'مسودات التحديثات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Draft  updates', array(), array('context' => 'item:5452488b-84b8-4398-9078-9814050cc153:title'));
   $translations['ar:menu']['844ea0efec81ac18372868128eab065f'] = array(
     'source' => 'Compose update',
     'context' => 'item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
@@ -12657,6 +12702,24 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Sign in / Sign up', array(), array('context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title'));
+  $translations['ar:menu']['b2d30a94203b8b6f25b7e1c4d6f4dd6a'] = array(
+    'source' => 'Draft  stories',
+    'context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
+    'location' => 'menu:item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
+    'translation' => 'مسودات القصص',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Draft  stories', array(), array('context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title'));
+  $translations['ar:menu']['b48b9a053ce15999a9da52bbe0a59d88'] = array(
+    'source' => 'Sign in',
+    'context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title',
+    'location' => 'menu:item:9a684326-a352-d454-517b-878bb9468e91:title',
+    'translation' => 'تسجيل الدخول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sign in', array(), array('context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title'));
   $translations['ar:menu']['ccad5ea8329325c1f37b39e288708bcc'] = array(
     'source' => 'Update story',
     'context' => 'item::title',
@@ -12693,6 +12756,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Manage users', array(), array('context' => 'item:485c5e2e-cc65-4904-91e1-1ec580b522d5:title'));
+  $translations['ar:menu']['f474d46deac46f4afa0574c64664d368'] = array(
+    'source' => 'Information',
+    'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'translation' => 'معلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Information', array(), array('context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title'));
   $translations['ar:menu']['f62799e0b42171ab73ee0e833dabe923'] = array(
     'source' => 'Edit fact-checking statement',
     'context' => 'item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
