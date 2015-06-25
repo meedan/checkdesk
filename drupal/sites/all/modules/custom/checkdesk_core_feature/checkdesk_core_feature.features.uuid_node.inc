@@ -1076,7 +1076,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 
 <h2>Who are our project partners?</h2>
 
-<p>We are developing Checkdesk with media partners in the Arab region, including Almasry Alyoum (Egypt), Egypt Independent (Egypt), Sa7afet Welad El Balad (Egypt), 7iber (Jordan), SMEX Social Media Exchange (Lebanon), Nahar Ashabab (Lebanon), Alayyam/ Shabab Souria (Syria), and Ma\'an Network (Palestine). Our research and curriculum partner on the project is Birmingham City University. The project is funded by the Arab Partnerships fund, Sida and the International Press Institute (Checkdesk won a 2012 IPI Innovation Award). You can <a href="http://meedan.org/category/checkdesk/" target="_blank">read more on our blog</a>.</p>
+<p>We are developing Checkdesk with media partners in the Arab region, including Mada Masr (Egypt), Al Manassa (Egypt), Welad El Balad (Egypt), SMEX Social Media Exchange (Lebanon), Global Voices (MENA team), and Bellingcat (UK). Our research and curriculum partner on the project is Birmingham City University. The project has been funded by the Arab Partnerships Fund, Sida, The Knight Foundation (Checkdesk won a 2014 News Challenge Award), and the International Press Institute (Checkdesk won a 2012 IPI Innovation Award). You can <a href="https://medium.com/meedan-updates" target="_blank">read more on our blog</a>.</p>
 
 </div>',
         'summary' => '',
