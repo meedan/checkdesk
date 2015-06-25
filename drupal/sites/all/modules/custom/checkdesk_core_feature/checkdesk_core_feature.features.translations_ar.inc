@@ -796,7 +796,7 @@ They provided the following explanation for flagging:
   $translations['ar:default']['119c7e70192829bf606e3774254c6167'] = array(
     'source' => 'By e-mail',
     'context' => '',
-    'location' => '/ar/user/1/notifications',
+    'location' => '/ar/user/1/edit/notifications',
     'translation' => 'بالبريد الإلكتروني',
     'plid' => 0,
     'plural' => 0,
@@ -1983,7 +1983,7 @@ This was an auto-generated email from !site, please do not respond directly to t
   $translations['ar:default']['2bf802fe1cf9aba0ad608a49d515c022'] = array(
     'source' => 'Receive notifications',
     'context' => '',
-    'location' => '/ar/user/1/notifications',
+    'location' => '/ar/user/1/edit/notifications',
     'translation' => 'تلقّي التنبيهات',
     'plid' => 0,
     'plural' => 0,
@@ -3430,7 +3430,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['4c3d15bfe463d7a26ca6041afe0bab45'] = array(
     'source' => 'Needing deletion',
     'context' => '',
-    'location' => '/ar/user/577/notifications',
+    'location' => '/ar/user/577/edit/notifications',
     'translation' => 'يحتاج الحذف',
     'plid' => 0,
     'plural' => 0,
@@ -4105,7 +4105,7 @@ A new user <a href="!url">!name </a>has registered. If you want to accept this r
   $translations['ar:default']['5a598edac7133a65ae8f38fdabe1d8ae'] = array(
     'source' => 'New user',
     'context' => '',
-    'location' => '/ar/user/16/notifications',
+    'location' => '/ar/user/16/edit/notifications',
     'translation' => 'مستخدم جديد',
     'plid' => 0,
     'plural' => 0,
@@ -4757,7 +4757,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $translations['ar:default']['6778e332c1f1e52038f0d7b44fdde1ae'] = array(
     'source' => 'Fact-checking status changed',
     'context' => '',
-    'location' => '/ar/user/2/notifications',
+    'location' => '/ar/user/2/edit/notifications',
     'translation' => 'تغيير حالة التحقق من صحة المعلومات',
     'plid' => 0,
     'plural' => 0,
@@ -7270,7 +7270,7 @@ This was an auto-generated email from !site, please do not respond directly to t
   $translations['ar:default']['9c09d66db4be5a97ae64e42e68654744'] = array(
     'source' => 'Please select the events for which you wish to be notified',
     'context' => '',
-    'location' => '/ar/user/16/notifications',
+    'location' => '/ar/user/16/edit/notifications',
     'translation' => 'يرجى اختيار الأحداث التي ترغب بالحصول على التنبيهات عليها',
     'plid' => 0,
     'plural' => 0,
@@ -9845,7 +9845,7 @@ A <a href="!report_url">report</a> which you have submitted has been published i
   $translations['ar:default']['cf6a72dd0ab0eb4ae9a804925b62fd71'] = array(
     'source' => '<p><strong><a href="!flag_author_url">!flag_author_name</a></strong> has flagged a <strong><a href="!report_url">report</a></strong> as <span class="notification-flag">!flag_type</span>.</p>',
     'context' => '',
-    'location' => '/ar/user/577/notifications',
+    'location' => '/ar/user/577/edit/notifications',
     'translation' => '<p>قام <strong><a href="!flag_author_url">!flag_author_name</a></strong>  بتنبيه فريق العمل عن <strong><a href="!report_url">التقرير الآتي</a></strong> بأنه <span class="notification-flag">!flag_type</span>.</p>',
     'plid' => 0,
     'plural' => 0,
@@ -10320,7 +10320,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['d8314c5fa90e746b8f7d16cfd34d1374'] = array(
     'source' => 'Notify me by e-mail or on site when...',
     'context' => '',
-    'location' => '/ar/user/1/notifications',
+    'location' => '/ar/user/1/edit/notifications',
     'translation' => 'نبهني عبر البريد الإلكتروني أو على الموقع عندما...',
     'plid' => 0,
     'plural' => 0,
@@ -11640,7 +11640,7 @@ print theme(\'views_autorefresh\', array(
   $translations['ar:default']['f0444a6fc8e8a4066a9c2c896322fe3c'] = array(
     'source' => 'On site',
     'context' => '',
-    'location' => '/ar/user/1/notifications',
+    'location' => '/ar/user/1/edit/notifications',
     'translation' => 'على الموقع',
     'plid' => 0,
     'plural' => 0,
@@ -11721,7 +11721,7 @@ print theme(\'views_autorefresh\', array(
   $translations['ar:default']['f292a1f39ef5f823ff5ac87c5b9fdade'] = array(
     'source' => 'Fact-checking turned on',
     'context' => '',
-    'location' => '/ar/user/2/notifications',
+    'location' => '/ar/user/2/edit/notifications',
     'translation' => 'تم تفعيل التحقق من صحة المعلومات',
     'plid' => 0,
     'plural' => 0,
@@ -12102,7 +12102,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['fb66db3b60429cd6c40dbd1a9183f05b'] = array(
     'source' => 'Needing fact-checking',
     'context' => '',
-    'location' => '/ar/user/577/notifications',
+    'location' => '/ar/user/577/edit/notifications',
     'translation' => 'يحتاج التقصي',
     'plid' => 0,
     'plural' => 0,
