@@ -288,53 +288,6 @@ function checkdesk_preprocess_page(&$variables) {
     drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/front.js', array('scope' => 'footer', 'weight' => 99));
   }
 
-  // Primary nav
-  $variables['primary_nav'] = FALSE;
-  if ($variables['main_menu']) {
-    // Build links
-    $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
-
-    // Remove empty expanded menus
-    foreach ($tree as $id => $item) {
-      if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
-        unset($tree[$id]);
-      }
-
-      if (isset($item['below']) && $item['link']['title'] == t('...')) {
-        $tree[$id]['link']['title'] = '&nbsp;';
-        $tree[$id]['link']['link_title'] = '&nbsp;';
-        $tree[$id]['link']['html'] = TRUE;
-      }
-    }
-
-    $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
-    foreach ($variables['main_menu'] as $id => $item) {
-      if ($item['link_path'] == 'node/add/media') {
-        $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
-        if (arg(0) == 'node' && is_numeric(arg(1)) && $variables['node']->type === 'discussion') {
-          $variables['main_menu'][$id]['query'] = array('ref_nid' => arg(1));
-        }
-      } else if ($item['link_path'] == 'node/add/discussion') {
-        $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
-      } else if ($item['link_path'] == 'node/add/post') {
-        $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
-        if (arg(0) == 'node' && is_numeric(arg(1)) && $variables['node']->type === 'discussion') {
-          $variables['main_menu'][$id]['query'] = array('story' => arg(1));
-        }
-      }
-    }
-
-    // Build list
-    $variables['primary_nav'] = theme('checkdesk_links', array(
-        'links' => $variables['main_menu'],
-        'attributes' => array(
-            'id' => 'main-menu',
-            'class' => array('nav'),
-        ),
-        'heading' => NULL,
-    ));
-  }
-
   // Secondary nav
   $variables['secondary_nav'] = FALSE;
   $menu = menu_load('menu-common');
