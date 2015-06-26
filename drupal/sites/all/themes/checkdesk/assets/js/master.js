@@ -110,6 +110,23 @@
     }
   };
 
+  // frontpage swap header logos
+  Drupal.behaviors.frontpage = {
+    attach: function(context) {
+      $(window).bind('scroll', function(){
+        var st = $(window).scrollTop();
+        // if scroll is 20 set opacity to 1
+        if (st > 20) {
+          $('header').addClass('show-content-shadow');
+        }
+        // if at top hide the shadow
+        if (st == 0) {
+          $('header').removeClass('show-content-shadow');
+        }
+      });
+    }
+  };
+
   Drupal.behaviors.searchPage = {
     attach: function (context, settings) {
       // set default to open

@@ -6961,47 +6961,41 @@ ul#breadcrumb a {
 }
 
 ul#breadcrumb h1 {
-  font-size: 28px;
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 700;
   margin-bottom: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   padding-right: 200px;
+  overflow: hidden;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 ul#user-menu {
+  left: 0;
   -webkit-box-direction: reverse;
   -webkit-box-orient: horizontal;
   -webkit-flex-direction: row-reverse;
   -moz-flex-direction: row-reverse;
   -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
-  left: 0;
   margin-left: 60px;
   z-index: 920;
   background: #fff;
 }
-body.nofront ul#user-menu {
-  border-bottom: 1px solid rgba(16, 33, 47, 0.05);
+ul#user-menu:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  box-shadow: 0 -4px 0px 4px #edeff0, 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
 }
-ul#user-menu li {
-  position: relative;
-}
-ul#user-menu li #my-notifications-menu-link {
-  border-left: 1px solid #e7e8ea;
-}
-ul#user-menu li > a {
-  padding: 0 20px;
-  -webkit-transition: border 0.2s ease;
-  -moz-transition: border 0.2s ease;
-  -o-transition: border 0.2s ease;
-  transition: border 0.2s ease;
-  -webkit-transition: color 0.2s ease;
-  -moz-transition: color 0.2s ease;
-  -o-transition: color 0.2s ease;
-  transition: color 0.2s ease;
+.show-content-shadow ul#user-menu:after {
+  opacity: 1;
 }
 ul#user-menu .icon-bell-o:before {
   font-family: "FontAwesome";
@@ -7019,6 +7013,25 @@ ul#user-menu .icon-bell-o:before {
 }
 ul#user-menu .icon-bell-o:before {
   margin: 0;
+}
+
+ul#user-menu li {
+  position: relative;
+}
+ul#user-menu li #my-notifications-menu-link {
+  border-left: 1px solid #e7e8ea;
+}
+
+ul#user-menu li > a {
+  padding: 0 20px;
+  -webkit-transition: border 0.2s ease;
+  -moz-transition: border 0.2s ease;
+  -o-transition: border 0.2s ease;
+  transition: border 0.2s ease;
+  -webkit-transition: color 0.2s ease;
+  -moz-transition: color 0.2s ease;
+  -o-transition: color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 ul#user-menu .badge {
@@ -7758,17 +7771,6 @@ form .messages-inline {
   line-height: 1.4;
 }
 
-form > .form-item {
-  *zoom: 1;
-}
-form > .form-item:before, form > .form-item:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-form > .form-item:after {
-  clear: both;
-}
 form input[type="password"],
 form input[type="text"],
 form textarea {
@@ -7854,17 +7856,6 @@ form .form-type-textarea:after {
   }
   form .description {
     display: inline-block;
-  }
-  form > .form-item {
-    *zoom: 1;
-  }
-  form > .form-item:before, form > .form-item:after {
-    display: table;
-    content: "";
-    line-height: 0;
-  }
-  form > .form-item:after {
-    clear: both;
   }
   form input[type="password"],
   form input[type="text"],

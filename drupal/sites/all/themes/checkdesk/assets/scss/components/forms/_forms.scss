@@ -66,8 +66,6 @@
         padding-top: $absolute-line-height/3;
       }
       select {
-        // float: $alpha;
-        // @include span-columns($container-width/2);
         padding: 0;
       }
     }
@@ -269,16 +267,6 @@
 
     @content; // if you want to pass in padding via breakpoints
 
-    & > .form-item {
-      @include ctb-clearfix;
-      // @include span-columns($w, $w);
-
-      // Nested <.form-item>s
-      .form-item { 
-        // @include span-columns($w, $w);
-      }
-    } 
-
     // Default main inputs and textareas
     input[type="password"],
     input[type="text"],
@@ -349,7 +337,6 @@
 
 
     select {
-      // @include span-columns($w, $w); // small padding with grid accounting
       float: none;
       @include cd-sans-serif-family;
     }
