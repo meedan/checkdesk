@@ -12,23 +12,34 @@ header#header {
 
 // adjust header items for drupal toolbar
 ul#breadcrumb, ul#user-menu, ul#utility-menu {
-  will-change: transform;
-  body.toolbar & {
-    top: $toolbarMenuHeight !important;
-  }
-  body.toolbar-drawer & {
-    top: $toolbarHeight !important;
-  }
   position: fixed;
   top: 0;
+  body.toolbar & {
+    top: $toolbarMenuHeight;
+  }
+  body.toolbar-drawer & {
+    top: $toolbarHeight;
+  }
   #{$omega}: 0;
   height: $headerHeight;
-  @include reset-list-style;
-  padding: 0 50px;
   @include flexbox;
   @include align-items(center);
   @include box-sizing(border-box);
+  @include reset-list-style;
+  padding: 0 50px;
   a { @include ctb-linkColor($firefly30); }
+  will-change: transform;
+
+  @include cd-responsive(small-screens) {
+    body.toolbar & {
+      top: 0;
+    }
+    body.toolbar-drawer & {
+      top: 0;
+    }
+    padding: 0 20px;
+  }  
+
 }
 
 ul#breadcrumb {

@@ -1,6 +1,24 @@
 // Checkdesk Core Mixins
 // --------------------------------------------------
 
+
+// Responsive Mixin
+// This is a simple mixin for media queries as described
+// in Sass for Web Designers by Dan Cederholm
+// see _variables.scss for variables defining the breakpoints
+
+@mixin cd-responsive($width) {
+  @if $width == wide-screens {
+    @media only screen and (max-width: $width-desktop) { @content; }
+  }
+  @else if $width == medium-screens {
+    @media only screen and (max-width: $width-tablet) { @content; }
+  }
+  @else if $width == small-screens {
+    @media only screen and (max-width: $width-mobile) { @content; }
+  }
+}
+ 
 @mixin cd-dark-text-shadow($opacity: 0.5) { // use #fff for dark backgrounds
   @include text-shadow(rgba(black, 0.8) 0 1px 0);
 }
