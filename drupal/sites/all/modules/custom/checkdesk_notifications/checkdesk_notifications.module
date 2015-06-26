@@ -417,7 +417,7 @@ function checkdesk_notifications_tokens($type, $tokens, array $data = array(), a
   if ($type == 'user' && !empty($data['user']) && isset($tokens['notifications-url'])) {
     $user = $data['user'];
     $original = $tokens['notifications-url'];
-    $replacements[$original] = url('user/' . $user->uid . '/notifications', array('absolute' => TRUE, 'alias' => TRUE, 'language' => $options['language']));
+    $replacements[$original] = url('user/' . $user->uid . '/edit/notifications', array('absolute' => TRUE, 'alias' => TRUE, 'language' => $options['language']));
   }
   return $replacements;
 }
