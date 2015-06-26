@@ -1,25 +1,27 @@
 // =======================================================================
 // Drupal toolbars at the very top
 //
-div.region-page-top {
-  #toolbar {
-    will-change: transform;
-    #{$alpha}: $navbarWidth;
-    position: fixed;
-    z-index: $z-index-FixedNavbar;
-    // This can be cleaned up with toolbar css is removed.
-    @include box-shadow(0 0 0 0); // disable box shadow
-    padding: 0;
-    margin: 0;
-    overflow: hidden; // removes scroll?
-    background: white;
-    li {
-      @include reset-box-model;
-      a { 
-        color: $nav-color; 
-        padding: $gutter-width;
-      } 
-    }
+div.region-page-top #toolbar {
+  position: fixed;
+  #{$alpha}: $navbarWidth;
+  overflow: hidden; // removes scroll?
+  z-index: $z-index-FixedNavbar;
+  padding: 0;
+  margin: 0;
+  background: white;
+  // This can be cleaned up with toolbar css is removed.
+  @include box-shadow(0 0 0 0); // disable box shadow
+  will-change: transform;
+  li {
+    @include reset-box-model;
+    a { 
+      padding: $gutter-width;
+      color: $nav-color; 
+    } 
+  }
+  // hide drupal toolbar on mobile
+  @include cd-responsive(small-screens) {
+    display: none;
   }
 }
 
