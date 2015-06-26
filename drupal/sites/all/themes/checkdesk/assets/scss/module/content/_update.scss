@@ -1,6 +1,6 @@
 // Updates
 //
-.updates {
+@include cd-responsive(wide-screens) {
   .update-row {
     @include flexbox;
     .update-body {
@@ -20,7 +20,7 @@
 
 @include cd-responsive(small-screens) {
   .updates .update-row {
-    @include flex-direction(column);
+    display: block;
     .update-footer {
       max-width: 100%;
       margin-#{$omega}: 0;

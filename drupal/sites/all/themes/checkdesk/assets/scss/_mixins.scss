@@ -9,7 +9,7 @@
 
 @mixin cd-responsive($width) {
   @if $width == wide-screens {
-    @media only screen and (max-width: $width-desktop) { @content; }
+    @media only screen and (max-width: $width-wide) { @content; }
   }
   @else if $width == medium-screens {
     @media only screen and (max-width: $width-tablet) { @content; }
