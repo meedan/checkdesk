@@ -17,12 +17,12 @@ ul.pager {
 //     font-size: $large-font-size;
 //     border-#{$from-direction}: 1px solid $grey;
 //     a { 
-//       @include building-block($black);
+//       @include building-block(#000);
 //       padding: $base-font-size; 
-//       color: $identity;
+//       color: $brand-primary;
 //     }
 //     &.pager-current {
-//       @include building-block($identity);
+//       @include building-block($brand-primary);
 //       color: $firefly;
 //       padding: $base-font-size; // hack ... the markup is uneven
 //     }
@@ -38,7 +38,7 @@ ul.pager {
   @include reset-list-style;
   @include ctb-clearfix;
   margin: $absolute-line-height 0;
-  font-size: $fontSizeSmall;
+  font-size: $font-size-small;
 
   li {
     display: inline;
@@ -48,14 +48,14 @@ ul.pager {
     & > span {
       display: inline-block;
       padding: 5px 14px;
-      background-color: $white;
-      border: 1px solid $grayLighter;
+      background-color: #fff;
+      border: 1px solid $gray-lighter;
       @include ctb-border-radius(15px);
     }
     & > a:hover {
       color: $gray;
       text-decoration: none;
-      background-color: darken($grayLighter, 1%);
+      background-color: darken($gray-lighter, 1%);
     }
   }
 
@@ -71,8 +71,8 @@ ul.pager {
   .disabled > a,
   .disabled > a:hover,
   .disabled > span {
-    color: $grayLight;
-    background-color: $white;
+    color: $gray-light;
+    background-color: #fff;
     cursor: default;
   }
 }

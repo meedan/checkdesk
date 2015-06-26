@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+// Colors
+// via: bowerbird sass extension
+// note: We always want to use colors by name, to facilitate readbility + discussion.
+// note: hsl() values preferred for readability
+@import "colors"; // checkdesk theme colors
+@import "bowerbird/colors";
 
 // Variables and Mixins
 @import "variables";
@@ -26,12 +32,6 @@ $omega: opposite-position($from-direction);
 // Modular scale  
 // via: gem
 @import "modular-scale";
-
-// Colors
-// via: bowerbird sass extension
-// note: We always want to use colors by name, to facilitate readbility + discussion.
-// note: hsl() values preferred for readability
-@import "bowerbird/colors";
 
 // Bowerbird Compass Extension
 // See also README.md and ../bowerbird/README.md
@@ -120,6 +120,7 @@ $omega: opposite-position($from-direction);
 @import "replace_ctb/mixins";
 @import "replace_ctb/forms";
 @import "replace_ctb/navs";
+@import "replace_ctb/buttons";
 @import "compass_twitter_bootstrap/reset";
 
 // @import "compass_twitter_bootstrap/code"; // TB Syntax highlighting
@@ -151,7 +152,7 @@ $omega: opposite-position($from-direction);
 @import "base/base";
 @import "base/typography";
 @import "base/lists";
-@import "components/buttons";
+// @import "components/buttons";
 
 //checkdesk specific
 

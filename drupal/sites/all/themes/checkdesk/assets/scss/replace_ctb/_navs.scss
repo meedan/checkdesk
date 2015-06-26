@@ -38,7 +38,7 @@
   font-size: 11px;
   font-weight: bold;
   line-height: $absolute-line-height;
-  color: $grayLight;
+  color: $gray-light;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
   text-transform: uppercase;
 }
@@ -68,7 +68,7 @@
 }
 .nav-list > .active > a,
 .nav-list > .active > a:hover {
-  color: $white;
+  color: #fff;
   text-shadow: 0 -1px 0 $firefly20;
   background-color: $linkColor;
 }
@@ -124,7 +124,7 @@
   @include border-radius(4px 4px 0 0);
   &:hover,
   &:focus {
-    border-color: $grayLighter $grayLighter #ddd;
+    border-color: $gray-lighter $gray-lighter #ddd;
   }
 }
 // Active state, and it's :hover/:focus to override normal :hover/:focus
@@ -174,8 +174,8 @@
   &:hover {
     background-color: #fff;
     background-color: #fff;
-    border: 1px solid $identity;
-    color: $identity;
+    border: 1px solid $brand-primary;
+    color: $brand-primary;
   }
 
 }
@@ -183,8 +183,8 @@
 .admin-nav-tabs > .active > a,
 .admin-nav-tabs > .active > a:hover {
   background-color: #fff;
-  border: 1px solid $identity;
-  color: $identity;
+  border: 1px solid $brand-primary;
+  color: $brand-primary;
 }
 
 
@@ -203,7 +203,7 @@
 // Active state
 .nav-pills > .active > a,
 .nav-pills > .active > a:hover {
-  color: $white;
+  color: #fff;
   background-color: $linkColor;
 }
 
@@ -298,21 +298,21 @@
 // .nav-tabs .open .dropdown-toggle,
 // .nav-pills .open .dropdown-toggle,
 // .nav > li.dropdown.open.active > a:hover {
-//   color: $white;
-//   background-color: $grayLight;
-//   border-color: $grayLight;
+//   color: #fff;
+//   background-color: $gray-light;
+//   border-color: $gray-light;
 // }
 // .nav li.dropdown.open .caret,
 // .nav li.dropdown.open.active .caret,
 // .nav li.dropdown.open a:hover .caret {
-//   border-top-color: $white;
-//   border-bottom-color: $white;
+//   border-top-color: #fff;
+//   border-bottom-color: #fff;
 //   @include opacity(100);
 // }
 
 // Dropdowns in stacked tabs
 .tabs-stacked .open > a:hover {
-  border-color: $grayLight;
+  border-color: $gray-light;
 }
 
 // COMMON STYLES
@@ -392,12 +392,12 @@
   @include border-radius(4px 0 0 4px);
 }
 .tabs-left > .nav-tabs > li > a:hover {
-  border-color: $grayLighter #ddd $grayLighter $grayLighter;
+  border-color: $gray-lighter #ddd $gray-lighter $gray-lighter;
 }
 .tabs-left > .nav-tabs .active > a,
 .tabs-left > .nav-tabs .active > a:hover {
   border-color: #ddd transparent #ddd #ddd;
-  *border-right-color: $white;
+  *border-right-color: #fff;
 }
 
 // Tabs on the right
@@ -411,12 +411,12 @@
   @include border-radius(0 4px 4px 0);
 }
 .tabs-right > .nav-tabs > li > a:hover {
-  border-color: $grayLighter $grayLighter $grayLighter #ddd;
+  border-color: $gray-lighter $gray-lighter $gray-lighter #ddd;
 }
 .tabs-right > .nav-tabs .active > a,
 .tabs-right > .nav-tabs .active > a:hover {
   border-color: #ddd #ddd #ddd transparent;
-  *border-left-color: $white;
+  *border-left-color: #fff;
 }
 
 
@@ -426,7 +426,7 @@
 
 // Gray out text
 .nav > .disabled > a {
-  color: $grayLight;
+  color: $gray-light;
 }
 // Nuke hover effects
 .nav > .disabled > a:hover {

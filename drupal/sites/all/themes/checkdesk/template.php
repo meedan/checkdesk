@@ -1049,6 +1049,28 @@ function checkdesk_field__field_tags(&$variables) {
   }
 }
 
+/**
+ * Implements hook_preprocess_button().
+ */
+function checkdesk_preprocess_button(&$variables) {
+  $element = &$variables['element'];
+
+  // Set the element's attributes.
+  element_set_attributes($element, array('id', 'name', 'value', 'type'));
+
+  // Add the base Bootstrap button class.
+  $element['#attributes']['class'][] = 'btn';
+
+  // Colorize button.
+  _checkdesk_colorize_button($element);
+
+  // Add in the button type class.
+  // $element['#attributes']['class'][] = 'form-' . $element['#button_type'];
+
+  // Ensure that all classes are unique, no need for duplicates.
+  $element['#attributes']['class'] = array_unique($element['#attributes']['class']);
+}
+
 function checkdesk_fboauth_action__connect(&$variables) {
   $action = $variables['action'];
   $link = $variables['properties'];

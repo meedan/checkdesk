@@ -1740,7 +1740,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
     $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
     $form['remember_me']['#suffix'] = '</div>';
-    $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
+    $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium btn btn-default');
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-sigin-back-link">' . $back_link . '</div>';
     $form['#validate'][] = '_modify_drupal_message';
     $form['actions']['submit']['#attributes']['onclick'] = 
@@ -1751,8 +1751,8 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['story']['#prefix'] = '<div class="modal-content-wrapper">';
     $form['story']['#suffix'] = '</div>';
     $form['submit']['#prefix'] = '<div class="modal-footer"><div class="form-actions form-wrapper">
-                <a id="close" class="btn" data-dismiss="modal" aria-hidden="true"
-                onClick="jQuery(\'#close\').trigger(\'click\');" >' . t('Close') . '</a>';
+                <button type="button" id="close" class="btn btn-default" data-dismiss="modal" aria-hidden="true"
+                onClick="jQuery(\'#close\').trigger(\'click\');" >' . t('Close') . '</button>';
     $form['submit']['#suffix'] = '</div></div>';
     $form['submit']['#value'] = t('Continue');
     $form['submit']['#attributes']['class'] = array('btn', 'btn-primary');
@@ -1804,7 +1804,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
         '#markup' => $register_header,
         '#weight' => -99,
       );
-      $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
+      $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium btn btn-default');
       $form['actions']['submit']['#suffix'] = '<div class="back-link user-register-back-link">' . $back_link . '</div>';
     }
   }

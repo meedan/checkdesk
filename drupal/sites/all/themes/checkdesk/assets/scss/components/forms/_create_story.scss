@@ -16,7 +16,7 @@
     background-color: transparent;
     border: none;
     #edit-submit-story {
-      @include checkdesk-button($identity);
+      @include checkdesk-button($brand-primary);
     }
   }
 
@@ -74,7 +74,7 @@
   .customfile-hover {
     .customfile-button {
       background: $firefly40;
-      color: $white;
+      color: #fff;
     }
   }
   #edit-field-lead-image-und-0-upload-button {

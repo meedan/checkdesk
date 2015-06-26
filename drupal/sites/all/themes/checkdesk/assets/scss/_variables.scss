@@ -25,6 +25,25 @@ $relative-line-height: 1.5 !default;
 $absolute-line-height: 24px !default;
 // $base-line-height: $absolute-line-height !default; // for compass calculations only
 
+
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+$body-bg:               #fff !default;
+//** Global text color on `<body>`.
+$text-color:            $gray-dark !default;
+
+//** Global textual link color.
+$link-color:            $brand-primary !default;
+//** Link hover color set via `darken()` function.
+$link-hover-color:      darken($link-color, 15%) !default;
+//** Link hover decoration.
+$link-hover-decoration: underline !default;
+
+
 // Susy configuration
 //
 // For more information: `gem unpack susy`
@@ -122,41 +141,6 @@ $checkbox-width: 25px;
 // Standardize our box-radius
 $radius: 4px;
 
-// Colors
-// =============================================================================
-// ... live in colors.css
-
-$firefly: 			#10212F;
-$firefly90: 		#283743;
-$firefly80: 		#3E4C57;
-$firefly60: 		#6F7A82;
-$firefly40: 		#9FA6AC;
-$firefly30: 		#B7BCC0;
-$firefly20: 		#CFD3D5;
-$firefly10:			#E7E8EA;
-$firefly5:			#F3F4F4;
-$firefly2:			#FAFBFB;
-
-$dodgerBlue: 		#2E77FC;
-$dodgerBlue80:	#3B8AFD;
-$dodgerBlue60: 	#7DB1FE;
-$dodgerStrong:	#2155B4;
-
-$thatch: 				#B89892;
-$thatch80:			#BFA29C;
-$thatch5: 			#EFE9E6;
-$thatch5Alt:		#FBFAF9;
-$thatch2:				#FEFDFD;
-
-$strongBlue:		#2155B4;
-$strongBlue80: 	#4A74C0;
-$strongBlue60: 	#7A99D2;
-
-$verified:			#399664;
-$undetermined:	#EC9131;
-$false:					#CC4F43;
-$in-progress:		#F5A623;
-
 
 // Debugger
 // =============================================================================
@@ -189,35 +173,104 @@ $debug: true !default;
 // 
 // to #review and #remove
 // we should only use variables in base — CGB
-$fontSizeLarge:         $base-font-size * 1.25; // ~18px
-$fontSizeSmall:         $base-font-size * 0.85; // ~12px
-$fontSizeMini:          $base-font-size * 0.75; // ~11px
+$font-size-base:          18px !default;
+$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
 
-$zindexDropdown:          900 !default;
-$zindexPopover:           910 !default;
-$zindexTooltip:           930 !default;
-$zindexFixedNavbar:       930 !default;
-$zindexModalBackdrop:     940 !default;
-$zindexModal:             950 !default;
+$font-size-h1:            floor(($font-size-base * 2.6)) !default; // ~36px
+$font-size-h2:            floor(($font-size-base * 2.15)) !default; // ~30px
+$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
+$font-size-h4:            ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-h5:            $font-size-base !default;
+$font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
 
+//** Unit-less `line-height` for use in components like buttons.
+$line-height-base:        1.428571429 !default; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+$line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
 
-// $paddingLarge:          11px 19px; // 44px
-// $paddingSmall:          2px 10px;  // 26px
-// $paddingMini:           1px 6px;   // 24px
+//** By default, this inherits from the `<body>`.
+$headings-font-family:    inherit !default;
+$headings-font-weight:    500 !default;
+$headings-line-height:    1.1 !default;
+$headings-color:          inherit !default;
 
-// $radius:      3px;
-// $borderRadiusLarge:     6px;
-// $borderRadiusSmall:     3px;
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
 
+$padding-base-vertical:     6px !default;
+$padding-base-horizontal:   16px !default;
 
+$padding-large-vertical:    10px !default;
+$padding-large-horizontal:  20px !default;
 
+$padding-small-vertical:    5px !default;
+$padding-small-horizontal:  10px !default;
 
-// // COMPONENT VARIABLES
-// // --------------------------------------------------
+$padding-xs-vertical:       1px !default;
+$padding-xs-horizontal:     5px !default;
+
+$line-height-large:         1.3333333 !default; // extra decimals for Win 8.1 Chrome
+$line-height-small:         1.5 !default;
+
+$border-radius-base:        4px !default;
+$border-radius-large:       6px !default;
+$border-radius-small:       3px !default;
+
+//== Forms
+//
+//##
+
+//** `<input>` background color
+$input-bg:                       #fff !default;
+//** `<input disabled>` background color
+$input-bg-disabled:              $gray-lighter !default;
+
+//** Text color for `<input>`s
+$input-color:                    $gray !default;
+//** `<input>` border color
+$input-border:                   #ccc !default;
+
+// TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
+//** Default `.form-control` border radius
+// This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
+$input-border-radius:            $border-radius-base !default;
+//** Large `.form-control` border radius
+$input-border-radius-large:      $border-radius-large !default;
+//** Small `.form-control` border radius
+$input-border-radius-small:      $border-radius-small !default;
+
+//** Border color for inputs on focus
+$input-border-focus:             #66afe9 !default;
+
+//** Placeholder text color
+$input-color-placeholder:        #999 !default;
+
+//** Default `.form-control` height
+$input-height-base:              ($line-height-computed + ($padding-base-vertical * 2) + 2) !default;
+//** Large `.form-control` height
+$input-height-large:             (ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2) !default;
+//** Small `.form-control` height
+$input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2) !default;
+
+//** `.form-group` margin
+$form-group-margin-bottom:       15px !default;
+
+$legend-color:                   $gray-dark !default;
+$legend-border-color:            #e5e5e5 !default;
+
+//** Background color for textual input addons
+$input-group-addon-bg:           $gray-lighter !default;
+//** Border color for textual input addons
+$input-group-addon-border-color: $input-border !default;
+
+//** Disabled cursor for form controls and buttons.
+$cursor-disabled:                not-allowed !default;
 
 // // Hr border color
 // // -------------------------
-// $hrBorder:                $grayLighter !default;
+// $hrBorder:                $gray-lighter !default;
 
 
 // // Navbar
@@ -227,14 +280,14 @@ $zindexModal:             950 !default;
 $navbarHeight:                    38px !default;
 $navbarWidth:                     	60px !default;
 $headerHeight:											65px !default;
-// $navbarBackgroundHighlight:       $grayDarker !default;
-// $navbarBackground:                $grayDarker;
+// $navbarBackgroundHighlight:       $dark-greyer !default;
+// $navbarBackground:                $dark-greyer;
 // $navbarBorder:                    darken($navbarBackground, 12%) !default;
 
-// $navbarText:                      $grayLight !default;
-// $navbarLinkColor:                 $grayLight !default;
-// $navbarLinkColorHover:            $white !default;
-// $navbarLinkColorActive:           $white !default;
+// $navbarText:                      $gray-light !default;
+// $navbarLinkColor:                 $gray-light !default;
+// $navbarLinkColorHover:            #fff !default;
+// $navbarLinkColorActive:           #fff !default;
 // $navbarLinkBackgroundHover:       transparent !default;
 // $navbarLinkBackgroundActive:      darken($navbarBackground, 5%) !default;
 
@@ -249,6 +302,44 @@ $striped_lens: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAAC
 
 // Checkdesk logo
 $checkdesk_logo: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAYAAAA4E5OyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA31JREFUeNrsmr9v01AQx18SdsyCqkpI5j8IGxNNmdigAwMsSfgHSPdKSaSOSEnETsOCKjEk/QeIYWIj/QuSCqnqRtgYuQtn5BpT+/2yn6076cmKFOe9fPy9e3f3LATbNasVMem7Dx99uLRg4HXvhq+uYVzACF69fB5UCghBeA3jGYFQsTmMM7wCoE0pgQAIVEKfFGHKEMYExtg0mJpFEB5cRjA6FnkjjEOAMnUaCKliBsPLySPRlbom1FK3AAMVscgRhqC4tIC5m04pBBZ0YtlFQgsoMPsJLrQPSlkWrpDhm7eDnGA8gD+Mf/o+uUrUPF2lGAHSOzru/Nj87H+/vLKujNjTnyR8B6G0CwMCMHzaTQRAEZahNGn3Ci0pn5kCtEPVCW4ZWOS13QShNOp1sbtz1waQ0CWGCIcSvTiMbmFBFdTRC9URt3u7O+KOd1sm+1xG3YHiQJNS+yyxSRuGFhCAgU9rddP2mgJlTknVOmPaP6Lt1RoMXZfppeUaYTxJgNKVyS4J2gGASVKkMRi6QTVTJEcoGFdUYcTAjPH+2K7TNRmk6oru0pKpWCNQtOsOuh8hYLw5cKLaBSAjchmpHGJ8fLTveoNI1WVUSvmhKIGpApFNjZegjqCSQMBdVOqE96IkpqIQlbI+qDIQX/YGcJclAymp1QUbAzENZM1ANIFQql9ZICqt/mZlgShuoe0qK0RQpSmlEBtuQ/1cJ4CoZJ59wzAQ8Mo0aFUgn1UqZOrBmoCBMWlGH2eK9VWi6fRUV4pZaxfi0FRj3m3nPRaotyd2JkoEncRMtYI9wYMtDWV8S9i1PPpdr0iFpHbdU2zbdYenus44Vy9DHFqSUja5A6GFDgwEy7/nMlHJkxrQJZ+KP8cPWcFrtSp1gXgkYdcq4ClAUerGN3Rm/frl06+Hjx6fi3xO/aXyHlhXDdYnnR5oV7vUK3WtgbwR/74qYV8hEaUE8ER8h2qWF6pN7YapFQCUM0egYJ5zqnpzw+RKCoayIWWc6vxIw/SqCAqeWz7JEcb2WNPE2Y+191Qpj8Ajz5ZlVUwAxKDwWkYCTIeSN98wCNxFhlkyXaeAxMr1tmTW+b+sdq6TnjsBJMGdWgRmLyU2XIgSnQ2zsbGxsbGxsbGx2TGp1L1MrzVE03+Zukf25f9FCYHgkUTmOohfqWIgDISBMBAGwkAYSFH2W4ABAJ4fORIuBulhAAAAAElFTkSuQmCC);
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-font-weight:                normal !default;
+
+$btn-default-color:              $firefly60 !default;
+$btn-default-bg:                 transparent !default;
+$btn-default-border:             $firefly20 !default;
+
+$btn-primary-color:              #fff !default;
+$btn-primary-bg:                 $brand-primary !default;
+$btn-primary-border:             darken($btn-primary-bg, 5%) !default;
+
+$btn-success-color:              $green !default;
+$btn-success-bg:                 transparent !default;
+$btn-success-border:             $green !default;
+
+$btn-info-color:                 #fff !default;
+$btn-info-bg:                    $firefly40 !default;
+$btn-info-border:                darken($btn-info-bg, 5%) !default;
+
+$btn-warning-color:              #fff !default;
+$btn-warning-bg:                 $orange !default;
+$btn-warning-border:             darken($btn-warning-bg, 5%) !default;
+
+$btn-danger-color:               lighten($red, 20%) !default;
+$btn-danger-bg:                  transparent !default;
+$btn-danger-border:              lighten($red, 30%) !default;
+
+$btn-link-disabled-color:        $firefly40 !default;
+
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius-base:         $border-radius-base !default;
+$btn-border-radius-large:        $border-radius-large !default;
+$btn-border-radius-small:        $border-radius-small !default;
 
 
 
@@ -267,7 +358,7 @@ $checkdesk_logo: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAYAA
 // // -------------------------
 // $horizontalComponentOffset:       180px !default;
 
-// $placeholderText:         $grayLight !default;
+// $placeholderText:         $gray-light !default;
 
 
 // // Tooltips and popovers

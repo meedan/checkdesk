@@ -22,7 +22,7 @@
   //   @include border-radius($radius 0 $radius $radius);
   // }
   @include border-radius($radius);
-  z-index: $zindexDropdown;
+  z-index: $z-index-Dropdown;
   display: none; // none by default, but block on "open" of the menu
   float: $from-direction;
   min-width: 160px;
@@ -84,7 +84,7 @@ ul.dropdown-menu {
 .dropdown-submenu:hover > a {
   text-decoration: none;
   color: $dropdownLinkColorHover;
-  background-color: $identity;
+  background-color: $brand-primary;
 }
 
 // Active state
@@ -93,7 +93,7 @@ ul.dropdown-menu {
   color: $dropdownDividerTop;
   text-decoration: none;
   outline: 0;
-  background-color: $identity;
+  background-color: $brand-primary;
 }
 
 // Disabled state
@@ -114,7 +114,7 @@ ul.dropdown-menu {
 .open {
   // IE7's z-index only goes to the nearest positioned ancestor, which would
   // make the menu appear below buttons that appeared later on the page
-  *z-index: $zindexDropdown;
+  *z-index: $z-index-Dropdown;
 
   & > .dropdown-menu {
     display: block;

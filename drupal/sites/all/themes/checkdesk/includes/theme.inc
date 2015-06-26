@@ -437,3 +437,74 @@ function checkdesk_item_list($variables) {
   }
   return $output;
 }
+
+
+/**
+ * Helper function for determining whether an element is a button.
+ *
+ * @param array $element
+ *   A renderable element.
+ *
+ * @return bool
+ *   TRUE or FALSE.
+ */
+function _checkdesk_is_button($element) {
+  return
+    !empty($element['#type']) &&
+    !empty($element['#value']) && (
+      $element['#type'] === 'button' ||
+      $element['#type'] === 'submit' ||
+      $element['#type'] === 'image_button'
+    );
+}
+
+/**
+ * Helper function for adding colors to button elements.
+ *
+ * @param array $element
+ *   The form element, passed by reference.
+ */
+function _checkdesk_colorize_button(&$element) {
+  if (_checkdesk_is_button($element)) {
+    // Do not add the class if one is already present in the array.
+    $button_classes = array(
+      'btn-default',
+      'btn-primary',
+      'btn-success',
+      'btn-info',
+      'btn-warning',
+      'btn-danger',
+      'btn-link',
+    );
+    $class_intersection = array_intersect($button_classes, $element['#attributes']['class']);
+    if (empty($class_intersection)) {
+      // Get the matched class.
+      $class = _checkdesk_colorize_button_type($element);
+      // If no particular class matched, use the default style.
+      if (!$class) {
+        $class = 'default';
+      }
+      $element['#attributes']['class'][] = 'btn-' . $class;
+    }
+  }
+}
+/**
+ * Helper function for adding class to button elements based on the type.
+ *
+ * @param array $element
+ *   The form element, passed by reference.
+ */
+function _checkdesk_colorize_button_type($element, $default = '') { 
+  
+  // Specify which button ids to set primary class for
+  $primary_buttons_ids = array('edit-submit', 'edit-submit-desk-reports');
+  
+  // Add primary class to only pure submit buttons
+  if(in_array($element['#id'], $primary_buttons_ids)) {
+    return 'primary';
+  }
+
+  // Return the default if nothing was matched.
+  return $default;
+
+} 

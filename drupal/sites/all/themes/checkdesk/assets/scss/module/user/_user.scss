@@ -238,7 +238,7 @@ body.page-user.logged-in.toolbar {
   .form-actions {
     .form-submit {
       float: $alpha;
-      @include button-colors($identity);
+      @include button-colors($brand-primary);
     }
 
     // Align cancel button
