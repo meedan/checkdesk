@@ -19,13 +19,6 @@ html {
   }
 }
 
-@include cd-responsive(small-screens) {
-  body.toolbar-drawer #main {
-    top: $headerHeight;
-    width: 100%;
-  }    
-}
-
 #main #content, #main #widgets, #main footer {
   position: relative;
   padding: 0 50px;

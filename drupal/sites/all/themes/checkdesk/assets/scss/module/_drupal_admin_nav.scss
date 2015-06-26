@@ -19,10 +19,6 @@ div.region-page-top #toolbar {
       color: $nav-color; 
     } 
   }
-  // hide drupal toolbar on mobile
-  @include cd-responsive(small-screens) {
-    display: none;
-  }
 }
 
 // make navbar fixed at the top

@@ -4255,12 +4255,6 @@ body.toolbar-drawer #main {
   top: 130px;
 }
 
-@media only screen and (max-width: 375px) {
-  body.toolbar-drawer #main {
-    top: 65px;
-    width: 100%;
-  }
-}
 #main #content, #main #widgets, #main footer {
   position: relative;
   padding: 0 50px;
@@ -6144,15 +6138,15 @@ div.sensitive-hide {
     top: 200px !important;
   }
 }
-@media only screen and (max-width: 1300px) {
-  .update-row {
+@media (min-width: 740px) {
+  .update .update-row {
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flexbox;
     display: flex;
   }
-  .update-row .update-body {
+  .update .update-row .update-body {
     -webkit-box-flex: 4;
     -webkit-flex: 4;
     -moz-box-flex: 4;
@@ -6161,7 +6155,7 @@ div.sensitive-hide {
     flex: 4;
     max-width: 620px;
   }
-  .update-row .update-footer {
+  .update .update-row .update-footer {
     -webkit-box-flex: 2;
     -webkit-flex: 2 1 150px;
     -moz-box-flex: 2;
@@ -6177,15 +6171,6 @@ div.sensitive-hide {
     margin-right: 30px;
     margin-bottom: 1em;
     margin-top: 1em;
-  }
-}
-@media only screen and (max-width: 375px) {
-  .updates .update-row {
-    display: block;
-  }
-  .updates .update-row .update-footer {
-    max-width: 100%;
-    margin-right: 0;
   }
 }
 .update .anchor {
@@ -6930,17 +6915,6 @@ ul#breadcrumb a, ul#user-menu a, ul#utility-menu a {
 ul#breadcrumb a:hover, ul#user-menu a:hover, ul#utility-menu a:hover {
   color: #50565b;
 }
-@media only screen and (max-width: 375px) {
-  ul#breadcrumb, ul#user-menu, ul#utility-menu {
-    padding: 0 20px;
-  }
-  body.toolbar ul#breadcrumb, body.toolbar ul#user-menu, body.toolbar ul#utility-menu {
-    top: 0;
-  }
-  body.toolbar-drawer ul#breadcrumb, body.toolbar-drawer ul#user-menu, body.toolbar-drawer ul#utility-menu {
-    top: 0;
-  }
-}
 
 ul#breadcrumb {
   left: 60px;
@@ -7343,11 +7317,6 @@ div.region-page-top #toolbar li {
 div.region-page-top #toolbar li a {
   padding: 15px;
   color: #9fa6ac;
-}
-@media only screen and (max-width: 375px) {
-  div.region-page-top #toolbar {
-    display: none;
-  }
 }
 
 .navbar-fixed-top {

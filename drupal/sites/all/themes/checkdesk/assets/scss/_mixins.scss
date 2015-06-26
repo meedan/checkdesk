@@ -17,6 +17,9 @@
   @else if $width == small-screens {
     @media only screen and (max-width: $width-mobile) { @content; }
   }
+  @else {
+    @media (min-width: $width) { @content; }
+  }
 }
  
 @mixin cd-dark-text-shadow($opacity: 0.5) { // use #fff for dark backgrounds

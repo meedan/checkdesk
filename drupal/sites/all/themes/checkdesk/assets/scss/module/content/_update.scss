@@ -1,7 +1,11 @@
 // Updates
 //
-@include cd-responsive(wide-screens) {
-  .update-row {
+.update .update-row {
+  
+}
+
+@include cd-responsive($width-tablet) {
+  .update .update-row {
     @include flexbox;
     .update-body {
       @include flex(4);
@@ -14,16 +18,6 @@
       margin-#{$omega}: $gutter-width*2;
       margin-bottom: 1em;
       margin-top: 1em;
-    }
-  }
-}
-
-@include cd-responsive(small-screens) {
-  .updates .update-row {
-    display: block;
-    .update-footer {
-      max-width: 100%;
-      margin-#{$omega}: 0;
     }
   }
 }

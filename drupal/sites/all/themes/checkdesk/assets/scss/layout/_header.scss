@@ -29,17 +29,6 @@ ul#breadcrumb, ul#user-menu, ul#utility-menu {
   padding: 0 50px;
   a { @include ctb-linkColor($firefly30); }
   will-change: transform;
-
-  @include cd-responsive(small-screens) {
-    body.toolbar & {
-      top: 0;
-    }
-    body.toolbar-drawer & {
-      top: 0;
-    }
-    padding: 0 20px;
-  }  
-
 }
 
 ul#breadcrumb {
