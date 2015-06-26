@@ -45,7 +45,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
     input[type=text] {
       // width: $bookmarklet-width - ($spinner-width + $gutter-width*2);
-      padding-#{$omega}: $spinner-width; //accomodate spinner
+      padding-#{opposite-position($from-direction)}: $spinner-width; //accomodate spinner
     }
   }
 
@@ -78,7 +78,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   }
 
   #edit-graphic-content {
-    float: $omega;
+    float: opposite-position($from-direction);
     margin: 0;
     margin-top: $gutter-width;
     width: auto;
@@ -112,7 +112,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     // top: 0;
     // padding-top: $absolute-line-height / 2;
     line-height: 1.2;
-    // #{$omega}: $gutter-width;
+    // #{$omega-float}: $gutter-width;
 
     span {
       display: block;
@@ -137,14 +137,14 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
         text-indent: 0;
         padding: $gutter-width;
         position: absolute;
-        #{$omega}: 1px;
+        #{opposite-position($from-direction)}: 1px;
       }
     }
   }
 
   // Loading ..
   .meedan-bookmarklet-loading {
-    background: #fff url(../imgs/icons/bookmarklet-loading.gif) $omega center no-repeat;
+    background: #fff url(../imgs/icons/bookmarklet-loading.gif) opposite-position($from-direction) center no-repeat;
   }
 }
 
@@ -359,7 +359,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
 #meedan_bookmarklet_close {
   position: absolute;
-  #{$omega}: 0;
+  #{opposite-position($from-direction)}: 0;
   top: -2px;
   z-index: 2;
 }
@@ -368,7 +368,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 #media-node-form {
   // Loading ..
   .meedan-bookmarklet-loading {
-    background: #fff url(../imgs/icons/bookmarklet-loading.gif) $omega center no-repeat;
+    background: #fff url(../imgs/icons/bookmarklet-loading.gif) opposite-position($from-direction) center no-repeat;
   }
   // preview and graphic content styles
   @include bookmarklet-step-two;
@@ -376,3 +376,27 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     max-height: none;
   }
 }
+
+// ===========================================================================
+// Breakpoints 
+
+@include at-breakpoint($break-small) {
+  // same as previous breakpoint
+}
+
+@include at-breakpoint($break-medium) {
+  // same as previous breakpoint
+}
+
+@include at-breakpoint($break-large) {
+  // same as previous breakpoint
+}
+
+
+// Fixed only for normal screen sizes
+// @media all and (max-height: 32em) {
+//   #nav-media-form {
+//     max-height: 350px;
+//     // overflow-y: scroll;
+//   }
+// }

@@ -65,7 +65,7 @@ div.autocomplete-deluxe-container input.autocomplete-deluxe-form-single  {
 
 span.autocomplete-deluxe-value-delete {
   display: inline-block;
-  float: $omega;
+  float: opposite-position($from-direction);
   // background:url('x.gif') no-repeat center;
   width: 18px;
   width: 18px;
@@ -131,7 +131,7 @@ input.autocomplete-deluxe-form.autocomplete-deluxe-multiple {
 
 div.autocomplete-deluxe-throbber {
   width: 16px;
-  float: $omega;
+  float: opposite-position($from-direction);
   height: 50%;
 }
 
@@ -169,7 +169,7 @@ div.autocomplete-deluxe-throbber {
   color: $firefly40;
   display: block;
   position: absolute;
-  #{$omega}: $gutter-width;
+  #{opposite-position($from-direction)}: $gutter-width;
   top: 3px;
   width: 12px;
   &:hover {

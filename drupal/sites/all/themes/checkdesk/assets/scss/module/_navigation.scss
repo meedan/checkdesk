@@ -5,26 +5,26 @@
 //
 
 header#header nav {
+  will-change: transform;
+  background-color: $firefly80;
+  width: 60px;
   position: fixed;
   top: 0;
   bottom: 0;
-  z-index: $z-index-FixedNavbar;
-  width: 60px;
   color: #fff;
-  background-color: $firefly80;
   @include box-sizing(border-box);
-  will-change: transform;
+  z-index: $z-index-FixedNavbar;
 
   ul.second-group {
-    position: relative;
     margin-top: 20px;
     padding-top: 10px;
+    position: relative;
     &:before {
-      content: "";
       position: absolute;
+      content: "";
+      width: 28px;
       top: 0;
       #{$alpha}: 16px;
-      width: 28px;
       border-top: 1px solid rgba(255,255,255,.4);
     }
   }
@@ -39,20 +39,20 @@ header#header nav {
   }
 
   a {
-    position: relative;
-    display: block;
-    height: 100%;
+    color: #fff;
     margin: 10px 6px;
     padding: 0 12px;
-    color: #fff;
+    display: block;
+    position: relative;
+    height: 100%;
     @include border-radius(4px);
   }
   
   svg {
+    fill: rgba(255,255,255,.4);
     position: relative;
-    top: 6px;
     display: inline-block;
-    fill: rgba(255,255,255,.4);    
+    top: 6px;
     @include transition(fill 0.2s ease);
   }
 
@@ -61,13 +61,14 @@ header#header nav {
       fill: rgba(255,255,255,.9);
     } 
     span {
-      #{$alpha}: $navbarWidth + 10px;
+      will-change: transform, opacity;
       visibility: visible;
       opacity: 1;
-      will-change: transform, opacity;
+      #{$alpha}: $navbarWidth + 10px;
     } 
   }
   
+
   a.active:not(.homepage-link) {
     background: rgba($firefly, .4);
     svg {
@@ -82,13 +83,13 @@ header#header nav {
   position: absolute;
   top: 8px;
   #{$alpha}: $navbarWidth - 10px;
-  z-index: $z-index-FixedNavbar + 1;
-  padding: 0 14px;
   background: $firefly80;
   color: #fff;
   font-weight: bold;
+  padding: 0 14px;
   line-height: 36px;
   white-space: nowrap;
+  z-index: $z-index-FixedNavbar + 1;
   @include border-radius(4px);
   opacity: 0;
   visibility: hidden;
@@ -97,13 +98,13 @@ header#header nav {
   @include transition(left 0.4s ease);
   // pointer on labels
   &:after {
-    content: "";
     position: absolute;
-    top: 14px;
-    #{$alpha}: -4px;
+    content: "";
+    background: $firefly80;
     width: 8px;
     height: 8px;
-    background: $firefly80;
+    top: 14px;
+    #{$alpha}: -4px;
     @include border-radius(0 0 0 2px);
     @include ctb-rotate(45deg);
   }
@@ -118,65 +119,65 @@ header#header nav {
   }
 
   svg.create-report-icon {
-    top: 8px;
-    #{$alpha}: -1px;
     width: 26px;
     height: 33px;
+    top: 8px;
+    #{$alpha}: -1px;
   }
 
   svg.create-story-icon {
+    width: 30px;
+    height: 28px;
     top: 11px;
     @if $from-direction == right {
       #{$alpha}: -5px;
     }
-    width: 30px;
-    height: 28px;
   }
 
   svg.search-icon {
-    top: 11px;
     width: 24px;
     height: 24px;
+    top: 11px;
   }
 
   svg.reports-icon {
-    top: 11px;
     width: 25px;
     height: 28px;
+    top: 11px;
   }
 
   svg.stories-icon {
-    top: 12px;
-    #{$alpha}: -3px;
     width: 30px;
     height: 24px;
+    top: 12px;
+    #{$alpha}: -3px;
   }
 
   svg.updates-icon {
-    top: 8px;
-    #{$alpha}: -2px;
     width: 28px;
     height: 32px;
+    top: 8px;
+    #{$alpha}: -2px;
   }
 
   svg.support-icon {
-    top: 10px;
-    #{$alpha}: 3px;
     width: 20px;
     height: 30px;
+    top: 10px;
+    #{$alpha}: 3px;
   }
 
   svg.settings-icon {
-    top: 10px;
-    #{$alpha}: -2px;
     width: 28px;
     height: 28px;
+    top: 10px;
+    #{$alpha}: -2px;
   }
 
   svg.about-icon {
-    top: 10px;
-    #{$alpha}: -2px;
     width: 28px;
     height: 28px;
+    top: 10px;
+    #{$alpha}: -2px;
   }
 }

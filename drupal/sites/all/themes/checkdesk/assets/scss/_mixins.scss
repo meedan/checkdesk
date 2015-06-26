@@ -1,5 +1,39 @@
-// Checkdesk Core Mixins
-// --------------------------------------------------
+
+// Building block
+// Layout helper
+// 
+// Useful for standardizing link or navigation item. 
+// There should be no margin or width specified on this.
+// Typography, resets, transitions, floated, block level, padded
+// with base font size and colors defined in colors.scss
+//
+
+// Layout Helper: Ensure padding is accounted for.
+//
+// Deprecated
+//
+// This is only necessary if you have not ste 
+@mixin span-padded-columns(
+  $width: $container-width, 
+  $context: $container-width, 
+  $from-pad: 0, 
+  $to-pad: 0) {
+
+  $total-pad: $from-pad + $to-pad;
+  $adjusted-width: $width - $total-pad; // will prune the 'omega' shorthand ...
+
+  // Apply the adjusted width ...
+  @include span-columns($adjusted-width, $context);
+
+  // And add the padding
+  @include pad($from-pad, $to-pad, $context);
+
+  // optionally call with omega
+  @content;
+}
+
+// text-shadow
+// see http://compass-style.org/reference/compass/css3/text-shadow/
 
 @mixin cd-dark-text-shadow($opacity: 0.5) { // use #fff for dark backgrounds
   @include text-shadow(rgba(black, 0.8) 0 1px 0);
@@ -25,7 +59,7 @@
   border: $border-width solid $border-color;
 
   &:after, &:before {
-    #{$omega}: 100%;
+    #{opposite-position($from-direction)}: 100%;
     border: solid transparent;
     content: " ";
     height: 0;
@@ -35,14 +69,14 @@
   }
   &:after {
     border-color: rgba($background-color, 0);
-    border-#{$omega}-color: $background-color;
+    border-#{opposite-position($from-direction)}-color: $background-color;
     border-width: $arrow-size;
     top: 50%;
     margin-top: -$arrow-size;
   }
   &:before {
     border-color: rgba($border-color, 0);
-    border-#{$omega}-color: $border-color;
+    border-#{opposite-position($from-direction)}-color: $border-color;
     border-width: ($arrow-size + $border-width);
     top: 50%;
     margin-top: -($arrow-size + $border-width);
@@ -60,7 +94,7 @@
     padding: 3px;
     border: {top: 1px solid yellow; bottom: 1px solid yellow; }
     bottom: 0;
-    #{$omega}: 0;
+    #{opposite-position($from-direction)}: 0;
     font-size: $smaller-font-size;
   }
 }
@@ -124,7 +158,7 @@
     position: absolute;
     float: $from-direction;
     top: $top; 
-    #{$alpha}: $indent;
+    #{$from-direction}: $indent;
   }
   -webkit-background-size: cover;
   -moz-background-size: cover;

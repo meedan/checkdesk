@@ -13,7 +13,6 @@
 .inline-list {
     @extend %u-unstyled;
 }
-.inline-list-item {
-  margin-#{$omega}: 10px;
-  margin-bottom: 10px;
+.inline-list__item {
+    display: inline-block; // Prevent linebreak within an item
 }

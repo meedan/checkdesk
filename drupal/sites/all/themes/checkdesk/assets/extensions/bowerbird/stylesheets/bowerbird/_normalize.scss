@@ -13,7 +13,7 @@
 $base-font-size: 18px; // Override default set in Compass' Vertical Rhythm partial.
 
 // The base line height determines the basic unit of vertical rhythm.
-// $line-height-base: 24px; // Override default set in Compass' Vertical Rhythm partial.
+// $base-line-height: 24px; // Override default set in Compass' Vertical Rhythm partial.
 
 // The font sizes for h1-h6.
 $h1-font-size: 2    * $base-font-size !default;
@@ -113,7 +113,7 @@ html {
     font-size: 100% * ($base-font-size / 16px); /* 3 */
     -webkit-text-size-adjust: 100%; /* 2 */
     -ms-text-size-adjust: 100%; /* 2 */
-    /* Establish a vertical rhythm unit using $line-height-base. */
+    /* Establish a vertical rhythm unit using $base-line-height. */
     @include adjust-leading-to(1);
 }
 

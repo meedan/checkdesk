@@ -1,7 +1,7 @@
 
 @import "bowerbird";
-$alpha: left;
-$omega: right;
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
 $gutter-width: 12px;
 
 // bad float issue

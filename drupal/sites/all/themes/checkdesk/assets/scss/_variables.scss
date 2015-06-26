@@ -23,7 +23,7 @@
 // $relative-font-sizing: false !default;
 $relative-line-height: 1.5 !default;
 $absolute-line-height: 24px !default;
-// $line-height-base: $absolute-line-height !default; // for compass calculations only
+// $base-line-height: $absolute-line-height !default; // for compass calculations only
 
 
 
@@ -44,9 +44,25 @@ $link-hover-color:      darken($link-color, 15%) !default;
 $link-hover-decoration: underline !default;
 
 
+// Susy configuration
+//
+// For more information: `gem unpack susy`
+// Note that these also feed Twitter Bootstrap variables; see variables.scss.
+// Further reading: http://susy.oddbird.net
+//
+$container-style: magic;
+
+// Columns count and breakpoints
+$container-width: 18; // Mobile first
+$total-columns: $container-width; // Alias for Susy
+$break-small: 12; 
+$break-medium: 24;
+$break-large: 48;
 
 // Checkdesk layout sections
+$total-width: $container-width; // Alias for Chris
 $sidebar-width: 4; // default sidebar width
+$tabs-width: $container-width; // Tabs inside forms and nodes
 $gutter-width: 15px; // The distance between grid columns
 $column-width: 25px; // The width of columns
 $grid-padding: 10px; // The padding on the sides of the outer <container>
@@ -75,6 +91,7 @@ $largest-font-size:   65px; // 5
 // =============================================================================
 
 // Navigation
+$nav-width: $container-width;
 $nav-font-size: 14px;
 $nav-icon-height: 15px;
 $nav-line-height: $nav-icon-height;
@@ -100,12 +117,22 @@ $z-index-Modal:             950 !default;
 
 // Reports
 $report-width-px: 400px; // for grid view, don't use columns or percents for now
+$report-width: $container-width;
 
 // Install Bookmarklet
 $install-bookmarklet-abs-width: 600px;
 
+// Aliases
+// =============================================================================
+$container-width: $container-width;
+$tw: $tabs-width; 
+$gutter-width: $gutter-width; 
+$rw: $report-width;
+$nw: $nav-width;
+
 // Forms
 // =============================================================================
+$label-width: $container-width/2;
 $checkbox-width: 25px;
 
 // Misc Values

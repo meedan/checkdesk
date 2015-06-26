@@ -58,7 +58,7 @@
 			.count {
 				color: $firefly40;
 				text-decoration: none;
-				margin-#{$omega}: 30px;
+				margin-#{opposite-position($from-direction)}: 30px;
 				&:hover {
 					color: $firefly80;
 				}
@@ -73,7 +73,7 @@
 		}
 
 		.actions {
-			padding-#{$omega}: 20px;
+			padding-#{opposite-position($from-direction)}: 20px;
 			cursor: pointer;
 			white-space: nowrap;
 			span[class^="icon-"], span[class*="icon-"] { 
@@ -100,7 +100,7 @@
 		@include ctb-bg($firefly5, rgba($firefly, 0.05));
 		@include border-radius(0 0 4px 4px);
 		padding: 10px 20px;
-		padding-#{$omega}: 0;
+		padding-#{opposite-position($from-direction)}: 0;
 		font-size: 16px;
 		color: $firefly40;
 		
@@ -123,7 +123,7 @@
 			margin-top: 20px;
 			max-height: 300px;
 			overflow: auto;
-			padding-#{$omega}: 20px;
+			padding-#{opposite-position($from-direction)}: 20px;
 			@include cd-simple-scrollbar;
 		}
 		.node-type-media & {

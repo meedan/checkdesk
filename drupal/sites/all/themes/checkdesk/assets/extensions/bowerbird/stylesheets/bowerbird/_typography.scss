@@ -99,7 +99,7 @@
   }
 
   dd {
-    margin-#{$alpha}: $base-font-size;
+    margin-#{$from-direction}: $base-font-size;
   }
 
   hr {
@@ -121,7 +121,7 @@
 
   blockquote {
     @include reset-box-model;
-    border-#{$alpha}: 5px solid $firefly30;
+    border-#{$from-direction}: 5px solid $firefly30;
     font-size: $small-font-size;
   }
 }

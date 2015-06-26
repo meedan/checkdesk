@@ -108,7 +108,7 @@
   }
 
   #filter-by {
-    #{$alpha}: 130px; // warning magic pixels CGB
+    #{$from-direction}: 130px; // warning magic pixels CGB
     .icon-caret-down:before {
       margin-#{$alpha}: 0;
     }
@@ -140,7 +140,7 @@
   }
 
   #sort-by .panel-content {
-    width: 220px;
+    width: 200px;
   }
 
   #sort-by .views-submit-button input {
@@ -155,4 +155,13 @@
     padding: 0;
   }
 
+}
+
+// Medium breakpoint
+@include at-breakpoint($break-medium) {
+  .body-ar #incoming-reports-filters {
+    .panels .panel .panel-toggle {
+      font-size: 95%;
+    }
+  }
 }

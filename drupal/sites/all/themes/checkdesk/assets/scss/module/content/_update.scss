@@ -8,8 +8,9 @@
       max-width: 620px;
     }
     .update-footer {
-      @include flex(2 1 150px);
+      @include flex(1);
       @include order(-1);
+      @include flex(2 1 150px);
       max-width: 150px;
     }
   }
@@ -30,7 +31,7 @@
 // "Published" updates
 .updates {
   .update-row {
-    margin-bottom: $line-height-base;
+    margin-bottom: $base-line-height;
     border-top: 1px solid rgba($firefly, 0.1);
   }
 }

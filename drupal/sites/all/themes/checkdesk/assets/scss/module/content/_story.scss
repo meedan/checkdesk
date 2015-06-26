@@ -3,6 +3,7 @@
 
 .story {
   @include ctb-clearfix;
+  text-align: $alpha;
   margin-bottom: $absolute-line-height/2;
 }
 
@@ -66,7 +67,7 @@
 
 .story .story-attributes .story-commentcount,
 .story .story-attributes .content-actions {
-  margin-#{$alpha}: $gutter-width/2;
+  margin-#{$from-direction}: $gutter-width/2;
   display: inline-block;
   & > a, a.dropdown-toggle {
     color: $dodgerBlue60; 
@@ -92,7 +93,7 @@
 .story .story-follow {
   display: inline-block;
   color: $dodgerBlue60;
-  margin-#{$alpha}: 7.5px;
+  margin-#{$from-direction}: 7.5px;
 
   a {
     color: $dodgerBlue60; 
@@ -120,7 +121,7 @@
 
   .follow-count {
     float: $omega;
-    margin-#{$alpha}: 5px;
+    margin-#{$from-direction}: 5px;
   }
 }
 
@@ -175,10 +176,10 @@
 .story .story-collaborate-links {
   li {
     display: inline;
-    margin-#{$omega}: 30px;
+    margin-#{opposite-position($from-direction)}: 30px;
     font-size: 18px;
     &:last-child {
-      margin-#{$omega}: 0;
+      margin-#{opposite-position($from-direction)}: 0;
     }
     &.submit-report a {
       @include icon("bookmark", 18px);
@@ -190,7 +191,7 @@
 }
 
 .story .collaboration-report-tooltip {
-  #{$alpha}: 20px;
+  #{$from-direction}: 20px;
   top: 55px;
   width: 400px;
   @include cd-box-shadow;
@@ -205,7 +206,7 @@
     line-height: 48px;
   }
   .popover-arrow {
-    #{$alpha}: 28px;
+    #{$from-direction}: 28px;
   }
 }
 
@@ -214,7 +215,7 @@
 }
 
 .story .story-collaborators {
-  text-align: $omega;
+  text-align: opposite-position($from-direction);
   .sc-users, .sc-avatars {
     display: inline-block;
   }
@@ -222,7 +223,7 @@
     font-size: 14px;
     line-height: 1;
     color: $firefly40;
-    margin-#{$omega}: 15px;
+    margin-#{opposite-position($from-direction)}: 15px;
     h3 {
       @include reset-box-model;
       @include cd-sans-serif-family;
@@ -388,7 +389,7 @@
     @include icon("clock-o", $larger-font-size, $firefly30); 
     &:before { 
       vertical-align: middle; 
-      margin-#{$alpha}: 0;
+      margin-#{$from-direction}: 0;
     }
   }
 }

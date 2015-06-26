@@ -4,7 +4,7 @@
 $base-font-size: 16px !default;
 
 // The base line height determines the basic unit of vertical rhythm.
-$line-height-base: 24px !default;
+$base-line-height: 24px !default;
 
 // Set the default border style for rhythm borders.
 $default-rhythm-border-style: solid !default;
@@ -29,11 +29,11 @@ $min-line-padding: 2px !default;
 $font-unit: if($relative-font-sizing, 1em, $base-font-size) !default;
 
 // The basic unit of font rhythm.
-$base-rhythm-unit: $line-height-base / $base-font-size * $font-unit;
+$base-rhythm-unit: $base-line-height / $base-font-size * $font-unit;
 
 // The leader is the amount of whitespace in a line.
 // It might be useful in your calculations.
-$base-leader: ($line-height-base - $base-font-size) * $font-unit / $base-font-size;
+$base-leader: ($base-line-height - $base-font-size) * $font-unit / $base-font-size;
 
 // The half-leader is the amount of whitespace above and below a line.
 // It might be useful in your calculations.
@@ -117,7 +117,7 @@ $base-half-leader: $base-leader / 2;
   @if not $relative-font-sizing and $font-size != $base-font-size {
     @warn "$relative-font-sizing is false but a relative font size was passed to the rhythm function";
   }
-  $rhythm: $font-unit * ($lines * $line-height-base - $offset) / $font-size;
+  $rhythm: $font-unit * ($lines * $base-line-height - $offset) / $font-size;
   // Round the pixels down to nearest integer.
   @if unit($rhythm) == px {
     $rhythm: floor($rhythm);
@@ -128,9 +128,9 @@ $base-half-leader: $base-leader / 2;
 // Calculate the minimum multiple of rhythm units needed to contain the font-size.
 @function lines-for-font-size($font-size) {
   $lines: if($round-to-nearest-half-line,
-              ceil(2 * $font-size / $line-height-base) / 2,
-              ceil($font-size / $line-height-base));
-  @if $lines * $line-height-base - $font-size < $min-line-padding * 2 {
+              ceil(2 * $font-size / $base-line-height) / 2,
+              ceil($font-size / $base-line-height));
+  @if $lines * $base-line-height - $font-size < $min-line-padding * 2 {
     $lines: $lines + if($round-to-nearest-half-line, 0.5, 1);
   }
   @return $lines;

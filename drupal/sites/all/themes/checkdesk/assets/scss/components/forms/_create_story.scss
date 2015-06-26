@@ -37,7 +37,7 @@
 
     .customfile-button {
       background: $firefly20;
-      float: $omega;
+      float: opposite-position($from-direction);
       padding: $absolute-line-height/3 $gutter-width/3;
       border: 0;
       width: auto;

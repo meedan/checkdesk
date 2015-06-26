@@ -66,7 +66,7 @@ $button-darken-amount: 12 !default;
 @mixin checkdesk-button($color: $button-color) {
   @include button-matte($color, $base-font-size, $button-radius, $button-border-width);
   font-weight: $button-font-weight;
-  margin-#{$omega}: 1em;
+  margin-#{$omega-float}: 1em;
 }
 
 // Default button mixin
