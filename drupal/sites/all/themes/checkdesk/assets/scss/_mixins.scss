@@ -9,13 +9,13 @@
 
 @mixin cd-responsive($width) {
   @if $width == wide-screens {
-    @media only screen and (max-width: $width-wide) { @content; }
+    @media only screen and (min-width: $width-wide) { @content; }
   }
   @else if $width == medium-screens {
-    @media only screen and (max-width: $width-tablet) { @content; }
+    @media only screen and (min-width: $width-tablet) { @content; }
   }
   @else if $width == small-screens {
-    @media only screen and (max-width: $width-mobile) { @content; }
+    @media only screen and (min-width: $width-mobile) { @content; }
   }
   @else {
     @media (min-width: $width) { @content; }

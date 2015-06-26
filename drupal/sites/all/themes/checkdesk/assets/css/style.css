@@ -4259,7 +4259,7 @@ body.toolbar-drawer #main {
   position: relative;
   padding: 0 50px;
 }
-@media only screen and (max-width: 375px) {
+@media only screen and (min-width: 375px) {
   #main #content, #main #widgets, #main footer {
     padding: 0 20px;
   }
@@ -10120,7 +10120,7 @@ body.toolbar-drawer #sidebar-first.column {
   top: 130px !important;
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (min-width: 1300px) {
   body.sidebar-first #main {
     position: relative;
     display: -webkit-box;
@@ -10155,7 +10155,7 @@ body.toolbar-drawer #sidebar-first.column {
     height: 100%;
   }
 }
-@media only screen and (max-width: 375px) {
+@media only screen and (min-width: 375px) {
   body.sidebar-first #main #content {
     margin-left: 0;
     max-width: 100%;
