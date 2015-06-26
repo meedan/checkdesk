@@ -11,21 +11,11 @@
       @include flex(2 1 150px);
       @include order(-1);
       max-width: 150px;
-      margin-#{$omega}: $gutter-width*2;
-      margin-bottom: 1em;
-      margin-top: 1em;
     }
   }
-}
 
-@include cd-responsive(small-screens) {
-  .updates .update-row {
-    @include flex-direction(column);
-    .update-footer {
-      max-width: 100%;
-      margin-#{$omega}: 0;
-    }
-  }
+  // media query
+
 }
 
 // Psuedo div for anchors
@@ -53,6 +43,9 @@
 } // update
 
 .update .update-footer {
+  margin-#{$omega}: $gutter-width*2;
+  margin-bottom: 1em;
+  margin-top: 1em;
   @include cd-sans-serif-family;
 
   .actor {

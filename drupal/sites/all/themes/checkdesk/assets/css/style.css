@@ -4252,22 +4252,12 @@ html {
   position: relative;
 }
 body.toolbar-drawer #main {
-  top: 130px;
+  margin-top: 65px !important;
 }
 
-@media only screen and (max-width: 375px) {
-  body.toolbar-drawer #main {
-    top: 65px;
-  }
-}
 #main #content, #main #widgets, #main footer {
   position: relative;
   padding: 0 50px;
-}
-@media only screen and (max-width: 375px) {
-  #main #content, #main #widgets, #main footer {
-    padding: 0 20px;
-  }
 }
 
 #main #content {
@@ -5144,8 +5134,6 @@ div.tabs ul.primary li a {
 }
 
 .tag-link {
-  display: block;
-  margin-right: 20px;
   color: #6f7a82;
 }
 .tag-link:hover {
@@ -6172,25 +6160,8 @@ div.sensitive-hide {
   -ms-flex-order: -1;
   order: -1;
   max-width: 150px;
-  margin-right: 30px;
-  margin-bottom: 1em;
-  margin-top: 1em;
 }
 
-@media only screen and (max-width: 375px) {
-  .updates .update-row {
-    -webkit-box-direction: normal;
-    -webkit-box-orient: vertical;
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-  }
-  .updates .update-row .update-footer {
-    max-width: 100%;
-    margin-right: 0;
-  }
-}
 .update .anchor {
   display: block;
   height: 151px;
@@ -6218,6 +6189,9 @@ div.sensitive-hide {
 }
 
 .update .update-footer {
+  margin-right: 30px;
+  margin-bottom: 1em;
+  margin-top: 1em;
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .update .update-footer .actor {
@@ -6896,10 +6870,14 @@ header#header {
 }
 
 ul#breadcrumb, ul#user-menu, ul#utility-menu {
+  will-change: transform;
   position: fixed;
   top: 0;
   right: 0;
   height: 65px;
+  margin: 0;
+  padding: 0;
+  padding: 0 50px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-flex;
@@ -6913,16 +6891,12 @@ ul#breadcrumb, ul#user-menu, ul#utility-menu {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  padding: 0 50px;
-  will-change: transform;
 }
 body.toolbar ul#breadcrumb, body.toolbar ul#user-menu, body.toolbar ul#utility-menu {
-  top: 30px;
+  top: 30px !important;
 }
 body.toolbar-drawer ul#breadcrumb, body.toolbar-drawer ul#user-menu, body.toolbar-drawer ul#utility-menu {
-  top: 65px;
+  top: 65px !important;
 }
 ul#breadcrumb li, ul#user-menu li, ul#utility-menu li {
   list-style: none;
@@ -6932,17 +6906,6 @@ ul#breadcrumb a, ul#user-menu a, ul#utility-menu a {
 }
 ul#breadcrumb a:hover, ul#user-menu a:hover, ul#utility-menu a:hover {
   color: #50565b;
-}
-@media only screen and (max-width: 375px) {
-  ul#breadcrumb, ul#user-menu, ul#utility-menu {
-    padding: 0 20px;
-  }
-  body.toolbar ul#breadcrumb, body.toolbar ul#user-menu, body.toolbar ul#utility-menu {
-    top: 0;
-  }
-  body.toolbar-drawer ul#breadcrumb, body.toolbar-drawer ul#user-menu, body.toolbar-drawer ul#utility-menu {
-    top: 0;
-  }
 }
 
 ul#breadcrumb {
@@ -7327,30 +7290,25 @@ header#header nav a.active:not(.homepage-link) svg {
 }
 
 div.region-page-top #toolbar {
-  position: fixed;
+  will-change: transform;
   left: 60px;
-  overflow: hidden;
+  position: fixed;
   z-index: 930;
-  padding: 0;
-  margin: 0;
-  background: white;
   -webkit-box-shadow: 0 0 0 0;
   -moz-box-shadow: 0 0 0 0;
   box-shadow: 0 0 0 0;
-  will-change: transform;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background: white;
 }
 div.region-page-top #toolbar li {
   margin: 0;
   padding: 0;
 }
 div.region-page-top #toolbar li a {
-  padding: 15px;
   color: #9fa6ac;
-}
-@media only screen and (max-width: 375px) {
-  div.region-page-top #toolbar {
-    display: none;
-  }
+  padding: 15px;
 }
 
 .navbar-fixed-top {

@@ -16,22 +16,13 @@ html {
 
   // adjust top for drupal toolbar
   body.toolbar-drawer & {
-    top: $headerHeight + $toolbarHeight;
+    margin-top: ($toolbarHeight) !important;
   }
-}
-
-@include cd-responsive(small-screens) {
-  body.toolbar-drawer #main {
-    top: $headerHeight;
-  }    
 }
 
 #main #content, #main #widgets, #main footer {
   position: relative;
   padding: 0 50px;
-  @include cd-responsive(small-screens) {
-    padding: 0 20px;
-  }
 }
 
 #main #content {
