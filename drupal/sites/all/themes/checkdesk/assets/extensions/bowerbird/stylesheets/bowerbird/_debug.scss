@@ -20,7 +20,7 @@
     background-color: $color;
     position: absolute;
     top: 0px;
-    #{opposite-position($from-direction)}: 0;
+    #{$omega}: 0;
     line-height: $small-font-size;
     font-size: $smallest-font-size;
     color: #000000;

@@ -1024,21 +1024,21 @@ function checkdesk_field__field_tags(&$variables) {
     }
 
     $output = '<section id="media-tags" class="cd-container">';
-    $output .= '<div class="cd-container__inner">';
-    $output .= '<div class="submeta"><h2 class="submeta__header">' . t('Published in') . '</h2>';
-    $output .= '<ul class="tag-list u-unstyled inline-list submeta__content">';
+    $output .= '<div class="cd-container-inner">';
+    $output .= '<div class="submeta"><h2 class="submeta-header">' . t('Published in') . '</h2>';
+    $output .= '<ul class="tag-list u-unstyled inline-list submeta-content">';
     foreach ($variables['element']['#items'] as $key => $item) {
-      $tag_name = '<div class="tag__name">' . $item['taxonomy_term']->name . '</div>';
+      $tag_name = '<span class="tag-name">' . $item['taxonomy_term']->name . '</span>';
       $tag_count = _checkdesk_term_nc($item['tid'], FALSE, $type);
-      $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
+      $count = '<span class="tag-count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</span>';
 
-      $output .= '<li class="inline-list__item">';
+      $output .= '<li class="inline-list-item">';
 
       $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'], array(
           'html' => TRUE,
           'attributes' => array(
               'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
-              'class' => array('btn', 'btn--transparent', 'btn--tag'),
+              'class' => array('tag-link'),
           ),
       ));
 

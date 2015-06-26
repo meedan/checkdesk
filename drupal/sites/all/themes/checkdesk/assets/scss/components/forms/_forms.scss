@@ -101,8 +101,8 @@
     }
     label.danger, label.error, label.success {
       position: absolute;
-      #{$from-direction}: 80%;
-      padding-#{$from-direction}: $gutter-width;
+      #{$alpha}: 80%;
+      padding-#{$alpha}: $gutter-width;
       line-height: $absolute-line-height * 1.5;
       width: 30%;
       background: transparent;
@@ -192,7 +192,7 @@
       @include cd-sans-serif-family;
       @include border-radius(3px);
       display: block;
-      line-height: $base-line-height;
+      line-height: $line-height-base;
       background-color: $input-background;
       border: 1px solid $grey;
       // margin-top: $gutter-width;
@@ -262,7 +262,7 @@
 // ONLY LAYOUT in this section
 // It is reused many times at various breakpoints
 //
-@mixin cd-form-layout($w, $context, $gutter-width: $gutter-width) {
+@mixin cd-form-layout() {
   form {
 
     @content; // if you want to pass in padding via breakpoints
@@ -359,25 +359,4 @@
 
 @include form-standardize;
 @include cd-form-styles-except-layout;
-@include cd-form-layout($container-width, $container-width, $gutter-width); // Default render of the form layout
-
-// Breakpoint: small
-@include at-breakpoint($break-small) {
-  $break: $break-small;
-  @include cd-form-layout($break - 6, $break) {
-    @include pad(0, 0, $break);
-    .description {
-      display: inline-block; // appears
-    }
-  }
-}
-
-// Breakpoint: medium
-@include at-breakpoint($break-medium) {
-  $break: $break-medium;
-}
-
-// Breakpoint: large
-@include at-breakpoint($break-large) {
-  $break: $break-large;
-}
+@include cd-form-layout(); // Default render of the form layout
