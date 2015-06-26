@@ -81,7 +81,7 @@ $position:  "before";
 .activity-item {
 	position: relative;
 	padding: 0;
-	padding-#{$from-direction}: (60px + $gutter-width);
+	padding-#{$alpha}: (60px + $gutter-width);
 	margin-top: 30px;
 	padding-top: 20px;
 	border-top: 1px solid rgba($firefly, .05);
@@ -96,7 +96,7 @@ $position:  "before";
 	// when nested inside a parent 
 	// e.g. in verfication log
 	.nested & {
-		padding-#{$from-direction}: (38px + $gutter-width);
+		padding-#{$alpha}: (38px + $gutter-width);
 		padding-top: 6px;
 		margin-top: 20px;
 		min-height: 32px;
@@ -151,18 +151,18 @@ $position:  "before";
 	}
 
 	.timestamp {
-		float: opposite-position($from-direction);
+		float: $omega;
 		font-size: 14px;
 		color: $firefly30;
 	}
 
 	.inline-delete-item {
-		float: opposite-position($from-direction);
+		float: $omega;
 		display: none;
 	}
 
 	.item-content-text p {
-		margin-#{opposite-position($from-direction)}: 30px;
+		margin-#{$omega}: 30px;
 	}
 
 	@include ctb-clearfix;

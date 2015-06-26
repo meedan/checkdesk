@@ -1,6 +1,6 @@
 // User section profile
 // http://checkdesk:8888/user
-@mixin user-profile($width: $container-width, $context: $container-width) {
+@mixin user-profile() {
 
   // Temporary, this should go in a layout not on the header ...
   #content-header > h1 {
@@ -8,13 +8,11 @@
   }
 
   div.profile {
-    @include span-columns($width - 2, $context, $gutter-width);
     background-color: $input-background;
     @content;
     
     .user-picture {
-      float: opposite-position($from-direction);
-      @include span-columns(1 omega, $context, $gutter-width);
+      float: $omega;
     }
 
     h3 {
@@ -32,7 +30,7 @@
         float: $from-direction;
       }
       dd {
-       float: opposite-position($from-direction); 
+       float: $omega; 
        font-weight: 200px;
       }
     }
@@ -47,8 +45,8 @@ body.page-user.logged-in {
   #sidebar-first {
     height: 100%;
     top: $navbarHeight !important;
-    padding: $base-line-height;
-    padding-top: $base-line-height * 2;
+    padding: $line-height-base;
+    padding-top: $line-height-base * 2;
   }
 
   // User info block

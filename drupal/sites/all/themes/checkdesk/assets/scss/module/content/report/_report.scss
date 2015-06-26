@@ -12,7 +12,7 @@ section#comment-form {
 	@include ctb-clearfix;
 	position: relative;
 	margin-top: 8px;
-	padding-#{opposite-position($from-direction)}: 20px;
+	padding-#{$omega}: 20px;
 
 	label {
 		display: none;
@@ -30,8 +30,8 @@ section#comment-form {
 			border: 0 none;
 			input {
 				font-size: 16px;
-				margin-#{$from-direction}: $gutter-width;
-				margin-#{opposite-position($from-direction)}: 0;
+				margin-#{$alpha}: $gutter-width;
+				margin-#{$omega}: 0;
 				// align with edit status
 				margin-top: -5px;
 			}
@@ -44,7 +44,7 @@ section#comment-form {
 }
 
 section#comment-form .form-actions {
-	text-align: opposite-position($from-direction);
+	text-align: $omega;
 
   span.edit-status {
 		font-size: $small-font-size;
@@ -107,12 +107,12 @@ input[type="radio"]:checked + label {
   &.popover {
   	position: absolute;
 		background: #fff;
-		#{$from-direction}: auto;
+		#{$alpha}: auto;
     @if $from-direction == left {
-      #{opposite-position($from-direction)}: $gutter-width;
+      #{$omega}: $gutter-width;
     }
     @if $from-direction == right {
-      #{opposite-position($from-direction)}: 0;
+      #{$omega}: 0;
     }
 		top: auto;
     bottom: -221px; // -1 * height
@@ -126,29 +126,29 @@ input[type="radio"]:checked + label {
 		// triangle at top
 		&:after {
 			content: "";
-	    border-#{$from-direction}: 12px solid transparent;
-			border-#{opposite-position($from-direction)}: 12px solid transparent;
+	    border-#{$alpha}: 12px solid transparent;
+			border-#{$omega}: 12px solid transparent;
 			border-bottom: 12px solid $firefly5;
 	    width: 0;
 	    height: 0;
 	    position: absolute;
 	    top: -12px;
 	    bottom: 0;
-	    #{$from-direction}: 157px;
+	    #{$alpha}: 157px;
 	    z-index: $z-index-Dropdown + 1;
 		}
 		// triangle at top
 		&:before {
 			content: "";
-	    border-#{$from-direction}: 13px solid transparent;
-			border-#{opposite-position($from-direction)}: 13px solid transparent;
+	    border-#{$alpha}: 13px solid transparent;
+			border-#{$omega}: 13px solid transparent;
 			border-bottom: 13px solid $firefly10;
 	    width: 0;
 	    height: 0;
 	    position: absolute;
 	    top: -13px;
 	    bottom: 0;
-	    #{$from-direction}: 156px;
+	    #{$alpha}: 156px;
 	    z-index: $z-index-Dropdown;
 		}
 
@@ -218,12 +218,12 @@ input[type="radio"]:checked + label {
 				& > label {
 					width: 170px;
 				}
-				border-#{opposite-position($from-direction)}: 1px solid $firefly5;
+				border-#{$omega}: 1px solid $firefly5;
 				border-bottom: 1px solid $firefly5;
 			}
 
 			& > .verified, & > .in-progress {
-				border-#{opposite-position($from-direction)}: 0 none;
+				border-#{$omega}: 0 none;
 				border-bottom: 1px solid $firefly5;
 			}
 
