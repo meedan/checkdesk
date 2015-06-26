@@ -10,9 +10,10 @@ html {
 }
 
 #main {
-  position: relative;
-  top: $headerHeight;
   margin-#{$alpha}: $navbarWidth;
+  top: $headerHeight;
+  position: relative;
+
   // adjust top for drupal toolbar
   body.toolbar-drawer & {
     top: $headerHeight + $toolbarHeight;
@@ -22,7 +23,6 @@ html {
 @include cd-responsive(small-screens) {
   body.toolbar-drawer #main {
     top: $headerHeight;
-    width: 100%;
   }    
 }
 

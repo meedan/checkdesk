@@ -6,60 +6,38 @@ body.toolbar-drawer #sidebar-first.column {
   top: $toolbarHeight + $headerHeight !important;
 }
 
-@include cd-responsive(wide-screens) {
-
-  body.sidebar-first #main {
-    position: relative;
-    @include flexbox;
-  }
-
-  body.sidebar-first #main #content {
-    margin-#{$alpha}: 360px;
-    @include flex(4);
-  }
-
-  body.sidebar-first #sidebar-first.column {
-    position: fixed;
-    // flex-basis: 360px;
-    // flex-shrink: 1;
-    // flex-grow: 2;
-    @include flex(2 1 360px);
-    #{$alpha}: $navbarWidth;
-    top: $headerHeight;
-    z-index: 1;
-    max-width: 360px;
-    height: 100%;
-  }
-
+body.sidebar-first #main {
+  position: relative;
+  @include flexbox;
 }
 
-@include cd-responsive(small-screens) {
-  body.sidebar-first {
-    #main #content {
-      margin-#{$alpha}: 0;
-      max-width: 100%;
-    }
-    #sidebar-first.column {
-      // TEMP until better solution
-      display: none;
-    }
-  }
+body.sidebar-first #main #content {
+  margin-#{$alpha}: 360px;
+  @include flex(4);
 }
 
-
-// add styles for load more pager
-#sidebar-first.column { 
+body.sidebar-first #sidebar-first.column {
+  position: fixed;
+  // flex-basis: 360px;
+  // flex-shrink: 1;
+  // flex-grow: 2;
+  @include flex(2 1 360px);
+  max-width: 360px;
+  #{$alpha}: $navbarWidth;
+  top: $headerHeight;
+  height: 100%;
   border-#{$omega}: 1px solid $firefly10;
   background-color: #fff;
+  z-index: 1;
   .view-desk-reports {
     .view-content {
-      height: auto; // default height adjusted by jQuery in reports.js
+      height: 400px; // default height adjusted by jQuery in reports.js
       overflow-y: auto;
     }
   }
-  @include ctb-load-more-pager; 
+  // add styles for load more pager
+  @include ctb-load-more-pager;
 }
-
 
 // Page with sidebar second
 // as in search page
@@ -72,22 +50,21 @@ body.sidebar-second #main {
 body.sidebar-second #main #content {
 	padding-#{$omega}: 20px;
 	@include flex(4);
-  margin: 0;
-  max-width: 860px;
+	margin: 0;
+	max-width: 860px;
+	@include box-sizing(border-box);
 	overflow: auto;
-  @include box-sizing(border-box);
+	// checkdesk search
+	.cd-container { 
+		@include ctb-clearfix;
+		margin-bottom: 160px;
+		// add styles for load more pager
+    @include ctb-load-more-pager;
+    .pager-load-more {
+    	margin-top: 30px;
+    }
+	}
 }	
-
-// checkdesk search
-body.sidebar-second .cd-container { 
-  @include ctb-clearfix;
-  margin-bottom: 160px;
-  // add styles for load more pager
-  @include ctb-load-more-pager;
-  .pager-load-more {
-    margin-top: 30px;
-  }
-}
 
 body.sidebar-second aside#sidebar-second {
 	@include flex(2);
