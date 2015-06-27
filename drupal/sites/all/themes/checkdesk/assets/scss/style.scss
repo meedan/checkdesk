@@ -109,7 +109,7 @@ $omega: opposite-position($from-direction);
 
 // ====================================================================== 
 // Main Checkdesk Sass files
-// Drupal sections, pages, mixins
+// Pages, navigation, layout
 
 //  Checkdesk typography
 //  And a reponsive typography mixin which is applied in layout.
@@ -119,36 +119,31 @@ $omega: opposite-position($from-direction);
 @import "base/base";
 @import "base/typography";
 @import "base/lists";
-// @import "components/buttons";
 
 //checkdesk specific
 
-// Checkdesk Drupal tabs
-// .tabs - the containing element which has a ul.primary and ul.secondary
-@import "bowerbird/tabs";
+// Global Navigation, user menu and Drupal nav at very top
+@import "layout/header";
+@import "module/navigation";
+@import "module/submeta";
+@import "module/drupal_admin_nav";
 
-// defaults
-@import "module/tabs";
+// Layouts
+@import "layout/widgets";
+@import "layout/sidebar";
+@import "module/sidebar_filters";
+@import "layout/footer";
 
-// Checkdesk notifications
-// #block-views-my-notifications-block - the main notification list in the top bar
-@import "module/notifications";
-
-// Filters
-@import "module/filters";
 
 // Partner stuff
 @import "module/partner/partner_header";
 @import "module/branding";
-@import "layout/footer";
 @import "module/content/static";
 
-// Container
-@import "components/container/container";
-@import "components/container/containers";
 
-// Tags
-@import "module/tag-list";
+// ====================================================================== 
+// Checkdesk pages 
+//
 
 // Checkdesk media
 @import "module/content/media";
@@ -161,46 +156,6 @@ $omega: opposite-position($from-direction);
 // Checkdesk updates
 @import "module/content/update";
 
-// Checkdesk bookmarklet stuff
-@import "components/bookmarklet/bookmarklet";
-@import "components/bookmarklet/install_bookmarklet";
-
-// Checkdesk Pagination
-@import "components/pagination";
-
-// Global Navigation, user menu and Drupal nav at very top
-@import "layout/header";
-@import "module/navigation";
-@import "module/submeta";
-@import "module/drupal_admin_nav";
-
-// Checkdesk user accounts
-@import "module/user/account";
-
-// Tabs
-@import "bowerbird/tabs";
-
-// reset
-// @import "tabs";  // checkdesk styles
-
-// Form: password strength section
-@import "components/forms/form_password";
-
-// Forms, Tables
-@import "components/forms/forms";
-@import "base/tables";
-
-// Forms autocomplete and jquery ui
-@import "replace_drupal/jquery.ui.autocomplete";
-@import "replace_drupal/autocomplete";
-
-// ====================================================================== 
-// Checkdesk pages 
-//
-
-// Checkdesk reports
-@import "module/user/administer_users";
-
 // Liveblog page
 @import "module/content/liveblog";
 
@@ -212,23 +167,49 @@ $omega: opposite-position($from-direction);
 @import "components/container/items";
 @import "components/container/item";
 
+// Container
+@import "components/container/container";
+@import "components/container/containers";
+
 // Story colloboration activity
 @import "module/activity";
-
-// Widgets
-@import "layout/widgets";
-@import "layout/sidebar";
-@import "module/sidebar_filters";
-
-// User section
-@import "module/user/user";
 
 // Create node page and form
 @import "components/forms/create_node";
 @import "components/forms/create_story";
 
-// Reports pages
-@import "module/content/report/reports_page";
+// Forms, Tables
+@import "components/forms/forms";
+@import "base/tables";
+
+// Checkdesk notifications
+// #block-views-my-notifications-block - the main notification list in the top bar
+@import "module/notifications";
+
+// Filters
+@import "module/filters";
+
+// Tags
+@import "module/tag-list";
+
+// Checkdesk bookmarklet stuff
+@import "components/bookmarklet/bookmarklet";
+@import "components/bookmarklet/install_bookmarklet";
+
+// Checkdesk Pagination
+@import "components/pagination";
+
+// Checkdesk user accounts
+@import "module/user/user";
+@import "module/user/administer_users";
+@import "module/user/account";
+
+// Form: password strength section
+@import "components/forms/form_password";
+
+// Forms autocomplete and jquery ui
+@import "replace_drupal/jquery.ui.autocomplete";
+@import "replace_drupal/autocomplete";
 
 // Drupal styles
 // Drupal itself should not emit *any* CSS. 
