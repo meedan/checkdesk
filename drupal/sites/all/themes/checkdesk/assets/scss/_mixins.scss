@@ -11,10 +11,13 @@
   @if $width == wide-screens {
     @media only screen and (min-width: $width-wide) { @content; }
   }
-  @else if $width == medium-screens {
+  @else if $width == desktop-screens {
+    @media only screen and (min-width: $width-desktop) { @content; }
+  }
+  @else if $width == tablet-screens {
     @media only screen and (min-width: $width-tablet) { @content; }
   }
-  @else if $width == small-screens {
+  @else if $width == mobile-screens {
     @media only screen and (min-width: $width-mobile) { @content; }
   }
   @else {

@@ -6,44 +6,27 @@ body.toolbar-drawer #sidebar-first.column {
   top: $toolbarHeight + $headerHeight !important;
 }
 
-@include cd-responsive(wide-screens) {
-
-  body.sidebar-first #main {
-    position: relative;
-    @include flexbox;
-  }
-
-  body.sidebar-first #main #content {
-    margin-#{$alpha}: 360px;
-    @include flex(4);
-  }
-
-  body.sidebar-first #sidebar-first.column {
-    position: fixed;
-    // flex-basis: 360px;
-    // flex-shrink: 1;
-    // flex-grow: 2;
-    @include flex(2 1 360px);
-    #{$alpha}: $navbarWidth;
-    top: $headerHeight;
-    z-index: 1;
-    max-width: 360px;
-    height: 100%;
-  }
-
+body.sidebar-first #main {
+  position: relative;
+  @include flexbox;
 }
 
-@include cd-responsive(small-screens) {
-  body.sidebar-first {
-    #main #content {
-      margin-#{$alpha}: 0;
-      max-width: 100%;
-    }
-    #sidebar-first.column {
-      // TEMP until better solution
-      display: none;
-    }
-  }
+body.sidebar-first #main #content {
+  margin-#{$alpha}: 360px;
+  @include flex(4);
+}
+
+body.sidebar-first #sidebar-first.column {
+  position: fixed;
+  // flex-basis: 360px;
+  // flex-shrink: 1;
+  // flex-grow: 2;
+  @include flex(2 1 360px);
+  #{$alpha}: $navbarWidth;
+  top: $headerHeight;
+  z-index: 1;
+  max-width: 360px;
+  height: 100%;
 }
 
 
@@ -67,6 +50,7 @@ body.toolbar-drawer #sidebar-first.column {
 body.sidebar-second #main {
 	position: relative;
 	@include flexbox;
+  @include justify-content(center);
 }
 
 body.sidebar-second #main #content {

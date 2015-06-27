@@ -5,1608 +5,6 @@
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
 }
 
-/**
- * @file
- * Generic theme-independent base styles.
- */
-/**
- * Autocomplete.
- *
- * @see autocomplete.js
- */
-/* Suggestion list */
-#autocomplete {
-  border: 1px solid;
-  overflow: hidden;
-  position: absolute;
-  z-index: 100;
-}
-
-#autocomplete ul {
-  list-style: none;
-  list-style-image: none;
-  margin: 0;
-  padding: 0;
-}
-
-#autocomplete li {
-  background: #fff;
-  color: #000;
-  cursor: default;
-  white-space: pre;
-  zoom: 1;
-  /* IE7 */
-}
-
-/* Animated throbber */
-html.js input.form-autocomplete {
-  background-image: url(/misc/throbber.gif);
-  background-position: 100% 2px;
-  /* LTR */
-  background-repeat: no-repeat;
-}
-
-html.js input.throbbing {
-  background-position: 100% -18px;
-  /* LTR */
-}
-
-/**
- * Collapsible fieldsets.
- *
- * @see collapse.js
- */
-html.js fieldset.collapsed {
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-right-width: 0;
-  height: 1em;
-  padding: 1em 0;
-}
-
-html.js fieldset.collapsed .fieldset-wrapper {
-  display: none;
-}
-
-fieldset.collapsible {
-  position: relative;
-}
-
-fieldset.collapsible .fieldset-legend {
-  display: block;
-}
-
-/**
- * Resizable textareas.
- *
- * @see textarea.js
- */
-.form-textarea-wrapper textarea {
-  display: block;
-  margin: 0;
-  width: 100%;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.resizable-textarea .grippie {
-  border: 1px solid #ddd;
-  border-top-width: 0;
-  cursor: s-resize;
-  height: 9px;
-  overflow: hidden;
-}
-
-/**
- * TableDrag behavior.
- *
- * @see tabledrag.js
- */
-body.drag {
-  cursor: move;
-}
-
-.draggable a.tabledrag-handle {
-  cursor: move;
-  float: left;
-  /* LTR */
-  height: 1.7em;
-  margin-left: -1em;
-  /* LTR */
-  overflow: hidden;
-  text-decoration: none;
-}
-
-a.tabledrag-handle:hover {
-  text-decoration: none;
-}
-
-a.tabledrag-handle .handle {
-  background: url(/misc/draggable.png) no-repeat 6px 9px;
-  height: 13px;
-  margin: -0.4em 0.5em;
-  /* LTR */
-  padding: 0.42em 0.5em;
-  /* LTR */
-  width: 13px;
-}
-
-a.tabledrag-handle-hover .handle {
-  background-position: 6px -11px;
-}
-
-div.indentation {
-  float: left;
-  /* LTR */
-  height: 1.7em;
-  margin: -0.4em 0.2em -0.4em -0.4em;
-  /* LTR */
-  padding: 0.42em 0 0.42em 0.6em;
-  /* LTR */
-  width: 20px;
-}
-
-div.tree-child {
-  background: url(/misc/tree.png) no-repeat 11px center;
-  /* LTR */
-}
-
-div.tree-child-last {
-  background: url(/misc/tree-bottom.png) no-repeat 11px center;
-  /* LTR */
-}
-
-div.tree-child-horizontal {
-  background: url(/misc/tree.png) no-repeat -11px center;
-}
-
-.tabledrag-toggle-weight-wrapper {
-  text-align: right;
-  /* LTR */
-}
-
-/**
- * TableHeader behavior.
- *
- * @see tableheader.js
- */
-table.sticky-header {
-  background-color: #fff;
-  margin-top: 0;
-}
-
-/**
- * Progress behavior.
- *
- * @see progress.js
- */
-/* Bar */
-.progress .bar {
-  background-color: #fff;
-  border: 1px solid;
-}
-
-.progress .filled {
-  background-color: #000;
-  height: 1.5em;
-  width: 5px;
-}
-
-.progress .percentage {
-  float: right;
-  /* LTR */
-}
-
-/* Throbber */
-.ajax-progress {
-  display: inline-block;
-}
-
-.ajax-progress .throbber {
-  background: transparent url(/misc/throbber.gif) no-repeat 0px 0px;
-  float: left;
-  /* LTR */
-  height: 16px;
-  margin: 2px;
-  width: 16px;
-}
-
-.ajax-progress .message {
-  padding-left: 20px;
-}
-
-tr .ajax-progress .throbber {
-  margin: 0 2px;
-}
-
-.ajax-progress-bar {
-  width: 16em;
-}
-
-/**
- * Inline items.
- */
-.container-inline div,
-.container-inline label {
-  display: inline;
-}
-
-/* Fieldset contents always need to be rendered as block. */
-.container-inline .fieldset-wrapper {
-  display: block;
-}
-
-/**
- * Prevent text wrapping.
- */
-.nowrap {
-  white-space: nowrap;
-}
-
-/**
- * For anything you want to hide on page load when JS is enabled, so
- * that you can use the JS to control visibility and avoid flicker.
- */
-html.js .js-hide {
-  display: none;
-}
-
-/**
- * Hide elements from all users.
- *
- * Used for elements which should not be immediately displayed to any user. An
- * example would be a collapsible fieldset that will be expanded with a click
- * from a user. The effect of this class can be toggled with the jQuery show()
- * and hide() functions.
- */
-.element-hidden {
-  display: none;
-}
-
-/**
- * Hide elements visually, but keep them available for screen-readers.
- *
- * Used for information required for screen-reader users to understand and use
- * the site where visual display is undesirable. Information provided in this
- * manner should be kept concise, to avoid unnecessary burden on the user.
- * "!important" is used to prevent unintentional overrides.
- */
-.element-invisible {
-  position: absolute !important;
-  clip: rect(1px 1px 1px 1px);
-  /* IE6, IE7 */
-  clip: rect(1px, 1px, 1px, 1px);
-  overflow: hidden;
-  height: 1px;
-}
-
-/**
- * The .element-focusable class extends the .element-invisible class to allow
- * the element to be focusable when navigated to via the keyboard.
- */
-.element-invisible.element-focusable:active,
-.element-invisible.element-focusable:focus {
-  position: static !important;
-  clip: auto;
-  overflow: visible;
-  height: auto;
-}
-
-/**
- * Markup free clearing.
- *
- * @see http://perishablepress.com/press/2009/12/06/new-clearfix-hack
- */
-.clearfix:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-
-/* IE6 */
-* html .clearfix {
-  height: 1%;
-}
-
-/* IE7 */
-*:first-child + html .clearfix {
-  min-height: 1%;
-}
-
-.language-switcher-locale-url li.active {
-  display: none;
-}
-
-/**
- * @file
- * Styles for menus and navigation markup.
- */
-/**
- * Markup generated by theme_menu_tree().
- */
-ul.menu {
-  border: none;
-  list-style: none;
-  text-align: left;
-  /* LTR */
-}
-
-ul.menu li {
-  margin: 0 0 0 0.5em;
-  /* LTR */
-}
-
-ul li.expanded {
-  list-style-image: url(../../misc/menu-expanded.png);
-  list-style-type: circle;
-}
-
-ul li.collapsed {
-  list-style-image: url(../../misc/menu-collapsed.png);
-  /* LTR */
-  list-style-type: disc;
-}
-
-ul li.leaf {
-  list-style-image: url(../../misc/menu-leaf.png);
-  list-style-type: square;
-}
-
-li.expanded,
-li.collapsed,
-li.leaf {
-  padding: 0.2em 0.5em 0 0;
-  /* LTR */
-  margin: 0;
-}
-
-li a.active {
-  color: #000;
-}
-
-td.menu-disabled {
-  background: #ccc;
-}
-
-/**
- * Markup generated by theme_links().
- */
-ul.inline,
-ul.links.inline {
-  display: inline;
-  padding-left: 0;
-}
-
-ul.inline li {
-  display: inline;
-  list-style-type: none;
-  padding: 0 0.5em;
-}
-
-/**
- * Markup generated by theme_breadcrumb().
- */
-.breadcrumb {
-  padding-bottom: 0.5em;
-}
-
-/**
- * Markup generated by theme_menu_local_tasks().
- */
-ul.primary {
-  border-bottom: 1px solid #bbb;
-  border-collapse: collapse;
-  height: auto;
-  line-height: normal;
-  list-style: none;
-  margin: 5px;
-  padding: 0 0 0 1em;
-  /* LTR */
-  white-space: nowrap;
-}
-
-ul.primary li {
-  display: inline;
-}
-
-ul.primary li a {
-  background-color: #ddd;
-  border-color: #bbb;
-  border-style: solid solid none solid;
-  border-width: 1px;
-  height: auto;
-  margin-right: 0.5em;
-  /* LTR */
-  padding: 0 1em;
-  text-decoration: none;
-}
-
-ul.primary li.active a {
-  background-color: #fff;
-  border: 1px solid #bbb;
-  border-bottom: 1px solid #fff;
-}
-
-ul.primary li a:hover {
-  background-color: #eee;
-  border-color: #ccc;
-  border-bottom-color: #eee;
-}
-
-ul.secondary {
-  border-bottom: 1px solid #bbb;
-  padding: 0.5em 1em;
-  margin: 5px;
-}
-
-ul.secondary li {
-  border-right: 1px solid #ccc;
-  /* LTR */
-  display: inline;
-  padding: 0 1em;
-}
-
-ul.secondary a {
-  padding: 0;
-  text-decoration: none;
-}
-
-ul.secondary a.active {
-  border-bottom: 4px solid #999;
-}
-
-/*
- * jQuery UI CSS Framework 1.8.7
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Theming/API
- */
-/* Layout helpers
-----------------------------------*/
-.ui-helper-hidden {
-  display: none;
-}
-
-.ui-helper-hidden-accessible {
-  position: absolute !important;
-  clip: rect(1px 1px 1px 1px);
-  clip: rect(1px, 1px, 1px, 1px);
-}
-
-.ui-helper-reset {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  line-height: 1.3;
-  text-decoration: none;
-  font-size: 100%;
-  list-style: none;
-}
-
-.ui-helper-clearfix:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-
-.ui-helper-clearfix {
-  display: inline-block;
-}
-
-/* required comment for clearfix to work in Opera \*/
-* html .ui-helper-clearfix {
-  height: 1%;
-}
-
-.ui-helper-clearfix {
-  display: block;
-}
-
-/* end clearfix */
-.ui-helper-zfix {
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  opacity: 0;
-  filter: Alpha(Opacity=0);
-}
-
-/* Interaction Cues
-----------------------------------*/
-.ui-state-disabled {
-  cursor: default !important;
-}
-
-/* Icons
-----------------------------------*/
-/* states and images */
-.ui-icon {
-  display: block;
-  text-indent: -99999px;
-  overflow: hidden;
-  background-repeat: no-repeat;
-}
-
-/* Misc visuals
-----------------------------------*/
-/* Overlays */
-.ui-widget-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-#comments {
-  margin-top: 15px;
-}
-
-.indented {
-  margin-left: 25px;
-  /* LTR */
-}
-
-.comment-unpublished {
-  background-color: #fff4f4;
-}
-
-.comment-preview {
-  background-color: #ffffea;
-}
-
-/* Field display */
-.field .field-label {
-  font-weight: bold;
-}
-
-.field-label-inline .field-label,
-.field-label-inline .field-items {
-  float: left;
-  /*LTR*/
-}
-
-/* Form display */
-form .field-multiple-table {
-  margin: 0;
-}
-
-form .field-multiple-table th.field-label {
-  padding-left: 0;
-  /*LTR*/
-}
-
-form .field-multiple-table td.field-multiple-drag {
-  width: 30px;
-  padding-right: 0;
-  /*LTR*/
-}
-
-form .field-multiple-table td.field-multiple-drag a.tabledrag-handle {
-  padding-right: .5em;
-  /*LTR*/
-}
-
-form .field-add-more-submit {
-  margin: .5em 0 0;
-}
-
-.node-unpublished {
-  background-color: #fff4f4;
-}
-
-.preview .node {
-  background-color: #ffffea;
-}
-
-td.revision-current {
-  background: #ffc;
-}
-
-#edit-shortcuts {
-  float: left;
-}
-
-body.toolbar {
-  padding-top: 2.2em;
-}
-
-body.toolbar-drawer {
-  padding-top: 5.3em;
-}
-
-/**
- * Aggressive resets so we can achieve a consistent look in hostile CSS
- * environments.
- */
-#toolbar,
-#toolbar * {
-  border: 0;
-  font-size: 100%;
-  line-height: inherit;
-  list-style: none;
-  margin: 0;
-  outline: 0;
-  padding: 0;
-  text-align: left;
-  /* LTR */
-  vertical-align: baseline;
-}
-
-/**
- * Base styles.
- *
- * We use a keyword for the toolbar font size to make it display consistently
- * across different themes, while still allowing browsers to resize the text.
- */
-#toolbar {
-  background: #666;
-  color: #ccc;
-  font: normal small "Lucida Grande", Verdana, sans-serif;
-  right: 0;
-  margin: 0 -20px;
-  padding: 0 20px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  -moz-box-shadow: 0 3px 20px #000;
-  -webkit-box-shadow: 0 3px 20px #000;
-  box-shadow: 0 3px 20px #000;
-  filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10');
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10')";
-  z-index: 600;
-}
-
-#toolbar div.collapsed {
-  display: none;
-  visibility: hidden;
-}
-
-#toolbar a {
-  color: #fff;
-  font-size: .846em;
-  text-decoration: none;
-}
-
-#toolbar ul li,
-#toolbar ul li a {
-  float: right;
-  /* LTR */
-}
-
-/**
- * Administration menu.
- */
-#toolbar div.toolbar-menu {
-  background: #000;
-  line-height: 20px;
-  padding: 5px 10px 5px 50px;
-  /* LTR */
-  position: relative;
-}
-
-#toolbar-home a span {
-  display: block;
-  height: 14px;
-  margin: 3px 0px;
-  text-indent: -9999px;
-  vertical-align: text-bottom;
-  width: 11px;
-}
-
-#toolbar-user {
-  float: left;
-  /* LTR */
-}
-
-#toolbar-menu {
-  float: right;
-  /* LTR */
-}
-
-#toolbar div.toolbar-menu a.toggle {
-  bottom: 0;
-  cursor: pointer;
-  height: 25px;
-  overflow: hidden;
-  position: absolute;
-  left: 10px;
-  /* LTR */
-  color: #ccc;
-  width: 25px;
-}
-
-#toolbar div.toolbar-menu a.toggle:focus,
-#toolbar div.toolbar-menu a.toggle:hover {
-  background-position: -50px -20px;
-}
-
-#toolbar div.toolbar-menu a.toggle-active {
-  background-position: -25px -20px;
-}
-
-#toolbar div.toolbar-menu a.toggle-active.toggle:focus,
-#toolbar div.toolbar-menu a.toggle-active.toggle:hover {
-  background-position: -75px -20px;
-}
-
-#toolbar div.toolbar-menu ul li a {
-  padding: 0 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-
-#toolbar div.toolbar-menu ul li a:focus,
-#toolbar div.toolbar-menu ul li a:hover,
-#toolbar div.toolbar-menu ul li a:active,
-#toolbar div.toolbar-menu ul li a.active:focus {
-  background: #444;
-}
-
-#toolbar div.toolbar-menu ul li a.active:hover,
-#toolbar div.toolbar-menu ul li a.active:active,
-#toolbar div.toolbar-menu ul li a.active,
-#toolbar div.toolbar-menu ul li.active-trail a {
-  text-shadow: #333 0 1px 0;
-}
-
-/**
- * Collapsed drawer of additional toolbar content.
- */
-#toolbar div.toolbar-drawer {
-  position: relative;
-  padding: 0 10px;
-}
-
-/**
- * IE 6 Fix.
- *
- * IE 6 shows elements with position:fixed as position:static so we replace
- * it with position:absolute; toolbar needs its z-index to stay above overlay.
- */
-* html #toolbar {
-  right: -20px;
-  margin: 0;
-  padding-left: 0;
-  position: absolute;
-  left: 0;
-  width: 100%;
-}
-
-div#toolbar a#edit-shortcuts {
-  float: left;
-  padding: 5px 5px 5px 10px;
-  line-height: 24px;
-  color: #ccc;
-}
-
-div#toolbar a#edit-shortcuts:focus,
-div#toolbar a#edit-shortcuts:hover,
-div#toolbar a#edit-shortcuts.active {
-  color: #ddd;
-  text-decoration: underline;
-}
-
-div#toolbar div.toolbar-shortcuts ul {
-  padding: 5px 0 2px 0;
-  height: 28px;
-  line-height: 24px;
-  float: right;
-  /* LTR */
-  margin-right: 5px;
-  /* LTR */
-}
-
-div#toolbar div.toolbar-shortcuts ul li a {
-  padding: 0 5px 0 5px;
-  margin-left: 5px;
-  /* LTR */
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-}
-
-div#toolbar div.toolbar-shortcuts ul li a:focus,
-div#toolbar div.toolbar-shortcuts ul li a:hover,
-div#toolbar div.toolbar-shortcuts ul li a.active:focus {
-  background: #555;
-}
-
-div#toolbar div.toolbar-shortcuts ul li a.active:hover,
-div#toolbar div.toolbar-shortcuts ul li a.active {
-  background: #000;
-}
-
-div#toolbar div.toolbar-shortcuts span.icon {
-  float: right;
-  /* LTR */
-  background: #444;
-  width: 30px;
-  height: 30px;
-  margin-left: 5px;
-  /* LTR */
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-}
-
-div.add-or-remove-shortcuts {
-  padding-top: 5px;
-}
-
-div.add-or-remove-shortcuts a span.icon {
-  display: block;
-  width: 12px;
-  background: transparent url(shortcut.png) no-repeat scroll 0 0;
-  height: 12px;
-  float: right;
-  margin-right: 8px;
-}
-
-div.add-shortcut a:focus span.icon,
-div.add-shortcut a:hover span.icon {
-  background-position: 0 -12px;
-}
-
-div.remove-shortcut a span.icon {
-  background-position: -12px 0;
-}
-
-div.remove-shortcut a:focus span.icon,
-div.remove-shortcut a:hover span.icon {
-  background-position: -12px -12px;
-}
-
-div.add-or-remove-shortcuts a span.text {
-  float: right;
-  padding-right: 10px;
-  display: none;
-}
-
-div.add-or-remove-shortcuts a:focus span.text,
-div.add-or-remove-shortcuts a:hover span.text {
-  font-size: 10px;
-  line-height: 12px;
-  color: #fff;
-  background-color: #5f605b;
-  display: block;
-  padding-left: 6px;
-  /* LTR */
-  cursor: pointer;
-  -moz-border-radius: 0 5px 5px 0;
-  /* LTR */
-  -webkit-border-top-right-radius: 5px;
-  /* LTR */
-  -webkit-border-bottom-right-radius: 5px;
-  /* LTR */
-  border-radius: 0 5px 5px 0;
-  /* LTR */
-}
-
-#shortcut-set-switch .form-type-radios {
-  padding-bottom: 0;
-  margin-bottom: 0;
-}
-
-#shortcut-set-switch .form-item-new {
-  padding-top: 0;
-  padding-right: 17px;
-  /* LTR */
-}
-
-/**
- * @file
- * Stylesheet for the Contextual module.
- */
-/**
- * Contextual links regions.
- */
-.contextual-links-region {
-  outline: none;
-}
-
-.contextual-links-region-active {
-  outline: #999 dashed 1px;
-}
-
-/**
- * Contextual links.
- */
-div.contextual-links-wrapper {
-  display: none;
-  font-size: 90%;
-  position: absolute;
-  right: 5px;
-  /* LTR */
-  top: 2px;
-  z-index: 999;
-}
-
-html.js div.contextual-links-wrapper {
-  display: block;
-}
-
-a.contextual-links-trigger {
-  background: transparent url(../imgs/gear-select.png) no-repeat 2px 0;
-  border: 1px solid transparent;
-  display: none;
-  height: 18px;
-  margin: 0;
-  padding: 0 2px;
-  outline: none;
-  text-indent: 34px;
-  /* LTR */
-  width: 28px;
-  overflow: hidden;
-  -khtml-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-}
-
-a.contextual-links-trigger:hover,
-div.contextual-links-active a.contextual-links-trigger {
-  background-position: 2px -18px;
-}
-
-div.contextual-links-active a.contextual-links-trigger {
-  background-color: #fff;
-  border-color: #ccc;
-  border-bottom: none;
-  position: relative;
-  z-index: 1;
-  -moz-border-radius: 4px 4px 0 0;
-  -webkit-border-bottom-left-radius: 0;
-  -webkit-border-bottom-right-radius: 0;
-  border-radius: 4px 4px 0 0;
-}
-
-div.contextual-links-wrapper ul.contextual-links {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  display: none;
-  margin: 0;
-  padding: 0.25em 0;
-  position: absolute;
-  right: 0;
-  text-align: left;
-  top: 18px;
-  white-space: nowrap;
-  -moz-border-radius: 4px 0 4px 4px;
-  /* LTR */
-  -webkit-border-bottom-left-radius: 4px;
-  -webkit-border-bottom-right-radius: 4px;
-  -webkit-border-top-right-radius: 0;
-  /* LTR */
-  -webkit-border-top-left-radius: 4px;
-  /* LTR */
-  border-radius: 4px 0 4px 4px;
-  /* LTR */
-}
-
-.contextual-links-region:hover a.contextual-links-trigger,
-div.contextual-links-active a.contextual-links-trigger,
-div.contextual-links-active ul.contextual-links {
-  display: block;
-}
-
-ul.contextual-links li {
-  line-height: 100%;
-  list-style: none;
-  list-style-image: none;
-  margin: 0;
-  padding: 0;
-}
-
-div.contextual-links-wrapper a {
-  text-decoration: none;
-}
-
-ul.contextual-links li a {
-  color: #333 !important;
-  display: block;
-  margin: 0.25em 0;
-  padding: 0.25em 1em 0.25em 0.5em;
-}
-
-ul.contextual-links li a:hover {
-  background-color: #bfdcee;
-}
-
-@CHARSET "UTF-8";
-.rules-show-js, html.js .rules-hide-js {
-  display: none;
-}
-
-.rules-hide-js, html.js .rules-show-js {
-  display: block;
-}
-
-.rules-elements-table ul.action-links {
-  margin: 0px;
-  padding: 0;
-}
-
-.rules-elements-table ul.rules-operations li {
-  list-style: none;
-  float: left;
-}
-
-.rules-elements-table ul.rules-operations a {
-  background: none;
-  padding-left: 0px;
-}
-
-table tr.rules-elements-add {
-  background-color: #e5eff4;
-}
-
-.rules-elements-table ul.rules-operations-add a {
-  line-height: 1em;
-}
-
-tr.rules-elements-add td {
-  padding-top: 2px;
-  padding-bottom: 2px;
-}
-
-ul.rules-operations-add li {
-  float: left;
-  list-style-position: inside;
-}
-
-.rules-elements-table {
-  margin-bottom: 3em;
-}
-
-/* We cannot set a positive margin-top for rules tables as the table drag link
-   should be positioned directly on top of the table. Thus we use a large bottom
-   margin and fix the upper most margin: */
-#rules-form-wrapper:first-child {
-  margin-top: 1.5em;
-}
-
-/* Fix table drag weights to don't take extra space */
-.rules-elements-table .tabledrag-toggle-weight-wrapper {
-  position: absolute;
-  right: 0px;
-}
-
-.rules-elements-table caption, .rules-overview-table caption {
-  font-size: 110%;
-  font-weight: bold;
-  padding-bottom: 0.5em;
-  text-align: left;
-}
-
-.rules-overview-table {
-  margin: 1em 0;
-}
-
-.rules-content-group-integrity-error {
-  color: #df0101;
-}
-
-.rules-debug-log {
-  font: 81.3% "Lucida Grande","Lucida Sans Unicode",sans-serif;
-  background-color: #eeeeee;
-  border: 1px solid #cccccc;
-  color: #333333;
-  padding: 5px;
-  margin: 1.5em 0em;
-}
-
-.rules-debug-collapsible-link {
-  position: relative;
-  cursor: pointer;
-  /* The span element with the icon which opens the log, has a whitepsace.
-     Since we don't want the user to mark this white space, we prevent this
-     using the this code.*/
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-
-.rules-debug-log-head {
-  font-weight: bold;
-}
-
-div.rules-debug-log-head {
-  margin: 0.5em 0em;
-}
-
-.rules-debug-icon-open {
-  position: relative;
-  float: left;
-}
-
-.rules-debug-open-all {
-  position: relative;
-  float: right;
-}
-
-.rules-debug-log ul {
-  padding-left: 2em;
-}
-
-.rules-debug-log .rules-debug-warn {
-  color: #df0101;
-}
-
-.rules-debug-log .rules-debug-error {
-  font-weight: bold;
-  color: #df0101;
-}
-
-#rules-filter-form {
-  margin-bottom: 1.5em;
-}
-
-.rules-parameter-label {
-  font-style: italic;
-}
-
-#rules-plugin-add-help {
-  margin-bottom: 1em;
-}
-
-.rules-element-content {
-  float: left;
-}
-
-form input.rules-switch-button {
-  -moz-border-radius: 5px 5px 5px 5px;
-  cursor: pointer;
-  font-size: 0.8em;
-  font-weight: normal;
-  margin-bottom: 1em;
-  padding: 2px;
-  text-align: center;
-}
-
-.rules-form-heading {
-  margin-top: 3em;
-}
-
-.rules-autocomplete-button {
-  top: 3px;
-  height: 22px;
-}
-
-ul.rules-autocomplete {
-  max-height: 23em;
-  overflow-y: auto;
-}
-
-ul.rules-autocomplete div {
-  padding-left: 5px;
-}
-
-ul.rules-autocomplete a.ui-corner-all {
-  padding: 0px;
-}
-
-ul.rules-autocomplete .rules-dsac-group {
-  background-color: #eee;
-}
-
-ul.rules-autocomplete .ui-corner-all {
-  -moz-border-radius: 0px;
-}
-
-/**
- * Do not display the hide/show descriptions link above the permissions matrix.
- */
-#rules-form-wrapper #edit-settings-access-permissions .compact-link {
-  display: none;
-}
-
-/* IE 6 hack for max-height. */
-* html ul.rule-autocomplete {
-  height: 23em;
-}
-
-/**
- * Script placeholder markup.
- */
-.script-placeholder {
-  padding: 100px 0px;
-  text-align: center;
-}
-
-/**
- * Browser
- */
-.context-block-browser {
-  width: 600px;
-}
-
-.context-block-browser .blocks {
-  height: 98%;
-  overflow: auto;
-  float: left;
-  width: 320px;
-}
-
-.context-block-browser .block-browser-sidebar {
-  float: left;
-  width: 250px;
-  padding: 0 0 0 15px;
-}
-
-.context-block-item,
-.context-block-browser .draggable-placeholder,
-#admin-toolbar .context-block-browser .context-block-item {
-  font-size: 11px;
-  line-height: 20px;
-  height: 20px;
-  color: #333;
-  padding: 3px 3px 3px 3px;
-  margin: 0px 1px 1px 0px;
-  max-width: 300px;
-  white-space: nowrap;
-  overflow: hidden;
-  background: #efefef;
-  border: 1px solid #ddd;
-  position: relative;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-}
-
-.context-block-addable {
-  cursor: pointer;
-}
-
-.context-block-item span.icon {
-  background: url(context_reaction_block.png) 0px -80px no-repeat;
-  display: block;
-  width: 20px;
-  height: 20px;
-  float: left;
-  margin-right: 5px;
-}
-
-.context-block-loading {
-  max-width: none;
-}
-
-.context-block-loading span.icon {
-  background-position: -20px -80px;
-  float: none;
-  margin: 0px auto;
-}
-
-.context-block-browser .draggable-placeholder {
-  padding: 2px 1px 1px 2px;
-}
-
-#admin-toolbar.horizontal .context-block-browser .draggable-placeholder,
-#admin-toolbar.horizontal .context-block-browser .context-block-item {
-  width: 180px;
-  margin-right: 1px;
-  padding-right: 9px;
-  float: left;
-}
-
-.context-block-added {
-  display: none !important;
-}
-
-/**
- * Inline editing elements ============================================
- */
-div.context-block-region {
-  display: none;
-}
-
-a.context-block {
-  display: none !important;
-}
-
-body.context-editing div.context-block-region {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  background: #666;
-  color: #fff;
-  opacity: 0.5;
-  -moz-opacity: 0.5;
-  filter: alpha(opacity=50);
-  display: block;
-  height: 40px;
-  line-height: 24px;
-  text-align: center;
-  font-size: 18px;
-  white-space: nowrap;
-}
-
-.context-block-region .region-name {
-  width: 100%;
-  text-align: center;
-  font-size: 18px;
-  color: #fff;
-  white-space: nowrap;
-  display: block;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-}
-
-body.context-editing .ui-sortable .block {
-  opacity: .25;
-}
-
-body.context-editing .ui-sortable .draggable {
-  position: relative;
-  opacity: 1;
-}
-
-body.context-editing .draggable-placeholder {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  background: #fff;
-  border: 3px dashed #666;
-  opacity: .2;
-}
-
-body.context-editing .draggable:hover a.context-block-remove,
-body.context-editing .draggable:hover a.context-block-handle {
-  background: url(context_reaction_block.png) no-repeat;
-  cursor: move;
-  display: block;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  right: 35px;
-  top: -5px;
-  z-index: 100;
-}
-
-body.context-editing .draggable:hover a.context-block-remove {
-  background-position: -40px 0px;
-  cursor: pointer;
-  right: -5px;
-}
-
-.context-block-hidden {
-  display: none !important;
-}
-
-.block .context-block-empty-content {
-  text-align: center;
-  padding: 10px;
-  opacity: .5;
-  background: #fff;
-  color: #666;
-}
-
-/**
- * Block visibility ===================================================
- */
-#context-blockform .context-blockform-selector {
-  height: 20em;
-  overflow: auto;
-}
-
-#context-blockform span.system-blocks {
-  color: #999;
-}
-
-#context-blockform td.blocks,
-#context-blockform td.selector {
-  border: 1px solid #ddd;
-  padding: 10px;
-  width: 50%;
-}
-
-#context-blockform td.blocks .label,
-#context-blockform td.blocks td,
-#context-blockform td.blocks th {
-  background: #fff;
-  padding: 5px 5px 4px;
-  border: 0px;
-  border-bottom: 1px solid #ddd;
-}
-
-#context-blockform td.blocks .label {
-  background: #eee;
-}
-
-#context-blockform td.blocks .label a {
-  float: right;
-}
-
-#context-ui-items #context-blockform {
-  font-size: 11px;
-  line-height: 15px;
-}
-
-#context-ui-items #context-blockform .form-checkboxes {
-  height: auto;
-  overflow: visible;
-  padding: 0px;
-  margin: 0px;
-  border: 0px;
-}
-
-#context-ui-items #context-blockform .form-item {
-  padding: 0px;
-}
-
-#context-ui-items #context-blockform label {
-  background: #eee;
-  display: block;
-  padding: 5px;
-  line-height: 15px;
-}
-
-#context-ui-items #context-blockform label.option {
-  background: #fff;
-  display: block;
-  border: 0px;
-}
-
-#context-blockform .tabledrag-toggle-weight-wrapper {
-  margin-bottom: 0;
-}
-
-a.context-ui-add-link, a:link.context-ui-add-link, a:visited.context-ui-add-link {
-  display: block;
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
-  color: #fff;
-  cursor: pointer;
-  line-height: 14px;
-}
-
-.editing-context-label {
-  position: fixed;
-  top: 70px;
-  background: #fff;
-  color: #222;
-  padding: 10px;
-  font-weight: bold;
-  opacity: 0.5;
-  -moz-opacity: 0.5;
-  filter: alpha(opacity=50);
-  border: 1px solid #ddd;
-  border-left: 0;
-  border-radius: 0 6px 6px 0;
-}
-
-.context-help {
-  font-size: 12px;
-  font-weight: normal;
-}
-
-.context-editor-title {
-  font-size: 24px;
-  margin: 10px 0px;
-  padding: 0;
-}
-
-.ui-sortable-helper {
-  max-width: 300px;
-  max-height: 300px;
-}
-
-div.vertical-tabs {
-  margin: 1em 0 1em 15em;
-  /* LTR */
-  border: 1px solid #ccc;
-  position: relative;
-  /* IE6/7 */
-  clear: both;
-}
-
-.vertical-tabs ul.vertical-tabs-list {
-  width: 15em;
-  list-style: none;
-  list-style-image: none;
-  /* IE6 */
-  border-top: 1px solid #ccc;
-  padding: 0;
-  position: relative;
-  /* IE6 */
-  margin: -1px 0 -1px -15em;
-  /* LTR */
-  float: left;
-  /* LTR */
-}
-
-.vertical-tabs fieldset.vertical-tabs-pane {
-  margin: 0 !important;
-  padding: 1em;
-  border: 0;
-}
-
-fieldset.vertical-tabs-pane legend {
-  display: none;
-}
-
-fieldset.vertical-tabs-pane fieldset legend {
-  display: block;
-}
-
-/* Layout of each tab */
-.vertical-tabs ul.vertical-tabs-list li {
-  background: #eee;
-  border: 1px solid #ccc;
-  border-top: 0;
-  padding: 0;
-  margin: 0;
-  min-width: 0;
-  /* IE7 */
-}
-
-.vertical-tabs ul.vertical-tabs-list li a {
-  display: block;
-  text-decoration: none;
-  padding: 0.5em 0.6em;
-}
-
-.vertical-tabs ul.vertical-tabs-list li a:focus strong,
-.vertical-tabs ul.vertical-tabs-list li a:active strong,
-.vertical-tabs ul.vertical-tabs-list li a:hover strong {
-  text-decoration: underline;
-}
-
-.vertical-tabs ul.vertical-tabs-list li a:hover {
-  outline: 1px dotted;
-}
-
-.vertical-tabs ul.vertical-tabs-list li.selected {
-  background-color: #fff;
-  border-right-width: 0;
-  /* LTR */
-}
-
-.vertical-tabs ul.vertical-tabs-list .selected strong {
-  color: #000;
-}
-
-.vertical-tabs ul.vertical-tabs-list .summary {
-  display: block;
-}
-
-.vertical-tabs ul.vertical-tabs ul.vertical-tabs-list .summary {
-  line-height: normal;
-  margin-bottom: 0;
-}
-
-/**
- * Prevent text inputs from overflowing when container is too narrow. "width" is
- * applied to override hardcoded cols or size attributes and used in conjunction
- * with "box-sizing" to prevent box model issues from occurring in most browsers.
-*/
-.vertical-tabs .form-type-textfield input {
-  width: 100%;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-* html .vertical-tabs .form-type-textfield,
-* html .vertical-tabs .form-textarea-wrapper {
-  width: 95%;
-  /* IE6 */
-}
-
 .feed-icon a {
   display: none;
 }
@@ -4257,11 +2655,11 @@ body.toolbar-drawer #main {
 
 #main #content, #main #widgets, #main footer {
   position: relative;
-  padding: 0 50px;
+  padding: 0 20px;
 }
-@media only screen and (min-width: 375px) {
+@media only screen and (min-width: 980px) {
   #main #content, #main #widgets, #main footer {
-    padding: 0 20px;
+    padding: 0 50px;
   }
 }
 
@@ -10109,50 +8507,40 @@ body.toolbar-drawer #sidebar-first.column {
   top: 130px !important;
 }
 
-@media only screen and (min-width: 1300px) {
-  body.sidebar-first #main {
-    position: relative;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-  }
-
-  body.sidebar-first #main #content {
-    margin-right: 360px;
-    -webkit-box-flex: 4;
-    -webkit-flex: 4;
-    -moz-box-flex: 4;
-    -moz-flex: 4;
-    -ms-flex: 4;
-    flex: 4;
-  }
-
-  body.sidebar-first #sidebar-first.column {
-    position: fixed;
-    -webkit-box-flex: 2;
-    -webkit-flex: 2 1 360px;
-    -moz-box-flex: 2;
-    -moz-flex: 2 1 360px;
-    -ms-flex: 2 1 360px;
-    flex: 2 1 360px;
-    right: 60px;
-    top: 65px;
-    z-index: 1;
-    max-width: 360px;
-    height: 100%;
-  }
+body.sidebar-first #main {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
-@media only screen and (min-width: 375px) {
-  body.sidebar-first #main #content {
-    margin-right: 0;
-    max-width: 100%;
-  }
-  body.sidebar-first #sidebar-first.column {
-    display: none;
-  }
+
+body.sidebar-first #main #content {
+  margin-right: 360px;
+  -webkit-box-flex: 4;
+  -webkit-flex: 4;
+  -moz-box-flex: 4;
+  -moz-flex: 4;
+  -ms-flex: 4;
+  flex: 4;
 }
+
+body.sidebar-first #sidebar-first.column {
+  position: fixed;
+  -webkit-box-flex: 2;
+  -webkit-flex: 2 1 360px;
+  -moz-box-flex: 2;
+  -moz-flex: 2 1 360px;
+  -ms-flex: 2 1 360px;
+  flex: 2 1 360px;
+  right: 60px;
+  top: 65px;
+  z-index: 1;
+  max-width: 360px;
+  height: 100%;
+}
+
 #sidebar-first.column {
   border-left: 1px solid #e7e8ea;
   background-color: #fff;
@@ -10215,6 +8603,11 @@ body.sidebar-second #main {
   display: -moz-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
 }
 
 body.sidebar-second #main #content {
@@ -10992,6 +9385,1608 @@ body.page-user.logged-in.toolbar #sidebar-first {
     overflow-y: scroll;
   }
 }
+/**
+ * @file
+ * Generic theme-independent base styles.
+ */
+/**
+ * Autocomplete.
+ *
+ * @see autocomplete.js
+ */
+/* Suggestion list */
+#autocomplete {
+  border: 1px solid;
+  overflow: hidden;
+  position: absolute;
+  z-index: 100;
+}
+
+#autocomplete ul {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+#autocomplete li {
+  background: #fff;
+  color: #000;
+  cursor: default;
+  white-space: pre;
+  zoom: 1;
+  /* IE7 */
+}
+
+/* Animated throbber */
+html.js input.form-autocomplete {
+  background-image: url(/misc/throbber.gif);
+  background-position: 100% 2px;
+  /* LTR */
+  background-repeat: no-repeat;
+}
+
+html.js input.throbbing {
+  background-position: 100% -18px;
+  /* LTR */
+}
+
+/**
+ * Collapsible fieldsets.
+ *
+ * @see collapse.js
+ */
+html.js fieldset.collapsed {
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  height: 1em;
+  padding: 1em 0;
+}
+
+html.js fieldset.collapsed .fieldset-wrapper {
+  display: none;
+}
+
+fieldset.collapsible {
+  position: relative;
+}
+
+fieldset.collapsible .fieldset-legend {
+  display: block;
+}
+
+/**
+ * Resizable textareas.
+ *
+ * @see textarea.js
+ */
+.form-textarea-wrapper textarea {
+  display: block;
+  margin: 0;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.resizable-textarea .grippie {
+  border: 1px solid #ddd;
+  border-top-width: 0;
+  cursor: s-resize;
+  height: 9px;
+  overflow: hidden;
+}
+
+/**
+ * TableDrag behavior.
+ *
+ * @see tabledrag.js
+ */
+body.drag {
+  cursor: move;
+}
+
+.draggable a.tabledrag-handle {
+  cursor: move;
+  float: left;
+  /* LTR */
+  height: 1.7em;
+  margin-left: -1em;
+  /* LTR */
+  overflow: hidden;
+  text-decoration: none;
+}
+
+a.tabledrag-handle:hover {
+  text-decoration: none;
+}
+
+a.tabledrag-handle .handle {
+  background: url(/misc/draggable.png) no-repeat 6px 9px;
+  height: 13px;
+  margin: -0.4em 0.5em;
+  /* LTR */
+  padding: 0.42em 0.5em;
+  /* LTR */
+  width: 13px;
+}
+
+a.tabledrag-handle-hover .handle {
+  background-position: 6px -11px;
+}
+
+div.indentation {
+  float: left;
+  /* LTR */
+  height: 1.7em;
+  margin: -0.4em 0.2em -0.4em -0.4em;
+  /* LTR */
+  padding: 0.42em 0 0.42em 0.6em;
+  /* LTR */
+  width: 20px;
+}
+
+div.tree-child {
+  background: url(/misc/tree.png) no-repeat 11px center;
+  /* LTR */
+}
+
+div.tree-child-last {
+  background: url(/misc/tree-bottom.png) no-repeat 11px center;
+  /* LTR */
+}
+
+div.tree-child-horizontal {
+  background: url(/misc/tree.png) no-repeat -11px center;
+}
+
+.tabledrag-toggle-weight-wrapper {
+  text-align: right;
+  /* LTR */
+}
+
+/**
+ * TableHeader behavior.
+ *
+ * @see tableheader.js
+ */
+table.sticky-header {
+  background-color: #fff;
+  margin-top: 0;
+}
+
+/**
+ * Progress behavior.
+ *
+ * @see progress.js
+ */
+/* Bar */
+.progress .bar {
+  background-color: #fff;
+  border: 1px solid;
+}
+
+.progress .filled {
+  background-color: #000;
+  height: 1.5em;
+  width: 5px;
+}
+
+.progress .percentage {
+  float: right;
+  /* LTR */
+}
+
+/* Throbber */
+.ajax-progress {
+  display: inline-block;
+}
+
+.ajax-progress .throbber {
+  background: transparent url(/misc/throbber.gif) no-repeat 0px 0px;
+  float: left;
+  /* LTR */
+  height: 16px;
+  margin: 2px;
+  width: 16px;
+}
+
+.ajax-progress .message {
+  padding-left: 20px;
+}
+
+tr .ajax-progress .throbber {
+  margin: 0 2px;
+}
+
+.ajax-progress-bar {
+  width: 16em;
+}
+
+/**
+ * Inline items.
+ */
+.container-inline div,
+.container-inline label {
+  display: inline;
+}
+
+/* Fieldset contents always need to be rendered as block. */
+.container-inline .fieldset-wrapper {
+  display: block;
+}
+
+/**
+ * Prevent text wrapping.
+ */
+.nowrap {
+  white-space: nowrap;
+}
+
+/**
+ * For anything you want to hide on page load when JS is enabled, so
+ * that you can use the JS to control visibility and avoid flicker.
+ */
+html.js .js-hide {
+  display: none;
+}
+
+/**
+ * Hide elements from all users.
+ *
+ * Used for elements which should not be immediately displayed to any user. An
+ * example would be a collapsible fieldset that will be expanded with a click
+ * from a user. The effect of this class can be toggled with the jQuery show()
+ * and hide() functions.
+ */
+.element-hidden {
+  display: none;
+}
+
+/**
+ * Hide elements visually, but keep them available for screen-readers.
+ *
+ * Used for information required for screen-reader users to understand and use
+ * the site where visual display is undesirable. Information provided in this
+ * manner should be kept concise, to avoid unnecessary burden on the user.
+ * "!important" is used to prevent unintentional overrides.
+ */
+.element-invisible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+}
+
+/**
+ * The .element-focusable class extends the .element-invisible class to allow
+ * the element to be focusable when navigated to via the keyboard.
+ */
+.element-invisible.element-focusable:active,
+.element-invisible.element-focusable:focus {
+  position: static !important;
+  clip: auto;
+  overflow: visible;
+  height: auto;
+}
+
+/**
+ * Markup free clearing.
+ *
+ * @see http://perishablepress.com/press/2009/12/06/new-clearfix-hack
+ */
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/* IE6 */
+* html .clearfix {
+  height: 1%;
+}
+
+/* IE7 */
+*:first-child + html .clearfix {
+  min-height: 1%;
+}
+
+.language-switcher-locale-url li.active {
+  display: none;
+}
+
+/**
+ * @file
+ * Styles for menus and navigation markup.
+ */
+/**
+ * Markup generated by theme_menu_tree().
+ */
+ul.menu {
+  border: none;
+  list-style: none;
+  text-align: left;
+  /* LTR */
+}
+
+ul.menu li {
+  margin: 0 0 0 0.5em;
+  /* LTR */
+}
+
+ul li.expanded {
+  list-style-image: url(../../misc/menu-expanded.png);
+  list-style-type: circle;
+}
+
+ul li.collapsed {
+  list-style-image: url(../../misc/menu-collapsed.png);
+  /* LTR */
+  list-style-type: disc;
+}
+
+ul li.leaf {
+  list-style-image: url(../../misc/menu-leaf.png);
+  list-style-type: square;
+}
+
+li.expanded,
+li.collapsed,
+li.leaf {
+  padding: 0.2em 0.5em 0 0;
+  /* LTR */
+  margin: 0;
+}
+
+li a.active {
+  color: #000;
+}
+
+td.menu-disabled {
+  background: #ccc;
+}
+
+/**
+ * Markup generated by theme_links().
+ */
+ul.inline,
+ul.links.inline {
+  display: inline;
+  padding-left: 0;
+}
+
+ul.inline li {
+  display: inline;
+  list-style-type: none;
+  padding: 0 0.5em;
+}
+
+/**
+ * Markup generated by theme_breadcrumb().
+ */
+.breadcrumb {
+  padding-bottom: 0.5em;
+}
+
+/**
+ * Markup generated by theme_menu_local_tasks().
+ */
+ul.primary {
+  border-bottom: 1px solid #bbb;
+  border-collapse: collapse;
+  height: auto;
+  line-height: normal;
+  list-style: none;
+  margin: 5px;
+  padding: 0 0 0 1em;
+  /* LTR */
+  white-space: nowrap;
+}
+
+ul.primary li {
+  display: inline;
+}
+
+ul.primary li a {
+  background-color: #ddd;
+  border-color: #bbb;
+  border-style: solid solid none solid;
+  border-width: 1px;
+  height: auto;
+  margin-right: 0.5em;
+  /* LTR */
+  padding: 0 1em;
+  text-decoration: none;
+}
+
+ul.primary li.active a {
+  background-color: #fff;
+  border: 1px solid #bbb;
+  border-bottom: 1px solid #fff;
+}
+
+ul.primary li a:hover {
+  background-color: #eee;
+  border-color: #ccc;
+  border-bottom-color: #eee;
+}
+
+ul.secondary {
+  border-bottom: 1px solid #bbb;
+  padding: 0.5em 1em;
+  margin: 5px;
+}
+
+ul.secondary li {
+  border-right: 1px solid #ccc;
+  /* LTR */
+  display: inline;
+  padding: 0 1em;
+}
+
+ul.secondary a {
+  padding: 0;
+  text-decoration: none;
+}
+
+ul.secondary a.active {
+  border-bottom: 4px solid #999;
+}
+
+/*
+ * jQuery UI CSS Framework 1.8.7
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ */
+/* Layout helpers
+----------------------------------*/
+.ui-helper-hidden {
+  display: none;
+}
+
+.ui-helper-hidden-accessible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.ui-helper-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  line-height: 1.3;
+  text-decoration: none;
+  font-size: 100%;
+  list-style: none;
+}
+
+.ui-helper-clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.ui-helper-clearfix {
+  display: inline-block;
+}
+
+/* required comment for clearfix to work in Opera \*/
+* html .ui-helper-clearfix {
+  height: 1%;
+}
+
+.ui-helper-clearfix {
+  display: block;
+}
+
+/* end clearfix */
+.ui-helper-zfix {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  filter: Alpha(Opacity=0);
+}
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-disabled {
+  cursor: default !important;
+}
+
+/* Icons
+----------------------------------*/
+/* states and images */
+.ui-icon {
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+/* Misc visuals
+----------------------------------*/
+/* Overlays */
+.ui-widget-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#comments {
+  margin-top: 15px;
+}
+
+.indented {
+  margin-left: 25px;
+  /* LTR */
+}
+
+.comment-unpublished {
+  background-color: #fff4f4;
+}
+
+.comment-preview {
+  background-color: #ffffea;
+}
+
+/* Field display */
+.field .field-label {
+  font-weight: bold;
+}
+
+.field-label-inline .field-label,
+.field-label-inline .field-items {
+  float: left;
+  /*LTR*/
+}
+
+/* Form display */
+form .field-multiple-table {
+  margin: 0;
+}
+
+form .field-multiple-table th.field-label {
+  padding-left: 0;
+  /*LTR*/
+}
+
+form .field-multiple-table td.field-multiple-drag {
+  width: 30px;
+  padding-right: 0;
+  /*LTR*/
+}
+
+form .field-multiple-table td.field-multiple-drag a.tabledrag-handle {
+  padding-right: .5em;
+  /*LTR*/
+}
+
+form .field-add-more-submit {
+  margin: .5em 0 0;
+}
+
+.node-unpublished {
+  background-color: #fff4f4;
+}
+
+.preview .node {
+  background-color: #ffffea;
+}
+
+td.revision-current {
+  background: #ffc;
+}
+
+#edit-shortcuts {
+  float: left;
+}
+
+body.toolbar {
+  padding-top: 2.2em;
+}
+
+body.toolbar-drawer {
+  padding-top: 5.3em;
+}
+
+/**
+ * Aggressive resets so we can achieve a consistent look in hostile CSS
+ * environments.
+ */
+#toolbar,
+#toolbar * {
+  border: 0;
+  font-size: 100%;
+  line-height: inherit;
+  list-style: none;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  /* LTR */
+  vertical-align: baseline;
+}
+
+/**
+ * Base styles.
+ *
+ * We use a keyword for the toolbar font size to make it display consistently
+ * across different themes, while still allowing browsers to resize the text.
+ */
+#toolbar {
+  background: #666;
+  color: #ccc;
+  font: normal small "Lucida Grande", Verdana, sans-serif;
+  right: 0;
+  margin: 0 -20px;
+  padding: 0 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  -moz-box-shadow: 0 3px 20px #000;
+  -webkit-box-shadow: 0 3px 20px #000;
+  box-shadow: 0 3px 20px #000;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10');
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10')";
+  z-index: 600;
+}
+
+#toolbar div.collapsed {
+  display: none;
+  visibility: hidden;
+}
+
+#toolbar a {
+  color: #fff;
+  font-size: .846em;
+  text-decoration: none;
+}
+
+#toolbar ul li,
+#toolbar ul li a {
+  float: right;
+  /* LTR */
+}
+
+/**
+ * Administration menu.
+ */
+#toolbar div.toolbar-menu {
+  background: #000;
+  line-height: 20px;
+  padding: 5px 10px 5px 50px;
+  /* LTR */
+  position: relative;
+}
+
+#toolbar-home a span {
+  display: block;
+  height: 14px;
+  margin: 3px 0px;
+  text-indent: -9999px;
+  vertical-align: text-bottom;
+  width: 11px;
+}
+
+#toolbar-user {
+  float: left;
+  /* LTR */
+}
+
+#toolbar-menu {
+  float: right;
+  /* LTR */
+}
+
+#toolbar div.toolbar-menu a.toggle {
+  bottom: 0;
+  cursor: pointer;
+  height: 25px;
+  overflow: hidden;
+  position: absolute;
+  left: 10px;
+  /* LTR */
+  color: #ccc;
+  width: 25px;
+}
+
+#toolbar div.toolbar-menu a.toggle:focus,
+#toolbar div.toolbar-menu a.toggle:hover {
+  background-position: -50px -20px;
+}
+
+#toolbar div.toolbar-menu a.toggle-active {
+  background-position: -25px -20px;
+}
+
+#toolbar div.toolbar-menu a.toggle-active.toggle:focus,
+#toolbar div.toolbar-menu a.toggle-active.toggle:hover {
+  background-position: -75px -20px;
+}
+
+#toolbar div.toolbar-menu ul li a {
+  padding: 0 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+#toolbar div.toolbar-menu ul li a:focus,
+#toolbar div.toolbar-menu ul li a:hover,
+#toolbar div.toolbar-menu ul li a:active,
+#toolbar div.toolbar-menu ul li a.active:focus {
+  background: #444;
+}
+
+#toolbar div.toolbar-menu ul li a.active:hover,
+#toolbar div.toolbar-menu ul li a.active:active,
+#toolbar div.toolbar-menu ul li a.active,
+#toolbar div.toolbar-menu ul li.active-trail a {
+  text-shadow: #333 0 1px 0;
+}
+
+/**
+ * Collapsed drawer of additional toolbar content.
+ */
+#toolbar div.toolbar-drawer {
+  position: relative;
+  padding: 0 10px;
+}
+
+/**
+ * IE 6 Fix.
+ *
+ * IE 6 shows elements with position:fixed as position:static so we replace
+ * it with position:absolute; toolbar needs its z-index to stay above overlay.
+ */
+* html #toolbar {
+  right: -20px;
+  margin: 0;
+  padding-left: 0;
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+div#toolbar a#edit-shortcuts {
+  float: left;
+  padding: 5px 5px 5px 10px;
+  line-height: 24px;
+  color: #ccc;
+}
+
+div#toolbar a#edit-shortcuts:focus,
+div#toolbar a#edit-shortcuts:hover,
+div#toolbar a#edit-shortcuts.active {
+  color: #ddd;
+  text-decoration: underline;
+}
+
+div#toolbar div.toolbar-shortcuts ul {
+  padding: 5px 0 2px 0;
+  height: 28px;
+  line-height: 24px;
+  float: right;
+  /* LTR */
+  margin-right: 5px;
+  /* LTR */
+}
+
+div#toolbar div.toolbar-shortcuts ul li a {
+  padding: 0 5px 0 5px;
+  margin-left: 5px;
+  /* LTR */
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+div#toolbar div.toolbar-shortcuts ul li a:focus,
+div#toolbar div.toolbar-shortcuts ul li a:hover,
+div#toolbar div.toolbar-shortcuts ul li a.active:focus {
+  background: #555;
+}
+
+div#toolbar div.toolbar-shortcuts ul li a.active:hover,
+div#toolbar div.toolbar-shortcuts ul li a.active {
+  background: #000;
+}
+
+div#toolbar div.toolbar-shortcuts span.icon {
+  float: right;
+  /* LTR */
+  background: #444;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  /* LTR */
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+div.add-or-remove-shortcuts {
+  padding-top: 5px;
+}
+
+div.add-or-remove-shortcuts a span.icon {
+  display: block;
+  width: 12px;
+  background: transparent url(shortcut.png) no-repeat scroll 0 0;
+  height: 12px;
+  float: right;
+  margin-right: 8px;
+}
+
+div.add-shortcut a:focus span.icon,
+div.add-shortcut a:hover span.icon {
+  background-position: 0 -12px;
+}
+
+div.remove-shortcut a span.icon {
+  background-position: -12px 0;
+}
+
+div.remove-shortcut a:focus span.icon,
+div.remove-shortcut a:hover span.icon {
+  background-position: -12px -12px;
+}
+
+div.add-or-remove-shortcuts a span.text {
+  float: right;
+  padding-right: 10px;
+  display: none;
+}
+
+div.add-or-remove-shortcuts a:focus span.text,
+div.add-or-remove-shortcuts a:hover span.text {
+  font-size: 10px;
+  line-height: 12px;
+  color: #fff;
+  background-color: #5f605b;
+  display: block;
+  padding-left: 6px;
+  /* LTR */
+  cursor: pointer;
+  -moz-border-radius: 0 5px 5px 0;
+  /* LTR */
+  -webkit-border-top-right-radius: 5px;
+  /* LTR */
+  -webkit-border-bottom-right-radius: 5px;
+  /* LTR */
+  border-radius: 0 5px 5px 0;
+  /* LTR */
+}
+
+#shortcut-set-switch .form-type-radios {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+#shortcut-set-switch .form-item-new {
+  padding-top: 0;
+  padding-right: 17px;
+  /* LTR */
+}
+
+/**
+ * @file
+ * Stylesheet for the Contextual module.
+ */
+/**
+ * Contextual links regions.
+ */
+.contextual-links-region {
+  outline: none;
+}
+
+.contextual-links-region-active {
+  outline: #999 dashed 1px;
+}
+
+/**
+ * Contextual links.
+ */
+div.contextual-links-wrapper {
+  display: none;
+  font-size: 90%;
+  position: absolute;
+  right: 5px;
+  /* LTR */
+  top: 2px;
+  z-index: 999;
+}
+
+html.js div.contextual-links-wrapper {
+  display: block;
+}
+
+a.contextual-links-trigger {
+  background: transparent url(../imgs/gear-select.png) no-repeat 2px 0;
+  border: 1px solid transparent;
+  display: none;
+  height: 18px;
+  margin: 0;
+  padding: 0 2px;
+  outline: none;
+  text-indent: 34px;
+  /* LTR */
+  width: 28px;
+  overflow: hidden;
+  -khtml-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+a.contextual-links-trigger:hover,
+div.contextual-links-active a.contextual-links-trigger {
+  background-position: 2px -18px;
+}
+
+div.contextual-links-active a.contextual-links-trigger {
+  background-color: #fff;
+  border-color: #ccc;
+  border-bottom: none;
+  position: relative;
+  z-index: 1;
+  -moz-border-radius: 4px 4px 0 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-radius: 4px 4px 0 0;
+}
+
+div.contextual-links-wrapper ul.contextual-links {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  display: none;
+  margin: 0;
+  padding: 0.25em 0;
+  position: absolute;
+  right: 0;
+  text-align: left;
+  top: 18px;
+  white-space: nowrap;
+  -moz-border-radius: 4px 0 4px 4px;
+  /* LTR */
+  -webkit-border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -webkit-border-top-right-radius: 0;
+  /* LTR */
+  -webkit-border-top-left-radius: 4px;
+  /* LTR */
+  border-radius: 4px 0 4px 4px;
+  /* LTR */
+}
+
+.contextual-links-region:hover a.contextual-links-trigger,
+div.contextual-links-active a.contextual-links-trigger,
+div.contextual-links-active ul.contextual-links {
+  display: block;
+}
+
+ul.contextual-links li {
+  line-height: 100%;
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.contextual-links-wrapper a {
+  text-decoration: none;
+}
+
+ul.contextual-links li a {
+  color: #333 !important;
+  display: block;
+  margin: 0.25em 0;
+  padding: 0.25em 1em 0.25em 0.5em;
+}
+
+ul.contextual-links li a:hover {
+  background-color: #bfdcee;
+}
+
+@CHARSET "UTF-8";
+.rules-show-js, html.js .rules-hide-js {
+  display: none;
+}
+
+.rules-hide-js, html.js .rules-show-js {
+  display: block;
+}
+
+.rules-elements-table ul.action-links {
+  margin: 0px;
+  padding: 0;
+}
+
+.rules-elements-table ul.rules-operations li {
+  list-style: none;
+  float: left;
+}
+
+.rules-elements-table ul.rules-operations a {
+  background: none;
+  padding-left: 0px;
+}
+
+table tr.rules-elements-add {
+  background-color: #e5eff4;
+}
+
+.rules-elements-table ul.rules-operations-add a {
+  line-height: 1em;
+}
+
+tr.rules-elements-add td {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+ul.rules-operations-add li {
+  float: left;
+  list-style-position: inside;
+}
+
+.rules-elements-table {
+  margin-bottom: 3em;
+}
+
+/* We cannot set a positive margin-top for rules tables as the table drag link
+   should be positioned directly on top of the table. Thus we use a large bottom
+   margin and fix the upper most margin: */
+#rules-form-wrapper:first-child {
+  margin-top: 1.5em;
+}
+
+/* Fix table drag weights to don't take extra space */
+.rules-elements-table .tabledrag-toggle-weight-wrapper {
+  position: absolute;
+  right: 0px;
+}
+
+.rules-elements-table caption, .rules-overview-table caption {
+  font-size: 110%;
+  font-weight: bold;
+  padding-bottom: 0.5em;
+  text-align: left;
+}
+
+.rules-overview-table {
+  margin: 1em 0;
+}
+
+.rules-content-group-integrity-error {
+  color: #df0101;
+}
+
+.rules-debug-log {
+  font: 81.3% "Lucida Grande","Lucida Sans Unicode",sans-serif;
+  background-color: #eeeeee;
+  border: 1px solid #cccccc;
+  color: #333333;
+  padding: 5px;
+  margin: 1.5em 0em;
+}
+
+.rules-debug-collapsible-link {
+  position: relative;
+  cursor: pointer;
+  /* The span element with the icon which opens the log, has a whitepsace.
+     Since we don't want the user to mark this white space, we prevent this
+     using the this code.*/
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.rules-debug-log-head {
+  font-weight: bold;
+}
+
+div.rules-debug-log-head {
+  margin: 0.5em 0em;
+}
+
+.rules-debug-icon-open {
+  position: relative;
+  float: left;
+}
+
+.rules-debug-open-all {
+  position: relative;
+  float: right;
+}
+
+.rules-debug-log ul {
+  padding-left: 2em;
+}
+
+.rules-debug-log .rules-debug-warn {
+  color: #df0101;
+}
+
+.rules-debug-log .rules-debug-error {
+  font-weight: bold;
+  color: #df0101;
+}
+
+#rules-filter-form {
+  margin-bottom: 1.5em;
+}
+
+.rules-parameter-label {
+  font-style: italic;
+}
+
+#rules-plugin-add-help {
+  margin-bottom: 1em;
+}
+
+.rules-element-content {
+  float: left;
+}
+
+form input.rules-switch-button {
+  -moz-border-radius: 5px 5px 5px 5px;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-weight: normal;
+  margin-bottom: 1em;
+  padding: 2px;
+  text-align: center;
+}
+
+.rules-form-heading {
+  margin-top: 3em;
+}
+
+.rules-autocomplete-button {
+  top: 3px;
+  height: 22px;
+}
+
+ul.rules-autocomplete {
+  max-height: 23em;
+  overflow-y: auto;
+}
+
+ul.rules-autocomplete div {
+  padding-left: 5px;
+}
+
+ul.rules-autocomplete a.ui-corner-all {
+  padding: 0px;
+}
+
+ul.rules-autocomplete .rules-dsac-group {
+  background-color: #eee;
+}
+
+ul.rules-autocomplete .ui-corner-all {
+  -moz-border-radius: 0px;
+}
+
+/**
+ * Do not display the hide/show descriptions link above the permissions matrix.
+ */
+#rules-form-wrapper #edit-settings-access-permissions .compact-link {
+  display: none;
+}
+
+/* IE 6 hack for max-height. */
+* html ul.rule-autocomplete {
+  height: 23em;
+}
+
+/**
+ * Script placeholder markup.
+ */
+.script-placeholder {
+  padding: 100px 0px;
+  text-align: center;
+}
+
+/**
+ * Browser
+ */
+.context-block-browser {
+  width: 600px;
+}
+
+.context-block-browser .blocks {
+  height: 98%;
+  overflow: auto;
+  float: left;
+  width: 320px;
+}
+
+.context-block-browser .block-browser-sidebar {
+  float: left;
+  width: 250px;
+  padding: 0 0 0 15px;
+}
+
+.context-block-item,
+.context-block-browser .draggable-placeholder,
+#admin-toolbar .context-block-browser .context-block-item {
+  font-size: 11px;
+  line-height: 20px;
+  height: 20px;
+  color: #333;
+  padding: 3px 3px 3px 3px;
+  margin: 0px 1px 1px 0px;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  background: #efefef;
+  border: 1px solid #ddd;
+  position: relative;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.context-block-addable {
+  cursor: pointer;
+}
+
+.context-block-item span.icon {
+  background: url(context_reaction_block.png) 0px -80px no-repeat;
+  display: block;
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-right: 5px;
+}
+
+.context-block-loading {
+  max-width: none;
+}
+
+.context-block-loading span.icon {
+  background-position: -20px -80px;
+  float: none;
+  margin: 0px auto;
+}
+
+.context-block-browser .draggable-placeholder {
+  padding: 2px 1px 1px 2px;
+}
+
+#admin-toolbar.horizontal .context-block-browser .draggable-placeholder,
+#admin-toolbar.horizontal .context-block-browser .context-block-item {
+  width: 180px;
+  margin-right: 1px;
+  padding-right: 9px;
+  float: left;
+}
+
+.context-block-added {
+  display: none !important;
+}
+
+/**
+ * Inline editing elements ============================================
+ */
+div.context-block-region {
+  display: none;
+}
+
+a.context-block {
+  display: none !important;
+}
+
+body.context-editing div.context-block-region {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background: #666;
+  color: #fff;
+  opacity: 0.5;
+  -moz-opacity: 0.5;
+  filter: alpha(opacity=50);
+  display: block;
+  height: 40px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.context-block-region .region-name {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+  white-space: nowrap;
+  display: block;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+body.context-editing .ui-sortable .block {
+  opacity: .25;
+}
+
+body.context-editing .ui-sortable .draggable {
+  position: relative;
+  opacity: 1;
+}
+
+body.context-editing .draggable-placeholder {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background: #fff;
+  border: 3px dashed #666;
+  opacity: .2;
+}
+
+body.context-editing .draggable:hover a.context-block-remove,
+body.context-editing .draggable:hover a.context-block-handle {
+  background: url(context_reaction_block.png) no-repeat;
+  cursor: move;
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 35px;
+  top: -5px;
+  z-index: 100;
+}
+
+body.context-editing .draggable:hover a.context-block-remove {
+  background-position: -40px 0px;
+  cursor: pointer;
+  right: -5px;
+}
+
+.context-block-hidden {
+  display: none !important;
+}
+
+.block .context-block-empty-content {
+  text-align: center;
+  padding: 10px;
+  opacity: .5;
+  background: #fff;
+  color: #666;
+}
+
+/**
+ * Block visibility ===================================================
+ */
+#context-blockform .context-blockform-selector {
+  height: 20em;
+  overflow: auto;
+}
+
+#context-blockform span.system-blocks {
+  color: #999;
+}
+
+#context-blockform td.blocks,
+#context-blockform td.selector {
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 50%;
+}
+
+#context-blockform td.blocks .label,
+#context-blockform td.blocks td,
+#context-blockform td.blocks th {
+  background: #fff;
+  padding: 5px 5px 4px;
+  border: 0px;
+  border-bottom: 1px solid #ddd;
+}
+
+#context-blockform td.blocks .label {
+  background: #eee;
+}
+
+#context-blockform td.blocks .label a {
+  float: right;
+}
+
+#context-ui-items #context-blockform {
+  font-size: 11px;
+  line-height: 15px;
+}
+
+#context-ui-items #context-blockform .form-checkboxes {
+  height: auto;
+  overflow: visible;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+#context-ui-items #context-blockform .form-item {
+  padding: 0px;
+}
+
+#context-ui-items #context-blockform label {
+  background: #eee;
+  display: block;
+  padding: 5px;
+  line-height: 15px;
+}
+
+#context-ui-items #context-blockform label.option {
+  background: #fff;
+  display: block;
+  border: 0px;
+}
+
+#context-blockform .tabledrag-toggle-weight-wrapper {
+  margin-bottom: 0;
+}
+
+a.context-ui-add-link, a:link.context-ui-add-link, a:visited.context-ui-add-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: #fff;
+  cursor: pointer;
+  line-height: 14px;
+}
+
+.editing-context-label {
+  position: fixed;
+  top: 70px;
+  background: #fff;
+  color: #222;
+  padding: 10px;
+  font-weight: bold;
+  opacity: 0.5;
+  -moz-opacity: 0.5;
+  filter: alpha(opacity=50);
+  border: 1px solid #ddd;
+  border-left: 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.context-help {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.context-editor-title {
+  font-size: 24px;
+  margin: 10px 0px;
+  padding: 0;
+}
+
+.ui-sortable-helper {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+div.vertical-tabs {
+  margin: 1em 0 1em 15em;
+  /* LTR */
+  border: 1px solid #ccc;
+  position: relative;
+  /* IE6/7 */
+  clear: both;
+}
+
+.vertical-tabs ul.vertical-tabs-list {
+  width: 15em;
+  list-style: none;
+  list-style-image: none;
+  /* IE6 */
+  border-top: 1px solid #ccc;
+  padding: 0;
+  position: relative;
+  /* IE6 */
+  margin: -1px 0 -1px -15em;
+  /* LTR */
+  float: left;
+  /* LTR */
+}
+
+.vertical-tabs fieldset.vertical-tabs-pane {
+  margin: 0 !important;
+  padding: 1em;
+  border: 0;
+}
+
+fieldset.vertical-tabs-pane legend {
+  display: none;
+}
+
+fieldset.vertical-tabs-pane fieldset legend {
+  display: block;
+}
+
+/* Layout of each tab */
+.vertical-tabs ul.vertical-tabs-list li {
+  background: #eee;
+  border: 1px solid #ccc;
+  border-top: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  /* IE7 */
+}
+
+.vertical-tabs ul.vertical-tabs-list li a {
+  display: block;
+  text-decoration: none;
+  padding: 0.5em 0.6em;
+}
+
+.vertical-tabs ul.vertical-tabs-list li a:focus strong,
+.vertical-tabs ul.vertical-tabs-list li a:active strong,
+.vertical-tabs ul.vertical-tabs-list li a:hover strong {
+  text-decoration: underline;
+}
+
+.vertical-tabs ul.vertical-tabs-list li a:hover {
+  outline: 1px dotted;
+}
+
+.vertical-tabs ul.vertical-tabs-list li.selected {
+  background-color: #fff;
+  border-right-width: 0;
+  /* LTR */
+}
+
+.vertical-tabs ul.vertical-tabs-list .selected strong {
+  color: #000;
+}
+
+.vertical-tabs ul.vertical-tabs-list .summary {
+  display: block;
+}
+
+.vertical-tabs ul.vertical-tabs ul.vertical-tabs-list .summary {
+  line-height: normal;
+  margin-bottom: 0;
+}
+
+/**
+ * Prevent text inputs from overflowing when container is too narrow. "width" is
+ * applied to override hardcoded cols or size attributes and used in conjunction
+ * with "box-sizing" to prevent box model issues from occurring in most browsers.
+*/
+.vertical-tabs .form-type-textfield input {
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+* html .vertical-tabs .form-type-textfield,
+* html .vertical-tabs .form-textarea-wrapper {
+  width: 95%;
+  /* IE6 */
+}
+
 .rtl {
   text-align: right;
   direction: rtl;

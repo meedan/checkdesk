@@ -21,9 +21,10 @@ html {
 
 #main #content, #main #widgets, #main footer {
   position: relative;
-  padding: 0 50px;
-  @include cd-responsive(small-screens) {
-    padding: 0 20px;
+  padding: 0 20px;
+  
+  @include cd-responsive(desktop-screens) {
+    padding: 0 50px;  
   }
 }
 
