@@ -1,6 +1,6 @@
-#header {
+// #header {
   
-}
+// }
 
 // utility classes for animating header
 .hidden-on-frontpage {
@@ -29,8 +29,6 @@
   @include reset-list-style;
   height: $headerHeight;
   padding: 0 50px;
-
-  a { @include ctb-linkColor($firefly30); }
   background: #fff;
   @include transition(top 0.2s ease-in-out);
   will-change: transform;
@@ -38,6 +36,12 @@
 
 .metabar.header-up {
   top: - $headerHeight;
+  body.toolbar & {
+    top: - ($headerHeight + $toolbarMenuHeight);
+  }
+  body.toolbar-drawer & {
+    top: - ($headerHeight + $toolbarHeight);
+  }
 }
 
 ul#breadcrumb {
@@ -58,10 +62,10 @@ ul#breadcrumb h1 {
 }
 
 ul#user-menu {
-  // position: relative;
-  // #{$alpha}: 0;
+  margin-#{$alpha}: auto;
 	@include flexbox();
   @include flex-direction(row-reverse);
+  @include align-items(center);
 
   &:after {
     content: '';
@@ -96,10 +100,18 @@ ul#user-menu li {
 }
 
 ul#user-menu li > a { 
-  padding: 0 20px;
+  display: block;
+  text-decoration: none;
   @include transition(border 0.2s ease);
   @include transition(color 0.2s ease);
+  
 }
+
+ul#user-menu li .dropdown-toggle {
+  padding: 0 20px;
+  @include ctb-linkColor($firefly30);
+}
+
 
 ul#user-menu .badge {
   position: absolute;
@@ -120,19 +132,6 @@ ul#user-menu .avatar-menu {
   @include cd-avatar('inline');
   @include border-radius(50%);
   border: 3px solid $firefly20;
-}
-
-ul#user-menu .sign-in-up {
-  padding: 0 15px;
-  font-size: 16px;
-  color: $dodgerBlue80;
-  border: 1px solid $dodgerBlue80;
-  @include border-radius(4px);
-  line-height: 36px;
-  &:hover {
-    color: $dodgerBlue;
-    border-color: $dodgerBlue;
-  }
 }
 
 ul#utility-menu {

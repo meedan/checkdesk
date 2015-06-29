@@ -1,19 +1,13 @@
 <!-- ______________________ HEADER _______________________ -->
 <header id="header">
   <div class="metabar">
-    <?php if ($secondary_nav): ?>
-      <?php print $secondary_nav; ?>
-    <?php endif; ?>
-
     <?php if($is_front): ?>
       <ul id="breadcrumb">
         <li>
           <?php print render($page['header']); ?>
         </li>
       </ul>
-    <?php endif; ?>
-        
-    <?php if ($title): ?>
+    <?php elseif ($title): ?>
       <ul id="breadcrumb">
         <li>
           <h1 class="title">
@@ -42,6 +36,12 @@
         </li>
       </ul>
     <?php endif; ?>
+    
+    <?php if ($secondary_nav): ?>
+      <?php print $secondary_nav; ?>
+    <?php endif; ?>
+        
+    
   </div>
   <?php if ($page['navigation']) : ?>
     <?php print render($page['navigation']); ?>

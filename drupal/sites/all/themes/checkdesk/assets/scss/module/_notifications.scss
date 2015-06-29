@@ -33,15 +33,11 @@ $omega: $omega;
         margin-#{$omega}: $gutter-width;
         vertical-align: text-bottom;
       }
-
-      .activity-data-message {
-        
-      }
     }
 
     .activity-meta {
       margin-top: $absolute-line-height/4;
-      padding-#{$alpha}: 40px;
+      padding-#{$alpha}: 26px;
       color: $firefly40;
     }
   }
@@ -60,19 +56,6 @@ $omega: $omega;
       }
     }
   }
-
-  // .icon-iconname
-  // @include activity-icon("comment_on_update", "comments");
-  // @include activity-icon("new_update_on_story_i_commented_on_update", "comment");
-  // @include activity-icon("reply_to_comment", "comment-alt");
-  // @include activity-icon("comment_on_report", "asterisk");
-  // @include activity-icon("checkdesk_fact_checking_on", "star");
-  // @include activity-icon("checkdesk_fact_checking_on", "star");
-  // @include activity-icon("report_suggested_to_story", "bookmark");
-  // @include activity-icon("fact_status_changed_for_commenter", "warning-sign");
-  // @include activity-icon("flag_report", "flag");
-  // @include activity-icon("report_published_in_update", "star");
-  // @include activity-icon("new_user", "user");
   
   // Pager is called when content is scrolled, so it must be hidden
   ul.pager-load-more {

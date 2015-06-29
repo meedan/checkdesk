@@ -73,3 +73,6 @@ a.btn {
 .btn-primary {
   @include ctb-button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
 }
+.btn-primary-alt {
+  @include ctb-button-variant($brand-primary, $btn-default-bg, $btn-primary-border);
+}

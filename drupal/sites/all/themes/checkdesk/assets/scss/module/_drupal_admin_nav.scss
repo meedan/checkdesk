@@ -5,12 +5,14 @@ div.region-page-top #toolbar {
   position: fixed;
   #{$alpha}: $navbarWidth;
   overflow: hidden; // removes scroll?
-  z-index: $z-index-FixedNavbar;
+  // making this nav on top of theme header
+  z-index: $z-index-FixedNavbar + 10;
   padding: 0;
   margin: 0;
   background: white;
   // This can be cleaned up with toolbar css is removed.
   @include box-shadow(0 0 0 0); // disable box shadow
+  @include transition(top 0.2s ease-in-out);
   will-change: transform;
   li {
     @include reset-box-model;
@@ -19,6 +21,11 @@ div.region-page-top #toolbar {
       color: $nav-color; 
     } 
   }
+}
+
+
+#toolbar.header-up {
+  top: - ($toolbarHeight);
 }
 
 // make navbar fixed at the top

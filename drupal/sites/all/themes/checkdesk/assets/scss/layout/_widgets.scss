@@ -2,9 +2,14 @@
 // Widgets styles
 
 #widgets {
+  // to avoid showing background color
+  // when the header hides on scroll
+  margin-top: -$headerHeight;
   background: #fff;
   will-change: transform, opacity;
   #widgets-inner {
+    // add padding for the negative margin
+    padding-top: $headerHeight + 20px;
     padding-bottom: 10px;
     // remove margin from first block
     .region-widgets :first-child {
