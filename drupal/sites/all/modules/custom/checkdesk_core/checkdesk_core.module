@@ -1003,10 +1003,9 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   global $user;
   //Adjust create story form
   $form['title']['#title'] = t('Story title');
-
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
-
   $form['body'][LANGUAGE_NONE][0]['#title'] = t('Text');
+
   // Make the body field a drop target for reports.
   $form['body']['#prefix'] = '<div class="droppable">';
   $form['body']['#suffix'] = '</div>';
@@ -2851,6 +2850,7 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
 function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   global $user;
   // Adjust edit node form
+  $form['#attributes']['class'][] = 'cd-report-duplicates';
   $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
 

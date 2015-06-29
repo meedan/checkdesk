@@ -107,7 +107,7 @@ function _checkdesk_duplicate_report_story() {
  */
 function _checkdesk_normalize_url($url) {
   require_once libraries_get_path('url-normalizer') .'/src/URL/Normalizer.php';
-  $url = _checkdesk_unshorten_url($url);
+  //$url = _checkdesk_unshorten_url($url);
   $un = new URL\Normalizer($url);
   return $un->normalize();
 }
@@ -177,7 +177,7 @@ function _checkdesk_detect_report_duplicate($url, $report_id, $story_id) {
     // Unset current report (edit form)
     unset($reports[$report_id]);
     $query = db_select('node', 'n');
-    $query->fields('n', array('nid', 'title', 'uid'));
+    $query->fields('n', array('nid', 'title', 'uid', 'created'));
     $query->addField('u', 'name');
     $query->addField('n2', 'nid', 'story_id');
     $query->addField('n2', 'title', 'story_title');
@@ -193,13 +193,26 @@ function _checkdesk_detect_report_duplicate($url, $report_id, $story_id) {
         $output['duplicate_story'] = TRUE;
         $duplicate_report_nid = $v->nid;
       }
-      $replacements = array('!user' => l($v->name, 'user/'. $v->uid,
-        array('attributes' => array('target'=>'_blank'))), '!story' => '');
+      $story = '';
+      $author =  l($v->name, 'user/'. $v->uid, array(
+        'attributes' => array('target'=>'_blank', 'class' => array('duplicate-report-author'))
+      ));
       if ($v->story_id) {
-        $replacements['!story'] = t('to story ') . l($v->story_title, 'node/'. $v->story_id,
-            array('attributes' => array('target'=>'_blank')));
+        $story = l($v->story_title, 'node/'. $v->story_id, array(
+          'attributes' => array('target'=>'_blank', 'class' => array('duplicate-report-story'))
+        ));
       }
-      $duplicate_reports[$v->nid] = t('!user added this link !story', $replacements);
+      $created_at = t('<time datetime="!isodatetime" class="timeago">!interval ago</time>', array(
+        '!date' => format_date($v->created, 'custom', 'Y-m-d'),
+        '!datetime' => format_date($v->created, 'custom', t('M d, Y \a\t g:ia')),
+        '!interval' => format_interval((time() - $v->created), 1),
+        '!isodatetime' => format_date($v->created, 'custom', 'c'),
+      ));
+      $duplicate_reports[$v->nid] = array(
+        'author' => $author,
+        'story' => $story,
+        'created_at' => $created_at,
+      );
     }
     $output['msg'] = theme('checkdesk_duplicates_reports', array(
       'reports' => $duplicate_reports, 'duplicate_report_nid' => $duplicate_report_nid));
