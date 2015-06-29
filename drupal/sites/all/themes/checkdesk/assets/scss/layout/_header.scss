@@ -1,6 +1,5 @@
-header#header {
-  position: relative;
-  height: 100%;
+#header {
+  
 }
 
 // utility classes for animating header
@@ -11,9 +10,10 @@ header#header {
 }
 
 // adjust header items for drupal toolbar
-ul#breadcrumb, ul#user-menu, ul#utility-menu {
+.metabar {
   position: fixed;
   top: 0;
+  #{$alpha}: $navbarWidth;
   body.toolbar & {
     top: $toolbarMenuHeight;
   }
@@ -21,29 +21,29 @@ ul#breadcrumb, ul#user-menu, ul#utility-menu {
     top: $toolbarHeight;
   }
   #{$omega}: 0;
-  height: $headerHeight;
+  z-index: $z-index-FixedNavbar;
+  
   @include flexbox;
   @include align-items(center);
   @include box-sizing(border-box);
   @include reset-list-style;
+  height: $headerHeight;
   padding: 0 50px;
+
   a { @include ctb-linkColor($firefly30); }
+  background: #fff;
+  @include transition(top 0.2s ease-in-out);
   will-change: transform;
 }
 
+.metabar.header-up {
+  top: - $headerHeight;
+}
+
 ul#breadcrumb {
-  #{$alpha}: $navbarWidth;
-  z-index: $z-index-FixedHeader + 1;
-  pointer-events: none;
-
-  li {
-    pointer-events: auto;
-  }
-
   a {
     display: block;
   }
-
 }
 
 ul#breadcrumb h1 {
@@ -58,11 +58,10 @@ ul#breadcrumb h1 {
 }
 
 ul#user-menu {
-  #{$alpha}: 0;
-	@include flex-direction(row-reverse);
-	margin-#{$alpha}: $navbarWidth;
-	z-index: $z-index-FixedHeader;
-  background: #fff;
+  // position: relative;
+  // #{$alpha}: 0;
+	@include flexbox();
+  @include flex-direction(row-reverse);
 
   &:after {
     content: '';
@@ -117,7 +116,7 @@ ul#user-menu .badge {
 }
 
 // apply default avatar styles
-ul#user-menu .avatar__menu {
+ul#user-menu .avatar-menu {
   @include cd-avatar('inline');
   @include border-radius(50%);
   border: 3px solid $firefly20;
@@ -139,7 +138,7 @@ ul#user-menu .sign-in-up {
 ul#utility-menu {
   #{$omega}: 200px;
   padding: 0 20px;
-  z-index: $z-index-FixedHeader + 1;
+
   a.language-link {
     padding: 10px;
   }

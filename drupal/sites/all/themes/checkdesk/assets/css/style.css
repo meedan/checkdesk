@@ -2817,22 +2817,18 @@ nav {
   margin-bottom: 10px;
 }
 
-header#header {
-  position: relative;
-  height: 100%;
-}
-
 .hidden-on-frontpage {
   visibility: hidden;
   opacity: 0;
   will-change: opacity;
 }
 
-ul#breadcrumb, ul#user-menu, ul#utility-menu {
+.metabar {
   position: fixed;
   top: 0;
+  left: 60px;
   right: 0;
-  height: 65px;
+  z-index: 930;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-flex;
@@ -2848,33 +2844,35 @@ ul#breadcrumb, ul#user-menu, ul#utility-menu {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  height: 65px;
   padding: 0 50px;
+  background: #fff;
+  -webkit-transition: top 0.2s ease-in-out;
+  -moz-transition: top 0.2s ease-in-out;
+  -o-transition: top 0.2s ease-in-out;
+  transition: top 0.2s ease-in-out;
   will-change: transform;
 }
-body.toolbar ul#breadcrumb, body.toolbar ul#user-menu, body.toolbar ul#utility-menu {
+body.toolbar .metabar {
   top: 30px;
 }
-body.toolbar-drawer ul#breadcrumb, body.toolbar-drawer ul#user-menu, body.toolbar-drawer ul#utility-menu {
+body.toolbar-drawer .metabar {
   top: 65px;
 }
-ul#breadcrumb li, ul#user-menu li, ul#utility-menu li {
+.metabar li {
   list-style: none;
 }
-ul#breadcrumb a, ul#user-menu a, ul#utility-menu a {
+.metabar a {
   color: #b7bcc0;
 }
-ul#breadcrumb a:hover, ul#user-menu a:hover, ul#utility-menu a:hover {
+.metabar a:hover {
   color: #50565b;
 }
 
-ul#breadcrumb {
-  left: 60px;
-  z-index: 921;
-  pointer-events: none;
+.metabar.header-up {
+  top: -65px;
 }
-ul#breadcrumb li {
-  pointer-events: auto;
-}
+
 ul#breadcrumb a {
   display: block;
 }
@@ -2891,16 +2889,17 @@ ul#breadcrumb h1 {
 }
 
 ul#user-menu {
-  left: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-direction: reverse;
   -webkit-box-orient: horizontal;
   -webkit-flex-direction: row-reverse;
   -moz-flex-direction: row-reverse;
   -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
-  margin-left: 60px;
-  z-index: 920;
-  background: #fff;
 }
 ul#user-menu:after {
   content: '';
@@ -2971,7 +2970,7 @@ ul#user-menu .badge {
   background: rgba(46, 119, 252, 0.9);
 }
 
-ul#user-menu .avatar__menu {
+ul#user-menu .avatar-menu {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -3014,7 +3013,6 @@ ul#user-menu .sign-in-up:hover {
 ul#utility-menu {
   right: 200px;
   padding: 0 20px;
-  z-index: 921;
 }
 ul#utility-menu a.language-link {
   padding: 10px;
@@ -3038,7 +3036,7 @@ ul#utility-menu a.language-link {
   border-radius: 4px 0 4px 4px;
 }
 
-header#header nav {
+#header nav {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -3051,12 +3049,12 @@ header#header nav {
   box-sizing: border-box;
   will-change: transform;
 }
-header#header nav ul.second-group {
+#header nav ul.second-group {
   position: relative;
   margin-top: 20px;
   padding-top: 10px;
 }
-header#header nav ul.second-group:before {
+#header nav ul.second-group:before {
   content: "";
   position: absolute;
   top: 0;
@@ -3064,14 +3062,14 @@ header#header nav ul.second-group:before {
   width: 28px;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
-header#header nav ul.third-group {
+#header nav ul.third-group {
   position: absolute;
   bottom: 10px;
 }
-header#header nav li {
+#header nav li {
   height: 50px;
 }
-header#header nav a {
+#header nav a {
   position: relative;
   display: block;
   height: 100%;
@@ -3084,7 +3082,7 @@ header#header nav a {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-header#header nav svg {
+#header nav svg {
   position: relative;
   top: 6px;
   display: inline-block;
@@ -3094,19 +3092,19 @@ header#header nav svg {
   -o-transition: fill 0.2s ease;
   transition: fill 0.2s ease;
 }
-header#header nav a:hover svg {
+#header nav a:hover svg {
   fill: rgba(255, 255, 255, 0.9);
 }
-header#header nav a:hover span {
+#header nav a:hover span {
   left: 70px;
   visibility: visible;
   opacity: 1;
   will-change: transform, opacity;
 }
-header#header nav a.active:not(.homepage-link) {
+#header nav a.active:not(.homepage-link) {
   background: rgba(16, 33, 47, 0.4);
 }
-header#header nav a.active:not(.homepage-link) svg {
+#header nav a.active:not(.homepage-link) svg {
   fill: rgba(255, 255, 255, 0.9);
 }
 

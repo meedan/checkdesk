@@ -1,16 +1,18 @@
 <!-- ______________________ HEADER _______________________ -->
 <header id="header">
-  <?php if ($secondary_nav): ?>
-    <?php print $secondary_nav; ?>
-  <?php endif; ?>
+  <div class="metabar">
+    <?php if ($page['header']): ?>
+      <ul id="breadcrumb">
+        <li>
+          <?php print render($page['header']); ?>
+        </li>
+      </ul>
+    <?php endif; ?>
 
-  <?php if ($page['header']): ?>
-    <ul id="breadcrumb">
-      <li>
-        <?php print render($page['header']); ?>
-      </li>
-    </ul>
-  <?php endif; ?>
+    <?php if ($secondary_nav): ?>
+      <?php print $secondary_nav; ?>
+    <?php endif; ?>
+  </div>
   
   <?php if ($page['navigation']) : ?>
     <?php print render($page['navigation']); ?>

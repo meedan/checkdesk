@@ -1,49 +1,48 @@
 <!-- ______________________ HEADER _______________________ -->
 <header id="header">
-  <?php if ($secondary_nav): ?>
-    <?php print $secondary_nav; ?>
-  <?php endif; ?>
+  <div class="metabar">
+    <?php if ($secondary_nav): ?>
+      <?php print $secondary_nav; ?>
+    <?php endif; ?>
 
-  <?php if($is_front): ?>
-    <ul id="breadcrumb">
-      <li>
-        <?php print render($page['header']); ?>
-      </li>
-    </ul>
-  <?php endif; ?>
-      
-  <?php if ($title): ?>
-    <ul id="breadcrumb">
-      <li>
-        <h1 class="title">
-          <?php
-            if (arg(0) == 'user' && arg(1) == 'register') {
-              print t('Create an account');
-            } elseif (arg(0) == 'user' && arg(1) == 'password') {
-              print t('Retrieve lost password');
-            } elseif (arg(0) == 'user' && arg(1) == 'login') {
-              print t('Sign In');
-            } elseif (arg(0) == 'user' && arg(1) == '') {
-              print t('Sign In');
-            } elseif (arg(0) == 'user' && is_numeric(arg(1))) {
-              $account = user_load(arg(1));
-              if (arg(2) == 'notifications') {
-                print t('Receive notifications');
+    <?php if($is_front): ?>
+      <ul id="breadcrumb">
+        <li>
+          <?php print render($page['header']); ?>
+        </li>
+      </ul>
+    <?php endif; ?>
+        
+    <?php if ($title): ?>
+      <ul id="breadcrumb">
+        <li>
+          <h1 class="title">
+            <?php
+              if (arg(0) == 'user' && arg(1) == 'register') {
+                print t('Create an account');
+              } elseif (arg(0) == 'user' && arg(1) == 'password') {
+                print t('Retrieve lost password');
+              } elseif (arg(0) == 'user' && arg(1) == 'login') {
+                print t('Sign In');
+              } elseif (arg(0) == 'user' && arg(1) == '') {
+                print t('Sign In');
+              } elseif (arg(0) == 'user' && is_numeric(arg(1))) {
+                $account = user_load(arg(1));
+                if (arg(2) == 'notifications') {
+                  print t('Receive notifications');
+                }
+                else {
+                  print $account->name;
+                }
+              } else {
+                print $title;
               }
-              else {
-                print $account->name;
-              }
-            } else {
-              print $title;
-            }
-          ?>
-        </h1>
-      </li>
-    </ul>
-  <?php endif; ?>
-    
-  
-
+            ?>
+          </h1>
+        </li>
+      </ul>
+    <?php endif; ?>
+  </div>
   <?php if ($page['navigation']) : ?>
     <?php print render($page['navigation']); ?>
   <?php endif; ?>

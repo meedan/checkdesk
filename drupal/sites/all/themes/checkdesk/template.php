@@ -357,8 +357,7 @@ function checkdesk_preprocess_page(&$variables) {
   $variables['secondary_nav'] = theme('checkdesk_links', array(
       'links' => $variables['secondary_menu'],
       'attributes' => array(
-          'id' => 'user-menu',
-          'class' => array('nav', 'nav-down'),
+        'id' => 'user-menu',
       ),
       'heading' => NULL,
   ));

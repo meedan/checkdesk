@@ -110,20 +110,70 @@
     }
   };
 
-  // frontpage swap header logos
-  Drupal.behaviors.frontpage = {
+  // Hide header on scroll
+  Drupal.behaviors.header = {
     attach: function(context) {
-      $(window).bind('scroll', function(){
-        var st = $(window).scrollTop();
-        // if scroll is 20 set opacity to 1
-        if (st > 20) {
-          $('header').addClass('show-content-shadow');
-        }
-        // if at top hide the shadow
-        if (st == 0) {
-          $('header').removeClass('show-content-shadow');
-        }
+      // $(window).bind('scroll', function(){
+      //   var st = $(window).scrollTop();
+      //   // if scroll is 20 set opacity to 1
+      //   if (st > 20) {
+      //     $('header').addClass('show-content-shadow');
+      //   }
+      //   // if at top hide the shadow
+      //   if (st == 0) {
+      //     $('header').removeClass('show-content-shadow');
+      //   }
+      // });
+
+
+      var didScroll,
+          lastScrollTop = 0,
+          delta = 10, 
+          headerHeight = $('header ul#user-menu').outerHeight();
+
+
+      // on scroll, let the interval function know the user has scrolled
+      $(window).scroll(function(event){
+        didScroll = true;
       });
+
+      // run hasScrolled() and reset didScroll status
+      setInterval(function() {
+        if (didScroll) {
+          hasScrolled();
+          didScroll = false;
+        }
+      }, 250);
+
+      function hasScrolled() {
+        
+        var st = $(window).scrollTop();
+
+
+        // Make sure they scroll more than delta
+        // if(Math.abs(lastScrollTop - st) <= delta)
+        // return;
+        console.log(lastScrollTop, st);
+        
+        // If they scrolled down and are past the navbar, add class .nav-up.
+        // This is necessary so you never see what is "behind" the navbar.
+        if (st > lastScrollTop && st > headerHeight){
+          
+          // Scroll Down
+          $('header .metabar').removeClass('header-down').addClass('header-up');
+        } else {
+          // Scroll Up
+          if(st + $(window).height() < $(document).height()) {
+              $('header .metabar').removeClass('header-up').addClass('header-down');
+          }
+        }
+        
+        lastScrollTop = st;
+
+
+      }
+    
+
     }
   };
 
