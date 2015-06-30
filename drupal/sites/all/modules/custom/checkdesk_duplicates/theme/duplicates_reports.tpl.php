@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Checkdesk duplicates reports template.
@@ -10,7 +9,6 @@
  * - $avatar: checkdesk avatar
  */
 ?>
-
 <div class="activity cd-duplicates-reports">
 <?php foreach ($reports as $nid => $data) : ?>
   <div class="activity-item item duplicates-reports-row <?php print ($nid == $duplicate_report_nid) ? 'cd-report-existing' : '' ?>">
@@ -18,14 +16,11 @@
     <div class="activity-item-wrapper item-wrapper">
       <div class="activity-item-message item-message">
         <time class="timestamp"><?php print $data['created_at']; ?></time>
-        <?php print $data['author']; ?>
         <?php if (!empty($data['story'])) : ?>
-          <?php print t('added this link to'); ?>
-          <?php print $data['story']; ?>
+          <?php print t('!user has already added this link to !story', array('!user' => $data['author'], '!story' => $data['story'])); ?>
         <?php else: ?>
-          <?php print t('added this link'); ?>
+          <?php print t('!user has already added this link', array('!user' => $data['author'])); ?>
         <?php endif; ?>
-
     </div>
       <div class="activity-item-content-wrapper item-content-wrapper">
         <span class="activity-item-content item-content">
