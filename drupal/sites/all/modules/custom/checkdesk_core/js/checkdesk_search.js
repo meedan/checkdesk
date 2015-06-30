@@ -13,5 +13,9 @@ jQuery(function() {
         }
         jQuery(this).attr('href', new_href);
     });
+    // auto-submit form after user click/unclick unassigned reports
+    jQuery( "#edit-report-unassigned" ).click(function() {
+        jQuery('#views-exposed-form-checkdesk-search-page').submit();
+    });
 
 });
