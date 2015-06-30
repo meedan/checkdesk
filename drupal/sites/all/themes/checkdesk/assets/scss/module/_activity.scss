@@ -90,6 +90,7 @@ $position:  "before";
 	&:first-child {
 		border-top: 0;
 		padding-top: 0;
+		margin-top: 0;
 		.avatar { top: 0; }
 	}
 
@@ -129,6 +130,11 @@ $position:  "before";
 	.activity-item-content-wrapper {
 		padding: 10px 20px 15px 20px;
 		@include border-radius(0px);
+	}
+
+	.item-content-actions {
+		padding: 0;
+		margin: 0;
 	}
 
 	.media {

@@ -8564,6 +8564,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   width: 100%;
   table-layout: fixed;
   padding-bottom: 15px;
+  margin-bottom: 30px;
 }
 body.page-node-collaboration .story .story-collaboration-header-wrapper {
   border-bottom: 1px solid rgba(16, 33, 47, 0.1);
@@ -9932,6 +9933,7 @@ body.cke_editable blockquote:after {
 .activity-item:first-child {
   border-top: 0;
   padding-top: 0;
+  margin-top: 0;
 }
 .activity-item:first-child .avatar {
   top: 0;
@@ -9994,6 +9996,10 @@ body.cke_editable blockquote:after {
   -ms-border-radius: 0px;
   -o-border-radius: 0px;
   border-radius: 0px;
+}
+.activity-item .item-content-actions {
+  padding: 0;
+  margin: 0;
 }
 .activity-item .media {
   will-change: transform;
