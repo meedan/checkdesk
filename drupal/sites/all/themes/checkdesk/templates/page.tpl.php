@@ -40,8 +40,6 @@
     <?php if ($secondary_nav): ?>
       <?php print $secondary_nav; ?>
     <?php endif; ?>
-        
-    
   </div>
   <?php if ($page['navigation']) : ?>
     <?php print render($page['navigation']); ?>

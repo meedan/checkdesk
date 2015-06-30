@@ -1,10 +1,10 @@
 // Updates
 //
-.update .update-row {
+// .update .update-row {
   
-}
+// }
 
-@include cd-responsive($width-tablet) {
+@include cd-responsive('min-width: #{$width-tablet}') {
   .update .update-row {
     @include flexbox;
     .update-body {

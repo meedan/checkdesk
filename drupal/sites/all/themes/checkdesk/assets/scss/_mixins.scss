@@ -7,21 +7,21 @@
 // in Sass for Web Designers by Dan Cederholm
 // see _variables.scss for variables defining the breakpoints
 
-@mixin cd-responsive($width) {
-  @if $width == wide-screens {
-    @media only screen and (min-width: $width-wide) { @content; }
+@mixin cd-responsive($query) {
+  @if $query == wide-screens {
+    @media only screen and (max-width: $width-wide) { @content; }
   }
-  @else if $width == desktop-screens {
-    @media only screen and (min-width: $width-desktop) { @content; }
+  @else if $query == desktop-screens {
+    @media only screen and (max-width: $width-desktop) { @content; }
   }
-  @else if $width == tablet-screens {
-    @media only screen and (min-width: $width-tablet) { @content; }
+  @else if $query == tablet-screens {
+    @media only screen and (max-width: $width-tablet) { @content; }
   }
-  @else if $width == mobile-screens {
-    @media only screen and (min-width: $width-mobile) { @content; }
+  @else if $query == mobile-screens {
+    @media only screen and (max-width: $width-mobile) { @content; }
   }
   @else {
-    @media (min-width: $width) { @content; }
+    @media only screen and ($query) { @content; }
   }
 }
  

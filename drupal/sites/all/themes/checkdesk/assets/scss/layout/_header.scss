@@ -13,12 +13,21 @@
 .metabar {
   position: fixed;
   top: 0;
-  #{$alpha}: $navbarWidth;
+  #{$alpha}: 0;
+  padding: 0 20px;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    #{$alpha}: $navbarWidth;
+    padding: 0 50px;
+  }
   body.toolbar & {
     top: $toolbarMenuHeight;
   }
   body.toolbar-drawer & {
     top: $toolbarHeight;
+  }
+  html.js-nav-active & {
+    position: relative;
+    top: 0;
   }
   #{$omega}: 0;
   z-index: $z-index-FixedNavbar;
@@ -26,9 +35,7 @@
   @include flexbox;
   @include align-items(center);
   @include box-sizing(border-box);
-  @include reset-list-style;
   height: $headerHeight;
-  padding: 0 50px;
   background: #fff;
   @include transition(top 0.2s ease-in-out);
   will-change: transform;
@@ -45,9 +52,27 @@
 }
 
 ul#breadcrumb {
-  a {
-    display: block;
-  }
+  @include flexbox();
+  @include align-items(center);
+}
+
+ul#breadcrumb svg.logo-icon {
+  top: 3px;
+  fill: $firefly60;
+}
+
+ul#breadcrumb li {
+  list-style: none;
+}
+
+ul#breadcrumb a {
+  display: block;
+}
+
+ul#breadcrumb li.nav-toggle {
+  padding-#{$omega}: 20px;
+  margin-#{$omega}: 10px;
+  border-#{$omega}: 1px solid $firefly10;
 }
 
 ul#breadcrumb h1 {
@@ -94,6 +119,7 @@ ul#user-menu {
 
 ul#user-menu li {
   position: relative;
+  list-style: none;
   #my-notifications-menu-link {
     border-#{$alpha}: 1px solid $firefly10;
   }
@@ -104,14 +130,12 @@ ul#user-menu li > a {
   text-decoration: none;
   @include transition(border 0.2s ease);
   @include transition(color 0.2s ease);
-  
 }
 
 ul#user-menu li .dropdown-toggle {
   padding: 0 20px;
   @include ctb-linkColor($firefly30);
 }
-
 
 ul#user-menu .badge {
   position: absolute;

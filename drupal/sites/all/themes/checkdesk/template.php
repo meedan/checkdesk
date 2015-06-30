@@ -288,6 +288,11 @@ function checkdesk_preprocess_page(&$variables) {
     drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/front.js', array('scope' => 'footer', 'weight' => 99));
   }
 
+  // Responsive Nav JS
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/responsive-nav.min.js', array('scope' => 'header', 'weight' => 98, 'group' => JS_THEME, 'every_page' => TRUE));
+  drupal_add_js(libraries_get_path('mediaCheck') . '/mediaCheck-min.js', array('scope' => 'header', 'group' => JS_THEME, 'every_page' => TRUE));
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/responsive-nav.js', array('scope' => 'footer', 'weight' => 99));
+
   // Secondary nav
   $variables['secondary_nav'] = FALSE;
   $menu = menu_load('menu-common');

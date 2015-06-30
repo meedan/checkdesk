@@ -12,7 +12,9 @@ html {
 #main {
   position: relative;
   top: $headerHeight;
-  margin-#{$alpha}: $navbarWidth;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    margin-#{$alpha}: $navbarWidth;
+  }
   // adjust top for drupal toolbar
   body.toolbar-drawer & {
     top: $headerHeight + $toolbarHeight;
@@ -23,7 +25,7 @@ html {
   position: relative;
   padding: 0 20px;
   
-  @include cd-responsive(desktop-screens) {
+  @include cd-responsive('min-width: #{$width-tablet}') {
     padding: 0 50px;  
   }
 }
