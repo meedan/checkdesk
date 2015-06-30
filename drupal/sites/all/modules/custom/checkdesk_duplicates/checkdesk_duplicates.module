@@ -203,8 +203,6 @@ function _checkdesk_detect_report_duplicate($url, $report_id, $story_id) {
         ));
       }
       $created_at = t('<time datetime="!isodatetime" class="timestamp timeago">!interval ago</time>', array(
-        '!date' => format_date($v->created, 'custom', 'Y-m-d'),
-        '!datetime' => format_date($v->created, 'custom', t('M d, Y \a\t g:ia')),
         '!interval' => format_interval((time() - $v->created), 1),
         '!isodatetime' => format_date($v->created, 'custom', 'c'),
       ));
