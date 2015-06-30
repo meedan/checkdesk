@@ -7,7 +7,7 @@
  * Variables available:
  * - $reports: associative array with report nid and report data as associative array (user and story)
  * - $duplicate_report_nid: The report nid for the one exists in same story
- *
+ * - $avatar: checkdesk avatar
  */
 ?>
 
