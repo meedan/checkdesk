@@ -179,7 +179,7 @@ function checkdesk_core_menu() {
 
 function _checkdesk_goto_search($preset) {
   global $user;
-  $query = array();
+  $query = array('type' => 'All');
   switch ($preset) {
     case 'reports':
       $query['type'] = 'report';
