@@ -1161,20 +1161,13 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   }
 }
 
-/* Reports page */
-
-function checkdesk_preprocess_views_view__reports(&$vars) {
-  // add masonry library
-  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/jquery.masonry.min.js', 'file', array('group' => JS_THEME, 'every_page' => FALSE));
-}
-
 /**
  * Implements template_preprocess_views_view_fields().
  */
 function checkdesk_preprocess_views_view_fields(&$vars) {
   global $user;
 
-  if (in_array($vars['view']->name, array('reports', 'desk_reports'))) {
+  if (in_array($vars['view']->name, array('desk_reports'))) {
     $report_nid = $vars['fields']['nid']->raw;
     $vars['name_i18n'] = isset($vars['fields']['field_rating']->content) ? t($vars['fields']['field_rating']->content) : NULL;
 
@@ -1226,15 +1219,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
  * Process variables for user-profile.tpl.php.
  */
 function checkdesk_preprocess_user_profile(&$variables) {
-  $profile = $variables['elements']['#account'];
-
   $variables['member_for'] = t('Member for @time', array('@time' => $variables['user_profile']['summary']['member_for']['#markup']));
-
-  // User reports
-  $reports = views_get_view('reports');
-  $reports->set_arguments(array($profile->uid));
-  $variables['reports'] = $reports->preview('block_1');
-  $reports->destroy();
 }
 
 /*

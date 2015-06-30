@@ -132,16 +132,28 @@ function checkdesk_core_menu() {
     'file' => 'checkdesk.sign_in_up.inc',
     'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
+  $items['checkdesk/reports'] = array(
+    'title' => 'Reports',
+    'page callback' => '_checkdesk_goto_search',
+    'page arguments' => array('reports'),
+    'access arguments' => array('access content'),
+  );
+  $items['checkdesk/stories'] = array(
+    'title' => 'Stories',
+    'page callback' => '_checkdesk_goto_search',
+    'page arguments' => array('stories'),
+    'access arguments' => array('access content'),
+  );
   $items['checkdesk/my_drafts'] = array(
     'title' => 'My drafts',
-    'page callback' => 'drupal_goto',
-    'page arguments' => array('search'),
+    'page callback' => '_checkdesk_goto_search',
+    'page arguments' => array('my_drafts'),
     'access arguments' => array('view own unpublished content'),
   );
   $items['checkdesk/my_stories'] = array(
-    'title' => 'Draft updates',
-    'page callback' => 'drupal_goto',
-    'page arguments' => array('search'),
+    'title' => 'My stories',
+    'page callback' => '_checkdesk_goto_search',
+    'page arguments' => array('my_stories'),
     'access arguments' => array('access content'),
   );
   $items['checkdesk/settings'] = array(
@@ -163,6 +175,28 @@ function checkdesk_core_menu() {
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
   return $items;
+}
+
+function _checkdesk_goto_search($preset) {
+  global $user;
+  $query = array();
+  switch ($preset) {
+    case 'reports':
+      $query['type'] = 'report';
+      break;
+    case 'stories':
+      $query['type'] = 'story';
+      break;
+    case 'my_drafts':
+      $query['status'] = 0;
+      $query['author'] = $user->name;
+      break;
+    case 'my_stories':
+      $query['type'] = 'story';
+      $query['author'] = $user->name;
+      break;
+  }
+  drupal_goto('search', array('query' => $query));
 }
 
 function _checkdesk_core_user_settings() {
@@ -3631,17 +3665,11 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
       }
     }
   }
-  elseif ($original_path == 'checkdesk/reports') {
-    $path = 'search';
-    $options['query']['type'] = 'report';
+  else if ($path === 'reports') {
+    $path = 'checkdesk/reports';
   }
-  elseif ($original_path == 'checkdesk/my_stories') {
-    $path = 'search';
-    $options['query'] = array('type' => 'story', 'author' => $user->name);
-  }
-  elseif ($original_path == 'checkdesk/my_drafts') {
-    $path = 'search';
-    $options['query'] = array('status' => 0, 'author' => $user->name);
+  else if ($path === 'stories') {
+    $path = 'checkdesk/stories';
   }
 }
 
