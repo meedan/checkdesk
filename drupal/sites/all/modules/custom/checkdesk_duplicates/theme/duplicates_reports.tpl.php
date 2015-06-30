@@ -30,8 +30,7 @@
       <div class="activity-item-content-wrapper item-content-wrapper">
         <span class="activity-item-content item-content">
           <div class="item-content-actions form-actions">
-            <?php print l(t('View the link'), 'node/' . $nid, array('attributes' => array('target'=>'_blank', 'class' => array('btn', 'btn-primary')))); ?>
-            <?php print l(t('Cancel'), '#', array('attributes' => array('class' => array('btn', 'btn-default')))); ?>
+            <?php print l(t('View the link'), 'node/' . $nid, array('attributes' => array('target'=>'_blank', 'class' => array('btn', 'btn-default')))); ?>
           </div>
         </span>
       </div>
