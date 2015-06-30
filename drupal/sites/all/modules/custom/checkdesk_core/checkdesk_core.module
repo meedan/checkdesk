@@ -1353,6 +1353,11 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         //'#multiple' => TRUE,
         '#theme' => 'select_as_links',
       );
+      $form['report_unassigned'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Only show reports that are not assigned to stories'),
+
+      );
     }
     // Hide tag filter for updates
     if (isset($_GET['type']) && $_GET['type'] == 'update') {
@@ -2044,6 +2049,12 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
           break;
         }
       }
+    }
+    if (isset($_GET['type']) && $_GET['type'] == 'report' && isset($_GET['report_unassigned'])) {
+      $join = new views_join();
+      $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
+      $query->add_relationship('f', $join, 'field_data_field_stories');
+      $query->add_where(1,'f.field_stories_target_id', 1, 'IS NULL');
     }
     // Add author condition
     if (isset($_GET['author']) && $_GET['author'] != 'All') {
