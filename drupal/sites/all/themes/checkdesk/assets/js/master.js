@@ -87,6 +87,13 @@
       $('.story-tabs li a.active').parents('li').addClass('active');
       
       // Initiate timeago
+      $.extend($.timeago, { settings: { strings: {
+        minute: "a minute",
+        hour: "an hour",
+        hours: "%d hours",
+        month: "a month",
+        year: "a year",
+      }}});
       $('.timeago').timeago();
     }
   };
