@@ -10518,11 +10518,11 @@ body.sidebar-second aside#sidebar-second {
   background-color: #fff;
 }
 
-.content-filter .selected a {
+.content-filter a.active {
   color: #2e77fc;
   font-weight: 700;
 }
-.content-filter .selected a:before {
+.content-filter a.active:before {
   content: "";
   width: 5px;
   background: #2e77fc;
