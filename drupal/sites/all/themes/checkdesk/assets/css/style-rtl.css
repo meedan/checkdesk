@@ -5328,27 +5328,26 @@ div.sensitive-hide {
     display: flex;
   }
   .update .update-row .update-body {
-    -webkit-box-flex: 4;
-    -webkit-flex: 4;
-    -moz-box-flex: 4;
-    -moz-flex: 4;
-    -ms-flex: 4;
-    flex: 4;
-    max-width: 620px;
+    -webkit-box-flex: 3;
+    -webkit-flex: 3 1 540px;
+    -moz-box-flex: 3;
+    -moz-flex: 3 1 540px;
+    -ms-flex: 3 1 540px;
+    flex: 3 1 540px;
+    max-width: 540px;
   }
   .update .update-row .update-footer {
-    -webkit-box-flex: 2;
-    -webkit-flex: 2 1 150px;
-    -moz-box-flex: 2;
-    -moz-flex: 2 1 150px;
-    -ms-flex: 2 1 150px;
-    flex: 2 1 150px;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 150px;
+    -moz-box-flex: 1;
+    -moz-flex: 1 1 150px;
+    -ms-flex: 1 1 150px;
+    flex: 1 1 150px;
     -webkit-box-ordinal-group: 0;
     -webkit-order: -1;
     -moz-order: -1;
     -ms-flex-order: -1;
     order: -1;
-    max-width: 150px;
     margin-left: 30px;
     margin-bottom: 1em;
     margin-top: 1em;

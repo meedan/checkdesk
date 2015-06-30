@@ -8,13 +8,12 @@
   .update .update-row {
     @include flexbox;
     .update-body {
-      @include flex(4);
-      max-width: 620px;
+      @include flex(3 1 540px);
+      max-width: 540px;
     }
     .update-footer {
-      @include flex(2 1 150px);
+      @include flex(1 1 150px);
       @include order(-1);
-      max-width: 150px;
       margin-#{$omega}: $gutter-width*2;
       margin-bottom: 1em;
       margin-top: 1em;
