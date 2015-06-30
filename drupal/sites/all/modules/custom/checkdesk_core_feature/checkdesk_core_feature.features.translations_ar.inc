@@ -10818,6 +10818,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('This report was flagged as spam.', array(), array('context' => ''));
+  $translations['ar:default']['e05e47200ba33121a11d9ac8b26b59c0'] = array(
+    'source' => 'Only show reports that are not assigned to stories',
+    'context' => '',
+    'location' => '/ar/search?status=All&keys=&type=report&type=report&field_tags_tid=All&field_tags_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC&author=All',
+    'translation' => 'اعرض فقط تقارير ليست مرتبطة بقصص',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Only show reports that are not assigned to stories', array(), array('context' => ''));
   $translations['ar:default']['e07379d3f0614a4e80924dde9abc613a'] = array(
     'source' => 'The user activity ID',
     'context' => '',
