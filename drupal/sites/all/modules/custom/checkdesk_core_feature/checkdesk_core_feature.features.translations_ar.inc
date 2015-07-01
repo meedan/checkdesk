@@ -1791,6 +1791,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('footer', array(), array('context' => ''));
+  $translations['ar:default']['25659e9614831e375e81fc498c2359d1'] = array(
+    'source' => 'Associated stories',
+    'context' => '',
+    'location' => '/ar/search?status=All&keys=&type=report&type=report&field_tags_tid=All&field_tags_tid=All&field_rating_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC&media_flags=All&media_flags=All&report_story=None&report_story=None&author=All&author=All',
+    'translation' => 'قصص مرتبطة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Associated stories', array(), array('context' => ''));
   $translations['ar:default']['2584887d16047739f8d80750cec2cc52'] = array(
     'source' => 'The term weight field',
     'context' => '',
@@ -2923,6 +2932,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('A file that is associated with this taxonomy vocabulary, usually because it is in a field on the taxonomy vocabulary.', array(), array('context' => ''));
+  $translations['ar:default']['40737f02988b6ab09e93530f87a4faae'] = array(
+    'source' => 'Search for story',
+    'context' => '',
+    'location' => '/ar/search?status=All&keys=&type=report&type=report&field_tags_tid=All&field_tags_tid=All&field_rating_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC&media_flags=All&media_flags=All&report_story=None&report_story=None&author=All&author=All',
+    'translation' => 'ابحث عن قصة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Search for story', array(), array('context' => ''));
   $translations['ar:default']['40a1f4762e4c516e5babfdae8e8512c5'] = array(
     'source' => 'Randomize the display order.',
     'context' => '',
@@ -6134,6 +6152,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Has Avatar', array(), array('context' => ''));
+  $translations['ar:default']['830dc8c696d1c8081208b1f92e06dc0b'] = array(
+    'source' => '- Unassigned -',
+    'context' => '',
+    'location' => '/ar/search?status=All&keys=&type=report&type=report&field_tags_tid=All&field_tags_tid=All&field_rating_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC&media_flags=All&media_flags=All&report_story=None&report_story=None&author=All&author=All',
+    'translation' => '- غير مرتبط -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('- Unassigned -', array(), array('context' => ''));
   $translations['ar:default']['833de5744e6bbe4aec33af8795c80e25'] = array(
     'source' => 'The raw numeric user ID.',
     'context' => '',
@@ -10818,15 +10845,6 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('This report was flagged as spam.', array(), array('context' => ''));
-  $translations['ar:default']['e05e47200ba33121a11d9ac8b26b59c0'] = array(
-    'source' => 'Only show reports that are not assigned to stories',
-    'context' => '',
-    'location' => '/ar/search?status=All&keys=&type=report&type=report&field_tags_tid=All&field_tags_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC&author=All',
-    'translation' => 'اعرض فقط تقارير ليست مرتبطة بقصص',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translatables[] = t('Only show reports that are not assigned to stories', array(), array('context' => ''));
   $translations['ar:default']['e07379d3f0614a4e80924dde9abc613a'] = array(
     'source' => 'The user activity ID',
     'context' => '',

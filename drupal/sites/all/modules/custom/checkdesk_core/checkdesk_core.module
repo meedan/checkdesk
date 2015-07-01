@@ -1306,7 +1306,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
   }
 
   if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
-    // Add custom filed for type
+    // Add custom field for type
     $form['type'] = array(
       '#type' => 'select',
       '#title' => '',
@@ -1339,7 +1339,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       unset($form['field_rating_tid']['#theme']);
     }
     // Media filters
-    if (isset($_GET['type']) && $_GET['type'] == 'report') {
+    if (isset($_GET['type']) && $_GET['type'] === 'report') {
       // Change -Any- status label
       $form['field_rating_tid']['#options']['All'] = t('Any status');
       $form['media_flags'] = array(
@@ -1353,10 +1353,17 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         //'#multiple' => TRUE,
         '#theme' => 'select_as_links',
       );
-      $form['report_unassigned'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('Only show reports that are not assigned to stories'),
-
+      $stories = db_query(
+        "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
+        array(':type' => 'discussion')
+      )->fetchAllKeyed();
+      $form['report_story'] = array(
+        '#type' => 'select',
+        '#title' => t('Associated stories'),
+        '#options' => array('All' => t('- Any -'), 'None' => t('- Unassigned -')) + $stories,
+        '#theme' => 'select_as_links',
+        '#bef_enable_fastlivefilter' => 1,
+        '#fastlivefilte_placeholder' => t('Search for story'),
       );
     }
     // Hide tag filter for updates
@@ -1379,7 +1386,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) {
         $users = db_query('
               SELECT name FROM {users} WHERE status = :status AND uid != :uid ORDER BY name
-    ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
+        ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
       }
       $users = array('All' => t('- Any -'), $user->name => t('- Mine -')) + $users;
       $form['author'] = array(
@@ -2050,11 +2057,18 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         }
       }
     }
-    if (isset($_GET['type']) && $_GET['type'] == 'report' && isset($_GET['report_unassigned'])) {
+    if (isset($_GET['type']) && $_GET['type'] === 'report' && 
+        isset($_GET['report_story']) && ($_GET['report_story'] === 'None' || is_numeric($_GET['report_story']))
+    ) {
       $join = new views_join();
       $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
-      $query->add_relationship('f', $join, 'field_data_field_stories');
-      $query->add_where(1,'f.field_stories_target_id', 1, 'IS NULL');
+      $query->add_relationship('fdfs', $join, 'field_data_field_stories');
+      if ($_GET['report_story'] === 'None') {
+        $query->add_where(1,'fdfs.field_stories_target_id', 1, 'IS NULL');
+      }
+      else {
+        $query->add_where(1,'fdfs.field_stories_target_id', intval($_GET['report_story']), '=');
+      }
     }
     // Add author condition
     if (isset($_GET['author']) && $_GET['author'] != 'All') {
