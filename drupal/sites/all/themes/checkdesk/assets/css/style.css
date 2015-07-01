@@ -2710,9 +2710,9 @@ html {
   #main {
     margin-left: 60px;
   }
-}
-body.toolbar-drawer #main {
-  top: 130px;
+  body.toolbar-drawer #main {
+    top: 130px;
+  }
 }
 
 #main #content, #main #widgets, #main footer {
@@ -2918,21 +2918,21 @@ nav {
     left: 60px;
     padding: 0 50px;
   }
-}
-body.toolbar .metabar {
-  top: 30px;
-}
-body.toolbar-drawer .metabar {
-  top: 65px;
+  body.toolbar .metabar {
+    top: 30px;
+  }
+  body.toolbar-drawer .metabar {
+    top: 65px;
+  }
 }
 
-.metabar.header-up {
+html:not(.js-nav-active) .metabar.header-up {
   top: -65px;
 }
-body.toolbar .metabar.header-up {
+body.toolbar html:not(.js-nav-active) .metabar.header-up {
   top: -95px;
 }
-body.toolbar-drawer .metabar.header-up {
+body.toolbar-drawer html:not(.js-nav-active) .metabar.header-up {
   top: -130px;
 }
 
@@ -3451,47 +3451,53 @@ svg.logo-icon {
   margin-right: 0;
 }
 
-div.region-page-top #toolbar {
-  position: fixed;
-  left: 60px;
-  overflow: hidden;
-  z-index: 940;
-  padding: 0;
-  margin: 0;
-  background: white;
-  -webkit-box-shadow: 0 0 0 0;
-  -moz-box-shadow: 0 0 0 0;
-  box-shadow: 0 0 0 0;
-  -webkit-transition: top 0.2s ease-in-out;
-  -moz-transition: top 0.2s ease-in-out;
-  -o-transition: top 0.2s ease-in-out;
-  transition: top 0.2s ease-in-out;
-  will-change: transform;
-}
-div.region-page-top #toolbar li {
-  margin: 0;
-  padding: 0;
-}
-div.region-page-top #toolbar li a {
-  padding: 15px;
-  color: #9fa6ac;
-}
+@media only screen and (min-width: 740px) {
+  div.region-page-top #toolbar {
+    position: fixed;
+    left: 60px;
+    overflow: hidden;
+    z-index: 940;
+    padding: 0;
+    margin: 0;
+    background: white;
+    -webkit-box-shadow: 0 0 0 0;
+    -moz-box-shadow: 0 0 0 0;
+    box-shadow: 0 0 0 0;
+    -webkit-transition: top 0.2s ease-in-out;
+    -moz-transition: top 0.2s ease-in-out;
+    -o-transition: top 0.2s ease-in-out;
+    transition: top 0.2s ease-in-out;
+    will-change: transform;
+  }
+  div.region-page-top #toolbar li {
+    margin: 0;
+    padding: 0;
+  }
+  div.region-page-top #toolbar li a {
+    padding: 15px;
+    color: #9fa6ac;
+  }
 
-#toolbar.header-up {
-  top: -65px;
-}
+  #toolbar.header-up {
+    top: -65px;
+  }
 
-.navbar-fixed-top {
-  position: fixed;
-  right: 0;
-  left: 0;
-  z-index: 930;
-}
+  .navbar-fixed-top {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 930;
+  }
 
-.toolbar .navbar-fixed-top {
-  top: 65px;
+  .toolbar .navbar-fixed-top {
+    top: 65px;
+  }
 }
-
+@media (min-width: 1px) and (max-width: 375px) {
+  div.region-page-top #toolbar {
+    display: none;
+  }
+}
 #widgets {
   margin-top: -65px;
   background: #fff;

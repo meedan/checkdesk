@@ -18,17 +18,14 @@
   @include cd-responsive('min-width: #{$width-tablet}') {
     #{$alpha}: $navbarWidth;
     padding: 0 50px;
+    body.toolbar & {
+      top: $toolbarMenuHeight;
+    }
+    body.toolbar-drawer & {
+      top: $toolbarHeight;
+    }
+    
   }
-  body.toolbar & {
-    top: $toolbarMenuHeight;
-  }
-  body.toolbar-drawer & {
-    top: $toolbarHeight;
-  }
-  // html.js-nav-active & {
-  //   position: relative;
-  //   top: 0;
-  // }
   #{$omega}: 0;
   z-index: $z-index-FixedNavbar;
   
@@ -41,7 +38,7 @@
   will-change: transform;
 }
 
-.metabar.header-up {
+html:not(.js-nav-active) .metabar.header-up {
   top: - $headerHeight;
   body.toolbar & {
     top: - ($headerHeight + $toolbarMenuHeight);

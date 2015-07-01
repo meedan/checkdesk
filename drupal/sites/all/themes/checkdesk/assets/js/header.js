@@ -32,6 +32,15 @@
         if(Math.abs(lastScrollTop - st) <= delta) 
           return;
         
+        // add helper classes to body
+        if (st < lastScrollTop) {
+          $('body').removeClass('scroll-down').addClass('scroll-up');
+        } else {
+          $('body').addClass('scrolling');
+          $('body').removeClass('scroll-up').addClass('scroll-down');
+        }
+
+
         // If current position > last position AND scrolled past navbar...
         if (st > lastScrollTop && st > (headerHeight + (buffer*2))){
           // Scroll Down
@@ -59,6 +68,12 @@
           // If at top of the page hide shadow
           if(st == 0) {
             $('header').removeClass('show-content-shadow');
+            $('header').removeClass('show-content-shadow');
+            $('body').removeClass('scrolling');
+            // Don't reset top for #main if responsive nav is active
+            if (!$('html').hasClass('js-nav-active')) {
+              $('#main').css('top', '');
+            }
           }
         }
         

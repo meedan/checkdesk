@@ -93,6 +93,10 @@
             $('header .header_logo').css({ 'opacity' : 0, 'visibility': 'hidden' }); 
             $('header').removeClass('show-content-shadow');
             $('body').removeClass('scrolling');
+            // Don't reset top for #main if responsive nav is active
+            if (!$('html').hasClass('js-nav-active')) {
+              $('#main').css('top', '');
+            }
           }
 
         }

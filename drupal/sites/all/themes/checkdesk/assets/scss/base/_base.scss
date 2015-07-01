@@ -14,10 +14,10 @@ html {
   top: $headerHeight;
   @include cd-responsive('min-width: #{$width-tablet}') {
     margin-#{$alpha}: $navbarWidth;
-  }
-  // adjust top for drupal toolbar
-  body.toolbar-drawer & {
-    top: $headerHeight + $toolbarHeight;
+    // adjust top for drupal toolbar
+    body.toolbar-drawer & {
+      top: $headerHeight + $toolbarHeight;
+    }
   }
 }
 
