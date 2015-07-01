@@ -5819,6 +5819,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Unflag spam', array(), array('context' => ''));
+  $translations['ar:default']['7c51e1d721d4bbcfb8b7f114ec311ecc'] = array(
+    'source' => '!user has already added this link to !story',
+    'context' => '',
+    'location' => '',
+    'translation' => 'أضاف !user هذا الرابط لقصة !story',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('!user has already added this link to !story', array(), array('context' => ''));
   $translations['ar:default']['7c7b946c84548fd276db868bfc879b84'] = array(
     'source' => 'Whether the node is published or unpublished.',
     'context' => '',
@@ -8745,6 +8754,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Whether or not the content is sticky. To list sticky content first, set this to descending.', array(), array('context' => ''));
+  $translations['ar:default']['b83b28c9d75a3e914ccbda7c59ece099'] = array(
+    'source' => 'Report already exists !report',
+    'context' => '',
+    'location' => '',
+    'translation' => 'هذا التقرير موجود بالفعل !report',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Report already exists !report', array(), array('context' => ''));
   $translations['ar:default']['b894e3b0a8c6df50c80aeb7ffa10d12b'] = array(
     'source' => '<a class="actor" href="!user_url">!username</a> added a new <a href="!report_url">report</a>',
     'context' => '',
@@ -9367,6 +9385,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Flag', array(), array('context' => ''));
+  $translations['ar:default']['c59e2df07c1e0f3acd05d0658a624349'] = array(
+    'source' => 'View the link',
+    'context' => '',
+    'location' => '/ar/checkdesk/media-preview?924556005&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DxSf4Ad03khg&report_id=0&story_id=_none',
+    'translation' => 'اعرض الرابط',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('View the link', array(), array('context' => ''));
   $translations['ar:default']['c5cafc6c618240b02de9483a400c0a1a'] = array(
     'source' => 'Compose new update',
     'context' => '',
@@ -9737,6 +9764,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('The signature of a user.', array(), array('context' => ''));
+  $translations['ar:default']['cd492211560fe3ba307ef4e8adb4e8f1'] = array(
+    'source' => '!user has already added this link',
+    'context' => '',
+    'location' => '/ar/checkdesk/media-preview?297192541&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DxSf4Ad03khg&report_id=0&story_id=_none',
+    'translation' => 'أضاف !user هذا الرابط',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('!user has already added this link', array(), array('context' => ''));
   $translations['ar:default']['cda0ecb07fc4c29572ea4712219b822c'] = array(
     'source' => 'Email address for a given user. This field is normally not shown to users, so be cautious when using it.',
     'context' => '',
