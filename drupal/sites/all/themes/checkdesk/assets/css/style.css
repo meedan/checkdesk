@@ -2966,6 +2966,11 @@ ul#breadcrumb a {
 ul#breadcrumb li.nav-toggle {
   padding-right: 20px;
   margin-right: 10px;
+}
+body.front.scroll-down ul#breadcrumb li.nav-toggle {
+  border-right: 1px solid #e7e8ea;
+}
+body.not-front ul#breadcrumb li.nav-toggle {
   border-right: 1px solid #e7e8ea;
 }
 

@@ -43,12 +43,17 @@
           }, 200);
           
         } else {
-          // Scroll Up
-          // If did not scroll past the document (possible on mac)...
-          if(st + $(window).height() < $(document).height()) {
-            $('#toolbar').removeClass('header-up').addClass('header-down');
-            $('header .metabar').removeClass('header-up').addClass('header-down');
-            $('header').addClass('show-content-shadow');
+          // Don't scroll up the header if responsive nav is active
+          if (!$('html').hasClass('js-nav-active')) {
+            // Scroll Up
+            // If did not scroll past the document (possible on mac)...
+            if(st + $(window).height() < $(document).height()) {
+              // reset metabar position             
+              $('.metabar').css('position', '');
+              $('#toolbar').removeClass('header-up').addClass('header-down');
+              $('header .metabar').removeClass('header-up').addClass('header-down');
+              $('header').addClass('show-content-shadow');
+            }
           }
 
           // If at top of the page hide shadow

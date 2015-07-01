@@ -18,6 +18,7 @@
           // Make metabar position relative so it pushes down
           // when the navigation expands
           $('.metabar').css('position', 'relative');
+          $('#main').css('top', '0px');
         },
         close: function(){
           // move metabar back to top

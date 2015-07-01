@@ -73,7 +73,12 @@ ul#breadcrumb a {
 ul#breadcrumb li.nav-toggle {
   padding-#{$omega}: 20px;
   margin-#{$omega}: 10px;
-  border-#{$omega}: 1px solid $firefly10;
+  body.front.scroll-down & {
+    border-#{$omega}: 1px solid $firefly10;
+  }
+  body.not-front & {
+    border-#{$omega}: 1px solid $firefly10;
+  }
 }
 
 ul#breadcrumb h1 {
