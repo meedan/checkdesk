@@ -65,7 +65,7 @@
           element.addClass('open');
           element.find('textarea[class*=expanding]').expanding();
         }
-        return false;
+        return true;
       });
 
       // show or hide compose update form

@@ -196,9 +196,9 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity(&$variables) {
     );
   }
   else {
-    $variables['media_activity_report_count'] = l(theme(
-      'checkdesk_core_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'])
-    ), 'node/'. $variables['nid'], array('html' => TRUE));
+    $variables['media_activity_report_count'] = theme(
+      'checkdesk_core_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'], 'link_count' => TRUE)
+    );
   }
 
 }
