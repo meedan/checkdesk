@@ -152,7 +152,7 @@ function _checkdesk_duplicate_reports($url) {
   if (count($result)) {
     return $result;
   }
-  return FALSE;
+  return array();
 }
 
 /**
@@ -167,15 +167,14 @@ function _checkdesk_duplicate_reports($url) {
 
 function _checkdesk_detect_report_duplicate($url, $report_id, $story_id) {
   $output = array();
-  $output['duplicate'] = FALSE;
+  $output['duplicate'] = $output['duplicate_story'] = FALSE;
   $reports = _checkdesk_duplicate_reports($url);
-  if ($reports) {
+  // Unset current report (edit form)
+  unset($reports[$report_id]);
+  if (count($reports)) {
     $duplicate_reports = array();
     $output['duplicate'] = TRUE;
-    $output['duplicate_story'] = FALSE;
     $story_id = is_numeric($story_id) ? $story_id : 0;
-    // Unset current report (edit form)
-    unset($reports[$report_id]);
     $query = db_select('node', 'n');
     $query->fields('n', array('nid', 'title', 'uid', 'created'));
     $query->addField('u', 'name');
