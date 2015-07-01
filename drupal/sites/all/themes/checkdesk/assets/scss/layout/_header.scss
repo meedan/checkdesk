@@ -25,10 +25,10 @@
   body.toolbar-drawer & {
     top: $toolbarHeight;
   }
-  html.js-nav-active & {
-    position: relative;
-    top: 0;
-  }
+  // html.js-nav-active & {
+  //   position: relative;
+  //   top: 0;
+  // }
   #{$omega}: 0;
   z-index: $z-index-FixedNavbar;
   
@@ -57,6 +57,7 @@ ul#breadcrumb {
 }
 
 ul#breadcrumb svg.logo-icon {
+  position: relative;
   top: 3px;
   fill: $firefly60;
 }
@@ -104,6 +105,9 @@ ul#user-menu {
     pointer-events: none;
     .show-content-shadow & {
       opacity: 1;
+    }
+    .js-nav-active .show-content-shadow & {
+      opacity: 0;
     }
   }
 

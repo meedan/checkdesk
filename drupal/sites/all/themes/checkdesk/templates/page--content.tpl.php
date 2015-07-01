@@ -1,8 +1,6 @@
 <?php
   drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/header.js', array('scope' => 'footer', 'weight' => 99));
 ?>
-
-
 <!-- ______________________ HEADER _______________________ -->
 <header id="header">
   <?php if ($page['navigation']) : ?>

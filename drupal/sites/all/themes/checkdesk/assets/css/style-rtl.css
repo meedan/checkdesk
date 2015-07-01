@@ -2925,10 +2925,6 @@ body.toolbar .metabar {
 body.toolbar-drawer .metabar {
   top: 65px;
 }
-html.js-nav-active .metabar {
-  position: relative;
-  top: 0;
-}
 
 .metabar.header-up {
   top: -65px;
@@ -2954,6 +2950,7 @@ ul#breadcrumb {
 }
 
 ul#breadcrumb svg.logo-icon {
+  position: relative;
   top: 3px;
   fill: #6f7a82;
 }
@@ -3015,6 +3012,9 @@ ul#user-menu:after {
 }
 .show-content-shadow ul#user-menu:after {
   opacity: 1;
+}
+.js-nav-active .show-content-shadow ul#user-menu:after {
+  opacity: 0;
 }
 ul#user-menu .icon-bell-o:before {
   font-family: "FontAwesome";
@@ -3152,7 +3152,6 @@ ul#utility-menu a.language-link {
   position: relative;
   display: block;
   height: 100%;
-  margin: 10px 6px;
   color: #fff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -3172,7 +3171,6 @@ ul#utility-menu a.language-link {
 }
 
 #header nav ul li a span {
-  color: #fff;
   font-weight: bold;
   line-height: 36px;
   white-space: nowrap;
@@ -3216,6 +3214,7 @@ ul#utility-menu a.language-link {
   }
 
   #header nav a {
+    margin: 10px 6px;
     padding: 0 12px;
   }
 
@@ -3232,6 +3231,7 @@ ul#utility-menu a.language-link {
     right: 50px;
     z-index: 931;
     padding: 0 14px;
+    color: #fff;
     background: #3e4c57;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -3275,6 +3275,14 @@ ul#utility-menu a.language-link {
     display: block;
     width: 100%;
     padding: 0 20px;
+    -webkit-transition: max-height 0.2s ease-in-out;
+    -moz-transition: max-height 0.2s ease-in-out;
+    -o-transition: max-height 0.2s ease-in-out;
+    transition: max-height 0.2s ease-in-out;
+  }
+
+  #header nav ul:first-child {
+    padding-top: 10px;
   }
 
   #header nav ul:last-child {
@@ -3287,27 +3295,23 @@ ul#utility-menu a.language-link {
   }
 
   #header nav ul li a {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    -moz-align-items: center;
-    align-items: center;
-    padding: 5px 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #cfd3d5;
   }
 
-  #header nav.opened svg {
+  #header nav a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #header nav svg {
     display: none;
   }
 
   #header nav ul li a span {
+    font-size: 18px;
     font-weight: normal;
-    font-size: 23px;
-    line-height: 1.4;
   }
 }
 svg.logo-icon {
@@ -5598,7 +5602,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story figure {
   text-align: center;
   margin-bottom: 30px;
-  margin-top: 30px;
 }
 .story figure blockquote {
   border: 0 none;

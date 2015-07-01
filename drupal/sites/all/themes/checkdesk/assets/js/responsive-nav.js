@@ -6,6 +6,8 @@
   Drupal.behaviors.responsiveNav = {
     attach: function(context) {
       var nav = responsiveNav(".nav-collapse", { // Selector
+        animate: false, // Boolean: Use CSS3 transitions, true or false
+        transition: 284, // Integer: Speed of the transition, in milliseconds
         customToggle: ".nav-toggle", // Selector: Specify the ID of a custom toggle
         closeOnNavClick: false, // Boolean: Close the navigation when one of the links are clicked
         openPos: "fixed", // String: Position of the opened nav, relative or static
@@ -13,10 +15,13 @@
         navActiveClass: "js-nav-active", // String: Class that is added to  element when nav is active
         jsClass: "js", // String: 'JS enabled' class which is added to  element
         open: function(){
-          console.log('adjust elements');
+          // Make metabar position relative so it pushes down
+          // when the navigation expands
+          $('.metabar').css('position', 'relative');
         },
         close: function(){
-          console.log('put elements back');
+          // move metabar back to top
+          $('.metabar').css('top', '');
         },
       });
 
