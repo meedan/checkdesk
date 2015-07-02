@@ -3729,7 +3729,7 @@ function _checkdesk_main_navigation() {
   //homepage, add a report, write a story and search
   $logo_icon = '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
   $items[] = array(
-    'data' => l($logo_icon . '<span>' . t('Homepage') . '</span>', '<front>', array(
+    'data' => l($logo_icon . '<span>' . t('Front page') . '</span>', '<front>', array(
       'attributes' => array('class' => array($a_class, 'homepage-link')),
       'html' => TRUE,      
     )),

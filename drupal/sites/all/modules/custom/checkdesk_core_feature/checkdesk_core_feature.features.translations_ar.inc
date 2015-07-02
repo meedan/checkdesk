@@ -408,6 +408,15 @@ function checkdesk_core_feature_translations_ar_defaults() {
     'plural' => 0,
   );
   $translatables[] = t('added by !link', array(), array('context' => ''));
+  $translations['ar:default']['078e284882180480913621ba1ba08914'] = array(
+    'source' => 'Front page',
+    'context' => '',
+    'location' => '',
+    'translation' => 'الرئيسية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Front page', array(), array('context' => ''));
   $translations['ar:default']['07c85e5b12c43c323e6c6e0d62e7a367'] = array(
     'source' => 'View description',
     'context' => '',
@@ -2330,6 +2339,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Collaboration', array(), array('context' => ''));
+  $translations['ar:default']['339f7a2e087a159e6a31501649027a77'] = array(
+    'source' => 'Homepage',
+    'context' => '',
+    'location' => '',
+    'translation' => 'الرئيسية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Homepage', array(), array('context' => ''));
   $translations['ar:default']['33ba2886eae2bbca019c6d3e28495e25'] = array(
     'source' => 'There are no results that match your search.',
     'context' => '',
