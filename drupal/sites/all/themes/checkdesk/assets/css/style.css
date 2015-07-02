@@ -169,15 +169,15 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f078";
 }
 
-body.page-user.logged-in .user-info .linked-accounts .icon-twitter:before, #my-account .info .linked-account .icon-twitter:before {
+#my-account .info .linked-account .icon-twitter:before {
   content: "\f081";
 }
 
-.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:before, #widgets .elsewhere ul li span.icon-twitter:before, .icon-twitter:before {
+.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:before, .elsewhere ul li a span.icon-twitter:before, .icon-twitter:before {
   content: "\f099";
 }
 
-.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:before, #widgets .elsewhere ul li span.icon-facebook:before {
+.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:before, .elsewhere ul li a span.icon-facebook:before {
   content: "\f09a";
 }
 
@@ -197,7 +197,7 @@ body.page-user.logged-in .user-info .linked-accounts .icon-twitter:before, #my-a
   content: "\f0c0";
 }
 
-#widgets .elsewhere ul li span.icon-google-plus:before {
+.elsewhere ul li a span.icon-google-plus:before {
   content: "\f0d4";
 }
 
@@ -241,7 +241,7 @@ ul#user-menu .icon-bell-o:before {
   content: "\f14b";
 }
 
-#widgets .elsewhere ul li span.icon-youtube:before {
+.elsewhere ul li a span.icon-youtube:before {
   content: "\f167";
 }
 
@@ -249,7 +249,7 @@ ul#user-menu .icon-bell-o:before {
   content: "\f16a";
 }
 
-#widgets .elsewhere ul li span.icon-tumblr:before {
+.elsewhere ul li a span.icon-tumblr:before {
   content: "\f173";
 }
 
@@ -2719,16 +2719,16 @@ html {
   position: relative;
   padding: 0 20px;
 }
-@media only screen and (min-width: 740px) {
-  #main #content, #main #widgets, #main footer {
-    padding: 0 50px;
-  }
-}
 
 #main #content {
-  padding-top: 24px;
+  padding-top: 20px;
   max-width: 1040px;
   margin: 0 auto;
+}
+@media only screen and (min-width: 740px) {
+  #main #content {
+    padding-top: 40px;
+  }
 }
 
 body.page-liveblog #main #content,
@@ -2959,10 +2959,6 @@ ul#breadcrumb li {
   list-style: none;
 }
 
-ul#breadcrumb a {
-  display: block;
-}
-
 ul#breadcrumb li.nav-toggle {
   padding-right: 20px;
   margin-right: 10px;
@@ -2974,15 +2970,23 @@ body.not-front ul#breadcrumb li.nav-toggle {
   border-right: 1px solid #e7e8ea;
 }
 
+ul#breadcrumb a {
+  display: block;
+}
+
 ul#breadcrumb h1 {
   margin-bottom: 0;
-  padding-right: 200px;
   overflow: hidden;
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 28px;
   font-weight: 700;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+@media only screen and (min-width: 740px) {
+  ul#breadcrumb h1 {
+    padding-right: 200px;
+  }
 }
 
 ul#user-menu {
@@ -3040,13 +3044,24 @@ ul#user-menu .icon-bell-o:before {
 }
 
 ul#user-menu li {
-  position: relative;
   list-style: none;
 }
-ul#user-menu li #my-notifications-menu-link {
-  border-left: 1px solid #e7e8ea;
+@media only screen and (min-width: 740px) {
+  ul#user-menu li {
+    position: relative;
+  }
 }
 
+@media only screen and (min-width: 740px) {
+  #my-notifications-menu-link {
+    border-left: 1px solid #e7e8ea;
+  }
+}
+@media (min-width: 1px) and (max-width: 375px) {
+  #my-account-link .caret {
+    display: none;
+  }
+}
 ul#user-menu li > a {
   display: block;
   text-decoration: none;
@@ -3060,12 +3075,19 @@ ul#user-menu li > a {
   transition: color 0.2s ease;
 }
 
-ul#user-menu li .dropdown-toggle {
-  padding: 0 20px;
+ul#user-menu li a.dropdown-toggle {
+  padding-left: 20px;
+  padding-right: 20px;
   color: #b7bcc0;
 }
-ul#user-menu li .dropdown-toggle:hover {
+ul#user-menu li a.dropdown-toggle:hover {
   color: #50565b;
+}
+@media (min-width: 1px) and (max-width: 375px) {
+  ul#user-menu li a.dropdown-toggle {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
 
 ul#user-menu .badge {
@@ -3106,7 +3128,11 @@ ul#user-menu .avatar-menu {
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
   border-radius: 50%;
-  border: 3px solid #cfd3d5;
+}
+@media only screen and (min-width: 740px) {
+  ul#user-menu .avatar-menu {
+    border: 3px solid #cfd3d5;
+  }
 }
 
 ul#utility-menu {
@@ -3133,6 +3159,13 @@ ul#utility-menu a.language-link {
   -ms-border-radius: 4px 0 4px 4px;
   -o-border-radius: 4px 0 4px 4px;
   border-radius: 4px 0 4px 4px;
+}
+@media (min-width: 1px) and (max-width: 375px) {
+  #user-menu .dropdown-menu {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
 }
 
 #header nav {
@@ -3503,26 +3536,30 @@ svg.logo-icon {
   background: #fff;
   will-change: transform, opacity;
 }
+
 #widgets #widgets-inner {
   padding-top: 85px;
   padding-bottom: 10px;
 }
+
 #widgets #widgets-inner .region-widgets :first-child {
   margin-top: 0;
 }
-#widgets .block {
+
+#widgets #widgets-inner .block {
   *zoom: 1;
   margin: 12px 0;
 }
-#widgets .block:before, #widgets .block:after {
+#widgets #widgets-inner .block:before, #widgets #widgets-inner .block:after {
   display: table;
   content: "";
   line-height: 0;
 }
-#widgets .block:after {
+#widgets #widgets-inner .block:after {
   clear: both;
 }
-#widgets .block h2 {
+
+#widgets #widgets-inner h2 {
   margin: 0;
   padding: 0;
   border-top: 4px solid #e7e8ea;
@@ -3533,36 +3570,42 @@ svg.logo-icon {
   font-size: 18px;
   color: #9fa6ac;
 }
-#widgets .block iframe {
+
+#widgets #widgets-inner iframe {
   width: 100% !important;
 }
-#widgets .elsewhere {
+
+.elsewhere {
   *zoom: 1;
   text-align: center;
 }
-#widgets .elsewhere:before, #widgets .elsewhere:after {
+.elsewhere:before, .elsewhere:after {
   display: table;
   content: "";
   line-height: 0;
 }
-#widgets .elsewhere:after {
+.elsewhere:after {
   clear: both;
 }
-#widgets .elsewhere h2 {
+
+.elsewhere h2 {
   display: none;
 }
-#widgets .elsewhere ul {
+
+.elsewhere ul {
   margin: 0;
   padding: 0;
   text-align: center;
 }
-#widgets .elsewhere ul li {
+.elsewhere ul li {
   list-style: none;
 }
-#widgets .elsewhere ul li {
+
+.elsewhere ul li {
   display: inline-block;
 }
-#widgets .elsewhere ul li a {
+
+.elsewhere ul li a {
   display: block;
   padding: 8px 5px;
   vertical-align: top;
@@ -3577,11 +3620,12 @@ svg.logo-icon {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-#widgets .elsewhere ul li a:hover {
+.elsewhere ul li a:hover {
   text-decoration: none;
   background-color: #f3f4f4;
 }
-#widgets .elsewhere ul li span.icon-facebook:before {
+
+.elsewhere ul li a span.icon-facebook:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -3595,7 +3639,7 @@ svg.logo-icon {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#widgets .elsewhere ul li span.icon-twitter:before {
+.elsewhere ul li a span.icon-twitter:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -3609,7 +3653,7 @@ svg.logo-icon {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#widgets .elsewhere ul li span.icon-google-plus:before {
+.elsewhere ul li a span.icon-google-plus:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -3623,7 +3667,7 @@ svg.logo-icon {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#widgets .elsewhere ul li span.icon-tumblr:before {
+.elsewhere ul li a span.icon-tumblr:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -3637,7 +3681,7 @@ svg.logo-icon {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#widgets .elsewhere ul li span.icon-youtube:before {
+.elsewhere ul li a span.icon-youtube:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -7822,10 +7866,14 @@ table th[class*="span"],
 }
 
 #my-notifications {
-  width: 360px;
   font-size: 12;
   line-height: 1.3;
 }
+
+#my-notifications {
+  width: 360px;
+}
+
 #my-notifications .heartbeat-activity {
   color: #6f7a82;
   padding: 12px 15px;
@@ -7838,6 +7886,7 @@ table th[class*="span"],
 #my-notifications .heartbeat-activity a:hover {
   color: #01225d;
 }
+
 #my-notifications .heartbeat-activity .activity-data {
   display: -webkit-box;
   display: -webkit-flex;
@@ -7854,27 +7903,33 @@ table th[class*="span"],
   margin-right: 15px;
   vertical-align: text-bottom;
 }
+
 #my-notifications .heartbeat-activity .activity-meta {
   margin-top: 6px;
   padding-left: 26px;
   color: #9fa6ac;
 }
+
 #my-notifications ul.pager-load-more {
   display: none;
 }
+
 #my-notifications .view-content {
   height: 200px;
   overflow-y: auto;
   margin-bottom: 6px;
 }
+
 #my-notifications .more-link {
   float: left;
 }
+
 #my-notifications .notifications-settings-link {
   margin: 0;
   padding: 0;
   float: right;
 }
+
 #my-notifications .more-link a,
 #my-notifications .notifications-settings-link a {
   display: block;
@@ -8732,117 +8787,6 @@ ul.pager {
   cursor: default;
 }
 
-body.page-user.logged-in #sidebar-first {
-  height: 100%;
-  top: 38px !important;
-  padding: 1.42857;
-  padding-top: 2.85714;
-}
-body.page-user.logged-in .user-info .linked-accounts {
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-body.page-user.logged-in .user-info .linked-accounts .icon-twitter:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: #1d87c9;
-  font-size: 21.5px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-body.page-user.logged-in .user-info .linked-accounts .icon-twitter:before {
-  margin: 0;
-}
-body.page-user.logged-in .user-info .linked-accounts a {
-  margin: 0;
-  padding: 0;
-  display: inline;
-  color: #10212f;
-}
-body.page-user.logged-in .user-info .profile-links a {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  background-color: #eef9f9;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  font-weight: 400;
-  margin-right: 1em;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 16px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  text-transform: lowercase;
-  float: left;
-  clear: both;
-  margin-bottom: 15px;
-}
-body.page-user.logged-in .user-info .profile-links a::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-body.page-user.logged-in .user-info .profile-links a:focus {
-  outline: none;
-}
-body.page-user.logged-in .user-info .profile-links a, body.page-user.logged-in .user-info .profile-links a:visited {
-  color: #3e4c57;
-}
-body.page-user.logged-in .user-info .profile-links a:hover, body.page-user.logged-in .user-info .profile-links a:focus {
-  background-color: #e3f4f4;
-}
-body.page-user.logged-in .user-info .profile-links a:hover, body.page-user.logged-in .user-info .profile-links a:hover:visited, body.page-user.logged-in .user-info .profile-links a:focus, body.page-user.logged-in .user-info .profile-links a:focus:visited {
-  color: #3e4c57;
-}
-body.page-user.logged-in .user-info .profile-links a:active {
-  background-color: #d8f0f0;
-}
-body.page-user.logged-in .user-info .profile-links a:active, body.page-user.logged-in .user-info .profile-links a:active:visited {
-  color: #3e4c57;
-}
-body.page-user.logged-in h1.title {
-  font-size: 29px;
-}
-body.page-user.logged-in h1.title strong {
-  font-size: 42px;
-}
-body.page-user.logged-in .tabs {
-  display: none;
-}
-body.page-user.logged-in div.profile .report-row-container {
-  margin: 2px;
-}
-
-body.page-user.logged-in.toolbar #sidebar-first {
-  top: 103px !important;
-}
-
 .page-user-login #main h1.title,
 .page-user-register #main h1.title,
 .page-user-password #main h1.title {
@@ -8852,61 +8796,6 @@ body.page-user.logged-in.toolbar #sidebar-first {
 .page-user-register #main #content-area,
 .page-user-password #main #content-area {
   clear: both;
-}
-.page-user-login #content-header > h1,
-.page-user-register #content-header > h1,
-.page-user-password #content-header > h1 {
-  padding-left: 15px;
-}
-.page-user-login div.profile,
-.page-user-register div.profile,
-.page-user-password div.profile {
-  background-color: white;
-}
-.page-user-login div.profile .user-picture,
-.page-user-register div.profile .user-picture,
-.page-user-password div.profile .user-picture {
-  float: right;
-}
-.page-user-login div.profile h3,
-.page-user-register div.profile h3,
-.page-user-password div.profile h3 {
-  display: block;
-  width: auto;
-  padding: 15px;
-}
-.page-user-login div.profile dl,
-.page-user-register div.profile dl,
-.page-user-password div.profile dl {
-  *zoom: 1;
-  padding: 15px;
-  font-size: 18px;
-  border-bottom: 1px solid #b7bcc0;
-}
-.page-user-login div.profile dl:before, .page-user-login div.profile dl:after,
-.page-user-register div.profile dl:before,
-.page-user-register div.profile dl:after,
-.page-user-password div.profile dl:before,
-.page-user-password div.profile dl:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.page-user-login div.profile dl:after,
-.page-user-register div.profile dl:after,
-.page-user-password div.profile dl:after {
-  clear: both;
-}
-.page-user-login div.profile dl dt,
-.page-user-register div.profile dl dt,
-.page-user-password div.profile dl dt {
-  float: left;
-}
-.page-user-login div.profile dl dd,
-.page-user-register div.profile dl dd,
-.page-user-password div.profile dl dd {
-  float: right;
-  font-weight: 200px;
 }
 .page-user-login .tabs,
 .page-user-register .tabs,
@@ -9076,21 +8965,7 @@ body.page-user.logged-in.toolbar #sidebar-first {
 #my-account {
   width: 438px;
 }
-#my-account .user-picture, #my-account .info, #my-account #account-menu {
-  float: left;
-  padding: 0 15px;
-}
-#my-account .user-picture {
-  width: 60px;
-  height: 60px;
-}
-#my-account .user-picture a {
-  margin: 0;
-  padding: 0;
-}
-#my-account .info {
-  max-width: 200px;
-}
+
 #my-account .info a.username {
   margin: 0;
   padding: 0;
@@ -9128,6 +9003,7 @@ body.page-user.logged-in.toolbar #sidebar-first {
 #my-account .info .bio {
   word-wrap: break-word;
 }
+
 #my-account #account-menu {
   float: right;
 }

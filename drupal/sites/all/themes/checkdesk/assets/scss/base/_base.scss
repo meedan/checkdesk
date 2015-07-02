@@ -24,16 +24,16 @@ html {
 #main #content, #main #widgets, #main footer {
   position: relative;
   padding: 0 20px;
-  
-  @include cd-responsive('min-width: #{$width-tablet}') {
-    padding: 0 50px;  
-  }
 }
 
 #main #content {
-  padding-top: $absolute-line-height;
+  padding-top: $padding-large-horizontal;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    padding-top: $padding-large-horizontal*2;  
+  }
   max-width: 1040px;
   margin: 0 auto;
+
 }
 
 // for content pages

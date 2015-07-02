@@ -4,20 +4,18 @@
     <?php print render($page['navigation']); ?>
   <?php endif; ?>
   <div class="metabar">
-    <?php if($is_front): ?>
-      <ul id="breadcrumb">
-        <li class="nav-toggle">
-          <?php 
-            $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
-            print '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
-          ?>
-        </li>
+    <ul id="breadcrumb">
+      <li class="nav-toggle">
+        <?php 
+          $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
+          print '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
+        ?>
+      </li>
+      <?php if($is_front): ?>
         <li>
           <?php print render($page['header']); ?>
         </li>
-      </ul>
-    <?php elseif ($title): ?>
-      <ul id="breadcrumb">
+      <?php elseif ($title): ?>
         <li>
           <h1 class="title">
             <?php
@@ -43,8 +41,8 @@
             ?>
           </h1>
         </li>
-      </ul>
-    <?php endif; ?>
+      <?php endif; ?>
+    </ul>
     
     <?php if ($secondary_nav): ?>
       <?php print $secondary_nav; ?>

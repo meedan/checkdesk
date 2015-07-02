@@ -38,6 +38,8 @@
   will-change: transform;
 }
 
+// adjust top when drupal admin toolbar is present
+// only when responsive nav isn't active
 html:not(.js-nav-active) .metabar.header-up {
   top: - $headerHeight;
   body.toolbar & {
@@ -49,7 +51,7 @@ html:not(.js-nav-active) .metabar.header-up {
 }
 
 ul#breadcrumb {
-  @include flexbox();
+  @include flexbox;
   @include align-items(center);
 }
 
@@ -63,10 +65,6 @@ ul#breadcrumb li {
   list-style: none;
 }
 
-ul#breadcrumb a {
-  display: block;
-}
-
 ul#breadcrumb li.nav-toggle {
   padding-#{$omega}: 20px;
   margin-#{$omega}: 10px;
@@ -78,9 +76,15 @@ ul#breadcrumb li.nav-toggle {
   }
 }
 
+ul#breadcrumb a {
+  display: block;
+}
+
 ul#breadcrumb h1 {
   margin-bottom: 0;
-  padding-#{$omega}: 200px;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    padding-#{$omega}: 200px;
+  }
   overflow: hidden;
   @include cd-sans-serif-family;
   font-size: 28px;
@@ -124,11 +128,20 @@ ul#user-menu {
 
 
 ul#user-menu li {
-  position: relative;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    position: relative;
+  }
   list-style: none;
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
   #my-notifications-menu-link {
     border-#{$alpha}: 1px solid $firefly10;
   }
+}
+
+@media (min-width: 1px) and (max-width: #{$width-mobile}) {
+  #my-account-link .caret { display: none; }
 }
 
 ul#user-menu li > a { 
@@ -138,9 +151,14 @@ ul#user-menu li > a {
   @include transition(color 0.2s ease);
 }
 
-ul#user-menu li .dropdown-toggle {
-  padding: 0 20px;
+ul#user-menu li a.dropdown-toggle {
+  padding-#{$alpha}: 20px;
+  padding-#{$omega}: 20px;
   @include ctb-linkColor($firefly30);
+  @media (min-width: 1px) and (max-width: #{$width-mobile}) {
+    padding-#{$alpha}: 8px;
+    padding-#{$omega}: 8px;
+  }
 }
 
 ul#user-menu .badge {
@@ -161,8 +179,13 @@ ul#user-menu .badge {
 ul#user-menu .avatar-menu {
   @include cd-avatar('inline');
   @include border-radius(50%);
-  border: 3px solid $firefly20;
+
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    border: 3px solid $firefly20;
+  }
 }
+
+
 
 ul#utility-menu {
   #{$omega}: 200px;
@@ -185,11 +208,19 @@ ul#utility-menu {
     #{$alpha}: auto;
     #{$omega}: 10px;
 
+    @media (min-width: 1px) and (max-width: #{$width-mobile}) {
+      width: 100%;
+      #{$alpha}: 0;
+      #{$omega}: 0;
+    }
+
     @if $from-direction == left {
       @include border-radius($radius 0 $radius $radius);
     }
     @else {
       @include border-radius(0 $radius $radius $radius);
     }
+
+
   }
 }

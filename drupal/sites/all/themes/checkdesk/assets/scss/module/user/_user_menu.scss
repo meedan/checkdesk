@@ -1,0 +1,46 @@
+// My account dropdown in the primary navigation
+
+#my-account {
+  width: 438px; // warning magic px CGB
+}
+
+#my-account .info {
+  a.username {
+    @include reset-box-model;
+    color: $grey;
+    font-weight: bold;
+    font-size: $font-size-small;
+  }
+
+  .linked-account {
+    .icon-twitter  {
+      @include icon("twitter-square", 21.5px, $twitter-blue);
+
+      &:before {
+        margin: 0;
+      }
+    }
+
+    a {
+      @include reset-box-model;
+      display: inline;
+      color: $firefly;
+    }
+
+    small {
+      font-size: $font-size-small;
+      color: $grey;
+    }
+  }
+
+  .bio {
+    word-wrap: break-word;
+  }
+}
+
+#my-account #account-menu {
+  float: $omega;
+  a {
+    @include dropdown-link;
+  }
+}
