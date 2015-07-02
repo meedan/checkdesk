@@ -114,7 +114,7 @@
       $(window).resize(function() {
         if ($('.view-desk-reports .view-content').length) {
            // add fixed pixels to difference to adjust load more for ar
-          var difference = $('#messages-container').offset().top + 2 * $('.view-desk-reports .pager').outerHeight(true);
+          var difference = $('#messages-container').offset().top + 2 * $('.view-desk-reports .pager').outerHeight(true) + 15;
           var height = $(window).height() - difference;
           $('.view-desk-reports .view-content').height(height);
         }
