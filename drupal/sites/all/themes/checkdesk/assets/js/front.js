@@ -16,6 +16,7 @@
         // fade out the large logo in widgets
         if(st <= widgetsLimit) {
           $('#widgets').css({ 'opacity' : (1 - st/headerLimit), 'visibility': 'inherit' });
+          $('header').removeClass('show-content-shadow');
         }
         // fade in small logo in header
         if (st <= headerLimit) {
@@ -24,10 +25,12 @@
         // if scroll is past widgets set opacity to 1
         if (st > widgetsLimit) {
           $('header .header_logo').css({ 'opacity' : 1, 'visibility': 'inherit' }); 
+          $('header').addClass('show-content-shadow');
         }
         // if at top hide the small logo
         if (st == 0) {
           $('header .header_logo').css({ 'opacity' : 0, 'visibility': 'hidden' }); 
+          $('header').removeClass('show-content-shadow');
         }
       });
     }

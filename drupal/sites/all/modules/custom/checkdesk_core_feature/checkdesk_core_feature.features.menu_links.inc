@@ -10,31 +10,6 @@
 function checkdesk_core_feature_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: main-menu_edit-fact-checking-statement:admin/config/system/checkdesk
-  $menu_links['main-menu_edit-fact-checking-statement:admin/config/system/checkdesk'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'und',
-    'link_path' => 'admin/config/system/checkdesk',
-    'link_title' => 'Edit fact-checking statement',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'main-menu',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(),
-      'alter' => TRUE,
-      'identifier' => 'main-menu_edit-fact-checking-statement:admin/config/system/checkdesk',
-    ),
-    'parent_identifier' => 'main-menu_:<sub>',
-    'router_path' => 'admin/config/system/checkdesk',
-    'uuid' => '2643d8bd-eb4d-16f4-1928-3013705c11af',
-    'weight' => -48,
-  );
   // Exported menu link: menu-common_information:<nolink>
   $menu_links['menu-common_information:<nolink>'] = array(
     'customized' => 1,
@@ -590,7 +565,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('<user>');
   t('About Checkdesk');
   t('Bookmarklet');
-  t('Edit fact-checking statement');
   t('Fact-checking statement');
   t('Information');
   t('Logout');

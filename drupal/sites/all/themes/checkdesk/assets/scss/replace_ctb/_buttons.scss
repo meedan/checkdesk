@@ -1,205 +1,75 @@
 //
 // Buttons
 // --------------------------------------------------
+// Modified version of BS buttons
 
 
 // Base styles
 // --------------------------------------------------
 
-// Core
 .btn {
-  @include checkdesk-button();
+  display: inline-block;
+  margin-bottom: 0; // For input.btn
+  font-weight: $btn-font-weight;
+  font-family: inherit;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+  border: 1px solid transparent;
+  white-space: nowrap;
+  @include ctb-button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-base);
+  @include ctb-user-select(none);
 
-  // Hover state
-  &:hover {
-    
-
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      @include ctb-tab-focus;
+    }
   }
 
-  // Focus state for keyboard and accessibility
-  &:focus {
-    @include ctb-tab-focus();
+  &:hover,
+  &:focus,
+  &.focus {
+    color: $btn-default-color;
+    text-decoration: none;
   }
 
-  // Active state
-  &.active,
-  &:active {
-    
+  &:active,
+  &.active {
+    outline: 0;
+    background-image: none;
+    @include ctb-box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
   }
 
-  // Disabled state
   &.disabled,
-  &[disabled] {
-    @include disable-button();
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: $cursor-disabled;
+    @include ctb-opacity(.65);
+    @include ctb-box-shadow(none);
   }
 
+  // [converter] extracted a& to a.btn
 }
 
-
-
-// Button Sizes
-// --------------------------------------------------
-
-// Large
-.btn-large {
-  padding: $paddingLarge;
-  font-size: $fontSizeLarge;
-  @include border-radius($borderRadiusLarge);
-}
-.btn-large [class^="icon-"],
-.btn-large [class*=" icon-"] {
-  margin-top: 4px;
-}
-
-// Small
-.btn-small {
-  padding: $paddingSmall;
-  font-size: $fontSizeSmall;
-  @include border-radius($borderRadiusSmall);
-}
-.btn-small [class^="icon-"],
-.btn-small [class*=" icon-"] {
-  margin-top: 0;
-}
-.btn-mini [class^="icon-"],
-.btn-mini [class*=" icon-"] {
-  margin-top: -1px;
-}
-
-// Mini
-.btn-mini {
-  padding: $paddingMini;
-  font-size: $fontSizeMini;
-  @include border-radius($borderRadiusSmall);
-}
-
-
-// Block button
-// -------------------------
-
-.btn-block {
-  display: block;
-  width: 100%;
-  padding-left: 0;
-  padding-right: 0;
-  @include box-sizing(border-box);
-}
-
-// Vertically space out multiple block buttons
-.btn-block + .btn-block {
-  margin-top: 5px;
-}
-
-// Specificity overrides
-input[type="submit"],
-input[type="reset"],
-input[type="button"] {
-  &.btn-block {
-    width: 100%;
+a.btn {
+  &.disabled,
+  fieldset[disabled] & {
+    pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
   }
 }
-
 
 
 // Alternate buttons
 // --------------------------------------------------
 
-// Provide *some* extra contrast for those who can get it
-.btn-primary.active,
-.btn-warning.active,
-.btn-danger.active,
-.btn-success.active,
-.btn-info.active,
-.btn-inverse.active {
-  color: rgba(255,255,255,.75);
-}
-
-// Set the backgrounds
-// -------------------------
-.btn {
-  // reset here as of 2.0.3 due to Recess property order
-  border-color: #c5c5c5;
-  border-color: rgba(0,0,0,.15) rgba(0,0,0,.15) rgba(0,0,0,.25);
+.btn-default {
+  @include ctb-button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
 }
 .btn-primary {
-  @include ctb-buttonBackground($btnPrimaryBackground, $btnPrimaryBackground);
-}
-// Warning appears are orange
-.btn-warning {
-  @include ctb-buttonBackground($btnWarningBackground, $btnWarningBackground);
-}
-// Danger and error appear as red
-.btn-danger {
-  @include ctb-buttonBackground($btnDangerBackground, $btnDangerBackground);
-}
-// Success appears as green
-.btn-success {
-  @include ctb-buttonBackground($btnSuccessBackground, $btnSuccessBackground);
-}
-// Info appears as a neutral blue
-.btn-info {
-  @include ctb-buttonBackground($btnInfoBackground, $btnInfoBackground);
-}
-// Inverse appears as dark gray
-.btn-inverse {
-  @include ctb-buttonBackground($btnInverseBackground, $btnInverseBackground);
-}
-
-
-// Cross-browser Jank
-// --------------------------------------------------
-
-button.btn,
-input[type="submit"].btn {
-
-  // Firefox 3.6 only I believe
-  &::-moz-focus-inner {
-    padding: 0;
-    border: 0;
-  }
-
-  // IE7 has some default padding on button controls
-  *padding-top: 3px;
-  *padding-bottom: 3px;
-
-  &.btn-large {
-    *padding-top: 7px;
-    *padding-bottom: 7px;
-  }
-  &.btn-small {
-    *padding-top: 3px;
-    *padding-bottom: 3px;
-  }
-  &.btn-mini {
-    *padding-top: 1px;
-    *padding-bottom: 1px;
-  }
-}
-
-
-// Link buttons
-// --------------------------------------------------
-
-// Make a button look and behave like a link
-.btn-link,
-.btn-link:active,
-.btn-link[disabled] {
-  background-color: transparent;
-  background-image: none;
-  @include box-shadow(none);
-}
-.btn-link {
-  border-color: transparent;
-  cursor: pointer;
-  color: $linkColor;
-  @include border-radius(0);
-}
-.btn-link:hover {
-  color: $linkColorHover;
-  text-decoration: underline;
-  background-color: transparent;
-}
-.btn-link[disabled]:hover {
-  color: $grayDark;
-  text-decoration: none;
+  @include ctb-button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
 }

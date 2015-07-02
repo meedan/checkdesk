@@ -7,7 +7,7 @@
   bottom: 0;
   left: 0;
   z-index: 1030;
-  background-color: $black;
+  background-color: #000;
   @include ctb-opacity(0.5);
 }
 
@@ -23,7 +23,7 @@
   border-radius: 50%;
   background: transparent;
   top: 0;
-  @include box-shadow(200px 15px 50px $white);
+  @include box-shadow(200px 15px 50px #fff);
 }
 
 .popover-close {
@@ -50,12 +50,12 @@
   z-index: 99999;
   width: 455px;
   left: 0;
-  @include box-shadow(0px 1px 15px rgba($black, 0.8));
+  @include box-shadow(0px 1px 15px rgba(#000, 0.8));
   background-color: #fff;
 
   h4 {
     line-height: 74px;
-    background: $white;
+    background: #fff;
     margin: 0;
 
     b {
@@ -63,7 +63,7 @@
       width: 34px;
       line-height: 34px;
       background: #1986ff;
-      color: $white;
+      color: #fff;
       text-align: center;
       border-radius: 50%;
       float: $alpha;
@@ -79,7 +79,7 @@
 
 .popover-content {
   height: 60px;
-  background: $white;
+  background: #fff;
   padding: 0;
   padding-#{$omega}: 20px;
   padding-#{$alpha}: 74px;
@@ -96,7 +96,7 @@
   height: 0; 
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid $white;
+  border-bottom: 10px solid #fff;
   font-size: 0;
   line-height: 0;
 }
@@ -104,7 +104,7 @@
 .popover-navigation {
   padding: 10px;
   padding-#{$alpha}: 74px;
-  background: $white;
+  background: #fff;
 
   ul {
     padding: 0;
@@ -133,7 +133,7 @@
   float: $omega;
   background-color: #1885fe;
   padding: 10px 28px;
-  color: $white;
+  color: #fff;
   border: 0;
   border-radius: 4px;
   font-weight: bold;

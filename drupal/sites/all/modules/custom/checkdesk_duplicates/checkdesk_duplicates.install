@@ -1,5 +1,8 @@
 <?php
 
+function checkdesk_duplicates_enable() {
+  checkdesk_duplicates_update_7001($sandbox);
+}
 /**
  * Normalize existing URLs
  */

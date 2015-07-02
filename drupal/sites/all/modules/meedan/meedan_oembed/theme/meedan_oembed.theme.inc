@@ -66,9 +66,17 @@ function template_preprocess_meedan_full_mode(&$vars) {
         '!user' => $node->name,
       ));
 
-  // Inline thumbnail
-  if(isset($embed->thumbnail_url)) {
-    $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
+  // check for photos
+  if($embed->type == 'photo') {
+    // set full image
+    if(isset($embed->original_url)) {
+      $vars['full_image'] = l(theme_image(array('path' => $embed->url, 'attributes' => array('class' => array('img')))), 'node/' . $node->nid, array('html' => TRUE));
+    } else {
+      // Inline thumbnail
+      if(isset($embed->thumbnail_url)) {
+        $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
+      }
+    }
   }
 
   // Load report status
@@ -133,10 +141,19 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
         '!user' => $node->name,
       ));
 
-  // Inline thumbnail
-  if(isset($embed->thumbnail_url)) {
-   $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
+  // check for photos
+  if($embed->type == 'photo') {
+    // set full image
+    if(isset($embed->original_url)) {
+      $vars['full_image'] = l(theme_image(array('path' => $embed->url, 'attributes' => array('class' => array('img')))), 'node/' . $node->nid, array('html' => TRUE));
+    } else {
+      // Inline thumbnail
+      if(isset($embed->thumbnail_url)) {
+        $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
+      }
+    }
   }
+
 
   // Load report status
   if(isset($node->field_rating)) {
@@ -200,19 +217,18 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
         '!user' => $node->name,
       ));
 
-  // Inline thumbnail
-  if(isset($embed->thumbnail_url)) {
-    $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
+  if($embed->type == 'photo') {
+    // Inline thumbnail
+    if(isset($embed->thumbnail_url)) {
+      $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
+    }
   }
-
   // Load report status
   if(isset($node->field_rating)) {
     if($node->field_rating['und'][0]['tid'] == 2) {
       $vars['report_status'] = _checkdesk_report_status($node);
     }
   }
- 
-
 }
 
 /**

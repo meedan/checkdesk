@@ -93,7 +93,7 @@
   @include ctb-clearfix;
   position: relative;
   margin-bottom: $absolute-line-height/6;
-  border: 3px solid $white;
+  border: 3px solid #fff;
   // hide ajax throbber in dropdown
   .ajax-progress-throbber {
     display: none;
@@ -102,7 +102,7 @@
   .report-row-container {
     cursor: move;
     border: 1px solid rgba($firefly, .2);
-    background-color: $white;
+    background-color: #fff;
     @include cd-sans-serif-family;
   }
 
@@ -275,7 +275,7 @@
     @if $alpha == 'right' {
       background-image: url(../imgs/published-ar.png);
     }
-    // @include icon(file-o, 22px, $black, 'after');
+    // @include icon(file-o, 22px, #000, 'after');
 
     span {
       display: none;
@@ -287,7 +287,7 @@
 // CTools modal report
 //
 #modalContent.modal-report {
-  z-index: $zindexModal;
+  z-index: $z-index-Modal;
   .modal {
     background-color: $thatch5;
   }

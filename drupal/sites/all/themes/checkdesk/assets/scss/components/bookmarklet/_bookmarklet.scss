@@ -89,7 +89,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     .form-item input[type="checkbox"] {
       // padding: $gutter-width 2px; // pad for the hover
       &:hover {
-        color: $identity;
+        color: $brand-primary;
       }
     }
   }
@@ -130,10 +130,10 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
         width: 240px;
         height: auto;
         background: white;
-        border: 1px solid $grayLighter;
+        border: 1px solid $gray-lighter;
         font-size: $small-font-size;
         line-height: 1.2;
-        color: $grayLight;
+        color: $gray-light;
         text-indent: 0;
         padding: $gutter-width;
         position: absolute;
@@ -144,7 +144,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
   // Loading ..
   .meedan-bookmarklet-loading {
-    background: $white url(../imgs/icons/bookmarklet-loading.gif) opposite-position($from-direction) center no-repeat;
+    background: #fff url(../imgs/icons/bookmarklet-loading.gif) opposite-position($from-direction) center no-repeat;
   }
 }
 
@@ -244,7 +244,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     }
     .meedan-bookmarklet-success {
       display: block;
-      color: $white;
+      color: #fff;
       padding: $gutter-width;
       background-color: rgba(0,140,0,.8);
     }
@@ -315,7 +315,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 #nav-media-form {
   width: 366px;
   overflow-y: scroll;
-  z-index: $zindexDropdown;
+  z-index: $z-index-Dropdown;
 
   iframe {
     width: 100%;
@@ -341,7 +341,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 // NOTE: applied to html
 #meedan_bookmarklet_html {
   height: auto;
-  background: $white;
+  background: #fff;
 }
 
 #meedan_bookmarklet {
@@ -368,7 +368,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 #media-node-form {
   // Loading ..
   .meedan-bookmarklet-loading {
-    background: $white url(../imgs/icons/bookmarklet-loading.gif) opposite-position($from-direction) center no-repeat;
+    background: #fff url(../imgs/icons/bookmarklet-loading.gif) opposite-position($from-direction) center no-repeat;
   }
   // preview and graphic content styles
   @include bookmarklet-step-two;

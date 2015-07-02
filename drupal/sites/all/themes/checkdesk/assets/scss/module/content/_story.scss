@@ -166,6 +166,7 @@
     border-bottom: 1px solid rgba($firefly, 0.1);
   }
   padding-bottom: 15px;
+  margin-bottom: 30px;
   & > div, & > ul {
     display: table-cell;
     width: 100%;
@@ -261,7 +262,7 @@
   font-size: $larger-font-size;
   margin-top: $absolute-line-height/4;
   margin-bottom: $absolute-line-height/2;
-  a { @include ctb-linkColor($grayLight); }
+  a { @include ctb-linkColor($gray-light); }
 }
 
 .story .story-context {
@@ -294,7 +295,7 @@
         margin-#{omega}: $gutter-width/3;
       }
     }
-    a { @include ctb-linkColor($grayLight); }
+    a { @include ctb-linkColor($gray-light); }
   }
 
   .blogger-status {
@@ -305,7 +306,7 @@
       @include ctb-square(10px);
       @include border-radius(10px);
       display: inline-block;
-      background-color: $grayLight;
+      background-color: $gray-light;
     }
 
     .blogger-status-text {
@@ -318,7 +319,7 @@
     
   }
   // status indicator colors
-  .story-blogger-status-offline .blogger-status-indicator { background-color: $grayLight; }
+  .story-blogger-status-offline .blogger-status-indicator { background-color: $gray-light; }
   .story-blogger-status-online .blogger-status-indicator { background-color: $green; }
 }
 
@@ -329,10 +330,10 @@
   .compose-update-header {
     a {
       display: inline-block;
-      @include icon("pencil", $large-font-size, $white, $icon-position);
+      @include icon("pencil", $large-font-size, #fff, $icon-position);
       padding: $absolute-line-height/2 $gutter-width;
-      color: $white;
-      background-color: $identity;
+      color: #fff;
+      background-color: $brand-primary;
       @include border-radius(4px);
       @include cd-sans-serif-family;
       font-size: $large-font-size;
@@ -349,7 +350,7 @@
     padding: 0 $gutter-width;
     background-image: $striped_lens;
     input[type='submit'] {
-      @include checkdesk-button($identity);
+      @include checkdesk-button($brand-primary);
     }
     // override drupal
     .ui-droppable {

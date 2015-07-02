@@ -35,17 +35,17 @@
 // text-shadow
 // see http://compass-style.org/reference/compass/css3/text-shadow/
 
-@mixin cd-dark-text-shadow($opacity: 0.5) { // use $white for dark backgrounds
+@mixin cd-dark-text-shadow($opacity: 0.5) { // use #fff for dark backgrounds
   @include text-shadow(rgba(black, 0.8) 0 1px 0);
 }
 
-@mixin cd-light-text-shadow($opacity: 0.5) { // use $white for dark backgrounds
+@mixin cd-light-text-shadow($opacity: 0.5) { // use #fff for dark backgrounds
   @include text-shadow(rgba(white, 0.8) 0 1px 0);
 }
 
 // Dropshadow
 @mixin cd-box-shadow() {
-  @include box-shadow(0px 1px 6px rgba($black, 0.2));
+  @include box-shadow(0px 1px 6px rgba(#000, 0.2));
 }
 
 // Main canvas background image
@@ -152,8 +152,8 @@
   }
 }
 
+// Avatar styles
 @mixin cd-avatar($style: 'pulled-out', $top: 0, $indent: 0) {
-  
   @if $style == 'pulled-out' {
     position: absolute;
     float: $from-direction;
@@ -172,6 +172,8 @@
   background-color: #fff;
 }
 
+// Makes the scrollbar thin
+// used in search filters
 @mixin cd-simple-scrollbar {
   &::-webkit-scrollbar {
     width: 6px;
@@ -189,5 +191,44 @@
   }
   &::-webkit-scrollbar-thumb:window-inactive {
     background: $firefly20;
+  }
+}
+
+// load more pager
+@mixin ctb-load-more-pager {
+  .pager-load-more {
+    @include ctb-clearfix;
+    @include reset-list-style;
+    padding: $absolute-line-height/2 0;
+    float: none;
+    clear: both;
+    position: relative;
+    text-align: center;
+    a {
+      width: 70%;
+      text-align: center;
+      @if $from-direction == 'left' {
+        letter-spacing: 0.05em;
+      }
+      @include cd-sans-serif-family;
+      font-size: $small-font-size;
+      font-weight: 700;
+      color: $firefly40;
+      background-color: rgba(255,255,255,.8);
+      &:hover {
+        color: #fff;
+        background-color: $brand-primary;
+        border: 1px solid $brand-primary;
+      }
+      @include ctb-border-radius(4px);
+    }
+    .ajax-progress-throbber {
+      position: absolute;
+      top: 4px;
+      #{$omega}: $gutter-width;
+      .throbber {
+        background: url("../imgs/icons/loader_white.gif");
+      }
+    }
   }
 }

@@ -132,16 +132,28 @@ function checkdesk_core_menu() {
     'file' => 'checkdesk.sign_in_up.inc',
     'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
+  $items['checkdesk/reports'] = array(
+    'title' => 'Reports',
+    'page callback' => '_checkdesk_goto_search',
+    'page arguments' => array('reports'),
+    'access arguments' => array('access content'),
+  );
+  $items['checkdesk/stories'] = array(
+    'title' => 'Stories',
+    'page callback' => '_checkdesk_goto_search',
+    'page arguments' => array('stories'),
+    'access arguments' => array('access content'),
+  );
   $items['checkdesk/my_drafts'] = array(
     'title' => 'My drafts',
-    'page callback' => 'drupal_goto',
-    'page arguments' => array('search'),
+    'page callback' => '_checkdesk_goto_search',
+    'page arguments' => array('my_drafts'),
     'access arguments' => array('view own unpublished content'),
   );
   $items['checkdesk/my_stories'] = array(
-    'title' => 'Draft updates',
-    'page callback' => 'drupal_goto',
-    'page arguments' => array('search'),
+    'title' => 'My stories',
+    'page callback' => '_checkdesk_goto_search',
+    'page arguments' => array('my_stories'),
     'access arguments' => array('access content'),
   );
   $items['checkdesk/settings'] = array(
@@ -163,6 +175,28 @@ function checkdesk_core_menu() {
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
   return $items;
+}
+
+function _checkdesk_goto_search($preset) {
+  global $user;
+  $query = array('type' => 'All');
+  switch ($preset) {
+    case 'reports':
+      $query['type'] = 'report';
+      break;
+    case 'stories':
+      $query['type'] = 'story';
+      break;
+    case 'my_drafts':
+      $query['status'] = 0;
+      $query['author'] = $user->name;
+      break;
+    case 'my_stories':
+      $query['type'] = 'story';
+      $query['author'] = $user->name;
+      break;
+  }
+  drupal_goto('search', array('query' => $query));
 }
 
 function _checkdesk_core_user_settings() {
@@ -1003,10 +1037,9 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   global $user;
   //Adjust create story form
   $form['title']['#title'] = t('Story title');
-
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
-
   $form['body'][LANGUAGE_NONE][0]['#title'] = t('Text');
+
   // Make the body field a drop target for reports.
   $form['body']['#prefix'] = '<div class="droppable">';
   $form['body']['#suffix'] = '</div>';
@@ -1273,7 +1306,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
   }
 
   if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
-    // Add custom filed for type
+    // Add custom field for type
     $form['type'] = array(
       '#type' => 'select',
       '#title' => '',
@@ -1306,7 +1339,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       unset($form['field_rating_tid']['#theme']);
     }
     // Media filters
-    if (isset($_GET['type']) && $_GET['type'] == 'report') {
+    if (isset($_GET['type']) && $_GET['type'] === 'report') {
       // Change -Any- status label
       $form['field_rating_tid']['#options']['All'] = t('Any status');
       $form['media_flags'] = array(
@@ -1319,6 +1352,18 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         ),
         //'#multiple' => TRUE,
         '#theme' => 'select_as_links',
+      );
+      $stories = db_query(
+        "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
+        array(':type' => 'discussion')
+      )->fetchAllKeyed();
+      $form['report_story'] = array(
+        '#type' => 'select',
+        '#title' => t('Associated stories'),
+        '#options' => array('All' => t('- Any -'), 'None' => t('- Unassigned -')) + $stories,
+        '#theme' => 'select_as_links',
+        '#bef_enable_fastlivefilter' => 1,
+        '#fastlivefilte_placeholder' => t('Search for story'),
       );
     }
     // Hide tag filter for updates
@@ -1341,7 +1386,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) {
         $users = db_query('
               SELECT name FROM {users} WHERE status = :status AND uid != :uid ORDER BY name
-    ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
+        ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
       }
       $users = array('All' => t('- Any -'), $user->name => t('- Mine -')) + $users;
       $form['author'] = array(
@@ -1425,6 +1470,7 @@ function checkdesk_core_theme() {
     'variables' => array(
       'count' => NULL,
       'nid' => NULL,
+      'link_count' => NULL,
     ),
   ) + $base;
 
@@ -1740,7 +1786,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
     $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
     $form['remember_me']['#suffix'] = '</div>';
-    $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
+    $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium btn btn-default');
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-sigin-back-link">' . $back_link . '</div>';
     $form['#validate'][] = '_modify_drupal_message';
     $form['actions']['submit']['#attributes']['onclick'] = 
@@ -1751,8 +1797,8 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['story']['#prefix'] = '<div class="modal-content-wrapper">';
     $form['story']['#suffix'] = '</div>';
     $form['submit']['#prefix'] = '<div class="modal-footer"><div class="form-actions form-wrapper">
-                <a id="close" class="btn" data-dismiss="modal" aria-hidden="true"
-                onClick="jQuery(\'#close\').trigger(\'click\');" >' . t('Close') . '</a>';
+                <button type="button" id="close" class="btn btn-default" data-dismiss="modal" aria-hidden="true"
+                onClick="jQuery(\'#close\').trigger(\'click\');" >' . t('Close') . '</button>';
     $form['submit']['#suffix'] = '</div></div>';
     $form['submit']['#value'] = t('Continue');
     $form['submit']['#attributes']['class'] = array('btn', 'btn-primary');
@@ -1804,7 +1850,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
         '#markup' => $register_header,
         '#weight' => -99,
       );
-      $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium');
+      $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium btn btn-default');
       $form['actions']['submit']['#suffix'] = '<div class="back-link user-register-back-link">' . $back_link . '</div>';
     }
   }
@@ -2010,6 +2056,19 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
           unset($query->where[1]['conditions'][$k]);
           break;
         }
+      }
+    }
+    if (isset($_GET['type']) && $_GET['type'] === 'report' && 
+        isset($_GET['report_story']) && ($_GET['report_story'] === 'None' || is_numeric($_GET['report_story']))
+    ) {
+      $join = new views_join();
+      $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
+      $query->add_relationship('fdfs', $join, 'field_data_field_stories');
+      if ($_GET['report_story'] === 'None') {
+        $query->add_where(1,'fdfs.field_stories_target_id', 1, 'IS NULL');
+      }
+      else {
+        $query->add_where(1,'fdfs.field_stories_target_id', intval($_GET['report_story']), '=');
       }
     }
     // Add author condition
@@ -2851,6 +2910,7 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
 function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   global $user;
   // Adjust edit node form
+  $form['#attributes']['class'][] = 'cd-report-duplicates';
   $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
 
@@ -3385,18 +3445,21 @@ function _checkdesk_get_stories_by_activity($show_draft = FALSE) {
 /**
  * Delete update activity when user change story for existing one
  */
-function _checkdesk_delete_heartbeat_activity ($node) {
+function _checkdesk_delete_heartbeat_activity($node) {
   if ($node->type == 'post') {
-    $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+    $story_nid = isset($node->field_desk[LANGUAGE_NONE][0]['target_id']) ? $node->field_desk[LANGUAGE_NONE][0]['target_id'] : 0;
   }
   else {
-    $story_nid = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
+    $story_nid = isset($node->field_stories[LANGUAGE_NONE][0]['target_id']) ? $node->field_stories[LANGUAGE_NONE][0]['target_id'] : 0;
   }
-  $uaids = db_query('
+
+  if ($story_nid) {
+    $uaids = db_query('
             SELECT uaid FROM {heartbeat_activity} WHERE nid = :nid AND nid_target = :nid_target
           ', array(':nid' => $node->nid, ':nid_target' => $story_nid))->fetchCol();
-  if (!empty($uaids)) {
-    heartbeat_activity_delete($uaids);
+    if (!empty($uaids)) {
+      heartbeat_activity_delete($uaids);
+    }
   }
 }
 
@@ -3631,17 +3694,11 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
       }
     }
   }
-  elseif ($original_path == 'checkdesk/reports') {
-    $path = 'search';
-    $options['query']['type'] = 'report';
+  else if ($path === 'reports') {
+    $path = 'checkdesk/reports';
   }
-  elseif ($original_path == 'checkdesk/my_stories') {
-    $path = 'search';
-    $options['query'] = array('type' => 'story', 'author' => $user->name);
-  }
-  elseif ($original_path == 'checkdesk/my_drafts') {
-    $path = 'search';
-    $options['query'] = array('status' => 0, 'author' => $user->name);
+  else if ($path === 'stories') {
+    $path = 'checkdesk/stories';
   }
 }
 
@@ -3672,7 +3729,7 @@ function _checkdesk_main_navigation() {
   //homepage, add a report, write a story and search
   $logo_icon = '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
   $items[] = array(
-    'data' => l($logo_icon . '<span>' . t('Homepage') . '</span>', '<front>', array(
+    'data' => l($logo_icon . '<span>' . t('Front page') . '</span>', '<front>', array(
       'attributes' => array('class' => array($a_class, 'homepage-link')),
       'html' => TRUE,      
     )),

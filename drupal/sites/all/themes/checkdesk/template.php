@@ -251,7 +251,6 @@ function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
 
   // load timeago library along with localized file
-
   drupal_add_js(drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago.js");
   $localized_timeago = drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago." . $language->language . ".js";
   if (file_exists($localized_timeago)) {
@@ -286,53 +285,6 @@ function checkdesk_preprocess_page(&$variables) {
   // Add JS file for front page only
   if ($variables['is_front']) {
     drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/front.js', array('scope' => 'footer', 'weight' => 99));
-  }
-
-  // Primary nav
-  $variables['primary_nav'] = FALSE;
-  if ($variables['main_menu']) {
-    // Build links
-    $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
-
-    // Remove empty expanded menus
-    foreach ($tree as $id => $item) {
-      if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
-        unset($tree[$id]);
-      }
-
-      if (isset($item['below']) && $item['link']['title'] == t('...')) {
-        $tree[$id]['link']['title'] = '&nbsp;';
-        $tree[$id]['link']['link_title'] = '&nbsp;';
-        $tree[$id]['link']['html'] = TRUE;
-      }
-    }
-
-    $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
-    foreach ($variables['main_menu'] as $id => $item) {
-      if ($item['link_path'] == 'node/add/media') {
-        $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
-        if (arg(0) == 'node' && is_numeric(arg(1)) && $variables['node']->type === 'discussion') {
-          $variables['main_menu'][$id]['query'] = array('ref_nid' => arg(1));
-        }
-      } else if ($item['link_path'] == 'node/add/discussion') {
-        $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
-      } else if ($item['link_path'] == 'node/add/post') {
-        $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
-        if (arg(0) == 'node' && is_numeric(arg(1)) && $variables['node']->type === 'discussion') {
-          $variables['main_menu'][$id]['query'] = array('story' => arg(1));
-        }
-      }
-    }
-
-    // Build list
-    $variables['primary_nav'] = theme('checkdesk_links', array(
-        'links' => $variables['main_menu'],
-        'attributes' => array(
-            'id' => 'main-menu',
-            'class' => array('nav'),
-        ),
-        'heading' => NULL,
-    ));
   }
 
   // Secondary nav
@@ -1096,6 +1048,28 @@ function checkdesk_field__field_tags(&$variables) {
   }
 }
 
+/**
+ * Implements hook_preprocess_button().
+ */
+function checkdesk_preprocess_button(&$variables) {
+  $element = &$variables['element'];
+
+  // Set the element's attributes.
+  element_set_attributes($element, array('id', 'name', 'value', 'type'));
+
+  // Add the base Bootstrap button class.
+  $element['#attributes']['class'][] = 'btn';
+
+  // Colorize button.
+  _checkdesk_colorize_button($element);
+
+  // Add in the button type class.
+  // $element['#attributes']['class'][] = 'form-' . $element['#button_type'];
+
+  // Ensure that all classes are unique, no need for duplicates.
+  $element['#attributes']['class'] = array_unique($element['#attributes']['class']);
+}
+
 function checkdesk_fboauth_action__connect(&$variables) {
   $action = $variables['action'];
   $link = $variables['properties'];
@@ -1186,20 +1160,13 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   }
 }
 
-/* Reports page */
-
-function checkdesk_preprocess_views_view__reports(&$vars) {
-  // add masonry library
-  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/jquery.masonry.min.js', 'file', array('group' => JS_THEME, 'every_page' => FALSE));
-}
-
 /**
  * Implements template_preprocess_views_view_fields().
  */
 function checkdesk_preprocess_views_view_fields(&$vars) {
   global $user;
 
-  if (in_array($vars['view']->name, array('reports', 'desk_reports'))) {
+  if (in_array($vars['view']->name, array('desk_reports'))) {
     $report_nid = $vars['fields']['nid']->raw;
     $vars['name_i18n'] = isset($vars['fields']['field_rating']->content) ? t($vars['fields']['field_rating']->content) : NULL;
 
@@ -1251,15 +1218,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
  * Process variables for user-profile.tpl.php.
  */
 function checkdesk_preprocess_user_profile(&$variables) {
-  $profile = $variables['elements']['#account'];
-
   $variables['member_for'] = t('Member for @time', array('@time' => $variables['user_profile']['summary']['member_for']['#markup']));
-
-  // User reports
-  $reports = views_get_view('reports');
-  $reports->set_arguments(array($profile->uid));
-  $variables['reports'] = $reports->preview('block_1');
-  $reports->destroy();
 }
 
 /*

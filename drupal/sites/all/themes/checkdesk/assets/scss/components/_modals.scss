@@ -36,8 +36,8 @@ $large-modal-width: 700px;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: $zindexModalBackdrop;
-  background-color: $black;
+  z-index: $z-index-ModalBackdrop;
+  background-color: #000;
   // Fade for backdrop
   &.fade { opacity: 0; }
 }
@@ -50,8 +50,8 @@ $large-modal-width: 700px;
 // Base modal
 .modal {
   position: fixed;
-  z-index: $zindexModal;
-  background-color: $white;
+  z-index: $z-index-Modal;
+  background-color: #fff;
   border: 1px solid #999;
   border: 1px solid $firefly30;
   *border: 1px solid #999; /* IE6-7 */
@@ -71,7 +71,7 @@ $large-modal-width: 700px;
 .modal-header {
   // padding: 4px $gutter-width 0 $gutter-width;
   border-bottom: 1px solid #eee;
-  background-color: $white;
+  background-color: #fff;
   overflow: hidden;
   // Close icon
   .close { 
@@ -101,14 +101,14 @@ $large-modal-width: 700px;
     form {
       padding: 0;
       margin: 0;
-      z-index: $zindexModal + 1;
+      z-index: $z-index-Modal + 1;
       
       label { 
-        font-size: $fontSizeSmall;
+        font-size: $font-size-small;
       }
 
       textarea {
-        font-size: $fontSizeSmall;
+        font-size: $font-size-small;
         height: 80px;
       }
     }
@@ -142,7 +142,7 @@ $large-modal-width: 700px;
   background-color: #f5f5f5;
   border-top: 1px solid #ddd;
   @include border-radius(0 0 6px 6px);
-  @include box-shadow(inset 0 1px 0 $white);
+  @include box-shadow(inset 0 1px 0 #fff);
   @include ctb-clearfix(); // clear it in case folks use .pull-* classes on buttons
 
   .form-actions {
@@ -154,11 +154,11 @@ $large-modal-width: 700px;
     // sometimes the button is an input
     input.btn {
       float: $from-direction;
-      @include button($identity, 18px);
+      @include button($brand-primary, 18px);
     }
     // sometimes it is an anchor element
     a.btn {
-      @include button($grayLight, 18px);
+      @include button($gray-light, 18px);
     }
 
     .ajax-progress-throbber {

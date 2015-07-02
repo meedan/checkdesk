@@ -58,15 +58,15 @@ $tumblr-blue: #36465d;
 // Color configuration
 // ================================================
 
-// Identity
-$identity: $dodgerBlue;
+// brand-primary
+$brand-primary: $dodgerBlue;
 
 // Basics
 $bkg-color: #fff; // light grey // TODO: This should be a subtle pattern
 $input-background: #fff;
 $hr-color: $firefly20;
 $text-color: $firefly;
-$link-color: $identity;
+$link-color: $brand-primary;
 
 // susy grid colors
 $grid-background-gutter-color : $postit-yellow;
@@ -95,7 +95,7 @@ $default_debug_color: $debug-six;
 
 // Notifications theme
 $notification-count-color: #fff;
-$notification-count-bkg-color: rgba($identity, 0.9);
+$notification-count-bkg-color: rgba($brand-primary, 0.9);
 
 // Navigation theme
 // Used in chunky_block in buttons.scss
@@ -129,8 +129,8 @@ $dropdown-link-bkg-hover: darken($dropdown-link-bkg-active, 10%);
 
 
 // Buttons
-$button-color: $identity;
-$active-button-color: $identity;
+$button-color: $brand-primary;
+$active-button-color: $brand-primary;
 
 // =================================================================
 // Legacy colors from twitter bootstrap
@@ -138,13 +138,12 @@ $active-button-color: $identity;
 // Bootstrap Grays
 // #deprecated
 // -------------------------
-$black:                 #000 !default;
-$grayDarker:            #222 !default;
-$grayDark:              #333 !default;
-$gray:                  #555 !default;
-$grayLight:             #999 !default;
-$grayLighter:           #eee !default;
-$white:                 #fff !default;
+$gray-base:              #000 !default;
+$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:              lighten($gray-base, 20%) !default;   // #333
+$gray:                   lighten($gray-base, 33.5%) !default; // #555
+$gray-light:             lighten($gray-base, 46.7%) !default; // #777
+$gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
 
 // Bootstrap Accent colors
@@ -163,8 +162,8 @@ $purple:                #7a43b6 !default;
 // Bootstrap Scaffolding
 // #deprecated
 // -------------------------
-$bodyBackground:        $white !default;
-$textColor:             $grayDark !default;
+$bodyBackground:        #fff !default;
+$textColor:             $gray-dark !default;
 
 // BootstrapLinks
 // #deprecated
@@ -183,24 +182,22 @@ $tableBorder:                       #ddd !default; // table and cell border
 // // Forms
 // #deprecated
 // // -------------------------
-$inputBackground:               $white !default;
+$inputBackground:               #fff !default;
 $inputBorder:                   #ccc !default;
-// $inputBorderRadius:             $radius !default;
-$inputDisabledBackground:       $grayLighter !default;
+$inputDisabledBackground:       $gray-lighter !default;
 $formActionsBackground:         #f5f5f5 !default;
-$inputHeight:                   $absolute-line-height + 18px;
 
 
 // // Dropdowns
 // #deprecated
 // -------------------------
-$dropdownBackground:            $white !default;
+$dropdownBackground:            #fff !default;
 $dropdownBorder:                $firefly20 !default;
 $dropdownDividerTop:            #e5e5e5 !default;
-$dropdownDividerBottom:         $white !default;
+$dropdownDividerBottom:         #fff !default;
 
 $dropdownLinkColor:             $firefly80 !default;
-$dropdownLinkColorHover:        $white !default;
+$dropdownLinkColorHover:        #fff !default;
 $dropdownLinkColorActive:       $dropdownLinkColor !default;
 
 $dropdownLinkBackgroundActive:  $linkColor !default;

@@ -106,7 +106,7 @@
 
           <div class="views-exposed-widget views-submit-button">
             <?php print $button; ?>
-            <a id="close" class="btn" data-dismiss="dropdown" aria-hidden="true"><?php print t('Close'); ?></a>
+            <button id="close" type="button" class="btn btn-default" data-dismiss="dropdown" aria-hidden="true"><?php print t('Close'); ?></button>
           </div>
           
           <?php if (!empty($reset_button)): ?>

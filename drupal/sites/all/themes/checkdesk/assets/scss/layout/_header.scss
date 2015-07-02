@@ -47,37 +47,36 @@ ul#breadcrumb {
 }
 
 ul#breadcrumb h1 {
-  font-size: 28px;
-  @include cd-sans-serif-family;
-  font-weight: 700;
   margin-bottom: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   padding-#{$omega}: 200px;
+  overflow: hidden;
+  @include cd-sans-serif-family;
+  font-size: 28px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 ul#user-menu {
+  #{$alpha}: 0;
 	@include flex-direction(row-reverse);
-	#{$alpha}: 0;
 	margin-#{$alpha}: $navbarWidth;
 	z-index: $z-index-FixedHeader;
   background: #fff;
-  body.nofront & {
-    border-bottom: 1px solid rgba($firefly, 0.05);  
-  }
-  
-	li {
-		position: relative;
-		#my-notifications-menu-link {
-			border-#{$alpha}: 1px solid $firefly10;
-		}
-	}
 
-  li > a { 
-    padding: 0 20px;
-    @include transition(border 0.2s ease);
-    @include transition(color 0.2s ease);
+  &:after {
+    content: '';
+    position: absolute;
+    #{$alpha}: 0;
+    #{$omega}: 0;
+    bottom: 0;
+    height: 100%;
+    box-shadow:0 -4px 0px 4px #edeff0,0 2px 4px 0 rgba(0,0,0,0.2);
+    opacity: 0;
+    pointer-events: none;
+    .show-content-shadow & {
+      opacity: 1;
+    }
   }
 
 	// add bell icon for notifications.
@@ -87,6 +86,20 @@ ul#user-menu {
       margin: 0;
     }
   }
+}
+
+
+ul#user-menu li {
+  position: relative;
+  #my-notifications-menu-link {
+    border-#{$alpha}: 1px solid $firefly10;
+  }
+}
+
+ul#user-menu li > a { 
+  padding: 0 20px;
+  @include transition(border 0.2s ease);
+  @include transition(color 0.2s ease);
 }
 
 ul#user-menu .badge {

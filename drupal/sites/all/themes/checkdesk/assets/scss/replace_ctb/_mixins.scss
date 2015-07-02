@@ -415,11 +415,11 @@
 }
 
 // Add an alphatransparency value to any background or border color (via Elyse Holladay)
-@mixin ctb-translucent-background($color: $white, $alpha: 1) {
+@mixin ctb-translucent-background($color: #fff, $alpha: 1) {
   background-color: hsla(hue($color), saturation($color), lightness($color), $alpha);
 }
 
-@mixin ctb-translucent-border($color: $white, $alpha: 1) {
+@mixin ctb-translucent-border($color: #fff, $alpha: 1) {
   border-color: hsla(hue($color), saturation($color), lightness($color), $alpha);
   @include ctb-background-clip(padding-box);
 }
@@ -502,7 +502,7 @@
 // Horizontal dividers
 // -------------------------
 // Dividers (basically an hr) within dropdowns and nav lists
-@mixin ctb-nav-divider($top: #e5e5e5, $bottom: $white) {
+@mixin ctb-nav-divider($top: #e5e5e5, $bottom: #fff) {
   // IE7 needs a set width since we gave a height. Restricting just
   // to IE7 to keep the 1px left/right space in other browsers.
   // It is unclear where IE is getting the extra space that we need
@@ -538,43 +538,7 @@
   }
 }
 
-@mixin ctb-load-more-pager {
-  .pager-load-more {
-      @include ctb-clearfix;
-      @include reset-list-style;
-      padding: $absolute-line-height/2 0;
-      float: none;
-      clear: both;
-      position: relative;
-      text-align: center;
-      a {
-        width: 70%;
-        text-align: center;
-        @if $from-direction == 'left' {
-          letter-spacing: 0.05em;
-        }
-        @include cd-sans-serif-family;
-        font-size: $small-font-size;
-        font-weight: 700;
-        color: $firefly40;
-        background-color: rgba(255,255,255,.8);
-        &:hover {
-          color: $white;
-          background-color: $identity;
-          border: 1px solid $identity;
-        }
-        @include ctb-border-radius(4px);
-      }
-      .ajax-progress-throbber {
-        position: absolute;
-        top: 4px;
-        #{$omega}: $gutter-width;
-        .throbber {
-          background: url("../imgs/icons/loader_white.gif");
-        }
-      }
-    }
-}
+
 
 // Navbar vertical align
 // -------------------------
@@ -728,4 +692,89 @@
   //   }
   //   $i: $i - 1;
   // }
+}
+
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+@mixin ctb-button-variant($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+
+  &:focus,
+  &.focus {
+    color: $color;
+    @if($background == 'transparent'){ 
+      background-color: #fff;
+    } @else {
+      background-color: darken($background, 10%); 
+    }
+    border-color: darken($border, 25%);
+  }
+  &:hover {
+    color: $color;
+    @if($background == 'transparent'){ 
+      background-color: #fff;
+    } @else {
+      background-color: darken($background, 10%); 
+    }
+    border-color: darken($border, 12%);
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    @if($background == 'transparent'){ 
+      background-color: #fff;
+    } @else {
+      background-color: darken($background, 10%); 
+    }
+    border-color: darken($border, 12%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      @if($background == 'transparent'){ 
+        background-color: #fff; 
+      } @else {
+        background-color: darken($background, 17%); 
+      }
+      border-color: darken($border, 25%);
+    }
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    &.active {
+      background-color: $background;
+          border-color: $border;
+    }
+  }
+
+  .badge {
+    color: $background;
+    background-color: $color;
+  }
+}
+
+// Button sizes
+@mixin ctb-button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+  padding: $padding-vertical $padding-horizontal;
+  font-size: $font-size;
+  line-height: $line-height;
+  border-radius: $border-radius;
 }

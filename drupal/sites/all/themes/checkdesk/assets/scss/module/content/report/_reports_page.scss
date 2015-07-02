@@ -79,7 +79,7 @@ body.page-reports, .profile {
       .report-row-container {
         text-align: $from-direction;
         padding: $absolute-line-height/2 0;
-        border-bottom: 1px solid lighten($grayLight, 20%);
+        border-bottom: 1px solid lighten($gray-light, 20%);
         @include ctb-transition(opacity 0.3s linear);
       }
 
@@ -102,7 +102,7 @@ body.page-reports, .profile {
           }
           .media-title {
             margin: $absolute-line-height/4 0;
-            font-size: $fontSizeSmall;
+            font-size: $font-size-small;
             line-height: 1.2;
             color: $gray;
           }
@@ -185,7 +185,7 @@ body.page-reports, .profile {
 
       .report-detail-link {
         a {
-          @include checkdesk-button($grayLight);
+          @include checkdesk-button($gray-light);
           @include button-size(13px);
         }
       }
@@ -208,7 +208,7 @@ body.page-reports, .profile {
         @if $alpha == 'right' {
           background-image: url(../imgs/published-ar.png);
         }
-        // @include icon(file-o, 22px, $black, 'after');
+        // @include icon(file-o, 22px, #000, 'after');
 
         span {
           display: none;

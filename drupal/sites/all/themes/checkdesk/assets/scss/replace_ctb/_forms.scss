@@ -32,7 +32,7 @@ legend {
   // Small
   small {
     font-size: $absolute-line-height * .75;
-    color: $grayLight;
+    color: $gray-light;
   }
 }
 
@@ -86,7 +86,7 @@ input[type="color"],
   margin-bottom: $absolute-line-height / 4;
   font-size: $base-font-size;
   font-family: $body-font-stack;
-  color: $grayLight;
+  color: $gray-light;
   @include border-radius($radius);
   vertical-align: middle;
 }
@@ -174,9 +174,9 @@ input[type="checkbox"] {
 // Set the height of select and file controls to match text inputs
 select,
 input[type="file"] {
-  height: $inputHeight; /* In IE7, the height of the select element cannot be changed by height, only font-size */
+  height: $absolute-line-height + 18px;; /* In IE7, the height of the select element cannot be changed by height, only font-size */
   *margin-top: 4px; /* For IE7, add top margin to align select with labels */
-  line-height: $inputHeight;
+  line-height: $absolute-line-height + 18px;;
 }
 
 // Make select elements obey height by applying a border
@@ -207,7 +207,7 @@ input[type="checkbox"]:focus {
 // Make uneditable inputs look inactive
 .uneditable-input,
 .uneditable-textarea {
-  color: $grayLight;
+  color: $gray-light;
   background-color: darken($inputBackground, 1%);
   border-color: $inputBorder;
   @include box-shadow(inset 0 1px 2px rgba(0,0,0,.025));
@@ -330,7 +330,7 @@ input[type="checkbox"][readonly] {
 .help-block {
   margin-top: 5px;
   margin-bottom: 0;
-  color: $grayLight;
+  color: $gray-light;
 }
 
 .form-item {
@@ -339,7 +339,7 @@ input[type="checkbox"][readonly] {
     margin-bottom: 9px;
     vertical-align: middle;
     padding-left: 5px;
-    color: $grayLight;
+    color: $gray-light;
     font-size: 12px;
     @include ctb-ie7-inline-block();
   }
@@ -355,6 +355,3 @@ input[type="checkbox"][readonly] {
 
 
 }
-
-
-
