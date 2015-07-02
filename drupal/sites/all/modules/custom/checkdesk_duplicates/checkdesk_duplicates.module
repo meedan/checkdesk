@@ -63,11 +63,11 @@ function checkdesk_duplicates_form_media_node_form_alter(&$form, &$form_state) {
  * Validate report against selected story
  */
 function _checkdesk_duplicates_form_validate($form, &$form_state) {
-  $story_nid = $form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'];
-  if ($story_nid) {
+  $story_id = $form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'];
+  if ($story_id) {
     $report_id = isset($form_state['values']['nid']) ? $form_state['values']['nid'] : 0;
-    $duplicate = _checkdesk_detect_report_duplicate($form_state['values']['field_link'][LANGUAGE_NONE][0]['url'], $report_id, $story_nid);
-    if ($duplicate['duplicate_story']) {
+    $duplicate = _checkdesk_duplicate_report_story_exists($form_state['values']['field_link'][LANGUAGE_NONE][0]['url'], $report_id, $story_id);
+    if ($duplicate['duplicate']) {
       form_set_error('field_link', $duplicate['msg']);
     }
   }
@@ -82,24 +82,31 @@ function _checkdesk_duplicate_report_story() {
   $report_id = $_GET['report_id'];
   $story_id = is_numeric($_GET['story_id']) ? $_GET['story_id'] : 0;
   if ($url && $story_id) {
-    $n_url = _checkdesk_normalize_url($url);
-    $query = db_select('field_data_field_link', 'fl');
-    $query->addField('fl', 'entity_id');
-    $query->innerJoin('field_data_field_stories', 'fs', ' fl.entity_id = fs.entity_id');
-    $query->condition('fl.field_link_url', $n_url)
-      ->condition('fl.entity_id', $report_id, '<>')
-      ->condition('fs.field_stories_target_id', $story_id);
-    $query->addTag('checkdesk_duplicate');
-    $result = $query->execute()->fetchField();
-    if ($result) {
-      $output['duplicate'] = TRUE;
-      $output['msg'] = t('Report already exists !report', array(
-        '!report' => l(t('View the link'), 'node/'. $result, array('attributes' => array('target'=>'_blank'))))
-      );
-    }
+   $output = _checkdesk_duplicate_report_story_exists($url, $report_id, $story_id);
   }
   drupal_json_output($output);
 }
+
+function _checkdesk_duplicate_report_story_exists($url, $report_id, $story_id) {
+  $output['duplicate'] = FALSE;
+  $n_url = _checkdesk_normalize_url($url);
+  $query = db_select('field_data_field_link', 'fl');
+  $query->addField('fl', 'entity_id');
+  $query->innerJoin('field_data_field_stories', 'fs', ' fl.entity_id = fs.entity_id');
+  $query->condition('fl.field_link_url', $n_url)
+    ->condition('fl.entity_id', $report_id, '<>')
+    ->condition('fs.field_stories_target_id', $story_id);
+  $query->addTag('checkdesk_duplicate');
+  $result = $query->execute()->fetchField();
+  if ($result) {
+    $output['duplicate'] = TRUE;
+    $output['msg'] = t('Report already exists !report', array(
+        '!report' => l(t('View the link'), 'node/'. $result, array('attributes' => array('target'=>'_blank'))))
+    );
+  }
+  return $output;
+}
+
 /**
  * Helper function to Normalize URL
  * @param $url
