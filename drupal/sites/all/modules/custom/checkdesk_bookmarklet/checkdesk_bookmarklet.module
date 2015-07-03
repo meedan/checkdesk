@@ -197,8 +197,18 @@ function _checkdesk_bookmarklet_media_preview($path) {
       // Add duplicate reports id exists
       $response['duplicates'] = FALSE;
       if (module_exists('checkdesk_duplicates')) {
-        $duplicates = _checkdesk_detect_report_duplicate($path, $_GET['report_id'], $_GET['story_id']);
-        $response['duplicates'] = $duplicates;
+        // hide duplicate reports messages in node edit form
+        if ($_GET['report_id']) {
+          $report = node_load($_GET['report_id']);
+          if ($report->field_link[LANGUAGE_NONE][0]['url'] != $path) {
+            $duplicates = _checkdesk_detect_report_duplicate($path, $_GET['report_id'], $_GET['story_id']);
+            $response['duplicates'] = $duplicates;
+          }
+        }
+        else {
+          $duplicates = _checkdesk_detect_report_duplicate($path, $_GET['report_id'], $_GET['story_id']);
+          $response['duplicates'] = $duplicates;
+        }
       }
     }
   }

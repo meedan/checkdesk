@@ -32,14 +32,11 @@
           $controls.show();
           $('#checkdesk_report_duplicate').hide();
           if (data.duplicates.duplicate) {
+              $('#checkdesk_report_duplicate').show().html(data.duplicates.msg);
               if (data.duplicates.duplicate_story) {
-                  //Report already exists in same story
-                  $('#checkdesk_report_duplicate').show().html(data.duplicates.msg);
+                  // Report already exists in same story
                   // Hide submit button
                   $('#edit-submit').hide();
-              }
-              else {
-                  $('#checkdesk_report_duplicate').show().html(data.duplicates.msg);
               }
           }
         }

@@ -3,7 +3,6 @@
 	font-size: 16px;
 	color: $firefly60;
 	word-wrap: break-word;
-	a { @include ctb-linkColor($firefly60); }
 
 	.item-content-wrapper {
 		@include border-radius(4px 4px 0 0);
@@ -13,6 +12,7 @@
 	.item-message {
 		padding: 15px 20px 0 20px;
 		background-color: #fff;
+		a { @include ctb-linkColor($firefly60); }
 	}
 
 	.item-content-wrapper {

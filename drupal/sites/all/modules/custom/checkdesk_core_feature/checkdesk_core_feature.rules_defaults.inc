@@ -284,15 +284,11 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "checkdesk_core", "php" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler", "checkdesk_core" ],
       "ON" : { "node_update--media" : { "bundle" : "media" } },
       "IF" : [
         { "NOT data_is_empty" : { "data" : [ "node:field-stories:nid" ] } },
-        { "NOT data_is" : {
-            "data" : [ "node-unchanged:field-stories:nid" ],
-            "value" : [ "node:field-stories:nid" ]
-          }
-        }
+        { "php_eval" : { "code" : "if (isset($node_unchanged-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n   if ($node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027] == $node_unchanged-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027]) {\\r\\n      return FALSE;\\r\\n   }\\r\\n}\\r\\nreturn TRUE;" } }
       ],
       "DO" : [
         { "heartbeat_activity_checkdesk_report_suggested_to_story" : {

@@ -71,7 +71,8 @@ function checkdesk_bot__generate_response($tweet) {
   // TODO: take into account Twitter user's preferences, Checkdesk user preferences, browser settings, etc.
   global $language;
   $languages = language_list();
-  $langcode = empty($tweet['lang']) || $tweet['lang'] === 'und' || empty($languages[$tweet['lang']]) ? $language->language : $tweet['lang'];
+  $langcode = empty($tweet['lang']) || $tweet['lang'] === 'und' || empty($languages[$tweet['lang']]) ? 
+    $language->language : $tweet['lang'];
 
   // Detect URL if any.
   if (1 === count($tweet['entities']['urls'])) {
@@ -103,7 +104,7 @@ function checkdesk_bot__generate_response($tweet) {
     );
   }
 
-  // Is the URL ours?
+  // Is the link ours?
   global $base_url;
   if (parse_url($report_url, PHP_URL_HOST) === parse_url($base_url, PHP_URL_HOST)) {
     return t(
@@ -117,9 +118,18 @@ function checkdesk_bot__generate_response($tweet) {
     );
   }
 
-  // Detect duplicate URL.
-  if ($duplicates = checkdesk_bot__duplicates($report_url)) {
-    // TODO Tell user about duplicates and exit.
+  // Detect duplicate links.
+  if (module_exists('checkdesk_duplicates') && ($duplicates = _checkdesk_duplicate_reports($report_url))) {
+    return t(
+      '!screen_name this link already exists: !url',
+      array(
+        '!screen_name' => '@' . $tweet['user']['screen_name'],
+        '!url' => url('node/' . key($duplicates), array('absolute' => TRUE)),
+      ),
+      array(
+        'langcode' => $langcode,
+      )
+    );
   }
 
   // Detect story hashtag if any.
@@ -163,11 +173,6 @@ function checkdesk_bot__generate_response($tweet) {
 
 function checkdesk_bot__detect_stories($hashtags) {
   // TODO Match each hashtag to the field_hashtag of a story and return nids of matching stories.
-  return array();
-}
-
-function checkdesk_bot__duplicates($report_url) {
-  // TODO Match $report_url with existing ones and return matching report nodes. Remember to normalize URL.
   return array();
 }
 
