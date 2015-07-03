@@ -3,44 +3,52 @@
 
 // adjust top for drupal toolbar
 body.toolbar-drawer #sidebar-first.column {
-  top: $toolbarHeight + $headerHeight !important;
+  top: $toolbarHeight + $headerHeight;
 }
 
-body.sidebar-first #main {
-  position: relative;
-  @include flexbox;
-}
-
-body.sidebar-first #main #content {
-  margin-#{$alpha}: 360px;
-  @include flex(4);
-}
-
-body.sidebar-first #sidebar-first.column {
-  position: fixed;
-  // flex-basis: 360px;
-  // flex-shrink: 1;
-  // flex-grow: 2;
-  @include flex(2 1 360px);
-  #{$alpha}: $navbarWidth;
-  top: $headerHeight;
-  z-index: 1;
-  max-width: 360px;
-  height: 100%;
-}
-
-
-// add styles for load more pager
-#sidebar-first.column { 
-  border-#{$omega}: 1px solid $firefly10;
-  background-color: #fff;
-  .view-desk-reports {
-    .view-content {
-      height: auto; // default height adjusted by jQuery in reports.js
-      overflow-y: auto;
-    }
+@media (min-width: 1px) and (max-width: #{$width-mobile}) {
+  body.sidebar-first #sidebar-first.column {
+    display: none;
   }
-  @include ctb-load-more-pager; 
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  body.sidebar-first #main {
+    position: relative;
+    @include flexbox;
+  }
+
+  body.sidebar-first #main #content {
+    margin-#{$alpha}: 360px;
+    @include flex(4);
+  }
+
+  body.sidebar-first #sidebar-first.column {
+    position: fixed;
+    // flex-basis: 360px;
+    // flex-shrink: 1;
+    // flex-grow: 2;
+    @include flex(2 1 360px);
+    #{$alpha}: $navbarWidth;
+    top: $headerHeight;
+    z-index: 1;
+    max-width: 360px;
+    height: 100%;
+  }
+
+
+  // add styles for load more pager
+  #sidebar-first.column { 
+    border-#{$omega}: 1px solid $firefly10;
+    background-color: #fff;
+    .view-desk-reports {
+      .view-content {
+        height: auto; // default height adjusted by jQuery in reports.js
+        overflow-y: auto;
+      }
+    }
+    @include ctb-load-more-pager; 
+  }
 }
 
 
