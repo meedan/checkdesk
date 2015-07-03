@@ -12,6 +12,7 @@
   background-color: $warningBackground;
   border: 1px solid $warningBorder;
   @include border-radius($radius);
+  word-wrap: break-word;
 }
 
 .messages,

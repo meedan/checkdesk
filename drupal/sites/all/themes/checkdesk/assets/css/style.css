@@ -1555,6 +1555,7 @@ textarea {
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
+  word-wrap: break-word;
 }
 
 .messages,
@@ -2724,16 +2725,22 @@ html {
   padding-left: 20px;
   padding-right: 20px;
 }
+@media only screen and (min-width: 740px) {
+  #main #content, #main #widgets, #main footer {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
 
 #main #content {
   padding-top: 20px;
-  max-width: 1040px;
-  margin-left: auto;
-  margin-right: auto;
 }
 @media only screen and (min-width: 740px) {
   #main #content {
     padding-top: 40px;
+    max-width: 1040px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -3811,15 +3818,8 @@ body.sidebar-second #main {
 }
 
 body.sidebar-second #main #content {
-  padding-right: 20px;
-  -webkit-box-flex: 4;
-  -webkit-flex: 4;
-  -moz-box-flex: 4;
-  -moz-flex: 4;
-  -ms-flex: 4;
-  flex: 4;
-  margin: 0;
-  max-width: 860px;
+  margin-left: 0;
+  margin-right: 0;
   overflow: auto;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -3890,12 +3890,6 @@ body.sidebar-second .cd-container .pager-load-more {
 }
 
 body.sidebar-second aside#sidebar-second {
-  -webkit-box-flex: 2;
-  -webkit-flex: 2;
-  -moz-box-flex: 2;
-  -moz-flex: 2;
-  -ms-flex: 2;
-  flex: 2;
   overflow: auto;
   height: auto;
   -webkit-box-sizing: border-box;
@@ -3904,7 +3898,24 @@ body.sidebar-second aside#sidebar-second {
 }
 
 @media only screen and (min-width: 740px) {
+  body.sidebar-second #main #content {
+    -webkit-box-flex: 4;
+    -webkit-flex: 4;
+    -moz-box-flex: 4;
+    -moz-flex: 4;
+    -ms-flex: 4;
+    flex: 4;
+    padding-right: 20px;
+    max-width: 860px;
+  }
+
   body.sidebar-second aside#sidebar-second {
+    -webkit-box-flex: 2;
+    -webkit-flex: 2;
+    -moz-box-flex: 2;
+    -moz-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
     padding-right: 50px;
     padding-top: 40px;
     max-width: 300px;

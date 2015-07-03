@@ -25,16 +25,20 @@ html {
   position: relative;
   padding-#{$alpha}: 20px;
   padding-#{$omega}: 20px;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    padding-#{$alpha}: 50px;
+    padding-#{$omega}: 50px;
+  }
 }
 
 #main #content {
   padding-top: $padding-large-horizontal;
   @include cd-responsive('min-width: #{$width-tablet}') {
     padding-top: $padding-large-horizontal*2;  
+    max-width: 1040px;
+    margin-#{$alpha}: auto;
+    margin-#{$omega}: auto;
   }
-  max-width: 1040px;
-  margin-#{$alpha}: auto;
-  margin-#{$omega}: auto;
 }
 
 // for content pages

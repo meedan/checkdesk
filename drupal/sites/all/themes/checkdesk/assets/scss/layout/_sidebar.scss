@@ -55,10 +55,8 @@ body.sidebar-second #main {
 }
 
 body.sidebar-second #main #content {
-	padding-#{$omega}: 20px;
-	@include flex(4);
-  margin: 0;
-  max-width: 860px;
+  margin-#{$alpha}: 0;
+  margin-#{$omega}: 0;
 	overflow: auto;
   @include box-sizing(border-box);
 }	
@@ -75,14 +73,19 @@ body.sidebar-second .cd-container {
 }
 
 body.sidebar-second aside#sidebar-second {
-	@include flex(2);
 	overflow: auto;
 	height: auto;
 	@include box-sizing(border-box);
 }
 
 @include cd-responsive('min-width: #{$width-tablet}') {
+  body.sidebar-second #main #content {
+    @include flex(4);
+    padding-#{$omega}: 20px;
+    max-width: 860px;
+  }
   body.sidebar-second aside#sidebar-second {
+    @include flex(2);
     padding-#{$omega}: 50px;
     padding-top: $padding-large-horizontal*2;
     max-width: 300px;
