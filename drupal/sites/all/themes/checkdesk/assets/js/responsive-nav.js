@@ -31,7 +31,7 @@
       // see: _variables for standar breakpoint variables if needed
       
       mediaCheck({
-        media: '(max-width: 500px)',
+        media: '(max-width: 750px)',
         entry: function() {
           // On mobile: Make sign in / sign up button small and trim copy
           $('.btn-sign-in-up').text('Sign in').addClass('btn-sm');
@@ -55,7 +55,7 @@
   Drupal.behaviors.responsiveSearch = {
     attach: function(context) {
       mediaCheck({
-        media: '(max-width: 500px)',
+        media: '(max-width: 750px)',
         entry: function() {
           // Show filters toggle button
           $('.content-filter .filters-toggle').removeClass('element-hidden');

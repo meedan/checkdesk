@@ -282,7 +282,7 @@ ul#user-menu .icon-bell-o:before {
 
 /* incase an inverted custom gradient isn't specified */
 form {
-  margin: 0 0 24px;
+  margin-bottom: 30px;
 }
 
 fieldset {
@@ -3053,7 +3053,7 @@ ul#user-menu li {
     border-left: 1px solid #e7e8ea;
   }
 }
-@media (min-width: 1px) and (max-width: 375px) {
+@media (min-width: 1px) and (max-width: 740px) {
   #my-account-link .caret {
     display: none;
   }
@@ -3079,7 +3079,7 @@ ul#user-menu li a.dropdown-toggle {
 ul#user-menu li a.dropdown-toggle:hover {
   color: #50565b;
 }
-@media (min-width: 1px) and (max-width: 375px) {
+@media (min-width: 1px) and (max-width: 740px) {
   ul#user-menu li a.dropdown-toggle {
     padding-left: 8px;
     padding-right: 8px;
@@ -3159,7 +3159,7 @@ ul#utility-menu a.language-link {
   -o-border-radius: 4px 0 4px 4px;
   border-radius: 4px 0 4px 4px;
 }
-@media (min-width: 1px) and (max-width: 375px) {
+@media (min-width: 1px) and (max-width: 740px) {
   #user-menu .dropdown-menu {
     width: 100%;
     left: 0;
@@ -3306,7 +3306,7 @@ ul#utility-menu a.language-link {
     transform: rotate(45deg);
   }
 }
-@media (min-width: 1px) and (max-width: 375px) {
+@media (min-width: 1px) and (max-width: 740px) {
   #header nav {
     position: static !important;
     display: block;
@@ -3409,7 +3409,7 @@ svg.logo-icon {
 }
 
 /*! responsive-nav.js 1.0.39 by @viljamis */
-@media (min-width: 1px) and (max-width: 375px) {
+@media (min-width: 1px) and (max-width: 740px) {
   .nav-collapse ul {
     margin: 0;
     padding: 0;
@@ -3525,7 +3525,7 @@ svg.logo-icon {
     top: 65px;
   }
 }
-@media (min-width: 1px) and (max-width: 375px) {
+@media (min-width: 1px) and (max-width: 740px) {
   div.region-page-top #toolbar {
     display: none;
   }
@@ -3699,7 +3699,7 @@ body.toolbar-drawer #sidebar-first.column {
   top: 130px;
 }
 
-@media (min-width: 1px) and (max-width: 375px) {
+@media (min-width: 1px) and (max-width: 740px) {
   body.sidebar-first #sidebar-first.column {
     display: none;
   }
@@ -3913,7 +3913,7 @@ body.sidebar-second aside#sidebar-second {
     max-width: 300px;
   }
 }
-@media (min-width: 1px) and (max-width: 375px) {
+@media (min-width: 1px) and (max-width: 740px) {
   body.sidebar-second #main {
     -webkit-box-direction: normal;
     -webkit-box-orient: vertical;
@@ -6615,7 +6615,7 @@ body.cke_editable blockquote:after {
   margin-right: 30px;
 }
 
-@media (min-width: 1px) and (max-width: 375px) {
+@media (min-width: 1px) and (max-width: 740px) {
   .filter {
     display: block;
     margin-right: 0;
@@ -7733,16 +7733,7 @@ form .nodescription .description {
   display: none;
 }
 form div.form-actions {
-  *zoom: 1;
   margin-top: 30px;
-}
-form div.form-actions:before, form div.form-actions:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-form div.form-actions:after {
-  clear: both;
 }
 form input:disabled {
   background-color: white;

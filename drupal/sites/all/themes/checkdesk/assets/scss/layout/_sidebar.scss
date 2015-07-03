@@ -6,7 +6,7 @@ body.toolbar-drawer #sidebar-first.column {
   top: $toolbarHeight + $headerHeight;
 }
 
-@media (min-width: 1px) and (max-width: #{$width-mobile}) {
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
   body.sidebar-first #sidebar-first.column {
     display: none;
   }
@@ -100,7 +100,7 @@ body.sidebar-second aside#sidebar-second {
   }
 }
 
-@media (min-width: 1px) and (max-width: #{$width-mobile}) {
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
   body.sidebar-second #main {
     @include flex-direction(column);
   }

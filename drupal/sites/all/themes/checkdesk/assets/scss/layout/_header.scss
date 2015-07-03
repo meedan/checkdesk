@@ -140,7 +140,7 @@ ul#user-menu li {
   }
 }
 
-@media (min-width: 1px) and (max-width: #{$width-mobile}) {
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
   #my-account-link .caret { display: none; }
 }
 
@@ -155,7 +155,7 @@ ul#user-menu li a.dropdown-toggle {
   padding-#{$alpha}: 20px;
   padding-#{$omega}: 20px;
   @include ctb-linkColor($firefly30);
-  @media (min-width: 1px) and (max-width: #{$width-mobile}) {
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
     padding-#{$alpha}: 8px;
     padding-#{$omega}: 8px;
   }
@@ -207,7 +207,7 @@ ul#utility-menu {
   #{$alpha}: auto;
   #{$omega}: 10px;
 
-  @media (min-width: 1px) and (max-width: #{$width-mobile}) {
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
     width: 100%;
     #{$alpha}: 0;
     #{$omega}: 0;
