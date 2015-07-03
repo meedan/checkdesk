@@ -18,7 +18,9 @@
 	.filter { 
 		display: block;
 		margin-#{$omega}: 0;
-		border-bottom: 1px solid $firefly5;
+		&:not(:last-child) {
+			border-bottom: 1px solid $firefly5;
+		}
 	}
 }
 

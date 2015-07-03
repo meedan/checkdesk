@@ -2,12 +2,16 @@
 
 #my-account {
   width: 438px; // warning magic px CGB
+  padding-#{$alpha}: 10px;
+  padding-#{$omega}: 10px;
 }
 
 #my-account .info {
+  float: $alpha;
+
   a.username {
     @include reset-box-model;
-    color: $grey;
+    color: $firefly80;
     font-weight: bold;
     font-size: $font-size-small;
   }

@@ -203,24 +203,22 @@ ul#utility-menu {
 }
 
 // Position dropdown menu
-#user-menu {
-  .dropdown-menu {
-    #{$alpha}: auto;
-    #{$omega}: 10px;
+#user-menu .dropdown-menu {
+  #{$alpha}: auto;
+  #{$omega}: 10px;
 
-    @media (min-width: 1px) and (max-width: #{$width-mobile}) {
-      width: 100%;
-      #{$alpha}: 0;
-      #{$omega}: 0;
-    }
+  @media (min-width: 1px) and (max-width: #{$width-mobile}) {
+    width: 100%;
+    #{$alpha}: 0;
+    #{$omega}: 0;
+  }
 
-    @if $from-direction == left {
-      @include border-radius($radius 0 $radius $radius);
-    }
-    @else {
-      @include border-radius(0 $radius $radius $radius);
-    }
+  @include box-sizing(border-box);
 
-
+  @if $from-direction == left {
+    @include border-radius($radius 0 $radius $radius);
+  }
+  @else {
+    @include border-radius(0 $radius $radius $radius);
   }
 }

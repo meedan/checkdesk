@@ -3167,6 +3167,9 @@ ul#utility-menu a.language-link {
 #user-menu .dropdown-menu {
   left: auto;
   right: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   -webkit-border-radius: 4px 0 4px 4px;
   -moz-border-radius: 4px 0 4px 4px;
   -ms-border-radius: 4px 0 4px 4px;
@@ -6626,6 +6629,8 @@ body.cke_editable blockquote:after {
   .filter {
     display: block;
     margin-right: 0;
+  }
+  .filter:not(:last-child) {
     border-bottom: 1px solid #f3f4f4;
   }
 }
@@ -6725,7 +6730,12 @@ body.cke_editable blockquote:after {
   background-color: #fff;
 }
 .item .item-content-wrapper {
-  padding: 20px 20px 15px 20px;
+  padding: 6px 8px;
+}
+@media only screen and (min-width: 740px) {
+  .item .item-content-wrapper {
+    padding: 20px 20px 15px 20px;
+  }
 }
 .item .item-content {
   display: block;
@@ -6781,9 +6791,14 @@ body.cke_editable blockquote:after {
   cursor: pointer;
 }
 .item .item-controls .actions {
-  padding-right: 20px;
+  padding-right: 8px;
   cursor: pointer;
   white-space: nowrap;
+}
+@media only screen and (min-width: 740px) {
+  .item .item-controls .actions {
+    padding-right: 20px;
+  }
 }
 .item .item-controls .actions span[class^="icon-"], .item .item-controls .actions span[class*="icon-"] {
   font-size: 20px;
@@ -6806,10 +6821,16 @@ body.cke_editable blockquote:after {
   -ms-border-radius: 0 0 4px 4px;
   -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
-  padding: 10px 20px;
+  padding: 6px 8px;
   padding-right: 0;
   font-size: 16px;
   color: #9fa6ac;
+}
+@media only screen and (min-width: 740px) {
+  .item .item-nested-content-wrapper {
+    padding: 10px 20px;
+    padding-right: 0;
+  }
 }
 .item .item-nested-content-wrapper .pager-load-more {
   *zoom: 1;
@@ -9049,12 +9070,17 @@ ul.pager {
 
 #my-account {
   width: 438px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
+#my-account .info {
+  float: left;
+}
 #my-account .info a.username {
   margin: 0;
   padding: 0;
-  color: #cccccc;
+  color: #3e4c57;
   font-weight: bold;
   font-size: 16px;
 }
