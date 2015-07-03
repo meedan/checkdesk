@@ -51,4 +51,41 @@
     }
   };
 
+  // search page responsive
+  Drupal.behaviors.responsiveSearch = {
+    attach: function(context) {
+      mediaCheck({
+        media: '(max-width: 500px)',
+        entry: function() {
+          // Show filters toggle button
+          $('.content-filter .filters-toggle').removeClass('element-hidden');
+          // By default collapse all filters
+          $('.content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').hide();
+        },
+        exit: function() {
+         $('.content-filter .filters-toggle').addClass('element-hidden');
+        }
+      });
+
+
+      // Show/hide filters
+      $('.content-filter .filters-toggle').unbind('click').click(function(event) {
+        var target = $(this).parent(),
+            element = target.parent();
+
+        if (element.find('.filter-list').children().not('#edit-keys-wrapper').is(':visible')) {
+          element.find('.filter-list').children().not('#edit-keys-wrapper').hide();        
+          element.removeClass('filters-open').addClass('filters-close');
+          $(this).text('Show filters');
+        } else {
+          element.find('.filter-list').children().not('#edit-keys-wrapper').show();        
+          element.removeClass('filters-close').addClass('filters-open');
+          $(this).text('Hide filters');
+        }
+        return false;
+      });
+
+    }
+  };
+
 }(jQuery));

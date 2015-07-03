@@ -152,3 +152,15 @@
 	overflow: auto;
 	@include cd-simple-scrollbar;
 }
+
+.content-filter .filters-toggle:not(.element-hidden) {
+	display: block;
+	margin-top: 12px;
+	color: $firefly40;
+	&:hover {
+		text-decoration: none;
+		color: $firefly80;
+	}
+	// chevron open for closed filter group
+	@include icon(eye);
+}

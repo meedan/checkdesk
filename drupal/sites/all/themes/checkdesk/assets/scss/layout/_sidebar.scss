@@ -47,6 +47,7 @@ body.sidebar-first #sidebar-first.column {
 // Page with sidebar second
 // as in search page
 // using flex
+
 body.sidebar-second #main {
 	position: relative;
 	@include flexbox;
@@ -75,11 +76,32 @@ body.sidebar-second .cd-container {
 
 body.sidebar-second aside#sidebar-second {
 	@include flex(2);
-	padding-top: $absolute-line-height;
-	padding-#{$omega}: 50px;
-	max-width: 300px;
 	overflow: auto;
 	height: auto;
 	@include box-sizing(border-box);
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  body.sidebar-second aside#sidebar-second {
+    padding-#{$omega}: 50px;
+    padding-top: $padding-large-horizontal*2;
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 1px) and (max-width: #{$width-mobile}) {
+  body.sidebar-second #main {
+    @include flex-direction(column);
+  }
+  body.sidebar-second aside#sidebar-second {
+    @include order(-1);
+    padding-#{$alpha}: 20px;
+    padding-#{$omega}: 20px;
+    padding-top: $padding-large-horizontal;
+    .content-filter, 
+    form {
+      margin-bottom: 0;
+    }
+  }
 }
 

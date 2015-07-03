@@ -14,6 +14,14 @@
 	margin-#{$omega}: 30px;
 }
 
+@media (min-width: 1px) and (max-width: #{$width-mobile}) {
+	.filter { 
+		display: block;
+		margin-#{$omega}: 0;
+		border-bottom: 1px solid $firefly5;
+	}
+}
+
 .control-page-items {
 	@include reset-list-style;
 	border-bottom: 1px solid $firefly5;
@@ -40,7 +48,6 @@
 .page-results {
 	font-size: 14px;
 	color: $firefly30;
-	float: $alpha;
 
 	&.list {
 		@include reset-list-style;
@@ -56,10 +63,15 @@
 	}
 }
 
+@include cd-responsive('min-width: #{$width-tablet}') {
+	.page-results {
+		float: $alpha;
+	}
+}
+
 
 
 .search-reset-filters {
-	float: $omega;
 	font-size: 14px;
 	a {
 		color: $firefly30;
@@ -67,6 +79,12 @@
 		&:hover {
 			color: $firefly80;
 		}	
+	}
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+	.search-reset-filters {
+		float: $omega;
 	}
 }
 
