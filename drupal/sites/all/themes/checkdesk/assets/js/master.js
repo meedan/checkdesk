@@ -25,25 +25,6 @@
 		return html;
 	};
 
-	// filters for reports inside sidebar
-	Drupal.behaviors.reportsPage = {
-		attach: function(context) {
-      // configure masonry
-			if ($('#reports', context).masonry) {
-				$('#reports', context).masonry({
-					itemSelector: '.report-item',
-					columnWidth: function(containerWidth) {
-						return containerWidth / 3;
-					},
-					isRTL: true
-				}).imagesLoaded(function() {
-					$('#reports', context).masonry('reload');
-				});
-        $('#reports .report-item', context).watch('height', function() { $('#reports', context).masonry('reload'); }, 1000);
-			}
-		}
-	};
-
   // format select element
   Drupal.behaviors.customSelect = {
     attach: function(context) {
@@ -84,7 +65,7 @@
           element.addClass('open');
           element.find('textarea[class*=expanding]').expanding();
         }
-        return false;
+        return true;
       });
 
       // show or hide compose update form
@@ -106,6 +87,13 @@
       $('.story-tabs li a.active').parents('li').addClass('active');
       
       // Initiate timeago
+      $.extend($.timeago, { settings: { strings: {
+        minute: "a minute",
+        hour: "an hour",
+        hours: "%d hours",
+        month: "a month",
+        year: "a year",
+      }}});
       $('.timeago').timeago();
     }
   };
