@@ -43,7 +43,13 @@ CKEDITOR.plugins.add( 'mediaembed',
                        ],
                   onOk: function() {
                         var div = instance.document.createElement('div');
-                        div.setHtml(this.getContentElement('iframe', 'embedArea').getValue());
+                        div.addClass('media_embed');
+                        var embedCode = this.getContentElement('iframe', 'embedArea').getValue();
+                        var videoRegExp = new RegExp('(<iframe.*src=(\"|\')https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be|player.vimeo\.com)')
+                        if (videoRegExp.test(embedCode)) {
+                          div.addClass('video');
+                        }
+                        div.setHtml(embedCode);
                         instance.insertElement(div);
                   }
               };
