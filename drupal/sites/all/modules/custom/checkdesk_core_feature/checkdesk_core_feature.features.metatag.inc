@@ -54,6 +54,21 @@ function checkdesk_core_feature_metatag_export_default() {
       'canonical' => array(
         'value' => '[current-page:url:absolute]?fbrefresh=[node:changed:raw]',
       ),
+      'og:type' => array(
+        'value' => 'article',
+      ),
+      'og:url' => array(
+        'value' => '[current-page:url:absolute]?fbrefresh=[node:changed:raw]',
+      ),
+      'og:title' => array(
+        'value' => '[node:title]',
+      ),
+      'og:description' => array(
+        'value' => '[node:summary]',
+      ),
+      'og:updated_time' => array(
+        'value' => '[node:changed:raw]',
+      ),
       'twitter:title' => array(
         'value' => '[node:title]',
       ),
@@ -67,7 +82,10 @@ function checkdesk_core_feature_metatag_export_default() {
   $config['node:discussion'] = array(
     'instance' => 'node:discussion',
     'config' => array(
-      'twitter:image:src' => array(
+      'og:image' => array(
+        'value' => '[node:field_lead_image]',
+      ),
+      'twitter:image' => array(
         'value' => '[node:field_lead_image]',
       ),
     ),
@@ -93,8 +111,11 @@ function checkdesk_core_feature_metatag_export_default() {
   $config['node:page'] = array(
     'instance' => 'node:page',
     'config' => array(
-      'twitter:image:src' => array(
-        'value' => '[theme:header_logo_path]',
+      'og:image' => array(
+        'value' => '[theme:frontpage_logo_path]',
+      ),
+      'twitter:image' => array(
+        'value' => '[theme:frontpage_logo_path]',
       ),
     ),
   );
