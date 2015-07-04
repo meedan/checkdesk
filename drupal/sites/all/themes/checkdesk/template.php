@@ -166,12 +166,21 @@ function checkdesk_preprocess_region(&$variables) {
   if ($variables['region'] == 'header') {
     // header logo
     $variables['header_logo'] = '';
-    $image = theme_get_setting('header_logo_path');
+    $header_logo_uri = theme_get_setting('header_logo_path');
+    // badge logo
+    $variables['badge_logo'] = '';
+    $badge_logo_uri = theme_get_setting('badge_logo_path');
 
-    if (!empty($image)) {
+    if (!empty($header_logo_uri) && !empty($badge_logo_uri)) {
+
       $header_logo_data = array(
-          'style_name' => 'header_logo',
-          'path' => $image,
+        'style_name' => 'header_logo',
+        'path' => $header_logo_uri,
+      );
+
+      $badge_logo_data = array(
+        'style_name' => 'header_logo',
+        'path' => $badge_logo_uri,
       );
         
       // add hidden class to logo with default class
@@ -181,12 +190,17 @@ function checkdesk_preprocess_region(&$variables) {
         $logo_classes = array('header_logo');
       }
 
-      $variables['header_logo'] = l(theme('image_style', $header_logo_data), '<front>', array(
-          'html' => TRUE, 
-          'attributes' => array(
-            'class' => $logo_classes,
-          )
-        )
+      // use badge logo when in portrait mode
+      $header_logo_image_path = image_style_url($header_logo_data['style_name'], $header_logo_data['path']);
+      $badge_logo_image_path = image_style_url($badge_logo_data['style_name'], $badge_logo_data['path']);
+      $header_logo_image = '<picture>';
+      $header_logo_image .= '<source media="(orientation: landscape)" srcset="' . $header_logo_image_path . '" />';
+      $header_logo_image .= '<source srcset="' . $badge_logo_image_path . '" />';
+      $header_logo_image .= '<img src="' . $header_logo_image_path . '" />';
+      $header_logo_image .= '</picture>';
+
+      $variables['header_logo'] = l($header_logo_image, '<front>', 
+        array('html' => TRUE, 'attributes' => array('class' => $logo_classes))
       );
     }
   }
@@ -284,6 +298,8 @@ function checkdesk_preprocess_page(&$variables) {
   drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/responsive-nav.min.js', array('scope' => 'header', 'weight' => 98, 'group' => JS_THEME, 'every_page' => TRUE));
   drupal_add_js(libraries_get_path('mediaCheck') . '/mediaCheck-min.js', array('scope' => 'header', 'group' => JS_THEME, 'every_page' => TRUE));
   drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/responsive-nav.js', array('scope' => 'footer', 'weight' => 99));
+  // Add picture polyfill for responsive images in browsers that don't support it yet
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/picturefill.min.js', array('scope' => 'footer', 'weight' => 99));
 
   // Secondary nav
   $variables['secondary_nav'] = FALSE;

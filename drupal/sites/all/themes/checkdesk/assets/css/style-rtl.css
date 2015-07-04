@@ -2959,7 +2959,7 @@ ul#breadcrumb li.nav-toggle {
   padding-left: 20px;
   margin-left: 10px;
 }
-body.front.scroll-down ul#breadcrumb li.nav-toggle {
+body.front.scrolling ul#breadcrumb li.nav-toggle {
   border-left: 1px solid #e7e8ea;
 }
 body.not-front ul#breadcrumb li.nav-toggle {
@@ -2985,6 +2985,15 @@ ul#breadcrumb h1 {
   }
 }
 
+@media (min-width: 1px) and (max-width: 740px) {
+  ul#breadcrumb a.header_logo img {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+  }
+}
 ul#user-menu {
   margin-right: auto;
   display: -webkit-box;

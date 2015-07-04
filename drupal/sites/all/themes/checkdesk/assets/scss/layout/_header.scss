@@ -68,7 +68,7 @@ ul#breadcrumb li {
 ul#breadcrumb li.nav-toggle {
   padding-#{$omega}: 20px;
   margin-#{$omega}: 10px;
-  body.front.scroll-down & {
+  body.front.scrolling & {
     border-#{$omega}: 1px solid $firefly10;
   }
   body.not-front & {
@@ -91,6 +91,12 @@ ul#breadcrumb h1 {
   font-weight: 700;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  ul#breadcrumb a.header_logo img {
+    @include border-radius(4px);
+  }
 }
 
 ul#user-menu {
