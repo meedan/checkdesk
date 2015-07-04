@@ -29,7 +29,7 @@
         var st = $(window).scrollTop();
 
         // Make sure they scroll more than delta
-        if(Math.abs(lastScrollTop - st) <= delta) 
+        if(Math.abs(lastScrollTop - st) <= delta && st >= delta) 
           return;
         
         // add helper classes to body
