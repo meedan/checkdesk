@@ -194,7 +194,7 @@ function checkdesk_preprocess_region(&$variables) {
       $header_logo_image_path = image_style_url($header_logo_data['style_name'], $header_logo_data['path']);
       $badge_logo_image_path = image_style_url($badge_logo_data['style_name'], $badge_logo_data['path']);
       $header_logo_image = '<picture>';
-      $header_logo_image .= '<source media="(orientation: landscape)" srcset="' . $header_logo_image_path . '" />';
+      $header_logo_image .= '<source media="(min-width: 750px)" srcset="' . $header_logo_image_path . '" />';
       $header_logo_image .= '<source srcset="' . $badge_logo_image_path . '" />';
       $header_logo_image .= '<img src="' . $header_logo_image_path . '" />';
       $header_logo_image .= '</picture>';
