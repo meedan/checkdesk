@@ -29,7 +29,7 @@ $omega: opposite-position($from-direction);
 // English fonts
 @import url(https://fonts.googleapis.com/css?family=Lato:400,400italic,700|Merriweather:400,400italic,700);
 
-// Modular scale  
+// Modular scale
 // via: gem
 @import "modular-scale";
 
@@ -43,7 +43,7 @@ $omega: opposite-position($from-direction);
 @import "bowerbird/drupal";
 
 // Some views stuff we extracted from cd
-// 
+//
 // Deprecated
 // @import "views";
 
@@ -63,7 +63,7 @@ $omega: opposite-position($from-direction);
 // @extend directly or use icon() mixin to do it for you
 @import "bowerbird/icons/fontawesome";
 
-// Bowerbird fancy-buttons 
+// Bowerbird fancy-buttons
 // Example usage: button { @include button($tupperware-blue, 26px, 1em, 4px); }
 // Replaces: "bowerbird/compass_twitter_bootstrap/buttons";
 // Replaces: "bowerbird/compass_twitter_bootstrap/button-groups";
@@ -101,13 +101,13 @@ $omega: opposite-position($from-direction);
 
 // Mix of Drupal alerts and Twitter Bootstrap alerts.
 @import "components/dropdowns";
-@import "components/chosen"; 
+@import "components/chosen";
 
 // Modals
 @import "components/responsive_modals";
 @import "components/modal_form";
 
-// ====================================================================== 
+// ======================================================================
 // Main Checkdesk Sass files
 // Pages, navigation, layout
 
@@ -142,8 +142,8 @@ $omega: opposite-position($from-direction);
 @import "module/content/static";
 
 
-// ====================================================================== 
-// Checkdesk pages 
+// ======================================================================
+// Checkdesk pages
 //
 
 // Checkdesk media
@@ -209,12 +209,15 @@ $omega: opposite-position($from-direction);
 // Form: password strength section
 @import "components/forms/form_password";
 
+// Media handling
+@import "components/media";
+
 // Forms autocomplete and jquery ui
 @import "replace_drupal/jquery.ui.autocomplete";
 @import "replace_drupal/autocomplete";
 
 // Drupal styles
-// Drupal itself should not emit *any* CSS. 
+// Drupal itself should not emit *any* CSS.
 //
 // These are all of the files that were ultimately being included in the markup.
 // Now all of them can be controlled here and inspected more easily.
@@ -237,7 +240,7 @@ $omega: opposite-position($from-direction);
 // #sidebar-first.column,
 // .desk { background-color: white; }
 
-// ====================================================================== 
+// ======================================================================
 // Bidi helpers
 // These are unusual because they are not overridden in style-rtl.scss
 .rtl {
@@ -254,12 +257,12 @@ $omega: opposite-position($from-direction);
 
 // Based on bootstrap-tour default CSS
 
-// ====================================================================== 
+// ======================================================================
 // Lastly: hacks to be removed
 //
 @import "evil_hacks";
 
-// ====================================================================== 
+// ======================================================================
 // No really, The End
 //
 // Debuggers get the final word
