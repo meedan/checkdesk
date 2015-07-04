@@ -329,7 +329,7 @@
           var $form_id = $element.parents('form').attr('id');
           if ($form_id == $id) {
             $uses_ajax = true;
-            return;
+            return false;
           }
         });
 
