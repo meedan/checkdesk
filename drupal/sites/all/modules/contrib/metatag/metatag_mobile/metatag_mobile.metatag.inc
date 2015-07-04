@@ -9,8 +9,8 @@
  */
 function metatag_mobile_metatag_info() {
   $info['groups']['mobile'] = array(
-    'label' => t('Mobile'),
-    'description' => t("Meta tags used to control the mobile browser experience. Many, if not most, of these meta tags have been deprecated by newer mobile browsers. These meta tags usually only need to be set globally, rather than per-page."),
+    'label' => t('Mobile & UI Adjustments'),
+    'description' => t("Meta tags used to control the mobile browser experience. Some of these meta tags have been replaced by newer mobile browsers. These meta tags usually only need to be set globally, rather than per-page."),
     'form' => array(
       '#weight' => 80,
     ),
@@ -24,6 +24,12 @@ function metatag_mobile_metatag_info() {
     'class' => 'DrupalTextMetaTag',
     'group' => 'mobile',
   );
+
+  $info['tags']['theme-color'] = array(
+    'label' => t('Theme Color'),
+    'description' => t('A color in hexidecimal format, e.g. "#0000ff" for blue; must include the "#" symbol. Used by some browsers to control the background color of the toolbar, the color used with an icon, etc.'),
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
 
   $info['tags']['MobileOptimized'] = array(
     'label' => t('Mobile Optimized'),

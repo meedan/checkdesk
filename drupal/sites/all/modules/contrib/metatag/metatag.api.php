@@ -67,58 +67,58 @@ function hook_metatag_config_default() {
  */
 function hook_metatag_bundled_config_alter(&$config) {
 }
-  
+
 /**
- * 
+ *
  */
 function hook_metatag_config_default_alter(&$config) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_delete($entity_type, $entity_ids, $revision_ids, $langcode) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_insert($config) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_instance_info() {
   return array();
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_instance_info_alter(&$info) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_load() {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_load_presave() {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_presave($config) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_update($config) {
 }
@@ -156,6 +156,10 @@ function hook_metatag_config_update($config) {
  *       configuration/object save.
  *     'multiple' - If set to TRUE the output will be comma-separated and output
  *       as multiple tags.
+ *     'image' - If set to TRUE some additional effort will be added to attempt
+ *       extracting image URLs from the value. Currently limited to matching
+ *       the default output of core image theming, i.e. the following string:
+ *         src="[URL]" width=
  *     'select_or_other' - If set to TRUE, form[#type] is set to 'select' and
  *       the "select_or_other" module is available, that module will be used to
  *       provide a text field to manually insert another option.
@@ -203,15 +207,9 @@ function hook_metatag_info() {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_info_alter(&$info) {
-}
-
-/**
- * 
- */
-function hook_metatag_load_entity_from_path_alter(&$path, $result) {
 }
 
 /**
@@ -235,13 +233,13 @@ function hook_metatag_metatags_view_alter(&$output, $instance, $options) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_page_cache_cid_parts_alter(&$cid_parts) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_presave(&$metatags, $entity_type, $entity_id, $revision_id, $langcode) {
 }
@@ -312,5 +310,30 @@ function hook_metatag_pattern_alter(&$pattern, &$types, $tag_name) {
     $types['token_type2'] = array("Then fill in the array with the right data");
     // $pattern could also be altered, for example, strip off [token_type3].
     $pattern = str_replace('[token_type3]', '', $pattern);
+  }
+}
+
+/**
+ * Allow modules to override whether entity types are enabled for use.
+ *
+ * By default the system only support entities that are not configuration
+ * entities, have multiple view modes (excluding those created by the ical,
+ * diff and token modules), are fieldable, and are not one of the following:
+ * - field_collection_item (from the Field Collection module)
+ * - paragraphs_item (from the Paragraphs module)
+ *
+ * @param bool $suitable
+ *   Whether or not the entity type is enabled for use with Metatag.
+ * @param string $entity_type
+ *   The machine name of the entity type.
+ * @param array $entity_info
+ *   The full specifications for this entity type, as returned by
+ *   entity_get_info().
+ */
+function hook_metatag_entity_type_is_supported_alter(&$suitable, $entity_type, $entity_info) {
+  // Enable Metatag support for a custom entity that might otherwise be
+  // ignored, e.g. it doesn't allow fields.
+  if ($entity_type == 'my_entity') {
+    $suitable = TRUE;
   }
 }

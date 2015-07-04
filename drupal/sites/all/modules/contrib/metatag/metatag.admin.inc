@@ -310,8 +310,8 @@ function metatag_config_edit_form($form, &$form_state, $config) {
   $form['metatags']['#type'] = 'container';
 
   // Make the token browser available.
-  $form['metatags']['#prefix'] = $form['metatags'][LANGUAGE_NONE]['#description'];
-  unset($form['metatags'][LANGUAGE_NONE]['#description']);
+  $form['metatags']['#prefix'] = $form['metatags']['#description'];
+  unset($form['metatags']['#description']);
 
   $form['actions']['#type'] = 'actions';
   $form['actions']['save'] = array(
@@ -564,10 +564,11 @@ function metatag_admin_settings_form() {
   foreach (entity_get_info() as $entity_type => $entity_info) {
     // Only show entities that are capable of using meta tags.
     if (metatag_entity_type_is_suitable($entity_type, $entity_info)) {
+      $entity_enabled = metatag_entity_supports_metatags($entity_type);
       $form['entities']['metatag_enable_' . $entity_type] = array(
         '#type' => 'checkbox',
         '#title' => t($entity_info['label']),
-        '#default_value' => metatag_entity_supports_metatags($entity_type),
+        '#default_value' => $entity_enabled,
         // '#description' => t('Enable meta tags for all pages of this entity type.'),
       );
 
@@ -578,10 +579,15 @@ function metatag_admin_settings_form() {
       if (!empty($entity_info['bundles'])) {
         foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
           if (count($entity_info['bundles']) > 1 || $entity_type != $bundle_name) {
+            // If the entity type was disabled, automatically enable the bundle.
+            // This will have the effect that if the entity type is enabled in
+            // the form then all of the bundles will then also be enabled. This
+            // is safe to do because in the rest of the module the bundle will
+            // be ignored if the entity is disabled.
             $form['entities']['metatag_enable_' . $entity_type . '__' . $bundle_name] = array(
               '#type' => 'checkbox',
               '#title' => t($bundle_info['label']),
-              '#default_value' => metatag_entity_supports_metatags($entity_type, $bundle_name),
+              '#default_value' => !$entity_enabled || metatag_entity_supports_metatags($entity_type, $bundle_name),
               '#attributes' => array(
                 // Add some theming that'll indent this bundle.
                 'class' => array('metatag-bundle-checkbox'),

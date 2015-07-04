@@ -1,3 +1,44 @@
+Metatag 7.x-1.6, 2015-06-30
+---------------------------
+#2503089 by DamienMcKenna: Added support for the "any" favicon, used for SVG
+  files in Safari 9.
+#2499865 by DamienMcKenna: Improvements to entity selection, all sites will now
+  automatically start off supporting news, terms and users.
+#2503097 by DamienMcKenna: Added the theme-color meta tag.
+#2503089 by jdanthinne, DamienMcKenna: Improved wording of the SVG favicon
+  description.
+#2499737 by DamienMcKenna: Moved the Dublin Core Additional Tags meta tags into
+  a new submodule, metatag_dc_advanced.
+#2499739 by DamienMcKenna: Moved the Open Graph Products meta tags into a new
+  submodule, metatag_opengraph_products.
+#2498173 by DamienMcKenna: Clarified the touch icon meta tags available by
+  adding separate primary vs precomposed tags.
+#2499739 by DamienMcKenna: Follow-up to fix a missing variable.
+#2507025 by DamienMcKenna: Fixed Panels/Panelizer support for entities after
+  changes in 1.5.
+#2505051 by DamienMcKenna: Automatically check for image URLs in image meta
+  tags; added a new 'image' attribute to meta tag specifications.
+#2504561 by hanoii: Remove unused metatag_load_entity_from_path() function and
+  corresponding hook.
+#2222711 by hanoii, DamienMcKenna, andyg5000: Fixed Views support for entities
+  after API changes in 1.5.
+#2467587 by DamienMcKenna: Clear the Metatag cache when a node's state is
+  changed via Workbench Moderation.
+#2449425 by DamienMcKenna: Only process string values for token replacement.
+#2265453 by zd123, DamienMcKenna: CTools keyword substitution for Panels
+  integration.
+#2512284 by DamienMcKenna: Missing token browser link on main Metatag fieldset.
+#2513890 by DamienMcKenna: Added tests for taxonomy term integration.
+#1404270 by JStanton, DamienMcKenna: Added the Refresh meta tag.
+#2384673 by etroid, DamienMcKenna: Added the shortcut icon meta tag.
+#2514852 by rrfegade: Spelling mistakes in README.txt files.
+#2514878 by DamienMcKenna: Ignore admin pages on Views/CTools-driven entity
+  pages.
+#2514812 by david_garcia: Fix Views integration for ECK entities.
+#2514572 by DamienMcKenna: Don't check if records exist when deleting them,
+  just run the deletion query.
+
+
 Metatag 7.x-1.5, 2015-05-29
 ---------------------------
 #2442183 by DamienMcKenna, jwilson: Mention the Image URL Formatter module in
@@ -395,7 +436,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   primary keys.
 #1864306 by DamienMcKenna: Follow-on to only export the $config->disabled
   setting if it exists.
-#2173271 by deetergp: Spelling and grammer fixes for README.txt.
+#2173271 by deetergp: Spelling and grammar fixes for README.txt.
 #2172433 by fabsor, DamienMcKenna: Ensure that update 7015 runs early enough to
   avoid data corruption or errors during other updates.
 #2156261 by plopesc, DamienMcKenna: Allow meta tags for 403/404 error pages to

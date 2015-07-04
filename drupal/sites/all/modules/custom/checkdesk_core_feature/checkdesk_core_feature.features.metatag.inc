@@ -89,5 +89,15 @@ function checkdesk_core_feature_metatag_export_default() {
     ),
   );
 
+  // Exported Metatag config instance: node:page.
+  $config['node:page'] = array(
+    'instance' => 'node:page',
+    'config' => array(
+      'twitter:image:src' => array(
+        'value' => '[theme:header_logo_path]',
+      ),
+    ),
+  );
+
   return $config;
 }

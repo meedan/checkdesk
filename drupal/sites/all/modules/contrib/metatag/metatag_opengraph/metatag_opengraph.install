@@ -53,3 +53,10 @@ function metatag_opengraph_update_7100() {
 function metatag_opengraph_update_7101() {
   drupal_set_message(t('The "Movie" and "TV Show" values for the "Content type" open graph meta tag changed, if this site used those values they will need to be manually updated.'));
 }
+
+/**
+ * The Open Graph Products meta tags are now in a new submodule.
+ */
+function metatag_opengraph_update_7102() {
+  drupal_set_message(t('The Open Graph Products meta tags have been moved into the new "Metatag: Open Graph Products" submodule.'));
+}

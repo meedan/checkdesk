@@ -1,8 +1,8 @@
 Metatag: Dublin Core
 --------------------
 This module adds the fifteen Dublin Core Metadata Element Set [1] to the
-available meta tags, as defined by the Dublin Core Metadata Institute [2]; it
-also adds forty tags which may be useful for certain sites.
+available meta tags, as defined by the Dublin Core Metadata Institute [2]. Forty
+additional tags may be added via the Metatag: Dublin Core Advanced submodule.
 
 The following tags are provided:
 * dcterms.contributor
@@ -21,48 +21,6 @@ The following tags are provided:
 * dcterms.title
 * dcterms.type
 
-Additional DCMI Metadata Terms meta tags:
-* dcterms.abstract
-* dcterms.accessRights
-* dcterms.accrualMethod
-* dcterms.accrualPeriodicity
-* dcterms.accrualPolicy
-* dcterms.alternative
-* dcterms.audience
-* dcterms.available
-* dcterms.bibliographicCitation
-* dcterms.conformsTo
-* dcterms.created
-* dcterms.dateAccepted
-* dcterms.dateCopyrighted
-* dcterms.dateSubmitted
-* dcterms.educationLevel
-* dcterms.extent
-* dcterms.hasFormat
-* dcterms.hasPart
-* dcterms.hasVersion
-* dcterms.instructionalMethod
-* dcterms.isFormatOf
-* dcterms.isPartOf
-* dcterms.isReferencedBy
-* dcterms.isReplacedBy
-* dcterms.isRequiredBy
-* dcterms.isVersionOf
-* dcterms.issued
-* dcterms.license
-* dcterms.mediator
-* dcterms.medium
-* dcterms.modified
-* dcterms.provenance
-* dcterms.references
-* dcterms.replaces
-* dcterms.requires
-* dcterms.rightsHolder
-* dcterms.spatial
-* dcterms.tableOfContents
-* dcterms.temporal
-* dcterms.valid
-
 
 Credits
 ------------------------------------------------------------------------------
@@ -72,7 +30,7 @@ Haag. [4]), with contributions by many in the community [5].
 
 References
 ------------------------------------------------------------------------------
-1: http://dublincore.org/documents/dces/
+1: http://www.dublincore.org/documents/dces/
 2: http://www.dublincore.org/
 3: https://www.drupal.org/u/marty2081
 4: http://www.gemeentemuseum.nl/

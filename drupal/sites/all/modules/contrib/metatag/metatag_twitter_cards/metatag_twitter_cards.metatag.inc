@@ -160,6 +160,7 @@ function metatag_twitter_cards_metatag_info() {
   $info['tags']['twitter:image:src'] = array(
     'label' => t('Image URL'),
     'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. Images larger than 120x120px will be resized and cropped square based on longest dimension. Images smaller than 60x60px will not be shown. If the \'type\' is set to <em>Photo</em> then the image must be at least 280x150px.'),
+    'image' => TRUE,
     'weight' => ++$weight,
     'replaces' => array(
       'twitter:image',
@@ -203,6 +204,7 @@ function metatag_twitter_cards_metatag_info() {
 
   // 'gallery' cards.
   $gallery_defaults = array(
+    'image' => TRUE,
     'dependencies' => array(
       array(
         'dependency' => 'twitter:card',

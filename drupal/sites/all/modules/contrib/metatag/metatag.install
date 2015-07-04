@@ -127,17 +127,6 @@ function metatag_requirements($phase) {
       );
     }
 
-    // It's recommended to install the Imagecache Token module to make image
-    // tokens easier to do.
-    if (!module_exists('imagecache_token')) {
-      $requirements['metatag_imagecache_token'] = array(
-        'severity' => REQUIREMENT_INFO,
-        'title' => 'Metatag',
-        'value' => $t('The Imagecache Token module is recommended.'),
-        'description' => $t("It is recommended to install the <a href=\"@url\">Imagecache Token module</a> to make it easier to control image meta tags, e.g. og:image.", array('@url' => 'https://drupal.org/project/imagecache_token')),
-      );
-    }
-
     // The Admin Language module can cause problems.
     if (!module_exists('admin_language') && variable_get('admin_language_force_neutral', 0)) {
       $requirements['metatag_admin_language'] = array(
@@ -258,8 +247,29 @@ function metatag_schema() {
 function metatag_install() {
   drupal_set_message(t("Thank you for installing the Metatag module. It is recommended to read the module's <a href=\"!url\" title=\"Read the Metatag module's documentation\">README.txt</a> file as there are some known issues that may affect this site.", array('!url' => url(drupal_get_path('module', 'metatag') . '/README.txt'))));
 
-  // Enable reasonable defaults.
+  // Always enable the node, taxonomy term and user entities.
+  foreach (array('node', 'taxonomy_term', 'user') as $entity_type) {
+    // Enable the main entity type.
+    $variable_name = 'metatag_enable_' . $entity_type;
+    variable_set($variable_name, TRUE);
+
+    // Update each entity bundle too.
+    $entity_info = entity_get_info($entity_type);
+    if (!empty($entity_info['bundles'])) {
+      foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+        $variable_name = 'metatag_enable_' . $entity_type . '__' . $bundle_name;
+        variable_set($variable_name, TRUE);
+      }
+    }
+  }
+
+  // Possibly enable other entities, if they're specifically requested.
   foreach (entity_get_info() as $entity_type => $entity_info) {
+    // Skip the three entity types that were already enabled.
+    if (in_array($entity_type, array('node', 'taxonomy_term', 'user'))) {
+      continue;
+    }
+
     $variable_name = 'metatag_enable_' . $entity_type;
 
     // Configuration entities are skipped.
@@ -267,25 +277,48 @@ function metatag_install() {
       continue;
     }
 
-    // Entities without view modes are skipped.
-    elseif (empty($entity_info['view modes'])) {
+    // Entities must have bundles.
+    if (empty($entity_info['bundles'])) {
       continue;
     }
 
-    // Disable some entities automatically.
-    elseif (in_array($entity_type, array('comment', 'file', 'fieldable_panels_pane'))) {
-      variable_set($variable_name, FALSE);
+    // Entities must be fieldable.
+    elseif (empty($entity_info['fieldable'])) {
+      continue;
     }
 
-    // Anything else can be enabled.
-    else {
-      // Verify the variable wasn't defined before.
-      if (variable_get($variable_name, 'monkey') != 'monkey') {
-        variable_set($variable_name, TRUE);
+    // Ignore some view modes that are automatically added by certain modules.
+    unset($entity_info['view modes']['ical']);
+    unset($entity_info['view modes']['diff_standard']);
+    unset($entity_info['view modes']['token']);
+
+    // Entities without view modes are skipped.
+    if (empty($entity_info['view modes'])) {
+      continue;
+    }
+
+    // At this point, disable the entity by default.
+    $entity_enabled = FALSE;
+
+    // Anything that was specifically enabled via hook_entity_info() from older
+    // versions will be enabled if not configured already.
+    if (!empty($entity_info['metatag']) || !empty($entity_info['metatags'])) {
+      $entity_enabled = variable_get($variable_name, 'monkey');
+      if ($entity_enabled === 'monkey') {
+        $entity_enabled = TRUE;
       }
+    }
+
+    variable_set($variable_name, $entity_enabled);
+
+    // Loop through the bundles, but only if the entity is enabled.
+    if ($entity_enabled) {
       foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
         $variable_name = 'metatag_enable_' . $entity_type . '__' . $bundle_name;
-        if (variable_get($variable_name, 'monkey') != 'monkey') {
+
+        // If it wasn't specifically disabled before, enable it.
+        $bundle_enabled = variable_get($variable_name, 'monkey');
+        if ($bundle_name != FALSE) {
           variable_set($variable_name, TRUE);
         }
       }
@@ -1681,4 +1714,25 @@ function metatag_update_7036() {
  */
 function metatag_update_7037() {
   variable_set('menu_rebuild_needed', TRUE);
+}
+
+/**
+ * Manually enable all content types, vocabularies and the user entity to help
+ * resolve issues from 1.5's architecture change.
+ */
+function metatag_update_7038() {
+  foreach (array('node', 'taxonomy_term', 'user') as $entity_type) {
+    // Enable the main entity type.
+    $variable_name = 'metatag_enable_' . $entity_type;
+    variable_set($variable_name, TRUE);
+
+    // Update each entity bundle too.
+    $entity_info = entity_get_info($entity_type);
+    if (!empty($entity_info['bundles'])) {
+      foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+        $variable_name = 'metatag_enable_' . $entity_type . '__' . $bundle_name;
+        variable_set($variable_name, TRUE);
+      }
+    }
+  }
 }
