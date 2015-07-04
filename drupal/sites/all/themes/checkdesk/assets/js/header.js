@@ -42,10 +42,14 @@
 
 
         // If current position > last position AND scrolled past navbar...
-        if (st > lastScrollTop && st > (headerHeight + (buffer*2))){
+        if (st > lastScrollTop && st > (headerHeight + (buffer))){
           // Scroll Down
           $('header .metabar').removeClass('header-down').addClass('header-up');
           $('header').removeClass('show-content-shadow');
+          // move incoming reports to top
+          if ($('#sidebar-first').length) {
+            $('#sidebar-first').css('top', '0px');
+          }
           // Also hide drupal toolbar
           setTimeout(function() {
             $('#toolbar').removeClass('header-down').addClass('header-up');
@@ -62,6 +66,10 @@
               $('#toolbar').removeClass('header-up').addClass('header-down');
               $('header .metabar').removeClass('header-up').addClass('header-down');
               $('header').addClass('show-content-shadow');
+              // move incoming reports back
+              if ($('#sidebar-first').length) {
+                $('#sidebar-first').css('top', '');
+              }
             }
           }
 

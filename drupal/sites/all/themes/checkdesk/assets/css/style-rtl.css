@@ -3704,10 +3704,6 @@ svg.logo-icon {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body.toolbar-drawer #sidebar-first.column {
-  top: 130px;
-}
-
 @media (min-width: 1px) and (max-width: 740px) {
   body.sidebar-first #sidebar-first.column {
     display: none;
@@ -3746,6 +3742,10 @@ body.toolbar-drawer #sidebar-first.column {
     z-index: 1;
     max-width: 360px;
     height: 100%;
+  }
+
+  body.toolbar-drawer #sidebar-first.column {
+    top: 130px;
   }
 
   #sidebar-first.column {

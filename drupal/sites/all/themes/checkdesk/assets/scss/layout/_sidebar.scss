@@ -1,11 +1,6 @@
 // Page with sidebar first
 // as in incoming reports
 
-// adjust top for drupal toolbar
-body.toolbar-drawer #sidebar-first.column {
-  top: $toolbarHeight + $headerHeight;
-}
-
 @media (min-width: 1px) and (max-width: #{$width-tablet}) {
   body.sidebar-first #sidebar-first.column {
     display: none;
@@ -36,6 +31,10 @@ body.toolbar-drawer #sidebar-first.column {
     height: 100%;
   }
 
+  // adjust top for drupal toolbar
+  body.toolbar-drawer #sidebar-first.column {
+    top: $toolbarHeight + $headerHeight;
+  }
 
   // add styles for load more pager
   #sidebar-first.column { 
