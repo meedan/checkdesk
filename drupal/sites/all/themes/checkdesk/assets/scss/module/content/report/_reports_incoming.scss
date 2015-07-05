@@ -1,35 +1,6 @@
 // incoming reports 
 //
-// inside the sidebar
 
-.view-desk-reports {
-  .view-content {
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: 0 $gutter-width*1.2;
-  }
-  form {
-    margin-bottom: 0;
-  }
-  .pager-load-more {
-    position: relative;
-    border-top: 1px solid $firefly5;
-    @include reset-box-model;
-    padding: $absolute-line-height/4 0;
-    // Dropshadow for depth
-    &:before {
-      position: absolute;
-      content: "";
-      z-index: -1;
-      top: -12px;
-      left: 0;
-      right: 0;
-      height: 12px;
-      width: 100%;
-      @include ctb-gradient-vertical(rgba(255,255,255,0.0), rgba($firefly,.02));
-    }
-  }
-}
 
 // Report filters
 // 
@@ -64,9 +35,12 @@
 // 
 // A list of the incoming media submitted with the bookmarklet.
 #incoming-reports {
+  padding-#{$alpha}: $gutter-width*1.2;
+  padding-#{$omega}: $gutter-width*1.2;
   font-size: $small-font-size;
   color: $gray;
-  padding-top: $absolute-line-height/2;
+  overflow-x: hidden;
+  overflow-y: auto;
   
   // while dragging
   .ui-draggable-dragging {
@@ -86,7 +60,30 @@
     padding: $gutter-width;
     color: $grey;
   }
+}
+
+#incoming-reports .views-row-first {
+  margin-top: $absolute-line-height;
+}
+#incoming-reports .views-row-last {
+  margin-bottom: $absolute-line-height*2;
 } 
+
+.view-desk-reports form { margin-bottom: 0; }
+.view-desk-reports .pager-load-more {
+  border-top: 1px solid $firefly5;
+  &:before {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    top: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    width: 100%;
+    @include ctb-gradient-vertical(rgba(255,255,255,0.0), rgba($firefly,.02));
+  }
+}
 
 // incoming reports
 .report-row {

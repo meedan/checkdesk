@@ -26,6 +26,7 @@
     @include flex(2 1 360px);
     #{$alpha}: $navbarWidth;
     top: $headerHeight;
+    bottom: 0;
     z-index: 1;
     max-width: 360px;
     height: 100%;
