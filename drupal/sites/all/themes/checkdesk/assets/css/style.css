@@ -4489,9 +4489,15 @@ body.sidebar-second aside#sidebar-second {
 .media-holder a:hover {
   color: #3b4044;
 }
+.media-holder span[class^="icon-"]:before, .media-holder span[class^="icon-"]:after, .media-holder span[class*="icon-"]:before, .media-holder span[class*="icon-"]:after {
+  margin: 0;
+  font-size: 16px;
+}
+
 .media-holder .media {
   margin: .25rem 0;
 }
+
 .media-holder .media-content {
   margin-bottom: .25rem;
   color: #9fa6ac;
@@ -4502,6 +4508,7 @@ body.sidebar-second aside#sidebar-second {
 .media-holder .media-content a:hover {
   color: #3b4044;
 }
+
 .media-holder .media-content > span {
   display: block;
   font-size: 14px;
@@ -4509,6 +4516,7 @@ body.sidebar-second aside#sidebar-second {
   line-height: 1.4;
   margin-top: 2px;
 }
+
 .media-holder .media-content .media-label {
   font-size: 14px;
   font-weight: 700;
@@ -4523,6 +4531,7 @@ body.sidebar-second aside#sidebar-second {
 .media-holder .media-content .media-label .media-type {
   font-weight: 300;
 }
+
 .media-holder .media-content .title {
   font-size: 18px;
   font-weight: 700;
@@ -4533,6 +4542,7 @@ body.sidebar-second aside#sidebar-second {
 .media-holder .media-content .title a:hover {
   color: #101b2e;
 }
+
 .media-holder .media-content .description {
   margin-top: 0;
 }
@@ -4555,10 +4565,13 @@ body.sidebar-second aside#sidebar-second {
 .media-holder .media-content .description .show-more {
   padding-left: 7.5px;
 }
-.media-holder .media-content .provider-icon img, .media-holder .media-content .favicon img {
+
+.media-holder .media-content .provider-icon img,
+.media-holder .media-content .favicon img {
   max-width: 16px;
   vertical-align: text-top;
 }
+
 .media-holder .media-status {
   display: block;
   margin-top: 30px;
@@ -4575,20 +4588,21 @@ body.sidebar-second aside#sidebar-second {
 .media-holder .media-status .false {
   color: #cc4f43;
 }
-.media-holder .video-holder, .media-holder .re-holder {
+
+.video-holder, .re-holder {
   position: relative;
   display: block;
   height: 0;
   padding: 0;
   overflow: hidden;
 }
-.media-holder .video-holder .oembed-video,
-.media-holder .video-holder iframe,
-.media-holder .video-holder embed,
-.media-holder .video-holder object, .media-holder .re-holder .oembed-video,
-.media-holder .re-holder iframe,
-.media-holder .re-holder embed,
-.media-holder .re-holder object {
+.video-holder .oembed-video,
+.video-holder iframe,
+.video-holder embed,
+.video-holder object, .re-holder .oembed-video,
+.re-holder iframe,
+.re-holder embed,
+.re-holder object {
   position: absolute;
   top: 0;
   left: 0;
@@ -4597,18 +4611,14 @@ body.sidebar-second aside#sidebar-second {
   width: 100%;
   border: 0;
 }
-.media-holder .video-holder.media-16by9, .media-holder .re-holder.media-16by9 {
+.video-holder.media-16by9, .re-holder.media-16by9 {
   padding-bottom: 56.25%;
 }
-.media-holder .video-holder.media-4by3, .media-holder .re-holder.media-4by3 {
+.video-holder.media-4by3, .re-holder.media-4by3 {
   padding-bottom: 75%;
 }
-.media-holder .video-holder.media-1by1, .media-holder .re-holder.media-1by1 {
+.video-holder.media-1by1, .re-holder.media-1by1 {
   padding-bottom: 100%;
-}
-.media-holder span[class^="icon-"]:before, .media-holder span[class^="icon-"]:after, .media-holder span[class*="icon-"]:before, .media-holder span[class*="icon-"]:after {
-  margin: 0;
-  font-size: 16px;
 }
 
 .media--video .title a:before {
@@ -9243,25 +9253,6 @@ div.password-suggestions ul {
 .confirm-parent:after,
 .password-parent:after {
   clear: both;
-}
-
-.media_embed.video {
-  height: 0;
-  margin-bottom: 16px;
-  overflow: hidden;
-  padding-bottom: 56.34%;
-  padding-top: 25px;
-  position: relative;
-}
-.media_embed.video iframe,
-.media_embed.video object,
-.media_embed.video embed,
-.media_embed.video video {
-  height: 100%;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  left: 0;
 }
 
 /*

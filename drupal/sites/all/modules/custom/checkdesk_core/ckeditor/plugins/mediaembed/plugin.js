@@ -43,11 +43,12 @@ CKEDITOR.plugins.add( 'mediaembed',
                        ],
                   onOk: function() {
                         var div = instance.document.createElement('div');
-                        div.addClass('media_embed');
+                        div.addClass('media');
                         var embedCode = this.getContentElement('iframe', 'embedArea').getValue();
                         var videoRegExp = new RegExp('(<iframe.*src=(\"|\')https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be|player.vimeo\.com)')
                         if (videoRegExp.test(embedCode)) {
-                          div.addClass('video');
+                          div.addClass('video-holder');
+                          div.addClass('media-16by9');
                         }
                         div.setHtml(embedCode);
                         instance.insertElement(div);
