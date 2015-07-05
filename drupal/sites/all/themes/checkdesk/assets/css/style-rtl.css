@@ -3085,14 +3085,15 @@ ul#user-menu li a.dropdown-toggle {
   padding-left: 20px;
   color: #b7bcc0;
 }
-ul#user-menu li a.dropdown-toggle:hover {
-  color: #50565b;
-}
 @media (min-width: 1px) and (max-width: 740px) {
   ul#user-menu li a.dropdown-toggle {
+    position: relative;
     padding-right: 8px;
     padding-left: 8px;
   }
+}
+ul#user-menu li a.dropdown-toggle:hover {
+  color: #50565b;
 }
 
 ul#user-menu .badge {
@@ -3111,6 +3112,11 @@ ul#user-menu .badge {
   border-radius: 2px;
   color: white;
   background: rgba(46, 119, 252, 0.9);
+}
+@media (min-width: 1px) and (max-width: 740px) {
+  ul#user-menu .badge {
+    right: 24px;
+  }
 }
 
 ul#user-menu .avatar-menu {

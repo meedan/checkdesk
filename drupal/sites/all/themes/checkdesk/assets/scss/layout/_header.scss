@@ -160,11 +160,12 @@ ul#user-menu li > a {
 ul#user-menu li a.dropdown-toggle {
   padding-#{$alpha}: 20px;
   padding-#{$omega}: 20px;
-  @include ctb-linkColor($firefly30);
   @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    position: relative;
     padding-#{$alpha}: 8px;
     padding-#{$omega}: 8px;
   }
+  @include ctb-linkColor($firefly30);
 }
 
 ul#user-menu .badge {
@@ -172,6 +173,9 @@ ul#user-menu .badge {
   display: block;
   top: 4px;
   #{$alpha}: 35px;
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    #{$alpha}: 24px;
+  }
   padding: 4px;
   line-height: 10px;
   font-size: 12px;
