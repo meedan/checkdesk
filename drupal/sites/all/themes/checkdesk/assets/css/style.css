@@ -3745,6 +3745,7 @@ svg.logo-icon {
     flex: 2 1 360px;
     left: 60px;
     top: 65px;
+    bottom: 0;
     z-index: 1;
     max-width: 360px;
     height: 100%;
@@ -5140,40 +5141,6 @@ div.sensitive-hide {
   margin-left: 1px;
 }
 
-.view-desk-reports .view-content {
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 0 18px;
-}
-.view-desk-reports form {
-  margin-bottom: 0;
-}
-.view-desk-reports .pager-load-more {
-  position: relative;
-  border-top: 1px solid #f3f4f4;
-  margin: 0;
-  padding: 0;
-  padding: 6px 0;
-}
-.view-desk-reports .pager-load-more:before {
-  position: absolute;
-  content: "";
-  z-index: -1;
-  top: -12px;
-  left: 0;
-  right: 0;
-  height: 12px;
-  width: 100%;
-  background-color: rgba(163, 169, 175, 0.0075);
-  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0), rgba(16, 33, 47, 0.02));
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0)), to(rgba(16, 33, 47, 0.02)));
-  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), rgba(16, 33, 47, 0.02));
-  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0), rgba(16, 33, 47, 0.02));
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(16, 33, 47, 0.02));
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(252, 252, 252, 0)', endColorstr='rgba(15, 30, 43, 0.02)', GradientType=0);
-}
-
 .filters-summary {
   position: relative;
   margin-top: 6px;
@@ -5203,9 +5170,12 @@ div.sensitive-hide {
 }
 
 #incoming-reports {
+  padding-left: 18px;
+  padding-right: 18px;
   font-size: 15px;
   color: #555555;
-  padding-top: 12px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 #incoming-reports .ui-draggable-dragging {
   width: 300px !important;
@@ -5221,6 +5191,40 @@ div.sensitive-hide {
   font-style: italic;
   padding: 15px;
   color: #cccccc;
+}
+
+#incoming-reports .views-row-first {
+  margin-top: 24px;
+}
+
+#incoming-reports .views-row-last {
+  margin-bottom: 48px;
+}
+
+.view-desk-reports form {
+  margin-bottom: 0;
+}
+
+.view-desk-reports .pager-load-more {
+  border-top: 1px solid #f3f4f4;
+}
+.view-desk-reports .pager-load-more:before {
+  position: absolute;
+  content: "";
+  z-index: -1;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  width: 100%;
+  background-color: rgba(163, 169, 175, 0.0075);
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0), rgba(16, 33, 47, 0.02));
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0)), to(rgba(16, 33, 47, 0.02)));
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), rgba(16, 33, 47, 0.02));
+  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0), rgba(16, 33, 47, 0.02));
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(16, 33, 47, 0.02));
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(252, 252, 252, 0)', endColorstr='rgba(15, 30, 43, 0.02)', GradientType=0);
 }
 
 .report-row {

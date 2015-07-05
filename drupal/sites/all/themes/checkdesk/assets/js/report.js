@@ -113,8 +113,13 @@
       // Incoming reports sidebar
       $(window).resize(function() {
         if ($('.view-desk-reports .view-content').length) {
-           // add fixed pixels to difference to adjust load more for ar
-          var difference = $('#messages-container').offset().top + $('.view-desk-reports .pager').outerHeight(true) + 65;
+          // top position of sidebar
+          var top = parseInt($('#sidebar-first').css('top'), 10);
+          // get height of view pager and header
+          var pagerHeight = $('.view-desk-reports .pager-load-more').not('.pager-load-more-empty').outerHeight(true);
+          var headerHeight = $('.view-desk-reports #incoming-reports-filters').outerHeight(true) + $('.view-desk-reports .view-header').outerHeight(true);
+          // minus view pager and filter height out of the top value
+          var difference = top + pagerHeight + headerHeight;
           var height = $(window).height() - difference;
           $('.view-desk-reports .view-content').height(height);
         }

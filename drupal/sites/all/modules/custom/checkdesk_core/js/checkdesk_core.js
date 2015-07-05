@@ -106,7 +106,7 @@
       }
 
       // Attach the Views results to each correspoknding row in the DOM.
-      $('.view-desk-reports .view-content #incoming-reports').children().each(function() {
+      $('.view-desk-reports .view-content').children().each(function() {
         var i = $(this).find('.report-row-container').attr('id');
         $(this).data('views', settings.checkdesk.reports[i]);
       });
