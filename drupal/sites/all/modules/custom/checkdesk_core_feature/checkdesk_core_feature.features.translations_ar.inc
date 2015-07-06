@@ -4165,6 +4165,15 @@ A new user <a href="!url">!name </a>has registered. If you want to accept this r
     'plural' => 0,
   );
   $translatables[] = t('Share', array(), array('context' => ''));
+  $translations['ar:default']['5ac2119f318eaad0c139c729c78eba5f'] = array(
+    'source' => 'Sign in / Sign up',
+    'context' => '',
+    'location' => 'sites/all/themes/checkdesk/assets/js/responsive-nav.js',
+    'translation' => 'تسجيل الدخول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sign in / Sign up', array(), array('context' => ''));
   $translations['ar:default']['5b3aa1adbaacecbc861957db6caec50c'] = array(
     'source' => 'Hello !recipient_name,
 
@@ -8712,7 +8721,7 @@ Go to !story_url to compose a new update to the story using that report.', array
   $translations['ar:default']['b6d4223e60986fa4c9af77ee5f7149c5'] = array(
     'source' => 'Sign in',
     'context' => '',
-    'location' => '/ar/modal/ajax/content/%D8%AA%D9%86%D8%B5%D9%8A%D8%A8-%D8%A5%D8%B6%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D9%85%D8%AA%D8%B5%D9%81%D8%AD',
+    'location' => '/ar/modal/ajax/content/%D8%AA%D9%86%D8%B5%D9%8A%D8%A8-%D8%A5%D8%B6%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D9%85%D8%AA%D8%B5%D9%81%D8%AD; sites/all/themes/checkdesk/assets/js/responsive-nav.js',
     'translation' => 'تسجيل الدخول',
     'plid' => 0,
     'plural' => 0,
