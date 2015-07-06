@@ -3,6 +3,8 @@
 (function ($) {
 'use strict';
 
+var pageTitle = document.title;
+
 Drupal.behaviors.meedan_notifications_menu_visibility = {
   attach: function (context, settings) {
     var block = $('#my-notifications', context),
@@ -19,6 +21,7 @@ Drupal.behaviors.meedan_notifications_menu_visibility = {
             if (data.timestamp) {
               // Don't hide the notification count
               that.find('.notifications-count').removeClass('badge').html('');
+              document.title = pageTitle;
             }
           }
         });
@@ -42,21 +45,20 @@ Drupal.behaviors.meedan_notifications_load_more = {
 
 Drupal.behaviors.alert_new_notifications = {
   attach: function (context, settings) {
-    var block, counter;
-    block = $('#my-notifications');
+    var block = $('#my-notifications'),
+        counter = $('#my-notifications-menu-link').find('.notifications-count');
+    if (counter.html() !== '') {
+      document.title = pageTitle + ' (' + counter.html() + ')';
+    }
     block.unbind('autorefresh_update');
     block.bind('autorefresh_update', function(e, nid) {
       Drupal.behaviors.meedan_notifications_load_more.attach();
     });
     block.unbind('autorefresh_ping');
     block.bind('autorefresh_ping', function(e, count) {
-      counter = $('#my-notifications-menu-link').find('.notifications-count');
-      if (counter.html() === '') {
-        counter.addClass('badge').html(count);
-      }
-      else {
-        counter.addClass('badge').html((parseInt(counter.html(), 10) + parseInt(count, 10)));
-      }
+      var total = (counter.html() === '') ? count : (parseInt(counter.html(), 10) + parseInt(count, 10));
+      counter.addClass('badge').html(total);
+      document.title = pageTitle + ' (' + total + ')';
     });
   }
 };
