@@ -92,6 +92,7 @@
           done.attr('disabled', 'disabled');
           $('#edit-body, #edit-graphic-content, #edit-submit, .form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating').hide();
           $('#meedan_bookmarklet_preview_content').html('');
+          $('#checkdesk_report_duplicate').html('').hide();
         }
       });
 
