@@ -49,8 +49,10 @@
     margin-#{$omega}: $gutter-width/2;
   }
   a.contributor {
-    font-family: $serif-font-stack;
-    font-style: italic;
+    @if $from-direction == 'left' {
+      font-family: $serif-font-stack;
+      font-style: italic;
+    }
     color: $thatch80; 
     &:hover { 
       color: $thatch; 

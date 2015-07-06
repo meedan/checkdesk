@@ -189,14 +189,18 @@
   .pager-load-more {
     @include ctb-clearfix;
     @include reset-list-style;
-    padding: $absolute-line-height/2 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
     float: none;
     clear: both;
     position: relative;
     text-align: center;
     a {
+      display: inline-block;
       width: 70%;
       text-align: center;
+      margin-top: 6px;
+      margin-bottom: 12px;
       @if $from-direction == 'left' {
         letter-spacing: 0.05em;
       }

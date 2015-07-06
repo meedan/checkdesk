@@ -301,6 +301,10 @@ function checkdesk_preprocess_page(&$variables) {
   // Add picture polyfill for responsive images in browsers that don't support it yet
   drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/picturefill.min.js', array('scope' => 'footer', 'weight' => 99));
 
+  // logo icon for header
+  $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
+  $variables['logo_icon'] = '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
+
   // Secondary nav
   $variables['secondary_nav'] = FALSE;
   $menu = menu_load('menu-common');

@@ -3767,7 +3767,8 @@ svg.logo-icon {
     *zoom: 1;
     margin: 0;
     padding: 0;
-    padding: 12px 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
     float: none;
     clear: both;
     position: relative;
@@ -3785,8 +3786,11 @@ svg.logo-icon {
     list-style: none;
   }
   #sidebar-first.column .pager-load-more a {
+    display: inline-block;
     width: 70%;
     text-align: center;
+    margin-top: 6px;
+    margin-bottom: 12px;
     font-family: "Droid Arabic Naskh", serif;
     font-size: 15px;
     font-weight: 700;
@@ -3849,7 +3853,8 @@ body.sidebar-second .cd-container .pager-load-more {
   *zoom: 1;
   margin: 0;
   padding: 0;
-  padding: 12px 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
   float: none;
   clear: both;
   position: relative;
@@ -3867,8 +3872,11 @@ body.sidebar-second .cd-container .pager-load-more li {
   list-style: none;
 }
 body.sidebar-second .cd-container .pager-load-more a {
+  display: inline-block;
   width: 70%;
   text-align: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: 700;
@@ -5137,7 +5145,32 @@ div.sensitive-hide {
   margin-right: 1px;
 }
 
-.filters-summary {
+#incoming-reports {
+  padding-right: 18px;
+  padding-left: 18px;
+  font-size: 15px;
+  color: #555555;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+#incoming-reports .ui-draggable-dragging {
+  width: 300px !important;
+  border: 3px solid #efca2b;
+}
+#incoming-reports .ui-draggable-dragging .report-row-container {
+  border: 3px solid #efca2b;
+  background-color: rgba(239, 202, 43, 0.1);
+}
+
+#incoming-reports .views-row-first {
+  margin-top: 24px;
+}
+
+#incoming-reports .views-row-last {
+  margin-bottom: 48px;
+}
+
+.view-desk-reports .filters-summary {
   position: relative;
   margin-top: 6px;
   border-top: 1px solid rgba(16, 33, 47, 0.02);
@@ -5146,7 +5179,7 @@ div.sensitive-hide {
   font-family: "Droid Arabic Naskh", serif;
   color: #9fa6ac;
 }
-.filters-summary:before {
+.view-desk-reports .filters-summary:before {
   position: absolute;
   content: "";
   z-index: -1;
@@ -5165,36 +5198,12 @@ div.sensitive-hide {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(15, 30, 43, 0.02)', endColorstr='rgba(252, 252, 252, 0)', GradientType=0);
 }
 
-#incoming-reports {
-  padding-right: 18px;
-  padding-left: 18px;
-  font-size: 15px;
-  color: #555555;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-#incoming-reports .ui-draggable-dragging {
-  width: 300px !important;
-  border: 3px solid #efca2b;
-}
-#incoming-reports .ui-draggable-dragging .report-row-container {
-  border: 3px solid #efca2b;
-  background-color: rgba(239, 202, 43, 0.1);
-}
-#incoming-reports .view-empty {
+.view-desk-reports .view-empty {
   clear: both;
   float: right;
   font-style: italic;
-  padding: 15px;
-  color: #cccccc;
-}
-
-#incoming-reports .views-row-first {
-  margin-top: 24px;
-}
-
-#incoming-reports .views-row-last {
-  margin-bottom: 48px;
+  padding: 6px 30px 4.8px;
+  color: #9fa6ac;
 }
 
 .view-desk-reports form {
@@ -5224,18 +5233,9 @@ div.sensitive-hide {
 }
 
 .report-row {
-  *zoom: 1;
   position: relative;
   margin-bottom: 4px;
   border: 3px solid #fff;
-}
-.report-row:before, .report-row:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.report-row:after {
-  clear: both;
 }
 .report-row .ajax-progress-throbber {
   display: none;
@@ -5277,12 +5277,6 @@ div.sensitive-hide {
 .report-row .report-content .media-type-rich iframe {
   min-width: 100% !important;
   width: 100% !important;
-}
-.report-row .report-content .media-type-rich iframe {
-  padding: 0 !important;
-  margin: 0 !important;
-  border: 0 none !important;
-  box-shadow: none !important;
 }
 .report-row .report-content .media-type-rich .favicon, .report-row .report-content .media-type-rich .domain, .report-row .report-content .media-type-rich .author {
   display: none;
@@ -5689,7 +5683,8 @@ body.page-liveblog #main .view-liveblog .pager-load-more {
   *zoom: 1;
   margin: 0;
   padding: 0;
-  padding: 12px 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
   float: none;
   clear: both;
   position: relative;
@@ -5707,8 +5702,11 @@ body.page-liveblog #main .view-liveblog .pager-load-more li {
   list-style: none;
 }
 body.page-liveblog #main .view-liveblog .pager-load-more a {
+  display: inline-block;
   width: 70%;
   text-align: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: 700;
@@ -5788,8 +5786,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin-left: 7.5px;
 }
 .story .story-meta a.contributor {
-  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-style: italic;
   color: #bfa29c;
 }
 .story .story-meta a.contributor:hover {
@@ -6285,7 +6281,8 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
   *zoom: 1;
   margin: 0;
   padding: 0;
-  padding: 12px 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
   float: none;
   clear: both;
   position: relative;
@@ -6303,8 +6300,11 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
   list-style: none;
 }
 .story .story-updates-wrapper .pager-load-more a {
+  display: inline-block;
   width: 70%;
   text-align: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: 700;
@@ -6845,7 +6845,8 @@ body.cke_editable blockquote:after {
   *zoom: 1;
   margin: 0;
   padding: 0;
-  padding: 12px 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
   float: none;
   clear: both;
   position: relative;
@@ -6863,8 +6864,11 @@ body.cke_editable blockquote:after {
   list-style: none;
 }
 .item .item-nested-content-wrapper .pager-load-more a {
+  display: inline-block;
   width: 70%;
   text-align: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: 700;
@@ -7306,7 +7310,8 @@ body.cke_editable blockquote:after {
   *zoom: 1;
   margin: 0;
   padding: 0;
-  padding: 12px 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
   float: none;
   clear: both;
   position: relative;
@@ -7324,8 +7329,11 @@ body.cke_editable blockquote:after {
   list-style: none;
 }
 .view-story-collaboration .pager-load-more a {
+  display: inline-block;
   width: 70%;
   text-align: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: 700;

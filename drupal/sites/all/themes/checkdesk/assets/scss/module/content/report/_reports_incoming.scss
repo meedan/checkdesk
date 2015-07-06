@@ -1,6 +1,31 @@
-// incoming reports 
-//
+// Incoming reports
+// 
+// A list of the incoming media submitted with the bookmarklet.
+#incoming-reports {
+  padding-#{$alpha}: $gutter-width*1.2;
+  padding-#{$omega}: $gutter-width*1.2;
+  font-size: $small-font-size;
+  color: $gray;
+  overflow-x: hidden;
+  overflow-y: auto;
+  
+  // while dragging
+  .ui-draggable-dragging {
+    width: 300px !important;
+    border: 3px solid rgb(239,202,43);
+    .report-row-container {
+      border: 3px solid rgb(239,202,43);
+      background-color: rgba(239,202,43,.1);
+    }
+  }
+}
 
+#incoming-reports .views-row-first {
+  margin-top: $absolute-line-height;
+}
+#incoming-reports .views-row-last {
+  margin-bottom: $absolute-line-height*2;
+}
 
 // Report filters
 // 
@@ -9,7 +34,7 @@
   @extend %filters;
 }
 
-.filters-summary {
+.view-desk-reports .filters-summary {
   position: relative;
   margin-top: $absolute-line-height/4;
   border-top: 1px solid rgba($firefly,.02);
@@ -31,43 +56,14 @@
   }
 }
 
-// Incoming reports
-// 
-// A list of the incoming media submitted with the bookmarklet.
-#incoming-reports {
-  padding-#{$alpha}: $gutter-width*1.2;
-  padding-#{$omega}: $gutter-width*1.2;
-  font-size: $small-font-size;
-  color: $gray;
-  overflow-x: hidden;
-  overflow-y: auto;
-  
-  // while dragging
-  .ui-draggable-dragging {
-    width: 300px !important;
-    border: 3px solid rgb(239,202,43);
-    .report-row-container {
-      border: 3px solid rgb(239,202,43);
-      background-color: rgba(239,202,43,.1);
-    }
-  }
-
-  // no reports
-  .view-empty {
-    clear: both;
-    float: $alpha;
-    font-style: italic;
-    padding: $gutter-width;
-    color: $grey;
-  }
+// no reports
+.view-desk-reports .view-empty {
+  clear: both;
+  float: $alpha;
+  font-style: italic;
+  padding: $absolute-line-height/4 $gutter-width*2 $absolute-line-height/5;
+  color: $firefly40;
 }
-
-#incoming-reports .views-row-first {
-  margin-top: $absolute-line-height;
-}
-#incoming-reports .views-row-last {
-  margin-bottom: $absolute-line-height*2;
-} 
 
 .view-desk-reports form { margin-bottom: 0; }
 .view-desk-reports .pager-load-more {
@@ -87,7 +83,6 @@
 
 // incoming reports
 .report-row {
-  @include ctb-clearfix;
   position: relative;
   margin-bottom: $absolute-line-height/6;
   border: 3px solid #fff;
@@ -127,13 +122,6 @@
       iframe {
         min-width: 100% !important;
         width: 100% !important;
-      }
-      // for tweets
-      iframe {
-        padding: 0 !important;
-        margin: 0 !important;
-        border: 0 none !important;
-        box-shadow: none !important;
       }
       .favicon, .domain, .author {
         display: none;

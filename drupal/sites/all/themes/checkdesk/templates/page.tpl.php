@@ -5,12 +5,11 @@
   <?php endif; ?>
   <div class="metabar">
     <ul id="breadcrumb">
-      <li class="nav-toggle">
-        <?php 
-          $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
-          print '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
-        ?>
-      </li>
+      <?php if($logo_icon): ?>
+        <li class="nav-toggle">
+          <?php print $logo_icon; ?>
+        </li>
+      <?php endif; ?>
       <?php if($is_front): ?>
         <li>
           <?php print render($page['header']); ?>
