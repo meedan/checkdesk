@@ -46,6 +46,11 @@
     <?php if ($secondary_nav): ?>
       <?php print $secondary_nav; ?>
     <?php endif; ?>
+
+    <?php if ($page['utility_menu']) : ?>
+      <?php print render($page['utility_menu']); ?>
+    <?php endif; ?>
+
   </div>
 
 </header>

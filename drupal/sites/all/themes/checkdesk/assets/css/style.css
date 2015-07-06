@@ -2943,6 +2943,7 @@ ul#breadcrumb {
   -webkit-align-items: center;
   -moz-align-items: center;
   align-items: center;
+  margin-right: auto;
 }
 
 ul#breadcrumb svg.logo-icon {
@@ -2995,7 +2996,6 @@ ul#breadcrumb h1 {
   }
 }
 ul#user-menu {
-  margin-left: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-flex;
@@ -3012,6 +3012,11 @@ ul#user-menu {
   -webkit-align-items: center;
   -moz-align-items: center;
   align-items: center;
+  -webkit-box-ordinal-group: 4;
+  -webkit-order: 3;
+  -moz-order: 3;
+  -ms-flex-order: 3;
+  order: 3;
 }
 ul#user-menu:after {
   content: '';
@@ -3146,14 +3151,27 @@ ul#user-menu .avatar-menu {
   }
 }
 
-ul#utility-menu {
-  right: 200px;
-  padding: 0 20px;
+@media (min-width: 1px) and (max-width: 740px) {
+  #utility-menu {
+    display: none;
+  }
 }
-ul#utility-menu a.language-link {
-  padding: 10px;
+@media only screen and (min-width: 740px) {
+  #utility-menu {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  #utility-menu li {
+    list-style: none;
+  }
+  #utility-menu a.language-link {
+    color: #b7bcc0;
+    padding: 10px;
+  }
+  #utility-menu a.language-link:hover {
+    color: #50565b;
+  }
 }
-
 #my-account ul {
   margin: 0;
   padding: 0;
@@ -5758,6 +5776,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   font-size: 16px;
   line-height: 20px;
   margin-top: 5px;
+}
+.story figure a {
+  word-wrap: break-word;
 }
 
 .story h1 {

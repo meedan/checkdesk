@@ -53,6 +53,7 @@ html:not(.js-nav-active) .metabar.header-up {
 ul#breadcrumb {
   @include flexbox;
   @include align-items(center);
+  margin-#{$omega}: auto;
 }
 
 ul#breadcrumb svg.logo-icon {
@@ -100,10 +101,11 @@ ul#breadcrumb h1 {
 }
 
 ul#user-menu {
-  margin-#{$alpha}: auto;
 	@include flexbox();
   @include flex-direction(row-reverse);
   @include align-items(center);
+  // make user-menu the last item in metabar
+  @include order(3);
 
   &:after {
     content: '';
@@ -195,14 +197,21 @@ ul#user-menu .avatar-menu {
   }
 }
 
+// Utility menu which contains language switcher
+// don't show it on mobile
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  #utility-menu { display: none; }
+}
 
-
-ul#utility-menu {
-  #{$omega}: 200px;
-  padding: 0 20px;
-
-  a.language-link {
-    padding: 10px;
+@include cd-responsive('min-width: #{$width-tablet}') {
+  #utility-menu {
+    padding-#{$alpha}: 20px;
+    padding-#{$omega}: 20px;
+    li { list-style: none; }
+    a.language-link { 
+      @include ctb-linkColor($firefly30);
+      padding: 10px; 
+    }
   }
 }
 
