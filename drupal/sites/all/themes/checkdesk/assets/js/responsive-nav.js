@@ -34,13 +34,13 @@
         media: '(max-width: 750px)',
         entry: function() {
           // On mobile: Make sign in / sign up button small and trim copy
-          $('.btn-sign-in-up').text('Sign in').addClass('btn-sm');
+          $('.btn-sign-in-up').text(Drupal.t('Sign in')).addClass('btn-sm');
           // make avatar small
           $('#my-account-link .avatar-menu').removeClass('thumb-40').addClass('thumb-38');
         },
         exit: function() {
           // Restore sign in / sign up button size and copy
-          $('.btn-sign-in-up').text('Sign in / Sign Up').removeClass('btn-sm');
+          $('.btn-sign-in-up').text(Drupal.t('Sign in / Sign up')).removeClass('btn-sm');
           // make avatar big again
           $('#my-account-link .avatar-menu').removeClass('thumb-38').addClass('thumb-40');
         }
