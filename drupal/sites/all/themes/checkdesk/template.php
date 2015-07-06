@@ -139,6 +139,13 @@ function checkdesk_preprocess_html(&$variables) {
     }
   }
 
+  // Set favicons
+  $path_to_favicons = drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons';
+  $favicons = '';
+  $favicons .= '<link rel="icon" type="image/png" href="/' .  $path_to_favicons . '/favicon-16x16.png" sizes="16x16">';
+  $favicons .= '<link rel="icon" type="image/png" href="/' . $path_to_favicons .'/favicon-32x32.png" sizes="32x32">';
+  $variables['favicons'] = $favicons;
+
   $head_title = array();
   $title = drupal_get_title();
   if (!empty($title)) {
