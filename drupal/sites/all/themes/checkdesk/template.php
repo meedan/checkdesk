@@ -93,8 +93,11 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     }
     // Large image in case of Flickr or imgur or instagram
     if ($element['#formatter'] == 'meedan_inline_full_mode' || $element['#formatter'] == 'meedan_full_mode') {
-      if (isset($embed->url)) {
+      if ($node->type == 'photo' && isset($embed->url)) {
         $variables['full_image'] = l(theme_image(array('path' => $embed->url, 'attributes' => array('class' => array('img')))), 'node/' . $node->nid, array('html' => TRUE));
+      }
+      elseif (isset($embed->thumbnail_url)) {
+        $variables['full_image'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('img')))), 'node/' . $node->nid, array('html' => TRUE));
       }
     }
   }
