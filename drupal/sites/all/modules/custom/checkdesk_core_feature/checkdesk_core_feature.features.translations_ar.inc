@@ -96,7 +96,7 @@ function checkdesk_core_feature_translations_ar_defaults() {
     'source' => 'Authors',
     'context' => '',
     'location' => '/ar/search?type=discussion',
-    'translation' => 'المؤلفين',
+    'translation' => 'كُتَّاب',
     'plid' => 0,
     'plural' => 0,
   );
@@ -3184,6 +3184,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Date in the form of CCYYMMDD.', array(), array('context' => ''));
+  $translations['ar:default']['46886330c186da9bfd0390ec3d788b05'] = array(
+    'source' => '- Any tag -',
+    'context' => '',
+    'location' => '/ar/search',
+    'translation' => '- أي وسم -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('- Any tag -', array(), array('context' => ''));
   $translations['ar:default']['4698ee3fcd8d278acafe4d91ac5adada'] = array(
     'source' => 'Uploaded file.',
     'context' => '',
@@ -3675,6 +3684,24 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('@label:delta', array(), array('context' => ''));
+  $translations['ar:default']['5084e221171bf6412db5d8964ddf2e84'] = array(
+    'source' => '- Any flag -',
+    'context' => '',
+    'location' => '/ar/search?status=All&keys=&type=report&type=report&field_tags_tid=All&field_tags_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC&author=All',
+    'translation' => '- أي تحذير -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('- Any flag -', array(), array('context' => ''));
+  $translations['ar:default']['50f79db98d1f4c6bf452a4c92701a1d9'] = array(
+    'source' => '- Any content -',
+    'context' => '',
+    'location' => '/ar/search',
+    'translation' => '- أي محتوى -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('- Any content -', array(), array('context' => ''));
   $translations['ar:default']['5147fbd39d622c85601910b9e9c25495'] = array(
     'source' => 'View: @view - Display: @display',
     'context' => '',
@@ -9024,6 +9051,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Highlighted content', array(), array('context' => ''));
+  $translations['ar:default']['bce50049cc37cb161a38159aa3fd4bef'] = array(
+    'source' => '- My content -',
+    'context' => '',
+    'location' => '/ar/search',
+    'translation' => '- مشاركاتي -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('- My content -', array(), array('context' => ''));
   $translations['ar:default']['bd84c64dcb3251b7099d303fda85546c'] = array(
     'source' => 'Provide a simple link to edit the translations.',
     'context' => '',
@@ -9520,6 +9556,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Filter to ensure content has or has not been flagged.', array(), array('context' => ''));
+  $translations['ar:default']['c7705b6db133b6c99e59cbff55a61e39'] = array(
+    'source' => '- Any story -',
+    'context' => '',
+    'location' => '/ar/search?status=All&keys=&type=report&type=report&field_tags_tid=All&field_tags_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC&author=All',
+    'translation' => '- أي قصة -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('- Any story -', array(), array('context' => ''));
   $translations['ar:default']['c7899a1bc38e20bd6777827b8ef29685'] = array(
     'source' => 'Displays the summary unformatted, with option for one after another or inline.',
     'context' => '',
@@ -9565,6 +9610,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('The url of the account edit page.', array(), array('context' => ''));
+  $translations['ar:default']['c859a6b56e31210b2e986f5ce28d9548'] = array(
+    'source' => '- Any author -',
+    'context' => '',
+    'location' => '/ar/search',
+    'translation' => '- أي كاتب -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('- Any author -', array(), array('context' => ''));
   $translations['ar:default']['c8bf8d8a56cce26dceb4ac55cd33070d'] = array(
     'source' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
     'context' => '',
@@ -10112,6 +10166,15 @@ A <a href="!report_url">report</a> which you have submitted has been published i
     'plural' => 0,
   );
   $translatables[] = t('Exclude report with this keyword', array(), array('context' => ''));
+  $translations['ar:default']['d2a33204fbd839c96f389b249d13ff13'] = array(
+    'source' => '- Any status -',
+    'context' => '',
+    'location' => '/ar/search?status=All&keys=&type=report&type=report&field_tags_tid=All&field_tags_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC&author=All',
+    'translation' => '- أي حالة -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('- Any status -', array(), array('context' => ''));
   $translations['ar:default']['d2b98e321d2f5ee8ac9241ebd85522b7'] = array(
     'source' => 'Hello !recipient_name,
 

@@ -1256,14 +1256,15 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       '#type' => 'select',
       '#title' => '',
       '#options' => array(
-        'All' => t('Everything'),
+        'All' => t('- Any content -'),
         'report' => t('Reports'),
         'story' => t('Stories'),
         'update' => t('Updates'),
       ),
       '#theme' => 'select_as_links',
     );
-    // this value determines the position of the new element.
+
+    // This value determines the position of the new element.
     $insert_index = 2;
     $element_to_insert = array();
     $element_to_insert['filter-type'] = array(
@@ -1273,25 +1274,30 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form_info_bottom = array_slice($form['#info'], $insert_index);
     $new_form_info = $form_info_top + $element_to_insert + $form_info_bottom;
     $form['#info'] = $new_form_info;
+
     // Add required js for fastLiveFilter plugin
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_search.js');
+
     $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
+    $form['field_tags_tid']['#options']['All'] = t('- Any tag -');
+
     //Hide/show media reports based on type filter
-    if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] != 'report')) {
+    if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] !== 'report')) {
       $form['#info']['filter-field_rating_tid']['label'] = NULL;
       $form['field_rating_tid']['#type'] = 'hidden';
       unset($form['field_rating_tid']['#theme']);
     }
+
     // Media filters
     if (isset($_GET['type']) && $_GET['type'] === 'report') {
       // Change -Any- status label
-      $form['field_rating_tid']['#options']['All'] = t('Any status');
+      $form['field_rating_tid']['#options']['All'] = t('- Any status -');
       $form['media_flags'] = array(
         '#type' => 'select',
         '#title' => t('Flags'),
         '#options' => array(
-          'All' => t('Any flag'),
+          'All' => t('- Any flag -'),
           'flagged_gc' => t('Graphic content'),
           'flagged_spam' => t('Spam'),
         ),
@@ -1305,24 +1311,24 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       $form['report_story'] = array(
         '#type' => 'select',
         '#title' => t('Associated stories'),
-        '#options' => array('All' => t('- Any -'), 'None' => t('- Unassigned -')) + $stories,
+        '#options' => array('All' => t('- Any story -'), 'None' => t('- Unassigned -')) + $stories,
         '#theme' => 'select_as_links',
         '#bef_enable_fastlivefilter' => 1,
         '#fastlivefilte_placeholder' => t('Search for story'),
       );
     }
+
     // Hide tag filter for updates
-    if (isset($_GET['type']) && $_GET['type'] == 'update') {
+    if (isset($_GET['type']) && $_GET['type'] === 'update') {
       $form['#info']['filter-field_tags_tid']['label'] = NULL;
       $form['field_tags_tid']['#type'] = 'hidden';
       unset($form['field_tags_tid']['#theme']);
     }
+
     // Hide update choice if user filter by tag.
     if (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
       unset($form['type']['#options']['update']);
     }
-
-    $form['keys']['#attributes']['placeholder'] = t('Search');
 
     // Add author filter for admin or journalist
     global $user;
@@ -1333,7 +1339,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
               SELECT name FROM {users} WHERE status = :status AND uid != :uid ORDER BY name
         ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
       }
-      $users = array('All' => t('- Any -'), $user->name => t('- Mine -')) + $users;
+      $users = array('All' => t('- Any author -'), $user->name => t('- My content -')) + $users;
       $form['author'] = array(
         '#type' => 'select',
         '#title' => t('Authors'),
@@ -1343,7 +1349,10 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         '#fastlivefilte_placeholder' => t('Search for author'),
       );
     }
-      // Hide sort and submit button
+
+    $form['keys']['#attributes']['placeholder'] = t('Search');
+    
+    // Hide sort and submit button
     $form['sort_bef_combine']['#type'] = 'hidden';
     $form['submit']['#attributes']['class'][] = 'js-hide';
   }
@@ -1958,31 +1967,33 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
   }
 
   if ($view->name == 'checkdesk_search') {
-    // Update type condition with right values
-    if (isset($_GET['type']) && $_GET['type'] != 'All') {
+    // Update type condition with right values.
+    if (isset($_GET['type']) && $_GET['type'] !== 'All') {
       foreach($query->where[1]['conditions'] as $k => $v) {
-        if (is_string($v['field']) && $v['field'] == 'node.type') {
+        if (is_string($v['field']) && $v['field'] === 'node.type') {
           $selected_type = array();
-          if ($_GET['type'] == 'report') {
+          if ($_GET['type'] === 'report') {
             $selected_type = array('media');
           }
-          elseif ($_GET['type'] == 'update') {
+          elseif ($_GET['type'] === 'update') {
             $selected_type = array('post');
           }
-          elseif ($_GET['type'] == 'story') {
+          elseif ($_GET['type'] === 'story') {
             $selected_type = array('discussion');
           }
           $query->where[1]['conditions'][$k]['value'] = $selected_type;
         }
-        // List all language if user filter by report
-        if (is_string($v['field']) && $v['field'] == 'node.language' && $_GET['type'] == 'report') {
+        /*
+        // List all languages if user filter by report.
+        if (is_string($v['field']) && $v['field'] === 'node.language' && $_GET['type'] === 'report') {
           $all_language = array_merge(array_keys(language_list()), array(LANGUAGE_NONE));
           $query->where[1]['conditions'][$k]['value'] = $all_language;
         }
+        */
       }
     }
     // Add where condition based on flag type for reports.
-    if (isset($_GET['type']) && $_GET['type'] == 'report' && isset($_GET['media_flags'])) {
+    if (isset($_GET['type']) && $_GET['type'] === 'report' && isset($_GET['media_flags'])) {
       switch($_GET['media_flags']) {
         case 'flagged_spam':
           $query->add_where(1,'flagging_node.uid', 1, 'IS NOT NULL');
@@ -1992,17 +2003,18 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         break;
       }
     }
-    // Remove status condition if user selected type not reports
-    if (isset($_GET['type']) && $_GET['type'] != 'report' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
+    // Remove status condition if user selected type not reports.
+    if (isset($_GET['type']) && $_GET['type'] !== 'report' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
       $conditions = $query->where[1]['conditions'];
       foreach($conditions as $k => $v) {
-        if (is_string($v['field']) && $v['field'] == 'field_data_field_rating.field_rating_tid') {
+        if (is_string($v['field']) && $v['field'] === 'field_data_field_rating.field_rating_tid') {
           unset($query->table_queue['field_data_field_rating']);
           unset($query->where[1]['conditions'][$k]);
           break;
         }
       }
     }
+    // Add associated stories condition.
     if (isset($_GET['type']) && $_GET['type'] === 'report' && 
         isset($_GET['report_story']) && ($_GET['report_story'] === 'None' || is_numeric($_GET['report_story']))
     ) {
@@ -2016,8 +2028,8 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         $query->add_where(1,'fdfs.field_stories_target_id', intval($_GET['report_story']), '=');
       }
     }
-    // Add author condition
-    if (isset($_GET['author']) && $_GET['author'] != 'All') {
+    // Add author condition.
+    if (isset($_GET['author']) && $_GET['author'] !== 'All') {
       $query->add_where(1,'users_node.name', $_GET['author'], 'LIKE');
     }
     if (isset($query->having[1]['conditions'][0]['value'][':search_index_keys'])) {
@@ -2025,8 +2037,8 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       // Ticket #3550
       $query->having[1]['conditions'][0]['value'][':search_index_keys'] = 1;
     }
-    // Fix helper text in case of search by keyword
-    if ($view->current_display == 'attachment_1') {
+    // Fix helper text in case of search by keyword.
+    if ($view->current_display === 'attachment_1') {
       if (empty($view->exposed_raw_input['keys'])) {
         $query->having = $query->groupby = array();
       }
