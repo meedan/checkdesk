@@ -1256,7 +1256,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       '#type' => 'select',
       '#title' => '',
       '#options' => array(
-        'All' => t('- Any content -'),
+        'All' => t('Everything'),
         'report' => t('Reports'),
         'story' => t('Stories'),
         'update' => t('Updates'),
@@ -1280,7 +1280,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_search.js');
 
     $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
-    $form['field_tags_tid']['#options']['All'] = t('- Any tag -');
+    $form['field_tags_tid']['#options']['All'] = decode_entities(t('&ndash; Any tag &ndash;'));
 
     //Hide/show media reports based on type filter
     if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] !== 'report')) {
@@ -1292,12 +1292,12 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     // Media filters
     if (isset($_GET['type']) && $_GET['type'] === 'report') {
       // Change -Any- status label
-      $form['field_rating_tid']['#options']['All'] = t('- Any status -');
+      $form['field_rating_tid']['#options']['All'] = decode_entities(t('&ndash; Any status &ndash;'));
       $form['media_flags'] = array(
         '#type' => 'select',
         '#title' => t('Flags'),
         '#options' => array(
-          'All' => t('- Any flag -'),
+          'All' => decode_entities(t('&ndash; Any flag &ndash;')),
           'flagged_gc' => t('Graphic content'),
           'flagged_spam' => t('Spam'),
         ),
@@ -1311,7 +1311,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       $form['report_story'] = array(
         '#type' => 'select',
         '#title' => t('Associated stories'),
-        '#options' => array('All' => t('- Any story -'), 'None' => t('- Unassigned -')) + $stories,
+        '#options' => array('All' => decode_entities(t('&ndash; Any story &ndash;')), 'None' => decode_entities(t('&ndash; Unassigned &ndash;'))) + $stories,
         '#theme' => 'select_as_links',
         '#bef_enable_fastlivefilter' => 1,
         '#fastlivefilte_placeholder' => t('Search for story'),
@@ -1339,7 +1339,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
               SELECT name FROM {users} WHERE status = :status AND uid != :uid ORDER BY name
         ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
       }
-      $users = array('All' => t('- Any author -'), $user->name => t('- My content -')) + $users;
+      $users = array('All' => decode_entities(t('&ndash; Any author &ndash;')), $user->name => decode_entities(t('&ndash; My content &ndash;'))) + $users;
       $form['author'] = array(
         '#type' => 'select',
         '#title' => t('Authors'),
