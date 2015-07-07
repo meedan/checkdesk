@@ -10,45 +10,7 @@
 function checkdesk_core_feature_variable_realm_default_variables() {
 $realm_variables = array();
   $realm_variables['language']['ar'] = array(
-  'checkdesk_site_owner' => 'ميدان',
   'r4032login_access_denied_message' => 'الوصول ممنوع. سجل دخولك لتصل للصفحة.',
-  'site_name' => 'شيخ دسك',
-  'site_slogan' => 'افلاج يب شبايس',
-  'theme_checkdesk_settings' => array(
-    'toggle_favicon' => 1,
-    'toggle_main_menu' => 1,
-    'default_favicon' => 1,
-    'favicon_path' => '',
-    'favicon_upload' => '',
-    'frontpage_logo_path' => 'public://checkdesk_theme/infinity-curve.png',
-    'frontpage_logo_upload' => '',
-    'header_logo_path' => 'public://checkdesk_theme/agile-dilbert.gif',
-    'header_logo_upload' => '',
-    'footer_image_path' => NULL,
-    'footer_image_upload' => '',
-    'custom_css' => '#partner-header-inner {
-  background-position: -100px bottom;
-  background-repeat: no-repeat;
-  padding: 0;
-}
-
-.update-actions {
-  display: none;
-}
-
-html body div.livefyre-header,
-html body div.fb-comments-header {
-  padding-left: 0;
-}
-
-#partner-header-inner #partner-header-slogan {
-  padding-top: 25px;
-}
-
-.menu-627 {
-  display: none !important;
-}',
-  ),
   'user_mail_cancel_confirm_body' => '[user:name],
 
 A request to cancel your account has been made at [site:name].
