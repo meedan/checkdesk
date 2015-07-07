@@ -10,8 +10,7 @@ Drupal.behaviors.meedan_notifications_menu_visibility = {
     var block = $('#my-notifications', context),
         title = $('#my-notifications-menu-link', context);
     block.find('.content, h2').hide();
-    title.unbind('click');
-    title.click(function() {
+    title.unbind('click').click(function() {
       var that = $(this);
       if (that.find('.notifications-count').html() !== '') {
         $.ajax({
@@ -34,8 +33,7 @@ Drupal.behaviors.meedan_notifications_load_more = {
   attach: function (context, settings) {
     var block = $('#my-notifications', context),
         container =  block.find('.view-content');
-    container.unbind('scroll');
-    container.scroll(function() {
+    container.unbind('scroll').scroll(function() {
       if ($(this)[0].scrollHeight - $(this).scrollTop() === $(this).outerHeight()) {
         block.find('.pager a').click();
       }
@@ -63,10 +61,36 @@ Drupal.behaviors.alert_new_notifications = {
       });
     }
 
+    var updatePageTitle = function(count) {
+      if (!count) {
+        document.title = pageTitle;
+        return;
+      }
+
+      // In the case of RTL text, brackets appear misaligned. We need to test the last character of the title
+      // and add a special Unicode RTL marker if it is Arabic or Hebrew.
+      // @see http://stackoverflow.com/questions/8698441/changing-the-direction-of-html-title-tag-to-right-to-left
+      // @see http://stackoverflow.com/questions/12006095/javascript-how-to-check-if-character-is-rtl
+      var rtl = new RegExp(
+        '[' +
+        '\u0600-\u06FF' + // Arabic - Range
+        '\u0750-\u077F' + // Arabic Supplement - Range
+        '\uFB50-\uFDFF' + // Arabic Presentation Forms-A - Range
+        '\uFE70-\uFEFF' + // Arabic Presentation Forms-B - Range
+        '\u0590-\u07FF' + // Hebrew
+        ']'
+      );
+      var rtlChar = '';
+      if (pageTitle.slice(-1).match(rtl)) {
+        rtlChar = '\u202B';
+      }
+      document.title = rtlChar + pageTitle + ' (' + count + ')';
+    };
+
     var block = $('#my-notifications'),
         counter = $('#my-notifications-menu-link').find('.notifications-count');
     if (counter.html() !== '') {
-      document.title = pageTitle + ' (' + counter.html() + ')';
+      updatePageTitle(counter.html());
     }
     block.unbind('autorefresh_update').bind('autorefresh_update', function(e, nid) {
       Drupal.behaviors.meedan_notifications_load_more.attach();
@@ -74,7 +98,7 @@ Drupal.behaviors.alert_new_notifications = {
     block.unbind('autorefresh_ping').bind('autorefresh_ping', function(e, count) {
       var total = (counter.html() === '') ? count : (parseInt(counter.html(), 10) + parseInt(count, 10));
       counter.addClass('badge').html(total);
-      document.title = pageTitle + ' (' + total + ')';
+      updatePageTitle(total);
       if (soundNewItem) soundNewItem.play();
     });
   }
