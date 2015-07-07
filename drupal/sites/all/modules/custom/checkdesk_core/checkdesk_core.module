@@ -1275,29 +1275,29 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $new_form_info = $form_info_top + $element_to_insert + $form_info_bottom;
     $form['#info'] = $new_form_info;
 
-    // Add required js for fastLiveFilter plugin
+    // Add required js for fastLiveFilter plugin.
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_search.js');
 
     $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
-    $form['field_tags_tid']['#options']['All'] = decode_entities(t('&ndash; Any tag &ndash;'));
+    $form['field_tags_tid']['#options']['All'] = '– ' . t('Any tag') . ' –';
 
-    //Hide/show media reports based on type filter
+    // Hide/show media reports based on type filter.
     if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] !== 'report')) {
       $form['#info']['filter-field_rating_tid']['label'] = NULL;
       $form['field_rating_tid']['#type'] = 'hidden';
       unset($form['field_rating_tid']['#theme']);
     }
 
-    // Media filters
+    // Media filters.
     if (isset($_GET['type']) && $_GET['type'] === 'report') {
       // Change -Any- status label
-      $form['field_rating_tid']['#options']['All'] = decode_entities(t('&ndash; Any status &ndash;'));
+      $form['field_rating_tid']['#options']['All'] = '– ' . t('Any status') . ' –';
       $form['media_flags'] = array(
         '#type' => 'select',
         '#title' => t('Flags'),
         '#options' => array(
-          'All' => decode_entities(t('&ndash; Any flag &ndash;')),
+          'All' => '– ' . t('Any flag') . ' –',
           'flagged_gc' => t('Graphic content'),
           'flagged_spam' => t('Spam'),
         ),
@@ -1311,7 +1311,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       $form['report_story'] = array(
         '#type' => 'select',
         '#title' => t('Associated stories'),
-        '#options' => array('All' => decode_entities(t('&ndash; Any story &ndash;')), 'None' => decode_entities(t('&ndash; Unassigned &ndash;'))) + $stories,
+        '#options' => array('All' => '– ' . t('Any story') . ' –', 'None' => '– ' . t('Unassigned') . ' –') + $stories,
         '#theme' => 'select_as_links',
         '#bef_enable_fastlivefilter' => 1,
         '#fastlivefilte_placeholder' => t('Search for story'),
@@ -1339,7 +1339,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
               SELECT name FROM {users} WHERE status = :status AND uid != :uid ORDER BY name
         ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
       }
-      $users = array('All' => decode_entities(t('&ndash; Any author &ndash;')), $user->name => decode_entities(t('&ndash; My content &ndash;'))) + $users;
+      $users = array('All' => '– ' . t('Any author') . ' –', $user->name => '– ' . t('My content') . ' –') + $users;
       $form['author'] = array(
         '#type' => 'select',
         '#title' => t('Authors'),
