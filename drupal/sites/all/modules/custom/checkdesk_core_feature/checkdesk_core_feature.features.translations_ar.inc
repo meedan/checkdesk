@@ -10461,6 +10461,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Relate content to the user who created it. This relationship will create one record for each content item created by the user.', array(), array('context' => ''));
+  $translations['ar:default']['d7e90b0b850eae1d898ae20c41931c7c'] = array(
+    'source' => 'Play notification sound',
+    'context' => '',
+    'location' => '/ar/user/1/edit/notifications',
+    'translation' => 'تشغيل الصوت للتنبيهات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Play notification sound', array(), array('context' => ''));
   $translations['ar:default']['d7eecd470361c10a07f61185c6e7d8d8'] = array(
     'source' => 'By status',
     'context' => '',

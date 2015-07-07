@@ -40,6 +40,11 @@ function checkdesk_notifications_number_of_new_items($user) {
  */
 function checkdesk_notifications_load_js() {
   drupal_add_js(drupal_get_path('module', 'checkdesk_notifications') . '/js/notifications_menu.js');
+  drupal_add_js(libraries_get_path('soundmanager2') . '/script/soundmanager2-nodebug-jsmin.js');
+  global $user;
+  drupal_add_js(array('alert_new_notifications' => array(
+    'play_sound' => checkdesk_notifications__get_sound($user->uid),
+  )), 'setting');
 }
 
 /**
@@ -391,7 +396,7 @@ function checkdesk_notifications_theme_heartbeat_time_ago($variables) {
 }
 
 /**
- * Implements hook_theme_registry_alter
+ * Implements hook_theme_registry_alter().
  */
 function checkdesk_notifications_theme_registry_alter(&$theme_registry) {
   $theme_registry['heartbeat_time_ago']['theme path'] = drupal_get_path('module', 'checkdesk_notifications');
@@ -399,7 +404,7 @@ function checkdesk_notifications_theme_registry_alter(&$theme_registry) {
 }
 
 /**
- * Implements hook_token_info
+ * Implements hook_token_info().
  */
 function checkdesk_notifications_token_info() {
   $info['tokens']['user']['notifications-url'] = array(
@@ -410,7 +415,7 @@ function checkdesk_notifications_token_info() {
 }
 
 /**
- * Implements hook_tokens
+ * Implements hook_tokens().
  */
 function checkdesk_notifications_tokens($type, $tokens, array $data = array(), array $options = array()) {
   $replacements = array();
@@ -423,8 +428,7 @@ function checkdesk_notifications_tokens($type, $tokens, array $data = array(), a
 }
 
 /**
- *  Get followed stories
- *
+ * Get followed stories
  */
 function _checkdesk_followed_stories($uid = 0) {
   if (!$uid) {
@@ -433,4 +437,30 @@ function _checkdesk_followed_stories($uid = 0) {
   }
   $result = flag_get_user_flags('node', NULL, $uid);
   return isset($result['follow_story']) ? $result['follow_story'] : array();
+}
+
+/**
+ * Notification sound settings.
+ */
+function checkdesk_notifications__get_sound($uid) {
+  $account = user_load($uid);
+  return isset($account->data['checkdesk_notifications_sound']) ? 
+    $account->data['checkdesk_notifications_sound'] : TRUE;
+}
+
+function checkdesk_notifications_form_meedan_notifications_user_page_alter(&$form, &$form_state) {
+  $form['checkdesk_notifications_sound'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Play notification sound'),
+    '#default_value' => checkdesk_notifications__get_sound($form['account_uid']['#value']),
+  );
+  $form['#submit'][] = 'checkdesk_notifications_form_meedan_notifications_user_page_submit';
+  return $form;
+}
+
+function checkdesk_notifications_form_meedan_notifications_user_page_submit($form, &$form_state) {
+  $account = user_load($form_state['values']['account_uid']);
+  user_save($account, array('data' => array(
+    'checkdesk_notifications_sound' => $form_state['values']['checkdesk_notifications_sound']
+  )));
 }

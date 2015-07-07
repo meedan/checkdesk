@@ -131,6 +131,7 @@ function meedan_notifications_user_page($form, $form_state, $account) {
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save configuration'),
+    '#weight' => 99,
   );
   return $form;
 }
