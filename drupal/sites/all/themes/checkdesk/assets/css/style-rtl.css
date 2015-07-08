@@ -174,10 +174,6 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f078";
 }
 
-#my-account .info .linked-account .icon-twitter:before {
-  content: "\f081";
-}
-
 .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:before, .elsewhere ul li a span.icon-twitter:before, .icon-twitter:before {
   content: "\f099";
 }
@@ -9106,56 +9102,16 @@ ul.pager {
 }
 
 #my-account {
-  width: 438px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-top: 0;
 }
-
-#my-account .info {
-  float: right;
-}
-#my-account .info a.username {
-  margin: 0;
-  padding: 0;
-  color: #3e4c57;
+#my-account a.username {
   font-weight: bold;
-  font-size: 16px;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e7e8ea;
 }
-#my-account .info .linked-account .icon-twitter:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: #1d87c9;
-  font-size: 21.5px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-#my-account .info .linked-account .icon-twitter:before {
-  margin: 0;
-}
-#my-account .info .linked-account a {
-  margin: 0;
-  padding: 0;
-  display: inline;
-  color: #10212f;
-}
-#my-account .info .linked-account small {
-  font-size: 16px;
-  color: #cccccc;
-}
-#my-account .info .bio {
-  word-wrap: break-word;
-}
-
-#my-account #account-menu {
-  float: left;
-}
-#my-account #account-menu a {
+#my-account a {
   display: block;
   float: none;
   padding: 4px 18px;
@@ -9172,7 +9128,7 @@ ul.pager {
   color: #3e4c57;
   background-color: white;
 }
-#my-account #account-menu a:hover {
+#my-account a:hover {
   color: white;
   background-color: #2e77fc;
 }

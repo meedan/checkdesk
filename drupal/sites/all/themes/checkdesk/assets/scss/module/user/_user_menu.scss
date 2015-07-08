@@ -1,49 +1,13 @@
-// My account dropdown in the primary navigation
-
+// user menu in the header
 #my-account {
-  width: 438px; // warning magic px CGB
-  padding-#{$alpha}: 10px;
-  padding-#{$omega}: 10px;
-}
-
-#my-account .info {
-  float: $alpha;
-
+  padding-top: 0;
   a.username {
-    @include reset-box-model;
-    color: $firefly80;
     font-weight: bold;
-    font-size: $font-size-small;
+    padding-top: 8px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid $firefly10;
   }
-
-  .linked-account {
-    .icon-twitter  {
-      @include icon("twitter-square", 21.5px, $twitter-blue);
-
-      &:before {
-        margin: 0;
-      }
-    }
-
-    a {
-      @include reset-box-model;
-      display: inline;
-      color: $firefly;
-    }
-
-    small {
-      font-size: $font-size-small;
-      color: $grey;
-    }
-  }
-
-  .bio {
-    word-wrap: break-word;
-  }
-}
-
-#my-account #account-menu {
-  float: $omega;
   a {
     @include dropdown-link;
   }
