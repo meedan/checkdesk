@@ -1030,9 +1030,6 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
  */
 function _redirect_story($form, &$form_state) {
   $values = $form_state['values'];
-  if (!$form['nid']['#value']) {
-    $_SESSION['report_tooltip'] = TRUE;
-  }
   $form_state['redirect'] = 'node/' . $values['nid'] . '/collaboration';
 }
 
@@ -3443,22 +3440,6 @@ function _checkdesk_story_links($nid) {
     $output .= theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-collaborate-links')));
   }
 
-  // Add tooltip for add a report.
-  if (isset($_SESSION['report_tooltip'])) {
-    $tour = array(
-      'title' => 'Submit Report',
-      'content' => 'Quickly add newsworthy links from social media. Then you can fact-check and publish them.',
-    );
-    $tooltip = '<span class="popover tour-tour fade right in collaboration-report-tooltip">';
-    $tooltip .= '  <div class="popover-arrow"></div>';
-    $tooltip .= '  <div class="popover-close" data-role="end" onclick="jQuery(this).parent().hide();"><span>[X]</span></div>';
-    $tooltip .= '  <h3><span class="popover-title">' . t($tour['title']) . '</span></h3>';
-    $tooltip .= '  <div class="popover-content">' . t($tour['content']) . '</div>';
-    $tooltip .= '</span>';
-    $output .= $tooltip;
-    unset($_SESSION['report_tooltip']);
-  }
-
   return $output;
 }
 
@@ -3475,7 +3456,7 @@ function _checkdesk_story_get_collaborators($nid, $options = array()) {
     $options['show_avatars'] = TRUE;
   }
   $output = '';
-  //ToDO check node type
+  // TODO check node type
   $users = db_query('
     SELECT ha.uid, u.name, f.fid, f.uri
     FROM {heartbeat_activity} ha
