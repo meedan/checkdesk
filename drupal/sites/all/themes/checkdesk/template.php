@@ -1031,6 +1031,7 @@ function checkdesk_field__field_rating(&$variables) {
   return $output;
 }
 
+
 /**
  * Field: Tags
  */

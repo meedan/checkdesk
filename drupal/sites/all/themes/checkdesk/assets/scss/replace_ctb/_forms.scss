@@ -311,6 +311,7 @@ input[type="checkbox"][readonly] {
 .form-actions {
   // add spacing when buttons appear together
   .btn {
+    margin-bottom: $gutter-width;
     &:not(:last-child) {
       margin-#{$omega}: $gutter-width;
     }

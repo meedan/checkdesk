@@ -506,6 +506,9 @@ input[type="checkbox"][readonly] {
   box-shadow: 0 0 6px white;
 }
 
+.form-actions .btn {
+  margin-bottom: 15px;
+}
 .form-actions .btn:not(:last-child) {
   margin-left: 15px;
 }
@@ -10503,6 +10506,11 @@ div.vertical-tabs {
   position: relative;
   /* IE6/7 */
   clear: both;
+}
+@media (min-width: 1px) and (max-width: 740px) {
+  div.vertical-tabs {
+    display: none;
+  }
 }
 
 .vertical-tabs ul.vertical-tabs-list {
