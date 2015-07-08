@@ -131,6 +131,11 @@
 	max-width: 586px;
 }
 
+.media .facebook-holder {
+	// TODO: make FB responsive
+	overflow-y: hidden;
+}
+
 .media .inline-img-thumb-holder, .media .inline-video-thumb-holder {
 	float: $omega;
 	padding-#{$alpha}: 12px;
