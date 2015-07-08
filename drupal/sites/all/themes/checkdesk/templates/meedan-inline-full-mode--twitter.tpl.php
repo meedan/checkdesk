@@ -13,9 +13,7 @@
     </div>
   <?php endif; ?>
   <div class="media-content">
-    <?php if($embed->type == 'photo') : ?>
-      <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
-    <?php endif; ?>
+    <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
     <?php if(isset($media_description)) : ?><span class="description expandable"><?php print $media_description; ?></span><?php endif; ?>
     <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
     <span>
