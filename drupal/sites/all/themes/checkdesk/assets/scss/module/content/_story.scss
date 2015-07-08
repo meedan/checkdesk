@@ -297,7 +297,7 @@
 .story .story-footer {
   @include ctb-clearfix;
   display: block;
-  margin: 20px 0 30px 0;
+  margin-top: 20px;
   padding: $absolute-line-height/4 0;
   color: $firefly40;
   @include cd-sans-serif-family;
@@ -315,8 +315,6 @@
 }
 
 .story .story-comments {
-  margin-top: $absolute-line-height;
-  margin-bottom: 60px;
   .fb-comments {
     margin-top: $absolute-line-height/2;
   }
