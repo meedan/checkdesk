@@ -12,15 +12,6 @@
 // The dropdown menu (usually a ul)
 .dropdown-menu {
   position: absolute;
-  // top: 75%;
-  // @if $from-direction == left {
-  //   left: 0;
-  //   @include border-radius(0 $radius $radius $radius);
-  // }
-  // @if $from-direction == right {
-  //   right: 0;
-  //   @include border-radius($radius 0 $radius $radius);
-  // }
   @include border-radius($radius);
   z-index: $z-index-Dropdown;
   display: none; // none by default, but block on "open" of the menu
@@ -49,9 +40,7 @@
 // Links within a dropdown list menu
 @mixin dropdown-link {
   display: block;
-  float: none;
-  padding: ms(-3) ms(0);
-  clear: both;
+  padding: 6px 14px;
   @include cd-sans-serif-family;
   font-weight: normal;
   line-height: $absolute-line-height;

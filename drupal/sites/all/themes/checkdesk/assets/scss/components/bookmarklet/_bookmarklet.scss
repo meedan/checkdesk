@@ -66,9 +66,6 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     float: $from-direction;
     clear: both;
     margin-top: $gutter-width;
-    input {
-      @include checkdesk-button();
-    }
   }
 
   #edit-body {

@@ -29,32 +29,10 @@ $omega: opposite-position($from-direction);
 // English fonts
 @import url(https://fonts.googleapis.com/css?family=Lato:400,400italic,700|Merriweather:400,400italic,700);
 
-// Modular scale
-// via: gem
-@import "modular-scale";
-
 // Bowerbird Compass Extension
 // See also README.md and ../bowerbird/README.md
 // Requires: base
 @import "bowerbird";
-
-// Bowerbird Drupal touchups
-// via: bowerbird
-@import "bowerbird/drupal";
-
-// Some views stuff we extracted from cd
-//
-// Deprecated
-// @import "views";
-
-//  Debugger mixins for the grid, breakpoints, etc.
-@import "bowerbird/debug";
-
-// Transition helper, for transitioning between two states
-@import "bowerbird/transition";
-
-// background image helper for development
-@import "bowerbird/backgrounds";
 
 // Bowerbird font-icon support mixin: icon()
 @import "bowerbird/icons/icons";
@@ -62,16 +40,6 @@ $omega: opposite-position($from-direction);
 // Load @extendable %icon- selectors
 // @extend directly or use icon() mixin to do it for you
 @import "bowerbird/icons/fontawesome";
-
-// Bowerbird fancy-buttons
-// Example usage: button { @include button($tupperware-blue, 26px, 1em, 4px); }
-// Replaces: "bowerbird/compass_twitter_bootstrap/buttons";
-// Replaces: "bowerbird/compass_twitter_bootstrap/button-groups";
-@import "bowerbird/buttons";
-
-// Bowerbird fancy-gradients
-// Example usage: div { @include gradient($dark-blue, $midnight-blue); }
-@import "bowerbird/gradients";
 
 // ======================================================================
 // Checkdesk (lightly forked) versions of Twitter Bootstrap libraries.

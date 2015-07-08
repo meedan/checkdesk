@@ -4,53 +4,6 @@
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
 }
 
-.feed-icon a {
-  display: none;
-}
-
-#skip a:link, #skip a:hover, #skip a:visited {
-  position: absolute;
-  left: -10000px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-#skip a:active, #skip a:focus {
-  position: static;
-  width: auto;
-  height: auto;
-}
-
-div.views-admin-links {
-  width: auto;
-}
-
-div.block {
-  position: relative;
-}
-div.block .edit {
-  display: none;
-  position: absolute;
-  right: -20px;
-  top: -5px;
-  z-index: 40;
-  padding: 3px 8px 0;
-  font-size: 10px;
-  line-height: 16px;
-  background-color: white;
-  border: 1px solid #cccccc;
-}
-div.block .edit a {
-  display: block;
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
-div.block:hover .edit {
-  display: block;
-}
-
 .icon-muted {
   color: rgba(255, 255, 255, 0.2);
 }
@@ -105,7 +58,7 @@ div.block:hover .edit {
   content: "\f03e";
 }
 
-.story .story-collaborate-links li.compose-update a:before, .story .compose-update-form .compose-update-header a:before, .story .open .compose-update-header a:before {
+.story .story-collaborate-links li.compose-update a:before, .story .open .compose-update-header a:before {
   content: "\f040";
 }
 
@@ -257,26 +210,6 @@ ul#user-menu .icon-bell-o:before {
   content: "\f196";
 }
 
-.button-reset-base-class {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-}
-.button-reset-base-class::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-.button-reset-base-class:focus {
-  outline: none;
-}
-
-/* incase an inverted custom gradient isn't specified */
 form {
   margin-bottom: 30px;
 }
@@ -1726,9 +1659,7 @@ textarea {
 
 ul.dropdown-menu a {
   display: block;
-  float: none;
-  padding: 4px 18px;
-  clear: both;
+  padding: 6px 14px;
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   line-height: 24px;
@@ -2412,7 +2343,7 @@ div.ctools-modal-content .modal-content {
   margin-top: 12px;
   letter-spacing: -1.1px;
 }
-@media screen and (max-width: 767px) {
+@media (min-width: 1px) and (max-width: 740px) {
   .modal-dialog-signin .modal-dialog-title {
     font-size: 26px;
     margin-top: 6px;
@@ -2429,7 +2360,7 @@ div.ctools-modal-content .modal-content {
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   letter-spacing: -0.8px;
 }
-@media screen and (max-width: 767px) {
+@media (min-width: 1px) and (max-width: 740px) {
   .modal-dialog-signin .modal-dialog-description {
     font-size: 18px;
     line-height: 1.4;
@@ -2447,86 +2378,24 @@ div.ctools-modal-content .modal-content {
 .modal-dialog-signin .modal-dialog-actions {
   margin-top: 35px;
 }
-@media screen and (max-width: 767px) {
+@media (min-width: 1px) and (max-width: 740px) {
   .modal-dialog-signin .modal-dialog-actions {
     margin-top: 20px;
   }
 }
 .modal-dialog-signin .modal-dialog-actions a {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  background-color: #2b76ff;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  font-weight: 400;
-  margin-right: 1em;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: block;
   margin: 0 auto 10px;
   width: 260px;
-  padding-top: 0;
-  padding-bottom: 0;
   text-align: left;
-  height: 48px;
-  line-height: 47px;
-}
-.modal-dialog-signin .modal-dialog-actions a::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-.modal-dialog-signin .modal-dialog-actions a:focus {
-  outline: none;
-}
-.modal-dialog-signin .modal-dialog-actions a, .modal-dialog-signin .modal-dialog-actions a:visited {
-  color: white;
-}
-.modal-dialog-signin .modal-dialog-actions a:hover, .modal-dialog-signin .modal-dialog-actions a:focus {
-  background-color: #1c6cff;
-}
-.modal-dialog-signin .modal-dialog-actions a:hover, .modal-dialog-signin .modal-dialog-actions a:hover:visited, .modal-dialog-signin .modal-dialog-actions a:focus, .modal-dialog-signin .modal-dialog-actions a:focus:visited {
-  color: white;
-}
-.modal-dialog-signin .modal-dialog-actions a:active {
-  background-color: #0c62ff;
-}
-.modal-dialog-signin .modal-dialog-actions a:active, .modal-dialog-signin .modal-dialog-actions a:active:visited {
-  color: white;
-}
-@media screen and (max-width: 767px) {
-  .modal-dialog-signin .modal-dialog-actions a {
-    height: 42px;
-    line-height: 41px;
-  }
-  .modal-dialog-signin .modal-dialog-actions a:before, .modal-dialog-signin .modal-dialog-actions a:after {
-    font-size: 20px;
-    margin-right: 10px;
-    line-height: 41px;
-  }
 }
 .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin {
-  background-color: #008ee6;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
+  color: white;
+  background-color: #1d87c9;
+  border-color: #1978b3;
 }
 .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:before {
   font-family: "FontAwesome";
@@ -2542,26 +2411,41 @@ div.ctools-modal-content .modal-content {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:visited {
+.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:focus, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.focus {
   color: white;
+  background-color: #16699c;
+  border-color: #0a2d43;
 }
-.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:hover, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:focus {
-  background-color: #006eb3;
-}
-.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:hover, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:hover:visited, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:focus, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:focus:visited {
+.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:hover {
   color: white;
+  background-color: #16699c;
+  border-color: #12547d;
 }
-.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:active {
-  background-color: #007bc7;
-}
-.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:active, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:active:visited {
+.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:active, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.active, .open > .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.dropdown-toggle {
   color: white;
+  background-color: #16699c;
+  border-color: #12547d;
+}
+.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:active:hover, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:active:focus, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:active.focus, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.active:hover, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.active:focus, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.active.focus, .open > .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.dropdown-toggle:hover, .open > .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.dropdown-toggle:focus, .open > .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.dropdown-toggle.focus {
+  color: white;
+  background-color: #12547d;
+  border-color: #0a2d43;
+}
+.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:active, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.active, .open > .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.dropdown-toggle {
+  background-image: none;
+}
+.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.disabled, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.disabled:hover, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.disabled:focus, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.disabled.focus, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.disabled:active, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.disabled.active, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin[disabled], .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin[disabled]:hover, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin[disabled]:focus, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin[disabled].focus, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin[disabled]:active, .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin[disabled].active, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:hover, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:focus, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.focus, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin:active, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin.active {
+  background-color: #1d87c9;
+  border-color: #1978b3;
+}
+.modal-dialog-signin .modal-dialog-actions a.twitter-action-signin .badge {
+  color: #1d87c9;
+  background-color: white;
 }
 .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect {
-  background-color: #033eaa;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
+  color: white;
+  background-color: #264887;
+  border-color: #213e73;
 }
 .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:before {
   font-family: "FontAwesome";
@@ -2577,29 +2461,44 @@ div.ctools-modal-content .modal-content {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:visited {
+.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:focus, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.focus {
   color: white;
+  background-color: #1b335f;
+  border-color: #040810;
 }
-.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:hover, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:focus {
-  background-color: #022c78;
-}
-.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:hover, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:hover:visited, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:focus, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:focus:visited {
+.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:hover {
   color: white;
+  background-color: #1b335f;
+  border-color: #132444;
 }
-.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:active {
-  background-color: #03338c;
-}
-.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:active, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:active:visited {
+.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:active, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.active, .open > .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.dropdown-toggle {
   color: white;
+  background-color: #1b335f;
+  border-color: #132444;
+}
+.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:active:hover, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:active:focus, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:active.focus, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.active:hover, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.active:focus, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.active.focus, .open > .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.dropdown-toggle:hover, .open > .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.dropdown-toggle:focus, .open > .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.dropdown-toggle.focus {
+  color: white;
+  background-color: #132444;
+  border-color: #040810;
+}
+.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:active, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.active, .open > .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.dropdown-toggle {
+  background-image: none;
+}
+.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.disabled, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.disabled:hover, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.disabled:focus, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.disabled.focus, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.disabled:active, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.disabled.active, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect[disabled], .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect[disabled]:hover, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect[disabled]:focus, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect[disabled].focus, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect[disabled]:active, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect[disabled].active, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:hover, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:focus, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.focus, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:active, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect.active {
+  background-color: #264887;
+  border-color: #213e73;
+}
+.modal-dialog-signin .modal-dialog-actions a.facebook-action-connect .badge {
+  color: #264887;
+  background-color: white;
 }
 .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:before, .modal-dialog-signin .modal-dialog-actions a.facebook-action-connect:after {
   margin-right: 26px !important;
 }
 .modal-dialog-signin .modal-dialog-actions a.email-signin {
+  color: white;
   background-color: #a6a6a6;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
+  border-color: #999999;
 }
 .modal-dialog-signin .modal-dialog-actions a.email-signin:before {
   font-family: "FontAwesome";
@@ -2615,25 +2514,36 @@ div.ctools-modal-content .modal-content {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.modal-dialog-signin .modal-dialog-actions a.email-signin, .modal-dialog-signin .modal-dialog-actions a.email-signin:visited {
+.modal-dialog-signin .modal-dialog-actions a.email-signin:focus, .modal-dialog-signin .modal-dialog-actions a.email-signin.focus {
   color: white;
-}
-.modal-dialog-signin .modal-dialog-actions a.email-signin:hover, .modal-dialog-signin .modal-dialog-actions a.email-signin:focus {
   background-color: #8c8c8c;
+  border-color: #595959;
 }
-.modal-dialog-signin .modal-dialog-actions a.email-signin:hover, .modal-dialog-signin .modal-dialog-actions a.email-signin:hover:visited, .modal-dialog-signin .modal-dialog-actions a.email-signin:focus, .modal-dialog-signin .modal-dialog-actions a.email-signin:focus:visited {
+.modal-dialog-signin .modal-dialog-actions a.email-signin:hover {
   color: white;
+  background-color: #8c8c8c;
+  border-color: #7a7a7a;
 }
-.modal-dialog-signin .modal-dialog-actions a.email-signin:active {
-  background-color: #969696;
-}
-.modal-dialog-signin .modal-dialog-actions a.email-signin:active, .modal-dialog-signin .modal-dialog-actions a.email-signin:active:visited {
+.modal-dialog-signin .modal-dialog-actions a.email-signin:active, .modal-dialog-signin .modal-dialog-actions a.email-signin.active, .open > .modal-dialog-signin .modal-dialog-actions a.email-signin.dropdown-toggle {
   color: white;
+  background-color: #8c8c8c;
+  border-color: #7a7a7a;
 }
-.modal-dialog-signin .modal-dialog-actions a.email-signup {
+.modal-dialog-signin .modal-dialog-actions a.email-signin:active:hover, .modal-dialog-signin .modal-dialog-actions a.email-signin:active:focus, .modal-dialog-signin .modal-dialog-actions a.email-signin:active.focus, .modal-dialog-signin .modal-dialog-actions a.email-signin.active:hover, .modal-dialog-signin .modal-dialog-actions a.email-signin.active:focus, .modal-dialog-signin .modal-dialog-actions a.email-signin.active.focus, .open > .modal-dialog-signin .modal-dialog-actions a.email-signin.dropdown-toggle:hover, .open > .modal-dialog-signin .modal-dialog-actions a.email-signin.dropdown-toggle:focus, .open > .modal-dialog-signin .modal-dialog-actions a.email-signin.dropdown-toggle.focus {
+  color: white;
+  background-color: #7a7a7a;
+  border-color: #595959;
+}
+.modal-dialog-signin .modal-dialog-actions a.email-signin:active, .modal-dialog-signin .modal-dialog-actions a.email-signin.active, .open > .modal-dialog-signin .modal-dialog-actions a.email-signin.dropdown-toggle {
+  background-image: none;
+}
+.modal-dialog-signin .modal-dialog-actions a.email-signin.disabled, .modal-dialog-signin .modal-dialog-actions a.email-signin.disabled:hover, .modal-dialog-signin .modal-dialog-actions a.email-signin.disabled:focus, .modal-dialog-signin .modal-dialog-actions a.email-signin.disabled.focus, .modal-dialog-signin .modal-dialog-actions a.email-signin.disabled:active, .modal-dialog-signin .modal-dialog-actions a.email-signin.disabled.active, .modal-dialog-signin .modal-dialog-actions a.email-signin[disabled], .modal-dialog-signin .modal-dialog-actions a.email-signin[disabled]:hover, .modal-dialog-signin .modal-dialog-actions a.email-signin[disabled]:focus, .modal-dialog-signin .modal-dialog-actions a.email-signin[disabled].focus, .modal-dialog-signin .modal-dialog-actions a.email-signin[disabled]:active, .modal-dialog-signin .modal-dialog-actions a.email-signin[disabled].active, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.email-signin, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.email-signin:hover, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.email-signin:focus, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.email-signin.focus, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.email-signin:active, fieldset[disabled] .modal-dialog-signin .modal-dialog-actions a.email-signin.active {
+  background-color: #a6a6a6;
+  border-color: #999999;
+}
+.modal-dialog-signin .modal-dialog-actions a.email-signin .badge {
   color: #a6a6a6;
-  border: 1px solid #a6a6a6;
-  background-color: transparent;
+  background-color: white;
 }
 .modal-dialog-signin .modal-dialog-actions a.email-signup:before {
   font-family: "FontAwesome";
@@ -2648,11 +2558,6 @@ div.ctools-modal-content .modal-content {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-.modal-dialog-signin .modal-dialog-actions a.email-signup:hover {
-  color: #2e77fc;
-  border: 1px solid #2e77fc;
-  background-color: #fff;
 }
 .modal-dialog-signin .modal-dialog-actions a:before, .modal-dialog-signin .modal-dialog-actions a:after {
   font-size: 24px !important;
@@ -4313,7 +4218,7 @@ body.sidebar-second aside#sidebar-second {
   padding: 0;
   position: relative;
   display: inline-block;
-  font-size: 14px;
+  font-size: modular-scale(0)-modular-scale(-3);
   line-height: 1.6;
 }
 #footer-inner ul li a {
@@ -4349,54 +4254,6 @@ body.sidebar-second aside#sidebar-second {
 }
 #footer-inner ul li .ajax-progress-throbber {
   display: none;
-}
-#footer-inner .factcheck-cta {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  background-color: #a6a6a6;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  font-weight: 400;
-  margin-right: 1em;
-}
-#footer-inner .factcheck-cta::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-#footer-inner .factcheck-cta:focus {
-  outline: none;
-}
-#footer-inner .factcheck-cta, #footer-inner .factcheck-cta:visited {
-  color: white;
-}
-#footer-inner .factcheck-cta:hover, #footer-inner .factcheck-cta:focus {
-  background-color: #9e9e9e;
-}
-#footer-inner .factcheck-cta:hover, #footer-inner .factcheck-cta:hover:visited, #footer-inner .factcheck-cta:focus, #footer-inner .factcheck-cta:focus:visited {
-  color: white;
-}
-#footer-inner .factcheck-cta:active {
-  background-color: #969696;
-}
-#footer-inner .factcheck-cta:active, #footer-inner .factcheck-cta:active:visited {
-  color: white;
 }
 #footer-inner .icon-comments-o:before {
   font-family: "FontAwesome";
@@ -5075,71 +4932,23 @@ div.sensitive-hide {
   display: none;
 }
 
-.sensitive-notification {
+.media-holder .sensitive-notification,
+.report-row .sensitive-notification {
   display: table-cell;
   width: 60%;
   height: 200px;
   text-align: center;
   vertical-align: middle;
-  background: none !important;
+  background: none;
 }
-.sensitive-notification .sensitive-notification-text {
+.media-holder .sensitive-notification .sensitive-notification-text,
+.report-row .sensitive-notification .sensitive-notification-text {
   color: #6f7a82;
   padding: 12px 7.5px;
 }
-.sensitive-notification .sensitive-notification-link {
+.media-holder .sensitive-notification .sensitive-notification-link,
+.report-row .sensitive-notification .sensitive-notification-link {
   padding: 12px 7.5px;
-}
-.sensitive-notification .sensitive-notification-link a {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  background-color: rgba(3, 34, 60, 0.2);
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-}
-.sensitive-notification .sensitive-notification-link a::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-.sensitive-notification .sensitive-notification-link a:focus {
-  outline: none;
-}
-.sensitive-notification .sensitive-notification-link a, .sensitive-notification .sensitive-notification-link a:visited {
-  color: white;
-}
-.sensitive-notification .sensitive-notification-link a:hover, .sensitive-notification .sensitive-notification-link a:focus {
-  background-color: rgba(3, 26, 45, 0.2);
-}
-.sensitive-notification .sensitive-notification-link a:hover, .sensitive-notification .sensitive-notification-link a:hover:visited, .sensitive-notification .sensitive-notification-link a:focus, .sensitive-notification .sensitive-notification-link a:focus:visited {
-  color: white;
-}
-.sensitive-notification .sensitive-notification-link a:active {
-  background-color: rgba(2, 18, 31, 0.2);
-}
-.sensitive-notification .sensitive-notification-link a:active, .sensitive-notification .sensitive-notification-link a:active:visited {
-  color: white;
-}
-
-.report-row .sensitive-notification {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #f3f4f4 !important;
 }
 
 .meedan-oembed-missing {
@@ -5338,7 +5147,7 @@ div.sensitive-hide {
   *zoom: 1;
   padding: 6px 15px;
   border-top: 1px solid rgba(16, 33, 47, 0.1);
-  font-size: 14px;
+  font-size: modular-scale(0)-modular-scale(-3);
   display: block;
   color: #9fa6ac;
   background-color: rgba(16, 33, 47, 0.02);
@@ -6110,173 +5919,6 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
   color: #9d261d;
   font-size: 15px;
   font-style: italic;
-}
-
-.story .story-blogger {
-  *zoom: 1;
-  margin: 12px 0;
-}
-.story .story-blogger:before, .story .story-blogger:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.story .story-blogger:after {
-  clear: both;
-}
-.story .story-blogger .avatar {
-  display: inline-block;
-  padding: 12px 0;
-}
-.story .story-blogger .avatar .user-picture {
-  display: inline-block;
-  margin-right: 15px;
-}
-.story .story-blogger .avatar .user-picture img {
-  display: inline-block;
-  vertical-align: text-bottom;
-  width: 20px;
-  height: 20px;
-  margin-omega: 5px;
-}
-.story .story-blogger .avatar a {
-  color: #777777;
-}
-.story .story-blogger .avatar a:hover {
-  color: #111111;
-}
-.story .story-blogger .blogger-status {
-  display: inline-block;
-  margin-left: 15px;
-}
-.story .story-blogger .blogger-status .blogger-status-indicator {
-  width: 10px;
-  height: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  border-radius: 10px;
-  display: inline-block;
-  background-color: #777777;
-}
-.story .story-blogger .blogger-status .blogger-status-text {
-  background-color: white;
-  background-color: rgba(255, 255, 255, 0.6);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-  display: inline-block;
-  padding: 12px 15px;
-  margin-left: 15px;
-}
-.story .story-blogger .story-blogger-status-offline .blogger-status-indicator {
-  background-color: #777777;
-}
-.story .story-blogger .story-blogger-status-online .blogger-status-indicator {
-  background-color: #46a546;
-}
-
-.story .compose-update-form {
-  *zoom: 1;
-  margin: 24px 0;
-}
-.story .compose-update-form:before, .story .compose-update-form:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.story .compose-update-form:after {
-  clear: both;
-}
-.story .compose-update-form .compose-update-header a {
-  display: inline-block;
-  padding: 12px 15px;
-  color: #fff;
-  background-color: #2e77fc;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 20px;
-  text-decoration: none;
-}
-.story .compose-update-form .compose-update-header a:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: white;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.story .compose-update-form .div.vertical-tabs, .story .compose-update-form div.vertical-tabs-panes {
-  display: none !important;
-}
-.story .compose-update-form .node-post-form {
-  display: none;
-  padding: 0 15px;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
-}
-.story .compose-update-form .node-post-form input[type='submit'] {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  background-color: #2b76ff;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  font-weight: 400;
-  margin-right: 1em;
-}
-.story .compose-update-form .node-post-form input[type='submit']::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-.story .compose-update-form .node-post-form input[type='submit']:focus {
-  outline: none;
-}
-.story .compose-update-form .node-post-form input[type='submit'], .story .compose-update-form .node-post-form input[type='submit']:visited {
-  color: white;
-}
-.story .compose-update-form .node-post-form input[type='submit']:hover, .story .compose-update-form .node-post-form input[type='submit']:focus {
-  background-color: #1c6cff;
-}
-.story .compose-update-form .node-post-form input[type='submit']:hover, .story .compose-update-form .node-post-form input[type='submit']:hover:visited, .story .compose-update-form .node-post-form input[type='submit']:focus, .story .compose-update-form .node-post-form input[type='submit']:focus:visited {
-  color: white;
-}
-.story .compose-update-form .node-post-form input[type='submit']:active {
-  background-color: #0c62ff;
-}
-.story .compose-update-form .node-post-form input[type='submit']:active, .story .compose-update-form .node-post-form input[type='submit']:active:visited {
-  color: white;
-}
-.story .compose-update-form .node-post-form .ui-droppable {
-  float: none;
 }
 
 .story .open .compose-update-header {
@@ -7580,54 +7222,6 @@ body.cke_editable blockquote:after {
   background-color: transparent;
   border: none;
 }
-#nav-discussion-form .form-actions #edit-submit-story {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  background-color: #2b76ff;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  font-weight: 400;
-  margin-right: 1em;
-}
-#nav-discussion-form .form-actions #edit-submit-story::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-#nav-discussion-form .form-actions #edit-submit-story:focus {
-  outline: none;
-}
-#nav-discussion-form .form-actions #edit-submit-story, #nav-discussion-form .form-actions #edit-submit-story:visited {
-  color: white;
-}
-#nav-discussion-form .form-actions #edit-submit-story:hover, #nav-discussion-form .form-actions #edit-submit-story:focus {
-  background-color: #1c6cff;
-}
-#nav-discussion-form .form-actions #edit-submit-story:hover, #nav-discussion-form .form-actions #edit-submit-story:hover:visited, #nav-discussion-form .form-actions #edit-submit-story:focus, #nav-discussion-form .form-actions #edit-submit-story:focus:visited {
-  color: white;
-}
-#nav-discussion-form .form-actions #edit-submit-story:active {
-  background-color: #0c62ff;
-}
-#nav-discussion-form .form-actions #edit-submit-story:active, #nav-discussion-form .form-actions #edit-submit-story:active:visited {
-  color: white;
-}
 #nav-discussion-form .image-widget-data {
   width: 100%;
 }
@@ -7686,12 +7280,6 @@ body.cke_editable blockquote:after {
   display: none;
 }
 
-@media all and (max-height: 42em) {
-  #nav-discussion-form {
-    max-height: 320px;
-    overflow-y: scroll;
-  }
-}
 .page-node-edit form.node-media-form label {
   display: inline-block;
 }
@@ -7795,18 +7383,6 @@ form .nodescription .description {
 }
 form div.form-actions {
   margin-top: 30px;
-}
-form input:disabled {
-  background-color: white;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
-  opacity: 0.7;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  cursor: default !important;
-}
-form input:disabled, form input:disabled:visited {
-  color: #3e4c57;
 }
 form .views-row.ui-draggable-dragging .views-row,
 form .views-row.ui-draggable:hover .views-row {
@@ -8068,7 +7644,7 @@ table th[class*="span"],
 }
 
 #my-notifications .view-content {
-  height: 200px;
+  height: ms(10);
   overflow-y: auto;
   margin-bottom: 6px;
 }
@@ -8086,9 +7662,7 @@ table th[class*="span"],
 #my-notifications .more-link a,
 #my-notifications .notifications-settings-link a {
   display: block;
-  float: none;
-  padding: 4px 18px;
-  clear: both;
+  padding: 6px 14px;
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   line-height: 24px;
@@ -8466,54 +8040,6 @@ table th[class*="span"],
   clear: both;
   margin-top: 15px;
 }
-#meedan_bookmarklet .footer input {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  background-color: #2b76ff;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  font-weight: 400;
-  margin-right: 1em;
-}
-#meedan_bookmarklet .footer input::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-#meedan_bookmarklet .footer input:focus {
-  outline: none;
-}
-#meedan_bookmarklet .footer input, #meedan_bookmarklet .footer input:visited {
-  color: white;
-}
-#meedan_bookmarklet .footer input:hover, #meedan_bookmarklet .footer input:focus {
-  background-color: #1c6cff;
-}
-#meedan_bookmarklet .footer input:hover, #meedan_bookmarklet .footer input:hover:visited, #meedan_bookmarklet .footer input:focus, #meedan_bookmarklet .footer input:focus:visited {
-  color: white;
-}
-#meedan_bookmarklet .footer input:active {
-  background-color: #0c62ff;
-}
-#meedan_bookmarklet .footer input:active, #meedan_bookmarklet .footer input:active:visited {
-  color: white;
-}
 #meedan_bookmarklet #edit-body {
   float: left;
   clear: both;
@@ -8548,7 +8074,7 @@ table th[class*="span"],
 }
 #meedan_bookmarklet #user-login .messages.error {
   position: static;
-  font-size: 14px;
+  font-size: modular-scale(0)-modular-scale(-3);
   margin-bottom: 8px;
 }
 #meedan_bookmarklet #user-login .social-signin-wrapper {
@@ -8562,18 +8088,18 @@ table th[class*="span"],
 }
 #meedan_bookmarklet #user-login .user-links {
   clear: both;
-  font-size: 14px;
+  font-size: modular-scale(0)-modular-scale(-3);
   padding-right: 15px;
 }
 #meedan_bookmarklet #user-login .form-item-remember-me {
   clear: none;
 }
 #meedan_bookmarklet #user-login .form-item-remember-me label {
-  font-size: 14px;
+  font-size: modular-scale(0)-modular-scale(-3);
 }
 #meedan_bookmarklet #user-login .user-new-account-link .register {
   text-align: right;
-  font-size: 14px;
+  font-size: modular-scale(0)-modular-scale(-3);
 }
 #meedan_bookmarklet #user-login input[type=text],
 #meedan_bookmarklet #user-login input[type=password] {
@@ -8835,7 +8361,7 @@ table th[class*="span"],
   margin: 0;
   padding: 0;
   margin: 12px auto;
-  font-size: 14px;
+  font-size: modular-scale(0)-modular-scale(-3);
   font-weight: normal;
   line-height: 1.3;
   color: #777777;
@@ -8863,9 +8389,6 @@ table th[class*="span"],
   font-size: 20px;
   color: #555555;
   width: 90%;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col p {
-  margin: 18px 0;
 }
 #modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:first-child {
   float: left;
@@ -9042,25 +8565,6 @@ ul.pager {
 
 .user-login-wrapper .form-actions .form-submit, .user-register-wrapper .form-actions .form-submit, .user-forgot-wrapper .form-actions .form-submit {
   float: left;
-  background-color: #2b76ff;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-}
-.user-login-wrapper .form-actions .form-submit, .user-login-wrapper .form-actions .form-submit:visited, .user-register-wrapper .form-actions .form-submit, .user-register-wrapper .form-actions .form-submit:visited, .user-forgot-wrapper .form-actions .form-submit, .user-forgot-wrapper .form-actions .form-submit:visited {
-  color: white;
-}
-.user-login-wrapper .form-actions .form-submit:hover, .user-login-wrapper .form-actions .form-submit:focus, .user-register-wrapper .form-actions .form-submit:hover, .user-register-wrapper .form-actions .form-submit:focus, .user-forgot-wrapper .form-actions .form-submit:hover, .user-forgot-wrapper .form-actions .form-submit:focus {
-  background-color: #1c6cff;
-}
-.user-login-wrapper .form-actions .form-submit:hover, .user-login-wrapper .form-actions .form-submit:hover:visited, .user-login-wrapper .form-actions .form-submit:focus, .user-login-wrapper .form-actions .form-submit:focus:visited, .user-register-wrapper .form-actions .form-submit:hover, .user-register-wrapper .form-actions .form-submit:hover:visited, .user-register-wrapper .form-actions .form-submit:focus, .user-register-wrapper .form-actions .form-submit:focus:visited, .user-forgot-wrapper .form-actions .form-submit:hover, .user-forgot-wrapper .form-actions .form-submit:hover:visited, .user-forgot-wrapper .form-actions .form-submit:focus, .user-forgot-wrapper .form-actions .form-submit:focus:visited {
-  color: white;
-}
-.user-login-wrapper .form-actions .form-submit:active, .user-register-wrapper .form-actions .form-submit:active, .user-forgot-wrapper .form-actions .form-submit:active {
-  background-color: #0c62ff;
-}
-.user-login-wrapper .form-actions .form-submit:active, .user-login-wrapper .form-actions .form-submit:active:visited, .user-register-wrapper .form-actions .form-submit:active, .user-register-wrapper .form-actions .form-submit:active:visited, .user-forgot-wrapper .form-actions .form-submit:active, .user-forgot-wrapper .form-actions .form-submit:active:visited {
-  color: white;
 }
 .user-login-wrapper .form-actions .back-link, .user-register-wrapper .form-actions .back-link, .user-forgot-wrapper .form-actions .back-link {
   float: right;
@@ -9127,9 +8631,7 @@ ul.pager {
 }
 #my-account a {
   display: block;
-  float: none;
-  padding: 4px 18px;
-  clear: both;
+  padding: 6px 14px;
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   line-height: 24px;

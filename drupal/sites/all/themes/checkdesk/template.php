@@ -1102,6 +1102,7 @@ function checkdesk_fboauth_action__connect(&$variables) {
   $link = $variables['properties'];
   $url = url($link['href'], array('query' => $link['query']));
   $link['attributes']['class'] = isset($link['attributes']['class']) ? $link['attributes']['class'] : 'facebook-action-connect';
+  $link['attributes']['class'] .= " btn btn-default";
   // Button i18n.
   $language = $GLOBALS['language']->language;
   $link['attributes']['class'] .= " fb-button-$language";
@@ -1115,7 +1116,7 @@ function checkdesk_fboauth_action__connect(&$variables) {
  * Change Twitter login button from image to simple
  */
 function checkdesk_twitter_signin_button() {
-  $link['attributes']['class'][] = 'twitter-action-signin';
+  $link['attributes']['class'] = array('btn', 'btn-default', 'twitter-action-signin');
   $link['attributes']['title'] = t('Sign in with Twitter');
   return l(t('Sign in with Twitter'), 'twitter/redirect', $link);
 }
@@ -1239,6 +1240,14 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       $vars['update'] = $vars['fields']['rendered_entity_1']->content;
     }
   }
+}
+
+/**
+ * Template preprocessor for `meedan_sensitive_content_display`.
+ */
+function checkdesk_preprocess_meedan_sensitive_content_display(&$vars) {
+  $vars['meedan_sensitive_text'] = t(variable_get('meedan_sensitive_content_text', MEEDAN_SENSITIVE_CONTENT_DEFAULT_TEXT));
+  $vars['meedan_sensitive_link'] = l(t('Display'), '', array('attributes' => array('class' => array('display-sensitive', 'btn', 'btn-default'), 'onclick' => 'meedanSensitiveContent.Update('. $vars['meedan_sensitive_nid'] .', true); return false;')));
 }
 
 /**

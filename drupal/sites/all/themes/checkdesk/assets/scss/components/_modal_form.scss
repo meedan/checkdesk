@@ -15,7 +15,7 @@
   }
 
   // For mobile screens
-  @media screen and (max-width: 767px) {
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
     & {
       font-size: 26px;
       margin-top: 6px;
@@ -43,7 +43,7 @@
 
 
   // For mobile screens
-  @media screen and (max-width: 767px) {
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
     & {
       font-size: 18px;
       line-height: 1.4;
@@ -63,54 +63,31 @@
 .modal-dialog-signin .modal-dialog-actions {
   margin-top: 35px;
   // For mobile screens
-  @media screen and (max-width: 767px) {
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
     & {
       margin-top: 20px;
     }
   }    
   a {
-    @include checkdesk-button();
     @include box-sizing(border-box);
     display: block;
     margin: 0 auto 10px;
     width: 260px;
-    padding-top: 0;
-    padding-bottom: 0;
     text-align: $alpha;
-    height: 48px;
-    line-height: 47px;
     @if $from-direction == 'right' {
       font-size: 14.5px;
       line-height: 32px;
     }
 
-    @media screen and (max-width: 767px) {
-      & {
-        height: 42px;
-        @if $from-direction == 'left' {
-          line-height: 41px;
-        }
-        @if $from-direction == 'right' {
-          font-size: 14.5px;
-          line-height: 32px;
-        }
-        &:before, &:after {
-          font-size: 20px; 
-          margin-#{$omega}: 10px;
-          line-height: 41px;
-        }
-      }
-    }
-
     // add icons and colors
     &.twitter-action-signin {
       @include icon(twitter);
-      @include button-colors($twitter-blue, darken($twitter-blue, 10));
+      @include ctb-button-variant(#fff, $twitter-blue, darken($twitter-blue, 5));
     }
-    
+
     &.facebook-action-connect {
       @include icon(facebook);
-      @include button-colors($facebook-blue, darken($facebook-blue, 10));
+      @include ctb-button-variant(#fff, $facebook-blue, darken($facebook-blue, 5));
       &:before, &:after {
         margin-#{$omega}: 26px !important;  // bigger margin for thin icon
       }
@@ -118,19 +95,11 @@
 
     &.email-signin {
       @include icon(envelope);
-      @include button-colors($medium-grey, darken($medium-grey, 10));
+      @include ctb-button-variant(#fff, $medium-grey, darken($medium-grey, 5));
     }
 
     &.email-signup {
       @include icon(envelope-o);
-      color: $medium-grey;
-      border: 1px solid $medium-grey;
-      background-color: transparent;
-      &:hover {
-        color: $dodgerBlue;
-        border: 1px solid $dodgerBlue;
-        background-color: #fff;
-      }
     }
 
     // for all icons
