@@ -1102,11 +1102,11 @@ function _checkdesk_generate_lead_image($image, $image_caption) {
     $output .= '<source media="(min-width: 720px)" srcset="' . $lead_image_path . '" />';
     $output .= '<source media="(min-width: 550px)" srcset="' . $lead_image_med_path   . '"/>';
     $output .= '<source srcset="' . $lead_image_small_path   . '"/>';
-    $output .= '<img src="' . $lead_image_small_path . '" />';
+    $output .= '<img class="feature-image" src="' . $lead_image_small_path . '" />';
     $output .= '</picture>';
   }
   if(isset($image_caption)) {
-    $output .= '<blockquote>' . check_markup($image_caption, 'filtered_html') . '</blockquote>';
+    $output .= '<figcaption>' . check_markup($image_caption, 'filtered_html') . '</figcaption>';
   }
 
   return $output;

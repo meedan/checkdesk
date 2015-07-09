@@ -32,7 +32,7 @@
         <?php print l(_checkdesk_generate_lead_image($fields['uri']->raw, NULL), 'node/' . $fields['nid']->raw, array(
       'html' => TRUE)); ?>
         <?php if(isset($fields['caption']->content)) { ?>
-          <blockquote><?php print check_markup($fields['caption']->raw, 'filtered_html'); ?></blockquote>
+          <figcaption><?php print check_markup($fields['caption']->raw, 'filtered_html'); ?></figcaption>
         <?php } ?>
       </figure>
     <?php } ?>
