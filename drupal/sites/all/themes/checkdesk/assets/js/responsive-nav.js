@@ -19,10 +19,16 @@
           // when the navigation expands
           $('.metabar').css('position', 'relative');
           $('#main').css('top', '0px');
+          // scroll to top when page has been scrolled
+          if($('body').hasClass('scrolling')) {
+            $('body').animate({ scrollTop: 0 }, "slow");  
+          }
         },
         close: function(){
           // move metabar back to top
           $('.metabar').css('top', '');
+          // make sure header is not in header-up state
+          $('.metabar').removeClass('header-up');
         },
       });
 
