@@ -14,17 +14,31 @@
         navClass: "nav-collapse", // String: Default CSS class. If changed, you need to edit the CSS too!
         navActiveClass: "js-nav-active", // String: Class that is added to  element when nav is active
         jsClass: "js", // String: 'JS enabled' class which is added to  element
-        open: function(){
+        open: function() {
           // Make metabar position relative so it pushes down
           // when the navigation expands
           $('.metabar').css('position', 'relative');
           $('#main').css('top', '0px');
           // scroll to top when page has been scrolled
-          if($('body').hasClass('scrolling')) {
-            $('body').animate({ scrollTop: 0 }, "slow");  
+          if ($('body').hasClass('scrolling')) {
+            var completeCalled = false;
+            $('html, body').animate(
+              { scrollTop: '0' },
+              {
+                complete : function(){
+                    if(!completeCalled){
+                      completeCalled = true;
+                    }
+                }
+              },
+              'slow'
+            );
+            if ($('#widgets').length) {
+              $('#widgets').css('opacity', '');
+            }
           }
         },
-        close: function(){
+        close: function() {
           // move metabar back to top
           $('.metabar').css('top', '');
           // make sure header is not in header-up state

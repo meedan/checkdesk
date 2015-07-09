@@ -13,7 +13,7 @@
           headerHeight = $('header ul#user-menu').outerHeight();
 
       // on scroll, let the interval function know the user has scrolled
-      $(window).scroll(function(event){
+      $(window).scroll(function(event) {
         didScroll = true;
       });
 
@@ -29,7 +29,7 @@
         var st = $(window).scrollTop();
 
         // Make sure they scroll more than delta
-        if(Math.abs(lastScrollTop - st) <= delta && st >= delta) 
+        if (Math.abs(lastScrollTop - st) <= delta && st >= delta) 
           return;
         
         // add helper classes to body
@@ -42,7 +42,7 @@
 
 
         // If current position > last position AND scrolled past navbar...
-        if (st > lastScrollTop && st > (headerHeight + (buffer))){
+        if (st > lastScrollTop && st > (headerHeight + (buffer))) {
           // Scroll Down
           $('header .metabar').removeClass('header-down').addClass('header-up');
           $('body').removeClass('header-down').addClass('header-up');
@@ -62,7 +62,7 @@
           if (!$('html').hasClass('js-nav-active')) {
             // Scroll Up
             // If did not scroll past the document (possible on mac)...
-            if(st + $(window).height() < $(document).height()) {
+            if (st + $(window).height() < $(document).height()) {
               // reset metabar position             
               $('.metabar').css('position', '');
               $('#toolbar').removeClass('header-up').addClass('header-down');
@@ -78,7 +78,7 @@
           }
 
           // If at top of the page hide shadow
-          if(st == 0) {
+          if (st == 0) {
             $('header').removeClass('show-content-shadow');
             $('header').removeClass('show-content-shadow');
             $('body').removeClass('scrolling');
