@@ -309,6 +309,7 @@ function checkdesk_preprocess_page(&$variables) {
   drupal_add_js(libraries_get_path('mediaCheck') . '/mediaCheck-min.js', array('scope' => 'header', 'group' => JS_THEME, 'every_page' => TRUE));
   drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/responsive-nav.js', array('scope' => 'footer', 'weight' => 99));
   // Add picture polyfill for responsive images in browsers that don't support it yet
+  // @todo: #1664602: D7 does not yet support "async" in drupal_add_js().
   drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/picturefill.min.js', array('scope' => 'footer', 'weight' => 99));
 
   // logo icon for header
@@ -1089,7 +1090,7 @@ function checkdesk_field__field_lead_image(&$variables) {
  * Utiltiy function that generates a responsive img tag
  * for lead image in the story node
  */
-function _checkdesk_generate_lead_image($image, $image_caption, $nid) {
+function _checkdesk_generate_lead_image($image, $image_caption) {
   $output = '';
   // generate small, medium and large images
   if(isset($image)) {
@@ -1097,8 +1098,12 @@ function _checkdesk_generate_lead_image($image, $image_caption, $nid) {
     $lead_image_med_path = image_style_url('featured_image_med', $image);
     $lead_image_small_path = image_style_url('featured_image_small', $image);
     // set small, med and large images in srcset
-    $output .= '<img srcset="' . $lead_image_med_path . ' 550w,'
-             . $lead_image_path . ' 720w" src="' . $lead_image_small_path . '" />';
+    $output .= '<picture>';
+    $output .= '<source media="(min-width: 720px)" srcset="' . $lead_image_path . '" />';
+    $output .= '<source media="(min-width: 550px)" srcset="' . $lead_image_med_path   . '"/>';
+    $output .= '<source srcset="' . $lead_image_small_path   . '"/>';
+    $output .= '<img src="' . $lead_image_small_path . '" />';
+    $output .= '</picture>';
   }
   if(isset($image_caption)) {
     $output .= '<blockquote>' . check_markup($image_caption, 'filtered_html') . '</blockquote>';
