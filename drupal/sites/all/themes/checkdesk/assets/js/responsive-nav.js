@@ -37,7 +37,7 @@
       // see: _variables for standar breakpoint variables if needed
       
       mediaCheck({
-        media: '(max-width: 750px)',
+        media: '(max-width: 740px)',
         entry: function() {
           // On mobile: Make sign in / sign up button small and trim copy
           $('.btn-sign-in-up').text(Drupal.t('Sign in')).addClass('btn-sm');
@@ -49,6 +49,13 @@
           $('.btn-sign-in-up').text(Drupal.t('Sign in / Sign up')).removeClass('btn-sm');
           // make avatar big again
           $('#my-account-link .avatar-menu').removeClass('thumb-38').addClass('thumb-40');
+          // reset the main and metabar
+          $('#main').css('top', '');
+          $('.metabar').css('position', '');
+          // make sure header is not in header-up state
+          $('.metabar').removeClass('header-up');
+          // close responsive nav
+          nav.close();
         }
       });
 
@@ -59,7 +66,7 @@
   Drupal.behaviors.responsiveSearch = {
     attach: function(context) {
       mediaCheck({
-        media: '(max-width: 750px)',
+        media: '(max-width: 740px)',
         entry: function() {
           // Show filters toggle button
           $('.content-filter .filters-toggle').removeClass('element-hidden');
