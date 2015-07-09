@@ -1077,6 +1077,37 @@ function checkdesk_field__field_tags(&$variables) {
 }
 
 /**
+ * Field: Lead image
+ */
+function checkdesk_field__field_lead_image(&$variables) {
+  // generate img tag with srcset
+  $output = _checkdesk_generate_lead_image($variables['element']['#items'][0]['uri'], $variables['element']['#items'][0]['image_field_caption']['value']);
+  return $output;
+}
+
+/**
+ * Utiltiy function that generates a responsive img tag
+ * for lead image in the story node
+ */
+function _checkdesk_generate_lead_image($image, $image_caption, $nid) {
+  $output = '';
+  // generate small, medium and large images
+  if(isset($image)) {
+    $lead_image_path = image_style_url('featured_image', $image);
+    $lead_image_med_path = image_style_url('featured_image_med', $image);
+    $lead_image_small_path = image_style_url('featured_image_small', $image);
+    // set small, med and large images in srcset
+    $output .= '<img srcset="' . $lead_image_med_path . ' 550w,'
+             . $lead_image_path . ' 720w" src="' . $lead_image_small_path . '" />';
+  }
+  if(isset($image_caption)) {
+    $output .= '<blockquote>' . check_markup($image_caption, 'filtered_html') . '</blockquote>';
+  }
+
+  return $output;
+}
+
+/**
  * Implements hook_preprocess_button().
  */
 function checkdesk_preprocess_button(&$variables) {
