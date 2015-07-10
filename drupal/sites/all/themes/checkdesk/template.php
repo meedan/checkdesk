@@ -67,11 +67,11 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     global $language;
     // Set custom format based on language.
     if(date('Y') == format_date($node->created, 'custom', 'Y')) {
-      $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+      $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
     } else {
       $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
     }
-    
+
     $variables['media_creation_info'] =
       t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
         '@url' => $node->embed->original_url,
@@ -192,7 +192,7 @@ function checkdesk_preprocess_region(&$variables) {
         'style_name' => 'header_logo',
         'path' => $badge_logo_uri,
       );
-        
+
       // add hidden class to logo with default class
       if($variables['is_front']) {
         $logo_classes = array('header_logo', 'hidden-on-frontpage');
@@ -209,7 +209,7 @@ function checkdesk_preprocess_region(&$variables) {
       $header_logo_image .= '<img src="' . $header_logo_image_path . '" />';
       $header_logo_image .= '</picture>';
 
-      $variables['header_logo'] = l($header_logo_image, '<front>', 
+      $variables['header_logo'] = l($header_logo_image, '<front>',
         array('html' => TRUE, 'attributes' => array('class' => $logo_classes))
       );
     }
@@ -290,7 +290,7 @@ function checkdesk_preprocess_page(&$variables) {
     if($variables['node']->type == 'discussion' || $variables['node']->type == 'media') {
       $variables['theme_hook_suggestions'][] = 'page__content';
     }
-  } 
+  }
 
   // Unescape HTML in title
   $variables['title'] = htmlspecialchars_decode(drupal_get_title());
@@ -511,7 +511,7 @@ function checkdesk_preprocess_page(&$variables) {
 
   // set page variable if widgets should be visible
   $variables['show_widgets'] = checkdesk_widgets_visibility();
-  
+
 
   // set page variable if header logo should be visible
   $variables['show_header'] = checkdesk_header_logo_visibility();
@@ -556,7 +556,7 @@ function checkdesk_preprocess_node(&$variables) {
     global $language;
     // Set custom format based on language.
     if(date('Y') == format_date($node->created, 'custom', 'Y')) {
-      $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+      $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
     } else {
       $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
     }
@@ -669,7 +669,7 @@ function checkdesk_preprocess_node(&$variables) {
       global $language;
       // Set custom format based on language.
       if(date('Y') == format_date($node->created, 'custom', 'Y')) {
-        $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+        $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
       } else {
         $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
       }
@@ -680,7 +680,6 @@ function checkdesk_preprocess_node(&$variables) {
         '!daydatetime' => format_date($variables['created'], 'custom', $custom_format),
       ));
     }
-
   }
 
 
@@ -716,7 +715,7 @@ function checkdesk_preprocess_node(&$variables) {
       global $language;
       // Set custom format based on language.
       if(date('Y') == format_date($node->created, 'custom', 'Y')) {
-        $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+        $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
       } else {
         $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
       }
@@ -728,32 +727,40 @@ function checkdesk_preprocess_node(&$variables) {
       ));
     }
     else {
-      $variables['media_timestamp'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
+      $variables['media_timestamp'] =
+        t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
           '@url' => url('node/' . $variables['nid']),
           '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
           '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
           '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
           '!interval' => format_interval(time() - $variables['created'], 1),
-      ));
-      $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <a href="@url"><time class="date-time" datetime="!timestamp">!datetime</time></a>', array(
+        )
+      );
+      $variables['media_creation_info'] =
+        t('Added by <a class="contributor" href="@user">!user</a> <a href="@url"><time class="date-time" datetime="!timestamp">!datetime</time></a>', array(
           '@user' => url('user/' . $variables['uid']),
           '!user' => $node->name,
           '@url' => url('node/' . $variables['nid']),
           '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
           '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
           '!interval' => format_interval(time() - $variables['created'], 1),
-      ));
-      // Set published stories
+        )
+      );
+
+      // Set published stories.
       $variables['published_stories'] = '';
       $published_stories_links = array();
       $published_cond = user_access('access any drafts content') ? array(0, 1) : array(1);
       $published_stories = db_query('
-          SELECT DISTINCT nid_target, n.title
-          FROM {heartbeat_activity} ha
-          INNER JOIN {node} n ON ha.nid_target = n.nid AND ha.nid = :nid AND n.status IN (:published)
-          WHERE message_id IN (:status)
-          ', array(':nid' => $variables['nid'], ':published' => $published_cond, ':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
-              )->fetchAllKeyed(0);
+        SELECT DISTINCT nid_target, n.title
+        FROM {heartbeat_activity} ha
+        INNER JOIN {node} n ON ha.nid_target = n.nid AND ha.nid = :nid AND n.status IN (:published)
+        WHERE message_id IN (:status)
+      ', array(
+        ':nid' => $variables['nid'],
+        ':published' => $published_cond,
+        ':status' => array('checkdesk_report_suggested_to_story', 'publish_report')
+      ))->fetchAllKeyed(0);
       // display published in story if more than one story or user access report/media page
       if (count($published_stories) > 1 || $variables['page'] == TRUE) {
         foreach ($published_stories as $k => $v) {
@@ -763,18 +770,25 @@ function checkdesk_preprocess_node(&$variables) {
       }
     }
     $variables['report_activity'] = theme(
-            'checkdesk_core_report_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
+      'checkdesk_core_report_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
     );
 
+    // Inject lazy-loading.
     if (isset($variables['content']['field_link'])) {
       $field_link_rendered = render($variables['content']['field_link']);
+
       // Quick and easy, replace all src attributes with data-somethingelse
       // Drupal.behavior.lazyLoadSrc handles re-applying the src attribute when
-      // the iframe tag enters the viewport.
+      // the iframe tag enters the viewport. Skip doing this for src that addresses our own site.
       // See: http://stackoverflow.com/a/7154968/806988
       // use drupal_get_path to find imgs src instead on path_to_theme as imgs exist only on checkdesk theme
+      global $base_url;
       $placeholder = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/loader_white.gif';
-      $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src=["\'])/i', '<\1\2src="' . $placeholder . '" data-lazy-load-\3', $field_link_rendered);
+      $field_link_rendered = preg_replace(
+        '/<(iframe|img)([^>]*)(src=["\'](?!' . preg_quote($base_url, '/') . '))/i',
+        '<\1\2src="' . $placeholder . '" data-lazy-load-\3',
+        $field_link_rendered
+      );
 
       // Lazy load classes as well (for dynamic-loaded content, like tweets, for example)
       $field_link_rendered = preg_replace('/<(blockquote)([^>]*)class=/i', '<\1\2data-lazy-load-class=', $field_link_rendered);
@@ -804,7 +818,7 @@ function checkdesk_links__node($variables) {
   ctools_add_js('checkdesk_core', 'checkdesk_core');
   if (arg(0) != 'embed' && count($links) > 0) {
     $output = '<div' . drupal_attributes(array('class' => $class)) . '>';
-    // Add share links    
+    // Add share links
     $options = array('links' => $links, 'direction' => $links['dropdown-direction'],
         'type' => 'checkdesk-share', 'wrapper_class' => 'share-on', 'icon_class' => 'icon-share');
     $output .= theme('checkdesk_core_render_links', array('options' => $options));
@@ -1198,7 +1212,7 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
     $term = taxonomy_term_load($_GET['field_tags_tid']);
     $page_title = $term->name;
   }
-  // Set title based on type and status filter 
+  // Set title based on type and status filter
   elseif (count($get_args) == 2 && isset($get_args['type']) && isset($get_args['status'])) {
     if (!$get_args['status']) {
       if ($_GET['type'] == 'story') {
