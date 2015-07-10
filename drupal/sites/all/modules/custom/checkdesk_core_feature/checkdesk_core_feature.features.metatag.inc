@@ -388,7 +388,7 @@ function checkdesk_core_feature_metatag_export_default() {
         'value' => '[node:title] | [site:name]',
       ),
       'description' => array(
-        'value' => '[node:summary]',
+        'value' => '[node:checkdesk-summary]',
       ),
       'canonical' => array(
         'value' => '[current-page:url:absolute]?fbrefresh=[node:changed:raw]',
@@ -403,7 +403,7 @@ function checkdesk_core_feature_metatag_export_default() {
         'value' => '[node:title]',
       ),
       'og:description' => array(
-        'value' => '[node:summary]',
+        'value' => '[node:checkdesk-summary]',
       ),
       'og:updated_time' => array(
         'value' => '[node:changed:raw]',
@@ -415,26 +415,10 @@ function checkdesk_core_feature_metatag_export_default() {
         'value' => '[node:title]',
       ),
       'twitter:description' => array(
-        'value' => '[node:summary]',
+        'value' => '[node:checkdesk-summary]',
       ),
       'twitter:image' => array(
         'value' => '[node:checkdesk-image]',
-      ),
-    ),
-  );
-
-  // Exported Metatag config instance: node:media.
-  $config['node:media'] = array(
-    'instance' => 'node:media',
-    'config' => array(
-      'description' => array(
-        'value' => '[node:body]',
-      ),
-      'og:description' => array(
-        'value' => '[node:body]',
-      ),
-      'twitter:description' => array(
-        'value' => '[node:body]',
       ),
     ),
   );

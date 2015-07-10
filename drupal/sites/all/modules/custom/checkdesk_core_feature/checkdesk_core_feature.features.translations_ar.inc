@@ -1827,6 +1827,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Image must be less than !size.', array(), array('context' => ''));
+  $translations['ar:default']['26037f65ea76f9510197d4283d7368c5'] = array(
+    'source' => '!type by !author on !date.',
+    'context' => '',
+    'location' => '/ar/report/1982',
+    'translation' => '!type من !author بتاريخ !date.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('!type by !author on !date.', array(), array('context' => ''));
   $translations['ar:default']['262afba2a47467cfd1fa3e12f6079f5c'] = array(
     'source' => 'The date the node was last updated.',
     'context' => '',

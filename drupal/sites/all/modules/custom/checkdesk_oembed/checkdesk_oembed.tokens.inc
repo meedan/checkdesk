@@ -8,6 +8,10 @@ function checkdesk_oembed_token_info() {
 		'name' => t('Checkdesk image'),
 		'description' => t('An image that is representative of the content, suitable for embedding.'),
 	);
+	$node['checkdesk-summary'] = array(
+		'name' => t('Checkdesk summary'),
+		'description' => t('A summary of the content, suitable for embedding.'),
+	);
 
 	return array(
 		'tokens' => array('node' => $node),
@@ -21,11 +25,13 @@ function checkdesk_oembed_tokens($type, $tokens, array $data = array(), array $o
 	if ($type !== 'node' || empty($data['node'])) return array();
 
 	$replacements = array();
-	$node = $data ['node'];
 	foreach ($tokens as $name => $original) {
 		switch ($name) {
 			case 'checkdesk-image':
-				$replacements[$original] = checkdesk_oembed__token_image($node);
+				$replacements[$original] = checkdesk_oembed__token_image($data['node']);
+				break;
+			case 'checkdesk-summary':
+				$replacements[$original] = checkdesk_oembed__token_summary($data['node']);
 				break;
 		}
 	}
@@ -50,4 +56,19 @@ function checkdesk_oembed__token_image($node) {
 			break;
 	}
 	return $image;
+}
+
+function checkdesk_oembed__token_summary($node) {
+	$summary = token_replace('[node:summary]', array('node' => $node));
+	if (empty($summary) || $summary === '[node:summary]') {
+		$type = node_type_get_type($node);
+		$author = user_load($node->uid);
+		$summary = t('!type by !author on !date.', array(
+			'!type' => $type->name,
+			'!author' => $author->name,
+			'!date' => format_date($node->created),
+		));
+	}
+	dsm($summary);
+	return $summary;
 }
