@@ -69,6 +69,5 @@ function checkdesk_oembed__token_summary($node) {
 			'!date' => format_date($node->created),
 		));
 	}
-	dsm($summary);
 	return $summary;
 }
