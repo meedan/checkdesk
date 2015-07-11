@@ -61,13 +61,18 @@ function checkdesk_oembed__token_image($node) {
 function checkdesk_oembed__token_summary($node) {
 	$summary = token_replace('[node:summary]', array('node' => $node));
 	if (empty($summary) || $summary === '[node:summary]') {
-		$type = node_type_get_type($node);
-		$author = user_load($node->uid);
-		$summary = t('!type by !author on !date.', array(
-			'!type' => $type->name,
-			'!author' => $author->name,
-			'!date' => format_date($node->created),
-		));
+		if ($node->type === 'media' && !empty($node->embed->description)) {
+			$summary = $node->embed->description;
+		}
+		else {
+			$type = node_type_get_type($node);
+			$author = user_load($node->uid);
+			$summary = t('!type by !author on !date.', array(
+				'!type' => $type->name,
+				'!author' => $author->name,
+				'!date' => format_date($node->created),
+			));
+		}
 	}
 	return $summary;
 }
