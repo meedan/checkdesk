@@ -1003,6 +1003,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     //Set default language value
     $form['language']['#default_value'] = $language->language;
   }
+  /*
   //Hide submit button for CJ users
   if (!user_access('edit published content')) {
     if ($form['nid']['#value']) {
@@ -1017,6 +1018,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
       $form['actions']['submit']['#access'] = 0;
     }
   }
+  */
   if (in_array('journalist', $user->roles)) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
