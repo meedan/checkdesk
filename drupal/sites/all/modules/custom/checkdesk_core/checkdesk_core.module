@@ -3252,7 +3252,7 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
   $avatar = '';
   if ($avatar_uri) {
     $derivative_uri = image_style_path('activity_avatar', $avatar_uri);
-    $success = file_exists($derivative_uri) || image_style_create_derivative('activity_avatar', $avatar_uri, $derivative_uri);
+    $success = file_exists($derivative_uri) || image_style_create_derivative(image_style_load('activity_avatar'), $avatar_uri, $derivative_uri);
 
     $new_image_url = file_create_url($derivative_uri);
     
