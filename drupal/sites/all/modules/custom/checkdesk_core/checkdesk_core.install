@@ -429,5 +429,5 @@ function checkdesk_core_update_7045() {
  * Flush activity_avatar image style
  */
 function checkdesk_core_update_7046() {
-  image_style_flush(image_style_load(image_style_load('activity_avatar')));
+  image_style_flush(image_style_load('activity_avatar'));
 }
