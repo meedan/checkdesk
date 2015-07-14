@@ -1,0 +1,13 @@
+diff --git a/drupal/includes/common.inc b/drupal/includes/common.inc
+index ceac115..8e14a35 100644
+--- a/drupal/includes/common.inc
++++ b/drupal/includes/common.inc
+@@ -632,7 +632,7 @@ function drupal_parse_url($url) {
+  *   The Drupal path to encode.
+  */
+ function drupal_encode_path($path) {
+-  return str_replace('%2F', '/', rawurlencode($path));
++  return str_replace(array('%2F','%2C','%3D','%3F'),array('/',',','=','?'), rawurlencode($path));
+ }
+ 
+ /**
