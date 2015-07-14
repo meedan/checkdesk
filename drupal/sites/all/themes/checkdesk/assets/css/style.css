@@ -3121,6 +3121,9 @@ ul#user-menu .avatar-menu {
   -o-transition: fill 0.2s ease;
   transition: fill 0.2s ease;
 }
+html.no-js #header svg {
+  visibility: hidden;
+}
 
 #header nav a {
   position: relative;

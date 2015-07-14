@@ -25,6 +25,13 @@
 		return html;
 	};
 
+  // Add helper class when JS has finished loading
+  Drupal.behaviors.loadJS = {
+    attach: function(context) {
+      $('html').removeClass('no-js').addClass('js');
+    }
+  };
+
   // format select element
   Drupal.behaviors.customSelect = {
     attach: function(context) {
