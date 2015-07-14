@@ -7,7 +7,7 @@ index ceac115..8e14a35 100644
   */
  function drupal_encode_path($path) {
 -  return str_replace('%2F', '/', rawurlencode($path));
-+  return str_replace(array('%2F','%2C','%3D','%3F'),array('/',',','=','?'), rawurlencode($path));
++  return str_replace(array('%2F','%2C','%3D','%3F', '%26', '%2520'), array('/', ',', '=', '?', '&', '+'), rawurlencode($path));
  }
  
  /**
