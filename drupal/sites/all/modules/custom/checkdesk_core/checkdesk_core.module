@@ -1245,6 +1245,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       $form['field_stories_target_id']['#access'] = FALSE;
       $form['#info']['filter-field_stories_target_id'] = FALSE;
     }
+     $form['submit']['#attributes']['onclick'] = 'javascript: jQuery("#edit-submit-desk-reports").trigger("click");return false;';
   }
 
   if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
