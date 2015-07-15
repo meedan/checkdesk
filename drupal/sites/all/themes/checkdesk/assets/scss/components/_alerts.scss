@@ -12,6 +12,7 @@
   background-color: $warningBackground;
   border: 1px solid $warningBorder;
   @include border-radius($radius);
+  word-wrap: break-word;
 }
 
 .messages,
@@ -79,7 +80,7 @@
 
 // When inline add space
 .messages-inline .messageclose {
-  margin-#{$from-direction}: $gutter-width;
+  margin-#{$alpha}: $gutter-width;
 }
 
 // Close icons

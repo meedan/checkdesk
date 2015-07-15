@@ -29,6 +29,11 @@
           $preview_content.removeClass('error').html(data.preview);
           if (data.title) $('#edit-title').val(data.title);
 
+          // Facebook needs some help to refresh its embeds.
+          if (typeof FB !== 'undefined') {
+            FB.XFBML.parse();
+          }
+
           $controls.show();
           $('#checkdesk_report_duplicate').hide();
           if (data.duplicates.duplicate) {
@@ -64,8 +69,17 @@
     setTimeout(checkHTMLHeight, 30);
   }
 
+  function checkEnter(e){
+    e = e || event;
+    var txtArea = /textarea/i.test((e.target || e.srcElement).tagName);
+    return txtArea || (e.keyCode || e.which || e.charCode || 0) !== 13;
+  }
+
   Drupal.behaviors.checkdeskBookmarklet = {
     attach: function(context, settings) {
+
+      // http://stackoverflow.com/a/587575/209184
+      document.querySelector('form').onkeypress = checkEnter;
 
       // Start the checker.
       checkHTMLHeight();
@@ -92,14 +106,12 @@
           done.attr('disabled', 'disabled');
           $('#edit-body, #edit-graphic-content, #edit-submit, .form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating').hide();
           $('#meedan_bookmarklet_preview_content').html('');
+          $('#checkdesk_report_duplicate').html('').hide();
         }
       });
 
       $('#edit-field-link-und-0-url', context).keydown(function(e) {
         clearTimeout(typingTimer);
-        if (e.keyCode == 13) {
-          e.preventDefault();
-        }
       });
 
       // Hide preview if graphic content is checked

@@ -16,7 +16,7 @@
 .views-exposed-widget label {
 	display: block;
 	padding: 12px 15px 10px;
-	padding-#{opposite-position($from-direction)}: 30px;
+	padding-#{$omega}: 30px;
 	margin-bottom: 0;
 	@include box-sizing(border-box);
 	background-color: #fff;
@@ -32,7 +32,7 @@
 	&:before {
 		position: absolute;
 		top: 12px;
-		#{opposite-position($from-direction)}: 10px;
+		#{$omega}: 10px;
 	}
 }
 
@@ -43,7 +43,7 @@
 	&:before {
 		position: absolute;
 		top: 12px;
-		#{opposite-position($from-direction)}: 10px;
+		#{$omega}: 10px;
 	}
 }
 
@@ -74,7 +74,7 @@
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		#{$from-direction}: 0;
+		#{$alpha}: 0;
 	}
 }
 
@@ -114,8 +114,8 @@
 	margin-bottom: 0;
 	background-color: #E7E8EA;
 	border-top: 1px solid #E7E8EA;
-	border-#{$from-direction}: 1px solid #E7E8EA;
-	border-#{opposite-position($from-direction)}: 1px solid #E7E8EA;
+	border-#{$alpha}: 1px solid #E7E8EA;
+	border-#{$omega}: 1px solid #E7E8EA;
 	border-bottom: 1px solid rgba($firefly, 0.05);
 	&:focus {
 		background-color: white;
@@ -133,7 +133,7 @@
 	&:before {
 		position: absolute;
 		top: 10px;
-		#{opposite-position($from-direction)}: 10px;
+		#{$omega}: 10px;
 	}
 }
 
@@ -143,7 +143,7 @@
 	&:before {
 		position: absolute;
 		top: 10px;
-		#{opposite-position($from-direction)}: 10px;
+		#{$omega}: 10px;
 	}
 }
 
@@ -151,4 +151,16 @@
 	max-height: 234px;
 	overflow: auto;
 	@include cd-simple-scrollbar;
+}
+
+.content-filter .filters-toggle:not(.element-hidden) {
+	display: block;
+	margin-top: 12px;
+	color: $firefly40;
+	&:hover {
+		text-decoration: none;
+		color: $firefly80;
+	}
+	// chevron open for closed filter group
+	@include icon(eye);
 }

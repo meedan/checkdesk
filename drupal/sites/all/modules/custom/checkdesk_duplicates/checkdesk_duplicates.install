@@ -36,3 +36,13 @@ function checkdesk_duplicates_update_7001(&$sandbox) {
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
   $sandbox['last_id'] = $row->entity_id;
 }
+
+/**
+ * Trim existing URLs
+ */
+function checkdesk_duplicates_update_7002() {
+  db_query('UPDATE {field_data_field_link} set field_link_url = trim(field_link_url)');
+  // Trim URLs with encoding space '%20'
+  db_query('UPDATE {field_data_field_link} set field_link_url = REPLACE (field_link_url, :space, :replace)
+   WHERE field_link_url LIKE :term', array(':space' => '%20', ':replace' => '', ':term' => '%' . db_like('%20')));
+}

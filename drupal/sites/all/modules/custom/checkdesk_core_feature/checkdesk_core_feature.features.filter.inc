@@ -97,7 +97,7 @@ function checkdesk_core_feature_filter_default_formats() {
         'weight' => -10,
         'status' => 1,
         'settings' => array(
-          'allowed_html' => '<a> <em> <strong> <blockquote> <ul> <ol> <li> <p> <div> <iframe><h2><h3><hr>',
+          'allowed_html' => '<a> <em> <strong> <blockquote> <ul> <ol> <li> <p> <div> <iframe><h2><h3><hr><img>',
           'filter_html_help' => 1,
           'filter_html_nofollow' => 0,
         ),

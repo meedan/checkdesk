@@ -20,7 +20,8 @@ The primary features include:
 
 * The current supported basic meta tags are ABSTRACT, DESCRIPTION, CANONICAL,
   GENERATOR, GEO.PLACENAME, GEO.POSITION, GEO.REGION, ICBM IMAGE_SRC, KEYWORDS,
-  PUBLISHER, REVISIT-AFTER, RIGHTS, ROBOTS, SHORTLINK, and the page's TITLE tag.
+  PUBLISHER, REFRESH, REVISIT-AFTER, RIGHTS, ROBOTS, SHORTLINK, and the page's
+  TITLE tag.
 
 * Multi-lingual support using the Entity Translation module.
 
@@ -28,6 +29,8 @@ The primary features include:
 
 * Full support for entity revisions and workflows based upon revision editing,
   including compatibility with the Revisioning and Workbench Moderation modules.
+
+* Automatically extracts URLs from image fields, no need for extra modules.
 
 * Per-path control over meta tags using the "Metatag: Context" submodule
   (requires the Context module).
@@ -42,8 +45,14 @@ The primary features include:
 * The fifteen Dublin Core Basic Element Set 1.1 meta tags may be added by
   enabling the "Metatag: Dublin Core" submodule.
 
+* Forty additional Dublin Core meta tags may be added by enabling the "Metatag:
+  Dublin Core Advanced" submodule.
+
 * The Open Graph Protocol meta tags, as used by Facebook, Pinterest, LinkedIn
   and other sites, may be added by enabling the "Metatag: Open Graph" submodule.
+
+* Twenty six additional Open Graph Protocol meta tags are provided for
+  describing products in the "Metatag: Open Graph Products" submodule.
 
 * The Twitter Cards meta tags may be added by enabling the "Metatag: Twitter
   Cards" submodule.
@@ -60,12 +69,12 @@ The primary features include:
 * The App Links meta tags may be added by enabling the Metatag: App Links
   submodule.
 
-* Site verfication meta tags can be added, e.g. as used by the Google search
+* Site verification meta tags can be added, e.g. as used by the Google search
   engine to confirm ownership of the site; see the "Metatag: Verification"
   submodule.
 
-* The MobileOptimized, HandheldFriendly, viewport and cleartype meta tags are
-  available via the Metatag: Mobile submodule.
+* The MobileOptimized, HandheldFriendly, viewport, cleartype and theme-color
+  meta tags are available via the Metatag: Mobile & UI Adjustments submodule.
 
 * A variety of favicon sizes and styles can be added to the global configuration
   using the Metatag: Favicons submodule.
@@ -85,8 +94,8 @@ The primary features include:
 * Integrates with Workbench Moderation (both v1 and v2) allowing meta tags on
   nodes to be managed through the workflow process.
 
-* The Transliteration and Imagecache Token modules (see below) are highly
-  recommended when using image meta tags, e.g. og:image.
+* The Transliteration module (see below) is highly recommended when using image
+  meta tags, e.g. og:image, to ensure that filenames are HTML-safe.
 
 * Adds an extra item to the "Flush all caches" menu for the Admin Menu module,
   allowing for a quick way to clear the Metatag module's custom caches.
@@ -240,10 +249,6 @@ via drupal_render(), or examining to identify the actual text values.
 
 Troubleshooting / Known Issues
 ------------------------------------------------------------------------------
-* Image fields do not output very easily in meta tags, e.g. for og:image,
-  without use of the Imagecache Token module (see below). This also provides a
-  way of using an image style to resize the original images first, rather than
-  requiring visitors download multi-megabyte original images.
 * When using custom page template files, e.g., page--front.tpl.php, it is
   important to ensure that the following code is present in the template file:
     <?php render($page['content']); ?>
@@ -280,18 +285,6 @@ Troubleshooting / Known Issues
 Related modules
 ------------------------------------------------------------------------------
 Some modules are available that extend Metatag with additional functionality:
-
-* Image URL Formatter
-  https://www.drupal.org/project/image_url_formatter
-  Provides a formatter for file and image fields to output the raw URL, and
-  optionally pass it through an image style. Useful for getting an image
-  field's token to output correctly for use in a meta tag.
-
-* Imagecache Token
-  https://www.drupal.org/project/imagecache_token
-  Provides additional tokens for image fields that can be used in e.g. the
-  og:image meta tag; ultimately makes it possible to actually use image meta
-  tags without writing custom code.
 
 * Transliteration
   https://drupal.org/project/transliteration

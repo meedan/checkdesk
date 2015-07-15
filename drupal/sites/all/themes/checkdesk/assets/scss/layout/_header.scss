@@ -1,7 +1,6 @@
-header#header {
-  position: relative;
-  height: 100%;
-}
+// #header {
+  
+// }
 
 // utility classes for animating header
 .hidden-on-frontpage {
@@ -11,44 +10,82 @@ header#header {
 }
 
 // adjust header items for drupal toolbar
-ul#breadcrumb, ul#user-menu, ul#utility-menu {
-  will-change: transform;
-  body.toolbar & {
-    top: $toolbarMenuHeight !important;
-  }
-  body.toolbar-drawer & {
-    top: $toolbarHeight !important;
-  }
+.metabar {
   position: fixed;
   top: 0;
+  #{$alpha}: 0;
+  padding: 0 20px;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    #{$alpha}: $navbarWidth;
+    padding: 0 50px;
+    body.toolbar & {
+      top: $toolbarMenuHeight;
+    }
+    body.toolbar-drawer & {
+      top: $toolbarHeight;
+    }
+    
+  }
   #{$omega}: 0;
-  height: $headerHeight;
-  @include reset-list-style;
-  padding: 0 50px;
+  z-index: $z-index-FixedNavbar;
+  
   @include flexbox;
   @include align-items(center);
   @include box-sizing(border-box);
-  a { @include ctb-linkColor($firefly30); }
+  height: $headerHeight;
+  background: #fff;
+  @include transition(top 0.2s ease-in-out);
+  will-change: transform;
+}
+
+// adjust top when drupal admin toolbar is present
+// only when responsive nav isn't active
+html:not(.js-nav-active) .metabar.header-up {
+  top: - $headerHeight;
+  body.toolbar & {
+    top: - ($headerHeight + $toolbarMenuHeight);
+  }
+  body.toolbar-drawer & {
+    top: - ($headerHeight + $toolbarHeight);
+  }
 }
 
 ul#breadcrumb {
-  #{$alpha}: $navbarWidth;
-  z-index: $z-index-FixedHeader + 1;
-  pointer-events: none;
+  @include flexbox;
+  @include align-items(center);
+  margin-#{$omega}: auto;
+}
 
-  li {
-    pointer-events: auto;
+ul#breadcrumb svg.logo-icon {
+  position: relative;
+  top: 3px;
+  fill: $firefly60;
+}
+
+ul#breadcrumb li {
+  list-style: none;
+}
+
+ul#breadcrumb li.nav-toggle {
+  padding-#{$omega}: 20px;
+  margin-#{$omega}: 10px;
+  body.front.scrolling & {
+    border-#{$omega}: 1px solid $firefly10;
   }
-
-  a {
-    display: block;
+  body.not-front & {
+    border-#{$omega}: 1px solid $firefly10;
   }
+}
 
+ul#breadcrumb a {
+  display: block;
 }
 
 ul#breadcrumb h1 {
   margin-bottom: 0;
-  padding-#{$omega}: 200px;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    padding-#{$omega}: 200px;
+  }
   overflow: hidden;
   @include cd-sans-serif-family;
   font-size: 28px;
@@ -57,12 +94,18 @@ ul#breadcrumb h1 {
   text-overflow: ellipsis;
 }
 
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  ul#breadcrumb a.header_logo img {
+    @include border-radius(4px);
+  }
+}
+
 ul#user-menu {
-  #{$alpha}: 0;
-	@include flex-direction(row-reverse);
-	margin-#{$alpha}: $navbarWidth;
-	z-index: $z-index-FixedHeader;
-  background: #fff;
+	@include flexbox();
+  @include flex-direction(row-reverse);
+  @include align-items(center);
+  // make user-menu the last item in metabar
+  @include order(3);
 
   &:after {
     content: '';
@@ -77,6 +120,9 @@ ul#user-menu {
     .show-content-shadow & {
       opacity: 1;
     }
+    .js-nav-active .show-content-shadow & {
+      opacity: 0;
+    }
   }
 
 	// add bell icon for notifications.
@@ -90,23 +136,48 @@ ul#user-menu {
 
 
 ul#user-menu li {
-  position: relative;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    position: relative;
+  }
+  list-style: none;
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
   #my-notifications-menu-link {
     border-#{$alpha}: 1px solid $firefly10;
   }
 }
 
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  #my-account-link .caret { display: none; }
+}
+
 ul#user-menu li > a { 
-  padding: 0 20px;
+  display: block;
+  text-decoration: none;
   @include transition(border 0.2s ease);
   @include transition(color 0.2s ease);
+}
+
+ul#user-menu li a.dropdown-toggle {
+  padding-#{$alpha}: 20px;
+  padding-#{$omega}: 20px;
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    position: relative;
+    padding-#{$alpha}: 8px;
+    padding-#{$omega}: 8px;
+  }
+  @include ctb-linkColor($firefly30);
 }
 
 ul#user-menu .badge {
   position: absolute;
   display: block;
   top: 4px;
-  #{$alpha}: 35px;
+  #{$alpha}: 37px;
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    #{$alpha}: 24px;
+  }
   padding: 4px;
   line-height: 10px;
   font-size: 12px;
@@ -117,31 +188,30 @@ ul#user-menu .badge {
 }
 
 // apply default avatar styles
-ul#user-menu .avatar__menu {
+ul#user-menu .avatar-menu {
   @include cd-avatar('inline');
   @include border-radius(50%);
-  border: 3px solid $firefly20;
-}
 
-ul#user-menu .sign-in-up {
-  padding: 0 15px;
-  font-size: 16px;
-  color: $dodgerBlue80;
-  border: 1px solid $dodgerBlue80;
-  @include border-radius(4px);
-  line-height: 36px;
-  &:hover {
-    color: $dodgerBlue;
-    border-color: $dodgerBlue;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    border: 3px solid $firefly20;
   }
 }
 
-ul#utility-menu {
-  #{$omega}: 200px;
-  padding: 0 20px;
-  z-index: $z-index-FixedHeader + 1;
-  a.language-link {
-    padding: 10px;
+// Utility menu which contains language switcher
+// don't show it on mobile
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  #utility-menu { display: none; }
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  #utility-menu {
+    padding-#{$alpha}: 20px;
+    padding-#{$omega}: 20px;
+    li { list-style: none; }
+    a.language-link { 
+      @include ctb-linkColor($firefly30);
+      padding: 10px; 
+    }
   }
 }
 
@@ -152,16 +222,22 @@ ul#utility-menu {
 }
 
 // Position dropdown menu
-#user-menu {
-  .dropdown-menu {
-    #{$alpha}: auto;
-    #{$omega}: 10px;
+#user-menu .dropdown-menu {
+  #{$alpha}: auto;
+  #{$omega}: 10px;
 
-    @if $from-direction == left {
-      @include border-radius($radius 0 $radius $radius);
-    }
-    @else {
-      @include border-radius(0 $radius $radius $radius);
-    }
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    width: 100%;
+    #{$alpha}: 0;
+    #{$omega}: 0;
+  }
+
+  @include box-sizing(border-box);
+
+  @if $from-direction == left {
+    @include border-radius($radius 0 $radius $radius);
+  }
+  @else {
+    @include border-radius(0 $radius $radius $radius);
   }
 }

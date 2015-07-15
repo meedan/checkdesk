@@ -170,26 +170,15 @@ function _checkdesk_bookmarklet_media_preview($path) {
       }
     }
     else {
-      if (isset($oembed->thumbnail_url)) {
-        // If it is a tweeet, show the text instead of the image
-        if (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter' && $oembed->type != 'photo') {
-          $response['preview'] = theme('meedan_oembed_twitter_tweet', array('tweet' => $oembed->html));
-        }
-        elseif (isset($oembed->provider_name) && $oembed->provider_name == 'Google Maps') {
-          $response['preview'] = $oembed->html;
-        }
-        else {
-          $response['preview'] = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));
-        }
+      if (isset($oembed->html)) {
+        $response['preview'] = $oembed->html;
       }
-      elseif (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter' && $oembed->type != 'photo') {
-        $response['preview'] = theme('meedan_oembed_twitter_tweet', array('tweet' => $oembed->html));
+      else if (isset($oembed->thumbnail_url)) {
+        $response['preview'] = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));
       }
-
       if (isset($oembed->description)) {
         $response['description'] = $oembed->description;
       }
-
       if (isset($oembed->title)) {
         $response['title'] = $oembed->title;
       }

@@ -98,18 +98,18 @@ $bookmarklet-modal-height: 350px;
       color: $gray;
       width: 90%;
     }
-    p {
-      margin: ms(0) 0;
-    }
+    // p {
+    //   margin: ms(0) 0;
+    // }
   }
 
 
   #info-page-install-bookmarklet {
-    $opposite-direction: opposite-position($from-direction);
+    $opposite-direction: $omega;
     .install-bookmarklet-col:first-child {
       float: $from-direction;
       margin-#{$opposite-direction}: $gutter-width;
-      padding-#{$from-direction}: $gutter-width;
+      padding-#{$alpha}: $gutter-width;
       clear: both;
       width: 250px;
     }

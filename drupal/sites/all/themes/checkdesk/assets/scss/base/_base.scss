@@ -10,25 +10,35 @@ html {
 }
 
 #main {
-  margin-#{$alpha}: $navbarWidth;
-  top: $headerHeight;
   position: relative;
-
-  // adjust top for drupal toolbar
-  body.toolbar-drawer & {
-    margin-top: ($toolbarHeight) !important;
+  top: $headerHeight;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    margin-#{$alpha}: $navbarWidth;
+    // adjust top for drupal toolbar
+    body.toolbar-drawer & {
+      top: $headerHeight + $toolbarHeight;
+    }
   }
 }
 
 #main #content, #main #widgets, #main footer {
   position: relative;
-  padding: 0 50px;
+  padding-#{$alpha}: 20px;
+  padding-#{$omega}: 20px;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    padding-#{$alpha}: 50px;
+    padding-#{$omega}: 50px;
+  }
 }
 
 #main #content {
-  padding-top: $absolute-line-height;
-  max-width: 1040px;
-  margin: 0 auto;
+  padding-top: $padding-large-horizontal;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    padding-top: $padding-large-horizontal*2;  
+    max-width: 1040px;
+    margin-#{$alpha}: auto;
+    margin-#{$omega}: auto;
+  }
 }
 
 // for content pages
@@ -37,3 +47,4 @@ body.page-liveblog #main #content,
 body.page-node #main #content {
   max-width: 720px;
 }
+

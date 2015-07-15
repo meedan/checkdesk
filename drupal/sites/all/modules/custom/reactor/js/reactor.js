@@ -13,7 +13,12 @@
           submit: {
             contexts: Drupal.settings.reactor.contexts,
           },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {},
+          progress: {
+            type: 'none'
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            // TO-DO: Handle connection error
+          },
         }
         );
 

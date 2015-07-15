@@ -62,6 +62,8 @@
 
     </ul>
 
+    <a class="filters-toggle element-hidden">Show filters</a>
+
     <?php if (!empty($sort_by)): ?>
       <div class="views-exposed-widget views-widget-sort-by">
         <?php print $sort_by; ?>

@@ -8,7 +8,7 @@
 
 // Make all forms have space below them
 form {
-  margin: 0 0 $absolute-line-height;
+  margin-bottom: 30px;
 }
 
 fieldset {
@@ -309,17 +309,12 @@ input[type="checkbox"][readonly] {
 // ------------
 
 .form-actions {
-  @include reset-box-model;
-  padding-bottom: $absolute-line-height/2;
-  // margin-top: $absolute-line-height/2;
-  // margin-bottom: $absolute-line-height/2;
-  // background-color: $formActionsBackground;
-  @include ctb-clearfix(); // Adding clearfix to allow for .pull-right button containers
-
   // add spacing when buttons appear together
   .btn {
-    margin-#{$omega}: $gutter-width;
-    :first-child { margin-#{$omega}: 0;}
+    margin-bottom: $gutter-width;
+    &:not(:last-child) {
+      margin-#{$omega}: $gutter-width;
+    }
   }
 }
 

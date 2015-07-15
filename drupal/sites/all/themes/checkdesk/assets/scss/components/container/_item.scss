@@ -16,7 +16,10 @@
 	}
 
 	.item-content-wrapper {
-		padding: 20px 20px 15px 20px;
+		padding: 6px 8px;
+		@include cd-responsive('min-width: #{$width-tablet}') {
+			padding: 20px 20px 15px 20px;
+		}
 	}
 
 	.item-content {
@@ -58,7 +61,7 @@
 			.count {
 				color: $firefly40;
 				text-decoration: none;
-				margin-#{opposite-position($from-direction)}: 30px;
+				margin-#{$omega}: 30px;
 				&:hover {
 					color: $firefly80;
 				}
@@ -73,7 +76,10 @@
 		}
 
 		.actions {
-			padding-#{opposite-position($from-direction)}: 20px;
+			padding-#{$omega}: 8px;
+			@include cd-responsive('min-width: #{$width-tablet}') {
+				padding-#{$omega}: 20px;
+			}
 			cursor: pointer;
 			white-space: nowrap;
 			span[class^="icon-"], span[class*="icon-"] { 
@@ -99,8 +105,12 @@
 	.item-nested-content-wrapper {
 		@include ctb-bg($firefly5, rgba($firefly, 0.05));
 		@include border-radius(0 0 4px 4px);
-		padding: 10px 20px;
-		padding-#{opposite-position($from-direction)}: 0;
+		padding: 6px 8px;
+		padding-#{$omega}: 0;
+		@include cd-responsive('min-width: #{$width-tablet}') {
+			padding: 10px 20px;
+			padding-#{$omega}: 0;
+		}
 		font-size: 16px;
 		color: $firefly40;
 		
@@ -123,7 +133,7 @@
 			margin-top: 20px;
 			max-height: 300px;
 			overflow: auto;
-			padding-#{opposite-position($from-direction)}: 20px;
+			padding-#{$omega}: 20px;
 			@include cd-simple-scrollbar;
 		}
 		.node-type-media & {

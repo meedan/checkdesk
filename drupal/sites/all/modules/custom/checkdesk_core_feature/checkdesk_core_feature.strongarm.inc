@@ -1305,28 +1305,28 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__discussion';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__discussion'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__media';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__media'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__page';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__page'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2012,20 +2012,19 @@ password: Your password
   $strongarm->api_version = 1;
   $strongarm->name = 'variable_realm_list_language';
   $strongarm->value = array(
-    0 => 'checkdesk_site_owner',
-    1 => 'r4032login_access_denied_message',
-    2 => 'site_name',
-    3 => 'site_slogan',
-    4 => 'theme_[theme]_settings',
-    5 => 'user_mail_register_admin_created_[mail_part]',
-    6 => 'user_mail_register_no_approval_required_[mail_part]',
-    7 => 'user_mail_register_pending_approval_[mail_part]',
-    8 => 'user_mail_password_reset_[mail_part]',
-    9 => 'user_mail_status_activated_[mail_part]',
-    10 => 'user_mail_status_blocked_[mail_part]',
-    11 => 'user_mail_cancel_confirm_[mail_part]',
-    12 => 'user_mail_status_canceled_[mail_part]',
-    13 => 'user_registrationpassword_register_[mail_part]',
+    0 => 'r4032login_access_denied_message',
+    1 => 'site_name',
+    2 => 'site_slogan',
+    3 => 'user_mail_register_admin_created_[mail_part]',
+    4 => 'user_mail_register_no_approval_required_[mail_part]',
+    5 => 'user_mail_register_pending_approval_[mail_part]',
+    6 => 'user_mail_password_reset_[mail_part]',
+    7 => 'user_mail_status_activated_[mail_part]',
+    8 => 'user_mail_status_blocked_[mail_part]',
+    9 => 'user_mail_cancel_confirm_[mail_part]',
+    10 => 'user_mail_status_canceled_[mail_part]',
+    11 => 'user_registrationpassword_register_[mail_part]',
+    12 => 'checkdesk_site_owner',
   );
   $export['variable_realm_list_language'] = $strongarm;
 

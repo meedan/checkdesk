@@ -1,6 +1,4 @@
 .page-administer-users {
-  // Default render of the form layout
-  // @include cd-form-layout($container-width, $container-width, $gutter-width);
 
   .views-submit-button {
     float: $alpha;
@@ -27,13 +25,6 @@
     border-top: 1px solid black;
   }
 
-  // Breakpoint: small
-  @include at-breakpoint($break-small) {
-    $break: $break-small;
-    // @include cd-form-layout($break, $break) {
-    //   @include pad(0,0,$break);
-    // }
-  }
 }
 
 // user admin page#

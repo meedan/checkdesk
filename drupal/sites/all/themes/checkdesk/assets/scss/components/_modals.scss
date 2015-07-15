@@ -76,7 +76,7 @@ $large-modal-width: 700px;
   // Close icon
   .close { 
     margin-top: 7px; 
-    $direction: opposite-position($from-direction);
+    $direction: $omega;
     margin-#{$direction}: $gutter-width;
   }
   // Heading
@@ -96,7 +96,7 @@ $large-modal-width: 700px;
   .modal-content {
     position: relative;
     padding: $absolute-line-height/4 $gutter-width*2;
-    line-height: $base-line-height;
+    line-height: $line-height-base;
 
     form {
       padding: 0;

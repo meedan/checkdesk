@@ -1,31 +1,32 @@
 .tag-list {
-	
+	@include flexbox;
+  @include flex-wrap(wrap);
 }
 
-.btn--tag {
-	display: inline-block;
-	margin-#{opposite-position($from-direction)}: $gutter-width*3;
-  margin-bottom: $absolute-line-height / 2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  // max-width: 140px;
+.tag-link {
+  display: block;
+  margin-#{$omega}: 20px;
   color: $firefly60;
   &:hover {
     color: $firefly80;
-  }
+    text-decoration: none;
+  } 
 }
 
-.tag__name {
+.tag-name {
+  display: block;
+  overflow: hidden;
 	font-family: $serif-font-stack;
 	font-size: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.tag__count {
+.tag-count {
+  color: $firefly40;
 	font-size: 12px;
 	text-transform: uppercase;
   @if $from-direction == 'left' {
     letter-spacing: 0.15em;
   }
-  color: $firefly40;
 }

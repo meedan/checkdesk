@@ -1,0 +1,14 @@
+// user menu in the header
+#my-account {
+  padding-top: 0;
+  a.username {
+    font-weight: bold;
+    padding-top: 8px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid $firefly10;
+  }
+  a {
+    @include dropdown-link;
+  }
+}

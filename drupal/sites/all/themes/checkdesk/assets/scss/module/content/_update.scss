@@ -1,22 +1,24 @@
 // Updates
 //
-.updates {
-  .update-row {
+// .update .update-row {
+  
+// }
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  .update .update-row {
     @include flexbox;
     .update-body {
-      @include flex(4);
-      max-width: 620px;
+      @include flex(3 1 540px);
+      max-width: 540px;
     }
     .update-footer {
-      @include flex(1);
+      @include flex(1 1 150px);
       @include order(-1);
-      @include flex(2 1 150px);
-      max-width: 150px;
+      margin-#{$omega}: $gutter-width*2;
+      margin-bottom: 1em;
+      margin-top: 1em;
     }
   }
-
-  // media query
-
 }
 
 // Psuedo div for anchors
@@ -31,7 +33,7 @@
 // "Published" updates
 .updates {
   .update-row {
-    margin-bottom: $base-line-height;
+    margin-bottom: $line-height-base;
     border-top: 1px solid rgba($firefly, 0.1);
   }
 }
@@ -44,9 +46,6 @@
 } // update
 
 .update .update-footer {
-  margin-#{$omega}: $gutter-width*2;
-  margin-bottom: 1em;
-  margin-top: 1em;
   @include cd-sans-serif-family;
 
   .actor {

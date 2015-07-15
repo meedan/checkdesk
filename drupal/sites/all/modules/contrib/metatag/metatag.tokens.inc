@@ -133,6 +133,11 @@ function metatag_token_generate_array($entity, $entity_type, $bundle) {
  */
 function _metatag_token_process_metatag($metatags, $token_type) {
   foreach ($metatags as $metatag => $data) {
+    // Skip values that are not strings.
+    if (!is_string($data['value'])) {
+      continue;
+    }
+
     // Explode all metatag token in field.
     $data_tokens = token_scan($data['value']);
     if (isset($data_tokens[$token_type])) {

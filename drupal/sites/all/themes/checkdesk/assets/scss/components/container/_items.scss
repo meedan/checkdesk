@@ -11,7 +11,17 @@
 
 .filter {
 	display: inline-block;
-	margin-#{opposite-position($from-direction)}: 30px;
+	margin-#{$omega}: 30px;
+}
+
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+	.filter { 
+		display: block;
+		margin-#{$omega}: 0;
+		&:not(:last-child) {
+			border-bottom: 1px solid $firefly5;
+		}
+	}
 }
 
 .control-page-items {
@@ -40,7 +50,6 @@
 .page-results {
 	font-size: 14px;
 	color: $firefly30;
-	float: $alpha;
 
 	&.list {
 		@include reset-list-style;
@@ -56,10 +65,15 @@
 	}
 }
 
+@include cd-responsive('min-width: #{$width-tablet}') {
+	.page-results {
+		float: $alpha;
+	}
+}
+
 
 
 .search-reset-filters {
-	float: $omega;
 	font-size: 14px;
 	a {
 		color: $firefly30;
@@ -67,6 +81,12 @@
 		&:hover {
 			color: $firefly80;
 		}	
+	}
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+	.search-reset-filters {
+		float: $omega;
 	}
 }
 

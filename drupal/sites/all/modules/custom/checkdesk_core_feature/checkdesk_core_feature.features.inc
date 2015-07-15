@@ -327,18 +327,50 @@ function checkdesk_core_feature_image_default_styles() {
 
   // Exported image style: featured_image.
   $styles['featured_image'] = array(
+    'label' => 'featured_image',
     'effects' => array(
-      2 => array(
+      5 => array(
         'name' => 'image_scale',
         'data' => array(
-          'width' => 900,
+          'width' => 720,
           'height' => '',
           'upscale' => 0,
         ),
         'weight' => 1,
       ),
     ),
-    'label' => 'featured_image',
+  );
+
+  // Exported image style: featured_image_med.
+  $styles['featured_image_med'] = array(
+    'label' => 'featured_image_med',
+    'effects' => array(
+      7 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 550,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: featured_image_small.
+  $styles['featured_image_small'] = array(
+    'label' => 'featured_image_small',
+    'effects' => array(
+      6 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 350,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
   );
 
   // Exported image style: featured_stories_lead_image.

@@ -12,15 +12,6 @@
 // The dropdown menu (usually a ul)
 .dropdown-menu {
   position: absolute;
-  // top: 75%;
-  // @if $from-direction == left {
-  //   left: 0;
-  //   @include border-radius(0 $radius $radius $radius);
-  // }
-  // @if $from-direction == right {
-  //   right: 0;
-  //   @include border-radius($radius 0 $radius $radius);
-  // }
   @include border-radius($radius);
   z-index: $z-index-Dropdown;
   display: none; // none by default, but block on "open" of the menu
@@ -35,9 +26,9 @@
   @include background-clip(padding-box);
 
   // Aligns the dropdown menu to right
-  &.pull-#{$omega-float} {
-    #{opposite-position($from-direction)}: 0;
-    #{$from-direction}: auto;
+  &.pull-#{$omega} {
+    #{$omega}: 0;
+    #{$alpha}: auto;
   }
 
   // Dividers (basically an hr) within the dropdown
@@ -49,9 +40,7 @@
 // Links within a dropdown list menu
 @mixin dropdown-link {
   display: block;
-  float: none;
-  padding: ms(-3) ms(0);
-  clear: both;
+  padding: 6px 14px;
   @include cd-sans-serif-family;
   font-weight: normal;
   line-height: $absolute-line-height;
@@ -129,8 +118,8 @@ ul.dropdown-menu {
 // Default dropdowns
 .dropdown-submenu > .dropdown-menu {
   top: 0;
-  #{$from-direction}: 100%;
-  #{$omega-float}: auto;
+  #{$alpha}: 100%;
+  #{$omega}: auto;
   @include border-radius($radius);
 }
 .dropup .dropdown-submenu > .dropdown-menu {
@@ -143,20 +132,4 @@ ul.dropdown-menu {
 
 .dropdown-submenu:hover > .dropdown-menu {
   display: block;
-}
-
-
-// ===========================================================================
-// Breakpoints 
-
-@include at-breakpoint($break-small) {
-  // same as previous breakpoint
-}
-
-@include at-breakpoint($break-medium) {
-  // same as previous breakpoint
-}
-
-@include at-breakpoint($break-large) {
-  // same as previous breakpoint
 }

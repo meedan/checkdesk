@@ -27,9 +27,13 @@
 <div class="desk" id="desk-<?php print $fields['nid']->raw; ?>" style="clear: both;">
   <article class="story">
 
-    <?php if(isset($fields['field_lead_image']->content)) { ?>
+    <?php if(isset($fields['uri']->raw)) { ?>
       <figure>
-        <?php print render($fields['field_lead_image']->content); ?>
+        <?php print l(_checkdesk_generate_lead_image($fields['uri']->raw, NULL), 'node/' . $fields['nid']->raw, array(
+      'html' => TRUE)); ?>
+        <?php if(isset($fields['caption']->content)) { ?>
+          <figcaption><?php print check_markup($fields['caption']->raw, 'filtered_html'); ?></figcaption>
+        <?php } ?>
       </figure>
     <?php } ?>
 

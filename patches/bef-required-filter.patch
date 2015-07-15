@@ -1,0 +1,13 @@
+diff --git a/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters.js b/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters.js
+index 295be76..772c2a6 100644
+--- a/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters.js
++++ b/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters.js
+@@ -329,7 +329,7 @@
+           var $form_id = $element.parents('form').attr('id');
+           if ($form_id == $id) {
+             $uses_ajax = true;
+-            return;
++            return false;
+           }
+         });
+ 

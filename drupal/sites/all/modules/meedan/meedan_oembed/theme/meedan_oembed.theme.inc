@@ -217,12 +217,11 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
         '!user' => $node->name,
       ));
 
-  if($embed->type == 'photo') {
-    // Inline thumbnail
-    if(isset($embed->thumbnail_url)) {
-      $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
-    }
+  // Inline thumbnail
+  if(isset($embed->thumbnail_url)) {
+    $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
   }
+
   // Load report status
   if(isset($node->field_rating)) {
     if($node->field_rating['und'][0]['tid'] == 2) {

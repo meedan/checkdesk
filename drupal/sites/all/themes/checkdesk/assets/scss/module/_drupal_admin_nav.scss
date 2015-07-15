@@ -1,37 +1,50 @@
 // =======================================================================
 // Drupal toolbars at the very top
 //
-div.region-page-top {
-  #toolbar {
-    will-change: transform;
-    #{$alpha}: $navbarWidth;
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  div.region-page-top #toolbar {
     position: fixed;
-    z-index: $z-index-FixedNavbar;
-    // This can be cleaned up with toolbar css is removed.
-    @include box-shadow(0 0 0 0); // disable box shadow
+    #{$alpha}: $navbarWidth;
+    overflow: hidden; // removes scroll?
+    // making this nav on top of theme header
+    z-index: $z-index-FixedNavbar + 10;
     padding: 0;
     margin: 0;
-    overflow: hidden; // removes scroll?
     background: white;
+    // This can be cleaned up with toolbar css is removed.
+    @include box-shadow(0 0 0 0); // disable box shadow
+    @include transition(top 0.2s ease-in-out);
+    will-change: transform;
     li {
       @include reset-box-model;
       a { 
-        color: $nav-color; 
         padding: $gutter-width;
+        color: $nav-color; 
       } 
     }
   }
+
+  #toolbar.header-up {
+    top: - ($toolbarHeight);
+  }
+
+  // make navbar fixed at the top
+  .navbar-fixed-top {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: $z-index-FixedNavbar;
+  }
+
+  // when toolbar is present
+  .toolbar .navbar-fixed-top {
+    top: $toolbarHeight;
+  }
 }
 
-// make navbar fixed at the top
-.navbar-fixed-top {
-  position: fixed;
-  right: 0;
-  left: 0;
-  z-index: $z-index-FixedNavbar;
-}
-
-// when toolbar is present
-.toolbar .navbar-fixed-top {
-  top: $toolbarHeight;
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  div.region-page-top #toolbar {
+    display: none;
+  }
 }

@@ -1,20 +1,29 @@
+<?php
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/header.js', array('scope' => 'footer', 'weight' => 99));
+?>
 <!-- ______________________ HEADER _______________________ -->
 <header id="header">
-  <?php if ($secondary_nav): ?>
-    <?php print $secondary_nav; ?>
-  <?php endif; ?>
-
-  <?php if ($page['header']): ?>
-    <ul id="breadcrumb">
-      <li>
-        <?php print render($page['header']); ?>
-      </li>
-    </ul>
-  <?php endif; ?>
-  
   <?php if ($page['navigation']) : ?>
     <?php print render($page['navigation']); ?>
   <?php endif; ?>
+  <div class="metabar">
+    <?php if ($page['header']): ?>
+      <ul id="breadcrumb">
+        <?php if($logo_icon): ?>
+          <li class="nav-toggle">
+            <?php print $logo_icon; ?>
+          </li>
+        <?php endif; ?>
+        <li>
+          <?php print render($page['header']); ?>
+        </li>
+      </ul>
+    <?php endif; ?>
+
+    <?php if ($secondary_nav): ?>
+      <?php print $secondary_nav; ?>
+    <?php endif; ?>
+  </div>
 </header>
 
 <!-- ______________________ MAIN _______________________ -->

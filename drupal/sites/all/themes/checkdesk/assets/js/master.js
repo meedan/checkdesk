@@ -25,6 +25,13 @@
 		return html;
 	};
 
+  // Add helper class when JS has finished loading
+  Drupal.behaviors.loadJS = {
+    attach: function(context) {
+      $('html').removeClass('no-js').addClass('js');
+    }
+  };
+
   // format select element
   Drupal.behaviors.customSelect = {
     attach: function(context) {
@@ -95,23 +102,6 @@
         year: "a year",
       }}});
       $('.timeago').timeago();
-    }
-  };
-
-  // frontpage swap header logos
-  Drupal.behaviors.frontpage = {
-    attach: function(context) {
-      $(window).bind('scroll', function(){
-        var st = $(window).scrollTop();
-        // if scroll is 20 set opacity to 1
-        if (st > 20) {
-          $('header').addClass('show-content-shadow');
-        }
-        // if at top hide the shadow
-        if (st == 0) {
-          $('header').removeClass('show-content-shadow');
-        }
-      });
     }
   };
 

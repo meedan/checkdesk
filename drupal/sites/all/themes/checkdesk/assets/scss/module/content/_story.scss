@@ -3,21 +3,20 @@
 
 .story {
   @include ctb-clearfix;
-  text-align: $alpha;
   margin-bottom: $absolute-line-height/2;
 }
 
 .story figure {
   text-align: center;
   margin-bottom: 30px;
-  margin-top: 30px;
-  blockquote {
+  figcaption {
     border: 0 none;
     color: $firefly40;
     font-size: 16px;
     line-height: 20px;
     margin-top: 5px;
   }
+  a { word-wrap: break-word; }
 }
 .story h1 {
   text-align: center;
@@ -51,8 +50,10 @@
     margin-#{$omega}: $gutter-width/2;
   }
   a.contributor {
-    font-family: $serif-font-stack;
-    font-style: italic;
+    @if $from-direction == 'left' {
+      font-family: $serif-font-stack;
+      font-style: italic;
+    }
     color: $thatch80; 
     &:hover { 
       color: $thatch; 
@@ -67,7 +68,7 @@
 
 .story .story-attributes .story-commentcount,
 .story .story-attributes .content-actions {
-  margin-#{$from-direction}: $gutter-width/2;
+  margin-#{$alpha}: $gutter-width/2;
   display: inline-block;
   & > a, a.dropdown-toggle {
     color: $dodgerBlue60; 
@@ -93,7 +94,7 @@
 .story .story-follow {
   display: inline-block;
   color: $dodgerBlue60;
-  margin-#{$from-direction}: 7.5px;
+  margin-#{$alpha}: 7.5px;
 
   a {
     color: $dodgerBlue60; 
@@ -121,7 +122,7 @@
 
   .follow-count {
     float: $omega;
-    margin-#{$from-direction}: 5px;
+    margin-#{$alpha}: 5px;
   }
 }
 
@@ -166,7 +167,6 @@
     border-bottom: 1px solid rgba($firefly, 0.1);
   }
   padding-bottom: 15px;
-  margin-bottom: 30px;
   & > div, & > ul {
     display: table-cell;
     width: 100%;
@@ -177,10 +177,10 @@
 .story .story-collaborate-links {
   li {
     display: inline;
-    margin-#{opposite-position($from-direction)}: 30px;
+    margin-#{$omega}: 30px;
     font-size: 18px;
     &:last-child {
-      margin-#{opposite-position($from-direction)}: 0;
+      margin-#{$omega}: 0;
     }
     &.submit-report a {
       @include icon("bookmark", 18px);
@@ -192,7 +192,7 @@
 }
 
 .story .collaboration-report-tooltip {
-  #{$from-direction}: 20px;
+  #{$alpha}: 20px;
   top: 55px;
   width: 400px;
   @include cd-box-shadow;
@@ -207,16 +207,17 @@
     line-height: 48px;
   }
   .popover-arrow {
-    #{$from-direction}: 28px;
+    #{$alpha}: 28px;
   }
 }
 
 .story .story-collaboration-activity-wrapper {
   min-height: 200px;
+  margin-top: 30px;
 }
 
 .story .story-collaborators {
-  text-align: opposite-position($from-direction);
+  text-align: $omega;
   .sc-users, .sc-avatars {
     display: inline-block;
   }
@@ -224,7 +225,7 @@
     font-size: 14px;
     line-height: 1;
     color: $firefly40;
-    margin-#{opposite-position($from-direction)}: 15px;
+    margin-#{$omega}: 15px;
     h3 {
       @include reset-box-model;
       @include cd-sans-serif-family;
@@ -276,88 +277,6 @@
   font-size: $small-font-size;
   font-style: italic;
 }
-  
-// The current blogger information
-.story .story-blogger {
-  @include ctb-clearfix;
-  margin: $absolute-line-height/2 0;
-
-  .avatar {
-    display: inline-block;
-    padding: $absolute-line-height/2 0;
-    .user-picture {
-      display: inline-block;
-      margin-#{$omega}: $gutter-width;
-      img {
-        display: inline-block;
-        vertical-align: text-bottom;
-        @include ctb-square(20px);
-        margin-#{omega}: $gutter-width/3;
-      }
-    }
-    a { @include ctb-linkColor($gray-light); }
-  }
-
-  .blogger-status {
-    display: inline-block;
-    margin-#{$alpha}: $gutter-width;
-
-    .blogger-status-indicator {
-      @include ctb-square(10px);
-      @include border-radius(10px);
-      display: inline-block;
-      background-color: $gray-light;
-    }
-
-    .blogger-status-text {
-      @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
-      @include border-radius(4px);
-      display: inline-block;
-      padding: $absolute-line-height/2 $gutter-width;
-      margin-#{$alpha}: $gutter-width;
-    }
-    
-  }
-  // status indicator colors
-  .story-blogger-status-offline .blogger-status-indicator { background-color: $gray-light; }
-  .story-blogger-status-online .blogger-status-indicator { background-color: $green; }
-}
-
-// compose / create update form
-.story .compose-update-form {
-  @include ctb-clearfix();
-  margin: $absolute-line-height 0;
-  .compose-update-header {
-    a {
-      display: inline-block;
-      @include icon("pencil", $large-font-size, #fff, $icon-position);
-      padding: $absolute-line-height/2 $gutter-width;
-      color: #fff;
-      background-color: $brand-primary;
-      @include border-radius(4px);
-      @include cd-sans-serif-family;
-      font-size: $large-font-size;
-      text-decoration: none;
-    }
-  }
-
-  .div.vertical-tabs, div.vertical-tabs-panes {
-      display: none !important;
-    }
-
-  .node-post-form {
-    display: none;
-    padding: 0 $gutter-width;
-    background-image: $striped_lens;
-    input[type='submit'] {
-      @include checkdesk-button($brand-primary);
-    }
-    // override drupal
-    .ui-droppable {
-      float: none;
-    }
-  }
-}
 
 .story .open .compose-update-header {
   border-bottom: 4px solid rgb(239,202,43);
@@ -378,7 +297,7 @@
 .story .story-footer {
   @include ctb-clearfix;
   display: block;
-  margin: 20px 0 30px 0;
+  margin-top: 20px;
   padding: $absolute-line-height/4 0;
   color: $firefly40;
   @include cd-sans-serif-family;
@@ -390,14 +309,12 @@
     @include icon("clock-o", $larger-font-size, $firefly30); 
     &:before { 
       vertical-align: middle; 
-      margin-#{$from-direction}: 0;
+      margin-#{$alpha}: 0;
     }
   }
 }
 
 .story .story-comments {
-  margin-top: $absolute-line-height;
-  margin-bottom: 60px;
   .fb-comments {
     margin-top: $absolute-line-height/2;
   }

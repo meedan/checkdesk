@@ -63,13 +63,12 @@ function checkdesk_duplicates_form_media_node_form_alter(&$form, &$form_state) {
  * Validate report against selected story
  */
 function _checkdesk_duplicates_form_validate($form, &$form_state) {
-  $story_id = $form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'];
-  if ($story_id) {
-    $report_id = isset($form_state['values']['nid']) ? $form_state['values']['nid'] : 0;
-    $duplicate = _checkdesk_duplicate_report_story_exists($form_state['values']['field_link'][LANGUAGE_NONE][0]['url'], $report_id, $story_id);
-    if ($duplicate['duplicate']) {
-      form_set_error('field_link', $duplicate['msg']);
-    }
+  $story_id = isset($form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id']) ?
+    $form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'] : 0;
+  $report_id = isset($form_state['values']['nid']) ? $form_state['values']['nid'] : 0;
+  $duplicate = _checkdesk_duplicate_report_story_exists($form_state['values']['field_link'][LANGUAGE_NONE][0]['url'], $report_id, $story_id);
+  if ($duplicate['duplicate']) {
+    form_set_error('field_link', $duplicate['msg']);
   }
 }
 
@@ -81,7 +80,7 @@ function _checkdesk_duplicate_report_story() {
   $url = isset($_GET['url']) ? $_GET['url'] : FALSE;
   $report_id = $_GET['report_id'];
   $story_id = is_numeric($_GET['story_id']) ? $_GET['story_id'] : 0;
-  if ($url && $story_id) {
+  if ($url) {
    $output = _checkdesk_duplicate_report_story_exists($url, $report_id, $story_id);
   }
   drupal_json_output($output);
@@ -92,10 +91,15 @@ function _checkdesk_duplicate_report_story_exists($url, $report_id, $story_id) {
   $n_url = _checkdesk_normalize_url($url);
   $query = db_select('field_data_field_link', 'fl');
   $query->addField('fl', 'entity_id');
-  $query->innerJoin('field_data_field_stories', 'fs', ' fl.entity_id = fs.entity_id');
+  $query->leftJoin('field_data_field_stories', 'fs', ' fl.entity_id = fs.entity_id');
   $query->condition('fl.field_link_url', $n_url)
-    ->condition('fl.entity_id', $report_id, '<>')
-    ->condition('fs.field_stories_target_id', $story_id);
+    ->condition('fl.entity_id', $report_id, '<>');
+  if ($story_id) {
+    $query->condition('fs.field_stories_target_id', $story_id);
+  }
+  else {
+    $query->isNull('fs.field_stories_target_id');
+  }
   $query->addTag('checkdesk_duplicate');
   $result = $query->execute()->fetchField();
   if ($result) {
@@ -115,6 +119,8 @@ function _checkdesk_duplicate_report_story_exists($url, $report_id, $story_id) {
 function _checkdesk_normalize_url($url) {
   require_once libraries_get_path('url-normalizer') .'/src/URL/Normalizer.php';
   //$url = _checkdesk_unshorten_url($url);
+  // trim URL.
+  $url = trim($url);
   $un = new URL\Normalizer($url);
   return $un->normalize();
 }

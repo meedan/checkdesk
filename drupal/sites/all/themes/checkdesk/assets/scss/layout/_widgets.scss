@@ -2,75 +2,88 @@
 // Widgets styles
 
 #widgets {
+  // to avoid showing background color
+  // when the header hides on scroll
+  margin-top: -$headerHeight;
   background: #fff;
   will-change: transform, opacity;
-  #widgets-inner {
-    padding-bottom: 10px;
-    // remove margin from first block
-    .region-widgets :first-child {
-      margin-top: 0;
-    }
-  }
-  // spacing between blocks/widgets
-  .block {
-    @include ctb-clearfix;
-    margin: $absolute-line-height/2 0;
-    // block title
-    h2 {
-      @include reset-box-model;
-      border-top: 4px solid $firefly10;
-      padding-top: $base-line-height/2;
-      margin-bottom: $base-line-height/2;
-      @include cd-sans-serif-family;
-      font-weight: 700;
-      font-size: $base-font-size;
-      color: $firefly40;
-    }
-    // keep embedded widgets width 100%
-    iframe {
-      width: 100% !important;
-    }
-  }
+}
 
-  .elsewhere {
-    @include ctb-clearfix;
+#widgets #widgets-inner {
+  // add padding for the negative margin
+  padding-top: $headerHeight + 20px;
+  padding-bottom: 10px;  
+}
+
+// remove margin from first block
+#widgets #widgets-inner .region-widgets :first-child {
+  margin-top: 0;
+}
+
+// spacing between blocks/widgets
+#widgets #widgets-inner .block {
+  @include ctb-clearfix;
+  margin: $absolute-line-height/2 0;
+}   
+
+// block title
+#widgets #widgets-inner h2 {
+  @include reset-box-model;
+  border-top: 4px solid $firefly10;
+  padding-top: $line-height-base/2;
+  margin-bottom: $line-height-base/2;
+  @include cd-sans-serif-family;
+  font-weight: 700;
+  font-size: $base-font-size;
+  color: $firefly40;
+}
+
+// keep embedded widgets width 100%
+#widgets #widgets-inner iframe {
+  width: 100% !important;
+}
+
+// Widgets social icons etc
+.elsewhere {
+  @include ctb-clearfix;
+  text-align: center;
+}
+.elsewhere h2 {
+  display: none;
+}
+
+.elsewhere ul {
+    @include reset-list-style;
     text-align: center;
-    h2 {
-      display: none;
-    }
-    ul {
-      @include reset-list-style;
-      text-align: center;
-      
-      li {
-        display: inline-block;
-        a {
-          display: block;
-          padding: 8px 5px;
-          vertical-align: top;
-          line-height: 1.4;
-          height: 36px;
-          width: 35px;
-          text-align: center;
-          color: $firefly30;
-          @include border-radius(4px);
-          &:hover { 
-            text-decoration: none;
-            background-color: $firefly5;
-          }
-        }
+  }
 
-        span {
-          &.icon-facebook  { @include icon("facebook", $larger-font-size); } 
-          &.icon-twitter  { @include icon("twitter", $larger-font-size); }
-          &.icon-google-plus  { @include icon("google-plus-square", $larger-font-size); }
-          &.icon-tumblr  { @include icon("tumblr", $larger-font-size); }
-          // social icons seem to be larger
-          &.icon-youtube  { 
-            @include icon("youtube", $larger-font-size); 
-          }
-        }
-      }
-    }
-  }   
+.elsewhere ul li {
+  display: inline-block;
+}
+
+.elsewhere ul li a {
+  display: block;
+  padding: 8px 5px;
+  vertical-align: top;
+  line-height: 1.4;
+  height: 36px;
+  width: 35px;
+  text-align: center;
+  color: $firefly30;
+  @include border-radius(4px);
+  &:hover { 
+    text-decoration: none;
+    background-color: $firefly5;
+  }
+}
+
+.elsewhere ul li a span {
+  &.icon-facebook  { @include icon("facebook", $larger-font-size); } 
+  &.icon-twitter  { @include icon("twitter", $larger-font-size); }
+  &.icon-google-plus  { @include icon("google-plus-square", $larger-font-size); }
+  &.icon-tumblr  { @include icon("tumblr", $larger-font-size); }
+  // social icons seem to be larger
+  &.icon-youtube  { 
+    @include icon("youtube", $larger-font-size); 
+  }
 }

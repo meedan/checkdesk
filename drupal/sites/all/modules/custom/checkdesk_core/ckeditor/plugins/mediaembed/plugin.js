@@ -43,14 +43,21 @@ CKEDITOR.plugins.add( 'mediaembed',
                        ],
                   onOk: function() {
                         var div = instance.document.createElement('div');
-                        div.setHtml(this.getContentElement('iframe', 'embedArea').getValue());
+                        div.addClass('media');
+                        var embedCode = this.getContentElement('iframe', 'embedArea').getValue();
+                        var videoRegExp = new RegExp('(<iframe.*src=(\"|\')https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be|.*\.vimeo\.com/)');
+                        if (videoRegExp.test(embedCode)) {
+                          div.addClass('video-holder');
+                          div.addClass('media-16by9');
+                        }
+                        div.setHtml(embedCode);
                         instance.insertElement(div);
                   }
               };
            } );
 
             editor.addCommand( 'MediaEmbed', new CKEDITOR.dialogCommand( 'MediaEmbedDialog',
-                { allowedContent: 'iframe[*]' }
+                { allowedContent: 'iframe div(*)[*]' }
             ) );
 
             editor.ui.addButton( 'MediaEmbed',

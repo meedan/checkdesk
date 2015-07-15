@@ -8,8 +8,10 @@
         <!--[if IE 8]> <meta http-equiv="X-UA-Compatible" content="IE=8" />  <![endif]-->
         <!--[if gt IE 8]><!--> <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> <!--<![endif]-->
         <title><?php print $head_title; ?></title>
+        <?php print $favicons; ?>
+        <meta name="theme-color" content="#404D59">
         <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <?php print $head; ?>
         <?php print $scripts; ?>
         <?php print $styles; ?>

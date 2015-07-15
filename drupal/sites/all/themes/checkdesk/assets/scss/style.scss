@@ -29,65 +29,10 @@ $omega: opposite-position($from-direction);
 // English fonts
 @import url(https://fonts.googleapis.com/css?family=Lato:400,400italic,700|Merriweather:400,400italic,700);
 
-// Modular scale  
-// via: gem
-@import "modular-scale";
-
 // Bowerbird Compass Extension
 // See also README.md and ../bowerbird/README.md
 // Requires: base
 @import "bowerbird";
-
-// Drupal styles
-// Drupal itself should not emit *any* CSS. 
-//
-// These are all of the files that were ultimately being included in the markup.
-// Now all of them can be controlled here and inspected more easily.
-// Ideally these will all be *completely refactored away* CGB Jan 2013
-
-// @import "replace_drupal/html5bp_defaults"; // this seems like it is asking for trouble, do we need it?
-@import "replace_drupal/system_base";
-@import "replace_drupal/system_menus";
-
-// @import "replace_drupal/system_messages";
-// @import "replace_drupal/system_theme"; // hoping i can remove this huge one ....
-@import "replace_drupal/jquery_ui_core";
-
-
-@import "replace_drupal/comment";
-@import "replace_drupal/field";
-@import "replace_drupal/node";
-
-// @import "replace_drupal/search";
-// @import "replace_drupal/user";
-// @import "replace_drupal/views";
-// @import "replace_drupal/ctools"; 
-// @import "replace_drupal/ctools_modal"; // using styles based on TB for all windows
-// @import "replace_drupal/oembed";
-@import "replace_drupal/toolbar";
-@import "replace_drupal/shortcut";
-@import "replace_drupal/contextual";
-@import "replace_drupal/rules";
-@import "replace_drupal/context_reaction_block";
-@import "replace_drupal/vertical-tabs";
-
-// Bowerbird Drupal touchups
-// via: bowerbird
-@import "bowerbird/drupal";
-
-// Some views stuff we extracted from cd
-// 
-// Deprecated
-// @import "views";
-
-//  Debugger mixins for the grid, breakpoints, etc.
-@import "bowerbird/debug";
-
-// Transition helper, for transitioning between two states
-@import "bowerbird/transition";
-
-// background image helper for development
-@import "bowerbird/backgrounds";
 
 // Bowerbird font-icon support mixin: icon()
 @import "bowerbird/icons/icons";
@@ -95,16 +40,6 @@ $omega: opposite-position($from-direction);
 // Load @extendable %icon- selectors
 // @extend directly or use icon() mixin to do it for you
 @import "bowerbird/icons/fontawesome";
-
-// Bowerbird fancy-buttons 
-// Example usage: button { @include button($tupperware-blue, 26px, 1em, 4px); }
-// Replaces: "bowerbird/compass_twitter_bootstrap/buttons";
-// Replaces: "bowerbird/compass_twitter_bootstrap/button-groups";
-@import "bowerbird/buttons";
-
-// Bowerbird fancy-gradients
-// Example usage: div { @include gradient($dark-blue, $midnight-blue); }
-@import "bowerbird/gradients";
 
 // ======================================================================
 // Checkdesk (lightly forked) versions of Twitter Bootstrap libraries.
@@ -134,15 +69,15 @@ $omega: opposite-position($from-direction);
 
 // Mix of Drupal alerts and Twitter Bootstrap alerts.
 @import "components/dropdowns";
-@import "components/chosen"; 
+@import "components/chosen";
 
 // Modals
 @import "components/responsive_modals";
 @import "components/modal_form";
 
-// ====================================================================== 
+// ======================================================================
 // Main Checkdesk Sass files
-// Drupal sections, pages, mixins
+// Pages, navigation, layout
 
 //  Checkdesk typography
 //  And a reponsive typography mixin which is applied in layout.
@@ -152,36 +87,32 @@ $omega: opposite-position($from-direction);
 @import "base/base";
 @import "base/typography";
 @import "base/lists";
-// @import "components/buttons";
 
 //checkdesk specific
 
-// Checkdesk Drupal tabs
-// .tabs - the containing element which has a ul.primary and ul.secondary
-@import "bowerbird/tabs";
+// Global Navigation, user menu and Drupal nav at very top
+@import "layout/header";
+@import "module/navigation";
+@import "module/responsive_nav";
+@import "module/submeta";
+@import "module/drupal_admin_nav";
 
-// defaults
-@import "module/tabs";
+// Layouts
+@import "layout/widgets";
+@import "layout/sidebar";
+@import "module/sidebar_filters";
+@import "layout/footer";
 
-// Checkdesk notifications
-// #block-views-my-notifications-block - the main notification list in the top bar
-@import "module/notifications";
-
-// Filters
-@import "module/filters";
 
 // Partner stuff
 @import "module/partner/partner_header";
 @import "module/branding";
-@import "layout/footer";
 @import "module/content/static";
 
-// Container
-@import "components/container/container";
-@import "components/container/containers";
 
-// Tags
-@import "module/tag-list";
+// ======================================================================
+// Checkdesk pages
+//
 
 // Checkdesk media
 @import "module/content/media";
@@ -194,46 +125,6 @@ $omega: opposite-position($from-direction);
 // Checkdesk updates
 @import "module/content/update";
 
-// Checkdesk bookmarklet stuff
-@import "components/bookmarklet/bookmarklet";
-@import "components/bookmarklet/install_bookmarklet";
-
-// Checkdesk Pagination
-@import "components/pagination";
-
-// Global Navigation, user menu and Drupal nav at very top
-@import "layout/header";
-@import "module/navigation";
-@import "module/submeta";
-@import "module/drupal_admin_nav";
-
-// Checkdesk user accounts
-@import "module/user/account";
-
-// Tabs
-@import "bowerbird/tabs";
-
-// reset
-// @import "tabs";  // checkdesk styles
-
-// Form: password strength section
-@import "components/forms/form_password";
-
-// Forms, Tables
-@import "components/forms/forms";
-@import "base/tables";
-
-// Forms autocomplete and jquery ui
-@import "replace_drupal/jquery.ui.autocomplete";
-@import "replace_drupal/autocomplete";
-
-// ====================================================================== 
-// Checkdesk pages 
-//
-
-// Checkdesk reports
-@import "module/user/administer_users";
-
 // Liveblog page
 @import "module/content/liveblog";
 
@@ -245,30 +136,76 @@ $omega: opposite-position($from-direction);
 @import "components/container/items";
 @import "components/container/item";
 
+// Container
+@import "components/container/container";
+@import "components/container/containers";
+
 // Story colloboration activity
 @import "module/activity";
-
-// Widgets
-@import "layout/widgets";
-@import "layout/sidebar";
-@import "module/sidebar_filters";
-
-// User section
-@import "module/user/user";
 
 // Create node page and form
 @import "components/forms/create_node";
 @import "components/forms/create_story";
 
-// Reports pages
-@import "module/content/report/reports_page";
+// Forms, Tables
+@import "components/forms/forms";
+@import "base/tables";
+
+// Checkdesk notifications
+// #block-views-my-notifications-block - the main notification list in the top bar
+@import "module/notifications";
+
+// Filters
+@import "module/filters";
+
+// Tags
+@import "module/tag-list";
+
+// Checkdesk bookmarklet stuff
+@import "components/bookmarklet/bookmarklet";
+@import "components/bookmarklet/install_bookmarklet";
+
+// Checkdesk Pagination
+@import "components/pagination";
+
+// Checkdesk user accounts
+// @import "module/user/user"; // enable when designed
+@import "module/user/user_forms";
+@import "module/user/administer_users";
+@import "module/user/user_menu";
+
+// Form: password strength section
+@import "components/forms/form_password";
+
+// Forms autocomplete and jquery ui
+@import "replace_drupal/jquery.ui.autocomplete";
+@import "replace_drupal/autocomplete";
+
+// Drupal styles
+// Drupal itself should not emit *any* CSS.
+//
+// These are all of the files that were ultimately being included in the markup.
+// Now all of them can be controlled here and inspected more easily.
+// Ideally these will all be *completely refactored away* CGB Jan 2013
+@import "replace_drupal/system_base";
+@import "replace_drupal/system_menus";
+@import "replace_drupal/jquery_ui_core";
+@import "replace_drupal/comment";
+@import "replace_drupal/field";
+@import "replace_drupal/node";
+@import "replace_drupal/toolbar";
+@import "replace_drupal/shortcut";
+@import "replace_drupal/contextual";
+@import "replace_drupal/rules";
+@import "replace_drupal/context_reaction_block";
+@import "replace_drupal/vertical-tabs";
 
 // ======================================================================
 
 // #sidebar-first.column,
 // .desk { background-color: white; }
 
-// ====================================================================== 
+// ======================================================================
 // Bidi helpers
 // These are unusual because they are not overridden in style-rtl.scss
 .rtl {
@@ -285,12 +222,12 @@ $omega: opposite-position($from-direction);
 
 // Based on bootstrap-tour default CSS
 
-// ====================================================================== 
+// ======================================================================
 // Lastly: hacks to be removed
 //
 @import "evil_hacks";
 
-// ====================================================================== 
+// ======================================================================
 // No really, The End
 //
 // Debuggers get the final word

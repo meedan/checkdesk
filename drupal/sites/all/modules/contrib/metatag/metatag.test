@@ -1,133 +1,142 @@
 <?php
+/**
+ * @file
+ * Tests for the Metatag module.
+ */
 
-class MetaTagsTestHelper extends DrupalWebTestCase {
+class MetatagTestHelper extends DrupalWebTestCase {
   function setUp(array $modules = array()) {
+    // Make sure these modules are enabled so that we can use their entity
+    // types later.
+    $modules[] = 'node';
+    $modules[] = 'taxonomy';
+
+    // Requirements.
     $modules[] = 'ctools';
     $modules[] = 'token';
+
+    // Metatag modules.
     $modules[] = 'metatag';
     $modules[] = 'metatag_test';
-    parent::setUp($modules);
-  }
-}
+    $modules[] = 'metatag_dc';
+    $modules[] = 'metatag_facebook';
+    $modules[] = 'metatag_google_plus';
+    $modules[] = 'metatag_opengraph';
+    $modules[] = 'metatag_twitter_cards';
 
-class MetaTagsNodeUITest extends MetaTagsTestHelper {
-  /**
-   * Admin user.
-   *
-   * @var \StdClass
-   */
-  protected $adminUser;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Metatag tests for nodes',
-      'description' => 'Test Metatag edit functionality for nodes.',
-      'group' => 'Metatag',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function setUp(array $modules = array()) {
-    $modules = array(
-      'metatag_dc',
-      'metatag_facebook',
-      'metatag_google_plus',
-      'metatag_opengraph',
-      'metatag_twitter_cards',
-    );
     parent::setUp($modules);
   }
 
   /**
-   * Tests filtering of values using metatag_filter_values_from_defaults().
+   * Create a content type for the tests.
    */
-  public function testMetatagFilterValuesFromDefaults() {
+  function createContentType($machine_name, $label) {
     // Create a content type.
-    $this->drupalCreateContentType(array(
-      'type' => 'metatag_test',
-      'name' => 'Test',
+    $content_type = $this->drupalCreateContentType(array(
+      'type' => $machine_name,
+      'name' => $label,
     ));
 
     // Enable meta tags for this new content type.
-    metatag_entity_type_enable('node', 'metatag_test');
+    metatag_entity_type_enable('node', $machine_name);
 
-    // Create an admin-level user.
-    $this->adminUser = $this->drupalCreateUser(array(
+    return $content_type;
+  }
+
+  /**
+   * Create an admin user for the tests.
+   *
+   * @param array $extra_permissions
+   *   An array of permission strings to be added to the user.
+   *
+   * @return object
+   *   A user object.
+   */
+  function createAdminUser($extra_permissions) {
+    // Basic permissions for the module.
+    $permissions = array(
       'administer meta tags',
       'edit meta tags',
-      'create metatag_test content',
-      'delete any metatag_test content',
-      'edit any metatag_test content',
-    ));
-    $this->drupalLogin($this->adminUser);
+    );
 
-    // Assign default values for the new content type.
-    $this->drupalGet('admin/config/search/metatags/config/add');
-    $this->drupalPost(NULL, array(
-      'instance' => 'node:metatag_test',
-    ), t('Add and configure'));
-    $this->drupalPost(NULL, array(
-      'metatags[und][dcterms.title][value]' => '[node:title]',
-      'metatags[und][dcterms.creator][value]' => '[node:author]',
-      'metatags[und][dcterms.date][value]' => '[node:created:custom:Y-m-d\TH:iP]',
-      'metatags[und][dcterms.format][value]' => 'text/html',
-      'metatags[und][dcterms.identifier][value]' => '[current-page:url:absolute]',
-      'metatags[und][dcterms.language][value]' => '[node:language]',
-    ), t('Save'));
+    // Reset the static variable used to identify permissions, otherwise it's
+    // possible the permissions check in drupalCreateUser will fail.
+    $this->checkPermissions(array(), TRUE);
+    cache_clear_all();
 
-    // Create a test node.
-    $this->drupalGet('node/add/metatag-test');
-    $this->drupalPost(NULL, array(
-      'metatags[und][dcterms.title][value]' => '[node:title] ponies',
-      'title' => 'Who likes magic',
-    ), t('Save'));
+    return $this->drupalCreateUser(array_merge($permissions, $extra_permissions));
+  }
 
-    // Verify that the node saved correctly.
-    $xpath = $this->xpath("//h1");
-    $t_args = array('@type' => 'Test', '%title' => 'Who likes magic');
-    // This doesn't work for some reason, it seems the HTML is stripped off
-    // during output so the %title's standard Drupal wrappers don't match.
-    // $this->assertText(t('@type %title has been created.', $t_args));
-    // .. so this has to be done instead.
-    $this->assertText(strip_tags(t('@type %title has been created.', $t_args)));
-
-    // Verify the node data saved correctly.
-    $matches = array();
-    if (preg_match('@node/(\d+)$@', $this->getUrl(), $matches)) {
-      $nid = end($matches);
-      $node = node_load($nid);
-
-      // Only the non-default values are stored.
-      $expected = array(
-        'und' => array(
-          'dcterms.title' => array(
-            'value' => '[node:title] ponies',
-          ),
-        ),
-      );
-      $this->assertEqual($expected, $node->metatags);
-    }
-    else {
-      $this->fail(t('Could not determine node ID for created node.'));
+  /**
+   * Returns a new vocabulary with random properties.
+   *
+   * @param $vocab_name
+   *   If empty a random string will be used.
+   * @param $content_type
+   *   Any content types listed will have a Taxonomy Term reference field added
+   *   that points to the new vocabulary.
+   *
+   * @return object
+   *   A vocabulary object.
+   */
+  function createVocabulary($vocab_name = NULL, $content_type = 'article') {
+    if (empty($vocab_name)) {
+      $vocab_name = $this->randomName();
     }
 
-    // Verify the title is using the custom default for this content type.
-    $xpath = $this->xpath("//meta[@name='dcterms.title']");
-    $this->assertEqual(count($xpath), 1);
-    $this->assertEqual($xpath[0]['content'], "Who likes magic ponies");
+    // Create a vocabulary.
+    $vocabulary = new stdClass();
+    $vocabulary->name = $vocab_name;
+    $vocabulary->description = $vocab_name;
+    $vocabulary->machine_name = drupal_strtolower($vocab_name);
+    $vocabulary->help = '';
+    $vocabulary->nodes = array($content_type => $content_type);
+    $vocabulary->weight = mt_rand(0, 10);
+    taxonomy_vocabulary_save($vocabulary);
+
+    // Enable meta tags for this new vocabulary.
+    metatag_entity_type_enable('taxonomy_term', $vocab_name);
+
+    return $vocabulary;
+  }
+
+  /**
+   * Returns a new taxonomy term in a specific vocabulary.
+   *
+   * @param object $vocabulary
+   *   The vocabulary to add the term to.
+   * @param string $term_name
+   *   The name to use for the new vocabulary. If none is provided one will be
+   *   generated randomly.
+   *
+   * @return object
+   *   A taxonomy term object.
+   */
+  function createTerm($vocabulary, $term_name = NULL) {
+    if (empty($term_name)) {
+      $term_name = $this->randomName();
+    }
+
+    // Create an object to save.
+    $term = new stdClass();
+    $term->name = $term_name;
+    $term->description = $term_name;
+    // Use the first available text format.
+    $term->format = db_query_range('SELECT format FROM {filter_format}', 0, 1)->fetchField();
+    $term->vid = $vocabulary->vid;
+
+    // Save the term.
+    taxonomy_term_save($term);
+
+    return $term;
   }
 }
 
-class MetaTagsUnitTest extends MetaTagsTestHelper {
+class MetatagUnitTest extends MetatagTestHelper {
   public static function getInfo() {
     return array(
-      'name' => 'Metatag unit tests',
-      'description' => 'Test basic meta tag functionality.',
+      'name' => 'Metatag node unit tests',
+      'description' => 'Test basic meta tag functionality for nodes.',
       'group' => 'Metatag',
     );
   }
@@ -138,6 +147,9 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
   public function testConfigLoadDefaults() {
     $defaults = metatag_config_load_with_defaults('test:foo');
     $this->assertEqual($defaults, array(
+      // Fake meta tag.
+      'test:foo' => array('value' => 'foobar'),
+
       // Basic meta tags.
       'title' => array('value' => 'Test altered title'),
       'description' => array('value' => 'Test foo description'),
@@ -159,10 +171,27 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
       // 'author' => array('value' => ''),
       // 'original-source' => array('value' => ''),
       // 'revisit-after' => array('value' => ''),
-      // 'content-language' => array('value' => ''),
+      // 'content-language' => array('value' => ''),'
 
-      // Fake meta tag.
-      'test:foo' => array('value' => 'foobar'),
+      // Dublin Core meta tags.
+      'dcterms.format' => array('value' => 'text/html'),
+      'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
+      'dcterms.title' => array('value' => '[current-page:title]'),
+      'dcterms.type' => array('value' => 'Text'),
+
+      // Google+ meta tags.
+      'itemprop:name' => array('value' => '[current-page:title]'),
+
+      // Open Graph meta tags.
+      'og:site_name' => array('value' => '[site:name]'),
+      'og:title' => array('value' => '[current-page:title]'),
+      'og:type' => array('value' => 'article'),
+      'og:url' => array('value' => '[current-page:url:absolute]'),
+
+      // Twitter Cards meta tags.
+      'twitter:card' => array('value' => 'summary'),
+      'twitter:title' => array('value' => '[current-page:title]'),
+      'twitter:url' => array('value' => '[current-page:url:absolute]'),
     ));
   }
 
@@ -178,12 +207,9 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
       $this->assertMetatagEntitySupportsMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
     }
 
-    // variable_set('metatag_test_entity_info_disable', TRUE);
     // Enable meta tags for this new content type.
     metatag_entity_type_disable('node', 'page');
     metatag_entity_type_disable('user');
-    // drupal_static_reset('metatag_entity_supports_metatags');
-    // entity_info_cache_clear();
 
     $test_cases[2]['expected'] = FALSE;
     $test_cases[4]['expected'] = FALSE;
@@ -230,6 +256,298 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
     }
   }
 }
+
+class MetatagNodeUITest extends MetatagTestHelper {
+  /**
+   * Admin user.
+   *
+   * @var \StdClass
+   */
+  protected $adminUser;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Metatag UI tests for nodes',
+      'description' => 'Test Metatag edit functionality for nodes.',
+      'group' => 'Metatag',
+    );
+  }
+
+  /**
+   * Tests filtering of values using metatag_filter_values_from_defaults().
+   */
+  public function testMetatagFilterValuesFromDefaults() {
+    $content_type = 'metatag_test';
+    $content_type_path = str_replace('_', '-', $content_type);
+    $label = 'Test';
+
+    // Create a content type.
+    $this->createContentType($content_type, $label);
+
+    // Create an admin user and log them in.
+    $perms = array(
+      // Needed for the content type.
+      'create ' . $content_type . ' content',
+      'delete any ' . $content_type . ' content',
+      'edit any ' . $content_type . ' content',
+    );
+    $this->adminUser = $this->createAdminUser($perms);
+    $this->drupalLogin($this->adminUser);
+
+    // Assign default values for the new content type.
+
+    // Load the "add default configuration" page.
+    $this->drupalGet('admin/config/search/metatags/config/add');
+
+    // Verify the page loaded correct.
+    $this->assertResponse(200);
+    $this->assertText(t('Select the type of default meta tags you would like to add.'));
+
+    // Submit the initial form to select an entity bundle.
+    $this->drupalPost(NULL, array(
+      'instance' => 'node:' . $content_type,
+    ), t('Add and configure'));
+
+    // Verify the page loaded correct.
+    $this->assertText('Node: ' . $label);
+
+    // Submit the form with some values.
+    $this->drupalPost(NULL, array(
+      'metatags[und][dcterms.title][value]' => '[node:title]',
+      'metatags[und][dcterms.creator][value]' => '[node:author]',
+      'metatags[und][dcterms.date][value]' => '[node:created:custom:Y-m-d\TH:iP]',
+      'metatags[und][dcterms.format][value]' => 'text/html',
+      'metatags[und][dcterms.identifier][value]' => '[current-page:url:absolute]',
+      'metatags[und][dcterms.language][value]' => '[node:language]',
+    ), t('Save'));
+
+    // Verify the page loaded correct.
+    $this->assertText(strip_tags(t('The meta tag defaults for @label have been saved.', array('@label' => 'Node: ' . $label))));
+
+    // Create a test node.
+
+    // Load the node form.
+    $this->drupalGet('node/add/' . $content_type_path);
+
+    // Verify the page loaded correctly.
+    $this->assertResponse(200);
+    // @todo Update this to extract the page title.
+    $this->assertText(strip_tags(t('Create @name', array('@name' => $label))));
+
+    // Verify that it's possible to submit values to the form.
+    $this->drupalPost(NULL, array(
+      'metatags[und][dcterms.title][value]' => '[node:title] ponies',
+      'title' => 'Who likes magic',
+    ), t('Save'));
+
+    // Verify that the node saved correctly.
+    // $xpath = $this->xpath("//h1");
+    $t_args = array('@type' => 'Test', '%title' => 'Who likes magic');
+    // This doesn't work for some reason, it seems the HTML is stripped off
+    // during output so the %title's standard Drupal wrappers don't match.
+    // $this->assertText(t('@type %title has been created.', $t_args));
+    // .. so this has to be done instead.
+    $this->assertText(strip_tags(t('@type %title has been created.', $t_args)));
+
+    // Verify the node data saved correctly.
+    $matches = array();
+    if (preg_match('@node/(\d+)$@', $this->getUrl(), $matches)) {
+      $nid = end($matches);
+      $node = node_load($nid);
+
+      // Only the non-default values are stored.
+      $expected = array(
+        'und' => array(
+          'dcterms.title' => array(
+            'value' => '[node:title] ponies',
+          ),
+        ),
+      );
+      $this->assertEqual($expected, $node->metatags);
+    }
+
+    // This shouldn't happen, it indicates a problem.
+    else {
+      $this->fail(t('Could not determine the ID for created node.'));
+    }
+
+    // Verify the title is using the custom default for this content type.
+    $xpath = $this->xpath("//meta[@name='dcterms.title']");
+    $this->assertEqual(count($xpath), 1);
+    $this->assertEqual($xpath[0]['content'], "Who likes magic ponies");
+  }
+}
+
+class MetatagTermUITest extends MetatagTestHelper {
+  /**
+   * Admin user.
+   *
+   * @var \StdClass
+   */
+  protected $adminUser;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Metatag UI tests for terms',
+      'description' => 'Test Metatag edit functionality for terms.',
+      'group' => 'Metatag',
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  function setUp(array $modules = array()) {
+    // Need the Path module to set a alias which can then be loaded.
+    $modules[] = 'path';
+    parent::setUp($modules);
+  }
+
+  /**
+   * Tests filtering of values using metatag_filter_values_from_defaults().
+   */
+  public function testMetatagFilterValuesFromDefaults() {
+    $content_type = 'metatag_test';
+    $content_type_path = str_replace('_', '-', $content_type);
+    $content_type_label = 'Test';
+    $vocab_name = 'test_vocab';
+    $term_name = 'Who likes magic';
+    $term_path = 'term-test';
+
+    // Create a content type.
+    $this->createContentType($content_type, $content_type_label);
+
+    // Create a vocabulary.
+    $vocabulary = $this->createVocabulary($vocab_name, $content_type);
+
+    // Create an admin user and log them in.
+    $perms = array(
+      // Needed for the content type.
+      'create ' . $content_type . ' content',
+      'delete any ' . $content_type . ' content',
+      'edit any ' . $content_type . ' content',
+
+      // Needed for the vocabulary.
+      'administer taxonomy',
+      'edit terms in ' . $vocabulary->vid,
+      'delete terms in ' . $vocabulary->vid,
+
+      // Needed for the Path module.
+      'create url aliases',
+    );
+    $this->adminUser = $this->createAdminUser($perms);
+    $this->drupalLogin($this->adminUser);
+
+    // Assign default values for the new vocabulary.
+
+    // Load the "add default configuration" page.
+    $this->drupalGet('admin/config/search/metatags/config/add');
+    $this->assertResponse(200);
+
+    // Verify the page loaded correct.
+    $this->assertText(t('Select the type of default meta tags you would like to add.'));
+
+    // Submit the initial form to select an entity bundle.
+    $this->drupalPost(NULL, array(
+      'instance' => 'taxonomy_term:' . $vocabulary->name,
+    ), t('Add and configure'));
+
+    // Verify the page loaded correct.
+    $this->assertResponse(200);
+    // @todo Update this to extract the H1 tag.
+    $this->assertText(strip_tags('Taxonomy term: ' . $vocabulary->name));
+
+    // Submit the form with some values.
+    $this->drupalPost(NULL, array(
+      'metatags[und][dcterms.title][value]' => '[term:name]',
+      'metatags[und][dcterms.format][value]' => 'text/html',
+      'metatags[und][dcterms.identifier][value]' => '[current-page:url:absolute]',
+    ), t('Save'));
+
+    // Verify the page loaded correct.
+    $this->assertText(strip_tags(t('The meta tag defaults for @label have been saved.', array('@label' => 'Taxonomy term: ' . $vocabulary->name))));
+
+    // Create a test term.
+
+    // Load the term form.
+    $this->drupalGet('admin/structure/taxonomy/' . $vocabulary->machine_name . '/add');
+
+    // Verify the page loaded and didn't give a 404 error.
+    $this->assertResponse(200);
+
+    // Verify the page loaded correctly.
+    // @todo Update this to extract the H1 tag.
+    // $this->assertText(strip_tags(t('Create @name', array('@name' => $vocabulary->name))));
+
+    // Verify that it's possible to submit values to the form.
+    $this->drupalPost(NULL, array(
+      'metatags[und][dcterms.title][value]' => '[term:name] ponies',
+      'name' => $term_name,
+      'path[alias]' => $term_path,
+    ), t('Save'));
+
+    // Verify that the node saved correctly.
+    $t_args = array('%name' => $term_name);
+    // This doesn't work for some reason, it seems the HTML is stripped off
+    // during output so the %name's standard Drupal wrappers don't match.
+    // $this->assertText(t('Created new term %name.', $t_args));
+    // .. so this has to be done instead.
+    $this->assertText(strip_tags(t('Created new term %name.', $t_args)));
+
+    // Verify the term data saved correctly.
+    $this->drupalGet($term_path);
+
+    // Verify the page loaded and didn't give a 404 error.
+    $this->assertResponse(200);
+
+    // Try to extract the 'edit' link.
+    $xpaths = $this->xpath("//ul/li/a");
+    $matches = array();
+    $tid = 0;
+    if (!empty($xpaths)) {
+      foreach ($xpaths as $xpath) {
+        $attributes = $xpath->attributes();
+        if (!empty($attributes['href'])) {
+          if (preg_match('@taxonomy/term/(\d+)/edit$@', $attributes['href'], $matches)) {
+            $tid = $matches[1];
+          }
+        }
+      }
+    }
+
+    // Presuing a term ID was found, load the term.
+    if (!empty($tid)) {
+      $term = taxonomy_term_load($tid);
+
+      // Only the non-default values are stored.
+      $expected = array(
+        'und' => array(
+          'dcterms.title' => array(
+            'value' => '[term:name] ponies',
+          ),
+        ),
+      );
+      $this->assertEqual($expected, $term->metatags);
+    }
+
+    // This shouldn't happen, it indicates a problem.
+    else {
+      $this->fail(t('Could not determine the ID for created term.'));
+    }
+
+    // Verify the title is using the custom default for this vocabulary.
+    $xpath = $this->xpath("//meta[@name='dcterms.title']");
+    $this->assertEqual(count($xpath), 1);
+    $this->assertEqual($xpath[0]['content'], "Who likes magic ponies");
+  }
+}
+
 
 
 // TODO: Test each meta tag.
