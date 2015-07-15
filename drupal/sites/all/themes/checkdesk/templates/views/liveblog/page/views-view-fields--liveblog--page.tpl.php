@@ -28,7 +28,7 @@
   <article class="story">
 
     <?php if(isset($fields['uri']->raw)) { ?>
-      <figure>
+      <figure class="media-lead">
         <?php print l(_checkdesk_generate_lead_image($fields['uri']->raw, NULL), 'node/' . $fields['nid']->raw, array(
       'html' => TRUE)); ?>
         <?php if(isset($fields['caption']->content)) { ?>

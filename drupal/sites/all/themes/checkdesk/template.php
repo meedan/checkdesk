@@ -237,15 +237,10 @@ function checkdesk_preprocess_region(&$variables) {
 
   if ($variables['region'] == 'footer') {
     // define custom header settings
-    $variables['footer_image'] = '';
-    $image = theme_get_setting('footer_image_path');
-
-    if (!empty($image)) {
-      $footer_image_data = array(
-          'style_name' => 'footer_partner_logo',
-          'path' => $image,
-      );
-      $variables['footer_image'] = theme('image_style', $footer_image_data);
+    $partner_name = variable_get('site_name', 'Drupal');
+    dsm($partner_name);
+    if (!empty($partner_name)) {
+      $variables['partner_name'] = $partner_name;
       $variables['partner_url'] = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
     }
   }
