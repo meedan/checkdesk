@@ -3644,6 +3644,16 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
 }
 
 /**
+ * Implementation of hook_language_switch_links_alter().
+ */
+function checkdesk_core_language_switch_links_alter(&$links, $type, $path) {
+  $params = drupal_get_query_parameters();
+  foreach ($links as &$link) {
+    $link['query'] = $params;
+  }
+}
+
+/**
  * @return string
  */
 function _checkdesk_main_navigation() {
