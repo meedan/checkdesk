@@ -1275,7 +1275,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     }
     $vars['follow_story'] = $follow_story;
   }
-
+  
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
     $vars['update_id'] = $vars['fields']['nid']->raw;
@@ -1284,6 +1284,25 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     } else {
       $vars['update'] = $vars['fields']['rendered_entity_1']->content;
     }
+  }
+  
+  if ($vars['view']->name === 'more_stories') {
+    $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
+  }
+  
+  if ($vars['view']->name === 'recent_stories_by_tag') {
+      // Facebook comments count
+    if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $vars['story_commentcount'] = array(
+          '#theme' => 'facebook_commentcount',
+          '#node' => node_load($vars['row']->nid),
+      );
+    }
+    $vars['created_at'] = t('<time title="!datetime" datetime="!datetime" class="timestamp">!inverval</time>', array(
+      '!inverval' => checkdesk_core_custom_format_interval($vars['row']->node_created),
+      '!datetime' => format_date($vars['row']->node_created, 'custom', t('l M d, Y \a\t g:i:sa'))
+    ));
+    
   }
 }
 
