@@ -1,8 +1,125 @@
-
 /**
  * @file
  * Generic theme-independent base styles.
  */
+/**
+ * @file
+ * Stylesheet for the Contextual module.
+ */
+/**
+ * Contextual links regions.
+ */
+.contextual-links-region {
+  outline: none;
+}
+
+.contextual-links-region-active {
+  outline: #999 dashed 1px;
+}
+
+/**
+ * Contextual links.
+ */
+div.contextual-links-wrapper {
+  display: none;
+  font-size: 90%;
+  position: absolute;
+  right: 5px;
+  /* LTR */
+  top: 2px;
+  z-index: 999;
+}
+
+html.js div.contextual-links-wrapper {
+  display: block;
+}
+
+a.contextual-links-trigger {
+  background: transparent url(../imgs/gear-select.png) no-repeat 2px 0;
+  border: 1px solid transparent;
+  display: none;
+  height: 18px;
+  margin: 0;
+  padding: 0 2px;
+  outline: none;
+  text-indent: 34px;
+  /* LTR */
+  width: 28px;
+  overflow: hidden;
+  -khtml-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+a.contextual-links-trigger:hover,
+div.contextual-links-active a.contextual-links-trigger {
+  background-position: 2px -18px;
+}
+
+div.contextual-links-active a.contextual-links-trigger {
+  background-color: #fff;
+  border-color: #ccc;
+  border-bottom: none;
+  position: relative;
+  z-index: 1;
+  -moz-border-radius: 4px 4px 0 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-radius: 4px 4px 0 0;
+}
+
+div.contextual-links-wrapper ul.contextual-links {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  display: none;
+  margin: 0;
+  padding: 0.25em 0;
+  position: absolute;
+  right: 0;
+  text-align: left;
+  top: 18px;
+  white-space: nowrap;
+  -moz-border-radius: 4px 0 4px 4px;
+  /* LTR */
+  -webkit-border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -webkit-border-top-right-radius: 0;
+  /* LTR */
+  -webkit-border-top-left-radius: 4px;
+  /* LTR */
+  border-radius: 4px 0 4px 4px;
+  /* LTR */
+}
+
+.contextual-links-region:hover a.contextual-links-trigger,
+div.contextual-links-active a.contextual-links-trigger,
+div.contextual-links-active ul.contextual-links {
+  display: block;
+}
+
+ul.contextual-links li {
+  line-height: 100%;
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.contextual-links-wrapper a {
+  text-decoration: none;
+}
+
+ul.contextual-links li a {
+  color: #333 !important;
+  display: block;
+  margin: 0.25em 0;
+  padding: 0.25em 1em 0.25em 0.5em;
+}
+
+ul.contextual-links li a:hover {
+  background-color: #bfdcee;
+}
 
 /**
  * Autocomplete.
@@ -16,27 +133,34 @@
   position: absolute;
   z-index: 100;
 }
+
 #autocomplete ul {
   list-style: none;
   list-style-image: none;
   margin: 0;
   padding: 0;
 }
+
 #autocomplete li {
   background: #fff;
   color: #000;
   cursor: default;
   white-space: pre;
-  zoom: 1; /* IE7 */
+  zoom: 1;
+  /* IE7 */
 }
+
 /* Animated throbber */
 html.js input.form-autocomplete {
   background-image: url(/misc/throbber.gif);
-  background-position: 100% 2px; /* LTR */
+  background-position: 100% 2px;
+  /* LTR */
   background-repeat: no-repeat;
 }
+
 html.js input.throbbing {
-  background-position: 100% -18px; /* LTR */
+  background-position: 100% -18px;
+  /* LTR */
 }
 
 /**
@@ -51,12 +175,15 @@ html.js fieldset.collapsed {
   height: 1em;
   padding: 1em 0;
 }
+
 html.js fieldset.collapsed .fieldset-wrapper {
   display: none;
 }
+
 fieldset.collapsible {
   position: relative;
 }
+
 fieldset.collapsible .fieldset-legend {
   display: block;
 }
@@ -74,8 +201,8 @@ fieldset.collapsible .fieldset-legend {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 .resizable-textarea .grippie {
-  // background: #eee url(/misc/grippie.png) no-repeat center 2px;
   border: 1px solid #ddd;
   border-top-width: 0;
   cursor: s-resize;
@@ -91,45 +218,64 @@ fieldset.collapsible .fieldset-legend {
 body.drag {
   cursor: move;
 }
+
 .draggable a.tabledrag-handle {
   cursor: move;
-  float: left; /* LTR */
+  float: left;
+  /* LTR */
   height: 1.7em;
-  margin-left: -1em; /* LTR */
+  margin-left: -1em;
+  /* LTR */
   overflow: hidden;
   text-decoration: none;
 }
+
 a.tabledrag-handle:hover {
   text-decoration: none;
 }
+
 a.tabledrag-handle .handle {
   background: url(/misc/draggable.png) no-repeat 6px 9px;
   height: 13px;
-  margin: -0.4em 0.5em; /* LTR */
-  padding: 0.42em 0.5em; /* LTR */
+  margin: -0.4em 0.5em;
+  /* LTR */
+  padding: 0.42em 0.5em;
+  /* LTR */
   width: 13px;
 }
+
 a.tabledrag-handle-hover .handle {
   background-position: 6px -11px;
 }
+
 div.indentation {
-  float: left; /* LTR */
+  float: left;
+  /* LTR */
   height: 1.7em;
-  margin: -0.4em 0.2em -0.4em -0.4em; /* LTR */
-  padding: 0.42em 0 0.42em 0.6em; /* LTR */
+  margin: -0.4em 0.2em -0.4em -0.4em;
+  /* LTR */
+  padding: 0.42em 0 0.42em 0.6em;
+  /* LTR */
   width: 20px;
 }
+
 div.tree-child {
-  background: url(/misc/tree.png) no-repeat 11px center; /* LTR */
+  background: url(/misc/tree.png) no-repeat 11px center;
+  /* LTR */
 }
+
 div.tree-child-last {
-  background: url(/misc/tree-bottom.png) no-repeat 11px center; /* LTR */
+  background: url(/misc/tree-bottom.png) no-repeat 11px center;
+  /* LTR */
 }
+
 div.tree-child-horizontal {
   background: url(/misc/tree.png) no-repeat -11px center;
 }
+
 .tabledrag-toggle-weight-wrapper {
-  text-align: right; /* LTR */
+  text-align: right;
+  /* LTR */
 }
 
 /**
@@ -152,31 +298,40 @@ table.sticky-header {
   background-color: #fff;
   border: 1px solid;
 }
+
 .progress .filled {
   background-color: #000;
   height: 1.5em;
   width: 5px;
 }
+
 .progress .percentage {
-  float: right; /* LTR */
+  float: right;
+  /* LTR */
 }
+
 /* Throbber */
 .ajax-progress {
   display: inline-block;
 }
+
 .ajax-progress .throbber {
   background: transparent url(/misc/throbber.gif) no-repeat 0px 0px;
-  float: left; /* LTR */
+  float: left;
+  /* LTR */
   height: 16px;
   margin: 2px;
   width: 16px;
 }
+
 .ajax-progress .message {
   padding-left: 20px;
 }
+
 tr .ajax-progress .throbber {
   margin: 0 2px;
 }
+
 .ajax-progress-bar {
   width: 16em;
 }
@@ -188,6 +343,7 @@ tr .ajax-progress .throbber {
 .container-inline label {
   display: inline;
 }
+
 /* Fieldset contents always need to be rendered as block. */
 .container-inline .fieldset-wrapper {
   display: block;
@@ -230,7 +386,8 @@ html.js .js-hide {
  */
 .element-invisible {
   position: absolute !important;
-  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px 1px 1px 1px);
+  /* IE6, IE7 */
   clip: rect(1px, 1px, 1px, 1px);
   overflow: hidden;
   height: 1px;
@@ -260,14 +417,17 @@ html.js .js-hide {
   clear: both;
   visibility: hidden;
 }
+
 /* IE6 */
 * html .clearfix {
   height: 1%;
 }
+
 /* IE7 */
 *:first-child + html .clearfix {
   min-height: 1%;
 }
+
 .language-switcher-locale-url li.active {
   display: none;
 }

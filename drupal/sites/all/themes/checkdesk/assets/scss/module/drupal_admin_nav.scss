@@ -1,3 +1,24 @@
+@import "colors";
+@import "bowerbird/colors";
+// Directional defaults
+$from-direction: left !default;
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+@import "mixins";
+
+// Bowerbird Compass Extension
+// See also README.md and ../bowerbird/README.md
+// Requires: base
+@import "bowerbird";
+
+// Core Drupal toolbar
+@import "replace_drupal/toolbar";
+@import "replace_drupal/shortcut";
+
 // =======================================================================
 // Drupal toolbars at the very top
 //

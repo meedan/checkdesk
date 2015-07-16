@@ -23,6 +23,9 @@ $omega: opposite-position($from-direction);
 // @extend directly or use icon() mixin to do it for you
 @import "bowerbird/icons/fontawesome";
 
+// Forms autocomplete and jquery ui
+@import "replace_drupal/jquery.ui.autocomplete";
+
 
 ul.ui-autocomplete {
   max-height: 240px;

@@ -34,6 +34,7 @@ function checkdesk_menu_local_tasks(&$variables) {
  * @ingroup themeable
  */
 function checkdesk_menu_local_task($variables) {
+  
   $link = $variables['element']['#link'];
   $link_text = $link['title'];
   $classes = array();
@@ -52,6 +53,17 @@ function checkdesk_menu_local_task($variables) {
   }
 
   $link['localized_options']['html'] = TRUE;
+
+  // add admin tabs css
+  drupal_add_css(
+    drupal_get_path('theme', 'checkdesk') . '/assets/css/components/admin_nav.css',
+    array(
+      'scope' => 'footer',
+      'group' => CSS_THEME,
+      'weight' => '9999',
+      'every_page' => FALSE,
+    )
+  );
 
   // add icons
   // view tab

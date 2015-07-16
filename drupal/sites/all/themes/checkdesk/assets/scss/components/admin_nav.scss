@@ -1,0 +1,78 @@
+@charset "UTF-8";
+@import "colors";
+@import "bowerbird/colors";
+// Directional defaults
+$from-direction: left !default;
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+@import "mixins";
+@import "replace_ctb/mixins";
+// Flexbox mixins until we use something like Autoprefixer
+@import "flexbox_mixins";
+
+// Bowerbird Compass Extension
+// See also README.md and ../bowerbird/README.md
+// Requires: base
+@import "bowerbird";
+
+// Bowerbird font-icon support mixin: icon()
+@import "bowerbird/icons/icons";
+
+// Load @extendable %icon- selectors
+// @extend directly or use icon() mixin to do it for you
+@import "bowerbird/icons/fontawesome";
+
+// ADMIN NAV TABS
+// ---------------
+.admin-nav-tabs {
+  @include flexbox;
+  @include flex-wrap(wrap);
+  @include justify-content(center);
+  padding: $absolute-line-height/4 0;
+  margin-bottom: $absolute-line-height/2;
+}
+
+.admin-nav-tabs > li {
+  list-style-type: none;
+  margin-#{$omega}: 10px;
+  margin-bottom: 10px;
+  // icons in tabs
+  span {
+    margin-#{$omega}: 5px;
+    &.icon-file    { @include icon(file-o); }
+    &.icon-pencil  { @include icon(edit); }
+    &.icon-plus    { @include icon(plus-square); }
+    &.icon-trash-o   { @include icon(trash-o); }
+    &.icon-wrench  { @include icon(wrench); }
+    &.icon-group  { @include icon(group); }
+  }
+  @include clear-icon-margins;
+}
+
+.admin-nav-tabs > li > a {
+  padding: 8px 12px;
+  border: 1px solid $firefly10;
+  color: $firefly40;
+  @include border-radius(4px);
+  @include transition(background 0.2s ease);
+  @include transition(border 0.2s ease);
+  &:hover {
+    background-color: #fff;
+    background-color: #fff;
+    border: 1px solid $brand-primary;
+    color: $brand-primary;
+    text-decoration: none;
+  }
+
+}
+
+.admin-nav-tabs > .active > a,
+.admin-nav-tabs > .active > a:hover {
+  background-color: #fff;
+  border: 1px solid $brand-primary;
+  color: $brand-primary;
+}

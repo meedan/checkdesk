@@ -1,0 +1,340 @@
+#edit-shortcuts {
+  float: right;
+}
+
+body.toolbar {
+  padding-top: 2.2em;
+}
+
+body.toolbar-drawer {
+  padding-top: 5.3em;
+}
+
+/**
+ * Aggressive resets so we can achieve a consistent look in hostile CSS
+ * environments.
+ */
+#toolbar,
+#toolbar * {
+  border: 0;
+  font-size: 100%;
+  line-height: inherit;
+  list-style: none;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  /* LTR */
+  vertical-align: baseline;
+}
+
+/**
+ * Base styles.
+ *
+ * We use a keyword for the toolbar font size to make it display consistently
+ * across different themes, while still allowing browsers to resize the text.
+ */
+#toolbar {
+  background: #666;
+  color: #ccc;
+  font: normal small "Lucida Grande", Verdana, sans-serif;
+  left: 0;
+  margin: 0 -20px;
+  padding: 0 20px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  -moz-box-shadow: 0 3px 20px #000;
+  -webkit-box-shadow: 0 3px 20px #000;
+  box-shadow: 0 3px 20px #000;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10');
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10')";
+  z-index: 600;
+}
+
+#toolbar div.collapsed {
+  display: none;
+  visibility: hidden;
+}
+
+#toolbar a {
+  color: #fff;
+  font-size: .846em;
+  text-decoration: none;
+}
+
+#toolbar ul li,
+#toolbar ul li a {
+  float: left;
+  /* LTR */
+}
+
+/**
+ * Administration menu.
+ */
+#toolbar div.toolbar-menu {
+  background: #000;
+  line-height: 20px;
+  padding: 5px 50px 5px 10px;
+  /* LTR */
+  position: relative;
+}
+
+#toolbar-home a span {
+  display: block;
+  height: 14px;
+  margin: 3px 0px;
+  text-indent: -9999px;
+  vertical-align: text-bottom;
+  width: 11px;
+}
+
+#toolbar-user {
+  float: right;
+  /* LTR */
+}
+
+#toolbar-menu {
+  float: left;
+  /* LTR */
+}
+
+#toolbar div.toolbar-menu a.toggle {
+  bottom: 0;
+  cursor: pointer;
+  height: 25px;
+  overflow: hidden;
+  position: absolute;
+  right: 10px;
+  /* LTR */
+  color: #ccc;
+  width: 25px;
+}
+
+#toolbar div.toolbar-menu a.toggle:focus,
+#toolbar div.toolbar-menu a.toggle:hover {
+  background-position: -50px -20px;
+}
+
+#toolbar div.toolbar-menu a.toggle-active {
+  background-position: -25px -20px;
+}
+
+#toolbar div.toolbar-menu a.toggle-active.toggle:focus,
+#toolbar div.toolbar-menu a.toggle-active.toggle:hover {
+  background-position: -75px -20px;
+}
+
+#toolbar div.toolbar-menu ul li a {
+  padding: 0 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+#toolbar div.toolbar-menu ul li a:focus,
+#toolbar div.toolbar-menu ul li a:hover,
+#toolbar div.toolbar-menu ul li a:active,
+#toolbar div.toolbar-menu ul li a.active:focus {
+  background: #444;
+}
+
+#toolbar div.toolbar-menu ul li a.active:hover,
+#toolbar div.toolbar-menu ul li a.active:active,
+#toolbar div.toolbar-menu ul li a.active,
+#toolbar div.toolbar-menu ul li.active-trail a {
+  text-shadow: #333 0 1px 0;
+}
+
+/**
+ * Collapsed drawer of additional toolbar content.
+ */
+#toolbar div.toolbar-drawer {
+  position: relative;
+  padding: 0 10px;
+}
+
+/**
+ * IE 6 Fix.
+ *
+ * IE 6 shows elements with position:fixed as position:static so we replace
+ * it with position:absolute; toolbar needs its z-index to stay above overlay.
+ */
+* html #toolbar {
+  left: -20px;
+  margin: 0;
+  padding-right: 0;
+  position: absolute;
+  right: 0;
+  width: 100%;
+}
+
+div#toolbar a#edit-shortcuts {
+  float: right;
+  padding: 5px 10px 5px 5px;
+  line-height: 24px;
+  color: #ccc;
+}
+
+div#toolbar a#edit-shortcuts:focus,
+div#toolbar a#edit-shortcuts:hover,
+div#toolbar a#edit-shortcuts.active {
+  color: #ddd;
+  text-decoration: underline;
+}
+
+div#toolbar div.toolbar-shortcuts ul {
+  padding: 5px 0 2px 0;
+  height: 28px;
+  line-height: 24px;
+  float: left;
+  /* LTR */
+  margin-left: 5px;
+  /* LTR */
+}
+
+div#toolbar div.toolbar-shortcuts ul li a {
+  padding: 0 5px 0 5px;
+  margin-right: 5px;
+  /* LTR */
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+div#toolbar div.toolbar-shortcuts ul li a:focus,
+div#toolbar div.toolbar-shortcuts ul li a:hover,
+div#toolbar div.toolbar-shortcuts ul li a.active:focus {
+  background: #555;
+}
+
+div#toolbar div.toolbar-shortcuts ul li a.active:hover,
+div#toolbar div.toolbar-shortcuts ul li a.active {
+  background: #000;
+}
+
+div#toolbar div.toolbar-shortcuts span.icon {
+  float: left;
+  /* LTR */
+  background: #444;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  /* LTR */
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+div.add-or-remove-shortcuts {
+  padding-top: 5px;
+}
+
+div.add-or-remove-shortcuts a span.icon {
+  display: block;
+  width: 12px;
+  background: transparent url(shortcut.png) no-repeat scroll 0 0;
+  height: 12px;
+  float: left;
+  margin-left: 8px;
+}
+
+div.add-shortcut a:focus span.icon,
+div.add-shortcut a:hover span.icon {
+  background-position: 0 -12px;
+}
+
+div.remove-shortcut a span.icon {
+  background-position: -12px 0;
+}
+
+div.remove-shortcut a:focus span.icon,
+div.remove-shortcut a:hover span.icon {
+  background-position: -12px -12px;
+}
+
+div.add-or-remove-shortcuts a span.text {
+  float: left;
+  padding-left: 10px;
+  display: none;
+}
+
+div.add-or-remove-shortcuts a:focus span.text,
+div.add-or-remove-shortcuts a:hover span.text {
+  font-size: 10px;
+  line-height: 12px;
+  color: #fff;
+  background-color: #5f605b;
+  display: block;
+  padding-right: 6px;
+  /* LTR */
+  cursor: pointer;
+  -moz-border-radius: 0 5px 5px 0;
+  /* LTR */
+  -webkit-border-top-right-radius: 5px;
+  /* LTR */
+  -webkit-border-bottom-right-radius: 5px;
+  /* LTR */
+  border-radius: 0 5px 5px 0;
+  /* LTR */
+}
+
+#shortcut-set-switch .form-type-radios {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+#shortcut-set-switch .form-item-new {
+  padding-top: 0;
+  padding-left: 17px;
+  /* LTR */
+}
+
+@media only screen and (min-width: 740px) {
+  div.region-page-top #toolbar {
+    position: fixed;
+    left: 60px;
+    overflow: hidden;
+    z-index: 940;
+    padding: 0;
+    margin: 0;
+    background: white;
+    -webkit-box-shadow: 0 0 0 0;
+    -moz-box-shadow: 0 0 0 0;
+    box-shadow: 0 0 0 0;
+    -webkit-transition: top 0.2s ease-in-out;
+    -moz-transition: top 0.2s ease-in-out;
+    -o-transition: top 0.2s ease-in-out;
+    transition: top 0.2s ease-in-out;
+    will-change: transform;
+  }
+  div.region-page-top #toolbar li {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  div.region-page-top #toolbar li a {
+    padding: 15px;
+    color: #9fa6ac;
+  }
+
+  #toolbar.header-up {
+    top: -65px;
+  }
+
+  .navbar-fixed-top {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 930;
+  }
+
+  .toolbar .navbar-fixed-top {
+    top: 65px;
+  }
+}
+@media (min-width: 1px) and (max-width: 740px) {
+  div.region-page-top #toolbar {
+    display: none;
+  }
+}

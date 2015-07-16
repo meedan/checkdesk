@@ -1,0 +1,24 @@
+@import "colors";
+@import "bowerbird/colors";
+// Directional defaults
+$from-direction: left !default;
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+
+// Drupal styles
+// Drupal itself should not emit *any* CSS.
+//
+// These are all of the files that were ultimately being included in the markup.
+// Now all of them can be controlled here and inspected more easily.
+// Ideally these will all be *completely refactored away* CGB Jan 2013
+@import "system_menus";
+@import "jquery_ui_core";
+@import "comment";
+@import "field";
+@import "node";
+@import "rules";
+@import "vertical-tabs";

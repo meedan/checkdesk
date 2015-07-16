@@ -53,8 +53,7 @@ $omega: opposite-position($from-direction);
 //
 // All of them are namespaced ctb-mixinname
 @import "replace_ctb/mixins";
-@import "replace_ctb/forms";
-@import "replace_ctb/navs";
+// @import "replace_ctb/forms";
 @import "replace_ctb/buttons";
 @import "compass_twitter_bootstrap/reset";
 
@@ -62,7 +61,7 @@ $omega: opposite-position($from-direction);
 // @import "compass_twitter_bootstrap/tables"; // TB Tabular data
 
 // TB utilities
-@import "compass_twitter_bootstrap/utilities";
+// @import "compass_twitter_bootstrap/utilities";
 
 // Completely unrelated to Twitter Bootstrap mixins file
 @import "components/alerts";
@@ -84,6 +83,7 @@ $omega: opposite-position($from-direction);
 
 //defaults
 @import "base/base";
+@import "components/fonts";
 @import "base/typography";
 @import "base/lists";
 
@@ -94,17 +94,11 @@ $omega: opposite-position($from-direction);
 @import "module/navigation";
 @import "module/responsive_nav";
 @import "module/submeta";
-@import "module/drupal_admin_nav";
 
 // Layouts
-@import "layout/widgets";
-@import "layout/sidebar";
-@import "module/sidebar_filters";
 @import "layout/footer";
 
-
 // Partner stuff
-@import "module/partner/partner_header";
 @import "module/branding";
 @import "module/content/static";
 
@@ -119,7 +113,6 @@ $omega: opposite-position($from-direction);
 // Checkdesk reports
 @import "module/content/report/report";
 @import "module/content/report/report_detail";
-@import "module/content/report/reports_incoming";
 
 // Checkdesk updates
 @import "module/content/update";
@@ -142,20 +135,11 @@ $omega: opposite-position($from-direction);
 // Story colloboration activity
 @import "module/activity";
 
-// Create node page and form
-@import "components/forms/create_node";
-@import "components/forms/create_story";
+
 
 // Forms, Tables
-@import "components/forms/forms";
-@import "base/tables";
-
-// Checkdesk notifications
-// #block-views-my-notifications-block - the main notification list in the top bar
-@import "module/notifications";
-
-// Filters
-@import "module/filters";
+// @import "components/forms/forms";
+// @import "base/tables";
 
 // Tags
 @import "module/tag-list";
@@ -169,34 +153,10 @@ $omega: opposite-position($from-direction);
 
 // Checkdesk user accounts
 // @import "module/user/user"; // enable when designed
-@import "module/user/user_forms";
-@import "module/user/administer_users";
-@import "module/user/user_menu";
+// @import "module/user/administer_users";
 
 // Form: password strength section
-@import "components/forms/form_password";
-
-// Forms autocomplete and jquery ui
-@import "replace_drupal/jquery.ui.autocomplete";
-
-// Drupal styles
-// Drupal itself should not emit *any* CSS.
-//
-// These are all of the files that were ultimately being included in the markup.
-// Now all of them can be controlled here and inspected more easily.
-// Ideally these will all be *completely refactored away* CGB Jan 2013
-@import "replace_drupal/system_base";
-@import "replace_drupal/system_menus";
-@import "replace_drupal/jquery_ui_core";
-@import "replace_drupal/comment";
-@import "replace_drupal/field";
-@import "replace_drupal/node";
-@import "replace_drupal/toolbar";
-@import "replace_drupal/shortcut";
-@import "replace_drupal/contextual";
-@import "replace_drupal/rules";
-@import "replace_drupal/context_reaction_block";
-@import "replace_drupal/vertical-tabs";
+// @import "components/forms/form_password";
 
 // ======================================================================
 

@@ -1,0 +1,174 @@
+/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+   readers do not read off random characters that represent icons */
+.admin-nav-tabs > li span.icon-trash-o:before {
+  content: "\f014";
+}
+
+.admin-nav-tabs > li span.icon-file:before {
+  content: "\f016";
+}
+
+.admin-nav-tabs > li span.icon-pencil:before {
+  content: "\f044";
+}
+
+.admin-nav-tabs > li span.icon-wrench:before {
+  content: "\f0ad";
+}
+
+.admin-nav-tabs > li span.icon-group:before {
+  content: "\f0c0";
+}
+
+.admin-nav-tabs > li span.icon-plus:before {
+  content: "\f0fe";
+}
+
+.admin-nav-tabs {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  padding: 6px 0;
+  margin-bottom: 12px;
+}
+
+.admin-nav-tabs > li {
+  list-style-type: none;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.admin-nav-tabs > li span {
+  margin-right: 5px;
+}
+.admin-nav-tabs > li span.icon-file:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.admin-nav-tabs > li span.icon-pencil:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.admin-nav-tabs > li span.icon-plus:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.admin-nav-tabs > li span.icon-trash-o:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.admin-nav-tabs > li span.icon-wrench:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.admin-nav-tabs > li span.icon-group:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.admin-nav-tabs > li span[class^="icon-"]:before, .admin-nav-tabs > li span[class^="icon-"]:after, .admin-nav-tabs > li span[class*="icon-"]:before, .admin-nav-tabs > li span[class*="icon-"]:after {
+  margin: 0;
+  font-size: 16px;
+}
+
+.admin-nav-tabs > li > a {
+  padding: 8px 12px;
+  border: 1px solid #e7e8ea;
+  color: #9fa6ac;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-transition: background 0.2s ease;
+  -moz-transition: background 0.2s ease;
+  -o-transition: background 0.2s ease;
+  transition: background 0.2s ease;
+  -webkit-transition: border 0.2s ease;
+  -moz-transition: border 0.2s ease;
+  -o-transition: border 0.2s ease;
+  transition: border 0.2s ease;
+}
+.admin-nav-tabs > li > a:hover {
+  background-color: #fff;
+  background-color: #fff;
+  border: 1px solid #2e77fc;
+  color: #2e77fc;
+  text-decoration: none;
+}
+
+.admin-nav-tabs > .active > a,
+.admin-nav-tabs > .active > a:hover {
+  background-color: #fff;
+  border: 1px solid #2e77fc;
+  color: #2e77fc;
+}

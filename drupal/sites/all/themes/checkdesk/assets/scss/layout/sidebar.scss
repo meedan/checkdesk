@@ -1,6 +1,26 @@
+@import "colors";
+@import "bowerbird/colors";
+// Directional defaults
+$from-direction: left !default;
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+@import "mixins";
+@import "replace_ctb/mixins";
+
+// Flexbox mixins until we use something like Autoprefixer
+@import "flexbox_mixins";
+
+// Bowerbird Compass Extension
+// See also README.md and ../bowerbird/README.md
+// Requires: base
+@import "bowerbird";
+
 // Page with sidebar first
 // as in incoming reports
-
 @media (min-width: 1px) and (max-width: #{$width-tablet}) {
   body.sidebar-first #sidebar-first.column {
     display: none;

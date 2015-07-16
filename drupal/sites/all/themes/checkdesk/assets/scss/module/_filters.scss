@@ -4,7 +4,6 @@
 %filters {
   @include ctb-clearfix;
   margin-top: $absolute-line-height;
-  @include cd-sans-serif-family;
   font-size: $small-font-size;
 
   .filters-wrapper {
@@ -14,13 +13,8 @@
 
   header {
     float: $alpha;
-    h2 {
-      display: inline-block;
-      @include reset-box-model;
-      @include cd-sans-serif-family;
-      font-size: $large-font-size;
-      color: $firefly60;
-    }
+    font-size: $large-font-size;
+    color: $firefly60;
   }
 
   // icons

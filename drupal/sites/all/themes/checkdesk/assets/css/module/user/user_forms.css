@@ -1,0 +1,113 @@
+.page-user-login #main h1.title,
+.page-user-register #main h1.title,
+.page-user-password #main h1.title {
+  display: none;
+}
+.page-user-login #main #content-area,
+.page-user-register #main #content-area,
+.page-user-password #main #content-area {
+  clear: both;
+}
+.page-user-login .tabs,
+.page-user-register .tabs,
+.page-user-password .tabs {
+  display: none;
+}
+.page-user-login .password-strength, .page-user-login .password-suggestions,
+.page-user-register .password-strength,
+.page-user-register .password-suggestions,
+.page-user-password .password-strength,
+.page-user-password .password-suggestions {
+  display: none !important;
+}
+
+.user-login-wrapper .password-strength, .user-login-wrapper .password-suggestions, .user-register-wrapper .password-strength, .user-register-wrapper .password-suggestions {
+  display: none !important;
+}
+.user-login-wrapper label, .user-register-wrapper label {
+  color: #6f7a82;
+}
+.user-login-wrapper input[type="text"], .user-login-wrapper input[type="password"], .user-register-wrapper input[type="text"], .user-register-wrapper input[type="password"] {
+  margin-top: 0;
+}
+.user-login-wrapper .form-required, .user-register-wrapper .form-required {
+  display: none;
+}
+.user-login-wrapper > div > .item-list, .user-register-wrapper > div > .item-list {
+  display: none;
+}
+.user-login-wrapper .user-links, .user-register-wrapper .user-links {
+  *zoom: 1;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.user-login-wrapper .user-links:before, .user-login-wrapper .user-links:after, .user-register-wrapper .user-links:before, .user-register-wrapper .user-links:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.user-login-wrapper .user-links:after, .user-register-wrapper .user-links:after {
+  clear: both;
+}
+.user-login-wrapper .form-item-remember-me, .user-register-wrapper .form-item-remember-me {
+  float: left;
+}
+.user-login-wrapper .form-item-remember-me label, .user-register-wrapper .form-item-remember-me label {
+  display: inline-block;
+  color: #b7bcc0;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.user-login-wrapper .form-item-remember-me input[type="checkbox"], .user-register-wrapper .form-item-remember-me input[type="checkbox"] {
+  float: left;
+  width: auto;
+}
+.user-login-wrapper .user-forgot-pass-link, .user-register-wrapper .user-forgot-pass-link {
+  float: right;
+}
+.user-login-wrapper .user-forgot-pass-link a, .user-register-wrapper .user-forgot-pass-link a {
+  color: #b7bcc0;
+}
+.user-login-wrapper .user-forgot-pass-link a:hover, .user-register-wrapper .user-forgot-pass-link a:hover {
+  color: #50565b;
+}
+.user-login-wrapper .form-actions .user-new-account-link, .user-register-wrapper .form-actions .user-new-account-link {
+  float: right;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  color: #f3f4f4;
+}
+.user-login-wrapper .form-actions .user-new-account-link a, .user-register-wrapper .form-actions .user-new-account-link a {
+  margin-right: 0;
+}
+.user-login-wrapper .form-actions .user-new-account-link span, .user-register-wrapper .form-actions .user-new-account-link span {
+  display: inline-block;
+}
+.user-login-wrapper .form-actions .user-new-account-link .register, .user-register-wrapper .form-actions .user-new-account-link .register {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  color: #2e77fc;
+}
+.user-login-wrapper .form-actions .user-new-account-link .register:hover, .user-register-wrapper .form-actions .user-new-account-link .register:hover {
+  color: #01225d;
+}
+
+.user-login-wrapper .form-actions .form-submit, .user-register-wrapper .form-actions .form-submit, .user-forgot-wrapper .form-actions .form-submit {
+  float: left;
+}
+.user-login-wrapper .form-actions .back-link, .user-register-wrapper .form-actions .back-link, .user-forgot-wrapper .form-actions .back-link {
+  float: right;
+}
+.user-login-wrapper .form-actions .back-link a, .user-login-wrapper .form-actions .back-link a:hover, .user-register-wrapper .form-actions .back-link a, .user-register-wrapper .form-actions .back-link a:hover, .user-forgot-wrapper .form-actions .back-link a, .user-forgot-wrapper .form-actions .back-link a:hover {
+  margin-right: 0;
+}
+.user-login-wrapper .form-actions .ajax-progress-throbber, .user-register-wrapper .form-actions .ajax-progress-throbber, .user-forgot-wrapper .form-actions .ajax-progress-throbber {
+  display: none;
+}

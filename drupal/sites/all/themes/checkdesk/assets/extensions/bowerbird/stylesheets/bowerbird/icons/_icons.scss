@@ -73,16 +73,3 @@ $large-icon-font-size: 18px;
 @mixin caret {
   @include icon('caret-down', 18px, $firefly30, 'after');
 }
-
-// Enable icons
-//
-// each of the icons we use must be extended, 
-// it does not just work with the icon-* classname.
-//
-// .icon-link {
-//   @include icon('link');
-// }
-
-.icon-muted { color: rgba(255, 255, 255, 0.2); }
-.icon-light { color: #fff; }
-.icon-dark { color: $gray-dark; }

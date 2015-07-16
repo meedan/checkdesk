@@ -1,0 +1,211 @@
+/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+   readers do not read off random characters that represent icons */
+.elsewhere ul li a span.icon-twitter:before {
+  content: "\f099";
+}
+
+.elsewhere ul li a span.icon-facebook:before {
+  content: "\f09a";
+}
+
+.elsewhere ul li a span.icon-google-plus:before {
+  content: "\f0d4";
+}
+
+.elsewhere ul li a span.icon-youtube:before {
+  content: "\f167";
+}
+
+.elsewhere ul li a span.icon-tumblr:before {
+  content: "\f173";
+}
+
+#partner-header {
+  text-align: center;
+}
+
+#partner-header-inner .partner_logo {
+  display: block;
+}
+#partner-header-inner #partner-header-slogan {
+  display: block;
+  padding-top: 36px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #9fa6ac;
+}
+#partner-header-inner #partner-header-slogan a {
+  color: #9fa6ac;
+}
+#partner-header-inner #partner-header-slogan a:hover {
+  text-decoration: none;
+  color: #6f7a82;
+}
+#partner-header-inner .checkdesk-slogan-logo {
+  display: inline-block;
+  width: 86px;
+  height: 22px;
+  text-indent: -5000em;
+  background: transparent url(../imgs/checkdesk-logo.png) center bottom no-repeat;
+}
+
+#widgets {
+  margin-top: -65px;
+  background: #fff;
+  will-change: transform, opacity;
+}
+
+#widgets #widgets-inner {
+  padding-top: 85px;
+  padding-bottom: 10px;
+}
+
+#widgets #widgets-inner .region-widgets :first-child {
+  margin-top: 0;
+}
+
+#widgets #widgets-inner .block {
+  *zoom: 1;
+  margin: 12px 0;
+}
+#widgets #widgets-inner .block:before, #widgets #widgets-inner .block:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#widgets #widgets-inner .block:after {
+  clear: both;
+}
+
+#widgets #widgets-inner h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-top: 4px solid #e7e8ea;
+  padding-top: 0.71429;
+  margin-bottom: 0.71429;
+  font-weight: 700;
+  font-size: 18px;
+  color: #9fa6ac;
+}
+
+#widgets #widgets-inner iframe {
+  width: 100% !important;
+}
+
+.elsewhere {
+  *zoom: 1;
+  text-align: center;
+}
+.elsewhere:before, .elsewhere:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.elsewhere:after {
+  clear: both;
+}
+
+.elsewhere h2 {
+  display: none;
+}
+
+.elsewhere ul {
+  list-style: none;
+  text-align: center;
+}
+
+.elsewhere ul li {
+  display: inline-block;
+}
+
+.elsewhere ul li a {
+  display: block;
+  padding: 8px 5px;
+  vertical-align: top;
+  line-height: 1.4;
+  height: 36px;
+  width: 35px;
+  text-align: center;
+  color: #b7bcc0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+.elsewhere ul li a:hover {
+  text-decoration: none;
+  background-color: #f3f4f4;
+}
+
+.elsewhere ul li a span.icon-facebook:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.elsewhere ul li a span.icon-twitter:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.elsewhere ul li a span.icon-google-plus:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.elsewhere ul li a span.icon-tumblr:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.elsewhere ul li a span.icon-youtube:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -233,6 +233,28 @@ function checkdesk_preprocess_region(&$variables) {
     $bg = theme_get_setting('header_bg_path');
     $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
     $variables['header_slogan'] = variable_get('site_slogan', '');
+    // add widgets css
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/layout/widgets.css',
+      array(
+        'group' => CSS_THEME,
+        'weight' => '999',
+        'every_page' => FALSE,
+      )
+    );
+
+  }
+
+  // Add sidebar css
+  if ($variables['region'] == 'sidebar_first' || $variables['region'] == 'sidebar_second') {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/layout/sidebar.css',
+      array(
+        'group' => CSS_THEME,
+        'weight' => '999',
+        'every_page' => FALSE,
+      )
+    );
   }
 
   if ($variables['region'] == 'footer') {
@@ -310,6 +332,27 @@ function checkdesk_preprocess_page(&$variables) {
   $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
   $variables['logo_icon'] = '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
 
+  // add drupal admin toolbar css
+  if (user_is_logged_in()) {
+    // Drupal system base
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/system_base.css',
+      array(
+        'group' => CSS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/module/drupal_admin_nav.css',
+      array(
+        'group' => CSS_THEME,
+        'weight' => '9999',
+        'every_page' => TRUE,
+      )
+    );
+  }
+
   // Secondary nav
   $variables['secondary_nav'] = FALSE;
   $menu = menu_load('menu-common');
@@ -349,6 +392,16 @@ function checkdesk_preprocess_page(&$variables) {
         }
       }
       if (user_is_logged_in()) {
+        // add css for user menu and notifications
+        drupal_add_css(
+          drupal_get_path('theme', 'checkdesk') . '/assets/css/layout/header_user.css',
+          array(
+            'group' => CSS_THEME,
+            'weight' => '9999',
+            'every_page' => FALSE,
+          )
+        );
+
         $variables['secondary_menu'][$id]['html'] = TRUE;
         $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
         $variables['secondary_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
@@ -630,6 +683,7 @@ function checkdesk_preprocess_node(&$variables) {
           '#node' => node_load($variables['nid']),
         );
       }
+      
       if ($variables['view_mode'] == 'checkdesk_collaborate') {
         // Get heartbeat activity for particular story
         $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);

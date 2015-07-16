@@ -1,3 +1,31 @@
+@import "colors";
+@import "bowerbird/colors";
+// Directional defaults
+$from-direction: left !default;
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+@import "mixins";
+@import "replace_ctb/mixins";
+
+// Bowerbird Compass Extension
+// See also README.md and ../bowerbird/README.md
+// Requires: base
+@import "bowerbird";
+
+// Bowerbird font-icon support mixin: icon()
+@import "bowerbird/icons/icons";
+
+// Load @extendable %icon- selectors
+// @extend directly or use icon() mixin to do it for you
+@import "bowerbird/icons/fontawesome";
+
+// Filters placeholder
+@import "module/filters";
+
 // Incoming reports
 // 
 // A list of the incoming media submitted with the bookmarklet.
@@ -40,7 +68,6 @@
   border-top: 1px solid rgba($firefly,.02);
   padding: $absolute-line-height/4 $gutter-width*2 $absolute-line-height/5;
   font-size: $small-font-size;
-  @include cd-sans-serif-family;
   color: $firefly40;
   // Dropshadow for depth
   &:before {
@@ -95,7 +122,6 @@
     cursor: move;
     border: 1px solid rgba($firefly, .2);
     background-color: #fff;
-    @include cd-sans-serif-family;
   }
 
   .report-content {
@@ -267,22 +293,3 @@
     }
   }
 } // report row
-
-//
-// CTools modal report
-//
-#modalContent.modal-report {
-  z-index: $z-index-Modal;
-  .modal {
-    background-color: $thatch5;
-  }
-}
-// Fixed only for normal screen sizes
-@media all and (min-height: 40em) {
-  #modalContent.modal-report {
-    position: fixed !important;
-    top: 200px !important;
-  }
-}
-
-

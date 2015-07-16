@@ -1,5 +1,33 @@
+@import "colors";
+@import "bowerbird/colors";
+// Directional defaults
+$from-direction: left !default;
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+@import "mixins";
+@import "replace_ctb/mixins";
+
+// Bowerbird Compass Extension
+// See also README.md and ../bowerbird/README.md
+// Requires: base
+@import "bowerbird";
+
+// Bowerbird font-icon support mixin: icon()
+@import "bowerbird/icons/icons";
+
+// Load @extendable %icon- selectors
+// @extend directly or use icon() mixin to do it for you
+@import "bowerbird/icons/fontawesome";
+
 // ======================================================================
 // Widgets styles
+
+// Partner branding
+@import "module/partner/partner_header";
 
 #widgets {
   // to avoid showing background color
@@ -32,7 +60,6 @@
   border-top: 4px solid $firefly10;
   padding-top: $line-height-base/2;
   margin-bottom: $line-height-base/2;
-  @include cd-sans-serif-family;
   font-weight: 700;
   font-size: $base-font-size;
   color: $firefly40;
