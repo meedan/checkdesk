@@ -187,10 +187,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
     'tags' => 'tags',
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'more-stories';
-
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
   $translatables['more_stories'] = array(
@@ -214,7 +210,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('.'),
     t(','),
     t('All'),
-    t('Page'),
     t('Block'),
   );
   $export['more_stories'] = $view;
