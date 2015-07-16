@@ -1160,7 +1160,7 @@ function checkdesk_core_views_pre_render(&$view) {
       foreach ($variables as $key => $value) {
         if (in_array($key, array('!flag_type', '!fact_checking_status', '!status'))) {
           $variables[$key] = t($value);
-        }   
+        }
       }
       $view->result[$k]->heartbeat_activity_variables = heartbeat_encode_message_variables($variables);
     }
@@ -1305,7 +1305,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       $form['#info']['filter-field_stories_target_id'] = FALSE;
     }
     $form['submit']['#attributes']['onclick'] = 'javascript: jQuery("#edit-submit-desk-reports").trigger("click");return false;';
-    $form['reset']['#attributes']['onclick'] = 
+    $form['reset']['#attributes']['onclick'] =
             'javascript: jQuery("#views-exposed-form-desk-reports-block").clearForm();jQuery("#edit-submit-desk-reports").trigger("click");return false;';
   }
 
@@ -1410,7 +1410,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     }
 
     $form['keys']['#attributes']['placeholder'] = t('Search');
-    
+
     // Hide sort and submit button
     $form['sort_bef_combine']['#type'] = 'hidden';
     $form['submit']['#attributes']['class'][] = 'js-hide';
@@ -1802,7 +1802,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium btn btn-default');
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-sigin-back-link">' . $back_link . '</div>';
     $form['#validate'][] = '_modify_drupal_message';
-    $form['actions']['submit']['#attributes']['onclick'] = 
+    $form['actions']['submit']['#attributes']['onclick'] =
       'javascript: this.value=Drupal.t("loading...");this.attr("disabled", "disabled");';
   }
 
@@ -2074,7 +2074,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       }
     }
     // Add associated stories condition.
-    if (isset($_GET['type']) && $_GET['type'] === 'report' && 
+    if (isset($_GET['type']) && $_GET['type'] === 'report' &&
         isset($_GET['report_story']) && ($_GET['report_story'] === 'None' || is_numeric($_GET['report_story']))
     ) {
       $join = new views_join();
@@ -2238,6 +2238,7 @@ function checkdesk_core_wysiwyg_editor_settings_alter(&$settings, $context) {
     $settings['forcePasteAsPlainText'] = TRUE;
     $settings['disableNativeSpellChecker'] = FALSE;
     $settings['fillEmptyBlocks'] = FALSE;
+    $settings['customConfig'] = base_path() . drupal_get_path('module', 'checkdesk_core') . '/ckeditor/custom_config.js';
   }
 }
 
@@ -3160,7 +3161,7 @@ function checkdesk_log_reports_updates($op, $text, $update_nid, $story_nid) {
           db_insert('checkdesk_reports_updates')->fields(array('report_nid' => $nid, 'update_nid'  => $update_nid))->execute();
           //Link report to story
           $report = node_load($nid);
-          if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) || 
+          if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) ||
             $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $story_nid) {
               $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $story_nid;
               node_save($report);
@@ -3367,7 +3368,7 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
     $success = file_exists($derivative_uri) || image_style_create_derivative(image_style_load('activity_avatar'), $avatar_uri, $derivative_uri);
 
     $new_image_url = file_create_url($derivative_uri);
-    
+
     if($link == FALSE) {
       $avatar = theme('html_tag', array(
         'element' => array(
@@ -3388,7 +3389,7 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
         'style' => 'background-image: url("' . $new_image_url . '")'
       )));
     }
-    
+
   }
   return $avatar;
 }
@@ -3791,7 +3792,7 @@ function _checkdesk_main_navigation() {
   $items[] = array(
     'data' => l($logo_icon . '<span>' . t('Front page') . '</span>', '<front>', array(
       'attributes' => array('class' => array($a_class, 'homepage-link')),
-      'html' => TRUE,      
+      'html' => TRUE,
     )),
     'class' => array($li_class, 'homepage'),
   );
