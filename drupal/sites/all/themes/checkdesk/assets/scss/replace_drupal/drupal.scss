@@ -8,6 +8,13 @@ $omega: opposite-position($from-direction);
 
 // Variables and Mixins
 @import "variables";
+@import "replace_ctb/mixins";
+
+// Bowerbird Compass Extension
+// See also README.md and ../bowerbird/README.md
+// Requires: base
+@import "bowerbird";
+
 
 // Drupal styles
 // Drupal itself should not emit *any* CSS.
@@ -22,3 +29,9 @@ $omega: opposite-position($from-direction);
 @import "node";
 @import "rules";
 @import "vertical-tabs";
+
+// Checkdesk user accounts
+@import "module/user/administer_users";
+
+// Form: password strength section
+@import "components/forms/form_password";

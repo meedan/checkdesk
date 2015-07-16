@@ -1811,16 +1811,28 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
         'every_page' => FALSE,
       )
     );
-    // Forms CSS
+  }
+
+  // Forms CSS
+  drupal_add_css(
+    drupal_get_path('theme', 'checkdesk') . '/assets/css/components/forms/forms.css',
+    array(
+      'group' => CSS_THEME,
+      'weight' => '9999',
+      'every_page' => FALSE,
+    )
+  );
+
+  // User forms
+  if ($form_id == 'user_login' || $form_id == 'user_login_block' || $form_id == 'user_register_form' || $form_id == 'user_pass') {
     drupal_add_css(
-      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/forms/forms.css',
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/module/user/user_forms.css',
       array(
         'group' => CSS_THEME,
         'weight' => '9999',
         'every_page' => FALSE,
       )
     );
-
   }
 
   //Redirect user to right place after delete footnote
@@ -1844,6 +1856,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
 
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
+
     unset($form['name']['#description'], $form['pass']['#description'], $form['links'], $form['twitter_signin']);
     $form['#prefix'] = '<div class="user-login-wrapper modal-dialog-signin modal-dialog-signin-email">';
     $form['#suffix'] = '</div>';

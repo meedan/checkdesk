@@ -593,3 +593,153 @@ fieldset.vertical-tabs-pane fieldset legend {
   width: 95%;
   /* IE6 */
 }
+
+.page-administer-users .views-submit-button {
+  float: left;
+}
+.page-administer-users input[type="submit"] {
+  float: left !important;
+}
+.page-administer-users div.vbo-table-select-all-markup {
+  display: none;
+}
+.page-administer-users div.vbo-table-select-all-markup input {
+  font-size: 15px;
+  background-color: #cccccc;
+}
+.page-administer-users input.vbo-table-select-all-pages {
+  float: left;
+  clear: both;
+}
+.page-administer-users table.views-table {
+  border-top: 1px solid black;
+}
+
+.view-administer-users fieldset {
+  margin-bottom: 12px;
+}
+.view-administer-users select {
+  margin-bottom: 12px;
+}
+
+/**
+ * Override default textfield float to put the "Add role" button next to
+ * the input textfield.
+ */
+#user-admin-roles td.edit-name {
+  clear: both;
+}
+
+#user-admin-roles .form-item-name {
+  float: left;
+  /* LTR */
+  margin-right: 1em;
+  /* LTR */
+}
+
+/**
+ * Password strength indicator.
+ */
+.password-strength {
+  color: #555555;
+  font-size: 0.8em;
+  width: 17em;
+  float: right;
+}
+
+.password-strength-title {
+  display: inline;
+}
+
+.password-strength-text {
+  float: right;
+  /* LTR */
+  font-weight: bold;
+}
+
+.password-indicator {
+  background-color: #eeeeee;
+  height: 0.3em;
+  width: 100%;
+}
+
+.password-indicator div {
+  height: 100%;
+  width: 0%;
+  background-color: #468847;
+}
+
+input.password-confirm,
+input.password-field {
+  width: 17em;
+  margin-bottom: 0.4em;
+}
+
+div.password-confirm {
+  float: right;
+  /* LTR */
+  visibility: hidden;
+  width: 17em;
+}
+
+div.form-item div.password-suggestions {
+  padding: 15px;
+  margin: 0.7em 0;
+  width: 38.5em;
+  border: 1px solid #777777;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  color: #555555;
+}
+div.form-item div.password-suggestions ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  margin-top: 6px;
+}
+
+div.password-confirm {
+  color: #555555;
+  font-size: 0.8em;
+  width: 17em;
+  float: right;
+  /* LTR */
+  margin-top: 0.2em;
+}
+div.password-confirm .ok {
+  padding: 7.5px 15px;
+  color: #468847;
+  background-color: #dff0d8;
+}
+div.password-confirm .error {
+  padding: 7.5px 15px;
+  color: #b94a48;
+  background-color: #f9e8e8;
+}
+div.password-confirm .description {
+  display: block;
+}
+
+div.password-suggestions ul {
+  margin-bottom: 0;
+}
+
+.confirm-parent,
+.password-parent {
+  *zoom: 1;
+}
+.confirm-parent:before, .confirm-parent:after,
+.password-parent:before,
+.password-parent:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.confirm-parent:after,
+.password-parent:after {
+  clear: both;
+}

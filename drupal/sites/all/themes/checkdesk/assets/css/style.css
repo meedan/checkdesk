@@ -2512,6 +2512,7 @@ div.sensitive-hide {
 }
 
 .media-holder .sensitive-notification,
+.item-content .sensitive-notification,
 .report-row .sensitive-notification {
   display: table-cell;
   width: 60%;
@@ -2521,11 +2522,13 @@ div.sensitive-hide {
   background: none;
 }
 .media-holder .sensitive-notification .sensitive-notification-text,
+.item-content .sensitive-notification .sensitive-notification-text,
 .report-row .sensitive-notification .sensitive-notification-text {
   color: #6f7a82;
   padding: 12px 7.5px;
 }
 .media-holder .sensitive-notification .sensitive-notification-link,
+.item-content .sensitive-notification .sensitive-notification-link,
 .report-row .sensitive-notification .sensitive-notification-link {
   padding: 12px 7.5px;
 }
