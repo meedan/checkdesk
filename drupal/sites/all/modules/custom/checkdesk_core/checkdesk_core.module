@@ -941,7 +941,6 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
       array(
         'group' => CSS_THEME,
         'weight' => '9999',
-        'every_page' => FALSE,
       )
     );
     // add lib
@@ -951,7 +950,6 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
         'scope' => 'footer',
         'group' => JS_THEME,
         'weight' => '9990',
-        'every_page' => FALSE,
       )
     );
     // add chosen.js
@@ -961,7 +959,6 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
         'scope' => 'footer',
         'group' => JS_THEME,
         'weight' => '9990',
-        'every_page' => FALSE,
       )
     );
   }
@@ -1063,7 +1060,6 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
       array(
         'group' => CSS_THEME,
         'weight' => '9999',
-        'every_page' => FALSE,
       )
     );
     // add lib
@@ -1073,7 +1069,6 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
         'scope' => 'footer',
         'group' => JS_THEME,
         'weight' => '9990',
-        'every_page' => FALSE,
       )
     );
   }
@@ -1279,7 +1274,6 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         'scope' => 'footer',
         'group' => JS_THEME,
         'weight' => '9990',
-        'every_page' => FALSE,
       )
     );
     // add css for filter tabs
@@ -1288,7 +1282,6 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       array(
         'group' => CSS_THEME,
         'weight' => '9999',
-        'every_page' => FALSE,
       )
     );
     // add css for incoming reports
@@ -1297,7 +1290,6 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       array(
         'group' => CSS_THEME,
         'weight' => '9999',
-        'every_page' => FALSE,
       )
     );
     $title_options = array('contains' => t('Show reports with this keyword'), 'not'=> t('Exclude report with this keyword'));
@@ -1369,7 +1361,6 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       array(
         'group' => CSS_THEME,
         'weight' => '9999',
-        'every_page' => FALSE,
       )
     );
 
@@ -1808,7 +1799,6 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       array(
         'group' => CSS_THEME,
         'weight' => '9991',
-        'every_page' => FALSE,
       )
     );
   }
@@ -1819,7 +1809,6 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     array(
       'group' => CSS_THEME,
       'weight' => '9999',
-      'every_page' => FALSE,
     )
   );
 
@@ -1830,7 +1819,6 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       array(
         'group' => CSS_THEME,
         'weight' => '9999',
-        'every_page' => FALSE,
       )
     );
   }
@@ -3028,7 +3016,6 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
       array(
         'group' => CSS_THEME,
         'weight' => '9990',
-        'every_page' => FALSE,
       )
     );
   }
@@ -3041,7 +3028,6 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
         'scope' => 'footer',
         'group' => JS_THEME,
         'weight' => '9990',
-        'every_page' => FALSE,
       )
     );
     // add chosen.js
@@ -3051,7 +3037,6 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
         'scope' => 'footer',
         'group' => JS_THEME,
         'weight' => '9990',
-        'every_page' => FALSE,
       )
     );
   }
@@ -3063,7 +3048,6 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
       array(
         'group' => CSS_THEME,
         'weight' => '9991',
-        'every_page' => FALSE,
       )
     );
   }

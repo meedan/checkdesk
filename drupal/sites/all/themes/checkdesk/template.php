@@ -239,7 +239,6 @@ function checkdesk_preprocess_region(&$variables) {
       array(
         'group' => CSS_THEME,
         'weight' => '999',
-        'every_page' => FALSE,
       )
     );
 
@@ -252,7 +251,6 @@ function checkdesk_preprocess_region(&$variables) {
       array(
         'group' => CSS_THEME,
         'weight' => '999',
-        'every_page' => FALSE,
       )
     );
   }
@@ -367,7 +365,6 @@ function checkdesk_preprocess_page(&$variables) {
       array(
         'group' => CSS_THEME,
         'weight' => '9999',
-        'every_page' => FALSE,
       )
     );
   }
@@ -738,6 +735,27 @@ function checkdesk_preprocess_node(&$variables) {
   $variables['icon'] = '';
 
   if ($variables['type'] == 'media') {
+
+    // Add media CSS
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/module/content/media.css',
+      array(
+        'group' => CSS_THEME,
+        'weight' => '9990',
+        'every_page' => TRUE,
+      )
+    );
+
+    // add report.js
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/report.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+      )
+    );
+
     global $language;
     //Add author info to variables
     $user = user_load($node->uid);

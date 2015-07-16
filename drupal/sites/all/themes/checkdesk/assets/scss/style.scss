@@ -106,13 +106,6 @@ $omega: opposite-position($from-direction);
 // Checkdesk pages
 //
 
-// Checkdesk media
-@import "module/content/media";
-
-// Checkdesk reports
-@import "module/content/report/report";
-@import "module/content/report/report_detail";
-
 // Checkdesk updates
 @import "module/content/update";
 
@@ -134,12 +127,6 @@ $omega: opposite-position($from-direction);
 // Story colloboration activity
 @import "module/activity";
 
-
-
-// Forms, Tables
-// @import "components/forms/forms";
-// @import "base/tables";
-
 // Tags
 @import "module/tag-list";
 
@@ -152,11 +139,6 @@ $omega: opposite-position($from-direction);
 
 // Checkdesk user accounts
 // @import "module/user/user"; // enable when designed
-
-// ======================================================================
-
-// #sidebar-first.column,
-// .desk { background-color: white; }
 
 // ======================================================================
 // Bidi helpers
