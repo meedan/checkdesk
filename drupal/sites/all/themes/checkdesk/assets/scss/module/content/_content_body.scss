@@ -29,6 +29,8 @@
   figure.element {
     margin-top: 26px;
     margin-bottom: 26px;
+    // for videos and rich embeds
+    @include responside-media-styles;
   }
 
   // lists

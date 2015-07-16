@@ -1,7 +1,9 @@
 @import "colors";
 @import "bowerbird/colors";
-// Directional defaults
-$from-direction: left !default;
+
+// ensure we have the original variables loaded
+@import "global";
+
 // Aliases for bidirectional stuff
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
@@ -26,8 +28,10 @@ $omega: opposite-position($from-direction);
 // Filters placeholder
 @import "module/filters";
 
-// Incoming reports
-// 
+// =======================================================================
+// Incoming Reports
+//
+
 // A list of the incoming media submitted with the bookmarklet.
 #incoming-reports {
   padding-#{$alpha}: $gutter-width*1.2;

@@ -1,7 +1,7 @@
 @import "colors";
 @import "bowerbird/colors";
-// Directional defaults
-$from-direction: left !default;
+// ensure we have the original variables loaded
+@import "global";
 // Aliases for bidirectional stuff
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
@@ -33,6 +33,29 @@ $omega: opposite-position($from-direction);
 // Checkdesk reports
 @import "module/content/report/report";
 @import "module/content/report/report_detail";
+
+// Collaboration and fact-checking activity
+@import "module/activity";
+
+
+// common icons
+// Icons
+// =============================================================================
+.icon-share { @include icon(share, 20px);	}
+.icon-flag-o { @include icon(flag-o, 20px);	}
+.icon-pencil-square-o { @include icon(pencil-square-o, 20px); }
+.icon-plus-square-o { @include icon(plus-square-o, 20px); }
+.icon-ellipsis-h { @include icon(ellipsis-h, 20px); }
+.icon-youtube-play { @include icon(youtube-play); }
+.icon-twitter { @include icon(twitter); }
+.icon-check-circle { @include icon(check-circle, 16px);}
+.icon-trash-o { @include icon(trash-o, 16px);}
+.icon-video-camera { @include icon(video-camera, 16px);}
+.icon-search { @include icon(search, 16px);}
+.icon-chevron-down { @include icon(chevron-down, 16px);}
+.icon-chevron-up { @include icon(chevron-up, 16px);}
+
+// Media
 
 .media-holder {
 	overflow: auto; // keeps it from collapsing
@@ -112,40 +135,7 @@ $omega: opposite-position($from-direction);
 }
 
 // for videos and rich embeds
-.video-holder, .re-holder {
-	position: relative;
-  display: block;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-  
-  .oembed-video,
-  iframe,
-  embed,
-  object {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    height: 100%;
-    width: 100%;
-    border: 0;
-  }
-  // Modifier class for 16:9 aspect ratio
-  &.media-16by9 {
-    padding-bottom: 56.25%;
-  }
-
-  // Modifier class for 4:3 aspect ratio
-  &.media-4by3 {
-    padding-bottom: 75%;
-  }
-
-  // Modifier class for 1:1 aspect ratio
-  &.media-1by1 {
-    padding-bottom: 100%;
-  }
-}
+@include responside-media-styles;
 
 // Icons for media content title
 .media--video .title a {

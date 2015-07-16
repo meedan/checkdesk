@@ -173,9 +173,18 @@ function checkdesk_checkdesk_links($variables) {
  */
 function checkdesk_css_alter(&$css) {
   // Remove style.css if style-rtl.css is included.
+  // And any other CSS loaded separately
   global $language;
   if ($language->direction == LANGUAGE_RTL) {
     unset($css['sites/all/themes/checkdesk/assets/css/style.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/module/content/media.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/layout/sidebar.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/module/sidebar_filters.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/components/forms/forms.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/module/user/user_forms.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/module/content/report/reports_incoming.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/layout/header_user.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/module/drupal_admin_nav.css']);
   }
   // keep css for some modules
   $keep_css = array(

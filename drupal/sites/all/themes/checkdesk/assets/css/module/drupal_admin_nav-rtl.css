@@ -1,5 +1,5 @@
 #edit-shortcuts {
-  float: right;
+  float: left;
 }
 
 body.toolbar {
@@ -38,11 +38,11 @@ body.toolbar-drawer {
   background: #666;
   color: #ccc;
   font: normal small "Lucida Grande", Verdana, sans-serif;
-  left: 0;
+  right: 0;
   margin: 0 -20px;
   padding: 0 20px;
   position: fixed;
-  right: 0;
+  left: 0;
   top: 0;
   -moz-box-shadow: 0 3px 20px #000;
   -webkit-box-shadow: 0 3px 20px #000;
@@ -65,7 +65,7 @@ body.toolbar-drawer {
 
 #toolbar ul li,
 #toolbar ul li a {
-  float: left;
+  float: right;
   /* LTR */
 }
 
@@ -75,7 +75,7 @@ body.toolbar-drawer {
 #toolbar div.toolbar-menu {
   background: #000;
   line-height: 20px;
-  padding: 5px 50px 5px 10px;
+  padding: 5px 10px 5px 50px;
   /* LTR */
   position: relative;
 }
@@ -90,12 +90,12 @@ body.toolbar-drawer {
 }
 
 #toolbar-user {
-  float: right;
+  float: left;
   /* LTR */
 }
 
 #toolbar-menu {
-  float: left;
+  float: right;
   /* LTR */
 }
 
@@ -105,7 +105,7 @@ body.toolbar-drawer {
   height: 25px;
   overflow: hidden;
   position: absolute;
-  right: 10px;
+  left: 10px;
   /* LTR */
   color: #ccc;
   width: 25px;
@@ -161,17 +161,17 @@ body.toolbar-drawer {
  * it with position:absolute; toolbar needs its z-index to stay above overlay.
  */
 * html #toolbar {
-  left: -20px;
+  right: -20px;
   margin: 0;
-  padding-right: 0;
+  padding-left: 0;
   position: absolute;
-  right: 0;
+  left: 0;
   width: 100%;
 }
 
 div#toolbar a#edit-shortcuts {
-  float: right;
-  padding: 5px 10px 5px 5px;
+  float: left;
+  padding: 5px 5px 5px 10px;
   line-height: 24px;
   color: #ccc;
 }
@@ -187,15 +187,15 @@ div#toolbar div.toolbar-shortcuts ul {
   padding: 5px 0 2px 0;
   height: 28px;
   line-height: 24px;
-  float: left;
+  float: right;
   /* LTR */
-  margin-left: 5px;
+  margin-right: 5px;
   /* LTR */
 }
 
 div#toolbar div.toolbar-shortcuts ul li a {
   padding: 0 5px 0 5px;
-  margin-right: 5px;
+  margin-left: 5px;
   /* LTR */
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -214,12 +214,12 @@ div#toolbar div.toolbar-shortcuts ul li a.active {
 }
 
 div#toolbar div.toolbar-shortcuts span.icon {
-  float: left;
+  float: right;
   /* LTR */
   background: #444;
   width: 30px;
   height: 30px;
-  margin-right: 5px;
+  margin-left: 5px;
   /* LTR */
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -235,8 +235,8 @@ div.add-or-remove-shortcuts a span.icon {
   width: 12px;
   background: transparent url(shortcut.png) no-repeat scroll 0 0;
   height: 12px;
-  float: left;
-  margin-left: 8px;
+  float: right;
+  margin-right: 8px;
 }
 
 div.add-shortcut a:focus span.icon,
@@ -254,8 +254,8 @@ div.remove-shortcut a:hover span.icon {
 }
 
 div.add-or-remove-shortcuts a span.text {
-  float: left;
-  padding-left: 10px;
+  float: right;
+  padding-right: 10px;
   display: none;
 }
 
@@ -266,7 +266,7 @@ div.add-or-remove-shortcuts a:hover span.text {
   color: #fff;
   background-color: #5f605b;
   display: block;
-  padding-right: 6px;
+  padding-left: 6px;
   /* LTR */
   cursor: pointer;
   -moz-border-radius: 0 5px 5px 0;
@@ -286,14 +286,14 @@ div.add-or-remove-shortcuts a:hover span.text {
 
 #shortcut-set-switch .form-item-new {
   padding-top: 0;
-  padding-left: 17px;
+  padding-right: 17px;
   /* LTR */
 }
 
 @media only screen and (min-width: 740px) {
   div.region-page-top #toolbar {
     position: fixed;
-    left: 60px;
+    right: 60px;
     overflow: hidden;
     z-index: 940;
     padding: 0;
@@ -324,8 +324,8 @@ div.add-or-remove-shortcuts a:hover span.text {
 
   .navbar-fixed-top {
     position: fixed;
-    left: 0;
     right: 0;
+    left: 0;
     z-index: 930;
   }
 

@@ -1,7 +1,9 @@
 @import "colors";
 @import "bowerbird/colors";
-// Directional defaults
-$from-direction: left !default;
+
+// ensure we have the original variables loaded
+@import "global";
+
 // Aliases for bidirectional stuff
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
@@ -15,7 +17,6 @@ $omega: opposite-position($from-direction);
 
 // Bowerbird Compass Extension
 // See also README.md and ../bowerbird/README.md
-// Requires: base
 @import "bowerbird";
 
 // Bowerbird font-icon support mixin: icon()
@@ -27,6 +28,10 @@ $omega: opposite-position($from-direction);
 
 // Mix of Drupal alerts and Twitter Bootstrap alerts.
 @import "components/dropdowns";
+
+// =======================================================================
+// Header User Menu and Notifications Menu
+//
 
 // Checkdesk notifications menu
 @import "module/notifications";
@@ -122,6 +127,7 @@ ul#user-menu .badge {
 
 // apply default avatar styles
 ul#user-menu .avatar-menu {
+  @include cd-thumbnail-sizes(40);
   @include cd-avatar('inline');
   @include border-radius(50%);
 

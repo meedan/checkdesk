@@ -330,19 +330,20 @@ function checkdesk_preprocess_page(&$variables) {
   $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
   $variables['logo_icon'] = '<svg class="logo-icon" preserveAspectRatio="xMinYMin meet" viewBox="0 0 27 39"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#logo-icon"></use></svg>';
 
-
-  // Drupal system base
-  drupal_add_css(
-    drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/system_base.css',
-    array(
-      'group' => CSS_THEME,
-      'weight' => '9990',
-      'every_page' => TRUE,
-    )
-  );
-
-  // add drupal admin toolbar css
+  
   if (user_is_logged_in()) {
+
+    // Drupal system base
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/system_base.css',
+      array(
+        'group' => CSS_THEME,
+        'weight' => '9990',
+        'every_page' => TRUE,
+      )
+    );
+
+    // add drupal admin toolbar css
     drupal_add_css(
       drupal_get_path('theme', 'checkdesk') . '/assets/css/module/drupal_admin_nav.css',
       array(
@@ -731,6 +732,16 @@ function checkdesk_preprocess_node(&$variables) {
     }
   }
 
+  if ($variables['type'] == 'page') {
+    // Load CSS for static content
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/module/content/static.css',
+      array(
+        'group' => CSS_THEME,
+        'weight' => '9999',
+      )
+    );
+  }
 
   $variables['icon'] = '';
 

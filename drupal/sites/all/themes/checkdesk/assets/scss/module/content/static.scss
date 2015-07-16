@@ -1,6 +1,17 @@
+@import "colors";
+@import "bowerbird/colors";
+// Directional defaults
+$from-direction: left !default;
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+@import "replace_ctb/mixins";
+
+
 // Static pages
-
-
 .static-page {
   margin-bottom: $absolute-line-height*4;
   h2 {

@@ -78,7 +78,7 @@ section#comment-form {
   *zoom: 1;
   position: relative;
   margin-top: 8px;
-  padding-right: 20px;
+  padding-left: 20px;
 }
 section#comment-form:before, section#comment-form:after {
   display: table;
@@ -106,8 +106,8 @@ section#comment-form form .form-actions {
 }
 section#comment-form form .form-actions input {
   font-size: 16px;
-  margin-left: 15px;
-  margin-right: 0;
+  margin-right: 15px;
+  margin-left: 0;
   margin-top: -5px;
 }
 section#comment-form form textarea {
@@ -124,7 +124,7 @@ section#comment-form form textarea:after {
 }
 
 section#comment-form .form-actions {
-  text-align: right;
+  text-align: left;
 }
 section#comment-form .form-actions span.edit-status {
   font-size: 15px;
@@ -239,8 +239,8 @@ input[type="radio"]:checked + label.not-applicable {
 .report-activity-edit-status.popover {
   position: absolute;
   background: #fff;
-  left: auto;
-  right: 15px;
+  right: auto;
+  left: 0;
   top: auto;
   bottom: -221px;
   width: 340px;
@@ -258,34 +258,34 @@ input[type="radio"]:checked + label.not-applicable {
 }
 .report-activity-edit-status.popover:after {
   content: "";
-  border-left: 12px solid transparent;
   border-right: 12px solid transparent;
+  border-left: 12px solid transparent;
   border-bottom: 12px solid #f3f4f4;
   width: 0;
   height: 0;
   position: absolute;
   top: -12px;
   bottom: 0;
-  left: 157px;
+  right: 157px;
   z-index: 901;
 }
 .report-activity-edit-status.popover:before {
   content: "";
-  border-left: 13px solid transparent;
   border-right: 13px solid transparent;
+  border-left: 13px solid transparent;
   border-bottom: 13px solid #e7e8ea;
   width: 0;
   height: 0;
   position: absolute;
   top: -13px;
   bottom: 0;
-  left: 156px;
+  right: 156px;
   z-index: 900;
 }
 .report-activity-edit-status.popover label {
   width: 169px;
   display: block;
-  float: left;
+  float: right;
   height: 50px;
   line-height: 50px;
   text-align: center;
@@ -304,7 +304,7 @@ input[type="radio"]:checked + label.not-applicable {
   background: #f3f4f4;
   color: #3e4c57;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   height: 30px;
   line-height: 30px;
@@ -321,7 +321,7 @@ input[type="radio"]:checked + label.not-applicable {
   height: 30px;
   width: 310px;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 34px;
   font-size: 14px !important;
   color: #9fa6ac !important;
@@ -333,25 +333,25 @@ input[type="radio"]:checked + label.not-applicable {
 .report-activity-edit-status.popover .form-radios {
   position: absolute;
   top: 70px;
-  left: 0;
+  right: 0;
 }
 .report-activity-edit-status.popover .form-radios .form-type-radio {
-  float: left;
-  padding-left: 0;
+  float: right;
+  padding-right: 0;
   min-height: 0;
 }
 .report-activity-edit-status.popover .form-radios .form-radio {
   display: none;
 }
 .report-activity-edit-status.popover .form-radios > .false, .report-activity-edit-status.popover .form-radios > .undetermined {
-  border-right: 1px solid #f3f4f4;
+  border-left: 1px solid #f3f4f4;
   border-bottom: 1px solid #f3f4f4;
 }
 .report-activity-edit-status.popover .form-radios > .false > label, .report-activity-edit-status.popover .form-radios > .undetermined > label {
   width: 170px;
 }
 .report-activity-edit-status.popover .form-radios > .verified, .report-activity-edit-status.popover .form-radios > .in-progress {
-  border-right: 0 none;
+  border-left: 0 none;
   border-bottom: 1px solid #f3f4f4;
 }
 .report-activity-edit-status.popover .form-radios .form-item:last-child label {
@@ -408,7 +408,7 @@ div.sensitive-hide {
   color: #101b2e;
 }
 .report-detail .separator {
-  margin-left: 1px;
+  margin-right: 1px;
 }
 
 .icon-check-circle {
@@ -508,7 +508,6 @@ div.sensitive-hide {
   text-align: center;
   margin-top: 6px;
   margin-bottom: 12px;
-  letter-spacing: 0.05em;
   font-size: 15px;
   font-weight: 700;
   color: #9fa6ac;
@@ -525,7 +524,7 @@ div.sensitive-hide {
 .view-story-collaboration .pager-load-more .ajax-progress-throbber {
   position: absolute;
   top: 4px;
-  right: 15px;
+  left: 15px;
 }
 .view-story-collaboration .pager-load-more .ajax-progress-throbber .throbber {
   background: url("../imgs/icons/loader_white.gif");
@@ -537,7 +536,7 @@ div.sensitive-hide {
 .activity-item {
   position: relative;
   padding: 0;
-  padding-left: 75px;
+  padding-right: 75px;
   margin-top: 30px;
   padding-top: 20px;
   border-top: 1px solid rgba(16, 33, 47, 0.05);
@@ -552,7 +551,7 @@ div.sensitive-hide {
   top: 0;
 }
 .nested .activity-item {
-  padding-left: 53px;
+  padding-right: 53px;
   padding-top: 6px;
   margin-top: 20px;
   min-height: 32px;
@@ -570,9 +569,9 @@ div.sensitive-hide {
 }
 .activity-item .avatar {
   position: absolute;
-  float: left;
+  float: right;
   top: 20px;
-  left: 0;
+  right: 0;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -645,16 +644,16 @@ div.sensitive-hide {
   margin-top: 8px;
 }
 .activity-item .timestamp {
-  float: right;
+  float: left;
   font-size: 14px;
   color: #b7bcc0;
 }
 .activity-item .inline-delete-item {
-  float: right;
+  float: left;
   display: none;
 }
 .activity-item .item-content-text p {
-  margin-right: 30px;
+  margin-left: 30px;
 }
 .activity-item:before, .activity-item:after {
   display: table;
@@ -681,7 +680,7 @@ div.sensitive-hide {
   margin: 0;
   padding: 0;
   border: 0;
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 18px;
   font-weight: 700;
 }
@@ -975,7 +974,7 @@ div.sensitive-hide {
   color: #101b2e;
 }
 .media-holder .media-content .description p {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   color: #6f7a82;
   font-size: 16px;
   line-height: 22px;
@@ -985,7 +984,7 @@ div.sensitive-hide {
   margin-bottom: 0;
 }
 .media-holder .media-content .description .show-more {
-  padding-left: 7.5px;
+  padding-right: 7.5px;
 }
 
 .media-holder .media-content .provider-icon img,
@@ -1059,7 +1058,7 @@ div.sensitive-hide {
 }
 .media--video .title a:before, .media--video .title a:after {
   margin: 0 0 0 0;
-  margin-right: 7.5px;
+  margin-left: 7.5px;
 }
 
 .video--facebook iframe {
@@ -1076,12 +1075,12 @@ div.sensitive-hide {
 }
 
 .media .inline-img-thumb-holder, .media .inline-video-thumb-holder {
-  float: right;
-  padding-left: 12px;
+  float: left;
+  padding-right: 12px;
   padding-bottom: 12px;
   display: block;
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
   position: relative;
   width: 140px;
   height: 88px;
@@ -1113,8 +1112,8 @@ div.sensitive-hide {
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 0;
   left: 0;
+  right: 0;
   margin: auto;
   border: 0 none !important;
 }
@@ -1129,7 +1128,7 @@ div.sensitive-hide {
   content: "";
   z-index: -1;
   top: 7px;
-  left: 6px;
+  right: 6px;
   bottom: 0;
   background: #f3f4f4;
   border: 1px solid #e7e8ea;
@@ -1146,7 +1145,7 @@ div.sensitive-hide {
   content: "";
   z-index: -1;
   top: 13px;
-  left: 0;
+  right: 0;
   bottom: 0;
   background: #f3f4f4;
   border: 1px solid #e7e8ea;
@@ -1178,6 +1177,6 @@ div.sensitive-hide {
 .inline-attachment .media-inline-holder {
   display: table-cell;
   padding: 0;
-  padding-left: 15px;
+  padding-right: 15px;
   width: 100%;
 }

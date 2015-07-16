@@ -1,42 +1,4 @@
-// Thumbnail Sizes
-.thumb-60 {
-	@include ctb-size(60px, 60px);
-}
-
-.thumb-38 {
-	@include ctb-size(38px, 38px);
-}
-
-.thumb-40 {
-	@include ctb-size(40px, 40px);
-}
-
-.thumb-48 {
-	@include ctb-size(48px, 48px);
-}
-
-.thumb-22 {
-	@include ctb-size(22px, 22px);
-}
-
-// icons
-// TODO bring icons out of reports and declare them for all
-// update FA
-.icon-share { @include icon(share, 20px);	}
-.icon-flag-o { @include icon(flag-o, 20px);	}
-.icon-pencil-square-o { @include icon(pencil-square-o, 20px); }
-.icon-plus-square-o { @include icon(plus-square-o, 20px); }
-.icon-ellipsis-h { @include icon(ellipsis-h, 20px); }
-.icon-youtube-play { @include icon(youtube-play); }
-.icon-twitter { @include icon(twitter); }
-.icon-check-circle { @include icon(check-circle, 16px);}
-.icon-trash-o { @include icon(trash-o, 16px);}
-.icon-video-camera { @include icon(video-camera, 16px);}
-.icon-search { @include icon(search, 16px);}
-.icon-chevron-down { @include icon(chevron-down, 16px);}
-.icon-chevron-up { @include icon(chevron-up, 16px);}
-
- // Report status icons in activity log's header
+// Report status icons in activity log's header
 $position:  "before";
 @if $from-direction == left {
 	$position: "after";
@@ -117,6 +79,7 @@ $position:  "before";
 	}
 
 	.avatar {
+		@include cd-thumbnail-sizes(60);
 		@include cd-avatar('pulled-out', 20px, 0);
 	}
 

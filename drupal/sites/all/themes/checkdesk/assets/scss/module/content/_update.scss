@@ -53,6 +53,7 @@
   }
 
   .avatar {
+    @include cd-thumbnail-sizes(22);
     @include cd-avatar('inline', 20px, 0);
   }
 

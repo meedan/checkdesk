@@ -1,7 +1,9 @@
 @import "colors";
 @import "bowerbird/colors";
-// Directional defaults
-$from-direction: left !default;
+
+// ensure we have the original variables loaded
+@import "global";
+
 // Aliases for bidirectional stuff
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
@@ -53,8 +55,8 @@ $omega: opposite-position($from-direction);
   // make navbar fixed at the top
   .navbar-fixed-top {
     position: fixed;
-    right: 0;
-    left: 0;
+    #{$alpha}: 0;
+    #{$omega}: 0;
     z-index: $z-index-FixedNavbar;
   }
 

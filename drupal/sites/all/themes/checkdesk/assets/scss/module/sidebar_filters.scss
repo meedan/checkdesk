@@ -1,7 +1,9 @@
 @import "colors";
 @import "bowerbird/colors";
-// Directional defaults
-$from-direction: left !default;
+
+// ensure we have the original variables loaded
+@import "global";
+
 // Aliases for bidirectional stuff
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
@@ -13,7 +15,6 @@ $omega: opposite-position($from-direction);
 
 // Bowerbird Compass Extension
 // See also README.md and ../bowerbird/README.md
-// Requires: base
 @import "bowerbird";
 
 // Bowerbird font-icon support mixin: icon()
@@ -25,6 +26,10 @@ $omega: opposite-position($from-direction);
 
 // fonts
 @import "components/fonts";
+
+// =======================================================================
+// Search filters
+//
 
 .content-filter {
 	@include border-radius(4px);

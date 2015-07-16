@@ -45,7 +45,7 @@ ul#user-menu .icon-bell-o:before {
   border-radius: 4px;
   z-index: 900;
   display: none;
-  float: left;
+  float: right;
   min-width: 160px;
   padding: 15px 0;
   margin: -7.5px 0 0;
@@ -59,9 +59,9 @@ ul#user-menu .icon-bell-o:before {
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-.dropdown-menu.pull-right {
-  right: 0;
-  left: auto;
+.dropdown-menu.pull-left {
+  left: 0;
+  right: auto;
 }
 .dropdown-menu .divider {
   *width: 100%;
@@ -139,8 +139,8 @@ ul.dropdown-menu a:hover {
 
 .dropdown-submenu > .dropdown-menu {
   top: 0;
-  left: 100%;
-  right: auto;
+  right: 100%;
+  left: auto;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -199,13 +199,13 @@ ul.dropdown-menu a:hover {
   align-items: center;
 }
 #my-notifications .heartbeat-activity .activity-data .activity-data-image {
-  margin-right: 15px;
+  margin-left: 15px;
   vertical-align: text-bottom;
 }
 
 #my-notifications .heartbeat-activity .activity-meta {
   margin-top: 6px;
-  padding-left: 26px;
+  padding-right: 26px;
   color: #9fa6ac;
 }
 
@@ -220,14 +220,14 @@ ul.dropdown-menu a:hover {
 }
 
 #my-notifications .more-link {
-  float: left;
+  float: right;
 }
 
 #my-notifications .notifications-settings-link {
   margin: 0;
   padding: 0;
   border: 0;
-  float: right;
+  float: left;
 }
 
 #my-notifications .more-link a,
@@ -289,7 +289,7 @@ ul.dropdown-menu a:hover {
   -moz-osx-font-smoothing: grayscale;
 }
 .notifications-preferences tr td, .notifications-preferences tr th {
-  text-align: left;
+  text-align: right;
 }
 
 #my-account {
@@ -347,8 +347,8 @@ ul#user-menu {
 ul#user-menu:after {
   content: '';
   position: absolute;
-  left: 0;
   right: 0;
+  left: 0;
   bottom: 0;
   height: 100%;
   box-shadow: 0 -4px 0px 4px #edeff0, 0 2px 4px 0 rgba(0, 0, 0, 0.2);
@@ -390,7 +390,7 @@ ul#user-menu li {
 
 @media only screen and (min-width: 740px) {
   #my-notifications-menu-link {
-    border-left: 1px solid #e7e8ea;
+    border-right: 1px solid #e7e8ea;
   }
 }
 @media (min-width: 1px) and (max-width: 740px) {
@@ -412,15 +412,15 @@ ul#user-menu li > a {
 }
 
 ul#user-menu li a.dropdown-toggle {
-  padding-left: 20px;
   padding-right: 20px;
+  padding-left: 20px;
   color: #b7bcc0;
 }
 @media (min-width: 1px) and (max-width: 740px) {
   ul#user-menu li a.dropdown-toggle {
     position: relative;
-    padding-left: 8px;
     padding-right: 8px;
+    padding-left: 8px;
   }
 }
 ul#user-menu li a.dropdown-toggle:hover {
@@ -431,7 +431,7 @@ ul#user-menu .badge {
   position: absolute;
   display: block;
   top: 4px;
-  left: 37px;
+  right: 37px;
   padding: 4px;
   line-height: 10px;
   font-size: 12px;
@@ -446,7 +446,7 @@ ul#user-menu .badge {
 }
 @media (min-width: 1px) and (max-width: 740px) {
   ul#user-menu .badge {
-    left: 24px;
+    right: 24px;
   }
 }
 
@@ -488,8 +488,8 @@ ul#user-menu .avatar-menu.thumb-40 {
 }
 @media only screen and (min-width: 740px) {
   #utility-menu {
-    padding-left: 20px;
     padding-right: 20px;
+    padding-left: 20px;
   }
   #utility-menu li {
     list-style: none;
@@ -507,21 +507,21 @@ ul#user-menu .avatar-menu.thumb-40 {
 }
 
 #user-menu .dropdown-menu {
-  left: auto;
-  right: 10px;
+  right: auto;
+  left: 10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-border-radius: 4px 0 4px 4px;
-  -moz-border-radius: 4px 0 4px 4px;
-  -ms-border-radius: 4px 0 4px 4px;
-  -o-border-radius: 4px 0 4px 4px;
-  border-radius: 4px 0 4px 4px;
+  -webkit-border-radius: 0 4px 4px 4px;
+  -moz-border-radius: 0 4px 4px 4px;
+  -ms-border-radius: 0 4px 4px 4px;
+  -o-border-radius: 0 4px 4px 4px;
+  border-radius: 0 4px 4px 4px;
 }
 @media (min-width: 1px) and (max-width: 740px) {
   #user-menu .dropdown-menu {
     width: 100%;
-    left: 0;
     right: 0;
+    left: 0;
   }
 }
