@@ -32,15 +32,6 @@
     }
   };
 
-  // format select element
-  Drupal.behaviors.customSelect = {
-    attach: function(context) {
-      // apply js plugin
-      $('#edit-field-stories-und').chosen();
-      $('#edit-field-desk-und').chosen();
-    }
-  };
-
   // text expander for report description
   Drupal.behaviors.textExpander = {
     attach: function(context) {

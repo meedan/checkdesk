@@ -932,6 +932,41 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
 
   // Change title.
   drupal_set_title(t('Compose Update'));
+
+
+  // Add CSS file for autocomplete field
+  if($form['field_desk']) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9999',
+        'every_page' => FALSE,
+      )
+    );
+    // add lib
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+    // add chosen.js
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/chosen.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
 }
 
 /**
@@ -1021,6 +1056,30 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
   }
+
+  // Add CSS file for autocomplete field
+  if($form['field_tags']) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/autocomplete.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9999',
+        'every_page' => FALSE,
+      )
+    );
+    // add lib
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
   // Customize "Add more items" for authors.
   $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
 }
@@ -2890,6 +2949,56 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
   }
+
+  // Add CSS file for chosen 
+  if($form['field_stories']) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
+  // Add Chosen lib
+  if($form['field_stories']) {
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+    // add chosen.js
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/chosen.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
+  // Add CSS file for autocomplete field
+  if($form['field_tags']) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/autocomplete.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9991',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
   // Redirect user to collaboration page.
   $form['actions']['submit']['#submit'][] = '_redirect_report';
   if (in_array('journalist', $user->roles)) {

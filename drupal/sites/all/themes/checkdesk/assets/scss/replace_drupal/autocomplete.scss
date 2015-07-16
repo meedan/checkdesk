@@ -1,4 +1,28 @@
 @charset "UTF-8";
+@import "colors";
+@import "bowerbird/colors";
+// Directional defaults
+$from-direction: left !default;
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+@import "mixins";
+
+// Bowerbird Compass Extension
+// See also README.md and ../bowerbird/README.md
+// Requires: base
+@import "bowerbird";
+
+// Bowerbird font-icon support mixin: icon()
+@import "bowerbird/icons/icons";
+
+// Load @extendable %icon- selectors
+// @extend directly or use icon() mixin to do it for you
+@import "bowerbird/icons/fontawesome";
+
 
 ul.ui-autocomplete {
   max-height: 240px;
@@ -104,8 +128,10 @@ input.autocomplete-deluxe-closed {
 }
 
 div.autocomplete-deluxe-multiple {
-  @include box-sizing(border-box);
-  @include border-radius(3px);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px;
   display: inline-block;
   position: relative;
   @if $from-direction == left {
@@ -136,17 +162,17 @@ div.autocomplete-deluxe-throbber {
 }
 
 .autocomplete-deluxe-closed {
-  background: url(../../misc/throbber.gif) no-repeat 100% -22px;
+  background: url(/misc/throbber.gif) no-repeat 100% -40px;
 }
 
 .autocomplete-deluxe-open {
-  background: url(../../misc/throbber.gif) no-repeat 100% 8px;
+  background: url(/misc/throbber.gif) no-repeat 100% 8px;
 }
 
 .autocomplete-deluxe-item {
   float: $from-direction;
   position: relative;
-  @include border-radius(3px);
+  border-radius: 3px;
   background-clip: padding-box;
   background-color: $firefly10;
   border: 1px solid $firefly20;
