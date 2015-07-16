@@ -420,6 +420,22 @@ function checkdesk_core_feature_image_default_styles() {
     ),
   );
 
+  // Exported image style: item_image_medium.
+  $styles['item_image_medium'] = array(
+    'label' => 'item_image_medium',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 220,
+          'height' => 132,
+          'upscale' => 1,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: navigation_avatar.
   $styles['navigation_avatar'] = array(
     'effects' => array(

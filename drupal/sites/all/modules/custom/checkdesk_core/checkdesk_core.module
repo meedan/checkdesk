@@ -1147,6 +1147,22 @@ function checkdesk_core_views_pre_render(&$view) {
       }
     }
   }
+  elseif ($view->name == 'more_stories') {
+    foreach ($view->result as $id => $tag) {
+      $stories = views_get_view('recent_stories_by_tag');
+      $stories->set_arguments(array($tag->tid));
+      $stories->get_total_rows = TRUE;
+      $output = $stories->preview('block');
+      $total_rows = $stories->total_rows;
+      $stories->destroy();
+      if ($total_rows) {
+        $view->result[$id]->stories = $output;
+      }
+      else {
+        unset($view->result[$id]);
+      }
+    }
+  }
 }
 
 /**
@@ -2048,6 +2064,13 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         $query->having[1]['conditions'][0]['value'][':search_index_keys1'] = 1;
       }
     }
+  }
+  
+  if ($view->name == 'recent_stories_by_tag') {
+      // exclude current nid
+      if (is_numeric(arg(1))) {
+        $query->add_where(1,'node.nid', arg(1), '!=');
+      }
   }
 }
 
@@ -3653,11 +3676,13 @@ function _checkdesk_main_navigation() {
   $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
   $s_search = array_fill_keys(array('All', 'report', 'update', 'story'), '');
   if (arg(0) == 'search') {
-    if (count($_GET) == 2) {
-      $s_search[$_GET['type']] = 'search-nav-selected';
-    }
-    else {
-      $s_search['All'] = 'search-nav-selected';
+    if (isset($_GET['type'])) {
+        if (count($_GET) == 2) {
+            $s_search[$_GET['type']] = 'search-nav-selected';
+        }
+        else {
+            $s_search['All'] = 'search-nav-selected';
+        }
     }
     // Add js to remove other active classes
     drupal_add_js('

@@ -114,6 +114,12 @@ function checkdesk_core_feature_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'views-more_stories-block_1' => array(
+          'module' => 'views',
+          'delta' => 'more_stories-block_1',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
         'views-desk_reports-block' => array(
           'module' => 'views',
           'delta' => 'desk_reports-block',
