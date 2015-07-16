@@ -22,9 +22,6 @@ function checkdesk_form_system_theme_settings_alter(&$form, &$form_state) {
     '#title' => t('Partner logo (square version):'),
     '#description' => t('The partner logo will appear on the frontpage. The logo should be 400px tall and 400px wide and work on a white background.'),
   );
-  if (file_uri_scheme($path) === 'public') {
-    $path = file_uri_target($path);
-  }
   $form['header']['frontpage_logo_preview'] = array(
     '#markup' => (empty($path) ? '' : '<img src="' . image_style_url('partner_logo', $path) . '" />'),
   );
@@ -41,9 +38,6 @@ function checkdesk_form_system_theme_settings_alter(&$form, &$form_state) {
     '#title' => t('Partner Logo (wide version):'),
     '#description' => t('This version will appear on the top of stories. The logo should be 72px tall and up to 400px wide and work on a white background.'),
   );
-  if (file_uri_scheme($path) === 'public') {
-    $path = file_uri_target($path);
-  }
   $form['header']['header_logo_preview'] = array(
     '#markup' => (empty($path) ? '' : '<img src="' . image_style_url('header_logo', $path) . '" />'),
   );
@@ -59,9 +53,6 @@ function checkdesk_form_system_theme_settings_alter(&$form, &$form_state) {
     '#title' => t('Partner logo (badge version):'),
     '#description' => t('This version will appear on smaller screens and as your avatar. The logo should be a 400px tall and 400px wide.'),
   );
-  if (file_uri_scheme($path) === 'public') {
-    $path = file_uri_target($path);
-  }
   $form['header']['badge_logo_preview'] = array(
     '#markup' => (empty($path) ? '' : '<img src="' . image_style_url('activity_avatar', $path) . '" />'),
   );
