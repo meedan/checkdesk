@@ -4,7 +4,11 @@
  * Implements hook_form_system_theme_settings_alter().
  *
  */
-function checkdesk_form_system_theme_settings_alter(&$form, &$form_state) {
+function checkdesk_form_system_theme_settings_alter(&$form, &$form_state, $form_id = NULL) {
+  // This hook can be called from 2 different places, and we only want
+  // to handle the call from `system_theme_settings()`.
+  // @see https://www.drupal.org/node/943212#comment-4885654
+  if (isset($form_id)) return;
 
   $form['header'] = array(
     '#type' => 'fieldset',
