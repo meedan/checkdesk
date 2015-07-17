@@ -935,7 +935,7 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
 
 
   // Add CSS file for autocomplete field
-  if($form['field_desk']) {
+  if ($form['field_desk']) {
     drupal_add_css(
       drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
       array(
@@ -1054,7 +1054,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   }
 
   // Add CSS file for autocomplete field
-  if($form['field_tags']) {
+  if ($form['field_tags']) {
     drupal_add_css(
       drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/autocomplete.css',
       array(
@@ -3009,25 +3009,36 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     $option = decode_entities($option);
   }
 
+  // Add bookmarklet or preview css
+  if ($form['field_link']) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/bookmarklet/bookmarklet.css',
+      array(
+        'group' => CSS_THEME,
+        'weight' => '9999',
+      )
+    );
+  }
+
   // Add CSS file for chosen 
-  if($form['field_stories']) {
+  if ($form['field_stories']) {
     drupal_add_css(
       drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
       array(
         'group' => CSS_THEME,
-        'weight' => '9990',
+        'weight' => '9991',
       )
     );
   }
 
   // Add Chosen lib
-  if($form['field_stories']) {
+  if ($form['field_stories']) {
     drupal_add_js(
       drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
       array(
         'scope' => 'footer',
         'group' => JS_THEME,
-        'weight' => '9990',
+        'weight' => '9992',
       )
     );
     // add chosen.js
@@ -3036,18 +3047,18 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
       array(
         'scope' => 'footer',
         'group' => JS_THEME,
-        'weight' => '9990',
+        'weight' => '9993',
       )
     );
   }
 
   // Add CSS file for autocomplete field
-  if($form['field_tags']) {
+  if ($form['field_tags']) {
     drupal_add_css(
       drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/autocomplete.css',
       array(
         'group' => CSS_THEME,
-        'weight' => '9991',
+        'weight' => '9998',
       )
     );
   }
@@ -3421,7 +3432,7 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
 
     $new_image_url = file_create_url($derivative_uri);
     
-    if($link == FALSE) {
+    if ($link == FALSE) {
       $avatar = theme('html_tag', array(
         'element' => array(
           '#tag' => 'div',

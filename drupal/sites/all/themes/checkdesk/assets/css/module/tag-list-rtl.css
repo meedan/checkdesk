@@ -1,0 +1,36 @@
+.tag-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.tag-link {
+  display: block;
+  margin-left: 20px;
+  color: #6f7a82;
+}
+.tag-link:hover {
+  color: #3e4c57;
+  text-decoration: none;
+}
+
+.tag-name {
+  display: block;
+  overflow: hidden;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+  font-size: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tag-count {
+  color: #9fa6ac;
+  font-size: 12px;
+  text-transform: uppercase;
+}

@@ -1,7 +1,7 @@
 @import "colors";
 @import "bowerbird/colors";
 // Directional defaults
-$from-direction: left !default;
+@import "global";
 // Aliases for bidirectional stuff
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);

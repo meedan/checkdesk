@@ -1095,23 +1095,23 @@ html {
   }
 }
 
-#main #content, #main #widgets, #main footer {
+#content, #widgets, #main footer {
   position: relative;
   padding-right: 20px;
   padding-left: 20px;
 }
 @media only screen and (min-width: 740px) {
-  #main #content, #main #widgets, #main footer {
+  #content, #widgets, #main footer {
     padding-right: 50px;
     padding-left: 50px;
   }
 }
 
-#main #content {
+#content {
   padding-top: 20px;
 }
 @media only screen and (min-width: 740px) {
-  #main #content {
+  #content {
     padding-top: 40px;
     max-width: 1040px;
     margin-right: auto;
@@ -1119,8 +1119,8 @@ html {
   }
 }
 
-body.page-liveblog #main #content,
-body.page-node #main #content {
+body.page-liveblog #content,
+body.page-node #content {
   max-width: 720px;
 }
 
@@ -1721,11 +1721,12 @@ svg.logo-icon {
 #footer:after {
   clear: both;
 }
-#footer #footer-menu {
+
+#footer-menu {
   position: relative;
   padding-bottom: 12px;
 }
-#footer #footer-menu:before {
+#footer-menu:before {
   position: absolute;
   content: "";
   z-index: -1;
@@ -1743,7 +1744,8 @@ svg.logo-icon {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(252, 252, 252, 0)', endColorstr='rgba(0, 0, 0, 0.02)', GradientType=0);
 }
-#footer #information-menu {
+
+#information-menu {
   border-top: 1px solid #f3f4f4;
   padding-top: 12px;
 }
@@ -1997,53 +1999,35 @@ svg.logo-icon {
   text-decoration: none;
 }
 
-body.page-liveblog #main .view-liveblog {
-  *zoom: 1;
-}
-body.page-liveblog #main .view-liveblog:before, body.page-liveblog #main .view-liveblog:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-body.page-liveblog #main .view-liveblog:after {
-  clear: both;
-}
-body.page-liveblog #main .view-liveblog .desk {
+.desk {
   position: relative;
-  *zoom: 1;
   margin-bottom: 0;
   margin-top: 30px;
   overflow: visible;
 }
-body.page-liveblog #main .view-liveblog .desk:before, body.page-liveblog #main .view-liveblog .desk:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-body.page-liveblog #main .view-liveblog .desk:after {
-  clear: both;
-}
-body.page-liveblog #main .view-liveblog .desk:first-child {
+.desk:first-child {
   margin-top: 0;
 }
-body.page-liveblog #main .view-liveblog .desk h1 {
+
+.desk h1 {
   color: #283743;
 }
-body.page-liveblog #main .view-liveblog .desk h1 a {
+.desk h1 a {
   display: block;
   border-bottom: 1px dotted rgba(255, 255, 255, 0.01);
   color: #283743;
 }
-body.page-liveblog #main .view-liveblog .desk h1 a:hover {
+.desk h1 a:hover {
   background-color: #efefef;
   background-color: #f3f4f4;
   border-bottom: 1px dotted #e7e8ea;
   text-decoration: none;
 }
-body.page-liveblog #main .view-liveblog .desk h1 a:active {
+.desk h1 a:active {
   background-color: #c5d9fe;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more {
+
+.view-liveblog .pager-load-more {
   *zoom: 1;
   margin: 0;
   padding: 0;
@@ -2054,18 +2038,18 @@ body.page-liveblog #main .view-liveblog .pager-load-more {
   position: relative;
   text-align: center;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more:before, body.page-liveblog #main .view-liveblog .pager-load-more:after {
+.view-liveblog .pager-load-more:before, .view-liveblog .pager-load-more:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more:after {
+.view-liveblog .pager-load-more:after {
   clear: both;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more li {
+.view-liveblog .pager-load-more li {
   list-style: none;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more a {
+.view-liveblog .pager-load-more a {
   display: inline-block;
   width: 70%;
   text-align: center;
@@ -2079,17 +2063,17 @@ body.page-liveblog #main .view-liveblog .pager-load-more a {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more a:hover {
+.view-liveblog .pager-load-more a:hover {
   color: #fff;
   background-color: #2e77fc;
   border: 1px solid #2e77fc;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber {
+.view-liveblog .pager-load-more .ajax-progress-throbber {
   position: absolute;
   top: 4px;
   left: 15px;
 }
-body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber .throbber {
+.view-liveblog .pager-load-more .ajax-progress-throbber .throbber {
   background: url("../imgs/icons/loader_white.gif");
 }
 
@@ -3239,488 +3223,6 @@ body.cke_editable blockquote:after {
 }
 .cd-container--first .cd-container__inner {
   border: 0;
-}
-
-.tag-list {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -moz-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.tag-link {
-  display: block;
-  margin-left: 20px;
-  color: #6f7a82;
-}
-.tag-link:hover {
-  color: #3e4c57;
-  text-decoration: none;
-}
-
-.tag-name {
-  display: block;
-  overflow: hidden;
-  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-size: 20px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.tag-count {
-  color: #9fa6ac;
-  font-size: 12px;
-  text-transform: uppercase;
-}
-
-#nav-media-form {
-  width: 366px;
-  overflow-y: scroll;
-  z-index: 900;
-}
-#nav-media-form iframe {
-  width: 100%;
-}
-
-.meedan-bookmarklet-internal #meedan_bookmarklet_preview,
-.meedan-bookmarklet-internal #edit-body,
-.meedan-bookmarklet-internal #edit-graphic-content,
-.meedan-bookmarklet-internal #edit-actions #edit-submit,
-.meedan-bookmarklet-internal #edit-title {
-  display: none;
-}
-
-#meedan_bookmarklet_html {
-  height: auto;
-  background: #fff;
-}
-
-#meedan_bookmarklet {
-  font-size: 15px;
-  overflow: hidden;
-  position: relative;
-  padding: 0 !important;
-  margin: 5px 15px !important;
-}
-#meedan_bookmarklet form {
-  margin: 0;
-  padding: 0;
-}
-#meedan_bookmarklet .form-item {
-  margin: 0;
-  padding: 0;
-  float: right;
-  clear: both;
-}
-#meedan_bookmarklet .form-item .description {
-  width: 335px;
-}
-#meedan_bookmarklet .fb-message .description {
-  display: none;
-}
-#meedan_bookmarklet .field-type-link-field {
-  clear: both;
-}
-#meedan_bookmarklet .field-type-link-field label {
-  display: none;
-}
-#meedan_bookmarklet .field-edit-link {
-  display: none;
-}
-#meedan_bookmarklet .link-field-url input[type=text],
-#meedan_bookmarklet .link-field-url input[type=password],
-#meedan_bookmarklet .link-field-url textarea {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-}
-#meedan_bookmarklet .link-field-url input[type=text] {
-  padding-left: 25px;
-}
-#meedan_bookmarklet textarea {
-  height: 60px;
-  padding: 5px;
-}
-#meedan_bookmarklet .form-actions {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  float: right;
-  width: auto;
-  border-top: 0;
-}
-#meedan_bookmarklet .footer {
-  float: right;
-  clear: both;
-  margin-top: 15px;
-}
-#meedan_bookmarklet #edit-body {
-  float: right;
-  clear: both;
-  margin-top: 0;
-}
-#meedan_bookmarklet #edit-graphic-content {
-  float: left;
-  margin: 0;
-  margin-top: 15px;
-  width: auto;
-}
-#meedan_bookmarklet #edit-graphic-content > .form-type-checkbox {
-  width: 100%;
-}
-#meedan_bookmarklet #edit-graphic-content .form-item label:hover,
-#meedan_bookmarklet #edit-graphic-content .form-item input[type="checkbox"]:hover {
-  color: #2e77fc;
-}
-#meedan_bookmarklet #user-login label,
-#meedan_bookmarklet #user-login input[type=text],
-#meedan_bookmarklet #user-login input[type=password],
-#meedan_bookmarklet #user-login a {
-  clear: both;
-}
-#meedan_bookmarklet #user-login ul {
-  margin: 0;
-}
-#meedan_bookmarklet #user-login li {
-  list-style: none;
-  display: block;
-  margin: 0;
-}
-#meedan_bookmarklet #user-login .messages.error {
-  position: static;
-  font-size: modular-scale(0)-modular-scale(-3);
-  margin-bottom: 8px;
-}
-#meedan_bookmarklet #user-login .social-signin-wrapper {
-  margin-top: 12px;
-}
-#meedan_bookmarklet #user-login .social-signin-wrapper .item-list li a {
-  padding: 8px 15px;
-}
-#meedan_bookmarklet #user-login .or {
-  margin: 0 0;
-}
-#meedan_bookmarklet #user-login .user-links {
-  clear: both;
-  font-size: modular-scale(0)-modular-scale(-3);
-  padding-left: 15px;
-}
-#meedan_bookmarklet #user-login .form-item-remember-me {
-  clear: none;
-}
-#meedan_bookmarklet #user-login .form-item-remember-me label {
-  font-size: modular-scale(0)-modular-scale(-3);
-}
-#meedan_bookmarklet #user-login .user-new-account-link .register {
-  text-align: left;
-  font-size: modular-scale(0)-modular-scale(-3);
-}
-#meedan_bookmarklet #user-login input[type=text],
-#meedan_bookmarklet #user-login input[type=password] {
-  padding-left: 0;
-}
-#meedan_bookmarklet #user-login .form-actions {
-  margin-top: 12px;
-}
-#meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all, #meedan_bookmarklet #absolute-messages-messages {
-  display: none !important;
-}
-#meedan_bookmarklet .messages.error {
-  clear: both;
-  background: transparent;
-  padding: 0;
-  border: 0;
-  color: #a00;
-}
-#meedan_bookmarklet #meedan_bookmarklet_messages {
-  padding: 0;
-  margin: 24px 0 0 0;
-  clear: both;
-  text-align: center;
-}
-#meedan_bookmarklet #meedan_bookmarklet_messages li {
-  display: block;
-  list-style: none;
-  width: 100%;
-  text-align: center;
-  font-size: 15px;
-  margin-top: 15px;
-}
-#meedan_bookmarklet #meedan_bookmarklet_messages a {
-  text-decoration: underline;
-}
-#meedan_bookmarklet #meedan_bookmarklet_messages .meedan-bookmarklet-success {
-  display: block;
-  color: #fff;
-  padding: 15px;
-  background-color: rgba(0, 140, 0, 0.8);
-}
-#meedan_bookmarklet h2 {
-  margin: 0;
-  padding: 0;
-  color: #6f7a82;
-  font-size: 18px;
-  float: right;
-  line-height: 24px;
-}
-#meedan_bookmarklet #meedan_bookmarklet_help {
-  line-height: 1.2;
-}
-#meedan_bookmarklet #meedan_bookmarklet_help span {
-  display: block;
-  float: right;
-  width: 30px;
-  text-indent: -5000em;
-  background: transparent url(../imgs/icons/bookmarklet-help.png) center center no-repeat;
-  cursor: help;
-}
-#meedan_bookmarklet #meedan_bookmarklet_help span p {
-  display: none;
-}
-#meedan_bookmarklet #meedan_bookmarklet_help span:hover p {
-  display: block;
-  width: 240px;
-  height: auto;
-  background: white;
-  border: 1px solid #eeeeee;
-  font-size: 15px;
-  line-height: 1.2;
-  color: #777777;
-  text-indent: 0;
-  padding: 15px;
-  position: absolute;
-  left: 1px;
-}
-#meedan_bookmarklet .meedan-bookmarklet-loading {
-  background: white url(../imgs/icons/bookmarklet-loading.gif) left center no-repeat;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview {
-  clear: both;
-  color: #6f7a82;
-  margin: 15px 0;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_content img {
-  width: auto;
-  clear: both;
-}
-#meedan_bookmarklet .bookmarklet-preview {
-  width: 100%;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_content,
-#meedan_bookmarklet #meedan_bookmarklet_preview_gc {
-  height: auto;
-  width: 100%;
-  max-height: 345px;
-  display: inline-block;
-  overflow: hidden;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_gc {
-  background: #9fa6ac;
-  color: #6f7a82;
-  padding-top: 85px;
-  height: 345px;
-  max-height: 145px;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_gc span, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a {
-  text-align: center;
-  display: block;
-  width: 100%;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_gc span {
-  font-size: 15px;
-  margin-bottom: 5px;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_gc a, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:visited, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:link, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:hover {
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-}
-#meedan_bookmarklet .fb-status-preview {
-  background: #b7bcc0;
-  padding: 15px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-}
-#meedan_bookmarklet .fb-status-preview .author {
-  float: right;
-  clear: both;
-}
-
-#meedan_bookmarklet_close {
-  position: absolute;
-  left: 0;
-  top: -2px;
-  z-index: 2;
-}
-
-#media-node-form .meedan-bookmarklet-loading {
-  background: white url(../imgs/icons/bookmarklet-loading.gif) left center no-repeat;
-}
-#media-node-form #meedan_bookmarklet_preview {
-  clear: both;
-  color: #6f7a82;
-  margin: 15px 0;
-}
-#media-node-form #meedan_bookmarklet_preview_content img {
-  width: auto;
-  clear: both;
-}
-#media-node-form .bookmarklet-preview {
-  width: 100%;
-}
-#media-node-form #meedan_bookmarklet_preview_content,
-#media-node-form #meedan_bookmarklet_preview_gc {
-  height: auto;
-  width: 100%;
-  max-height: 345px;
-  display: inline-block;
-  overflow: hidden;
-}
-#media-node-form #meedan_bookmarklet_preview_gc {
-  background: #9fa6ac;
-  color: #6f7a82;
-  padding-top: 85px;
-  height: 345px;
-  max-height: 145px;
-}
-#media-node-form #meedan_bookmarklet_preview_gc span, #media-node-form #meedan_bookmarklet_preview_gc a {
-  text-align: center;
-  display: block;
-  width: 100%;
-}
-#media-node-form #meedan_bookmarklet_preview_gc span {
-  font-size: 15px;
-  margin-bottom: 5px;
-}
-#media-node-form #meedan_bookmarklet_preview_gc a, #media-node-form #meedan_bookmarklet_preview_gc a:visited, #media-node-form #meedan_bookmarklet_preview_gc a:link, #media-node-form #meedan_bookmarklet_preview_gc a:hover {
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-}
-#media-node-form .fb-status-preview {
-  background: #b7bcc0;
-  padding: 15px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-}
-#media-node-form .fb-status-preview .author {
-  float: right;
-  clear: both;
-}
-#media-node-form #meedan_bookmarklet_preview_content {
-  max-height: none;
-}
-
-#modalContent.modal-install-bookmarklet {
-  z-index: 950;
-}
-#modalContent.modal-install-bookmarklet .ctools-modal-content .modal-content {
-  overflow: visible;
-}
-#modalContent.modal-install-bookmarklet .modal {
-  width: 700px;
-  height: 350px;
-}
-#modalContent.modal-install-bookmarklet .modal .modal-body {
-  overflow: visible;
-}
-#modalContent.modal-install-bookmarklet .modal-header {
-  border-bottom: 0;
-}
-#modalContent.modal-install-bookmarklet .modal-header .modal-title {
-  display: none;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col {
-  float: right;
-  margin-top: -24px;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button {
-  position: relative;
-  text-align: center;
-  margin-top: -12px;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button:before {
-  pointer-events: none;
-  content: "";
-  position: absolute;
-  top: -35px;
-  bottom: 0;
-  right: -60px;
-  width: 66px;
-  height: 84px;
-  background: transparent url(../imgs/icons/bookmarklet-drag-ltr.png) no-repeat;
-  overflow: visible;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button a {
-  padding: 10px;
-  display: block;
-  background: #2e77fc;
-  font-size: 15px;
-  color: #fff;
-  text-decoration: none;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  overflow: visible;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button .description {
-  margin: 0;
-  padding: 0;
-  margin: 12px auto;
-  font-size: modular-scale(0)-modular-scale(-3);
-  font-weight: normal;
-  line-height: 1.3;
-  color: #777777;
-  width: 80%;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col ul {
-  margin: 0;
-  padding: 0;
-  margin: 0;
-  padding: 0;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col ul li {
-  list-style: none;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col a, #modalContent.modal-install-bookmarklet .install-bookmarklet-col p {
-  font-size: 15px;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col p {
-  color: #555555;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col h2 {
-  margin: 0;
-  padding: 0;
-  font-weight: normal;
-  font-size: 20px;
-  color: #555555;
-  width: 90%;
-}
-#modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:first-child {
-  float: right;
-  margin-left: 15px;
-  padding-right: 15px;
-  clear: both;
-  width: 250px;
-}
-#modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:last-child {
-  float: left;
-  width: 300px;
 }
 
 ul.pager {

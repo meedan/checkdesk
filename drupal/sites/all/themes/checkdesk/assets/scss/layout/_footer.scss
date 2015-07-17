@@ -6,27 +6,28 @@
   margin: $absolute-line-height 0 $absolute-line-height/2 0;
   @include cd-sans-serif-family;
   text-align: center;
+}
 
-  #footer-menu {
-    position: relative;
-    padding-bottom: $absolute-line-height/2;
-    // Dropshadow for depth
-    &:before {
-      position: absolute;
-      content: "";
-      z-index: -1;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 12px;
-      width: 100%;
-      @include ctb-gradient-vertical(rgba(255,255,255,0.0), rgba(0,0,0,.02));
-    }
+#footer-menu {
+  position: relative;
+  padding-bottom: $absolute-line-height/2;
+  // Dropshadow for depth
+  &:before {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 12px;
+    width: 100%;
+    @include ctb-gradient-vertical(rgba(255,255,255,0.0), rgba(0,0,0,.02));
   }
-  #information-menu {
-    border-top: 1px solid $firefly5;
-    padding-top: $absolute-line-height/2;
-  }
+}
+
+#information-menu {
+  border-top: 1px solid $firefly5;
+  padding-top: $absolute-line-height/2;
 }
 
 #footer-inner {

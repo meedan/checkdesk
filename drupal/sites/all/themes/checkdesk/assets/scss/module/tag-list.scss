@@ -1,3 +1,20 @@
+@import "colors";
+// ensure we have the original variables loaded
+@import "global";
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Flexbox mixins until we use something like Autoprefixer
+@import "flexbox_mixins";
+
+// Fonts
+@import "components/fonts";
+
+// =======================================================================
+// Tag list
+//
+
 .tag-list {
 	@include flexbox;
   @include flex-wrap(wrap);

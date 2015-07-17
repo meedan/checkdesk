@@ -184,12 +184,16 @@ function checkdesk_css_alter(&$css) {
     unset($css['sites/all/themes/checkdesk/assets/css/module/user/user_forms.css']);
     unset($css['sites/all/themes/checkdesk/assets/css/module/content/report/reports_incoming.css']);
     unset($css['sites/all/themes/checkdesk/assets/css/layout/header_user.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/module/tag_list.css']);
     unset($css['sites/all/themes/checkdesk/assets/css/module/drupal_admin_nav.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/autocomplete.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/components/chosen.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/components/bookmarklet/bookmarklet.css']);
   }
   // keep css for some modules
   $keep_css = array(
-    'misc/ui/jquery.ui.theme.css',
-    'sites/all/modules/contrib/extlink/extlink.css',
+    // 'misc/ui/jquery.ui.theme.css',
+    // 'sites/all/modules/contrib/extlink/extlink.css',
   );
   $restore_css = array();
   foreach ($keep_css as $k) {

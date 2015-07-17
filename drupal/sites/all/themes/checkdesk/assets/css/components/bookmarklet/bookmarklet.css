@@ -1,0 +1,395 @@
+#nav-media-form {
+  width: 366px;
+  overflow-y: scroll;
+  z-index: 900;
+}
+#nav-media-form iframe {
+  width: 100%;
+}
+
+.meedan-bookmarklet-internal #meedan_bookmarklet_preview,
+.meedan-bookmarklet-internal #edit-body,
+.meedan-bookmarklet-internal #edit-graphic-content,
+.meedan-bookmarklet-internal #edit-actions #edit-submit,
+.meedan-bookmarklet-internal #edit-title {
+  display: none;
+}
+
+#meedan_bookmarklet_html {
+  height: auto;
+  background: #fff;
+}
+
+#meedan_bookmarklet {
+  font-size: 15px;
+  overflow: hidden;
+  position: relative;
+  padding: 0 !important;
+  margin: 5px 15px !important;
+}
+#meedan_bookmarklet form {
+  margin: 0;
+  padding: 0;
+}
+#meedan_bookmarklet .form-item {
+  margin: 0;
+  padding: 0;
+  float: left;
+  clear: both;
+}
+#meedan_bookmarklet .form-item .description {
+  width: 335px;
+}
+#meedan_bookmarklet .fb-message .description {
+  display: none;
+}
+#meedan_bookmarklet .field-type-link-field {
+  clear: both;
+}
+#meedan_bookmarklet .field-type-link-field label {
+  display: none;
+}
+#meedan_bookmarklet .field-edit-link {
+  display: none;
+}
+#meedan_bookmarklet .link-field-url input[type=text],
+#meedan_bookmarklet .link-field-url input[type=password],
+#meedan_bookmarklet .link-field-url textarea {
+  border-radius: 4px;
+}
+#meedan_bookmarklet .link-field-url input[type=text] {
+  padding-right: 25px;
+}
+#meedan_bookmarklet textarea {
+  height: 60px;
+  padding: 5px;
+}
+#meedan_bookmarklet .form-actions {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  float: left;
+  width: auto;
+  border-top: 0;
+}
+#meedan_bookmarklet .footer {
+  float: left;
+  clear: both;
+  margin-top: 15px;
+}
+#meedan_bookmarklet #edit-body {
+  float: left;
+  clear: both;
+  margin-top: 0;
+}
+#meedan_bookmarklet #edit-graphic-content {
+  float: right;
+  margin: 0;
+  margin-top: 15px;
+  width: auto;
+}
+#meedan_bookmarklet #edit-graphic-content > .form-type-checkbox {
+  width: 100%;
+}
+#meedan_bookmarklet #edit-graphic-content .form-item label:hover,
+#meedan_bookmarklet #edit-graphic-content .form-item input[type="checkbox"]:hover {
+  color: #2e77fc;
+}
+#meedan_bookmarklet #user-login label,
+#meedan_bookmarklet #user-login input[type=text],
+#meedan_bookmarklet #user-login input[type=password],
+#meedan_bookmarklet #user-login a {
+  clear: both;
+}
+#meedan_bookmarklet #user-login ul {
+  margin: 0;
+}
+#meedan_bookmarklet #user-login li {
+  list-style: none;
+  display: block;
+  margin: 0;
+}
+#meedan_bookmarklet #user-login .messages.error {
+  position: static;
+  font-size: modular-scale(0)-modular-scale(-3);
+  margin-bottom: 8px;
+}
+#meedan_bookmarklet #user-login .social-signin-wrapper {
+  margin-top: 12px;
+}
+#meedan_bookmarklet #user-login .social-signin-wrapper .item-list li a {
+  padding: 8px 15px;
+}
+#meedan_bookmarklet #user-login .or {
+  margin: 0 0;
+}
+#meedan_bookmarklet #user-login .user-links {
+  clear: both;
+  font-size: modular-scale(0)-modular-scale(-3);
+  padding-right: 15px;
+}
+#meedan_bookmarklet #user-login .form-item-remember-me {
+  clear: none;
+}
+#meedan_bookmarklet #user-login .form-item-remember-me label {
+  font-size: modular-scale(0)-modular-scale(-3);
+}
+#meedan_bookmarklet #user-login .user-new-account-link .register {
+  text-align: right;
+  font-size: modular-scale(0)-modular-scale(-3);
+}
+#meedan_bookmarklet #user-login input[type=text],
+#meedan_bookmarklet #user-login input[type=password] {
+  padding-right: 0;
+}
+#meedan_bookmarklet #user-login .form-actions {
+  margin-top: 12px;
+}
+#meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all, #meedan_bookmarklet #absolute-messages-messages {
+  display: none !important;
+}
+#meedan_bookmarklet .messages.error {
+  clear: both;
+  background: transparent;
+  padding: 0;
+  border: 0;
+  color: #a00;
+}
+#meedan_bookmarklet #meedan_bookmarklet_messages {
+  padding: 0;
+  margin: 24px 0 0 0;
+  clear: both;
+  text-align: center;
+}
+#meedan_bookmarklet #meedan_bookmarklet_messages li {
+  display: block;
+  list-style: none;
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
+  margin-top: 15px;
+}
+#meedan_bookmarklet #meedan_bookmarklet_messages a {
+  text-decoration: underline;
+}
+#meedan_bookmarklet #meedan_bookmarklet_messages .meedan-bookmarklet-success {
+  display: block;
+  color: #fff;
+  padding: 15px;
+  background-color: rgba(0, 140, 0, 0.8);
+}
+#meedan_bookmarklet h2 {
+  margin: 0;
+  padding: 0;
+  color: #6f7a82;
+  font-size: 18px;
+  float: left;
+  line-height: 24px;
+}
+#meedan_bookmarklet #meedan_bookmarklet_help {
+  line-height: 1.2;
+}
+#meedan_bookmarklet #meedan_bookmarklet_help span {
+  display: block;
+  float: left;
+  width: 30px;
+  text-indent: -5000em;
+  background: transparent url(../imgs/icons/bookmarklet-help.png) center center no-repeat;
+  cursor: help;
+}
+#meedan_bookmarklet #meedan_bookmarklet_help span p {
+  display: none;
+}
+#meedan_bookmarklet #meedan_bookmarklet_help span:hover p {
+  display: block;
+  width: 240px;
+  height: auto;
+  background: white;
+  border: 1px solid #eeeeee;
+  font-size: 15px;
+  line-height: 1.2;
+  color: #777777;
+  text-indent: 0;
+  padding: 15px;
+  position: absolute;
+  right: 1px;
+}
+#meedan_bookmarklet .meedan-bookmarklet-loading {
+  background: white url(../imgs/icons/bookmarklet-loading.gif) right center no-repeat;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview {
+  clear: both;
+  color: #6f7a82;
+  margin: 15px 0;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_content img {
+  width: auto;
+  clear: both;
+}
+#meedan_bookmarklet .bookmarklet-preview {
+  width: 100%;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .video-holder, #meedan_bookmarklet #meedan_bookmarklet_preview_content .re-holder {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .video-holder .oembed-video,
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .video-holder iframe,
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .video-holder embed,
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .video-holder object, #meedan_bookmarklet #meedan_bookmarklet_preview_content .re-holder .oembed-video,
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .re-holder iframe,
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .re-holder embed,
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .re-holder object {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .video-holder.media-16by9, #meedan_bookmarklet #meedan_bookmarklet_preview_content .re-holder.media-16by9 {
+  padding-bottom: 56.25%;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .video-holder.media-4by3, #meedan_bookmarklet #meedan_bookmarklet_preview_content .re-holder.media-4by3 {
+  padding-bottom: 75%;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_content .video-holder.media-1by1, #meedan_bookmarklet #meedan_bookmarklet_preview_content .re-holder.media-1by1 {
+  padding-bottom: 100%;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_content,
+#meedan_bookmarklet #meedan_bookmarklet_preview_gc {
+  height: auto;
+  width: 100%;
+  max-height: 345px;
+  display: inline-block;
+  overflow: hidden;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_gc {
+  background: #9fa6ac;
+  color: #6f7a82;
+  padding-top: 85px;
+  height: 345px;
+  max-height: 145px;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_gc span, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_gc span {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+#meedan_bookmarklet #meedan_bookmarklet_preview_gc a, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:visited, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:link, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:hover {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+#meedan_bookmarklet .fb-status-preview {
+  background: #b7bcc0;
+  padding: 15px;
+  border-radius: 4px;
+}
+#meedan_bookmarklet .fb-status-preview .author {
+  float: right;
+  clear: both;
+}
+
+#meedan_bookmarklet_close {
+  position: absolute;
+  right: 0;
+  top: -2px;
+  z-index: 2;
+}
+
+#media-node-form .meedan-bookmarklet-loading {
+  background: white url(../imgs/icons/bookmarklet-loading.gif) right center no-repeat;
+}
+#media-node-form #meedan_bookmarklet_preview {
+  clear: both;
+  color: #6f7a82;
+  margin: 15px 0;
+}
+#media-node-form #meedan_bookmarklet_preview_content img {
+  width: auto;
+  clear: both;
+}
+#media-node-form .bookmarklet-preview {
+  width: 100%;
+}
+#media-node-form #meedan_bookmarklet_preview_content .video-holder, #media-node-form #meedan_bookmarklet_preview_content .re-holder {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+#media-node-form #meedan_bookmarklet_preview_content .video-holder .oembed-video,
+#media-node-form #meedan_bookmarklet_preview_content .video-holder iframe,
+#media-node-form #meedan_bookmarklet_preview_content .video-holder embed,
+#media-node-form #meedan_bookmarklet_preview_content .video-holder object, #media-node-form #meedan_bookmarklet_preview_content .re-holder .oembed-video,
+#media-node-form #meedan_bookmarklet_preview_content .re-holder iframe,
+#media-node-form #meedan_bookmarklet_preview_content .re-holder embed,
+#media-node-form #meedan_bookmarklet_preview_content .re-holder object {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
+#media-node-form #meedan_bookmarklet_preview_content .video-holder.media-16by9, #media-node-form #meedan_bookmarklet_preview_content .re-holder.media-16by9 {
+  padding-bottom: 56.25%;
+}
+#media-node-form #meedan_bookmarklet_preview_content .video-holder.media-4by3, #media-node-form #meedan_bookmarklet_preview_content .re-holder.media-4by3 {
+  padding-bottom: 75%;
+}
+#media-node-form #meedan_bookmarklet_preview_content .video-holder.media-1by1, #media-node-form #meedan_bookmarklet_preview_content .re-holder.media-1by1 {
+  padding-bottom: 100%;
+}
+#media-node-form #meedan_bookmarklet_preview_content,
+#media-node-form #meedan_bookmarklet_preview_gc {
+  height: auto;
+  width: 100%;
+  max-height: 345px;
+  display: inline-block;
+  overflow: hidden;
+}
+#media-node-form #meedan_bookmarklet_preview_gc {
+  background: #9fa6ac;
+  color: #6f7a82;
+  padding-top: 85px;
+  height: 345px;
+  max-height: 145px;
+}
+#media-node-form #meedan_bookmarklet_preview_gc span, #media-node-form #meedan_bookmarklet_preview_gc a {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+#media-node-form #meedan_bookmarklet_preview_gc span {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+#media-node-form #meedan_bookmarklet_preview_gc a, #media-node-form #meedan_bookmarklet_preview_gc a:visited, #media-node-form #meedan_bookmarklet_preview_gc a:link, #media-node-form #meedan_bookmarklet_preview_gc a:hover {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+#media-node-form .fb-status-preview {
+  background: #b7bcc0;
+  padding: 15px;
+  border-radius: 4px;
+}
+#media-node-form .fb-status-preview .author {
+  float: right;
+  clear: both;
+}
+#media-node-form #meedan_bookmarklet_preview_content {
+  max-height: none;
+}

@@ -1,7 +1,24 @@
+@import "colors";
+@import "bowerbird/colors";
+// ensure we have the original variables loaded
+@import "global";
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+@import "mixins";
+@import "replace_ctb/mixins";
+
 $spinner-width: 25px; 
 $bookmarklet-width: 365px;
 $bookmarklet-preview-max-height: 345px;
 $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
+
+// ======================================================================
+// Bookmarklet
+// Sadly used to render report/link preview in create/edit report form -@ark
 
 // Bookmarklet forms
 @mixin bookmarklet-forms() {
@@ -40,7 +57,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     input[type=text], 
     input[type=password], 
     textarea {
-      @include border-radius($radius);
+      border-radius: $radius;
     }
 
     input[type=text] {
@@ -162,6 +179,11 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     width: 100%;
   }
 
+  #meedan_bookmarklet_preview_content {
+    // for videos and rich embeds
+    @include responside-media-styles;
+  }
+
   #meedan_bookmarklet_preview_content,
   #meedan_bookmarklet_preview_gc {
     height: auto;
@@ -196,7 +218,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   .fb-status-preview {
     background: $firefly30;
     padding: $gutter-width;
-    @include border-radius($radius);
+    border-radius: $radius;
 
     .author {
       float: right;

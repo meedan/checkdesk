@@ -21,7 +21,7 @@ html {
   }
 }
 
-#main #content, #main #widgets, #main footer {
+#content, #widgets, #main footer {
   position: relative;
   padding-#{$alpha}: 20px;
   padding-#{$omega}: 20px;
@@ -31,7 +31,7 @@ html {
   }
 }
 
-#main #content {
+#content {
   padding-top: $padding-large-horizontal;
   @include cd-responsive('min-width: #{$width-tablet}') {
     padding-top: $padding-large-horizontal*2;  
@@ -43,8 +43,8 @@ html {
 
 // for content pages
 // until sidebars are added as in search page
-body.page-liveblog #main #content, 
-body.page-node #main #content {
+body.page-liveblog #content, 
+body.page-node #content {
   max-width: 720px;
 }
 

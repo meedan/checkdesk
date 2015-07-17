@@ -1133,6 +1133,13 @@ function checkdesk_field__field_rating(&$variables) {
  */
 function checkdesk_field__field_tags(&$variables) {
   if ($variables['element']['#view_mode'] == 'full' || $variables['element']['#view_mode'] == 'checkdesk_collaborate') {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/module/tag-list.css',
+      array(
+        'group' => CSS_THEME,
+        'weight' => '9999',
+      )
+    );
     $type = $variables['element']['#bundle'];
     if ($type == 'media') {
       $alt_type = array(
