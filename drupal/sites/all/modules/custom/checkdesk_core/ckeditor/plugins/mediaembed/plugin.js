@@ -68,7 +68,7 @@ CKEDITOR.plugins.add( 'mediaembed',
            } );
 
             editor.addCommand( 'MediaEmbed', new CKEDITOR.dialogCommand( 'MediaEmbedDialog',
-                { allowedContent: 'iframe figure div(*)[*]' }
+                { allowedContent: 'iframe figure div blockquote(*)[*]' }
             ) );
 
             editor.ui.addButton( 'MediaEmbed',
