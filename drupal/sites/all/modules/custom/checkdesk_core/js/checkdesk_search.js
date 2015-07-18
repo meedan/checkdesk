@@ -6,7 +6,7 @@
     attach: function (context, settings) {
       // auto-submit form after user click/unclick unassigned reports
       $( "#edit-report-unassigned" ).click(function() {
-          $('#views-exposed-form-checkdesk-search-page').submit();
+        $('#views-exposed-form-checkdesk-search-page').submit();
       });
 
       // filter group collapse/expand

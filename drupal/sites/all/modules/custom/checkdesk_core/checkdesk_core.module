@@ -1393,6 +1393,22 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       );
     }
 
+    // Story filter for updates
+    if (isset($_GET['type']) && $_GET['type'] === 'update') {
+      $stories = db_query(
+        "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
+        array(':type' => 'discussion')
+      )->fetchAllKeyed();
+      $form['update_story'] = array(
+        '#type' => 'select',
+        '#title' => t('Associated stories'),
+        '#options' => array('All' => '– ' . t('Any story') . ' –') + $stories,
+        '#theme' => 'select_as_links',
+        '#bef_enable_fastlivefilter' => 1,
+        '#fastlivefilte_placeholder' => t('Search for story'),
+      );
+    }
+
     // Hide tag filter for updates
     if (isset($_GET['type']) && $_GET['type'] === 'update') {
       $form['#info']['filter-field_tags_tid']['label'] = NULL;
@@ -2103,6 +2119,14 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         $query->add_where(1,'fdfs.field_stories_target_id', intval($_GET['report_story']), '=');
       }
     }
+    if (isset($_GET['type']) && $_GET['type'] === 'update' &&
+        isset($_GET['update_story']) && is_numeric($_GET['update_story'])
+    ) {
+      $join = new views_join();
+      $join->construct('field_data_field_desk', 'node', 'nid', 'entity_id', array(), 'LEFT');
+      $query->add_relationship('fdfd', $join, 'field_data_field_desk');
+      $query->add_where(1,'fdfd.field_desk_target_id', intval($_GET['update_story']), '=');
+    }
     // Add author condition.
     if (isset($_GET['author']) && $_GET['author'] !== 'All') {
       $query->add_where(1,'users_node.name', $_GET['author'], 'LIKE');
@@ -2124,7 +2148,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       }
     }
   }
-  
+
   if ($view->name == 'recent_stories_by_tag') {
       // exclude current nid
       if (is_numeric(arg(1))) {
@@ -2974,7 +2998,7 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     $option = decode_entities($option);
   }
 
-  // Add CSS file for chosen 
+  // Add CSS file for chosen
   if($form['field_stories']) {
     drupal_add_css(
       drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
