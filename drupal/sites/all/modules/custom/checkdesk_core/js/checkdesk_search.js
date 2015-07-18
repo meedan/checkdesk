@@ -34,9 +34,10 @@
 
       // scroll to active elements inside filters.
       // @see http://stackoverflow.com/questions/2346011/jquery-scroll-to-an-element-within-an-overflowed-div
-      var $parentDiv = $('.filter-list .search-list'),
-          $innerListItem = $('.form-type-bef-link a[class="active"]', $parentDiv);
-      $parentDiv.scrollTop($parentDiv.scrollTop() + $innerListItem.position().top);
+      $('.filter-list .search-list').each(function() {
+        var $item = $('.form-type-bef-link a[class="active"]', this);
+        $(this).scrollTop($(this).scrollTop() + $item.position().top);
+      });
     }
   };
 
