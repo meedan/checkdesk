@@ -14,8 +14,12 @@ function entity_menu_links_install() {
   $schema = drupal_get_schema('menu_links');
   $fields = $schema['fields'];
 
-  db_add_field('menu_links', 'vid', $fields['vid']);
-  db_add_field('menu_links', 'uuid', $fields['uuid']);
+  if (!db_field_exists('menu_links', 'vid')) {
+    db_add_field('menu_links', 'vid', $fields['vid']);
+  }
+  if (!db_field_exists('menu_links', 'uuid')) {
+    db_add_field('menu_links', 'uuid', $fields['uuid']);
+  }
   entity_menu_links_install_revisions();
   uuid_sync_all();
 
