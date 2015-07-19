@@ -1224,7 +1224,13 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
 
 function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   if ($vars['display_id'] == 'block') {
+    $story_nid = checkdesk_core__get_desk_reports_args();
+    $filter_by_story = '';
+    if (is_numeric($story_nid)) {
+        $filter_by_story = '_checkdesk_filter_reports('. $story_nid . ');';
+    }
     drupal_add_js('jQuery(function() {
+      '. $filter_by_story .'
       window.onbeforeunload = _checkdesk_report_view_redirect;
       jQuery( "#post-node-form" ).submit(function( event ) {
         window.onbeforeunload = "";

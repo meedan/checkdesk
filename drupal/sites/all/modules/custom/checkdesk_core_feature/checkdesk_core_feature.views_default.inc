@@ -1468,16 +1468,6 @@ print t(\'No content available\');
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['created']['expose']['label'] = 'Date';
-  /* Contextual filter: Content: Story (field_stories) */
-  $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';
-  $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_type'] = 'php';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_options']['code'] = 'return checkdesk_core__get_desk_reports_args();';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary_options']['items_per_page'] = '25';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -1750,16 +1740,6 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'g:ia - d M Y';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Story (field_stories) */
-  $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';
-  $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_type'] = 'php';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_options']['code'] = 'return checkdesk_core__get_desk_reports_args();';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary_options']['items_per_page'] = '25';
   /* Contextual filter: Content: Post date (with operator) */
   $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
   $handler->display->display_options['arguments']['created_operator']['table'] = 'node';
@@ -1849,8 +1829,8 @@ print t(\'No content available\');
     2 => '2',
     1 => 0,
     3 => 0,
-    4 => 0,
     5 => 0,
+    4 => 0,
   );
   $handler->display->display_options['path'] = 'desk-reports/autorefresh/%';
   $translatables['desk_reports'] = array(
@@ -1899,7 +1879,6 @@ print t(\'No content available\');
     t('Parent'),
     t('<div class="draggable">[field_link]</div>'),
     t('Date'),
-    t('All'),
     t('Block'),
     t('<span class="report-stream-filter-label">{key:[current-page:query:title_op]}</span>&nbsp;<span class="report-stream-filter-val">"[current-page:query:title]"</span>'),
     t('<span class="report-stream-filter-label">{key:[current-page:query:source_op]}</span>&nbsp;<span class="report-stream-filter-val">"[current-page:query:source]"</span>'),
@@ -1908,6 +1887,7 @@ print t(\'No content available\');
     t('By source'),
     t('By story'),
     t('Autorefresh'),
+    t('All'),
   );
   $export['desk_reports'] = $view;
 

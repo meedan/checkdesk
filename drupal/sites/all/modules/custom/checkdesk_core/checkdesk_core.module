@@ -1316,10 +1316,6 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['source']['#attributes']['placeholder'] = 'YouTube'; // don't translate this as the sources database won't understand the translation.
     //Fix reset button
     $form['#action'] = url($_GET['q']);
-    if (checkdesk_core__get_desk_reports_args() !== 'all' || (isset($_GET['q']) && $_GET['q'] == 'node/add/discussion')) {
-      $form['field_stories_target_id']['#access'] = FALSE;
-      $form['#info']['filter-field_stories_target_id'] = FALSE;
-    }
     $form['submit']['#attributes']['onclick'] = 'javascript: jQuery("#edit-submit-desk-reports").trigger("click");return false;';
     $form['reset']['#attributes']['onclick'] =
             'javascript: jQuery("#views-exposed-form-desk-reports-block").clearForm();jQuery("#edit-submit-desk-reports").trigger("click");return false;';
