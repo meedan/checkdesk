@@ -68,8 +68,22 @@ CKEDITOR.plugins.add( 'mediaembed',
            } );
 
             editor.addCommand( 'MediaEmbed', new CKEDITOR.dialogCommand( 'MediaEmbedDialog',
-                { allowedContent: 'iframe figure div blockquote(*)[*]' }
-            ) );
+            {
+                allowedContent:
+                {
+                    'iframe figure div blockquote': {
+                        classes: '*',
+                        attributes: '*'
+                    },
+                    'script': {
+                        match: function(el) {
+                            // TODO Allow white-listed script sources or some other way to validate scripts.
+                            return true;
+                        },
+                        attributes: '*'
+                    }
+                }
+            } ) );
 
             editor.ui.addButton( 'MediaEmbed',
             {

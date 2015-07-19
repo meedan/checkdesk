@@ -70,6 +70,9 @@
 
       // CKEditor configuration, see: http://www.question2answer.org/qa/13255/simple-ckeditor-how-to-modify-it-to-be-simple-solution
       if (typeof CKEDITOR != 'undefined') {
+        // Force CKEditor plugins to be reloaded.
+        CKEDITOR.timestamp = ( new Date() ).valueOf();
+
         CKEDITOR.on('dialogDefinition', function(ev) {
           var dialog = ev.data, currentDialog;
 
