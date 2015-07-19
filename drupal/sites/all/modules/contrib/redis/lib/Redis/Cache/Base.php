@@ -91,7 +91,8 @@ EOT;
   const EVAL_DELETE_VOLATILE = <<<EOT
 local keys = redis.call('KEYS', ARGV[1])
 for i, k in ipairs(keys) do
-    if "1" == redis.call("HGET", k, "volatile") then
+    local key_type = redis.call("TYPE", k)
+    if "hash" == key_type and "1" == redis.call("HGET", k, "volatile") then
         redis.call("DEL", k)
     end
 end

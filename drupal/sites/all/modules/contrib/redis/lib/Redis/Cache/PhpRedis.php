@@ -72,7 +72,7 @@ class Redis_Cache_PhpRedis extends Redis_Cache_Base {
       'cid' => $cid,
       'created' => time(),
       'expire' => $expire,
-      'volatile' => (int)CACHE_TEMPORARY === $expire,
+      'volatile' => (int)(CACHE_TEMPORARY === $expire),
     );
 
     // Let Redis handle the data types itself.
