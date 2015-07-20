@@ -78,7 +78,7 @@ CKEDITOR.plugins.add( 'mediaembed',
                     'script': {
                         match: function(el) {
                             // TODO Allow white-listed script sources or some other way to validate scripts.
-                            return true;
+                            return el.attributes.src === '//platform.twitter.com/widgets.js';
                         },
                         attributes: '*'
                     }
