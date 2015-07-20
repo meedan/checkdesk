@@ -237,15 +237,9 @@ function checkdesk_preprocess_region(&$variables) {
 
   if ($variables['region'] == 'footer') {
     // define custom header settings
-    $variables['footer_image'] = '';
-    $image = theme_get_setting('footer_image_path');
-
-    if (!empty($image)) {
-      $footer_image_data = array(
-          'style_name' => 'footer_partner_logo',
-          'path' => $image,
-      );
-      $variables['footer_image'] = theme('image_style', $footer_image_data);
+    $partner_name = variable_get('site_name', 'Drupal');
+    if (!empty($partner_name)) {
+      $variables['partner_name'] = $partner_name;
       $variables['partner_url'] = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
     }
   }
@@ -1230,7 +1224,13 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
 
 function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   if ($vars['display_id'] == 'block') {
+    $story_nid = checkdesk_core__get_desk_reports_args();
+    $filter_by_story = '';
+    if (is_numeric($story_nid)) {
+        $filter_by_story = '_checkdesk_filter_reports('. $story_nid . ');';
+    }
     drupal_add_js('jQuery(function() {
+      '. $filter_by_story .'
       window.onbeforeunload = _checkdesk_report_view_redirect;
       jQuery( "#post-node-form" ).submit(function( event ) {
         window.onbeforeunload = "";
@@ -1281,7 +1281,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     }
     $vars['follow_story'] = $follow_story;
   }
-
+  
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
     $vars['update_id'] = $vars['fields']['nid']->raw;
@@ -1290,6 +1290,25 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     } else {
       $vars['update'] = $vars['fields']['rendered_entity_1']->content;
     }
+  }
+  
+  if ($vars['view']->name === 'more_stories') {
+    $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
+  }
+  
+  if ($vars['view']->name === 'recent_stories_by_tag') {
+      // Facebook comments count
+    if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $vars['story_commentcount'] = array(
+          '#theme' => 'facebook_commentcount',
+          '#node' => node_load($vars['row']->nid),
+      );
+    }
+    $vars['created_at'] = t('<time title="!datetime" datetime="!datetime" class="timestamp">!inverval</time>', array(
+      '!inverval' => checkdesk_core_custom_format_interval($vars['row']->node_created),
+      '!datetime' => format_date($vars['row']->node_created, 'custom', t('l M d, Y \a\t g:i:sa'))
+    ));
+    
   }
 }
 

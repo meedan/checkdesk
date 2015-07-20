@@ -84,7 +84,7 @@ class Redis_Cache_Predis extends Redis_Cache_Base {
         'cid' => $cid,
         'created' => time(),
         'expire' => $expire,
-        'volatile' => (int)CACHE_TEMPORARY === $expire,
+        'volatile' => (int)(CACHE_TEMPORARY === $expire),
       );
 
       if (!is_string($data)) {

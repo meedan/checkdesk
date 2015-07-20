@@ -42,23 +42,48 @@ CKEDITOR.plugins.add( 'mediaembed',
                           }
                        ],
                   onOk: function() {
+                        instance.dataProcessor.writer.setRules( 'figure', {
+                            indent: false,
+                            breakBeforeOpen: false,
+                            breakAfterOpen: false,
+                            breakBeforeClose: false,
+                            breakAfterClose: false
+                        });
                         var div = instance.document.createElement('div');
+                        var figure = instance.document.createElement('figure');
                         div.addClass('media');
+                        figure.addClass('element');
                         var embedCode = this.getContentElement('iframe', 'embedArea').getValue();
                         var videoRegExp = new RegExp('(<iframe.*src=(\"|\')https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be|.*\.vimeo\.com/)');
                         if (videoRegExp.test(embedCode)) {
                           div.addClass('video-holder');
                           div.addClass('media-16by9');
+                          figure.addClass('element-video');
                         }
                         div.setHtml(embedCode);
-                        instance.insertElement(div);
+                        figure.append(div);
+                        instance.insertElement(figure);
                   }
               };
            } );
 
             editor.addCommand( 'MediaEmbed', new CKEDITOR.dialogCommand( 'MediaEmbedDialog',
-                { allowedContent: 'iframe div(*)[*]' }
-            ) );
+            {
+                allowedContent:
+                {
+                    'iframe figure div blockquote': {
+                        classes: '*',
+                        attributes: '*'
+                    },
+                    'script': {
+                        match: function(el) {
+                            // TODO Allow white-listed script sources or some other way to validate scripts.
+                            return true;
+                        },
+                        attributes: '*'
+                    }
+                }
+            } ) );
 
             editor.ui.addButton( 'MediaEmbed',
             {

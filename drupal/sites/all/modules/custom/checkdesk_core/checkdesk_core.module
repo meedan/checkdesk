@@ -932,6 +932,41 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
 
   // Change title.
   drupal_set_title(t('Compose Update'));
+
+
+  // Add CSS file for autocomplete field
+  if($form['field_desk']) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9999',
+        'every_page' => FALSE,
+      )
+    );
+    // add lib
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+    // add chosen.js
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/chosen.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
 }
 
 /**
@@ -1023,6 +1058,30 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
   }
+
+  // Add CSS file for autocomplete field
+  if($form['field_tags']) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/autocomplete.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9999',
+        'every_page' => FALSE,
+      )
+    );
+    // add lib
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
   // Customize "Add more items" for authors.
   $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
 }
@@ -1103,7 +1162,7 @@ function checkdesk_core_views_pre_render(&$view) {
       foreach ($variables as $key => $value) {
         if (in_array($key, array('!flag_type', '!fact_checking_status', '!status'))) {
           $variables[$key] = t($value);
-        }   
+        }
       }
       $view->result[$k]->heartbeat_activity_variables = heartbeat_encode_message_variables($variables);
     }
@@ -1146,6 +1205,22 @@ function checkdesk_core_views_pre_render(&$view) {
       );
       foreach ($view->result as $k => &$row) {
         $row->node_type_1 = ($row->node_type > 1) ? t($types[$row->node_type_1]['p']) : t($types[$row->node_type_1]['s']);
+      }
+    }
+  }
+  elseif ($view->name == 'more_stories') {
+    foreach ($view->result as $id => $tag) {
+      $stories = views_get_view('recent_stories_by_tag');
+      $stories->set_arguments(array($tag->tid));
+      $stories->get_total_rows = TRUE;
+      $output = $stories->preview('block');
+      $total_rows = $stories->total_rows;
+      $stories->destroy();
+      if ($total_rows) {
+        $view->result[$id]->stories = $output;
+      }
+      else {
+        unset($view->result[$id]);
       }
     }
   }
@@ -1243,10 +1318,9 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['source']['#attributes']['placeholder'] = 'YouTube'; // don't translate this as the sources database won't understand the translation.
     //Fix reset button
     $form['#action'] = url($_GET['q']);
-    if (checkdesk_core__get_desk_reports_args() !== 'all' || (isset($_GET['q']) && $_GET['q'] == 'node/add/discussion')) {
-      $form['field_stories_target_id']['#access'] = FALSE;
-      $form['#info']['filter-field_stories_target_id'] = FALSE;
-    }
+    $form['submit']['#attributes']['onclick'] = 'javascript: jQuery("#edit-submit-desk-reports").trigger("click");return false;';
+    $form['reset']['#attributes']['onclick'] =
+            'javascript: jQuery("#views-exposed-form-desk-reports-block").clearForm();jQuery("#edit-submit-desk-reports").trigger("click");return false;';
   }
 
   if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
@@ -1317,6 +1391,22 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       );
     }
 
+    // Story filter for updates
+    if (isset($_GET['type']) && $_GET['type'] === 'update') {
+      $stories = db_query(
+        "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
+        array(':type' => 'discussion')
+      )->fetchAllKeyed();
+      $form['update_story'] = array(
+        '#type' => 'select',
+        '#title' => t('Associated stories'),
+        '#options' => array('All' => '– ' . t('Any story') . ' –') + $stories,
+        '#theme' => 'select_as_links',
+        '#bef_enable_fastlivefilter' => 1,
+        '#fastlivefilte_placeholder' => t('Search for story'),
+      );
+    }
+
     // Hide tag filter for updates
     if (isset($_GET['type']) && $_GET['type'] === 'update') {
       $form['#info']['filter-field_tags_tid']['label'] = NULL;
@@ -1350,7 +1440,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     }
 
     $form['keys']['#attributes']['placeholder'] = t('Search');
-    
+
     // Hide sort and submit button
     $form['sort_bef_combine']['#type'] = 'hidden';
     $form['submit']['#attributes']['class'][] = 'js-hide';
@@ -1742,7 +1832,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium btn btn-default');
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-sigin-back-link">' . $back_link . '</div>';
     $form['#validate'][] = '_modify_drupal_message';
-    $form['actions']['submit']['#attributes']['onclick'] = 
+    $form['actions']['submit']['#attributes']['onclick'] =
       'javascript: this.value=Drupal.t("loading...");this.attr("disabled", "disabled");';
   }
 
@@ -2014,7 +2104,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       }
     }
     // Add associated stories condition.
-    if (isset($_GET['type']) && $_GET['type'] === 'report' && 
+    if (isset($_GET['type']) && $_GET['type'] === 'report' &&
         isset($_GET['report_story']) && ($_GET['report_story'] === 'None' || is_numeric($_GET['report_story']))
     ) {
       $join = new views_join();
@@ -2026,6 +2116,14 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       else {
         $query->add_where(1,'fdfs.field_stories_target_id', intval($_GET['report_story']), '=');
       }
+    }
+    if (isset($_GET['type']) && $_GET['type'] === 'update' &&
+        isset($_GET['update_story']) && is_numeric($_GET['update_story'])
+    ) {
+      $join = new views_join();
+      $join->construct('field_data_field_desk', 'node', 'nid', 'entity_id', array(), 'LEFT');
+      $query->add_relationship('fdfd', $join, 'field_data_field_desk');
+      $query->add_where(1,'fdfd.field_desk_target_id', intval($_GET['update_story']), '=');
     }
     // Add author condition.
     if (isset($_GET['author']) && $_GET['author'] !== 'All') {
@@ -2047,6 +2145,13 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         $query->having[1]['conditions'][0]['value'][':search_index_keys1'] = 1;
       }
     }
+  }
+
+  if ($view->name == 'recent_stories_by_tag') {
+      // exclude current nid
+      if (is_numeric(arg(1))) {
+        $query->add_where(1,'node.nid', arg(1), '!=');
+      }
   }
 }
 
@@ -2178,6 +2283,7 @@ function checkdesk_core_wysiwyg_editor_settings_alter(&$settings, $context) {
     $settings['forcePasteAsPlainText'] = TRUE;
     $settings['disableNativeSpellChecker'] = FALSE;
     $settings['fillEmptyBlocks'] = FALSE;
+    $settings['customConfig'] = base_path() . drupal_get_path('module', 'checkdesk_core') . '/ckeditor/custom_config.js';
   }
 }
 
@@ -2889,6 +2995,56 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
   }
+
+  // Add CSS file for chosen
+  if($form['field_stories']) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
+  // Add Chosen lib
+  if($form['field_stories']) {
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+    // add chosen.js
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/chosen.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
+  // Add CSS file for autocomplete field
+  if($form['field_tags']) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/autocomplete.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9991',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
   // Redirect user to collaboration page.
   $form['actions']['submit']['#submit'][] = '_redirect_report';
   if (in_array('journalist', $user->roles)) {
@@ -3050,7 +3206,7 @@ function checkdesk_log_reports_updates($op, $text, $update_nid, $story_nid) {
           db_insert('checkdesk_reports_updates')->fields(array('report_nid' => $nid, 'update_nid'  => $update_nid))->execute();
           //Link report to story
           $report = node_load($nid);
-          if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) || 
+          if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) ||
             $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $story_nid) {
               $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $story_nid;
               node_save($report);
@@ -3254,10 +3410,10 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
   $avatar = '';
   if ($avatar_uri) {
     $derivative_uri = image_style_path('activity_avatar', $avatar_uri);
-    $success = file_exists($derivative_uri) || image_style_create_derivative('activity_avatar', $avatar_uri, $derivative_uri);
+    $success = file_exists($derivative_uri) || image_style_create_derivative(image_style_load('activity_avatar'), $avatar_uri, $derivative_uri);
 
     $new_image_url = file_create_url($derivative_uri);
-    
+
     if($link == FALSE) {
       $avatar = theme('html_tag', array(
         'element' => array(
@@ -3278,7 +3434,7 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
         'style' => 'background-image: url("' . $new_image_url . '")'
       )));
     }
-    
+
   }
   return $avatar;
 }
@@ -3643,6 +3799,16 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
 }
 
 /**
+ * Implementation of hook_language_switch_links_alter().
+ */
+function checkdesk_core_language_switch_links_alter(&$links, $type, $path) {
+  $params = drupal_get_query_parameters();
+  foreach ($links as &$link) {
+    $link['query'] = $params;
+  }
+}
+
+/**
  * @return string
  */
 function _checkdesk_main_navigation() {
@@ -3652,11 +3818,13 @@ function _checkdesk_main_navigation() {
   $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
   $s_search = array_fill_keys(array('All', 'report', 'update', 'story'), '');
   if (arg(0) == 'search') {
-    if (count($_GET) == 2) {
-      $s_search[$_GET['type']] = 'search-nav-selected';
-    }
-    else {
-      $s_search['All'] = 'search-nav-selected';
+    if (isset($_GET['type'])) {
+        if (count($_GET) == 2) {
+            $s_search[$_GET['type']] = 'search-nav-selected';
+        }
+        else {
+            $s_search['All'] = 'search-nav-selected';
+        }
     }
     // Add js to remove other active classes
     drupal_add_js('
@@ -3671,7 +3839,7 @@ function _checkdesk_main_navigation() {
   $items[] = array(
     'data' => l($logo_icon . '<span>' . t('Front page') . '</span>', '<front>', array(
       'attributes' => array('class' => array($a_class, 'homepage-link')),
-      'html' => TRUE,      
+      'html' => TRUE,
     )),
     'class' => array($li_class, 'homepage'),
   );

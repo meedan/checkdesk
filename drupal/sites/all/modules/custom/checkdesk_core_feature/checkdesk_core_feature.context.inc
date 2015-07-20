@@ -99,7 +99,7 @@ function checkdesk_core_feature_context_default_contexts() {
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'story';
-  $context->description = 'Story page';
+  $context->description = 'Story edit page';
   $context->tag = 'checkdesk';
   $context->conditions = array(
     'node' => array(
@@ -127,9 +127,45 @@ function checkdesk_core_feature_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Story page');
+  t('Story edit page');
   t('checkdesk');
   $export['story'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'story2';
+  $context->description = 'Story view page';
+  $context->tag = 'checkdesk';
+  $context->conditions = array(
+    'node' => array(
+      'values' => array(
+        'discussion' => 'discussion',
+      ),
+      'options' => array(
+        'node_form' => '0',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-more_stories-block_1' => array(
+          'module' => 'views',
+          'delta' => 'more_stories-block_1',
+          'region' => 'content',
+          'weight' => '1',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Story view page');
+  t('checkdesk');
+  $export['story2'] = $context;
 
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */

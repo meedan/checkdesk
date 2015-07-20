@@ -69,7 +69,6 @@ $omega: opposite-position($from-direction);
 
 // Mix of Drupal alerts and Twitter Bootstrap alerts.
 @import "components/dropdowns";
-@import "components/chosen";
 
 // Modals
 @import "components/responsive_modals";
@@ -179,7 +178,6 @@ $omega: opposite-position($from-direction);
 
 // Forms autocomplete and jquery ui
 @import "replace_drupal/jquery.ui.autocomplete";
-@import "replace_drupal/autocomplete";
 
 // Drupal styles
 // Drupal itself should not emit *any* CSS.
@@ -217,8 +215,6 @@ $omega: opposite-position($from-direction);
   text-align: left;
   direction: ltr;
 }
-
-@import "module/tour";
 
 // Based on bootstrap-tour default CSS
 

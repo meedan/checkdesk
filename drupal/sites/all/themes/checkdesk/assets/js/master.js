@@ -25,12 +25,10 @@
 		return html;
 	};
 
-  // format select element
-  Drupal.behaviors.customSelect = {
+  // Add helper class when JS has finished loading
+  Drupal.behaviors.loadJS = {
     attach: function(context) {
-      // apply js plugin
-      $('#edit-field-stories-und').chosen();
-      $('#edit-field-desk-und').chosen();
+      $('html').removeClass('no-js').addClass('js');
     }
   };
 
@@ -95,26 +93,6 @@
         year: "a year",
       }}});
       $('.timeago').timeago();
-    }
-  };
-
-  Drupal.behaviors.searchPage = {
-    attach: function (context, settings) {
-      // set default to open
-      $('.filter-list > .views-exposed-widget label').parent().addClass('open');
-      // filter group collapse/expand
-      $('.filter-list > .views-exposed-widget label').unbind('click').click(function(event) {
-        var target = $(this).parent();
-        if (target.find('.views-widget, > .bef-select-as-links').is(':visible')) {
-          target.find('.views-widget, > .bef-select-as-links').slideUp('fast');
-          target.removeClass('open');
-        }
-        else {
-          target.find('.views-widget, > .bef-select-as-links').slideDown('fast');
-          target.addClass('open');
-        }
-        return false;
-      });
     }
   };
 

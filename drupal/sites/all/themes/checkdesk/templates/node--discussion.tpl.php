@@ -2,7 +2,7 @@
   <article class="story">
 
     <?php if(isset($content['field_lead_image'])) { ?>
-      <figure>
+      <figure class="media-lead">
         <?php print render($content['field_lead_image']); ?>
       </figure>
     <?php } ?>
