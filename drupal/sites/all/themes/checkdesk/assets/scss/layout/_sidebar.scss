@@ -1,0 +1,118 @@
+// Page with sidebar first
+// as in incoming reports
+
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  body.sidebar-first #sidebar-first.column {
+    display: none;
+  }
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  body.sidebar-first #main {
+    position: relative;
+    @include flexbox;
+  }
+
+  body.sidebar-first #main #content {
+    margin-#{$alpha}: 360px;
+    @include flex(4);
+  }
+
+  body.sidebar-first #sidebar-first.column {
+    position: fixed;
+    // flex-basis: 360px;
+    // flex-shrink: 1;
+    // flex-grow: 2;
+    @include flex(2 1 360px);
+    #{$alpha}: $navbarWidth;
+    top: $headerHeight;
+    bottom: 0;
+    z-index: 1;
+    max-width: 360px;
+    height: 100%;
+  }
+
+  // adjust top for drupal toolbar
+  body.toolbar-drawer #sidebar-first.column {
+    top: $toolbarHeight + $headerHeight;
+  }
+
+  // add styles for load more pager
+  #sidebar-first.column { 
+    border-#{$omega}: 1px solid $firefly10;
+    background-color: #fff;
+    .view-desk-reports {
+      .view-content {
+        height: auto; // default height adjusted by jQuery in reports.js
+        overflow-y: auto;
+      }
+    }
+    @include ctb-load-more-pager; 
+  }
+}
+
+
+// Page with sidebar second
+// as in search page
+// using flex
+
+body.sidebar-second #main {
+	position: relative;
+	@include flexbox;
+  @include justify-content(center);
+}
+
+body.sidebar-second #main #content {
+  margin-#{$alpha}: 0;
+  margin-#{$omega}: 0;
+	overflow: auto;
+  @include box-sizing(border-box);
+}	
+
+// checkdesk search
+body.sidebar-second .cd-container { 
+  @include ctb-clearfix;
+  margin-bottom: 160px;
+  // add styles for load more pager
+  @include ctb-load-more-pager;
+  .pager-load-more {
+    margin-top: 30px;
+  }
+}
+
+body.sidebar-second aside#sidebar-second {
+	overflow: auto;
+	height: auto;
+	@include box-sizing(border-box);
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  body.sidebar-second #main #content {
+    @include flex(4);
+    padding-#{$omega}: 20px;
+    max-width: 860px;
+  }
+  body.sidebar-second aside#sidebar-second {
+    @include flex(2);
+    padding-#{$omega}: 50px;
+    padding-top: $padding-large-horizontal*2;
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  body.sidebar-second #main {
+    @include flex-direction(column);
+  }
+  body.sidebar-second aside#sidebar-second {
+    @include order(-1);
+    padding-#{$alpha}: 20px;
+    padding-#{$omega}: 20px;
+    padding-top: $padding-large-horizontal;
+    .content-filter, 
+    form {
+      margin-bottom: 0;
+    }
+  }
+}
+

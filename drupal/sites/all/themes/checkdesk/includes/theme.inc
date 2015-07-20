@@ -101,10 +101,9 @@ function checkdesk_checkdesk_links($variables) {
           $link['title'] .= '<span class="caret"></span>';
           $output .=  '<a' . drupal_attributes($link['attributes']) . ' href="#">'. $link['title'] .'</a>';
         } else {
-          // add home icon for homepage menu item link
-          if($link['href'] == '<front>') {
-            $output .= '<a href="' . url('<front>') . '"><span class="icon-home"></span></a>';
-          } 
+          if($link['href'] == 'search') {
+            $output .= '<a href="' . url('search') . '"><span class="icon-search"></span></a>';
+          }
           // add notifications panel as drop down
           elseif($link['href'] == 'my-notifications') {
             $link['attributes']['class'][] = 'dropdown-toggle';
@@ -113,10 +112,21 @@ function checkdesk_checkdesk_links($variables) {
             $output .= '<div id="my-notifications" class="dropdown-menu">';
             checkdesk_notifications_load_js();
             $block = module_invoke('views', 'block_view', 'my_notifications-block');
-            @$block['content']['#markup'] .= '<p class="notifications-settings-link">' . l(t('Settings'), url('user/' . $user->uid . '/notifications', array('absolute' => TRUE))) . '</p>';
+            @$block['content']['#markup'] .= '<p class="notifications-settings-link">' . l(t('Settings'), url('user/' . $user->uid . '/edit/notifications', array('absolute' => TRUE))) . '</p>';
             $output .= render($block['content']);
             $output .= '</div>';
-          } else {
+          }
+          elseif($link['href'] == 'checkdesk/nojs/sign_in_up') {
+            $link['attributes']['class'][] = 'btn';
+            $link['attributes']['class'][] = 'btn-primary-alt';
+            $link['attributes']['class'][] = 'btn-sign-in-up';
+            $link['attributes']['class'][] = 'ctools_checkdesk_sign_in_up';
+            $link['attributes']['class'][] = 'ctools-use-modal';
+            $link['attributes']['class'][] = 'ctools-modal-modal-popup-medium';
+            $link['query'] = drupal_get_destination();
+            $output .= l($link['title'], $link['href'], $link);
+          }
+          else {
             $output .= l($link['title'], $link['href'], $link);  
           }
         }
@@ -170,6 +180,7 @@ function checkdesk_css_alter(&$css) {
   // keep css for some modules
   $keep_css = array(
     'misc/ui/jquery.ui.theme.css',
+    'sites/all/modules/contrib/extlink/extlink.css',
   );
   $restore_css = array();
   foreach ($keep_css as $k) {
@@ -353,3 +364,149 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   return $output;
 }
 
+/**
+ * Returns HTML for a list or nested list of items with custom container id or class
+ * If a container class or id isn't specified it will not create a wrapping div
+ * See: https://api.drupal.org/api/drupal/includes%21theme.inc/function/theme_item_list/7
+ */
+
+function checkdesk_item_list($variables) {
+  $items = $variables ['items'];
+  $title = $variables ['title'];
+  $type = $variables ['type'];
+  $attributes = $variables ['attributes'];
+
+  // set custom container id or class
+  $container_class = isset($variables['container_class']) ? ' class="' . $variables['container_class'] . '"' : '';
+  $container_id = isset($variables['container_id']) ? ' id="' . $variables['container_id'] . '"' : '';
+
+  // Only output the list container and title, if there are any list items.
+  // Check to see whether the block title exists before adding a header.
+  // Empty headers are not semantic and present accessibility challenges.
+
+  // Add container id or class
+  if (!empty($container_class) || !empty($container_id)) {
+    $output = '<div' . $container_class . $container_id . '>';  
+  } else {
+    $output = '';
+  }
+  
+  if (isset($title) && $title !== '') {
+    $output .= '<h3>' . $title . '</h3>';
+  }
+
+  if (!empty($items)) {
+    $output .= "<$type" . drupal_attributes($attributes) . '>';
+    $num_items = count($items);
+    $i = 0;
+    foreach ($items as $item) {
+      $attributes = array();
+      $children = array();
+      $data = '';
+      $i++;
+      if (is_array($item)) {
+        foreach ($item as $key => $value) {
+          if ($key == 'data') {
+            $data = $value;
+          }
+          elseif ($key == 'children') {
+            $children = $value;
+          }
+          else {
+            $attributes [$key] = $value;
+          }
+        }
+      }
+      else {
+        $data = $item;
+      }
+      if (count($children) > 0) {
+        // Render nested list.
+        $data .= theme_item_list(array('items' => $children, 'title' => NULL, 'type' => $type, 'attributes' => $attributes));
+      }
+      if ($i == 1) {
+        $attributes ['class'][] = 'first';
+      }
+      if ($i == $num_items) {
+        $attributes ['class'][] = 'last';
+      }
+      $output .= '<li' . drupal_attributes($attributes) . '>' . $data . "</li>\n";
+    }
+    $output .= "</$type>";
+  }
+  if (!empty($container_class) || !empty($container_id)) {
+    $output .= '</div>';
+  }
+  return $output;
+}
+
+
+/**
+ * Helper function for determining whether an element is a button.
+ *
+ * @param array $element
+ *   A renderable element.
+ *
+ * @return bool
+ *   TRUE or FALSE.
+ */
+function _checkdesk_is_button($element) {
+  return
+    !empty($element['#type']) &&
+    !empty($element['#value']) && (
+      $element['#type'] === 'button' ||
+      $element['#type'] === 'submit' ||
+      $element['#type'] === 'image_button'
+    );
+}
+
+/**
+ * Helper function for adding colors to button elements.
+ *
+ * @param array $element
+ *   The form element, passed by reference.
+ */
+function _checkdesk_colorize_button(&$element) {
+  if (_checkdesk_is_button($element)) {
+    // Do not add the class if one is already present in the array.
+    $button_classes = array(
+      'btn-default',
+      'btn-primary',
+      'btn-success',
+      'btn-info',
+      'btn-warning',
+      'btn-danger',
+      'btn-link',
+    );
+    $class_intersection = array_intersect($button_classes, $element['#attributes']['class']);
+    if (empty($class_intersection)) {
+      // Get the matched class.
+      $class = _checkdesk_colorize_button_type($element);
+      // If no particular class matched, use the default style.
+      if (!$class) {
+        $class = 'default';
+      }
+      $element['#attributes']['class'][] = 'btn-' . $class;
+    }
+  }
+}
+/**
+ * Helper function for adding class to button elements based on the type.
+ *
+ * @param array $element
+ *   The form element, passed by reference.
+ */
+function _checkdesk_colorize_button_type($element, $default = '') { 
+  
+  // Specify which button ids to set primary class for
+  $primary_buttons_ids = array('edit-submit', 'edit-submit-desk-reports');
+  
+  // Add primary class to only pure submit buttons
+  if(in_array($element['#id'], $primary_buttons_ids)) {
+    return 'primary';
+  }
+
+  // Return the default if nothing was matched.
+  return $default;
+
+} 

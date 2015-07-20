@@ -319,3 +319,115 @@ function checkdesk_core_update_7037() {
   module_disable($module_list, FALSE);
   drupal_uninstall_modules($module_list, FALSE);
 }
+
+/**
+ * Enable save draft - stories
+ */
+function checkdesk_core_update_7038() {
+  variable_set('save_draft_enabled_discussion', 1);
+}
+
+/**
+ * Fix URLs in heartbeat messages that were fomratted before patching filter module to support "@" in URLs
+ * @param type $sandbox
+ */
+function checkdesk_core_update_7039(&$sandbox) {
+  if(!isset($sandbox['progress'])){
+    $sandbox['progress'] = 0;
+    $sandbox['last_uaid'] = 0;
+    $sandbox['limit'] = 400;
+    $sandbox['max'] = db_query('
+        SELECT COUNT(uaid) FROM {heartbeat_activity}
+        WHERE message_id = :message_id AND variables LIKE :term
+        ', array(':message_id' => 'new_comment_report', ':term' =>'%/</a>@%'))->fetchField();
+  }
+  $result = db_query_range('
+    SELECT uaid, variables, ha.nid, ha.uid, ha.nid_target, ha.cid , u.name, n.title
+    FROM {heartbeat_activity} ha
+    INNER JOIN {node} n ON ha.nid = n.nid
+    INNER JOIN {users} u ON ha.uid = u.uid
+    WHERE message_id = :message_id AND variables LIKE :term AND uaid > :uaid
+    ',0, $sandbox['limit'], array(
+      ':message_id' => 'new_comment_report',
+      ':term' => '%/</a>@%',
+      ':uaid' => $sandbox['last_uaid']
+    )
+  );
+
+  foreach ($result as $row) {
+    if ($row->cid != 0) {
+      $variables = heartbeat_decode_message_variables($row->variables);
+      $comment = comment_load($row->cid);
+      if (array_key_exists('!comment', $variables)) {
+        $variables['!comment'] = check_markup($comment->comment_body[LANGUAGE_NONE][0]['value'], $comment->comment_body[LANGUAGE_NONE][0]['format']);
+        db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
+                , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
+      }
+    }
+    $sandbox['progress']++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_uaid'] = $row->uaid;
+}
+
+/**
+ * Set collaboration alias for existing stories
+ */
+function checkdesk_core_update_7040() {
+  // Set collaboration alias for existing stories
+  db_query("INSERT INTO {url_alias} (source, alias, language) ( SELECT CONCAT('node/', nid, '/collaboration') as source, CONCAT('story/', nid, '/collaboration') as alias, 'und' FROM {node} WHERE type = 'discussion')");
+}
+
+/**
+ * Disable views_autocomplete_filters
+ */
+function checkdesk_core_update_7041() {
+  module_disable(array('views_autocomplete_filters'));
+}
+
+/**
+ * Update body format for stories to be liveblog
+ */
+function checkdesk_core_update_7042() {
+  db_query(
+    'UPDATE {field_data_body} set body_format = :format  WHERE bundle = :type'
+    , array(':format' => 'liveblog', ':type' => 'discussion')
+  );
+  db_query(
+    'UPDATE {field_revision_body} set body_format = :format  WHERE bundle = :type'
+    , array(':format' => 'liveblog', ':type' => 'discussion')
+  );
+}
+
+/**
+ * Enable Promoted to front page for existing stories
+ */
+function checkdesk_core_update_7043() {
+  db_query('UPDATE {node} SET promote = :promote WHERE type = :type AND status = :status'
+  , array(':promote' => 1, ':type' => 'discussion', ':status' => 1)
+  );
+}
+
+/**
+ * Disable chosen
+ */
+function checkdesk_core_update_7044() {
+  module_disable(array('chosen'));
+}
+
+/**
+ * Update plural formula for Arabic.
+ */
+function checkdesk_core_update_7045() {
+  db_query('UPDATE {languages} set formula = :formula WHERE language = :language', array(
+    ':formula' => '(($n==0)?(1):(($n==1)?(0):(($n==2)?(2):(((($n%100)>=3)&&(($n%100)<=10))?(3):(((($n%100)>=11)&&(($n%100)<=99))?(4):5)))))',
+    ':language' => 'ar'
+  ));
+}
+
+/**
+ * Flush activity_avatar image style
+ */
+function checkdesk_core_update_7046() {
+  image_style_flush(image_style_load('activity_avatar'));
+}

@@ -1,0 +1,83 @@
+// Footer
+
+#footer {
+  @include ctb-clearfix;
+  padding-top: $absolute-line-height/4;
+  margin: $absolute-line-height 0 $absolute-line-height/2 0;
+  @include cd-sans-serif-family;
+  text-align: center;
+
+  #footer-menu {
+    position: relative;
+    padding-bottom: $absolute-line-height/2;
+    // Dropshadow for depth
+    &:before {
+      position: absolute;
+      content: "";
+      z-index: -1;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 12px;
+      width: 100%;
+      @include ctb-gradient-vertical(rgba(255,255,255,0.0), rgba(0,0,0,.02));
+    }
+  }
+  #information-menu {
+    border-top: 1px solid $firefly5;
+    padding-top: $absolute-line-height/2;
+  }
+}
+
+#footer-inner {
+  padding: $absolute-line-height/4 0;
+  ul {
+    @include flexbox;
+    @include flex-wrap(wrap);
+    @include align-items(center);
+    @include justify-content(center);
+    li {
+      position: relative;
+      list-style-type: none;
+      margin-bottom: 12px;
+      font-size: modular-scale(0) - modular-scale(-3); // 14px
+      @if $from-direction == 'right' {
+        font-size: $small-font-size;
+      }
+      line-height: 1.6;
+
+      a {
+        display: block;
+        color: $firefly20;
+        text-decoration: none;
+        padding: 0 $gutter-width;
+        @include ctb-transition(color 0.3s linear);
+        overflow: visible;
+        &:hover {
+          color: $firefly60;
+        }
+      }
+
+      // hide ajax throbber in dropdown
+      .ajax-progress-throbber {
+        display: none;
+      }
+    }
+  }
+
+  // #footer-menu ul li {
+    
+  // }
+
+  // Note, factcheck call to action and icons required for embed theme
+  // .factcheck-cta {
+  //   @include checkdesk-button($medium-grey);
+  // }
+  .icon-comments-o  {
+    @include icon("comments-o", 21.5px, #fff);
+
+    &:before {
+      margin: 0;
+    }
+  }
+}

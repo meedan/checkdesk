@@ -1,0 +1,75 @@
+diff --git a/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters.theme b/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters.theme
+index cf0d38d..90bc28a 100644
+--- a/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters.theme
++++ b/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters.theme
+@@ -573,6 +573,18 @@ function theme_select_as_links($vars) {
+   );
+ 
+   $output = '<div class="bef-select-as-links">';
++
++  if (isset($element['#bef_enable_fastlivefilter']) && $element['#bef_enable_fastlivefilter']) {
++    $filter_id = $element['#id'];
++    //add required js
++    drupal_add_js('
++      jQuery(function() {
++        jQuery("#fastlivefilter-'.$filter_id .'").fastLiveFilter(".search-list-'. $filter_id .' .form-item");
++        })', 'inline');
++    $output .= '<input class="search" id="fastlivefilter-'. $filter_id .'" placeholder="'. $element['#fastlivefilte_placeholder'] .'"  />';
++    $output .= '<div class="search-list search-list-'.$filter_id.'">';
++  }
++
+   $output .= theme('form_element', array('element' => $properties));
+ 
+   // Add attribute that hides the select form element.
+@@ -588,6 +600,11 @@ function theme_select_as_links($vars) {
+       $output .= '<input type="hidden" class="bef-new-value" name="' . $name . '" value="' . $element['#value'] . '" />';
+     }
+   }
++
++  if (isset($element['#bef_enable_fastlivefilter']) && $element['#bef_enable_fastlivefilter']) {
++    $output .= '</div>';
++  }
++
+   $output .= '</div>';
+ 
+   return $output;
+diff --git a/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters_exposed_form_plugin.inc b/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters_exposed_form_plugin.inc
+index 6facc2f..fd891e6 100644
+--- a/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters_exposed_form_plugin.inc
++++ b/drupal/sites/all/modules/contrib/better_exposed_filters/better_exposed_filters_exposed_form_plugin.inc
+@@ -533,6 +533,19 @@ Title Desc|Z -> A</pre> Leave the replacement value blank to remove an option al
+         '#description' => t('Leave blank to use views default value. <em>Note: overriding this label will break translations and localizations. Leave this field blank if preserving internationalization is important to your site.</em>'),
+       );
+ 
++      // Add jquery-fastLiveFilter plugin
++      $bef_options[$label]['more_options']['enable_fastlivefilter'] = array(
++        '#type' => 'checkbox',
++        '#title' => t('Enable fastLiveFilter plugin for links.'),
++        '#default_value' => $existing[$label]['more_options']['enable_fastlivefilter'],
++        '#states' => array(
++          'visible' => array(
++            ':input[name="enable_fastlivefilter"]' => array('checked' => TRUE),
++          ),
++        ),
++        '#description' => t('Enable fastLiveFilter plugin for links.'),
++      );
++
+       // Build a description option form element -- available to all exposed
+       // filters.
+       $bef_options[$label]['more_options']['bef_filter_description'] = array(
+@@ -1231,6 +1244,7 @@ Title Desc|Z -> A</pre> Leave the replacement value blank to remove an option al
+           $show_apply = TRUE;
+           $bef_add_js = TRUE;
+           $form[$filter_id]['#theme'] = 'select_as_links';
++          $form[$filter_id]['#bef_enable_fastlivefilter'] = $options['more_options']['enable_fastlivefilter'];
+ 
+           // Exposed form displayed as blocks can appear on pages other than
+           // the view results appear on. This can cause problems with
+@@ -1631,6 +1645,7 @@ Title Desc|Z -> A</pre> Leave the replacement value blank to remove an option al
+         'bef_select_all_none_nested' => FALSE,
+         'bef_collapsible' => FALSE,
+         'is_secondary' => FALSE,
++        'enable_fastlivefilter' => FALSE,
+         'bef_filter_description' => '',
+         'any_label' => '',
+         'tokens' => array(

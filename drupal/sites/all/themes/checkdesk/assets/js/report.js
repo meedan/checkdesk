@@ -1,7 +1,6 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
   'use strict';
-
   // NOTE: This code is intentionally NOT inside a Drupal behavior
   $(function () {
     // On initial page load, check to see if a modal should and can be restored.
@@ -55,25 +54,6 @@
           $(this).parents('.report-activity').removeClass('end');
         }
       });
-
-      // add class 'long' to big actor/usernames inside the fact-checking log
-      // $(window).resize(function() {
-      //   console.log($('.report-activity .activity .actor').width());
-      //   $('.report-activity .activity .actor').each(function() {
-      //     if($(this).width() < 60 && $(this).width() != 39) {
-      //       $(this).addClass('multiple-lines');
-      //     } else {
-      //       $(this).removeClass('multiple-lines');
-      //     }
-      //   });
-      // });
-
-      // scroll to the bottom of modal when interacting with report actions
-      // $('#modalContent #report-actions a').click(function (event) {
-      // 	$('.modal-body').animate({
-      //       scrollTop: 400
-      //     }, 'slow');
-      // });
 
       $('a.twitter').click(function(event) {
         event.preventDefault();
@@ -133,7 +113,13 @@
       // Incoming reports sidebar
       $(window).resize(function() {
         if ($('.view-desk-reports .view-content').length) {
-          var difference = $('#content-area').offset().top + $('.view-desk-reports .pager').outerHeight(true);
+          // top position of sidebar
+          var top = parseInt($('#sidebar-first').css('top'), 10);
+          // get height of view pager and header
+          var pagerHeight = $('.view-desk-reports .pager-load-more').not('.pager-load-more-empty').outerHeight(true);
+          var headerHeight = $('.view-desk-reports #incoming-reports-filters').outerHeight(true) + $('.view-desk-reports .view-header').outerHeight(true);
+          // minus view pager and filter height out of the top value
+          var difference = top + pagerHeight + headerHeight;
           var height = $(window).height() - difference;
           $('.view-desk-reports .view-content').height(height);
         }
@@ -261,7 +247,7 @@
 
   Drupal.behaviors.footnotes = {
     attach: function(context, settings) {
-      $('textarea[class*=expanding]', context).expanding();
+      $('textarea[class*=expanding]', context).filter(":visible").expanding();
     }
   }
 
@@ -275,8 +261,8 @@
     $form.show();
     $form.find('textarea').val('');
     //destory then re-assign expanding to fix issue #2119.
-    $form.find('textarea').expanding('destroy');
-    $form.find('textarea').expanding();
+    $form.find('textarea[class*=expanding]').expanding('destroy');
+    $form.find('textarea[class*=expanding]').expanding();
     // Scroll to new footnote
     $('html, body').animate({
         scrollTop: $('.open#report-activity-node-' + nid).offset().top - 150

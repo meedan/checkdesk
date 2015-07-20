@@ -37,10 +37,15 @@ function honeypot_schema() {
  * Implements hook_install().
  */
 function honeypot_install() {
-  $t = get_t();
-  drupal_set_message($t("Honeypot installed successfully. Please !link to protect your forms from spam bots.", array(
-    '!link' => l($t('configure Honeypot'), 'admin/config/content/honeypot'),
-  )));
+  // Create CSS file.
+  honeypot_create_css(variable_get('honeypot_element_name', 'url'));
+
+  if (!drupal_is_cli()) {
+    $t = get_t();
+    drupal_set_message($t("Honeypot installed successfully. Please !link to protect your forms from spam bots.", array(
+      '!link' => l($t('configure Honeypot'), 'admin/config/content/honeypot'),
+    )));
+  }
 }
 
 /**
@@ -56,6 +61,9 @@ function honeypot_uninstall() {
       cache_clear_all($table, 'cache');
     }
   }
+
+  // Delete 'honeypot' directory from public file directory.
+  file_unmanaged_delete_recursive('public://honeypot');
 }
 
 /**
@@ -128,4 +136,12 @@ function honeypot_update_7003() {
 
     db_create_table('honeypot_user', $table);
   }
+}
+
+/**
+ * Create Honeypot CSS file.
+ */
+function honeypot_update_7004() {
+  module_load_include('inc', 'honeypot', 'honeypot.admin');
+  honeypot_create_css(variable_get('honeypot_element_name', 'url'));
 }

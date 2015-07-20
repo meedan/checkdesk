@@ -4,29 +4,26 @@ description = Theme for Meedan Checkdesk.
 core = 7.x
 engine = phptemplate
 
-features[] = favicon
 features[] = main_menu
 
 ; CSS
 ; HTML 5 Boilerplate
 stylesheets[all][] = assets/css/libs/normalize.css
-stylesheets[all][] = assets/css/libs/main.css
+; stylesheets[all][] = assets/css/libs/main.css
 ; Checkdesk styles
 stylesheets[all][] = assets/css/style.css
 
 ; JAVASCRIPT
-scripts[] = assets/js/libs/modernizr-2.6.2.min.js
-scripts[] = assets/js/checkdesk_inject_bootstrap.js
-scripts[] = assets/js/master.js
-scripts[] = assets/js/navigation.js
-scripts[] = assets/js/report.js
-scripts[] = assets/js/inline_errors.js
-scripts[] = assets/js/hacks.js
 scripts[] = assets/js/libs/jquery.watch-2.0.min.js
 scripts[] = assets/js/libs/jquery.inview.js
 scripts[] = assets/js/libs/jquery.expanding.js
-scripts[] = assets/js/libs/chosen.jquery.min.js
 scripts[] = assets/js/libs/jquery.expander.min.js
+scripts[] = assets/js/checkdesk_inject_bootstrap.js
+scripts[] = assets/js/master.js
+scripts[] = assets/js/report.js
+scripts[] = assets/js/inline_errors.js
+scripts[] = assets/js/hacks.js
+
 ; REGIONS
 regions[page_top] = Page top
 regions[header] = Header
@@ -39,9 +36,9 @@ regions[footer] = Footer
 regions[page_bottom] = Page bottom
 regions[navigation] = Navigation bar
 regions[widgets] = Widgets
+regions[utility_menu] = Utility Menu
 
 ; EXCLUDE CSS
 exclude[css][] = 'sites/all/modules/contrib/*'
-exclude[css][] = 'sites/all/modules/meedan/meedan_livefyre/*'
 exclude[css][] = 'misc/*'
 exclude[css][] = 'modules/*'

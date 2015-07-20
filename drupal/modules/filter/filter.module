@@ -340,6 +340,7 @@ function filter_admin_format_title($format) {
 function filter_permission() {
   $perms['administer filters'] = array(
     'title' => t('Administer text formats and filters'),
+    'description' => t('Define how text is handled by combining filters into <a href="@url">text formats</a>.', array('@url' => url('admin/config/content/formats'))),
     'restrict access' => TRUE,
   );
 
@@ -348,9 +349,7 @@ function filter_permission() {
   foreach (filter_formats() as $format) {
     $permission = filter_permission_name($format);
     if (!empty($permission)) {
-      // Only link to the text format configuration page if the user who is
-      // viewing this will have access to that page.
-      $format_name_replacement = user_access('administer filters') ? l($format->name, 'admin/config/content/formats/' . $format->format) : drupal_placeholder($format->name);
+      $format_name_replacement = l($format->name, 'admin/config/content/formats/' . $format->format);
       $perms[$permission] = array(
         'title' => t("Use the !text_format text format", array('!text_format' => $format_name_replacement,)),
         'description' => drupal_placeholder(t('Warning: This permission may have security implications depending on how the text format is configured.')),
@@ -1471,7 +1470,7 @@ function _filter_url($text, $filter) {
   $domain = '(?:[A-Za-z0-9._+-]+\.)?[A-Za-z]{2,64}\b';
   $ip = '(?:[0-9]{1,3}\.){3}[0-9]{1,3}';
   $auth = '[a-zA-Z0-9:%_+*~#?&=.,/;-]+@';
-  $trail = '[a-zA-Z0-9:%_+*~#&\[\]=/;?!\.,-]*[a-zA-Z0-9:%_+*~#&\[\]=/;-]';
+  $trail = '[a-zA-Z0-9:%_+*~#&\[\]=/;?!\.,-@]*[a-zA-Z0-9:%_+*~#&\[\]=/;-]';
 
   // Prepare pattern for optional trailing punctuation.
   // Even these characters could have a valid meaning for the URL, such usage is

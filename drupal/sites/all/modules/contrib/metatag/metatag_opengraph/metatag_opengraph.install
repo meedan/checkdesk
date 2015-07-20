@@ -14,26 +14,25 @@ function metatag_opengraph_requirements($phase) {
 
   if ($phase == 'runtime') {
     if (module_exists('rdf')) {
-      $requirements['metatag_og_rdf'] = array(
-        'severity' => REQUIREMENT_WARNING,
-        'title' => 'Metatag:OpenGraph',
-        'value' => $t('Possible conflict with the RDF module'),
-        'description' => $t("The core RDF module is known to cause validation problems for Open Graph meta tags. Unless it is actually needed for the site, it may be worthwhile to disable the RDF module to avoid any possible problems for the Open Graph integration."),
-      );
+      // Work out the release of D7 that is currently running.
+      list($major, $minor) = explode('.', VERSION);
+      // Strip off any suffixes on the version string, e.g. "17-dev".
+      if (strpos('-', $minor)) {
+        list($minor, $suffix) = explode('-', $minor);
+      }
+
+      if ($minor < 33) {
+        $requirements['metatag_og_rdf'] = array(
+          'severity' => REQUIREMENT_WARNING,
+          'title' => 'Metatag:OpenGraph',
+          'value' => $t('RDF problems with Drupal core releases before v7.33'),
+          'description' => $t('The core RDF module in Drupal before v7.33 caused validation problems for Open Graph meta tags. The solution is to update to v7.33 or newer.'),
+        );
+      }
     }
   }
 
   return $requirements;
-}
-
-/**
- * Implements hook_install().
- */
-function metatag_opengraph_install() {
-  // Display a warning about possible conflicts with the RDF module.
-  if (module_exists('rdf')) {
-    drupal_set_message(t('The core RDF module is known to cause validation problems for Open Graph meta tags. Unless it is actually needed for the site, it may be worthwhile to disable the RDF module to avoid any possible problems for the Open Graph integration.'));
-  }
 }
 
 /**
@@ -53,4 +52,11 @@ function metatag_opengraph_update_7100() {
  */
 function metatag_opengraph_update_7101() {
   drupal_set_message(t('The "Movie" and "TV Show" values for the "Content type" open graph meta tag changed, if this site used those values they will need to be manually updated.'));
+}
+
+/**
+ * The Open Graph Products meta tags are now in a new submodule.
+ */
+function metatag_opengraph_update_7102() {
+  drupal_set_message(t('The Open Graph Products meta tags have been moved into the new "Metatag: Open Graph Products" submodule.'));
 }

@@ -1,10 +1,4 @@
-<?php
-	// determine what kind of media it is
-	$url = $fields['source_url']->raw;
-	$url = parse_url($url);
-	$media_host_class = isset($url['host']) ? str_replace('.', '_', $url['host']) : '';
-?>
-<div class="report-row-container <?php print $media_type_class; ?>  <?php print $media_host_class; ?>" id="report-<?php print $fields['nid']->raw; ?>">
+<div class="report-row-container<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>" id="report-<?php print $fields['nid']->raw; ?>">
 	<div class="report-content">
 		<?php print $fields['field_link']->content; ?>
 	</div>
@@ -18,10 +12,6 @@
 	<?php } ?>
 	<div class="report-detail-link">
 		<?php
-    //$link['attributes']['class'] = array('ctools-use-modal', 'ctools-modal-modal-popup-report');
-    //$link['attributes']['data-toggle'] = 'dropdown';
-    //$link['href'] = 'report-view-modal/nojs/' . $fields['nid']->raw;
-    //print l(t('Details'), $link['href'], $link);
     print l(t('Details'), 'node/'. $fields['nid']->raw);
     ?>
 	</div>

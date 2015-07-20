@@ -1,0 +1,42 @@
+// Liveblog homepage
+//
+// Default liveblog layout overrides global default layout
+body.page-liveblog {
+  #main {
+    // Live blog view
+    .view-liveblog {
+      @include ctb-clearfix;
+      // padding-top: $base-font-size;
+      .desk {
+        // z-index: 1;
+        position: relative;
+        @include ctb-clearfix;
+        // float: $from-direction;
+        margin-bottom: 0;
+        margin-top: 30px;
+        overflow: visible;
+        // remove margin for first instance
+        &:first-child {
+          margin-top: 0;
+        }
+
+        h1 {
+          color: $firefly90;
+          a { 
+            display: block;
+            border-bottom: 1px dotted rgba(255,255,255,.01);
+            color: $firefly90;
+            &:hover {
+              @include ctb-bg(#efefef, $firefly5);
+              border-bottom: 1px dotted $firefly10;
+              text-decoration: none;
+            }
+            &:active { background-color: lighten($link-color, 30); }
+          }
+        }
+      }
+      // add styles for load more pager
+      @include ctb-load-more-pager;
+    }
+  }
+}

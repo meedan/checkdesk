@@ -7,7 +7,7 @@
        </div>
     </div>
   </div> <!-- /activity-item-controls -->
-  <?php if(isset($media_activity_report)) : ?>
+  <?php if($show_activity && isset($media_activity_report)) : ?>
     <div class="activity nested item-nested-content">
       <?php print $media_activity_report; ?>
       <?php print render($content['comments']); ?>

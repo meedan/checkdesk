@@ -1,0 +1,32 @@
+.tag-list {
+	@include flexbox;
+  @include flex-wrap(wrap);
+}
+
+.tag-link {
+  display: block;
+  margin-#{$omega}: 20px;
+  color: $firefly60;
+  &:hover {
+    color: $firefly80;
+    text-decoration: none;
+  } 
+}
+
+.tag-name {
+  display: block;
+  overflow: hidden;
+	font-family: $serif-font-stack;
+	font-size: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tag-count {
+  color: $firefly40;
+	font-size: 12px;
+	text-transform: uppercase;
+  @if $from-direction == 'left' {
+    letter-spacing: 0.15em;
+  }
+}

@@ -1,0 +1,140 @@
+// form in modal
+.modal-dialog, .modal-forms-modal-content {
+  text-align: center;
+}
+
+.modal-dialog-signin .modal-dialog-title {
+  color: $firefly;
+  font-size: 32px;
+  margin-top: 12px;
+  @if $from-direction == 'left' {
+    letter-spacing: -1.1px;    
+  }
+  @if $from-direction == 'right' {
+    margin-top: 20px;
+  }
+
+  // For mobile screens
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    & {
+      font-size: 26px;
+      margin-top: 6px;
+      @if $from-direction == 'left' {
+        letter-spacing: -1.2px;
+        margin-top: 12px;
+      }
+    }
+  }
+
+}
+
+.modal-dialog-signin .modal-dialog-description {
+  color: $firefly30;
+  font-size: 20px;
+  line-height: 1.4;
+  @if $from-direction == 'left' {
+    margin: 16px 0 30px 0;
+    @include cd-serif-family;
+    letter-spacing: -0.8px;
+  }
+  @if $from-direction == 'right' {
+    margin: 20px 0 34px 0;
+  }
+
+
+  // For mobile screens
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    & {
+      font-size: 18px;
+      line-height: 1.4;
+      @if $from-direction == 'left' {
+        letter-spacing: -0.4px;
+      }
+    }
+  }
+}
+
+// Add icon for sign in with email form
+.modal-dialog-signin-email {
+  text-align: center;
+  form .form-item { text-align: $alpha; }
+}
+
+.modal-dialog-signin .modal-dialog-actions {
+  margin-top: 35px;
+  // For mobile screens
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    & {
+      margin-top: 20px;
+    }
+  }    
+  a {
+    @include box-sizing(border-box);
+    display: block;
+    margin: 0 auto 10px;
+    width: 260px;
+    text-align: $alpha;
+    @if $from-direction == 'right' {
+      font-size: 14.5px;
+      line-height: 32px;
+    }
+
+    // add icons and colors
+    &.twitter-action-signin {
+      @include icon(twitter);
+      @include ctb-button-variant(#fff, $twitter-blue, darken($twitter-blue, 5));
+    }
+
+    &.facebook-action-connect {
+      @include icon(facebook);
+      @include ctb-button-variant(#fff, $facebook-blue, darken($facebook-blue, 5));
+      &:before, &:after {
+        margin-#{$omega}: 26px !important;  // bigger margin for thin icon
+      }
+    }
+
+    &.email-signin {
+      @include icon(envelope);
+      @include ctb-button-variant(#fff, $medium-grey, darken($medium-grey, 5));
+    }
+
+    &.email-signup {
+      @include icon(envelope-o);
+    }
+
+    // for all icons
+    &:before, &:after { 
+      font-size: 24px !important;
+      margin: 0 0 0 0 !important;
+      @if $from-direction == 'right' {
+        margin: 5px 0 0 0 !important;
+      }
+      margin-#{$omega}: 15px !important;
+    }
+
+  }
+}
+
+.modal-dialog-signin .or {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: $firefly30;
+}
+
+// when no js hide title
+.page-checkdesk-nojs-sign-in-up h1.title {
+  display: none;
+}
+
+// form inside modal
+.modal-forms-modal-content form {
+  max-width: 390px;
+  margin: 0 auto;
+  label {
+    text-align: $alpha;
+  }
+  // hide extra field
+  .email-textfield {
+    display: none;
+  }
+}

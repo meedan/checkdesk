@@ -1,0 +1,110 @@
+// Updates
+//
+// .update .update-row {
+  
+// }
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  .update .update-row {
+    @include flexbox;
+    .update-body {
+      @include flex(3 1 540px);
+      max-width: 540px;
+    }
+    .update-footer {
+      @include flex(1 1 150px);
+      @include order(-1);
+      margin-#{$omega}: $gutter-width*2;
+      margin-bottom: 1em;
+      margin-top: 1em;
+    }
+  }
+}
+
+// Psuedo div for anchors
+// Adds head room for updates in presence of navbars
+.update .anchor {
+  display: block;
+  height: (($toolbarHeight + $navbarHeight) + ($absolute-line-height*2)); /* this is the height of your header */
+  margin-top: -(($toolbarHeight + $navbarHeight) + ($absolute-line-height*2)); /* this is again negative value of the height of your header */
+  visibility: hidden;
+}
+
+// "Published" updates
+.updates {
+  .update-row {
+    margin-bottom: $line-height-base;
+    border-top: 1px solid rgba($firefly, 0.1);
+  }
+}
+
+// A Liveblog Update
+//
+
+.update {
+	@include ctb-clearfix;
+} // update
+
+.update .update-footer {
+  @include cd-sans-serif-family;
+
+  .actor {
+    margin-#{$alpha}: 5px;
+  }
+
+  .avatar {
+    @include cd-avatar('inline', 20px, 0);
+  }
+
+  // icons
+  .icon-clock-o {
+    @include icon(clock-o, $base-font-size, $firefly20);
+  }
+  .icon-share {
+    @include icon(share, $small-font-size, $firefly20);
+  }
+  .icon-pencil-square {
+    @include icon(pencil-square, $small-font-size, $firefly20);
+  }
+
+} // update footer
+
+.update .update-meta {
+  @include reset-list-style;
+  position: relative;
+  & > li {
+    font-size: 14px;
+    color: $firefly40;
+    a { 
+      font-size: 15px;
+      color: $firefly40; 
+      &:hover { 
+        color: $firefly60; 
+        text-decoration: none;
+      }
+      &:first-child {
+        font-size: 16px;
+        color: $firefly40; 
+      }
+    }
+
+    padding: $absolute-line-height/4 0;
+    border-bottom: 1px solid $firefly10;
+    &:last-child { border-bottom: 0px none; }
+    span { font-weight: 400; }
+  }
+}
+
+.update .update-share {
+  .dropdown-menu {
+    font-size: 15px;
+    color: $firefly90;
+    a { 
+      color: $firefly90; 
+      &:hover { 
+        color: #fff; 
+        text-decoration: none;
+      }
+    }
+  }
+} // update share

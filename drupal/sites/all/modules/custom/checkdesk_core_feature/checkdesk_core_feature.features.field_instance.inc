@@ -324,6 +324,13 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
       'collaborate_status' => array(
         'label' => 'above',
         'settings' => array(),
@@ -343,6 +350,13 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -354,15 +368,16 @@ function checkdesk_core_feature_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'exclude_cv' => 0,
     'field_name' => 'body',
     'label' => 'Story',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'filtered_html' => 'filtered_html',
+          'filtered_html' => 0,
           'full_html' => 0,
-          'liveblog' => 0,
+          'liveblog' => 'liveblog',
           'php_code' => 0,
           'plain_text' => 0,
         ),
@@ -388,7 +403,7 @@ function checkdesk_core_feature_field_default_field_instances() {
           ),
         ),
       ),
-      'display_summary' => 1,
+      'display_summary' => 0,
       'exclude_cv' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
@@ -400,12 +415,84 @@ function checkdesk_core_feature_field_default_field_instances() {
         'maxlength_js' => '',
         'maxlength_js_enforce' => 0,
         'maxlength_js_label' => '',
+        'maxlength_js_label_summary' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_summary' => '',
         'maxlength_js_truncate_html' => 0,
         'rows' => 4,
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
       'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-discussion-field_additional_authors'
+  $field_instances['node-discussion-field_additional_authors'] = array(
+    'bundle' => 'discussion',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'checkdesk_collaborate' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+      'meedan_oembed' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'exclude_cv' => 0,
+    'field_name' => 'field_additional_authors',
+    'label' => 'Additional authors',
+    'required' => 0,
+    'settings' => array(
+      'exclude_cv' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'apply_chosen' => '',
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 4,
     ),
   );
 
@@ -421,6 +508,16 @@ function checkdesk_core_feature_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => 'featured_image',
+        ),
+        'type' => 'image',
+        'weight' => 1,
+      ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => 'content',
+          'image_style' => 'medium',
         ),
         'type' => 'image',
         'weight' => 1,
@@ -446,6 +543,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -499,6 +602,13 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'i18n_taxonomy_term_reference_link',
         'weight' => 2,
       ),
+      'checkdesk_search' => array(
+        'label' => 'hidden',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 2,
+      ),
       'default' => array(
         'label' => 'hidden',
         'module' => 'i18n_taxonomy',
@@ -511,6 +621,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -532,6 +648,7 @@ function checkdesk_core_feature_field_default_field_instances() {
       'active' => 1,
       'module' => 'autocomplete_deluxe',
       'settings' => array(
+        'apply_chosen' => '',
         'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
         'delimiter' => '',
         'limit' => 10,
@@ -558,6 +675,13 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_plain',
+        'weight' => 1,
+      ),
       'collaborate_status' => array(
         'label' => 'above',
         'settings' => array(),
@@ -573,6 +697,13 @@ function checkdesk_core_feature_field_default_field_instances() {
       ),
       'meedan_oembed' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -661,6 +792,15 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'meedan_inline_thumbnail',
         'weight' => 0,
       ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'module' => 'oembed_thumbnail',
+        'settings' => array(
+          'imagestyle' => '',
+        ),
+        'type' => 'oembed_thumbnail',
+        'weight' => 0,
+      ),
       'collaborate_status' => array(
         'label' => 'hidden',
         'module' => 'meedan_oembed',
@@ -683,6 +823,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'settings' => array(),
         'type' => 'meedan_full_mode',
         'weight' => 3,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -745,6 +891,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 0,
       ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
+      ),
       'collaborate_status' => array(
         'label' => 'above',
         'settings' => array(),
@@ -763,6 +915,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
+        'weight' => 2,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 2,
       ),
       'teaser' => array(
@@ -805,6 +963,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 0,
       ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 4,
+      ),
       'collaborate_status' => array(
         'label' => 'above',
         'settings' => array(),
@@ -826,6 +990,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -846,6 +1016,7 @@ function checkdesk_core_feature_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
       ),
       'type' => 'options_select',
@@ -866,6 +1037,13 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'checkdesk_search' => array(
+        'label' => 'hidden',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 2,
+      ),
       'default' => array(
         'label' => 'hidden',
         'module' => 'i18n_taxonomy',
@@ -878,6 +1056,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -919,6 +1103,12 @@ function checkdesk_core_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'checkdesk_collaborate' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'checkdesk_search' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1017,6 +1207,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'collaborate_status' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1080,6 +1276,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'collaborate_status' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1099,6 +1301,13 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -1108,6 +1317,7 @@ function checkdesk_core_feature_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'exclude_cv' => 0,
     'field_name' => 'body',
     'label' => 'Body',
     'required' => 0,
@@ -1142,7 +1352,7 @@ function checkdesk_core_feature_field_default_field_instances() {
           ),
         ),
       ),
-      'display_summary' => 1,
+      'display_summary' => 0,
       'exclude_cv' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
@@ -1151,6 +1361,12 @@ function checkdesk_core_feature_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_label_summary' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_summary' => '',
+        'maxlength_js_truncate_html' => 0,
         'rows' => 20,
         'summary_rows' => 5,
       ),
@@ -1167,6 +1383,12 @@ function checkdesk_core_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'checkdesk_collaborate' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'checkdesk_search' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1190,6 +1412,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1210,6 +1438,7 @@ function checkdesk_core_feature_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
       ),
       'type' => 'options_select',
@@ -1284,6 +1513,7 @@ function checkdesk_core_feature_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Additional authors');
   t('Attachment');
   t('Bio');
   t('Body');

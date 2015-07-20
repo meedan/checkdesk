@@ -327,40 +327,56 @@ function checkdesk_core_feature_image_default_styles() {
 
   // Exported image style: featured_image.
   $styles['featured_image'] = array(
-    'name' => 'featured_image',
+    'label' => 'featured_image',
     'effects' => array(
-      2 => array(
-        'label' => 'Scale',
-        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
-        'effect callback' => 'image_scale_effect',
-        'dimensions callback' => 'image_scale_dimensions',
-        'form callback' => 'image_scale_form',
-        'summary theme' => 'image_scale_summary',
-        'module' => 'image',
+      5 => array(
         'name' => 'image_scale',
         'data' => array(
-          'width' => 900,
+          'width' => 720,
           'height' => '',
           'upscale' => 0,
         ),
         'weight' => 1,
       ),
     ),
-    'label' => 'featured_image',
+  );
+
+  // Exported image style: featured_image_med.
+  $styles['featured_image_med'] = array(
+    'label' => 'featured_image_med',
+    'effects' => array(
+      7 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 550,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: featured_image_small.
+  $styles['featured_image_small'] = array(
+    'label' => 'featured_image_small',
+    'effects' => array(
+      6 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 350,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
   );
 
   // Exported image style: featured_stories_lead_image.
   $styles['featured_stories_lead_image'] = array(
-    'name' => 'featured_stories_lead_image',
     'effects' => array(
       3 => array(
-        'label' => 'Scale and crop',
-        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
-        'effect callback' => 'image_scale_and_crop_effect',
-        'dimensions callback' => 'image_resize_dimensions',
-        'form callback' => 'image_resize_form',
-        'summary theme' => 'image_resize_summary',
-        'module' => 'image',
         'name' => 'image_scale_and_crop',
         'data' => array(
           'width' => 360,
@@ -374,16 +390,8 @@ function checkdesk_core_feature_image_default_styles() {
 
   // Exported image style: footer_partner_logo.
   $styles['footer_partner_logo'] = array(
-    'name' => 'footer_partner_logo',
     'effects' => array(
       4 => array(
-        'label' => 'Scale',
-        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
-        'effect callback' => 'image_scale_effect',
-        'dimensions callback' => 'image_scale_dimensions',
-        'form callback' => 'image_scale_form',
-        'summary theme' => 'image_scale_summary',
-        'module' => 'image',
         'name' => 'image_scale',
         'data' => array(
           'width' => 150,
@@ -396,18 +404,42 @@ function checkdesk_core_feature_image_default_styles() {
     'label' => 'footer_partner_logo',
   );
 
+  // Exported image style: header_logo.
+  $styles['header_logo'] = array(
+    'label' => 'header_logo',
+    'effects' => array(
+      6 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => '',
+          'height' => 36,
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: item_image_medium.
+  $styles['item_image_medium'] = array(
+    'label' => 'item_image_medium',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 220,
+          'height' => 132,
+          'upscale' => 1,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: navigation_avatar.
   $styles['navigation_avatar'] = array(
-    'name' => 'navigation_avatar',
     'effects' => array(
       2 => array(
-        'label' => 'Scale and crop',
-        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
-        'effect callback' => 'image_scale_and_crop_effect',
-        'dimensions callback' => 'image_resize_dimensions',
-        'form callback' => 'image_resize_form',
-        'summary theme' => 'image_resize_summary',
-        'module' => 'image',
         'name' => 'image_scale_and_crop',
         'data' => array(
           'width' => 24,
@@ -421,40 +453,24 @@ function checkdesk_core_feature_image_default_styles() {
 
   // Exported image style: partner_logo.
   $styles['partner_logo'] = array(
-    'name' => 'partner_logo',
+    'label' => 'partner_logo',
     'effects' => array(
-      1 => array(
-        'label' => 'Scale',
-        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
-        'effect callback' => 'image_scale_effect',
-        'dimensions callback' => 'image_scale_dimensions',
-        'form callback' => 'image_scale_form',
-        'summary theme' => 'image_scale_summary',
-        'module' => 'image',
+      5 => array(
         'name' => 'image_scale',
         'data' => array(
-          'width' => 200,
+          'width' => 235,
           'height' => '',
           'upscale' => 0,
         ),
         'weight' => 1,
       ),
     ),
-    'label' => 'partner_logo',
   );
 
   // Exported image style: report_thumbnail.
   $styles['report_thumbnail'] = array(
-    'name' => 'report_thumbnail',
     'effects' => array(
       1 => array(
-        'label' => 'Scale',
-        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
-        'effect callback' => 'image_scale_effect',
-        'dimensions callback' => 'image_scale_dimensions',
-        'form callback' => 'image_scale_form',
-        'summary theme' => 'image_scale_summary',
-        'module' => 'image',
         'name' => 'image_scale',
         'data' => array(
           'width' => 350,
@@ -464,13 +480,6 @@ function checkdesk_core_feature_image_default_styles() {
         'weight' => 1,
       ),
       2 => array(
-        'label' => 'Crop',
-        'help' => 'Cropping will remove portions of an image to make it the specified dimensions.',
-        'effect callback' => 'image_crop_effect',
-        'dimensions callback' => 'image_resize_dimensions',
-        'form callback' => 'image_crop_form',
-        'summary theme' => 'image_crop_summary',
-        'module' => 'image',
         'name' => 'image_crop',
         'data' => array(
           'width' => 320,

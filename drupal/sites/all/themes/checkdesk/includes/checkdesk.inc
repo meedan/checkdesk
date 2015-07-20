@@ -77,16 +77,8 @@ function checkdesk_checkdesk_dropdown_menu_item($variables) {
  */
 function checkdesk_checkdesk_user_menu_item($variables) {
   global $user;
-
-  $title = '';
-
-  if (!empty($user->picture)) {
-    $user_avatar = theme('image_style', array('path' => file_load($user->picture)->uri, 'alt' => t(check_plain($user->name)), 'style_name' => 'navigation_avatar'));
-    $title .= '<span class="avatar">' . $user_avatar . '</span> ';
-  }
-
-  $title .= check_plain($user->name);
-
+  $account = user_load($user->uid);
+  $title = _set_user_avatar_bg($account, array('avatar', 'avatar-menu', 'thumb-40'), FALSE);
   return theme('checkdesk_dropdown_menu_item', array('title' => $title));
 }
 
@@ -96,32 +88,7 @@ function checkdesk_checkdesk_user_menu_item($variables) {
 function checkdesk_checkdesk_user_menu_content($variables) {
   // Need to load the full account to get access to all fields
   $account = user_load($GLOBALS['user']->uid);
-
   $items = $variables['items'];
-
-  $linked_accounts = '';
-  if ($account->twitter_accounts) {
-    $linked_accounts .= '<span class="icon-twitter"></span> ';
-
-    $to_join = array();
-    foreach ($account->twitter_accounts as $twitter_account) {
-      // See: http://stackoverflow.com/a/8920821/806988
-      $to_join[] = l(
-        '@' . $twitter_account->screen_name,
-        'https://twitter.com/account/redirect_by_id?id=' . $twitter_account->id,
-        array(
-          'attributes' => array('class' => array('twitter-name'))
-        )
-      );
-    }
-    $linked_accounts .= implode(', ', $to_join);
-
-    $linked_accounts .= ' <small>';
-    $linked_accounts .=   format_plural(count($account->twitter_accounts), '(Linked account)', '(Linked accounts)');
-    $linked_accounts .= '</small>';
-  }
-
-  $bio = isset($account->field_bio) && $account->field_bio ? $account->field_bio[LANGUAGE_NONE][0]['safe_value'] : '';
 
   $account_menu = theme('checkdesk_links', array(
     'links' => $variables['items'],
@@ -133,13 +100,7 @@ function checkdesk_checkdesk_user_menu_content($variables) {
 
   $content = array(
     '#type'   => 'markup',
-    '#markup' => theme('user_picture', array('account' => $account))
-               . '<div class="info">'
-               .   theme('username', array('account' => $account))
-               .   '<div class="linked-account">' . $linked_accounts . '</div>'
-               .   '<div class="bio">' . $bio . '</div>'
-               . '</div>'
-               . $account_menu
+    '#markup' => '<ul><li>' . theme('username', array('account' => $account)) . '</li></ul>' . $account_menu,
   );
 
   return theme('checkdesk_dropdown_menu_content', array('id' => 'my-account', 'content' => $content));

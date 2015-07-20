@@ -1,0 +1,90 @@
+// Notifications block
+//
+// When the user gets a notification they can preview it in the navigation.
+// http://wf.meedan.net/project/checkdesk/notifications
+// Contained by: Navigation
+//
+// Compatibility: untested
+
+// Notifications list
+#my-notifications {
+  font-size: 12;
+  line-height: 1.3;
+}
+
+#my-notifications { 
+  width: 360px; // warning magic px CGB
+}
+
+#my-notifications .heartbeat-activity {
+  color: $firefly60;
+  padding: $absolute-line-height/2 $gutter-width;
+  border-bottom: 1px solid rgba($firefly, 0.10);
+  overflow: hidden;
+
+  a {
+    @include ctb-linkColor($brand-primary);
+  }
+}
+
+#my-notifications .heartbeat-activity .activity-data {
+  @include flexbox;
+  @include align-items(center);
+  .activity-data-image {
+    margin-#{$omega}: $gutter-width;
+    vertical-align: text-bottom;
+  }
+}
+
+#my-notifications .heartbeat-activity  .activity-meta {
+  margin-top: $absolute-line-height/4;
+  padding-#{$alpha}: 26px;
+  color: $firefly40;
+}
+
+// Pager is called when content is scrolled, so it must be hidden
+#my-notifications ul.pager-load-more {
+  display: none;
+}
+
+// We need a scrollbar here
+#my-notifications .view-content {
+  height: ms(10);
+  overflow-y: auto;
+  margin-bottom: $absolute-line-height/4;
+}
+
+#my-notifications .more-link {
+  float: $alpha;
+}
+
+#my-notifications .notifications-settings-link {
+  @include reset-box-model;
+  float: $omega;
+}
+
+#my-notifications .more-link,
+#my-notifications .notifications-settings-link {
+  a {
+    @include dropdown-link;
+    @include ctb-linkColor($firefly60);
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+// Notifications settings page
+.notifications-preferences {
+  .notifications-preferences-site {
+    @include icon('bell');
+  }
+  .notifications-preferences-email {
+    @include icon('envelope');
+  }
+  tr {
+    td, th {
+      text-align: $from-direction;
+    }
+  }
+}

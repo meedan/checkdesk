@@ -4,6 +4,11 @@
  * Implements hook_metatag_config_default().
  */
 function metatag_metatag_config_default() {
+  // Optionally skip loading the defaults.
+  if (!variable_get('metatag_load_defaults', TRUE)) {
+    return;
+  }
+
   $configs = array();
 
   $config = new stdClass();
@@ -78,6 +83,9 @@ function metatag_metatag_config_default() {
   $config->config = array(
     'title' => array('value' => '[user:name] | [site:name]'),
   );
+  if (variable_get('user_pictures')) {
+    $config->config['image'] = array('value' => '[user:picture:url]');
+  }
   $configs[$config->instance] = $config;
 
   // Before returning these, allow the bundled submodules to override them, thus
@@ -165,7 +173,7 @@ function metatag_metatag_info() {
 
   $info['tags']['keywords'] = array(
     'label' => t('Keywords'),
-    'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines."),
+    'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines anymore."),
     'class' => 'DrupalTextMetaTag',
     'weight' => ++$weight,
   );
@@ -185,10 +193,10 @@ function metatag_metatag_info() {
         'nofollow' => t('Prevents search engines from following links on this page.'),
         'noarchive' => t('Prevents cached copies of this page from appearing in search results.'),
         'nosnippet' => t('Prevents descriptions from appearing in search results, and prevents page caching.'),
-        'noodp' => t('Blocks the !opendirectory description from appearing in search results.', array('!opendirectory' => l('Open Directory Project', 'http://www.dmoz.org/'))),
+        'noodp' => t('Blocks the <a href="!opendirectory">Open Directory Project</a> description from appearing in search results.', array('!opendirectory' => 'http://www.dmoz.org/')),
         'noydir' => t('Prevents Yahoo! from listing this page in the <a href="@ydir">Yahoo! Directory</a>.', array('@ydir' => 'http://dir.yahoo.com/')),
         'noimageindex' => t('Prevent search engines from indexing images on this page.'),
-        'notranslate' => t('Prevent search engines from offering to translation this page in search results.'),
+        'notranslate' => t('Prevent search engines from offering to translate this page in search results.'),
       ),
     ),
   );
@@ -206,6 +214,46 @@ function metatag_metatag_info() {
     'description' => t("Highlight standout journalism on the web, especially for breaking news; used as an indicator in <a href=\"@google_news\">Google News</a>. Warning: Don't abuse it, to be used a maximum of 7 times per calendar week!", array('@google_news' => 'https://support.google.com/news/publisher/answer/191283?hl=en&ref_topic=2484650')),
     'class' => 'DrupalTextMetaTag',
     'group' => 'advanced',
+    'weight' => ++$weight,
+  );
+
+  $info['tags']['rating'] = array(
+    'label' => t('Content rating'),
+    'description' => t('Used to indicate the intended audience for the content.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'select_or_other' => TRUE,
+    'form' => array(
+      '#type' => 'select',
+      '#options' => array(
+        'general' => t('General'),
+        'mature' => t("Mature"),
+        'restricted' => t("Restricted"),
+        '14 years' => t("14 years or Older"),
+        'safe for kids' => t("Safe for kids"),
+      ),
+      '#empty_option' => t('- None -'),
+    ),
+    'weight' => ++$weight,
+  );
+
+  $info['tags']['referrer'] = array(
+    'label' => t('Referrer policy'),
+    'description' => t('Indicate to search engines and other page scrapers whether or not links should be followed. See <a href="http://w3c.github.io/webappsec/specs/referrer-policy/">the W3C specifications</a> for further details.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'select_or_other' => TRUE,
+    'form' => array(
+      '#type' => 'select',
+      '#options' => array(
+        'no-referrer' => t('No Referrer'),
+        'origin' => t('Origin'),
+        'no-referrer-when-downgrade' => t('No Referrer When Downgrade'),
+        'origin-when-cross-origin' => t('Origin When Cross-Origin'),
+        'unsafe-url' => t('Unsafe URL'),
+      ),
+      '#empty_option' => t('- None -'),
+    ),
     'weight' => ++$weight,
   );
 
@@ -236,6 +284,7 @@ function metatag_metatag_info() {
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,
+    'image' => TRUE,
     'devel_generate' => array(
       'type' => 'image',
     ),
@@ -258,6 +307,9 @@ function metatag_metatag_info() {
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,
+    'replaces' => array(
+      'shorturl',
+    ),
     'devel_generate' => array(
       'type' => 'shortlink',
     ),
@@ -297,27 +349,91 @@ function metatag_metatag_info() {
     ),
   );
 
-   $info['tags']['revisit-after'] = array(
-     'label' => t('Revisit After'),
-     'description' => t('Tell search engines when to index the page again. Very few search engines support this tag, it is more useful to use an <a href="@xmlsitemap">XML Sitemap</a> file.', array('@xmlsitemap' => 'http://drupal.org/project/xmlsitemap')),
-     'class' => 'DrupalDateIntervalMetaTag',
-     'group' => 'advanced',
-     'weight' => ++$weight,
-     'devel_generate' => array(
-       'type' => 'date',
-     ),
-   );
+  $info['tags']['prev'] = array(
+    'label' => t('Previous page URL'),
+    'description' => t('Used for paginated content. Meet Google recommendations to <a href="@google_pagination">indicate paginated content</a> by providing URL with rel="prev" link.', array('@google_pagination' => 'https://support.google.com/webmasters/answer/1663744')),
+    'class' => 'DrupalLinkMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
+  );
 
-   $info['tags']['content-language'] = array(
-     'label' => t('Content language'),
-     'description' => t("A deprecated meta tag for defining this page's two-letter language code(s)."),
-     'class' => 'DrupalTextMetaTag',
-     'group' => 'advanced',
-     'weight' => ++$weight,
-     'element' => array(
-       '#theme' => 'metatag_http_equiv',
-     ),
-   );
+  $info['tags']['next'] = array(
+    'label' => t('Next page URL'),
+    'description' => t('Used for paginated content. Meet Google recommendations to <a href="@google_pagination">indicate paginated content</a> by providing URL with rel="next" link.', array('@google_pagination' => 'https://support.google.com/webmasters/answer/1663744')),
+    'class' => 'DrupalLinkMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
+  );
+
+  $info['tags']['revisit-after'] = array(
+    'label' => t('Revisit After'),
+    'description' => t('Tell search engines when to index the page again. Very few search engines support this tag, it is more useful to use an <a href="@xmlsitemap">XML Sitemap</a> file.', array('@xmlsitemap' => 'https://www.drupal.org/project/xmlsitemap')),
+    'class' => 'DrupalDateIntervalMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'date',
+    ),
+  );
+
+  $info['tags']['content-language'] = array(
+    'label' => t('Content language'),
+    'description' => t("A deprecated meta tag for defining this page's two-letter language code(s)."),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+    'element' => array(
+      '#theme' => 'metatag_http_equiv',
+    ),
+  );
+
+  $info['tags']['geo.position'] = array(
+    'label' => t('Geo position'),
+    'description' => t('Geo-spatial information in "latitude;longitude" format, e.g. "50.167958;-97.133185"; <a href="http://en.wikipedia.org/wiki/Geotagging#HTML_pages">see Wikipedia for details</a>.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+  );
+
+  $info['tags']['geo.placename'] = array(
+    'label' => t('Geo place name'),
+    'description' => t("A location's formal name."),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+  );
+
+  $info['tags']['geo.region'] = array(
+    'label' => t('Geo region'),
+    'description' => t("A location's two-letter international country code, with an optional two-letter region, e.g. \"US-NH\" for New Hampshire in the USA."),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+  );
+
+  $info['tags']['icbm'] = array(
+    'label' => t('ICBM'),
+    'description' => t('Geo-spatial information in "latitude, longitude" format, e.g. "50.167958, -97.133185"; <a href="http://en.wikipedia.org/wiki/ICBM">see Wikipedia for details</a>.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+  );
+
+  $info['tags']['refresh'] = array(
+    'label' => t('Refresh'),
+    'description' => t('The number of seconds to wait before refreshing the page. May also force redirect to another page using the format "5; url=http://example.com/", which would be triggered after five seconds.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'element' => array(
+      '#theme' => 'metatag_http_equiv',
+    ),
+  );
 
   return $info;
 }

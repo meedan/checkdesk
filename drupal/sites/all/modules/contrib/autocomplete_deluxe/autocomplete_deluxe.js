@@ -202,7 +202,7 @@
         }
       });
     };
-
+    
     // Add position property for RTL
     if(Drupal.settings.language.direction == "0") {
       this.jqObject.autocomplete({

@@ -1,11 +1,17 @@
 <div class="inline-attachment">
   <div class="inline-attachment-wrapper">
     <div class="inline-attachment-bar"><div class="indent"></div></div>
-    <div class="media-holder media-inline-holder">
+    <div class="media-holder media-inline-holder<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
       <?php if(isset($inline_thumbnail)) : ?>
         <div class="media">
           <div class="inline-holder inline-img-thumb-holder">
             <?php print $inline_thumbnail; ?>
+          </div>
+        </div>
+      <?php elseif(isset($full_image)) : ?>
+        <div class="media">
+          <div class="img-holder">
+            <?php print $full_image; ?>
           </div>
         </div>
       <?php endif; ?>

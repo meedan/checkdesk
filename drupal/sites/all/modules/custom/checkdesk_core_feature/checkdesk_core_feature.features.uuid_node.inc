@@ -217,7 +217,6 @@ function checkdesk_core_feature_uuid_features_default_content() {
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'sioc:Item',
@@ -322,7 +321,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'sioc:Item',
@@ -406,7 +404,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 
 <h2>Welcome to Checkdesk</h2>
 
-<p>Checkdesk is a web application developed by Meedan. Our goal in developing Checkdesk was to make the world a better place. Really. So, you can take these terms and conditions as our best effort to inform you of your legal obligations as a user and our legal obligations to you as the company that has designed and deployed this software.</p>
+<p>Checkdesk is a web application developed by Meedan, Inc, a San Francisco based 501 c3 nonprofit international media and open source technology do-tank. Our goal in developing Checkdesk was to make the world a better place. Really. So, you can take these terms and conditions as our best effort to inform you of your legal obligations as a user and our legal obligations to you as the company that has designed and deployed this software.</p>
 
 <p>We recognize that as a user of our services you are extending to us certain aspects of your reputation and identity. We take this seriously and we&rsquo;ve crafted these Terms of Service (the &ldquo;Terms&rdquo;) reflect that.</p>
 
@@ -532,7 +530,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 
 <h2>Contact</h2>
 
-<p>If you are interested in discussing this agreement or have any thoughts on your mind, please contact us at termsofservice@meedan.net</p>
+<p>If you are interested in discussing this agreement or have any thoughts on your mind, please contact us at TOS@meedan.com</p>
 
 <p>These Terms are licensed under <img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />. Some rights reserved, with attribution and thanks to the Citizens Media and Law Project at the Berkman Center (http://www.citmedialaw.org/)</p>
 
@@ -553,8 +551,8 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 	<ul>
 
 		<li>Ed Bice <br />
-			Email: ebice@meedan.net <br />
-			Physical Mail: 1255 Post Suite 540 San Francisco, CA 94109 USA <br />
+			Email: TOS@meedan.com <br />
+			Physical Mail: 972 Mission Street, 5th Floor, San Francisco, CA 94103 USA <br />
 			Upon receipt of proper notification of claimed infringement, Meedan will follow the procedures outlined herein and in the DMCA.
 		</li>
 	</ul>
@@ -616,7 +614,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'sioc:Item',
@@ -737,7 +734,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'sioc:Item',
@@ -847,7 +843,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'sioc:Item',
@@ -952,7 +947,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'sioc:Item',
@@ -1064,7 +1058,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 
 <h2>Who are our project partners?</h2>
 
-<p>We are developing Checkdesk with media partners in the Arab region, including Almasry Alyoum (Egypt), Egypt Independent (Egypt), Sa7afet Welad El Balad (Egypt), 7iber (Jordan), SMEX Social Media Exchange (Lebanon), Nahar Ashabab (Lebanon), Alayyam/ Shabab Souria (Syria), and Ma\'an Network (Palestine). Our research and curriculum partner on the project is Birmingham City University. The project is funded by the Arab Partnerships fund, Sida and the International Press Institute (Checkdesk won a 2012 IPI Innovation Award). You can <a href="http://meedan.org/category/checkdesk/" target="_blank">read more on our blog</a>.</p>
+<p>We are developing Checkdesk with media partners in the Arab region, including Mada Masr (Egypt), Al Manassa (Egypt), Welad El Balad (Egypt), SMEX Social Media Exchange (Lebanon), Global Voices (MENA team), and Bellingcat (UK). Our research and curriculum partner on the project is Birmingham City University. The project has been funded by the Arab Partnerships Fund, Sida, The Knight Foundation (Checkdesk won a 2014 News Challenge Award), and the International Press Institute (Checkdesk won a 2012 IPI Innovation Award). You can <a href="https://medium.com/meedan-updates" target="_blank">read more on our blog</a>.</p>
 
 </div>',
         'summary' => '',
@@ -1073,7 +1067,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'sioc:Item',
@@ -1160,7 +1153,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
     ),
   ),
   'field_file' => array(),
-  'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
       0 => 'sioc:Item',

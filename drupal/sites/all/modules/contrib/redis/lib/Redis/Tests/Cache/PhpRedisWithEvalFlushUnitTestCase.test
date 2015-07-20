@@ -1,0 +1,21 @@
+<?php
+
+class Redis_Tests_Cache_PhpRedisWithEvalFlushUnitTestCase extends Redis_Tests_Cache_AbstractFlushUnitTestCase
+{
+    public static function getInfo()
+    {
+        return array(
+            'name'        => 'PhpRedis cache flush (E)',
+            'description' => 'Tests Redis module cache flush modes feature.',
+            'group'       => 'Redis',
+        );
+    }
+
+    protected function getClientInterface()
+    {
+        if (extension_loaded('redis') && class_exists('Redis')) {
+            $GLOBALS['conf']['redis_eval_enabled'] = true;
+            return 'PhpRedis';
+        }
+    }
+}

@@ -203,7 +203,7 @@ function features_export_form($form, $form_state, $feature = NULL) {
     $form['advanced']['generate'] = array(
       '#type' => 'submit',
       '#value' => t('Generate feature'),
-      '#submit' => array('features_export_build_form_submit'),
+      '#submit' => array('features_export_build_form_submit', 'features_form_rebuild'),
     );
   }
   // build the Component Listing panel on the right
@@ -239,7 +239,7 @@ function features_export_form($form, $form_state, $feature = NULL) {
     '#type' => 'submit',
     '#value' => t('Download feature'),
     '#weight' => 10,
-    '#submit' => array('features_export_build_form_submit'),
+    '#submit' => array('features_export_build_form_submit', 'features_form_rebuild'),
   );
 
   $form['#attached']['library'][] = array('system', 'ui.dialog');
@@ -597,6 +597,7 @@ function _features_export_build($feature, &$form_state) {
       $component_export['selected'][$section] = array();
     }
     $options = features_invoke($component, 'features_export_options');
+    drupal_alter('features_export_options', $options, $component);
     if (!empty($options)) {
       $exported_components = !empty($exported_features_info[$component]) ? $exported_features_info[$component] : array();
       $new_components = !empty($new_features_info[$component]) ? $new_features_info[$component] : array();
@@ -843,7 +844,7 @@ function _features_export_generate($export, $form_state, $feature = NULL) {
   }
   // If either update status-related keys are provided, add a project key
   // corresponding to the module name.
-  if (!empty($form_state['values']['version']) || !empty($form_state['values']['project_status_url'])) {
+  if (!empty($form_state['values']['version']) && !empty($form_state['values']['project_status_url'])) {
     $export['project'] = $form_state['values']['module_name'];
   }
   if (!empty($form_state['values']['version'])) {
@@ -900,6 +901,35 @@ function features_export_build_form_submit($form, &$form_state) {
 
     $tar = array();
     $filenames = array();
+    // Copy any files if _files key is there.
+    if (!empty($files['_files'])) {
+      foreach ($files['_files'] as $file_name => $file_info) {
+        if ($generate) {
+          // See if files are in a sub directory.
+          if (strpos($file_name, '/')) {
+            $file_directory = $directory . '/' . substr($file_name, 0, strrpos($file_name, '/'));
+            if (!is_dir($file_directory)) {
+              mkdir($file_directory);
+            }
+          }
+          if (!empty($file_info['file_path'])) {
+            file_unmanaged_copy($file_info['file_path'], "{$directory}/{$file_name}", FILE_EXISTS_REPLACE);
+          }
+          elseif ($file_info['file_content']) {
+            file_put_contents("{$directory}/{$file_name}", $file_info['file_content']);
+          }
+        }
+        else {
+          if (!empty($file_info['file_path'])) {
+            print features_tar_create("{$module_name}/{$file_name}", file_get_contents($file_info['file_path']));
+          }
+          elseif ($file_info['file_content']) {
+            features_tar_create("{$directory}/{$file_name}", $file_info['file_content']);
+          }
+        }
+      }
+      unset($files['_files']);
+    }
     foreach ($files as $extension => $file_contents) {
       if (!in_array($extension, array('module', 'info'))) {
         $extension .= '.inc';
@@ -973,28 +1003,14 @@ function features_filter_hidden($module) {
  * Form constructor for the features configuration form.
  */
 function features_admin_form($form, $form_state) {
+  $features = _features_get_features_list();
+  $modules = array_filter(features_get_modules(), 'features_filter_hidden');
+  $conflicts = features_get_conflicts();
+
   // Load export functions to use in comparison.
   module_load_include('inc', 'features', 'features.export');
 
-  // Clear & rebuild key caches
-  features_get_info(NULL, NULL, TRUE);
-  features_rebuild();
-
-  $modules = array_filter(features_get_modules(), 'features_filter_hidden');
-  $features = array_filter(features_get_features(), 'features_filter_hidden');
-  $conflicts = features_get_conflicts();
-
-  foreach ($modules as $key => $module) {
-    if ($module->status && !empty($module->info['dependencies'])) {
-      foreach ($module->info['dependencies'] as $dependent) {
-        if (isset($features[$dependent])) {
-          $features[$dependent]->dependents[$key] = $module->info['name'];
-        }
-      }
-    }
-  }
-
-  if ( empty($features) ) {
+  if (empty($features) ) {
     $form['no_features'] = array(
       '#markup' => t('No Features were found. Please use the !create_link link to create
       a new Feature module, or upload an existing Feature to your modules directory.',
@@ -1073,6 +1089,7 @@ function features_admin_form($form, $form_state) {
     }
 
     $href = "admin/structure/features/{$name}";
+    $href_overridden = module_exists('diff') ? $href . '/diff' : $href;
     $module_name = (user_access('administer features')) ? l($module->info['name'], $href) : $module->info['name'];
     $form[$package]['status'][$name] = array(
       '#type' => 'checkbox',
@@ -1102,7 +1119,7 @@ function features_admin_form($form, $form_state) {
         $state .= l(t('Check'), "admin/structure/features/{$name}/status", array('attributes' => array('class' => array('admin-check'))));
         $state .= theme('features_storage_link', array('storage' => FEATURES_REBUILDING, 'path' => $href));
         $state .= theme('features_storage_link', array('storage' => FEATURES_NEEDS_REVIEW, 'path' =>  $href));
-        $state .= theme('features_storage_link', array('storage' => FEATURES_OVERRIDDEN, 'path' =>  $href));
+        $state .= theme('features_storage_link', array('storage' => FEATURES_OVERRIDDEN, 'path' =>  $href_overridden));
         $state .= theme('features_storage_link', array('storage' => FEATURES_DEFAULT, 'path' =>  $href));
       }
       elseif (!empty($conflicts[$name])) {
@@ -1325,6 +1342,13 @@ function features_form_submit(&$form, &$form_state) {
     module_disable($disable);
     features_install_modules($install);
   }
+}
+
+/**
+ * Submit handler for the 'manage features' form rebuild button.
+ */
+function features_form_rebuild() {
+  cache_clear_all('features:features_list', 'cache');
 }
 
 /**
@@ -1586,4 +1610,43 @@ function _features_get_used($module_name = NULL) {
   // restore previous value of global
   $features_ignore_conflicts = $old_value;
   return $conflicts;
+}
+
+/**
+ * Retrieves the array of features as expected on the Manage Features form.
+ * Uses caching for performance reasons if caching is enabled.
+ *
+ * @internal - This function might return cached result with outdated data,
+ * use with caution.
+ */
+function _features_get_features_list() {
+  $features = array();
+
+  $cache = cache_get('features:features_list');
+  if ($cache) {
+    $features = $cache->data;  
+  }
+  
+  if (empty($features)) {
+    // Clear & rebuild key caches
+    features_get_info(NULL, NULL, TRUE);
+    features_rebuild();
+
+    $modules = array_filter(features_get_modules(), 'features_filter_hidden');
+    $features = array_filter(features_get_features(), 'features_filter_hidden');
+
+    foreach ($modules as $key => $module) {
+      if ($module->status && !empty($module->info['dependencies'])) {
+        foreach ($module->info['dependencies'] as $dependent) {
+          if (isset($features[$dependent])) {
+            $features[$dependent]->dependents[$key] = $module->info['name'];
+          }
+        }
+      }
+    }
+
+    cache_set('features:features_list', $features);
+  }
+
+  return $features;
 }

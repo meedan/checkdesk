@@ -29,7 +29,7 @@ function checkdesk_multilingual_feature_context_default_contexts() {
         'locale-language' => array(
           'module' => 'locale',
           'delta' => 'language',
-          'region' => 'navigation',
+          'region' => 'utility_menu',
           'weight' => '-10',
         ),
       ),
@@ -40,7 +40,7 @@ function checkdesk_multilingual_feature_context_default_contexts() {
   // Translatables
   // Included for use with string extractors like potx.
   t('checkdesk');
-  $export['multilingual'] = $context;
+  $export['bilingual'] = $context;
 
   return $export;
 }

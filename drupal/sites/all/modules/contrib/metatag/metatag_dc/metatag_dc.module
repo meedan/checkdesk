@@ -29,11 +29,12 @@ function metatag_dc_theme() {
  */
 function theme_metatag_dc($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array(
+  $args = array(
     '#name' => 'name',
     '#schema' => 'schema',
-    '#value' => 'content')
+    '#value' => 'content',
   );
+  element_set_attributes($element, $args);
   unset($element['#value']);
   return theme('html_tag', $variables);
 }

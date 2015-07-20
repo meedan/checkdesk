@@ -1,0 +1,239 @@
+@charset "UTF-8";
+
+// =======================================================================
+// Vertical navigation toolbar 
+//
+
+#header nav {
+  color: #fff;
+  background-color: $firefly80;
+  @include box-sizing(border-box);
+  will-change: transform;
+}
+
+#header svg {
+  display: inline-block;
+  fill: rgba(255,255,255,.4);
+  @include transition(fill 0.2s ease);
+  // hide SVG icons until JS has loaded
+  html.no-js & { visibility: hidden; }
+}
+
+#header nav a {
+  position: relative;
+  display: block;
+  height: 100%;
+  color: #fff;
+  @include border-radius(4px);
+}
+
+#header nav a:hover {
+  svg {
+    fill: rgba(255,255,255,.9);
+  } 
+  span {
+    #{$alpha}: $navbarWidth + 10px;
+    visibility: visible;
+    opacity: 1;
+    will-change: transform, opacity;
+  } 
+}
+
+// nav labels
+#header nav ul li a span {
+  font-weight: bold;
+  line-height: 36px;
+  white-space: nowrap;
+}
+
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  #header nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: $z-index-FixedNavbar + 10;
+    width: 60px;
+  }
+
+  #header svg {
+    position: relative;
+    top: 6px;
+  }
+
+  #header nav ul.second-group {
+    position: relative;
+    margin-top: 20px;
+    padding-top: 10px;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      #{$alpha}: 16px;
+      width: 28px;
+      border-top: 1px solid rgba(255,255,255,.4);
+    }
+  }
+
+  #header nav ul.third-group {
+    position: absolute;
+    bottom: 10px;
+  }
+
+  #header nav li {
+    height: 50px;
+  }
+
+  #header nav a {
+    margin: 10px 6px;
+    padding: 0 12px;
+  }
+
+  #header nav a.active:not(.homepage-link) {
+    background: rgba($firefly, .4);
+    svg {
+      fill: rgba(255,255,255,.9);
+    }
+  }
+
+  // nav labels
+  #header nav ul li a span {
+    position: absolute;
+    top: 8px;
+    #{$alpha}: $navbarWidth - 10px;
+    z-index: $z-index-FixedNavbar + 1;
+    padding: 0 14px;
+    color: #fff;
+    background: $firefly80;
+    @include border-radius(4px);
+    opacity: 0;
+    visibility: hidden;
+    // animate labels
+    @include transition(opacity 0.4s ease);
+    @include transition(left 0.4s ease);
+    // pointer on labels
+    &:after {
+      content: "";
+      position: absolute;
+      top: 14px;
+      #{$alpha}: -4px;
+      width: 8px;
+      height: 8px;
+      background: $firefly80;
+      @include border-radius(0 0 0 2px);
+      @include ctb-rotate(45deg);
+    }
+
+  }
+
+}
+
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  #header nav {
+    position: static !important;
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+    @include transition(max-height 0.2s ease-in-out);
+  }
+  #header nav ul:first-child {
+    padding-top: 10px;
+  }
+  #header nav ul:last-child {
+    padding-bottom: 10px;
+  }
+  #header nav ul li {
+    display: inline-block;
+    width: 100%;
+  }
+  #header nav ul li a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: $firefly20;
+  }
+  #header nav a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  #header nav svg {
+    display: none;
+  }
+  // nav labels
+  #header nav ul li a span {
+    font-size: $font-size-base;
+    font-weight: normal;
+  }
+
+}
+
+// position logo icon
+svg.logo-icon {
+  width: 26px;
+  height: 38px;
+}
+
+// position icons in nav
+#header nav {
+  svg.create-report-icon {
+    top: 8px;
+    #{$alpha}: -1px;
+    width: 26px;
+    height: 33px;
+  }
+
+  svg.create-story-icon {
+    top: 11px;
+    @if $from-direction == right {
+      #{$alpha}: -5px;
+    }
+    width: 30px;
+    height: 28px;
+  }
+
+  svg.search-icon {
+    top: 11px;
+    width: 24px;
+    height: 24px;
+  }
+
+  svg.reports-icon {
+    top: 11px;
+    width: 25px;
+    height: 28px;
+  }
+
+  svg.stories-icon {
+    top: 12px;
+    #{$alpha}: -3px;
+    width: 30px;
+    height: 24px;
+  }
+
+  svg.updates-icon {
+    top: 8px;
+    #{$alpha}: -2px;
+    width: 28px;
+    height: 32px;
+  }
+
+  svg.support-icon {
+    top: 10px;
+    #{$alpha}: 3px;
+    width: 20px;
+    height: 30px;
+  }
+
+  svg.settings-icon {
+    top: 10px;
+    #{$alpha}: -2px;
+    width: 28px;
+    height: 28px;
+  }
+
+  svg.about-icon {
+    top: 10px;
+    #{$alpha}: -2px;
+    width: 28px;
+    height: 28px;
+  }
+}

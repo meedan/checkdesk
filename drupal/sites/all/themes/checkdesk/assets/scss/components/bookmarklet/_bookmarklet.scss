@@ -1,0 +1,375 @@
+$spinner-width: 25px; 
+$bookmarklet-width: 365px;
+$bookmarklet-preview-max-height: 345px;
+$bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
+
+// Bookmarklet forms
+@mixin bookmarklet-forms() {
+  
+  form {
+    @include reset-box-model;
+  }
+
+  .form-item {
+    @include reset-box-model;
+    float: $from-direction;
+    clear: both;
+
+    .description {
+      width: $bookmarklet-width - $gutter-width * 2;
+    }
+  }
+
+  .fb-message .description {
+    display: none;
+  }
+
+  .field-type-link-field {
+    clear: both;
+    label {
+      display: none; // HACK hidden labels
+    }
+  }
+
+  .field-edit-link {
+    display: none; // HACK hidden
+  }
+
+
+  .link-field-url {
+    input[type=text], 
+    input[type=password], 
+    textarea {
+      @include border-radius($radius);
+    }
+
+    input[type=text] {
+      // width: $bookmarklet-width - ($spinner-width + $gutter-width*2);
+      padding-#{$omega}: $spinner-width; //accomodate spinner
+    }
+  }
+
+  textarea {
+    height: 60px;
+    padding: 5px;
+  }
+
+  .form-actions {
+    @include reset-box-model;
+    background: transparent;
+    float: $from-direction;
+    width: auto;
+    border-top: 0;
+  }
+
+  .footer {
+    float: $from-direction;
+    clear: both;
+    margin-top: $gutter-width;
+  }
+
+  #edit-body {
+    float: $from-direction;
+    clear: both;
+    margin-top: 0;
+  }
+
+  #edit-graphic-content {
+    float: $omega;
+    margin: 0;
+    margin-top: $gutter-width;
+    width: auto;
+    & > .form-type-checkbox {
+      width: 100%;
+    }
+    .form-item label,
+    .form-item input[type="checkbox"] {
+      // padding: $gutter-width 2px; // pad for the hover
+      &:hover {
+        color: $brand-primary;
+      }
+    }
+  }
+
+}
+
+@mixin bookmarklet-step-one() {
+  // Step one  ...
+  h2 {
+    @include reset-box-model;
+    color: $firefly60;
+    font-size: $base-font-size;
+    float: $from-direction;
+    // margin: $absolute-line-height/2 0 0 0;
+    line-height: $absolute-line-height;
+  }
+
+  #meedan_bookmarklet_help {
+    // position: absolute;
+    // top: 0;
+    // padding-top: $absolute-line-height / 2;
+    line-height: 1.2;
+    // #{$omega}: $gutter-width;
+
+    span {
+      display: block;
+      float: $from-direction;
+      width: 30px;
+      text-indent: -5000em;
+      background: transparent url(../imgs/icons/bookmarklet-help.png) center center no-repeat;
+      cursor: help;
+      p {
+        display: none;
+      }
+
+      &:hover p {
+        display: block;
+        width: 240px;
+        height: auto;
+        background: white;
+        border: 1px solid $gray-lighter;
+        font-size: $small-font-size;
+        line-height: 1.2;
+        color: $gray-light;
+        text-indent: 0;
+        padding: $gutter-width;
+        position: absolute;
+        #{$omega}: 1px;
+      }
+    }
+  }
+
+  // Loading ..
+  .meedan-bookmarklet-loading {
+    background: #fff url(../imgs/icons/bookmarklet-loading.gif) $omega center no-repeat;
+  }
+}
+
+// Step two  ...
+@mixin bookmarklet-step-two() {
+  #meedan_bookmarklet_preview {
+    clear: both;
+    color: $firefly60;
+    margin: $gutter-width 0;
+  }
+
+  #meedan_bookmarklet_preview_content img {
+    width: auto;
+    clear: both;
+  }
+
+  .bookmarklet-preview {
+    width: 100%;
+  }
+
+  #meedan_bookmarklet_preview_content,
+  #meedan_bookmarklet_preview_gc {
+    height: auto;
+    width: 100%;
+    max-height: $bookmarklet-preview-max-height;
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  #meedan_bookmarklet_preview_gc {
+    background: $firefly40;
+    color: $firefly60;
+    padding-top: 85px;
+    height: $bookmarklet-preview-max-height;
+    max-height: 145px;
+    span, a {
+      text-align: center;
+      display: block;
+      width: 100%;
+    }
+    span {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+    a, a:visited, a:link, a:hover {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+
+  .fb-status-preview {
+    background: $firefly30;
+    padding: $gutter-width;
+    @include border-radius($radius);
+
+    .author {
+      float: right;
+      clear: both;
+    }
+  }
+
+  
+}
+
+// Alerts in bookmarklet
+@mixin bookmarklet-alerts() {
+ 
+  .absolute-messages-status, .messages.status, #absolute-messages-show, .absolute-messages-dismiss-all, #absolute-messages-messages {
+    display: none !important; // HACK hide status messages in bookmarklet
+  }
+
+  // Error messages
+  .messages.error {
+    clear: both;
+    background: transparent;
+    padding: 0;
+    border: 0;
+    color: #a00;
+  }
+
+  #meedan_bookmarklet_messages {
+    padding: 0;
+    margin: $absolute-line-height 0 0 0;
+    clear: both;
+    text-align: center;
+    li {
+      display: block;
+      list-style: none;
+      width: 100%;
+      text-align: center;
+      font-size: $small-font-size;
+      margin-top: $gutter-width;
+    }
+    a {
+      text-decoration: underline;
+    }
+    .meedan-bookmarklet-success {
+      display: block;
+      color: #fff;
+      padding: $gutter-width;
+      background-color: rgba(0,140,0,.8);
+    }
+  }
+
+}
+
+// Login
+@mixin bookmarklet-login() {
+  #user-login {
+    label, 
+    input[type=text], 
+    input[type=password], 
+    a {
+      clear: both;
+    }
+    ul {
+      margin: 0;
+    }
+    li {
+      list-style: none;
+      display: block;
+      margin: 0;
+    }
+    .messages.error {
+      position: static;
+      font-size: modular-scale(0) - modular-scale(-3); // 14px
+      margin-bottom: $absolute-line-height/3;
+    }
+    .social-signin-wrapper {
+      margin-top: $absolute-line-height/2;
+      .item-list li a {
+        padding: $absolute-line-height/3 $gutter-width;
+      }
+    }
+    .or {
+      margin: 0 0;
+    }
+    .user-links {
+      clear: both;
+      font-size: modular-scale(0) - modular-scale(-3); // 14px
+      padding-#{$omega}: $gutter-width;
+    }
+    .form-item-remember-me {
+      clear: none;
+      label { font-size: modular-scale(0) - modular-scale(-3); } // 14px 
+    }
+    .user-new-account-link {
+      .register {
+        text-align: $omega;
+        font-size: modular-scale(0) - modular-scale(-3); // 14px
+      }
+    }
+    // username/pass field widths
+    input[type=text], 
+    input[type=password] {
+      padding-#{$omega}: 0;
+    }
+    .form-actions {
+      margin-top: $absolute-line-height/2;
+    }
+  }
+}
+
+
+// Internal bookmarklet (Submit Report link)
+// ==============================================================
+#nav-media-form {
+  width: 366px;
+  overflow-y: scroll;
+  z-index: $z-index-Dropdown;
+
+  iframe {
+    width: 100%;
+  }
+}
+
+// NOTE applied to body
+.meedan-bookmarklet-internal {
+  #meedan_bookmarklet_preview,
+    #edit-body,
+    #edit-graphic-content,
+    #edit-actions #edit-submit,
+    #edit-title {
+    display: none;
+  }
+}
+
+
+// Bookmarklet
+// ==============================================================
+
+// The bookmarklet itself
+// NOTE: applied to html
+#meedan_bookmarklet_html {
+  height: auto;
+  background: #fff;
+}
+
+#meedan_bookmarklet {
+  font-size: $small-font-size;
+  overflow: hidden;
+  position: relative;
+  padding: 0 !important;
+  margin: 5px $gutter-width !important;
+  @include bookmarklet-forms;
+  @include bookmarklet-login;
+  @include bookmarklet-alerts;
+  @include bookmarklet-step-one;
+  @include bookmarklet-step-two;
+}
+
+#meedan_bookmarklet_close {
+  position: absolute;
+  #{$omega}: 0;
+  top: -2px;
+  z-index: 2;
+}
+
+// when as regular form with some temporary duplicates from bookmarklet
+#media-node-form {
+  // Loading ..
+  .meedan-bookmarklet-loading {
+    background: #fff url(../imgs/icons/bookmarklet-loading.gif) $omega center no-repeat;
+  }
+  // preview and graphic content styles
+  @include bookmarklet-step-two;
+  #meedan_bookmarklet_preview_content {
+    max-height: none;
+  }
+}

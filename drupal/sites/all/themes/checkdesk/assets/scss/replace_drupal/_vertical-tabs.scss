@@ -4,6 +4,10 @@ div.vertical-tabs {
   border: 1px solid #ccc;
   position: relative; /* IE6/7 */
   clear: both;
+  // don't show it on mobile
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    & { display: none; }
+  }
 }
 .vertical-tabs ul.vertical-tabs-list {
   width: 15em;

@@ -4,7 +4,10 @@
  * Functional tests for the Metatag:Context module.
  */
 
-class MetatagContextTestCase extends DrupalWebTestCase {
+/**
+ * This extends the basic Metatag test class to reduce code duplication.
+ */
+class MetatagContextTestCase extends MetatagTestHelper {
   /**
    * The getInfo() method provides information about the test.
    * In order for the test to be run, the getInfo() method needs
@@ -22,20 +25,21 @@ class MetatagContextTestCase extends DrupalWebTestCase {
    * Prepares the testing environment
    */
   public function setUp(array $modules = array()) {
-    $modules[] = 'metatag';
     $modules[] = 'metatag_context';
     parent::setUp($modules);
+
     // Create user.
-    $this->privileged_user = $this->drupalCreateUser(array(
+    $perms = array(
       'bypass node access',
-      'administer content types',
-      'administer meta tags',
-    ));
+    );
+    $this->privileged_user = $this->createAdminUser($perms);
     $this->drupalLogin($this->privileged_user);
-    // Create content type, with underscores.
+
+    // Create a content type, with underscores.
     $type_name = strtolower($this->randomName(8)) . '_test';
-    $type = $this->drupalCreateContentType(array('name' => $type_name, 'type' => $type_name));
+    $type = $this->createContentType($type_name, $type_name);
     $this->type = $type->type;
+
     // Store a valid URL name, with hyphens instead of underscores.
     $this->hyphen_type = str_replace('_', '-', $this->type);
   }
@@ -78,7 +82,7 @@ class MetatagContextTestCase extends DrupalWebTestCase {
    */
   function createMetatagObject($path, $identifier) {
     $metatag_object = new stdClass();
-    $metatag_object->name = drupal_strtolower($this->randomName(10));
+    $metatag_object->name = $identifier;
     $metatag_object->path = $path;
     $metatag_object->title = "My $identifier title";
     $metatag_object->description = "My $identifier description";
@@ -95,7 +99,7 @@ class MetatagContextTestCase extends DrupalWebTestCase {
    *   Metatag mapping object.
    */
   function generateMetatag($metatag_object) {
-    //Add new Metatag object by path.
+    // Add new Metatag object by path.
     $edit = array(
       'name' => $metatag_object->name,
     );

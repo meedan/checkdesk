@@ -20,6 +20,7 @@ function fboauth_install() {
 function fboauth_uninstall() {
   variable_del('fboauth_id');
   variable_del('fboauth_secret');
+  variable_del('fboauth_anon_connect');
   variable_del('fboauth_user_email');
   variable_del('fboauth_user_username');
   variable_del('fboauth_user_picture');
@@ -61,6 +62,7 @@ function fboauth_schema() {
  * Implements hook_schema_alter()
  */
 function fboauth_schema_alter(&$schema) {
+  $schema['users']['indexes']['mail'] = array(array('mail', 255));
   $schema['users']['fields']['mail']['length'] = 320;
 }
 
@@ -77,6 +79,78 @@ function _fboauth_change_user_mail_field($action = 'install') {
   if ($action == 'install') {
     fboauth_schema_alter($schema);
   }
-  db_change_field('users', 'mail', 'mail', $schema['users']['fields']['mail']);
+  db_drop_index('users', 'mail');
+  db_change_field('users', 'mail', 'mail', $schema['users']['fields']['mail'],
+    array('indexes' => array('mail' => array(array('mail', 255)))));
   return $res;
+}
+
+/**
+ * FBAPI v2.0: Remove deprecated user_checkins permission.
+ */
+function fboauth_update_7201() {
+  if ($connections = variable_get('fboauth_user_connections')) {
+    $deprecated = array(
+      'checkins',
+    );
+
+    foreach ($deprecated as $permission) {
+      $permission_key = array_search($permission, $connections);
+      if (is_numeric($permission_key)) {
+        unset($connections[$permission_key]);
+      }
+    }
+
+    variable_set('fboauth_user_connections', $connections);
+  }
+}
+
+/**
+ * FBAPI v2.3: Remove deprecated user_interests and user_activities permissions.
+ */
+function fboauth_update_7202() {
+  if ($connections = variable_get('fboauth_user_connections')) {
+    $deprecated = array(
+      'activities',
+      'interests',
+    );
+
+    foreach ($deprecated as $permission) {
+      $permission_key = array_search($permission, $connections);
+      if (is_numeric($permission_key)) {
+        unset($connections[$permission_key]);
+      }
+    }
+
+    variable_set('fboauth_user_connections', $connections);
+  }
+}
+
+/**
+ * FBAPI v2.0: Username deprecated. Use Real name for user name import.
+ */
+function fboauth_update_7203() {
+  if (variable_get('fboauth_user_username', 'name') == 'username') {
+    variable_set('fboauth_user_username', 'name');
+  }
+}
+
+/**
+ * FBAPI v2.0: Remove access to notes.
+ */
+function fboauth_update_7204() {
+  if ($connections = variable_get('fboauth_user_connections')) {
+    $deprecated = array(
+      'notes',
+    );
+
+    foreach ($deprecated as $permission) {
+      $permission_key = array_search($permission, $connections);
+      if (is_numeric($permission_key)) {
+        unset($connections[$permission_key]);
+      }
+    }
+
+    variable_set('fboauth_user_connections', $connections);
+  }
 }

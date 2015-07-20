@@ -25,31 +25,10 @@
 		return html;
 	};
 
-	// filters for reports inside sidebar
-	Drupal.behaviors.reportsPage = {
-		attach: function(context) {
-      // configure masonry
-			if ($('#reports', context).masonry) {
-				$('#reports', context).masonry({
-					itemSelector: '.report-item',
-					columnWidth: function(containerWidth) {
-						return containerWidth / 3;
-					},
-					isRTL: true
-				}).imagesLoaded(function() {
-					$('#reports', context).masonry('reload');
-				});
-        $('#reports .report-item', context).watch('height', function() { $('#reports', context).masonry('reload'); }, 1000);
-			}
-		}
-	};
-
-  // format select element
-  Drupal.behaviors.customSelect = {
+  // Add helper class when JS has finished loading
+  Drupal.behaviors.loadJS = {
     attach: function(context) {
-      // apply js plugin
-      $('#edit-field-stories-und').chosen();
-      $('#edit-field-desk-und').chosen();
+      $('html').removeClass('no-js').addClass('js');
     }
   };
 
@@ -72,7 +51,7 @@
   Drupal.behaviors.story = {
     attach: function (context, settings) {
       // Show nested activity
-      $('.item-nested-content-wrapper > .item-controls > .meta').unbind('click').click(function(event) {
+      $('.node-media .item-nested-content-wrapper > .item-controls > .meta').unbind('click').click(function(event) {
         var target = $(this).parent(),
             element = target.parent();
         if (element.find('.item-nested-content').is(':visible')) {
@@ -82,8 +61,9 @@
         else {
           element.find('.item-nested-content').slideDown('fast');
           element.addClass('open');
+          element.find('textarea[class*=expanding]').expanding();
         }
-        return false;
+        return true;
       });
 
       // show or hide compose update form
@@ -103,6 +83,16 @@
 
       // Add active class to the story tab which is active
       $('.story-tabs li a.active').parents('li').addClass('active');
+      
+      // Initiate timeago
+      $.extend($.timeago, { settings: { strings: {
+        minute: "a minute",
+        hour: "an hour",
+        hours: "%d hours",
+        month: "a month",
+        year: "a year",
+      }}});
+      $('.timeago').timeago();
     }
   };
 
@@ -181,12 +171,9 @@
 
             this.className = classes;
 
-            // Lazy-load tweets and livefyre comments
+            // Lazy-load tweets comments
             if (window.twttr && window.twttr.widgets) {
               window.twttr.widgets.load();
-            }
-            if (Drupal.livefyreCommentCount) {
-              Drupal.livefyreCommentCount.callback();
             }
           }
         });
@@ -202,12 +189,6 @@
       // kick the event to pick up any lazy elements already in view.
       $(window).scroll(false); // Disable scrolling the page when this event is triggered
       $(window).scroll();
-
-      // Open story comments if anchor is present
-      var match = window.location.hash.match(/^#story-comments-([0-9]+)$/);
-      if (match) {
-        $(match[0]).find('.fb-comments-header, .livefyre-header').click();
-      }
 
    });
 

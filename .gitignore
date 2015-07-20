@@ -15,6 +15,9 @@ Thumbs.db
 .sass-cache
 .idea
 
+# Webistrano
+shared/
+
 # Exclude local configuration files
 *.local.php
 
@@ -34,3 +37,7 @@ config/create_database_and_user.sql
 config/settings.local.php
 config/setup/create_database_and_user.sql
 config/setup/settings.local.php
+
+# Temporary files
+*~
+*.sw*

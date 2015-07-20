@@ -43,11 +43,18 @@ function metatag_test_metatag_config_default_alter(array &$configs) {
  * Implements hook_metatag_info().
  */
 function metatag_test_metatag_info() {
+  $info['groups']['testing'] = array(
+    'label' => t('Testing'),
+    'form' => array(
+      '#weight' => 100,
+    ),
+  );
+
   $info['test:foo'] = array(
     'label' => t('Foo meta tag'),
     'description' => t('Testing metatag.'),
     'class' => 'DrupalTextMetaTag',
-    'group' => t('Testing'),
+    'group' => 'testing',
   );
 
   return $info;

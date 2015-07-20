@@ -1,0 +1,15 @@
+name = Translation template extractor
+description = Provides a web interface and an API to extract translatable text from the sources of installed components.
+dependencies[] = locale
+files[] = potx.inc
+files[] = tests/potx.test
+core = 7.x
+package = Multilingual
+php = 5.1.2
+
+; Information added by Drupal.org packaging script on 2015-03-25
+version = "7.x-3.x-dev"
+core = "7.x"
+project = "potx"
+datestamp = "1427302123"
+

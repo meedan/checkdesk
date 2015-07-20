@@ -20,7 +20,7 @@
     background-color: $color;
     position: absolute;
     top: 0px;
-    #{opposite-position($from-direction)}: 0;
+    #{$omega}: 0;
     line-height: $small-font-size;
     font-size: $smallest-font-size;
     color: #000000;
@@ -91,18 +91,11 @@ $drupal_fyre_selectors: ".fyre-editor", ".fyre-comment-stream", ".fyre-stream-so
 $drupal_form_selectors: ".item-list", ".form-item", ".form-actions", ".something", ".content form" ;
 
 // Mixin for all Drupal debugs
-@mixin debug_drupal($reports: true, $forms: true, $layout: true, $livefyre: true) {
+@mixin debug_drupal($reports: true, $forms: true, $layout: true) {
   @if $forms { @include debug_drupal_forms; }
   @if $reports { @include debug_drupal_reports; } 
   @if $layout { @include debug_drupal_layout; }
-  @if $livefyre { @include debug_livefyre; }
 }
-
-// ========================================================================
-// Third party debugs 
-
-// Livefyre debug
-// @mixin debug_livefyre { @include debug_by_selector($drupal_fyre_selectors); }
 
 // ========================================================================
 // Visualize Grid

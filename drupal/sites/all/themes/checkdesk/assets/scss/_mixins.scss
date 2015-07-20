@@ -1,51 +1,41 @@
+// Checkdesk Core Mixins
+// --------------------------------------------------
 
-// Building block
-// Layout helper
-// 
-// Useful for standardizing link or navigation item. 
-// There should be no margin or width specified on this.
-// Typography, resets, transitions, floated, block level, padded
-// with base font size and colors defined in colors.scss
-//
 
-// Layout Helper: Ensure padding is accounted for.
-//
-// Deprecated
-//
-// This is only necessary if you have not ste 
-@mixin span-padded-columns(
-  $width: $container-width, 
-  $context: $container-width, 
-  $from-pad: 0, 
-  $to-pad: 0) {
+// Responsive Mixin
+// This is a simple mixin for media queries as described
+// in Sass for Web Designers by Dan Cederholm
+// see _variables.scss for variables defining the breakpoints
 
-  $total-pad: $from-pad + $to-pad;
-  $adjusted-width: $width - $total-pad; // will prune the 'omega' shorthand ...
-
-  // Apply the adjusted width ...
-  @include span-columns($adjusted-width, $context);
-
-  // And add the padding
-  @include pad($from-pad, $to-pad, $context);
-
-  // optionally call with omega
-  @content;
+@mixin cd-responsive($query) {
+  @if $query == wide-screens {
+    @media only screen and (max-width: $width-wide) { @content; }
+  }
+  @else if $query == desktop-screens {
+    @media only screen and (max-width: $width-desktop) { @content; }
+  }
+  @else if $query == tablet-screens {
+    @media only screen and (max-width: $width-tablet) { @content; }
+  }
+  @else if $query == mobile-screens {
+    @media only screen and (max-width: $width-mobile) { @content; }
+  }
+  @else {
+    @media only screen and ($query) { @content; }
+  }
 }
-
-// text-shadow
-// see http://compass-style.org/reference/compass/css3/text-shadow/
-
-@mixin cd-dark-text-shadow($opacity: 0.5) { // use $white for dark backgrounds
+ 
+@mixin cd-dark-text-shadow($opacity: 0.5) { // use #fff for dark backgrounds
   @include text-shadow(rgba(black, 0.8) 0 1px 0);
 }
 
-@mixin cd-light-text-shadow($opacity: 0.5) { // use $white for dark backgrounds
+@mixin cd-light-text-shadow($opacity: 0.5) { // use #fff for dark backgrounds
   @include text-shadow(rgba(white, 0.8) 0 1px 0);
 }
 
 // Dropshadow
 @mixin cd-box-shadow() {
-  @include box-shadow(0px 1px 6px rgba($black, 0.2));
+  @include box-shadow(0px 1px 6px rgba(#000, 0.2));
 }
 
 // Main canvas background image
@@ -59,7 +49,7 @@
   border: $border-width solid $border-color;
 
   &:after, &:before {
-    #{opposite-position($from-direction)}: 100%;
+    #{$omega}: 100%;
     border: solid transparent;
     content: " ";
     height: 0;
@@ -69,14 +59,14 @@
   }
   &:after {
     border-color: rgba($background-color, 0);
-    border-#{opposite-position($from-direction)}-color: $background-color;
+    border-#{$omega}-color: $background-color;
     border-width: $arrow-size;
     top: 50%;
     margin-top: -$arrow-size;
   }
   &:before {
     border-color: rgba($border-color, 0);
-    border-#{opposite-position($from-direction)}-color: $border-color;
+    border-#{$omega}-color: $border-color;
     border-width: ($arrow-size + $border-width);
     top: 50%;
     margin-top: -($arrow-size + $border-width);
@@ -94,7 +84,7 @@
     padding: 3px;
     border: {top: 1px solid yellow; bottom: 1px solid yellow; }
     bottom: 0;
-    #{opposite-position($from-direction)}: 0;
+    #{$omega}: 0;
     font-size: $smaller-font-size;
   }
 }
@@ -152,13 +142,13 @@
   }
 }
 
+// Avatar styles
 @mixin cd-avatar($style: 'pulled-out', $top: 0, $indent: 0) {
-  position: absolute;
-  
   @if $style == 'pulled-out' {
+    position: absolute;
     float: $from-direction;
     top: $top; 
-    #{$from-direction}: $indent;
+    #{$alpha}: $indent;
   }
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -167,6 +157,72 @@
   background-position: center center;
   background-repeat: no-repeat;
   display: inline-block;
+  vertical-align: middle;
   @include border-radius(4px);
-  background-color: $firefly20;
+  background-color: #fff;
+}
+
+// Makes the scrollbar thin
+// used in search filters
+@mixin cd-simple-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+   
+  /* Track */
+  &::-webkit-scrollbar-track {
+    @include border-radius(2px);
+  }
+   
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    @include border-radius(2px);
+    background: $firefly20;
+  }
+  &::-webkit-scrollbar-thumb:window-inactive {
+    background: $firefly20;
+  }
+}
+
+// load more pager
+@mixin ctb-load-more-pager {
+  .pager-load-more {
+    @include ctb-clearfix;
+    @include reset-list-style;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    float: none;
+    clear: both;
+    position: relative;
+    text-align: center;
+    a {
+      display: inline-block;
+      width: 70%;
+      text-align: center;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      @if $from-direction == 'left' {
+        letter-spacing: 0.05em;
+      }
+      @include cd-sans-serif-family;
+      font-size: $small-font-size;
+      font-weight: 700;
+      color: $firefly40;
+      background-color: rgba(255,255,255,.8);
+      &:hover {
+        color: #fff;
+        background-color: $brand-primary;
+        border: 1px solid $brand-primary;
+      }
+      @include ctb-border-radius(4px);
+    }
+    .ajax-progress-throbber {
+      position: absolute;
+      top: 4px;
+      #{$omega}: $gutter-width;
+      .throbber {
+        background: url("../imgs/icons/loader_white.gif");
+      }
+    }
+  }
 }

@@ -1,0 +1,59 @@
+@charset "UTF-8";
+// Checkdesk Tabs
+//
+// div.tabs - the main tab container with ul.primary and ul.secondary inside
+//
+// Adds styles for the primary and secondary tabs. Compare this with default CSS found in the system module's stylesheet.
+
+// resuable resets and basic styles
+@include bb-tabs-reset;
+
+// Tab colors
+%tab-colors {
+  background-color: $tabs-bkg-color;
+  li.active a {
+    background-color: $tabs-active-bkg-color;
+    color: $tabs-active-color;
+  }
+  li a {
+    @include bb-transition($tabs-bkg-color, $tabs-active-bkg-color, '0.2s', 'background-color');  
+    &:hover {
+      color: $tabs-active-color;
+    }
+  }
+}
+
+$tab-padding: $gutter-width;
+
+// Tabs
+div.tabs {
+  @include reset-box-model;
+  @include ctb-clearfix;
+  padding: { top: $tab-padding; bottom: $tab-padding; }
+  
+  ul.primary {
+    @include reset-box-model;
+    @include ctb-clearfix;
+    font-size: $small-font-size;
+    font-weight: 300;
+    @extend %tab-colors;
+
+    li {
+      @include reset-box-model;
+      display: inline-block;
+      float: $from-direction;
+
+      &.active {
+        a {
+          display: inline-block;
+        }
+      }
+
+      a {
+        line-height: $absolute-line-height;
+        display: inline-block;
+        padding: { top: $gutter-width; bottom: $gutter-width; }
+      }
+    }
+  }
+}

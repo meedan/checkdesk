@@ -1,0 +1,288 @@
+// Incoming reports
+// 
+// A list of the incoming media submitted with the bookmarklet.
+#incoming-reports {
+  padding-#{$alpha}: $gutter-width*1.2;
+  padding-#{$omega}: $gutter-width*1.2;
+  font-size: $small-font-size;
+  color: $gray;
+  overflow-x: hidden;
+  overflow-y: auto;
+  
+  // while dragging
+  .ui-draggable-dragging {
+    width: 300px !important;
+    border: 3px solid rgb(239,202,43);
+    .report-row-container {
+      border: 3px solid rgb(239,202,43);
+      background-color: rgba(239,202,43,.1);
+    }
+  }
+}
+
+#incoming-reports .views-row-first {
+  margin-top: $absolute-line-height;
+}
+#incoming-reports .views-row-last {
+  margin-bottom: $absolute-line-height*2;
+}
+
+// Report filters
+// 
+// They control which reports are visible while you are using the incoming report stream.
+#incoming-reports-filters {
+  @extend %filters;
+}
+
+.view-desk-reports .filters-summary {
+  position: relative;
+  margin-top: $absolute-line-height/4;
+  border-top: 1px solid rgba($firefly,.02);
+  padding: $absolute-line-height/4 $gutter-width*2 $absolute-line-height/5;
+  font-size: $small-font-size;
+  @include cd-sans-serif-family;
+  color: $firefly40;
+  // Dropshadow for depth
+  &:before {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    width: 100%;
+    @include ctb-gradient-vertical(rgba($firefly,.02), rgba(255,255,255,0.0));
+  }
+}
+
+// no reports
+.view-desk-reports .view-empty {
+  clear: both;
+  float: $alpha;
+  font-style: italic;
+  padding: $absolute-line-height/4 $gutter-width*2 $absolute-line-height/5;
+  color: $firefly40;
+}
+
+.view-desk-reports form { margin-bottom: 0; }
+.view-desk-reports .pager-load-more {
+  border-top: 1px solid $firefly5;
+  &:before {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    top: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    width: 100%;
+    @include ctb-gradient-vertical(rgba(255,255,255,0.0), rgba($firefly,.02));
+  }
+}
+
+// incoming reports
+.report-row {
+  position: relative;
+  margin-bottom: $absolute-line-height/6;
+  border: 3px solid #fff;
+  // hide ajax throbber in dropdown
+  .ajax-progress-throbber {
+    display: none;
+  }
+
+  .report-row-container {
+    cursor: move;
+    border: 1px solid rgba($firefly, .2);
+    background-color: #fff;
+    @include cd-sans-serif-family;
+  }
+
+  .report-content {
+    @include ctb-clearfix;
+    padding: $absolute-line-height/3 $gutter-width 0;
+    // thumbnail type
+    .media-type-thumbnail {
+      max-width: 100%;
+      .media-thumbnail img {
+        @include ctb-opacity(.9);
+      }
+      .media-title {
+        margin: $absolute-line-height/4 0;
+        font-size: $small-font-size;
+        line-height: 1.1;
+        color: $firefly60;
+      }
+    } // thumbnail type
+
+    .media-type-rich {
+      & > div > a { display: none;}
+      // keeps embedded iframe
+      // inside sidebar
+      iframe {
+        min-width: 100% !important;
+        width: 100% !important;
+      }
+      .favicon, .domain, .author {
+        display: none;
+      }
+      // modifier class for gmaps
+      &.map {
+        iframe {
+          max-height: 250px;    
+        }
+      }
+      .oembed-rich {
+        pointer-events: none !important;
+      }
+    }
+    .media-type-fbpost {
+      .fb-post {
+        max-width: 100%;
+        overflow: hidden;
+        clear: both;
+      }
+
+      .rtl + script + .fb-post {
+        border-left: 1px solid #d3d6db;
+        & > span {
+          float: right;
+        }
+      }
+
+      .ltr + script + .fb-post {
+        border-right: 1px solid #d3d6db;
+        & > span {
+          float: left;
+        }
+      }
+
+      .oembed-title, .favicon, .domain, .author, .title, .title + div {
+        display: none;
+      }
+      
+      .oembed-video {
+        .oembed-content, .oembed-wrapper, iframe {
+          max-width: 271px !important;
+          max-height: 122px !important;
+        }
+      }
+    }
+
+  } // report content
+
+  .report-attributes {
+    @include ctb-clearfix;
+    padding: $absolute-line-height/4 $gutter-width;
+    border-top: 1px solid rgba($firefly, .1);
+    font-size: modular-scale(0) - modular-scale(-3); // 14px
+    display: block;
+    color: $firefly40;
+    background-color: rgba($firefly, .02);
+    cursor: move;
+    &:hover {
+      background-color: rgba($firefly, .05);
+    }
+    &:active { 
+      background-color: lighten($link-color, 40); 
+      color: $firefly60;
+    }
+    .report-meta {
+      float: $alpha;
+      color: $firefly40;
+
+      .favicon,
+      .report-created-at {
+        display: inline-block;
+      }
+
+      .favicon {
+        img { 
+          width: 16px; 
+          vertical-align: text-top;
+        }
+      }
+    }
+    .report-status {
+      float: $omega;
+    }
+  }
+
+  // hover
+  &:hover {
+    border: 3px solid rgb(239,202,43);
+    .report-row-container {
+      border: 1px solid rgb(239,202,43);
+    } 
+    .report-content .media-thumbnail img {
+      @include ctb-opacity(1);
+    }
+
+  } // hover
+
+  // status icons
+  .verified {
+    color: rgba(0,140,0,1);
+    background-color: rgba(0,140,0,.2);
+    span { @include icon(check-circle, 16px); }
+  }
+  .false {
+    color: $red;
+    background-color: lighten($red, 50%);
+    span { @include icon(times-circle, 16px); }
+  }
+  .undetermined {
+    color: darken($orange, 10%);
+    background-color: lighten($orange, 30%);
+    span { @include icon(question-circle, 16px); }
+  }
+  .in_progress {
+    color: rgba(239,202,43,1);
+    background-color: rgba(239,202,43,.2);
+    span { @include icon(refresh, 16px); }
+  }
+
+  // report published on an update
+  .report-published {
+    position: absolute;
+    top: 0;
+    #{$alpha}: auto;
+    #{$omega}: 0;
+    z-index: 2; // over the report thumbnail
+    height: 54px; // background image height
+    width: 51px; // background image width
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    @if $alpha == 'left' {
+      background-image: url(../imgs/published.png);
+    }
+    @if $alpha == 'right' {
+      background-image: url(../imgs/published-ar.png);
+    }
+    // @include icon(file-o, 22px, #000, 'after');
+
+    span {
+      display: none;
+    }
+  }
+} // report row
+
+//
+// CTools modal report
+//
+#modalContent.modal-report {
+  z-index: $z-index-Modal;
+  .modal {
+    background-color: $thatch5;
+  }
+}
+// Fixed only for normal screen sizes
+@media all and (min-height: 40em) {
+  #modalContent.modal-report {
+    position: fixed !important;
+    top: 200px !important;
+  }
+}
+
+

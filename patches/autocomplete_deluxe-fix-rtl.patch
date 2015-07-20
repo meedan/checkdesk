@@ -1,0 +1,46 @@
+diff --git a/drupal/sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.js b/drupal/sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.js
+index 0bca13d..0d52576 100755
+--- a/drupal/sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.js
++++ b/drupal/sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.js
+@@ -202,11 +202,23 @@
+         }
+       });
+     };
+-
+-    this.jqObject.autocomplete({
+-      'source' : this.source,
+-      'minLength': settings.min_length
+-    });
++    
++    // Add position property for RTL
++    if(Drupal.settings.language.direction == "0") {
++      this.jqObject.autocomplete({
++        'source' : this.source,
++        'minLength': settings.min_length,
++      });
++    } else {
++      this.jqObject.autocomplete({
++        'source' : this.source,
++        'minLength': settings.min_length,
++        'position': {
++          my : "right top",
++          at: "right bottom"
++        }
++      });
++    }
+ 
+     var jqObject = this.jqObject;
+ 
+diff --git a/drupal/sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.module b/drupal/sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.module
+index a1efa26..7808aa8 100755
+--- a/drupal/sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.module
++++ b/drupal/sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.module
+@@ -283,7 +283,7 @@ function autocomplete_deluxe_element_process($element) {
+     'min_length' => isset($element['#min_length']) ? $element['#min_length'] : 0,
+     'use_synonyms' => isset($element['#use_synonyms']) ? $element['#use_synonyms'] : 0,
+     'delimiter' => isset($element['#delimiter']) ? $element['#delimiter'] : '',
+-    'not_found_message' => isset($element['#not_found_message']) ? $element['#not_found_message'] : "The term '@term' will be added.",
++    'not_found_message' => isset($element['#not_found_message']) ? t($element['#not_found_message']) : t("The term '@term' will be added."),
+   );
+ 
+   if (isset($element['#autocomplete_deluxe_path'])) {

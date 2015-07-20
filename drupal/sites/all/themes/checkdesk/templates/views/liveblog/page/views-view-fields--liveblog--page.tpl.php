@@ -12,10 +12,8 @@
     );
     $user_avatar = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($user->name)), 'style_name' => 'navigation_avatar')), 'user/'. $user->uid, $options);
   }
-  $author = t('<a class="contributor" href="@user">!user</a>', array(
-    '@user' => url('user/'. $user->uid),
-    '!user' => $user->name,
-  ));
+
+  $author = _checkdesk_story_authors($fields['nid']->raw);
   
   // get timezone information to display in timestamps e.g. Cairo, Egypt
   $site_timezone = checkdesk_get_timezone();
@@ -29,6 +27,16 @@
 <div class="desk" id="desk-<?php print $fields['nid']->raw; ?>" style="clear: both;">
   <article class="story">
 
+    <?php if(isset($fields['uri']->raw)) { ?>
+      <figure class="media-lead">
+        <?php print l(_checkdesk_generate_lead_image($fields['uri']->raw, NULL), 'node/' . $fields['nid']->raw, array(
+      'html' => TRUE)); ?>
+        <?php if(isset($fields['caption']->content)) { ?>
+          <figcaption><?php print check_markup($fields['caption']->raw, 'filtered_html'); ?></figcaption>
+        <?php } ?>
+      </figure>
+    <?php } ?>
+
     <h1><?php print l($fields['title']->raw, 'node/' . $fields['nid']->raw); ?></h1>
 
     <div class="story-meta">
@@ -41,24 +49,17 @@
             </a>
           </div>
         <?php } ?>
+        <?php if (isset($follow_story)) { ?>
+          <div class="story-follow">
+            <?php print $follow_story; ?>
+          </div>
+        <?php } ?>
       </div>
     </div>
 
     <div class="story-body">
       <?php print render($fields['body']->content); ?>
     </div>
-
-    <?php if (isset($follow_story)) : ?>
-      <div class="story-follow">
-        <?php print $follow_story; ?>
-      </div>
-    <?php endif; ?>
-
-    <?php if(isset($fields['field_lead_image']->content)) { ?>
-      <figure>
-        <?php print render($fields['field_lead_image']->content); ?>
-      </figure>
-    <?php } ?>
 
     <div class="story-updates-wrapper">
       <?php print $updates; ?>

@@ -1,0 +1,361 @@
+@charset "UTF-8";
+// // Variables forked from compass-twitter-bootstrap variables.scss
+// // To reset to defaults delete this file and do
+// // @import compass_twitter_bootstrap/variables;
+// //
+// // for info on compass configuration see
+// // http://compass-style.org/help/tutorials/configurable-variables/
+
+
+// Typography configuration
+//
+// See also typography.scss and bowerbird/typography.scss
+//
+// @import "compass/css3/font-face";
+// @import "bowerbird/typography";
+// @import "fonts";
+
+// Compass utility configuration
+//
+// vertical baseline support
+// http://compass-style.org/reference/compass/typography/vertical_rhythm/
+// $round-to-nearest-half-line: true !default;
+// $relative-font-sizing: false !default;
+$relative-line-height: 1.5 !default;
+$absolute-line-height: 24px !default;
+// $line-height-base: $absolute-line-height !default; // for compass calculations only
+
+//== Breakpoints
+//
+//## Three breakpoints for use in media queries
+
+$width-mobile: 							375px;
+$width-tablet: 							740px;
+$width-desktop: 						980px;
+$width-wide: 								1300px;
+$width-mobile-landscape: 		480px;
+
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+$body-bg:               #fff !default;
+//** Global text color on `<body>`.
+$text-color:            $gray-dark !default;
+
+//** Global textual link color.
+$link-color:            $brand-primary !default;
+//** Link hover color set via `darken()` function.
+$link-hover-color:      darken($link-color, 15%) !default;
+//** Link hover decoration.
+$link-hover-decoration: underline !default;
+
+
+
+// Checkdesk layout sections
+$sidebar-width: 4; // default sidebar width
+$gutter-width: 15px; // The distance between grid columns
+$column-width: 25px; // The width of columns
+$grid-padding: 10px; // The padding on the sides of the outer <container>
+
+// Modular scale setup
+//
+// Font sizes based on the modular-scale calculations.
+// http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
+//
+$base-size: 18px 1168px; // Two scales based on original photoshop proportions
+$round_pixels: true; //don't return fractional px
+
+// Modular scale-based typography
+$smallest-font-size:  7px; // -2
+$smaller-font-size:   11px; // -1
+$small-font-size:     15px; // -0.5
+$base-font-size:      18px; // 0 
+$large-font-size:     20px; // 0.5
+$larger-font-size:    25px; // 1
+$x-large-font-size:   29px; // 2
+$xx-large-font-size:  40px; // 3
+$xxx-large-font-size: 47px; // 4
+$largest-font-size:   65px; // 5
+
+// Main sections
+// =============================================================================
+
+// Navigation
+$nav-font-size: 14px;
+$nav-icon-height: 15px;
+$nav-line-height: $nav-icon-height;
+$nav-height: $nav-icon-height + 7*2;
+$nav-gutter: 11px;
+
+// Notifications
+$notification-dropdown-width: modular-scale(11);
+$notification-width: 5;
+$notification-icon-size: $small-font-size;
+$notification-image-width: 5%;
+$notifications-icon-selector: '.heartbeat-time-ago';
+
+// Based on twitter bootstrap
+// Do not change these
+$z-index-Dropdown:          900 !default;
+$z-index-Popover:           910 !default;
+$z-index-Tooltip:           920 !default;
+$z-index-FixedHeader:       920 !default;
+$z-index-FixedNavbar:       930 !default;
+$z-index-ModalBackdrop:     940 !default;
+$z-index-Modal:             950 !default;
+
+// Reports
+$report-width-px: 400px; // for grid view, don't use columns or percents for now
+
+// Install Bookmarklet
+$install-bookmarklet-abs-width: 600px;
+
+// Forms
+// =============================================================================
+$checkbox-width: 25px;
+
+// Misc Values
+// =============================================================================
+
+// Standardize our box-radius
+$radius: 4px;
+
+
+// Debugger
+// =============================================================================
+// debug mode for @debug statements and other sass debuggers
+$debug: true !default;
+
+
+
+// // Typography
+// //
+// // Overriden where appropriate with values from checkdesk. - Nov 2012 CGB
+// // -------------------------
+// $sansFontFamily: $body-font-stack;
+// $serifFontFamily: $header-font-stack;
+// $monoFontFamily: $mono-font-stack;
+
+// $base-font-size:          $base-font-size !default;
+// $baseFontFamily:        $body-font-stack !default;
+// $altFontFamily:         $header-font-stack !default;
+
+// $headingsFontFamily:    inherit !default; // empty to use BS default, $baseFontFamily
+// $headingsFontWeight:    bold !default;    // instead of browser default, bold
+// $headingsColor:         inherit !default; // empty to use BS default, $textColor
+
+// // Component sizing
+// // -------------------------
+// // Based on 14px font-size and 20px line-height
+
+// Depracated
+// 
+// to #review and #remove
+// we should only use variables in base — CGB
+$font-size-base:          18px !default;
+$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
+
+$font-size-h1:            floor(($font-size-base * 2.6)) !default; // ~36px
+$font-size-h2:            floor(($font-size-base * 2.15)) !default; // ~30px
+$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
+$font-size-h4:            ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-h5:            $font-size-base !default;
+$font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+$line-height-base:        1.428571429 !default; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+$line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
+
+//** By default, this inherits from the `<body>`.
+$headings-font-family:    inherit !default;
+$headings-font-weight:    500 !default;
+$headings-line-height:    1.1 !default;
+$headings-color:          inherit !default;
+
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+$padding-base-vertical:     6px !default;
+$padding-base-horizontal:   16px !default;
+
+$padding-large-vertical:    10px !default;
+$padding-large-horizontal:  20px !default;
+
+$padding-small-vertical:    5px !default;
+$padding-small-horizontal:  10px !default;
+
+$padding-xs-vertical:       1px !default;
+$padding-xs-horizontal:     5px !default;
+
+$line-height-large:         1.3333333 !default; // extra decimals for Win 8.1 Chrome
+$line-height-small:         1.5 !default;
+
+$border-radius-base:        4px !default;
+$border-radius-large:       6px !default;
+$border-radius-small:       3px !default;
+
+//== Forms
+//
+//##
+
+//** `<input>` background color
+$input-bg:                       #fff !default;
+//** `<input disabled>` background color
+$input-bg-disabled:              $gray-lighter !default;
+
+//** Text color for `<input>`s
+$input-color:                    $gray !default;
+//** `<input>` border color
+$input-border:                   #ccc !default;
+
+// TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
+//** Default `.form-control` border radius
+// This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
+$input-border-radius:            $border-radius-base !default;
+//** Large `.form-control` border radius
+$input-border-radius-large:      $border-radius-large !default;
+//** Small `.form-control` border radius
+$input-border-radius-small:      $border-radius-small !default;
+
+//** Border color for inputs on focus
+$input-border-focus:             #66afe9 !default;
+
+//** Placeholder text color
+$input-color-placeholder:        #999 !default;
+
+//** Default `.form-control` height
+$input-height-base:              ($line-height-computed + ($padding-base-vertical * 2) + 2) !default;
+//** Large `.form-control` height
+$input-height-large:             (ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2) !default;
+//** Small `.form-control` height
+$input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2) !default;
+
+//** `.form-group` margin
+$form-group-margin-bottom:       15px !default;
+
+$legend-color:                   $gray-dark !default;
+$legend-border-color:            #e5e5e5 !default;
+
+//** Background color for textual input addons
+$input-group-addon-bg:           $gray-lighter !default;
+//** Border color for textual input addons
+$input-group-addon-border-color: $input-border !default;
+
+//** Disabled cursor for form controls and buttons.
+$cursor-disabled:                not-allowed !default;
+
+// // Hr border color
+// // -------------------------
+// $hrBorder:                $gray-lighter !default;
+
+
+// // Navbar
+// // -------------------------
+// $navbarCollapseWidth:             979px !default;
+
+$navbarHeight:                    38px !default;
+$navbarWidth:                     	60px !default;
+$headerHeight:											65px !default;
+// $navbarBackgroundHighlight:       $dark-greyer !default;
+// $navbarBackground:                $dark-greyer;
+// $navbarBorder:                    darken($navbarBackground, 12%) !default;
+
+// $navbarText:                      $gray-light !default;
+// $navbarLinkColor:                 $gray-light !default;
+// $navbarLinkColorHover:            #fff !default;
+// $navbarLinkColorActive:           #fff !default;
+// $navbarLinkBackgroundHover:       transparent !default;
+// $navbarLinkBackgroundActive:      darken($navbarBackground, 5%) !default;
+
+// Drupal admin toolbar and drawer
+$toolbarMenuHeight:				  30px;
+$drawerMenuHeight:				  35px;
+$toolbarHeight:					  $toolbarMenuHeight + $drawerMenuHeight;
+
+// Backgrounds
+$cream_dust: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAD1BMVEX9/f35+fn8/Pz7+/v6+vreGhydAAACQUlEQVQYGQXBAY0EMAhFwWYdkEXABWpgAQP0P/+abuaYV8QY6xp15LquT1MH1LNgDq666z3eQZ2Xa2Yv1xznDaTZi+xTY2YGawBqaHgZfXoNMzNzvausaUXWVB6a7lkwNACAGvoQEZG8WdcAAErgTATvKgaULDBoKjldybuKabwBvIGXHKAiRijBYI0xAx2A7oVKsAcwC+ismTlmL+Z7eUOieVccAB94kS956wAvR0foeoM6IuatGY5idKD53hWK1GgBXQ0c80HjWsWlBw11hfkBLlCrSDQExMD6ASXAvkjUHSgHLQe64q55fS5T0XTNCg5kN7DK8e4e0PCo0zTmaAGvnzADxfydBmChgfqBOQCcXHPWTDHeNeYGYHAKWHNIFCOge0T1KYB1aF6MgIh5t/I0482a17yrWfP43BcxBwAAqIvWiA+a5ph5oqlckn3rimtm2DE8gQpQzbugyxocg2T9xaC4L8EHQMeDu2hA+S4AwLoOwTgFKN8FA2Dp0wGqAQAQwLKVJxtXLw0MNO2sWeVJDFgr+N59Q3tizpyBAVaDD3RnN2ZwFq7zlsDRvojoMTOdBXxZ1KOBSOrC1lkwBwPdd6GuVyLiAKauLUDRFK5LZRwYV/YWQA3garrrmJK4UEtcFvDRBY4JNVDQOCzkuwvH8B57U4mZv1gUcVccAKgl10wRQMRAnRigYr3X7EVMEzFOnBjMFblgPhUxqGbVpwdDkeugeRE99FBzqOsVMRi6UJFdCcGhxyviAgwohhdL8w9WegM3i2rjpwAAAABJRU5ErkJggg==);
+$striped_lens: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
+
+// Checkdesk logo
+$checkdesk_logo: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAYAAAA4E5OyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtxJREFUeNrsm99tGkEQxtfIBVwJLoEOjCtIeMhLXuDSQHAF4AqwG4jxS17yAKkAXIHpANIB6SAzyod0OSXkbmb/3Wk+aXUygjv045vZmd21c6Y/dJXioV++fruhy4gGX28vvPVI4weN3aePH3a9AgIIn2m8BwiJNjS+85UAnToJhECwE+ZwhC8xjCcaj77BXAUEUdBlSWMakDfDuCcoq6yBwBVrGkWkiORQKn24ZRAABjtiGxGGQ17a0rOHWTmEvtBz4BBpEkJ35JR9cocQjEViGA6uVDll4DFM5pnUVgxlkixkUF+8Rc4Zl7SikClTOmTdFxisa6U7ZnTRZvZz9bmvJkPkgSFK+2kMGKqQQeF1ULhjg6Lq2DAsl5heg8HQOmSmgFG2qS4BbQxHLkPB0OaQSQwYNTCP/PnKSzufMMRAUJpLOlZ134HPMwTON+Msul0CskTItBH/mncuc0lDRtLKP7gOSAqk7VS7j7XiFR2IsE94cR2RxCGSqXbXZyCtZxdNO95LIF3SwJkMiG8gRwOiBIJSv7dAJEv9w94CEU6hkz47xKHTbOWQEGGDhaMsgEgqz7lnGAz44Bu0FMirpEPGipcPGJyT1vhz7WPH7izNmupBWLWWmkUirOVua4lavWPnozCTdrDP2NiSOuPtL7NWgfsWKR0Sc9WdnzFrkIf2cMopOhB80YWHZHlpX4ZD8p37vf3QFLxqqVILpICFc+uAxVsTquYO1ixdfprCvfG7XayV5raAfEIoxg2ZWvikPixT1Zh+qE0Sh1ScwqGzygBGKYXh1SEZOOWkheHVITWn3EeGca4/NtobhTynynUEb3mOArviiUAsfN0wxknmKYq3G88g2A0PTSrdrIDU2vVJy6rzX1Vtd8+6XwinEcDc/ic3/HQR/xvCZDKZTCaTyWTKU61K9y4da6iW/236nraH/7cdBMJbEo37IDtSZUAMiAExIAbEgBiQVPolwADU0ge4blzsIgAAAABJRU5ErkJggg==);
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-font-weight:                normal !default;
+
+$btn-default-color:              $firefly60 !default;
+$btn-default-bg:                 transparent !default;
+$btn-default-border:             $firefly20 !default;
+
+$btn-primary-color:              #fff !default;
+$btn-primary-bg:                 $brand-primary !default;
+$btn-primary-border:             darken($btn-primary-bg, 5%) !default;
+
+$btn-success-color:              $green !default;
+$btn-success-bg:                 transparent !default;
+$btn-success-border:             $green !default;
+
+$btn-info-color:                 #fff !default;
+$btn-info-bg:                    $firefly40 !default;
+$btn-info-border:                darken($btn-info-bg, 5%) !default;
+
+$btn-warning-color:              #fff !default;
+$btn-warning-bg:                 $orange !default;
+$btn-warning-border:             darken($btn-warning-bg, 5%) !default;
+
+$btn-danger-color:               lighten($red, 20%) !default;
+$btn-danger-bg:                  transparent !default;
+$btn-danger-border:              lighten($red, 30%) !default;
+
+$btn-link-disabled-color:        $firefly40 !default;
+
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius-base:         $border-radius-base !default;
+$btn-border-radius-large:        $border-radius-large !default;
+$btn-border-radius-small:        $border-radius-small !default;
+
+
+
+// // GRID
+// // --------------------------------------------------
+
+
+// // Default 940px grid
+// // // -------------------------
+// $gridColumns:             $total-width !default;
+// $gridColumnWidth:         $column-width !default;
+// $gridGutterWidth:         $gutter-width !default;
+// $gridRowWidth:            ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1)) !default;
+
+// // Horizontal forms & lists
+// // -------------------------
+// $horizontalComponentOffset:       180px !default;
+
+// $placeholderText:         $gray-light !default;
+
+
+// // Tooltips and popovers
+// // -------------------------
+// $tooltipColor:            #fff !default;
+// $tooltipBackground:       #000 !default;
+// $tooltipArrowWidth:       5px !default;
+// $tooltipArrowColor:       $tooltipBackground !default;
+
+// $popoverBackground:       #fff !default;
+// $popoverArrowWidth:       10px !default;
+// $popoverArrowColor:       #fff !default;
+// $popoverTitleBackground:  darken($popoverBackground, 3%) !default;
+
+// // Special enhancement for popovers
+// $popoverArrowOuterWidth:  $popoverArrowWidth + 1 !default;
+// $popoverArrowOuterColor:  rgba(0,0,0,.25) !default;
+

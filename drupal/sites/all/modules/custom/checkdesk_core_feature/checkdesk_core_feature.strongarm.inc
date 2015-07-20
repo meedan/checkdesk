@@ -36,6 +36,13 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'chosen_use_theme';
+  $strongarm->value = 0;
+  $export['chosen_use_theme'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'clientside_validation_default_settings';
   $strongarm->value = array(
     'validate_options' => array(
@@ -355,6 +362,83 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_alert';
+  $strongarm->value = 0;
+  $export['extlink_alert'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_alert_text';
+  $strongarm->value = 'This link will take you to an external web site.';
+  $export['extlink_alert_text'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_class';
+  $strongarm->value = 0;
+  $export['extlink_class'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_css_exclude';
+  $strongarm->value = 'div.modal-dialog-actions';
+  $export['extlink_css_exclude'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_css_explicit';
+  $strongarm->value = '';
+  $export['extlink_css_explicit'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_exclude';
+  $strongarm->value = '';
+  $export['extlink_exclude'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_img_class';
+  $strongarm->value = 0;
+  $export['extlink_img_class'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_include';
+  $strongarm->value = '';
+  $export['extlink_include'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_mailto_class';
+  $strongarm->value = 0;
+  $export['extlink_mailto_class'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_subdomains';
+  $strongarm->value = 1;
+  $export['extlink_subdomains'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'extlink_target';
+  $strongarm->value = '_blank';
+  $export['extlink_target'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'fboauth_user_connections';
   $strongarm->value = array(
     0 => 'posts',
@@ -386,9 +470,24 @@ return _checkdesk_core_auto_title($node);
         'custom_settings' => FALSE,
       ),
       'search_index' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'search_result' => array(
+        'custom_settings' => FALSE,
+      ),
+      'meedan_oembed' => array(
+        'custom_settings' => TRUE,
+      ),
+      'checkdesk_collaborate' => array(
+        'custom_settings' => TRUE,
+      ),
+      'checkdesk_search' => array(
+        'custom_settings' => TRUE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'token' => array(
         'custom_settings' => FALSE,
       ),
     ),
@@ -398,10 +497,10 @@ return _checkdesk_core_auto_title($node);
           'weight' => '0',
         ),
         'metatags' => array(
-          'weight' => '5',
+          'weight' => '6',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '5',
         ),
       ),
       'display' => array(),
@@ -425,7 +524,7 @@ return _checkdesk_core_auto_title($node);
         'custom_settings' => FALSE,
       ),
       'search_index' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'search_result' => array(
         'custom_settings' => FALSE,
@@ -441,6 +540,9 @@ return _checkdesk_core_auto_title($node);
       ),
       'diff_standard' => array(
         'custom_settings' => FALSE,
+      ),
+      'checkdesk_search' => array(
+        'custom_settings' => TRUE,
       ),
     ),
     'extra_fields' => array(
@@ -477,6 +579,14 @@ return _checkdesk_core_auto_title($node);
             'weight' => '10',
             'visible' => TRUE,
           ),
+          'checkdesk_search' => array(
+            'weight' => '9',
+            'visible' => FALSE,
+          ),
+          'search_index' => array(
+            'weight' => '10',
+            'visible' => FALSE,
+          ),
         ),
         'flag_factcheck_journalist' => array(
           'checkdesk_collaborate' => array(
@@ -498,6 +608,14 @@ return _checkdesk_core_auto_title($node);
           'meedan_oembed' => array(
             'weight' => '10',
             'visible' => TRUE,
+          ),
+          'checkdesk_search' => array(
+            'weight' => '8',
+            'visible' => FALSE,
+          ),
+          'search_index' => array(
+            'weight' => '10',
+            'visible' => FALSE,
           ),
         ),
         'flag_spam' => array(
@@ -521,6 +639,14 @@ return _checkdesk_core_auto_title($node);
             'weight' => '10',
             'visible' => TRUE,
           ),
+          'checkdesk_search' => array(
+            'weight' => '10',
+            'visible' => FALSE,
+          ),
+          'search_index' => array(
+            'weight' => '10',
+            'visible' => FALSE,
+          ),
         ),
         'flag_graphic' => array(
           'checkdesk_collaborate' => array(
@@ -542,6 +668,14 @@ return _checkdesk_core_auto_title($node);
           'meedan_oembed' => array(
             'weight' => '10',
             'visible' => TRUE,
+          ),
+          'checkdesk_search' => array(
+            'weight' => '7',
+            'visible' => FALSE,
+          ),
+          'search_index' => array(
+            'weight' => '10',
+            'visible' => FALSE,
           ),
         ),
         'flag_factcheck' => array(
@@ -565,6 +699,14 @@ return _checkdesk_core_auto_title($node);
             'weight' => '10',
             'visible' => TRUE,
           ),
+          'checkdesk_search' => array(
+            'weight' => '5',
+            'visible' => FALSE,
+          ),
+          'search_index' => array(
+            'weight' => '10',
+            'visible' => FALSE,
+          ),
         ),
         'flag_delete' => array(
           'checkdesk_collaborate' => array(
@@ -586,6 +728,14 @@ return _checkdesk_core_auto_title($node);
           'meedan_oembed' => array(
             'weight' => '10',
             'visible' => TRUE,
+          ),
+          'checkdesk_search' => array(
+            'weight' => '6',
+            'visible' => FALSE,
+          ),
+          'search_index' => array(
+            'weight' => '10',
+            'visible' => FALSE,
           ),
         ),
       ),
@@ -632,9 +782,24 @@ return _checkdesk_core_auto_title($node);
         'custom_settings' => FALSE,
       ),
       'search_index' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'search_result' => array(
+        'custom_settings' => FALSE,
+      ),
+      'meedan_oembed' => array(
+        'custom_settings' => TRUE,
+      ),
+      'checkdesk_collaborate' => array(
+        'custom_settings' => TRUE,
+      ),
+      'checkdesk_search' => array(
+        'custom_settings' => TRUE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'token' => array(
         'custom_settings' => FALSE,
       ),
     ),
@@ -774,8 +939,43 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'language_content_type_discussion';
+  $strongarm->name = 'l10n_update_check_disabled';
   $strongarm->value = '0';
+  $export['l10n_update_check_disabled'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'l10n_update_check_frequency';
+  $strongarm->value = '0';
+  $export['l10n_update_check_frequency'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'l10n_update_check_mode';
+  $strongarm->value = '3';
+  $export['l10n_update_check_mode'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'l10n_update_download_store';
+  $strongarm->value = 'sites/all/translations';
+  $export['l10n_update_download_store'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'l10n_update_import_mode';
+  $strongarm->value = '2';
+  $export['l10n_update_import_mode'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_discussion';
+  $strongarm->value = '1';
   $export['language_content_type_discussion'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -939,40 +1139,13 @@ return _checkdesk_core_auto_title($node);
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_facebook_comments_types';
   $strongarm->value = array(
-    'post' => 0,
     'discussion' => 'discussion',
     'media' => 0,
     'page' => 0,
+    'post' => 0,
     'article' => 0,
   );
   $export['meedan_facebook_comments_types'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_livefyre_lazy_load_comments';
-  $strongarm->value = 1;
-  $export['meedan_livefyre_lazy_load_comments'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_livefyre_siteid';
-  $strongarm->value = '315968';
-  $export['meedan_livefyre_siteid'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_livefyre_types';
-  $strongarm->value = array(
-    'post' => 0,
-    'discussion' => 'discussion',
-    'media' => 0,
-    'page' => 0,
-    'article' => 0,
-  );
-  $export['meedan_livefyre_types'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -1127,6 +1300,62 @@ return _checkdesk_core_auto_title($node);
   $strongarm->name = 'menu_parent_report';
   $strongarm->value = 'main-menu:0';
   $export['menu_parent_report'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'metatag_enable_node';
+  $strongarm->value = TRUE;
+  $export['metatag_enable_node'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'metatag_enable_node__discussion';
+  $strongarm->value = TRUE;
+  $export['metatag_enable_node__discussion'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'metatag_enable_node__media';
+  $strongarm->value = TRUE;
+  $export['metatag_enable_node__media'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'metatag_enable_node__page';
+  $strongarm->value = TRUE;
+  $export['metatag_enable_node__page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'modal_forms_login';
+  $strongarm->value = 1;
+  $export['modal_forms_login'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'modal_forms_login_links';
+  $strongarm->value = '2';
+  $export['modal_forms_login_links'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'modal_forms_password';
+  $strongarm->value = 1;
+  $export['modal_forms_password'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'modal_forms_register';
+  $strongarm->value = 1;
+  $export['modal_forms_register'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -1344,6 +1573,13 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'save_draft_enabled_discussion';
+  $strongarm->value = 1;
+  $export['save_draft_enabled_discussion'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'save_draft_enabled_post';
   $strongarm->value = 1;
   $export['save_draft_enabled_post'] = $strongarm;
@@ -1351,9 +1587,40 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'save_draft_skip_required_discussion';
+  $strongarm->value = 0;
+  $export['save_draft_skip_required_discussion'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'save_draft_skip_required_post';
   $strongarm->value = 0;
   $export['save_draft_skip_required_post'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'search_active_modules';
+  $strongarm->value = array(
+    'node' => 'node',
+    'user' => 0,
+  );
+  $export['search_active_modules'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'search_cron_limit';
+  $strongarm->value = '100';
+  $export['search_cron_limit'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'search_default_module';
+  $strongarm->value = 'node';
+  $export['search_default_module'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -1684,13 +1951,6 @@ password: Your password
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'user_registrationpassword_registration';
-  $strongarm->value = '2';
-  $export['user_registrationpassword_registration'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'user_registrationpassword_user_mail_status_activated_body_original';
   $strongarm->value = '[user:name],
 
@@ -1752,10 +2012,19 @@ password: Your password
   $strongarm->api_version = 1;
   $strongarm->name = 'variable_realm_list_language';
   $strongarm->value = array(
-    0 => 'site_name',
-    1 => 'site_slogan',
-    2 => 'theme_[theme]_settings',
-    3 => 'checkdesk_site_owner',
+    0 => 'r4032login_access_denied_message',
+    1 => 'site_name',
+    2 => 'site_slogan',
+    3 => 'user_mail_register_admin_created_[mail_part]',
+    4 => 'user_mail_register_no_approval_required_[mail_part]',
+    5 => 'user_mail_register_pending_approval_[mail_part]',
+    6 => 'user_mail_password_reset_[mail_part]',
+    7 => 'user_mail_status_activated_[mail_part]',
+    8 => 'user_mail_status_blocked_[mail_part]',
+    9 => 'user_mail_cancel_confirm_[mail_part]',
+    10 => 'user_mail_status_canceled_[mail_part]',
+    11 => 'user_registrationpassword_register_[mail_part]',
+    12 => 'checkdesk_site_owner',
   );
   $export['variable_realm_list_language'] = $strongarm;
 

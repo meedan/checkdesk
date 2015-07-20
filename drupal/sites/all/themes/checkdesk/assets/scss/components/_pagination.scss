@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+ul.pager { 
+ margin-top: 1em;
+ float: $from-direction;
+ clear: both;
+
+  // TBD this is breaking something in the js — CGB
+
+//   @include border-radius(3px);
+  
+//   li:last-child {
+//     border-#{$alpha}-width: 0;
+//   }
+//   li {
+//  
+//     font-size: $large-font-size;
+//     border-#{$alpha}: 1px solid $grey;
+//     a { 
+//       @include building-block(#000);
+//       padding: $base-font-size; 
+//       color: $brand-primary;
+//     }
+//     &.pager-current {
+//       @include building-block($brand-primary);
+//       color: $firefly;
+//       padding: $base-font-size; // hack ... the markup is uneven
+//     }
+//   }
+}  
+
+//
+// From drupal pager
+// --------------------------------------------------
+
+.pager {
+  @include reset-box-model;
+  @include reset-list-style;
+  @include ctb-clearfix;
+  margin: $absolute-line-height 0;
+  font-size: $font-size-small;
+
+  li {
+    display: inline;
+    margin: 0 2px 0 0;
+    padding: 0;
+    & > a, 
+    & > span {
+      display: inline-block;
+      padding: 5px 14px;
+      background-color: #fff;
+      border: 1px solid $gray-lighter;
+      @include ctb-border-radius(15px);
+    }
+    & > a:hover {
+      color: $gray;
+      text-decoration: none;
+      background-color: darken($gray-lighter, 1%);
+    }
+  }
+
+  .next > a,
+  .pager .next > span {
+    float: right;
+  }
+
+  .previous > a,
+  .previous > span {
+    float: left;
+  }
+  .disabled > a,
+  .disabled > a:hover,
+  .disabled > span {
+    color: $gray-light;
+    background-color: #fff;
+    cursor: default;
+  }
+}

@@ -94,7 +94,7 @@ function meedan_oembed_twitter_handler($provider, $url) {
     }
     $embed->title = 'Twitter / ' . $embed->author_name . ': ' . $text;
     $embed->original_url = $url;
-    $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
+    $embed->favicon_link = _meedan_oembed_fetch_favicon($embed->original_url);
     $embed->provider = $provider;
 
     $tagname = 'p';

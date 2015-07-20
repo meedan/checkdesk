@@ -17,7 +17,7 @@ function metatag_token_info() {
 
   $metatag_info = metatag_get_info();
 
-  foreach($metatag_info['tags'] as $value) {
+  foreach ($metatag_info['tags'] as $value) {
     $info['tokens']['metatag'][$value['name']] = array(
       'name' => $value['label'],
       'description' => $value['description']
@@ -104,6 +104,8 @@ function metatag_token_generate_array($entity, $entity_type, $bundle) {
       }
     }
     $metatags += metatag_config_load_with_defaults($instance);
+    // Process it for entity metatag replacement to avoid infinite recursion.
+    $metatags = _metatag_token_process_metatag($metatags, $token_type);
 
     $result = array();
     foreach ($metatags as $metatag => $data) {
@@ -115,4 +117,88 @@ function metatag_token_generate_array($entity, $entity_type, $bundle) {
   }
 
   return NULL;
+}
+
+/**
+ * Loop through metatags to avoid recursion on entity tokens. It will replace
+ * entity metatag token to its actual entity metatag field value.
+ *
+ * @param array $metatags
+ *   An array of entity metatag tokens.
+ * @param string $token_type
+ *   The entity token type, such as 'node' or 'term'.
+ *
+ * @return array
+ *   Return metatags array with entity metatag tokens replaced.
+ */
+function _metatag_token_process_metatag($metatags, $token_type) {
+  foreach ($metatags as $metatag => $data) {
+    // Skip values that are not strings.
+    if (!is_string($data['value'])) {
+      continue;
+    }
+
+    // Explode all metatag token in field.
+    $data_tokens = token_scan($data['value']);
+    if (isset($data_tokens[$token_type])) {
+      foreach ($data_tokens[$token_type] as $key => $value) {
+        $metatag_parts = explode(':', $key);
+        // Check entity metatag token. Like [<entity_token_type>:metatag:<xyz>].
+        if ($metatag_parts[0] == 'metatag') {
+          $entity_field = implode(':', array_slice($metatag_parts, 1));
+          // If a value is not set here it will trigger an infinite loop.
+          $metatags[$metatag]['value'] = '';
+
+          // If the meta tag was defined then try parsing it.
+          if (!empty($metatags[$entity_field]['value'])) {
+            // Entity metatag field may contain other entity metatag token
+            // that need to be replaced too.
+            $replaced_value = metatag_token_entitymetatagtoken_replace($metatags, $metatags[$entity_field]['value'], $token_type);
+            $metatags[$metatag]['value'] = str_replace($value, $replaced_value, $metatags[$metatag]['value']);
+          }
+        }
+      }
+    }
+  }
+
+  return $metatags;
+}
+
+/**
+ * Replace entity metatag token with actual entity metatag field value.
+ *
+ * @param array $metatags
+ *   An array entity metatag tokens.
+ * @param string $token
+ *   A token to be replaced.
+ * @param string $token_type
+ *   The entity token type, such as 'node' or 'term'.
+ * @param array $search_tokens
+ *   An array of tokens to search for.
+ * @param array $replace_tokens
+ *   An array of tokens to be replaced.
+ *
+ * @return string
+ *   The replaced value of $token.
+ */
+function metatag_token_entitymetatagtoken_replace($metatags, $token, $token_type, $search_tokens = array(), $replace_tokens = array()) {
+  $data_tokens = token_scan($token);
+  // Check field has tokens.
+  if (isset($data_tokens[$token_type])) {
+    // Go through each token in field and find entity metatag tokens.
+    foreach ($data_tokens[$token_type] as $key => $value) {
+      $metatag_parts = explode(':', $key);
+      if ($metatag_parts[0] == 'metatag' && !in_array($value, $search_tokens)) {
+        // Entity metatag field value.
+        $entity_field = implode(':', array_slice($metatag_parts, 1));
+        $replaced_value = metatag_token_entitymetatagtoken_replace($metatags, $metatags[$entity_field]['value'], $token_type, $replace_tokens, $search_tokens);
+        $replace_tokens[] = $replaced_value;
+        $search_tokens[] = $value;
+      }
+    }
+    return str_replace($search_tokens, $replace_tokens, $token);
+  }
+  else {
+    return $token;
+  }
 }

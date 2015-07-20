@@ -85,6 +85,12 @@ function nodequeue_schema() {
         'size' => 'tiny',
         'default' => 0,
       ),
+      'insert_at_front' => array(
+        'description' => '',
+        'type' => 'int',
+        'size' => 'tiny',
+        'default' => 0,
+      ),
       'i18n' => array(
         'description' => '',
         'type' => 'int',
@@ -413,4 +419,25 @@ function nodequeue_update_7201() {
         ->execute();
     }
   }
+}
+
+/**
+ * Add new field 'insert_at_front'.
+ */
+function nodequeue_update_7202() {
+  $field = array(
+    'description' => '',
+    'type' => 'int',
+    'size' => 'tiny',
+    'default' => 0,
+  );
+  db_add_field('nodequeue_queue', 'insert_at_front', $field);
+}
+
+/**
+ * Rebuild the menu cache so that contextual links in views appear.
+ */
+function nodequeue_update_7203() {
+  variable_set('menu_rebuild_needed', TRUE);
+  drupal_set_message(t('The menus will now be rebuilt.'));
 }

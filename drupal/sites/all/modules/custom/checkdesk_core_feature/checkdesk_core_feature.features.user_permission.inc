@@ -28,6 +28,16 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'views',
   );
 
+  // Exported permission: 'access any drafts content'.
+  $permissions['access any drafts content'] = array(
+    'name' => 'access any drafts content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'checkdesk_core',
+  );
+
   // Exported permission: 'access comments'.
   $permissions['access comments'] = array(
     'name' => 'access comments',
@@ -184,6 +194,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'administer comments',
     'roles' => array(
       'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'comment',
   );
@@ -438,8 +449,19 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'change own username',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: 'change report status'.
+  $permissions['change report status'] = array(
+    'name' => 'change report status',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'checkdesk_core',
   );
 
   // Exported permission: 'create article content'.
@@ -456,6 +478,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'create discussion content',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'node',
@@ -769,6 +792,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'edit own discussion content',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'node',
@@ -822,6 +846,16 @@ function checkdesk_core_feature_user_default_permissions() {
       'journalist' => 'journalist',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'edit published content'.
+  $permissions['edit published content'] = array(
+    'name' => 'edit published content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'checkdesk_core',
   );
 
   // Exported permission: 'edit terms in media_rating'.
@@ -884,6 +918,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'save draft',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'save_draft',
@@ -892,9 +927,7 @@ function checkdesk_core_feature_user_default_permissions() {
   // Exported permission: 'search content'.
   $permissions['search content'] = array(
     'name' => 'search content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
+    'roles' => array(),
     'module' => 'search',
   );
 
@@ -1059,6 +1092,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'use text format liveblog',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'filter',
@@ -1167,6 +1201,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view own unpublished content',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'node',
@@ -1186,6 +1221,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view the administration theme',
     'roles' => array(
       'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'system',
   );

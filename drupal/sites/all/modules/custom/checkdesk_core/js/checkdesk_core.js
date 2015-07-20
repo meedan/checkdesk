@@ -70,6 +70,9 @@
 
       // CKEditor configuration, see: http://www.question2answer.org/qa/13255/simple-ckeditor-how-to-modify-it-to-be-simple-solution
       if (typeof CKEDITOR != 'undefined') {
+        // Force CKEditor plugins to be reloaded.
+        CKEDITOR.timestamp = ( new Date() ).valueOf();
+
         CKEDITOR.on('dialogDefinition', function(ev) {
           var dialog = ev.data, currentDialog;
 
@@ -106,7 +109,7 @@
       }
 
       // Attach the Views results to each correspoknding row in the DOM.
-      $('.view-desk-reports .view-content #incoming-reports').children().each(function() {
+      $('.view-desk-reports .view-content').children().each(function() {
         var i = $(this).find('.report-row-container').attr('id');
         $(this).data('views', settings.checkdesk.reports[i]);
       });
@@ -215,6 +218,22 @@
 
     return html;
   };
+  
+  /**
+   * Handle cTools Modal events
+   */
+  Drupal.behaviors.ctoolsModalEvents = {
+    attach: function(context) {  
+      // Responds to link click with ctools applied
+      $('a.ctools-use-modal').click(function() {
+        $('body').addClass('modal-overflow-hidden');                    
+      });
+      // Responds to cTools modal close
+      $(document).bind('CToolsDetachBehaviors', function() {
+        $('body').removeClass('modal-overflow-hidden');                    
+      });
+    }
+  }
 
   /**
    *  Command for `checkdesk_core_ajax_command_attach_behaviors`.
@@ -246,36 +265,6 @@
   Drupal.behaviors.clientSideValidations = {
     attach: function (context) {
       $(document).bind('clientsideValidationAddCustomRules', function(event) {
-        /*
-        // Overwrite default captcha validator to support reCAPTCHA
-        jQuery.validator.addMethod('captcha', function (value, element, param) {
-          var result = false;
-          var sid = $(element).closest('.captcha').find('input[name=captcha_sid]').val();
-          var challenge = $(element).parent().find('#recaptcha_challenge_field').val();
-          jQuery.ajax({
-            'url': Drupal.settings.basePath + 'clientside_validation/captcha',
-            'type': 'POST',
-            'data': {
-              'recaptcha_challenge_field' : challenge,
-              'recaptcha_response_field' : value,
-              'value': 'reCAPTCHA',
-              'param': [sid, param]
-            },
-            'dataType': 'json',
-            'async': false,
-            'success': function(res) {
-              result = res;
-            }
-          });
-          if (result.result == false) {
-            $(element).closest('#recaptcha_area').find('#recaptcha_reload').click();
-            jQuery.extend(jQuery.validator.messages, {
-              'captcha': Drupal.t('wrong')
-            });
-          }
-          return result.result;
-        }, jQuery.format(Drupal.t('wrong')));
-        */
         // Check if username or e-mail is taken
         jQuery.validator.addMethod('unique', function (value, element, param) {
           var result = false;

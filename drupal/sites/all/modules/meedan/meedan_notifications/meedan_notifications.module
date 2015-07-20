@@ -5,7 +5,7 @@
  */
 function meedan_notifications_menu() {
   $items = array();
-  $items['user/%user/notifications'] = array(
+  $items['user/%user/edit/notifications'] = array(
     'type' => MENU_LOCAL_TASK,
     'access callback' => 'meedan_notifications_access',
     'access arguments' => array(1),
@@ -131,6 +131,7 @@ function meedan_notifications_user_page($form, $form_state, $account) {
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save configuration'),
+    '#weight' => 99,
   );
   return $form;
 }
@@ -409,30 +410,6 @@ function meedan_notifications_mail($key, &$message, $params) {
     $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
   }
 
-}
-
-/**
- * Implements hook_token_info().
- */
-function meedan_notifications_token_info() {
-  $info['types']['recipient'] = array(
-    'name' => t('Recipient'),
-    'description' => t('The recipient of the email notification.'),
-    'type' => 'user',
-    'needs-data' => 'recipient',
-  );
-  return $info;
-}
-
-/**
- * Implements hook_tokens().
- */
-function meedan_notifications_tokens($type, $tokens, array $data = array(), array $options = array()) {
-  $replacements = array();
-  if ($type == 'recipient' && !empty($data['recipient'])) {
-    $replacements += token_generate('user', $tokens, array('user' => $data['recipient']), $options);
-  }
-  return $replacements;
 }
 
 /** 

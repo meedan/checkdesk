@@ -1,0 +1,172 @@
+//
+// Checkdesk Modals
+$large-modal-width: 700px;
+
+.modal-modal-popup-large {
+  width: $large-modal-width;
+  margin-#{$alpha}: -$large-modal-width/2;
+  // align large modals at top
+  // as these are mostly content based
+  top: 100px !important;
+  #{$alpha}: 50% !important;
+  #{$omega}: auto !important;
+}
+
+.modal-modal-popup-small {
+  top: 100px !important;
+}
+
+.modal-modal-popup-report {
+  top: 100px !important;
+}
+
+// Fixed only for normal screen sizes
+@media all and (max-height: 42em) {
+  .modal-modal-popup-report {  
+    .modal-body {
+      max-height: 290px;
+    }
+  }
+}
+
+// Background
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-ModalBackdrop;
+  background-color: #000;
+  // Fade for backdrop
+  &.fade { opacity: 0; }
+}
+
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  @include opacity(80);
+}
+
+// Base modal
+.modal {
+  position: fixed;
+  z-index: $z-index-Modal;
+  background-color: #fff;
+  border: 1px solid #999;
+  border: 1px solid $firefly30;
+  *border: 1px solid #999; /* IE6-7 */
+  // @include border-radius($radius);
+  @include box-shadow(0 3px 7px rgba(0,0,0,0.3));
+  @include background-clip(padding-box);
+  // Remove focus outline from opened modal
+  outline: none;
+  overflow: visible; /* allow content to popup out (i.e tooltips) */
+
+  &.fade {
+    @include transition(opacity .3s linear, top .3s ease-out);
+    top: -25%;
+  }
+  &.fade.in { top: 50%; }
+}
+.modal-header {
+  // padding: 4px $gutter-width 0 $gutter-width;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+  overflow: hidden;
+  // Close icon
+  .close { 
+    margin-top: 7px; 
+    $direction: $omega;
+    margin-#{$direction}: $gutter-width;
+  }
+  // Heading
+  h4 {
+    margin: 0;
+    padding: $absolute-line-height/2 $gutter-width;
+  }
+}
+
+// Body (where all modal content resides)
+.modal-body {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 480px;
+
+  .modal-content {
+    position: relative;
+    padding: $absolute-line-height/4 $gutter-width*2;
+    line-height: $line-height-base;
+
+    form {
+      padding: 0;
+      margin: 0;
+      z-index: $z-index-Modal + 1;
+      
+      label { 
+        font-size: $font-size-small;
+      }
+
+      textarea {
+        font-size: $font-size-small;
+        height: 80px;
+      }
+    }
+  }
+
+  #modal-throbber {
+    padding: $absolute-line-height/4 0;
+    margin-left: -$gutter-width/2;
+  }
+
+  .form-actions {
+    @include reset-box-model;
+  }
+}
+// Remove bottom margin if need be
+.modal-form {
+  margin-bottom: 0;
+}
+
+// Footer (for actions)
+.modal-footer {
+  position: absolute;
+  bottom: 0;
+  left: -$gutter-width;
+  padding: 0;
+  width: 100%;
+  display: block;
+  padding: $absolute-line-height/2 $gutter-width;
+  margin-bottom: 0;
+  text-align: $from-direction;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  @include border-radius(0 0 6px 6px);
+  @include box-shadow(inset 0 1px 0 #fff);
+  @include ctb-clearfix(); // clear it in case folks use .pull-* classes on buttons
+
+  .form-actions {
+    padding-#{$alpha}: $gutter-width;
+    // space between buttons
+    .btn {
+      margin-#{$omega}: $gutter-width !important;
+    }
+    // sometimes the button is an input
+    input.btn {
+      float: $from-direction;
+      @include button($brand-primary, 18px);
+    }
+    // sometimes it is an anchor element
+    a.btn {
+      @include button($gray-light, 18px);
+    }
+
+    .ajax-progress-throbber {
+      display: none;
+    }
+  }
+}
+
+#modalContent {
+  position: fixed !important; // "position: absolute" is hardcoded in ctools/js/modal.js:389
+}

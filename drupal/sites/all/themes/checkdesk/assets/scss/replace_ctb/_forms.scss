@@ -8,7 +8,7 @@
 
 // Make all forms have space below them
 form {
-  margin: 0 0 $absolute-line-height;
+  margin-bottom: 30px;
 }
 
 fieldset {
@@ -32,7 +32,7 @@ legend {
   // Small
   small {
     font-size: $absolute-line-height * .75;
-    color: $grayLight;
+    color: $gray-light;
   }
 }
 
@@ -41,15 +41,13 @@ label,
 input,
 button,
 select,
-textarea,
-body.cke_editable {
+textarea {
   font: normal $base-font-size/$absolute-line-height; // Set size, weight, line-height here
 }
 input,
 button,
 select,
-textarea,
-body.cke_editable {
+textarea {
   font-family: $header-font-stack; // And only set font-family here for those that need it (note the missing label element)
 }
 
@@ -88,7 +86,7 @@ input[type="color"],
   margin-bottom: $absolute-line-height / 4;
   font-size: $base-font-size;
   font-family: $body-font-stack;
-  color: $grayLight;
+  color: $gray-light;
   @include border-radius($radius);
   vertical-align: middle;
 }
@@ -104,7 +102,7 @@ body.cke_editable,
 // Reset height since textareas have rows
 textarea,
 body.cke_editable {
-  height: auto;
+  height: 100%;
 }
 // Everything else
 textarea,
@@ -176,9 +174,9 @@ input[type="checkbox"] {
 // Set the height of select and file controls to match text inputs
 select,
 input[type="file"] {
-  height: $inputHeight; /* In IE7, the height of the select element cannot be changed by height, only font-size */
+  height: $absolute-line-height + 18px;; /* In IE7, the height of the select element cannot be changed by height, only font-size */
   *margin-top: 4px; /* For IE7, add top margin to align select with labels */
-  line-height: $inputHeight;
+  line-height: $absolute-line-height + 18px;;
 }
 
 // Make select elements obey height by applying a border
@@ -209,7 +207,7 @@ input[type="checkbox"]:focus {
 // Make uneditable inputs look inactive
 .uneditable-input,
 .uneditable-textarea {
-  color: $grayLight;
+  color: $gray-light;
   background-color: darken($inputBackground, 1%);
   border-color: $inputBorder;
   @include box-shadow(inset 0 1px 2px rgba(0,0,0,.025));
@@ -236,7 +234,7 @@ input[type="checkbox"]:focus {
 .form-type-radio,
 .form-type-checkbox {
   min-height: $absolute-line-height; // clear the floating input if there is no label text
-  padding-left: 20px;
+  padding-#{$alpha}: 20px;
 }
 .form-type-radio input[type="radio"],
 .form-type-checkbox input[type="checkbox"] {
@@ -311,17 +309,12 @@ input[type="checkbox"][readonly] {
 // ------------
 
 .form-actions {
-  @include reset-box-model;
-  padding-bottom: $absolute-line-height/2;
-  // margin-top: $absolute-line-height/2;
-  // margin-bottom: $absolute-line-height/2;
-  // background-color: $formActionsBackground;
-  @include ctb-clearfix(); // Adding clearfix to allow for .pull-right button containers
-
   // add spacing when buttons appear together
   .btn {
-    margin-#{$omega}: $gutter-width;
-    :first-child { margin-#{$omega}: 0;}
+    margin-bottom: $gutter-width;
+    &:not(:last-child) {
+      margin-#{$omega}: $gutter-width;
+    }
   }
 }
 
@@ -332,7 +325,7 @@ input[type="checkbox"][readonly] {
 .help-block {
   margin-top: 5px;
   margin-bottom: 0;
-  color: $grayLight;
+  color: $gray-light;
 }
 
 .form-item {
@@ -341,7 +334,7 @@ input[type="checkbox"][readonly] {
     margin-bottom: 9px;
     vertical-align: middle;
     padding-left: 5px;
-    color: $grayLight;
+    color: $gray-light;
     font-size: 12px;
     @include ctb-ie7-inline-block();
   }
@@ -357,6 +350,3 @@ input[type="checkbox"][readonly] {
 
 
 }
-
-
-

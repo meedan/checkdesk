@@ -66,6 +66,32 @@ function metatag_panels_form($form, $form_state) {
   // Load the metatag form (passed by reference).
   metatag_metatags_form($form, $instance, $metatags[LANGUAGE_NONE], $options);
 
+  // Add CTools substitutions list to the form.
+  $rows = array();
+  foreach ($contexts as $context) {
+    foreach (ctools_context_get_converters('%' . check_plain($context->keyword) . ':', $context) as $keyword => $title) {
+      $rows[] = array(
+        check_plain($keyword),
+        t('@identifier: @title', array('@title' => $title, '@identifier' => $context->identifier)),
+      );
+    }
+  }
+  if (!empty($rows)) {
+    $form['contexts'] = array(
+      '#title' => t('Substitutions'),
+      '#type' => 'fieldset',
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $header = array(t('Keyword'), t('Value'));
+    $form['contexts']['context'] = array('#markup' => theme('table', array('header' => $header, 'rows' => $rows)));
+    $form['contexts']['#states'] = array(
+      'visible' => array(
+        ':input[name="metatags_enabled"]' => array('checked' => TRUE),
+      ),
+    );
+  }
+
   // Modify metatag form defaults.
   $form['metatags']['#collapsible'] = FALSE;
   $form['metatags']['#collapsed'] = FALSE;
@@ -104,7 +130,6 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
     return;
   }
 
-  // This leaves some possibility for future versions to support translation.
   $metatags = $handler->conf['metatag_panels']['metatags'];
   if (!is_array($metatags) || empty($metatags)) {
     $metatags = array();
@@ -127,6 +152,13 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
 
   if (empty($metatags)) {
     return;
+  }
+
+  // Substitute Panels context variables.
+  foreach ($metatags as $metatag => &$data) {
+    if (is_string($data['value']) && strpos($data['value'], '%') !== FALSE) {
+      $data['value'] = ctools_context_keyword_substitute($data['value'], array(), $context['handler']->conf['display']->context);
+    }
   }
 
   // Get the contexts that exist within this panel.
@@ -153,6 +185,11 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
     'token data' => $tokens,
   );
   foreach ($metatags as $metatag => $data) {
+    // Render CTools context substitution values prior to rendering the meta
+    // tag.
+    if (is_string($data['value'])) {
+      $data['value'] = ctools_context_keyword_substitute(trim($data['value']), array(), $task_contexts);
+    }
     $metatag_instance = metatag_get_instance($metatag, $data);
 
     if ($metatag_instance) {
@@ -160,7 +197,8 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
     }
   }
 
-  // Give third-parties the opportunity to alter the metatag for a given instance.
+  // Give third-parties the opportunity to alter the metatag for a given
+  // instance.
   drupal_alter('metatag_metatags_view', $output, $options['instance']);
 }
 
@@ -173,6 +211,8 @@ function metatag_panels_page_build(&$page) {
   $metatags = drupal_static('metatag_panels');
 
   if (!empty($metatags)) {
-    $page['content']['metatags']['global'] = $metatags;
+    // The page region can be changed.
+    $region = variable_get('metatag_page_region', 'content');
+    $page[$region]['metatags']['global'] = $metatags;
   }
 }

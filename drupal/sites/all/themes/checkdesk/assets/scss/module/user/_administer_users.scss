@@ -1,0 +1,52 @@
+.page-administer-users {
+
+  .views-submit-button {
+    float: $alpha;
+  }
+
+  input[type="submit"] {
+    float: $from-direction !important;
+  }
+
+  div.vbo-table-select-all-markup {
+    display: none; // temporary
+    input {
+      font-size: $small-font-size;
+      background-color: $grey;
+    }
+  }
+
+  input.vbo-table-select-all-pages {
+    float: left;
+    clear: both;
+  }
+
+  table.views-table {
+    border-top: 1px solid black;
+  }
+
+}
+
+// user admin page#
+.view-administer-users {
+  fieldset {
+    margin-bottom: $absolute-line-height/2;
+  }
+  select {
+    margin-bottom: $absolute-line-height/2;
+  }
+}
+
+
+
+/**
+ * Override default textfield float to put the "Add role" button next to
+ * the input textfield.
+ */
+#user-admin-roles td.edit-name {
+  clear: both;
+}
+#user-admin-roles .form-item-name {
+  float: left; /* LTR */
+  margin-right: 1em; /* LTR */
+}

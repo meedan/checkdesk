@@ -1,0 +1,272 @@
+// Report 
+//
+// When a link is received we convert it into an embedded media "report"
+//
+// Compatibility: untested
+
+
+// See media.scss
+
+section#comment-form {
+	clear: both;
+	@include ctb-clearfix;
+	position: relative;
+	margin-top: 8px;
+	padding-#{$omega}: 20px;
+
+	label {
+		display: none;
+	}
+
+	.field-name-field-rating label {
+		display: block;
+	}
+
+	form { 
+		@include reset-box-model;
+		.form-actions {
+			padding: 0;
+			margin: 0;
+			border: 0 none;
+			input {
+				font-size: 16px;
+				margin-#{$alpha}: $gutter-width;
+				margin-#{$omega}: 0;
+				// align with edit status
+				margin-top: -5px;
+			}
+		}
+		textarea {
+			float: none;
+			@include ctb-clearfix;
+		}
+	}
+}
+
+section#comment-form .form-actions {
+	text-align: $omega;
+
+  span.edit-status {
+		font-size: $small-font-size;
+		color: $firefly40;
+		cursor: pointer;
+
+		&.active {
+		  color: $firefly60;
+		}
+  }
+
+  .current-status {
+		display: none;
+		font-weight: 700;
+  }
+}
+
+.current-status,
+label.option {
+	  &.verified {
+		@include icon(check-circle, $base-font-size);
+  }
+	&.in-progress {
+		@include icon(random, $small-font-size);
+	}
+	&.false {
+		@include icon(times-circle, $base-font-size);
+	}
+	&.undetermined {
+		@include icon(question-circle, $base-font-size);
+	}
+  &.not-applicable {
+		@include icon(ban, $base-font-size);
+  }
+}
+
+.current-status,
+input[type="radio"]:checked + label {
+	  &.verified {
+	color: rgba(0, 140, 0, 1);
+  }
+	&.in-progress {
+		color: rgba(239, 202, 43, 1);
+	}
+	&.false {
+		color: $red;
+	}
+	&.undetermined {
+		color: $orange; 
+	}
+  &.not-applicable {
+	color: $firefly60 !important;
+  }
+}
+
+
+.report-activity-edit-status {
+	// position: relative;
+	
+  &.popover {
+  	position: absolute;
+		background: #fff;
+		#{$alpha}: auto;
+    @if $from-direction == left {
+      #{$omega}: $gutter-width;
+    }
+    @if $from-direction == right {
+      #{$omega}: 0;
+    }
+		top: auto;
+    bottom: -221px; // -1 * height
+		width: 340px;
+		height: 222px;
+		border: 1px solid $firefly10;
+		z-index: $z-index-Dropdown;
+		@include box-shadow(0px 2px 5px rgba($firefly, 0.05));
+		@include border-radius(5px);
+
+		// triangle at top
+		&:after {
+			content: "";
+	    border-#{$alpha}: 12px solid transparent;
+			border-#{$omega}: 12px solid transparent;
+			border-bottom: 12px solid $firefly5;
+	    width: 0;
+	    height: 0;
+	    position: absolute;
+	    top: -12px;
+	    bottom: 0;
+	    #{$alpha}: 157px;
+	    z-index: $z-index-Dropdown + 1;
+		}
+		// triangle at top
+		&:before {
+			content: "";
+	    border-#{$alpha}: 13px solid transparent;
+			border-#{$omega}: 13px solid transparent;
+			border-bottom: 13px solid $firefly10;
+	    width: 0;
+	    height: 0;
+	    position: absolute;
+	    top: -13px;
+	    bottom: 0;
+	    #{$alpha}: 156px;
+	    z-index: $z-index-Dropdown;
+		}
+
+		label {
+		  width: 169px;
+		  display: block;
+		  float: $from-direction;
+		  height: 50px;
+		  line-height: 50px;
+		  text-align: center;
+			color: $firefly40;
+			font-size: 16px;
+		  font-weight: 700;
+		  margin-bottom: 0;
+		  overflow: hidden;
+		  &:hover {
+		  	color: $firefly60;
+		  }
+		}
+
+		.form-type-radios > label {
+		  font-weight: 700;
+		  width: 100%;
+		  background: $firefly5;
+		  color: $firefly80;
+		  position: absolute;
+		  #{$alpha}: 0;
+		  top: 0;
+		  height: 30px;
+		  line-height: 30px;
+		  padding-top: 6px;
+		  @include border-radius(5px 5px 0 0);
+		}
+
+		.description {
+		  padding-top: 5px;
+		  padding: 0 $gutter-width;
+		  height: 30px;
+		  width: 310px;
+		  position: absolute;
+		  #{$alpha}: 0;
+		  top: 34px;
+		  font-size: 14px !important;
+			color: $firefly40 !important;
+			line-height: 1.2;
+		  background: $firefly5;
+		  text-align: center;
+		  border-bottom: 1px solid $firefly10;
+		}
+
+		.form-radios {
+		  position: absolute;
+		  top: 70px;
+		  #{$alpha}: 0;
+
+		  .form-type-radio {
+				float: $alpha;
+			  padding-#{$alpha}: 0;
+			  min-height: 0;
+			}
+
+			.form-radio {
+			  display: none;
+			}
+
+			& > .false, & > .undetermined {
+				& > label {
+					width: 170px;
+				}
+				border-#{$omega}: 1px solid $firefly5;
+				border-bottom: 1px solid $firefly5;
+			}
+
+			& > .verified, & > .in-progress {
+				border-#{$omega}: 0 none;
+				border-bottom: 1px solid $firefly5;
+			}
+
+			// status: not applicable
+			.form-item:last-child label {
+			  width: 340px;
+			  color: $firefly20;
+			}
+
+		}
+
+  }
+}
+
+// Sensitive content handling
+div.sensitive-hide {
+  display: none;
+}
+
+.media-holder .sensitive-notification,
+.report-row .sensitive-notification {
+	display: table-cell;
+	width: 60%;
+	height: 200px;
+	text-align: center;
+	vertical-align: middle;
+	background: none;
+	.sensitive-notification-text {
+		color: $firefly60;
+		padding: $absolute-line-height/2 $gutter-width/2;
+	}
+	.sensitive-notification-link {
+		padding: $absolute-line-height/2 $gutter-width/2;
+	}
+}
+
+// Missing reports
+.meedan-oembed-missing {
+	display: table-cell;
+	height: 200px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: $firefly5 !important;
+	padding: 0 $gutter-width*4;
+	color: $firefly60;
+}

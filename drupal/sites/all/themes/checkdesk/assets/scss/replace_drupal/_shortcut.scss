@@ -1,13 +1,17 @@
 div#toolbar a#edit-shortcuts {
-  float: right;
-  padding: 5px 10px 5px 5px;
+  float: $omega;
+  @if $from-direction == left {
+    padding: 5px 10px 5px 5px;
+  } @else {
+    padding: 5px 5px 5px 10px;
+  }
   line-height: 24px;
-  color: #fefefe;
+  color: #ccc;
 }
 div#toolbar a#edit-shortcuts:focus,
 div#toolbar a#edit-shortcuts:hover,
 div#toolbar a#edit-shortcuts.active {
-  color: #fff;
+  color: #ddd;
   text-decoration: underline;
 }
 
@@ -15,13 +19,13 @@ div#toolbar div.toolbar-shortcuts ul {
   padding: 5px 0 2px 0;
   height: 28px;
   line-height: 24px;
-  float: left; /* LTR */
-  margin-left:5px; /* LTR */
+  float: $alpha; /* LTR */
+  margin-#{$alpha}:5px; /* LTR */
 }
 
 div#toolbar div.toolbar-shortcuts ul li a {
   padding: 0 5px 0 5px;
-  margin-right: 5px; /* LTR */
+  margin-#{$omega}: 5px; /* LTR */
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -39,11 +43,11 @@ div#toolbar div.toolbar-shortcuts ul li a.active {
 }
 
 div#toolbar div.toolbar-shortcuts span.icon {
-  float: left; /* LTR */
+  float: $alpha; /* LTR */
   background: #444;
   width: 30px;
   height: 30px;
-  margin-right: 5px; /* LTR */
+  margin-#{$omega}: 5px; /* LTR */
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -58,8 +62,8 @@ div.add-or-remove-shortcuts a span.icon {
   width: 12px;
   background: transparent url(shortcut.png) no-repeat scroll 0 0;
   height: 12px;
-  float: left;
-  margin-left:8px;
+  float: $alpha;
+  margin-#{$alpha}:8px;
 }
 
 div.add-shortcut a:focus span.icon,
@@ -75,8 +79,8 @@ div.remove-shortcut a:hover span.icon {
 }
 
 div.add-or-remove-shortcuts a span.text {
-  float: left;
-  padding-left:10px;
+  float: $alpha;
+  padding-#{$alpha}:10px;
   display: none;
 }
 
@@ -87,7 +91,7 @@ div.add-or-remove-shortcuts a:hover span.text {
   color: #fff;
   background-color: #5f605b;
   display: block;
-  padding-right: 6px; /* LTR */
+  padding-#{$omega}: 6px; /* LTR */
   cursor: pointer;
   -moz-border-radius: 0 5px 5px 0; /* LTR */
   -webkit-border-top-right-radius: 5px; /* LTR */
@@ -102,5 +106,5 @@ div.add-or-remove-shortcuts a:hover span.text {
 
 #shortcut-set-switch .form-item-new {
   padding-top: 0;
-  padding-left: 17px; /* LTR */
+  padding-#{$alpha}: 17px; /* LTR */
 }

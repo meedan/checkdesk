@@ -71,7 +71,7 @@ $large-icon-font-size: 18px;
 
 // A small triangle, eg for dropdowns
 @mixin caret {
-  @include icon('caret-down', 12px, white, 'after');
+  @include icon('caret-down', 18px, $firefly30, 'after');
 }
 
 // Enable icons
@@ -84,5 +84,5 @@ $large-icon-font-size: 18px;
 // }
 
 .icon-muted { color: rgba(255, 255, 255, 0.2); }
-.icon-light { color: $white; }
-.icon-dark { color: $grayDark; }
+.icon-light { color: #fff; }
+.icon-dark { color: $gray-dark; }

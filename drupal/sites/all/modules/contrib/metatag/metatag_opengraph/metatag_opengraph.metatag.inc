@@ -64,6 +64,8 @@ function metatag_opengraph_metatag_bundled_config_alter(array &$configs) {
         if (variable_get('user_pictures')) {
           $config->config += array(
             'og:image' => array('value' => '[user:picture:url]'),
+            // For now keep the old default.
+            // 'og:image:url' => array('value' => '[user:picture:url]'),
           );
         }
         break;
@@ -77,7 +79,7 @@ function metatag_opengraph_metatag_bundled_config_alter(array &$configs) {
 function metatag_opengraph_metatag_info() {
   $info['groups']['open-graph'] = array(
     'label' => t('Open Graph'),
-    'description' => t("The <a href=\"@ogp\">Open Graph meta tags</a> are used control how Facebook, LinkedIn an other social networking sites interpret the site's content.", array('@ogp' => 'http://ogp.me/')),
+    'description' => t("The <a href=\"@ogp\">Open Graph meta tags</a> are used control how Facebook, Pinterest, LinkedIn and other social networking sites interpret the site's content.", array('@ogp' => 'http://ogp.me/')),
     'form' => array(
       '#weight' => 50,
     ),
@@ -107,6 +109,7 @@ function metatag_opengraph_metatag_info() {
     'label' => t('Content type'),
     'description' => t('The type of the content, e.g., <em>movie</em>.'),
     'weight' => ++$weight,
+    'select_or_other' => TRUE,
     'form' => array(
       '#type' => 'select',
       '#options' => _metatag_opengraph_type_options(),
@@ -125,15 +128,6 @@ function metatag_opengraph_metatag_info() {
       'type' => 'canonical',
     ),
   ) + $og_defaults;
-
-  if (module_exists('select_or_other')) {
-    // Enhance the og:type field to support custom types.
-    $info['tags']['og:type']['form']['#type'] = 'select_or_other';
-    $info['tags']['og:type']['form']['#other'] = t('Other (please type a value)');
-    $info['tags']['og:type']['form']['#other_unknown_defaults'] = 'other';
-    $info['tags']['og:type']['form']['#theme'] = 'select_or_other';
-    $info['tags']['og:type']['form']['#element_validate'] = array('select_or_other_element_validate');
-  }
 
   $info['tags']['og:title'] = array(
     'label' => t('Content title'),
@@ -181,9 +175,20 @@ function metatag_opengraph_metatag_info() {
   ) + $og_defaults;
 
   $info['tags']['og:image'] = array(
-    'label' => t('Image URL'),
-    'description' => t('The URL of an image which should represent the content. For best results use an image that is at least 1200 x 630 pixels in size, but at least 600 x 316 pixels is a recommended minimum. Supports PNG, JPEG and GIF formats.'),
+    'label' => t('Image'),
+    'description' => t('The URL of an image which should represent the content. For best results use an image that is at least 1200 x 630 pixels in size, but at least 600 x 316 pixels is a recommended minimum. Supports PNG, JPEG and GIF formats. Should not be used if og:image:url is used.'),
     'multiple' => TRUE,
+    'image' => TRUE,
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'image',
+    ),
+  ) + $og_defaults;
+  $info['tags']['og:image:url'] = array(
+    'label' => t('Image URL'),
+    'description' => t('A alternative version of og:image and has exactly the same requirements; only one needs to be used.'),
+    'multiple' => TRUE,
+    'image' => TRUE,
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'image',
@@ -194,6 +199,7 @@ function metatag_opengraph_metatag_info() {
     'description' => t('The secure URL (HTTPS) of an image which should represent the content. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats. All "http://" URLs will automatically be converted to "https://".'),
     'multiple' => TRUE,
     'secure' => TRUE,
+    'image' => TRUE,
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'image',
@@ -201,7 +207,7 @@ function metatag_opengraph_metatag_info() {
   ) + $og_defaults;
   $info['tags']['og:image:type'] = array(
     'label' => t('Image type'),
-    'description' => t('The type of image referenced above. Should be either "image/gif" for a GIF image, "image/jpeg" for a JPG/JPEG image, or "image/png" for a PNG image.'),
+    'description' => t('The type of image referenced above. Should be either "image/gif" for a GIF image, "image/jpeg" for a JPG/JPEG image, or "image/png" for a PNG image. Note: there should be one value for each image, and having more than there are images may cause problems.'),
     'multiple' => TRUE,
     'weight' => ++$weight,
   ) + $og_defaults;
@@ -239,9 +245,12 @@ function metatag_opengraph_metatag_info() {
     ),
   ) + $og_defaults;
 
-  $info['tags']['og:street-address'] = array(
+  $info['tags']['og:street_address'] = array(
     'label' => t('Street address'),
     'weight' => ++$weight,
+    'replaces' => array(
+      'og:street-address',
+    ),
   ) + $og_defaults;
   $info['tags']['og:locality'] = array(
     'label' => t('Locality'),
@@ -251,13 +260,19 @@ function metatag_opengraph_metatag_info() {
     'label' => t('Region'),
     'weight' => ++$weight,
   ) + $og_defaults;
-  $info['tags']['og:postal-code'] = array(
+  $info['tags']['og:postal_code'] = array(
     'label' => t('Postal/ZIP code'),
     'weight' => ++$weight,
+    'replaces' => array(
+      'og:postal-code',
+    ),
   ) + $og_defaults;
-  $info['tags']['og:country-name'] = array(
+  $info['tags']['og:country_name'] = array(
     'label' => t('Country name'),
     'weight' => ++$weight,
+    'replaces' => array(
+      'og:country-name',
+    ),
   ) + $og_defaults;
 
   $info['tags']['og:email'] = array(
@@ -507,7 +522,6 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['video:writer'] = array(
     'label' => t('Scriptwriter(s)'),
     'description' => t('Links to the Facebook profiles for scriptwriter(s) for the video.'),
-    'description' => t("Scriptwriters from the video."),
     'multiple' => TRUE,
     'weight' => ++$weight,
   ) + $og_defaults + $video_defaults;

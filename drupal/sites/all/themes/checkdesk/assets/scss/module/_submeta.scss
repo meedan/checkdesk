@@ -1,0 +1,22 @@
+.submeta {
+	@include flexbox;
+}
+
+.submeta-header {
+  @include flex(4 1 150px);
+  max-width: 150px;
+  margin-#{$omega}: $gutter-width*2;
+	@include cd-sans-serif-family;
+  font-size: 12px;
+  color: $firefly40;
+  text-transform: uppercase;
+  @if $from-direction == 'left' {
+    letter-spacing: 0.15em;
+  }
+}
+
+.submeta-content {
+  @include flex(4);
+  max-width: 620px;
+  margin-#{$omega}: 0;
+}

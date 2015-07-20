@@ -8,6 +8,8 @@ CONTENTS OF THIS FILE
  * E-mail templates
  * Multilangual sites
  * Known issues
+ * Password reset support
+ * Resend confirmation mail
  * De-installation
  * Upgrade notes
 
@@ -126,6 +128,26 @@ description of the problem here:
 http://drupal.org/node/add/project-issue/user_registrationpassword
 
 
+PASSWORD RESET SUPPORT
+----------------------
+
+Password reset support includes 2 goals:
+- Provide a privacy-save form.
+- Limit floods.
+
+This is currently not fixed in core, so we implemented it as a temporary fix.
+
+The flood_control module can be used to tweak settings.
+
+
+RESEND CONFIRMATION MAIL
+------------------------
+
+We have implemented a new action via hook_user_operations()
+called: 'resend confirmation mail'. This enabled administrators
+to re-send confirmation e-mails to users from the admin users page.
+
+
 DE-INSTALLATION
 ---------------
 
@@ -146,6 +168,14 @@ for any other module via the admin/modules page.
 
 UPGRADE NOTES
 -------------
+
+1.3 - 1.4
+
+You need to run update.php to fix the variable name we changed.
+Visit admin/reports/status and click on the update database link
+or update.php direct from your browser.
+
+1.0 - 1.3
 
 In earlier versions, this module did not override the default 'Account
 activation' e-mail template. To prevent questions and keep in line with the

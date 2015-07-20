@@ -1,0 +1,138 @@
+diff --git a/drupal/sites/all/modules/contrib/metatag/metatag.install b/drupal/sites/all/modules/contrib/metatag/metatag.install
+index 29f44a7..9600a9c 100644
+--- a/drupal/sites/all/modules/contrib/metatag/metatag.install
++++ b/drupal/sites/all/modules/contrib/metatag/metatag.install
+@@ -1736,3 +1736,73 @@ function metatag_update_7038() {
+     }
+   }
+ }
++
++/**
++ * Rename the 'twitter:image:src' meta tag back to 'twitter:image'.
++ */
++function metatag_update_7039() {
++  // Find all {metatag} records that contained an entry for the old meta tag.
++  $records = db_query("SELECT entity_type, entity_id, revision_id, language, data
++    FROM {metatag}
++    WHERE data LIKE '%twitter:image:src%'");
++  // This message will be returned if nothing needed to be updated.
++  $none_message = t('No Metatag entity records needed to have the "twitter:image:src" meta tag fixed.');
++
++  if ($records->rowCount() == 0) {
++    drupal_set_message($none_message);
++  }
++  else {
++    $keys = array('entity_type', 'entity_id', 'revision_id', 'language');
++
++    // Loop over the values and correct them.
++    $counter = 0;
++    foreach ($records as $record) {
++      $record->data = unserialize($record->data);
++      if (isset($record->data['twitter:image:src'])) {
++        $record->data['twitter:image'] = $record->data['twitter:image:src'];
++        unset($record->data['twitter:image:src']);
++        drupal_write_record('metatag', $record, $keys);
++        $counter++;
++      }
++    }
++    if ($counter == 0) {
++      drupal_set_message($none_message);
++    }
++    else {
++      drupal_set_message(t('Converted the "twitter:image:src" meta tag for @count entity records to the correct "twitter:image" meta tag.', array('@count' => $counter)));
++    }
++  }
++  // Find all {metatag_config} records that contained an entry for the old meta
++  // tag.
++  $records = db_query("SELECT cid, config
++    FROM {metatag_config}
++    WHERE config LIKE '%twitter:image:src%'");
++  // This message will be returned if nothing needed to be updated.
++  $none_message = t('No Metatag configuration records needed to have the "twitter:image:src" meta tag fixed. That said, there may be other configurations elsewhere that do need updating.');
++
++  // Loop over the values and correct them.
++  if ($records->rowCount() == 0) {
++    drupal_set_message($none_message);
++  }
++  else {
++    $keys = array('cid');
++
++    // Loop over the values and correct them.
++    $counter = 0;
++    foreach ($records as $record) {
++      $record->config = unserialize($record->config);
++      if (isset($record->config['twitter:image:src'])) {
++        $record->config['twitter:image'] = $record->config['twitter:image:src'];
++        unset($record->config['twitter:image:src']);
++        drupal_write_record('metatag_config', $record, $keys);
++        $counter++;
++      }
++    }
++    if ($counter == 0) {
++      drupal_set_message($none_message);
++    }
++    else {
++      drupal_set_message(t('Converted the "twitter:image:src" meta tag for @count configurations to the correct "twitter:image" meta tag.', array('@count' => $counter)));
++    }
++  }
++}
+diff --git a/drupal/sites/all/modules/contrib/metatag/metatag_twitter_cards/README.txt b/drupal/sites/all/modules/contrib/metatag/metatag_twitter_cards/README.txt
+index 8c00ded..64b01b4 100644
+--- a/drupal/sites/all/modules/contrib/metatag/metatag_twitter_cards/README.txt
++++ b/drupal/sites/all/modules/contrib/metatag/metatag_twitter_cards/README.txt
+@@ -9,7 +9,7 @@ tags are provided:
+ * twitter:url
+ * twitter:title
+ * twitter:description
+-* twitter:image:src
++* twitter:image
+ * twitter:image:width
+ * twitter:image:height
+ * twitter:player
+diff --git a/drupal/sites/all/modules/contrib/metatag/metatag_twitter_cards/metatag_twitter_cards.metatag.inc b/drupal/sites/all/modules/contrib/metatag/metatag_twitter_cards/metatag_twitter_cards.metatag.inc
+index 74f6a86..df5a859 100644
+--- a/drupal/sites/all/modules/contrib/metatag/metatag_twitter_cards/metatag_twitter_cards.metatag.inc
++++ b/drupal/sites/all/modules/contrib/metatag/metatag_twitter_cards/metatag_twitter_cards.metatag.inc
+@@ -55,7 +55,7 @@ function metatag_twitter_cards_metatag_bundled_config_alter(array &$configs) {
+         );
+         if (variable_get('user_pictures')) {
+           $config->config += array(
+-            'twitter:image:src' => array('value' => '[user:picture:url]'),
++            'twitter:image' => array('value' => '[user:picture:url]'),
+           );
+         }
+         break;
+@@ -157,13 +157,13 @@ function metatag_twitter_cards_metatag_info() {
+     'description' => t('A description that concisely summarizes the content of the page, as appropriate for presentation within a Tweet. Do not re-use the title text as the description, or use this field to describe the general services provided by the website. The string will be truncated, by Twitter, at the word to 200 characters.'),
+     'weight' => ++$weight,
+   ) + $defaults;
+-  $info['tags']['twitter:image:src'] = array(
++  $info['tags']['twitter:image'] = array(
+     'label' => t('Image URL'),
+     'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. Images larger than 120x120px will be resized and cropped square based on longest dimension. Images smaller than 60x60px will not be shown. If the \'type\' is set to <em>Photo</em> then the image must be at least 280x150px.'),
+     'image' => TRUE,
+     'weight' => ++$weight,
+     'replaces' => array(
+-      'twitter:image',
++      'twitter:image:src',
+     ),
+     'devel_generate' => array(
+       'type' => 'image',
+@@ -175,7 +175,7 @@ function metatag_twitter_cards_metatag_info() {
+     'weight' => ++$weight,
+     'dependencies' => array(
+       array(
+-        'dependency' => 'twitter:image:src',
++        'dependency' => 'twitter:image',
+         'attribute' => 'value',
+         'condition' => 'filled',
+         'value' => TRUE,
+@@ -191,7 +191,7 @@ function metatag_twitter_cards_metatag_info() {
+     'weight' => ++$weight,
+     'dependencies' => array(
+       array(
+-        'dependency' => 'twitter:image:src',
++        'dependency' => 'twitter:image',
+         'attribute' => 'value',
+         'condition' => 'filled',
+         'value' => TRUE,

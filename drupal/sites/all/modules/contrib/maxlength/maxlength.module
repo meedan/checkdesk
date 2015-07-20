@@ -161,13 +161,13 @@ function maxlength_field_attach_form($entity_type, $entity, &$form, &$form_state
  */
 function _maxlength_children(&$element, $ms_elements) {
   $bypass = &drupal_static(__FUNCTION__);
-  // Add "$conf['maxlength_force_for_dev'] = TRUE;" to settings.php to activate
-  // for all, including user #1, during devlopment.
-  if (isset($bypass) && $bypass && !variable_get('maxlength_force_for_dev', FALSE)) {
+  // Add "$conf['maxlength_always_for_uid1'] = TRUE;" to settings.php to activate
+  // for user #1.
+  if (isset($bypass) && $bypass) {
     return;
   }
   elseif (!isset($bypass)) {
-    $bypass = user_access('bypass maxlength');
+    $bypass = $GLOBALS['user']->uid == 1 ? !variable_get('maxlength_always_for_uid1', FALSE) : user_access('bypass maxlength');
   }
 
   $children = element_get_visible_children($element);

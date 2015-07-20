@@ -1,5 +1,5 @@
 diff --git a/drupal/sites/all/modules/contrib/views/js/ajax_view.js b/drupal/sites/all/modules/contrib/views/js/ajax_view.js
-index 780691c..32e651e 100644
+index 7d54c67..c724c6b 100644
 --- a/drupal/sites/all/modules/contrib/views/js/ajax_view.js
 +++ b/drupal/sites/all/modules/contrib/views/js/ajax_view.js
 @@ -62,9 +62,6 @@ Drupal.views.ajaxView = function(settings) {
@@ -11,8 +11,8 @@ index 780691c..32e651e 100644
 -    .filter(jQuery.proxy(this.filterNestedViews, this))
      .once(jQuery.proxy(this.attachPagerAjax, this));
  
-   // Add a trigger to update this view specifically.
-@@ -80,12 +77,6 @@ Drupal.views.ajaxView.prototype.attachExposedFormAjax = function() {
+   // Add a trigger to update this view specifically. In order to trigger a
+@@ -86,12 +83,6 @@ Drupal.views.ajaxView.prototype.attachExposedFormAjax = function() {
    this.exposedFormAjax = new Drupal.ajax($(button).attr('id'), button, this.element_settings);
  };
  
@@ -25,7 +25,7 @@ index 780691c..32e651e 100644
  /**
   * Attach the ajax behavior to each link.
   */
-@@ -99,6 +90,10 @@ Drupal.views.ajaxView.prototype.attachPagerAjax = function() {
+@@ -105,6 +96,10 @@ Drupal.views.ajaxView.prototype.attachPagerAjax = function() {
   */
  Drupal.views.ajaxView.prototype.attachPagerLinkAjax = function(id, link) {
    var $link = $(link);

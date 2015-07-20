@@ -1,0 +1,158 @@
+// Filters on the incoming report stream
+//
+// Use @extend on the parent element containint the header and .panels
+%filters {
+  @include ctb-clearfix;
+  margin-top: $absolute-line-height;
+  @include cd-sans-serif-family;
+  font-size: $small-font-size;
+
+  .filters-wrapper {
+    @include ctb-clearfix();
+    padding: 0 $gutter-width*2;
+  }
+
+  header {
+    float: $alpha;
+    h2 {
+      display: inline-block;
+      @include reset-box-model;
+      @include cd-sans-serif-family;
+      font-size: $large-font-size;
+      color: $firefly60;
+    }
+  }
+
+  // icons
+  .icon-caret-down {
+    @include icon(caret-down, 16px, $firefly20, "before", 0);
+  }
+  .icon-sort {
+    @include icon(sort, 16px, $firefly40, "before", 0);
+  }
+  .icon-filter {
+    @include icon(filter, 16px, $firefly40, "before", 0);
+  }
+  
+  .panels {
+    @include reset-list-style;
+    float: $omega;
+  }
+
+  .panel {
+    display: inline-block;
+    margin-#{$omega}: $gutter-width/2;
+    &:last-child {
+      margin-#{$omega}: 0;
+    }
+  }
+
+  .panel-toggle {
+    display: inline-block;
+    padding: 0 $gutter-width/2;
+    width: 30px;
+    text-align: $alpha;
+    vertical-align: middle;
+    cursor: pointer;
+    @include border-radius(4px);
+    border: 1px solid rgba(0,0,0,.02);
+    &:hover {
+      background-color: rgba(0,0,0,.02);
+      border: 1px solid rgba(0,0,0,.25);
+      text-decoration: none;
+    }
+    .icon-caret-down:before {
+      margin-right: 0;
+      margin-#{$alpha}: $gutter-width/3;
+    }
+  }
+
+
+  .panel-content {
+    display: none;
+    position: absolute;
+    background-color: $gray-lighter;
+    padding: $absolute-line-height/2 $gutter-width;
+    margin-top: $absolute-line-height/4;
+    z-index: $z-index-Dropdown;
+    width: 410px;
+
+    background-color: lighten($gray-lighter, 3%);
+    border: 1px solid #ccc; // Fallback for IE7-8
+    border: 1px solid $dropdownBorder;
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+    @include border-radius(6px);
+    @include box-shadow(0 5px 10px $firefly20);
+    -webkit-background-clip: padding-box;
+       -moz-background-clip: padding;
+            background-clip: padding-box;
+  }
+
+  .panel-content input[type="text"] {
+    float: none;
+    width: 260px;
+  }
+
+  .panel-content label {
+    font-size: 14px !important;
+  }
+
+  .views-reset-button input#edit-reset {
+    @include reset-box-model;
+    background: none;
+    border: 0 none;
+    color: $gray;
+    font-size: $font-size-small;
+    &:hover { color: $dark-grey; }
+  }
+
+  #filter-by {
+    #{$alpha}: 130px; // warning magic pixels CGB
+    .icon-caret-down:before {
+      margin-#{$alpha}: 0;
+    }
+  }
+
+  #filter-by .views-reset-button {
+    float: $alpha;
+  }
+
+  #filter-by .views-submit-button {
+    float: $omega;
+  }
+
+  // hide the duplicate sort select
+  #filter-by .views-submit-button .form-type-select {
+    display: none;
+  }
+
+  #filter-by .views-submit-button input {
+    margin-#{$omega}: $gutter-width;
+  }
+
+  #filter-by .close {
+    margin-#{$omega}: 0;
+  }
+
+  #sort-by label {
+    display: none;
+  }
+
+  #sort-by .panel-content {
+    width: 220px;
+  }
+
+  #sort-by .views-submit-button input {
+    margin-top: $absolute-line-height/2;
+  }
+
+  .form-type-radio input[type="radio"] {
+    margin: 0;
+  }
+
+  .form-type-radio, .form-type-checkbox {
+    padding: 0;
+  }
+
+}

@@ -72,43 +72,6 @@ function checkdesk_core_preprocess_checkdesk_core_report_source(&$variables) {
 }
 
 /**
- * Template preprocessor for `checkdesk_core_user_info`.
- */
-function checkdesk_core_preprocess_checkdesk_core_user_info(&$variables) {
-  global $user;
-  $account = $variables['user'];
-
-  // Avatar
-  $variables['user_picture'] = theme('user_picture', array('account' => $account));
-
-  // Linked accounts
-  $linked_accounts = '';
-  if ($account->twitter_accounts) {
-    $linked_accounts = '<span class="icon-twitter"></span> ';
-
-    $to_join = array();
-    foreach ($account->twitter_accounts as $twitter_account) {
-      // See: http://stackoverflow.com/a/8920821/806988
-      $to_join[] = l(
-        '@' . $twitter_account->screen_name,
-        'https://twitter.com/account/redirect_by_id?id=' . $twitter_account->id,
-        array(
-          'attributes' => array('class' => array('twitter-name'))
-        )
-      );
-    }
-    $linked_accounts .= implode(', ', $to_join);
-  }
-  $variables['linked_accounts'] = $linked_accounts;
-  // Just show links when the current user is seeing his own profile
-  if ($user->uid === $account->uid) {
-    $variables['followed_stories'] = l(t('Followed stories'), 'user-followed-stories');
-    $variables['edit_profile'] = l(t('Edit profile'), 'user/' . $account->uid . '/edit');
-    $variables['edit_notifications'] = l(t('Notifications'), 'user/' . $account->uid . '/notifications');
-  }
-}
-
-/**
  * Template preprocessor for `checkdesk_core_update_reports`.
  */
 function checkdesk_core_preprocess_checkdesk_core_update_reports(&$variables) {
@@ -194,13 +157,14 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity(&$variables) {
   global $language;
   $node = $variables['node'];
   $variables['nid'] = $node->nid;
-  $variables['collapsed'] = ($variables['view_mode'] == 'checkdesk_collaborate') ? '' : 'open';
+  $variables['collapsed'] = ($variables['view_mode'] == 'full') ? 'open' : '';
   //Add activity report with status
   $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
     $node->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
     taxonomy_term_load($node->field_rating[LANGUAGE_NONE][0]['tid']);
   $status_name = $term->name;
   $total_rows = '';
+  $variables['show_activity'] = ($variables['view_mode'] == 'checkdesk_search') ? FALSE : TRUE;
   if ($status_name !== 'Not Applicable') {
     $view = views_get_view('activity_report');
     $view->set_arguments(array($variables['nid']));
@@ -208,24 +172,33 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity(&$variables) {
     $view_output = $view->preview('block');
     $total_rows = $view->total_rows;
     $view->destroy();
-    if ($total_rows) {
-      $variables['media_activity_report'] = theme(
-        'checkdesk_core_report_activity_stream', array('activity' => $view_output, 'nid' => $variables['nid'])
-      );
-      $variables['status_class'] = strtolower(str_replace(' ', '-', $status_name));
+    if ($variables['show_activity']) {
+      if ($total_rows) {
+        $variables['media_activity_report'] = theme(
+          'checkdesk_core_report_activity_stream', array('activity' => $view_output, 'nid' => $variables['nid'])
+        );
+        $variables['status_class'] = strtolower(str_replace(' ', '-', $status_name));
 
-    }
-    if (user_is_logged_in()) {
-      $variables['media_activity_footer'] = '';
-    }
-    else {
-      $icon = '<span class="icon-question-circle"></span> ';
-      $link = l(t('About verification process'), 'modal/ajax/content/fact-checking-statement', array('html' => 'true', 'language' => $language, 'attributes' => array('class' => array('use-ajax', 'ctools-modal-modal-popup-large'))));
-      $variables['media_activity_footer'] = '<span class="cta">' . t('To help verify this report, please <a href="@login_url">sign in</a>', array('@login_url' => url('user/login'))) . '</span><span class="helper">' . $icon . $link . '</span>';
+      }
+      if (user_is_logged_in()) {
+        $variables['media_activity_footer'] = '';
+      }
+      else {
+        $icon = '<span class="icon-question-circle"></span> ';
+        $link = l(t('About verification process'), 'modal/ajax/content/fact-checking-statement', array('html' => 'true', 'language' => $language, 'attributes' => array('class' => array('use-ajax', 'ctools-modal-modal-popup-large'))));
+        $variables['media_activity_footer'] = '<span class="cta">' . t('To help verify this report, please <a href="@login_url">sign in</a>', array('@login_url' => url('user/login'))) . '</span><span class="helper">' . $icon . $link . '</span>';
+      }
     }
   }
-  $variables['media_activity_report_count'] = theme(
-    'checkdesk_core_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'])
-  );
+  if ($variables['show_activity'] || empty($total_rows)) {
+    $variables['media_activity_report_count'] = theme(
+      'checkdesk_core_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'])
+    );
+  }
+  else {
+    $variables['media_activity_report_count'] = theme(
+      'checkdesk_core_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'], 'link_count' => TRUE)
+    );
+  }
 
 }

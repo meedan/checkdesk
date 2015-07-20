@@ -1,0 +1,67 @@
+<?php
+
+class CheckdeskDuplicateTestCase extends DrupalWebTestCase {
+
+  /**
+   * A user with permission to create media content.
+   */
+  protected $web_user;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Checkdesk duplicate unit tests',
+      'description' => 'Test that _checkdesk_normalize_url works properly.',
+      'group' => 'CheckdeskDuplicate',
+    );
+  }
+
+  public function setUp() {
+    // Enable any modules required for the test. This should be an array of
+    // module names.
+    parent::setUp(array('checkdesk_duplicates'));
+
+    $this->drupalCreateContentType(array('type' => 'media'));
+    // Create and log in our privileged user.
+    $web_user = $this->drupalCreateUser(array('create media content'));
+    $this->drupalLogin($web_user);
+    $this->web_user = $web_user;
+  }
+
+  function testCheckdeskNormalizeURL() {
+    $urls = array();
+    $urls[] = array(
+      'url' => 'http://meedan.com:80',
+      'normalize' => 'http://meedan.com/',
+      'msg' => 'Normalize URL with default port',
+    );
+    $urls[] = array(
+      'url' => 'http://meedan.com:80',
+      'normalize' => 'http://meedan.com/',
+      'msg' => 'Normalize URL with default port',
+    );
+    $urls[] = array(
+      'url' => 'http://MEEDAN.com/',
+      'normalize' => 'http://meedan.com/',
+      'msg' => 'Converting the scheme and host to lower case',
+    );
+    foreach ($urls as $url) {
+      $result = _checkdesk_normalize_url($url['url']);
+      $this->assertEqual($result, $url['normalize'], t($url['msg']));
+    }
+  }
+
+  function testCheckdeskDuplicatesPresave() {
+    $url = 'http://meedan.com:80';
+    $edit = array(
+      'uid' => $this->web_user->uid,
+      'type' => 'media',
+      'title' => $this->randomName(8),
+      'field_link' => array(LANGUAGE_NONE => array(array('url' => $url))),
+    );
+
+    node_save((object) $edit);
+    $node = $this->drupalGetNodeByTitle($edit['title']);
+    $this->assertEqual($node->field_link[LANGUAGE_NONE][0]['url'], 'http://meedan.com/', 'Creating media with normalized URL.');
+  }
+}
+ 

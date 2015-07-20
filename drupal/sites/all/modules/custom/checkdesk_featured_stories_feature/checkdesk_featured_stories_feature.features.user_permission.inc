@@ -103,6 +103,16 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'module' => 'nodequeue',
   );
 
+  // Exported permission: 'override discussion promote to front page option'.
+  $permissions['override discussion promote to front page option'] = array(
+    'name' => 'override discussion promote to front page option',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'override_node_options',
+  );
+
   // Exported permission: 'unflag delete'.
   $permissions['unflag delete'] = array(
     'name' => 'unflag delete',
@@ -162,6 +172,26 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'name' => 'unflag spam',
     'roles' => array(),
     'module' => 'flag',
+  );
+
+  // Exported permission: 'view any unpublished discussion content'.
+  $permissions['view any unpublished discussion content'] = array(
+    'name' => 'view any unpublished discussion content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'view_unpublished',
+  );
+
+  // Exported permission: 'view any unpublished post content'.
+  $permissions['view any unpublished post content'] = array(
+    'name' => 'view any unpublished post content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'view_unpublished',
   );
 
   return $permissions;

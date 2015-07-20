@@ -1,0 +1,334 @@
+// Citizen's view of Story page 
+// aka Discussion Node 
+
+.story {
+  @include ctb-clearfix;
+  margin-bottom: $absolute-line-height/2;
+}
+
+.story figure.media-lead {
+  text-align: center;
+  margin-bottom: 30px;
+  figcaption {
+    border: 0 none;
+    color: $firefly40;
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 5px;
+  }
+  a { word-wrap: break-word; }
+}
+.story h1 {
+  text-align: center;
+  font-style: normal;
+  @if $from-direction == 'right' {
+    font-size: 38px;
+    line-height: 58px;
+  }
+  
+  @if $from-direction == 'left' {
+    font-size: 40px;
+    letter-spacing: -1.48px;
+    line-height: 50px;
+  }
+  
+  color: $firefly90;
+  margin: $absolute-line-height*1.25 0 10px;
+}
+
+
+.story .story-meta {
+  @include ctb-clearfix;
+  @include cd-sans-serif-family;
+  color: $thatch80;
+  .separator {
+    color: rgba($thatch, .60);
+    font-size: 10px;
+    margin: 0 2px;
+  }
+  .gravatar {
+    margin-#{$omega}: $gutter-width/2;
+  }
+  a.contributor {
+    @if $from-direction == 'left' {
+      font-family: $serif-font-stack;
+      font-style: italic;
+    }
+    color: $thatch80; 
+    &:hover { 
+      color: $thatch; 
+      text-decoration: none;
+    }
+  }
+}
+
+.story .story-attributes {
+  text-align: center;
+}
+
+.story .story-attributes .story-commentcount,
+.story .story-attributes .content-actions {
+  margin-#{$alpha}: $gutter-width/2;
+  display: inline-block;
+  & > a, a.dropdown-toggle {
+    color: $dodgerBlue60; 
+    &:hover {
+      color: $dodgerBlue80; 
+      text-decoration: none;
+    }
+  }
+}
+
+.story .story-attributes .story-commentcount {
+  .icon-comment-o {
+    @include icon(comment-o, $base-font-size);  
+  } 
+}
+
+.story .story-attributes .content-actions {
+  .dropdown-menu {
+    text-align: $alpha;
+  }
+}
+
+.story .story-follow {
+  display: inline-block;
+  color: $dodgerBlue60;
+  margin-#{$alpha}: 7.5px;
+
+  a {
+    color: $dodgerBlue60; 
+    &:hover {
+      color: $dodgerBlue80; 
+      text-decoration: none;
+    }
+  }
+
+  a.flag-action {
+    @include icon("plus");
+    &:before, &:after { 
+      margin: 0 0 0 0;
+      margin-#{$omega}: 5px;
+    }
+  }
+  
+  a.unflag-action {
+    @include icon("minus");
+    &:before, &:after { 
+      margin: 0 0 0 0;
+      margin-#{$omega}: 5px;
+    }
+  }
+
+  .follow-count {
+    float: $omega;
+    margin-#{$alpha}: 5px;
+  }
+}
+
+.story .story-tabs-wrapper {
+  margin: 0 0 24px;
+  ul {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    li {
+      display: table-cell;
+      float: none;
+      height: 43px;
+      vertical-align: middle;
+      font-size: 20px;
+      @include ctb-bg($firefly5, rgba($firefly, 0.05));
+      border-bottom: 1px solid rgba($firefly, 0.01);
+      a { 
+        color: $firefly80; 
+        display: block; 
+        padding: 0 15px;
+        &.active {
+          color: $firefly;
+        }
+      }
+      &.active {
+        background-color: transparent;
+        border-bottom: 0 none;
+        border-top: 4px solid $dodgerBlue;
+      }
+    }
+  }
+}
+
+.story .story-collaboration-header-wrapper {
+  position: relative;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  body.page-node-collaboration & { 
+    border-bottom: 1px solid rgba($firefly, 0.1);
+  }
+  padding-bottom: 15px;
+  & > div, & > ul {
+    display: table-cell;
+    width: 100%;
+    vertical-align: bottom;
+  }
+}
+
+.story .story-collaborate-links {
+  li {
+    display: inline;
+    margin-#{$omega}: 30px;
+    font-size: 18px;
+    &:last-child {
+      margin-#{$omega}: 0;
+    }
+    &.submit-report a {
+      @include icon("bookmark", 18px);
+    }
+    &.compose-update a {
+      @include icon("pencil", 18px);
+    }
+  }
+}
+
+.story .collaboration-report-tooltip {
+  #{$alpha}: 20px;
+  top: 55px;
+  width: 400px;
+  @include cd-box-shadow;
+  @include background-clip(padding-box);
+  h3, .popover-content {
+    @include reset-box-model;
+    padding-#{$alpha}: 10px;
+    color: $firefly40;
+    span { color: $firefly60; }
+  }
+  h3 {
+    line-height: 48px;
+  }
+  .popover-arrow {
+    #{$alpha}: 28px;
+  }
+}
+
+.story .story-collaboration-activity-wrapper {
+  min-height: 200px;
+  margin-top: 30px;
+}
+
+.story .story-collaborators {
+  text-align: $omega;
+  .sc-users, .sc-avatars {
+    display: inline-block;
+  }
+  .sc-users {
+    font-size: 14px;
+    line-height: 1;
+    color: $firefly40;
+    margin-#{$omega}: 15px;
+    h3 {
+      @include reset-box-model;
+      @include cd-sans-serif-family;
+      font-weight: 700;
+      font-size: 18px;
+      color: $firefly60;
+      margin-bottom: 4px;
+    }
+    a {
+      color: $firefly40;
+    }
+  }
+  .sc-avatars {
+    a {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: inline-block;
+      @include ctb-size(48px, 48px);
+      vertical-align: bottom;
+      &:first-child {
+        @include border-radius(4px 0 0 4px);
+      }
+      &:last-child {
+        @include border-radius(0 4px 4px 0); 
+      }
+      &:only-child {
+        @include border-radius(4px);  
+      }
+    }
+  }
+}
+
+.story .story-by {
+  font-size: $larger-font-size;
+  margin-top: $absolute-line-height/4;
+  margin-bottom: $absolute-line-height/2;
+  a { @include ctb-linkColor($gray-light); }
+}
+
+.story .story-context {
+  font-size: $small-font-size;
+  line-height: $relative-line-height;
+}
+
+// Message displayed when a story has drafted updates
+.story .story-drafts {
+  color: $red;
+  font-size: $small-font-size;
+  font-style: italic;
+}
+
+.story .open .compose-update-header {
+  border-bottom: 4px solid rgb(239,202,43);
+  background-color: rgba(239,202,43,.1);
+  a {
+    color: $firefly90;
+    background: none;
+    @include icon("pencil", $large-font-size, $firefly90, $icon-position);
+    @include border-radius(4px 4px 0 0);
+  }
+}
+
+.story .story-updates-wrapper {
+  // add styles for load more pager
+  @include ctb-load-more-pager;
+}
+
+.story .story-footer {
+  @include ctb-clearfix;
+  display: block;
+  margin-top: 20px;
+  padding: $absolute-line-height/4 0;
+  color: $firefly40;
+  @include cd-sans-serif-family;
+  font-size: $small-font-size;
+}
+
+.story .story-updated-at {
+  .icon-clock-o { 
+    @include icon("clock-o", $larger-font-size, $firefly30); 
+    &:before { 
+      vertical-align: middle; 
+      margin-#{$alpha}: 0;
+    }
+  }
+}
+
+.story .story-comments {
+  .fb-comments {
+    margin-top: $absolute-line-height/2;
+  }
+}
+
+// create story note 
+.node-discussion-form {
+  .form-actions .description {
+    padding-top: 10px;
+    span {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: $yellow;
+      font-weight: 700;
+    }
+  }
+}

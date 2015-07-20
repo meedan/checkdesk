@@ -17,6 +17,7 @@ function template_preprocess_oembed__link__meedan_oembed_generic(&$vars) {
  * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_generic'.
  */
 function template_preprocess_meedan_full_mode(&$vars) {
+  global $language;
 	$embed = $vars['entity']->embed;
   $node = $vars['entity'];
   $vars['embed'] = $embed;
@@ -25,6 +26,10 @@ function template_preprocess_meedan_full_mode(&$vars) {
   // set provider class name
   $provider = strtolower($embed->provider_name);
   $vars['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+  // set embed type as class name
+  $item_type = strtolower($embed->type);
+  $vars['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+  
   // Set author name or provider name
   if(isset($embed->author_url) && isset($embed->author_name)) {
       $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
@@ -45,17 +50,33 @@ function template_preprocess_meedan_full_mode(&$vars) {
 
   // timestamp
   // TODO: make this source media timestamp
-  $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-      '@url' => $embed->original_url,
-      '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
-      '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
-      '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
-      '!interval' => format_interval(time() - $node->created, 1),
-    ));
+  // Set custom format based on language.
+  if(date('Y') == format_date($node->created, 'custom', 'Y')) {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+  } else {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
+  }
+  $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
+        '@url' => $node->embed->original_url,
+        '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
+        '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
+        '!daydatetime' => format_date($node->created, 'custom', $custom_format),
+        '!interval' => format_interval(time() - $node->created, 1),
+        '@user' => url('user/'. $node->uid),
+        '!user' => $node->name,
+      ));
 
-  // Inline thumbnail
-  if(isset($embed->thumbnail_url)) {
-    $vars['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-img-thumb')))), 'node/' . $node->nid , array('html' => TRUE));
+  // check for photos
+  if($embed->type == 'photo') {
+    // set full image
+    if(isset($embed->original_url)) {
+      $vars['full_image'] = l(theme_image(array('path' => $embed->url, 'attributes' => array('class' => array('img')))), 'node/' . $node->nid, array('html' => TRUE));
+    } else {
+      // Inline thumbnail
+      if(isset($embed->thumbnail_url)) {
+        $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
+      }
+    }
   }
 
   // Load report status
@@ -70,7 +91,7 @@ function template_preprocess_meedan_full_mode(&$vars) {
  * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_generic'.
  */
 function template_preprocess_meedan_inline_full_mode(&$vars) {
-
+  global $language;
   $embed = $vars['entity']->embed;
   $node = $vars['entity'];
   $vars['embed'] = $embed;
@@ -79,6 +100,11 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
   // set provider class name
   $provider = strtolower($embed->provider_name);
   $vars['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+  // set embed type as class name
+  $item_type = strtolower($embed->type);
+  $vars['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+
+
   // Set author name or provider name
   if(isset($embed->author_url) && isset($embed->author_name)) {
       $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
@@ -99,18 +125,35 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
 
   // timestamp
   // TODO: make this source media timestamp
-  $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-      '@url' => $embed->original_url,
-      '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
-      '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
-      '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
-      '!interval' => format_interval(time() - $node->created, 1),
-    ));
-
-  // Inline thumbnail
-  if(isset($embed->thumbnail_url)) {
-    $vars['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-img-thumb')))), 'node/' . $node->nid , array('html' => TRUE));
+  // Set custom format based on language.
+  if(date('Y') == format_date($node->created, 'custom', 'Y')) {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+  } else {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
   }
+  $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
+        '@url' => $node->embed->original_url,
+        '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
+        '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
+        '!daydatetime' => format_date($node->created, 'custom', $custom_format),
+        '!interval' => format_interval(time() - $node->created, 1),
+        '@user' => url('user/'. $node->uid),
+        '!user' => $node->name,
+      ));
+
+  // check for photos
+  if($embed->type == 'photo') {
+    // set full image
+    if(isset($embed->original_url)) {
+      $vars['full_image'] = l(theme_image(array('path' => $embed->url, 'attributes' => array('class' => array('img')))), 'node/' . $node->nid, array('html' => TRUE));
+    } else {
+      // Inline thumbnail
+      if(isset($embed->thumbnail_url)) {
+        $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
+      }
+    }
+  }
+
 
   // Load report status
   if(isset($node->field_rating)) {
@@ -125,8 +168,8 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
  * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_generic'.
  */
 function template_preprocess_meedan_inline_thumbnail(&$vars) {
-
- $embed = $vars['entity']->embed;
+  global $language;
+  $embed = $vars['entity']->embed;
   $node = $vars['entity'];
   $vars['embed'] = $embed;
   $vars['node'] = $node;
@@ -134,6 +177,10 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
   // set provider class name
   $provider = strtolower($embed->provider_name);
   $vars['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+  // set embed type as class name
+  $item_type = strtolower($embed->type);
+  $vars['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+
   // Set author name or provider name
   if(isset($embed->author_url) && isset($embed->author_name)) {
       $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
@@ -154,17 +201,25 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
 
   // timestamp
   // TODO: make this source media timestamp
-  $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-      '@url' => $embed->original_url,
-      '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
-      '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
-      '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
-      '!interval' => format_interval(time() - $node->created, 1),
-    ));
+  // Set custom format based on language.
+  if(date('Y') == format_date($node->created, 'custom', 'Y')) {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+  } else {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
+  }
+  $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
+        '@url' => $node->embed->original_url,
+        '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
+        '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
+        '!daydatetime' => format_date($node->created, 'custom', $custom_format),
+        '!interval' => format_interval(time() - $node->created, 1),
+        '@user' => url('user/'. $node->uid),
+        '!user' => $node->name,
+      ));
 
   // Inline thumbnail
   if(isset($embed->thumbnail_url)) {
-    $vars['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-img-thumb')))), 'node/' . $node->nid , array('html' => TRUE));
+    $vars['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
   }
 
   // Load report status
@@ -173,8 +228,6 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
       $vars['report_status'] = _checkdesk_report_status($node);
     }
   }
- 
-
 }
 
 /**
