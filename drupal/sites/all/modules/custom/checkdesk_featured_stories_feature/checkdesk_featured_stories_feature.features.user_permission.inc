@@ -122,6 +122,16 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'module' => 'override_node_options',
   );
 
+  // Exported permission: 'override discussion revision option'.
+  $permissions['override discussion revision option'] = array(
+    'name' => 'override discussion revision option',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'override_node_options',
+  );
+
   // Exported permission: 'publish revisions'.
   $permissions['publish revisions'] = array(
     'name' => 'publish revisions',
