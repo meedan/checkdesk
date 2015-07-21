@@ -98,7 +98,7 @@ Drupal.Nodejs.connect = function () {
       // in to other modules ajax requests without having to patch them.
       Drupal.ajax.prototype.nodejsOriginalBeforeSerialize = Drupal.ajax.prototype.beforeSerialize;
       Drupal.ajax.prototype.beforeSerialize = function(element_settings, options) {
-        options.data['nodejs_client_socket_id'] = Drupal.Nodejs.socket.socket.sessionid;
+        options.data['nodejs_client_socket_id'] = Drupal.Nodejs.socket.id;
         return this.nodejsOriginalBeforeSerialize(element_settings, options);
       };
     }
