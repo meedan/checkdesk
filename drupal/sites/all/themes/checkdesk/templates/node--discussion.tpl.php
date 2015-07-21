@@ -71,7 +71,7 @@
       <?php endif; ?>
 
     </aside>
-
+    <?php print $more_stories; ?>
     <!-- story comments -->
     <div class="story-comments" id="story-comments-<?php print $node->nid; ?>">
       <?php if (isset($content['custom_comments'])) print render($content['custom_comments']); ?>
