@@ -77,7 +77,6 @@ CKEDITOR.plugins.add( 'mediaembed',
                     },
                     'script': {
                         match: function(el) {
-                          return true;
                             if (!el.attributes.src) return false;
 
                             // Parse script source.
