@@ -633,6 +633,7 @@ function checkdesk_preprocess_node(&$variables) {
           '#node' => node_load($variables['nid']),
         );
       }
+      $variables['more_stories'] = views_embed_view('more_stories', 'block_1', $variables['nid']);
       if ($variables['view_mode'] == 'checkdesk_collaborate') {
         // Get heartbeat activity for particular story
         $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
