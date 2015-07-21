@@ -187,7 +187,7 @@ function nodejs_config_form_submit($form, &$form_state) {
     'extensions' => $ext,
     'debug' => (bool) $values['nodejs_config_debug'],
     'transports' => array(
-    	'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling'
+      'websocket', 'polling'
     ),
 	  'jsMinification' => true,
 	  'jsEtag' => true,

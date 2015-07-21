@@ -15,6 +15,19 @@ function nodejs_send_content_channel_message($message) {
 }
 
 /**
+ * Implements hook_permission().
+ */
+function nodejs_permission() {
+  return array(
+    'add users to nodejs channels' =>  array(
+      'title' => t('Add users to the Node.js server channels'),
+      'description' => t('Allows to add users manually to any channel in the Node.js server.'),
+    ),
+  );
+}
+
+
+/**
  * Send a content channel token to Node.js.
  *
  * @param mixed $channel
@@ -329,7 +342,7 @@ function nodejs_menu() {
       'title' => 'Add a channel to the Node.js server',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('nodejs_add_user_to_channel_form'),
-      'access callback' => TRUE,
+      'access arguments' => array('add users to nodejs channels'),
       'type' => MENU_CALLBACK,
     ),
   );

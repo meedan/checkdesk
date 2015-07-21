@@ -35,6 +35,9 @@
  *
  * sslCAPath: File system path to a file containing trusted certificates.
  *
+ * sslPassPhrase: SSL passphrase, will be passed in the passphrase key to the https
+ * server if set.
+ *
  * publishUrl: http path on which the node server should accept messages from
  * the Drupal site.
  *
@@ -58,11 +61,8 @@
  * extensions: An array of names of node.js modules that should be loaded as
  * extensions to the node.js server.
  *
- * clientsCanWriteToChannels: global flag that allows all channels to be written
- * to by client sockets without going via the backend. defaults to false
- *
  * clientsCanWriteToClients: global flag that allows all clients to be written
- * to by client sockets without going via the backend. defaults to false
+ * to by client sockets without going via the backend. defaults to false.
  *
  * transports: a list of transports to be used by Socket.Io.
  *
@@ -106,7 +106,7 @@ settings = {
   extensions: [],
   clientsCanWriteToChannels: false,
   clientsCanWriteToClients: false,
-  transports: ['websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling'],
+  transports: ['websocket', 'polling'],
   jsMinification: true,
   jsEtag: true,
   logLevel: 1
