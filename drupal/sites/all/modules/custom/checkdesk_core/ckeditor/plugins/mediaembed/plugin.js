@@ -77,8 +77,13 @@ CKEDITOR.plugins.add( 'mediaembed',
                     },
                     'script': {
                         match: function(el) {
+                            // Parse script source.
+                            // @see https://gist.github.com/jlong/2428561
+                            var parser = document.createElement('a');
+                            parser.href = el.attributes.src;
+
                             // TODO Allow white-listed script sources or some other way to validate scripts.
-                            return el.attributes.src === '//platform.twitter.com/widgets.js';
+                            return parser.hostname.match(/twitter.com$/i).length > 0;
                         },
                         attributes: '*'
                     }
