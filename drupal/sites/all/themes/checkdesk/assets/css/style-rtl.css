@@ -2134,9 +2134,14 @@ html {
   }
 }
 
-body.page-liveblog .story,
+body.page-liveblog #main #content {
+  max-width: 720px;
+}
+
 body.page-node .story {
   max-width: 620px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 body.node-type-media .report {

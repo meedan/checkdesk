@@ -41,11 +41,17 @@ html {
   }
 }
 
+// for frontpage
+body.page-liveblog #main #content {
+  max-width: 720px;
+}
+
 // for content pages
 // until sidebars are added as in search page
-body.page-liveblog .story, 
 body.page-node .story {
   max-width: 620px;
+  margin-#{$alpha}: auto;
+  margin-#{$omega}: auto;
 }
 
 // report
