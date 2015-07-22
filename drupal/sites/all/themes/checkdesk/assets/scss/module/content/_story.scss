@@ -314,7 +314,11 @@
   }
 }
 
-.story .story-comments {
+.story-comments {
+  border-top: 1px solid $firefly10;  
+  margin: $absolute-line-height/1.2 0;
+  padding: 20px 0 0;
+  text-align: center;
   .fb-comments {
     margin-top: $absolute-line-height/2;
   }
