@@ -55,16 +55,13 @@ function theme_facebook_commentcount($variables) {
   drupal_add_js(array('meedanFacebookComments' => array(
     'language' => meedan_facebook_get_locale(),
     'appId' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
-    'channelUrl' => $base_url . '/meedan_facebook/channel',
   )), 'setting');
   drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
 
   $node = $variables['node'];
   $nid = $node->nid;
   $path = _meedan_facebook_get_path($nid);
-  $output  = '<span class="fb-commentscount" data-url="' . $path . '" id="fb-commentscount-'. $nid .'">';
-  $output .= format_plural(0, '1 comment', '@count comments');
-  $output .= '</span>';
+  $output  = '<span class="fb-comments-count" data-href="' . $path . '" id="fb-commentscount-'. $nid .'">0</span>&nbsp;';
   return $output;
 }
 
@@ -81,12 +78,11 @@ function theme_facebook_comments($variables) {
   drupal_add_js(array('meedanFacebookComments' => array(
     'language' => meedan_facebook_get_locale(),
     'appId' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
-    'channelUrl' => $base_url . '/meedan_facebook/channel',
   )), 'setting');
   drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
 
   $path = _meedan_facebook_get_path($nid);
-  $output = '<div class="fb-comments" data-href="' . $path . '" data-num-posts="' . $per_page . '" data-nid="' . $nid . '" id="fb-comments-' . $nid . '"></div>';
+  $output = '<div class="fb-comments" data-href="' . $path . '" data-num-posts="' . $per_page . '" data-nid="' . $nid . '" id="fb-comments-' . $nid . '" data-version="v2.3"></div>';
   return $output;
 }
 
@@ -116,27 +112,114 @@ function meedan_facebook_menu() {
     'access arguments' => array('administer site configuration'),
   );
 
-  $items['meedan_facebook/channel'] = array(
-    'type' => MENU_CALLBACK,
-    'description' => 'Facebook Custom Channel URL',
-    'page callback' => 'meedan_facebook_custom_channel_url',
-    'access callback' => TRUE,
-  );
-
   return $items;
 }
 
 /**
- * Helper function to get a locale as Facebook expects
+ * Helper function to get a locale as Facebook expects.
  */
-function meedan_facebook_get_locale() {
-  global $language;
-  // TODO: Change this to a more rigorous mapping based on http://www.facebook.com/translations/FacebookLocales.xml
-  $language_map = array(
-    'en' => 'en_US',
+function meedan_facebook_get_locale($lang_code = '') {
+  $languages_map = array(
+    'af' => 'af_ZA',
     'ar' => 'ar_AR',
+    'ay' => 'ay_BO',
+    'az' => 'az_AZ',
+    'be' => 'be_BY',
+    'bg' => 'bg_BG',
+    'bn' => 'bn_IN',
+    'bs' => 'bs_BA',
+    'ca' => 'ca_ES',
+    'cs' => 'cs_CZ',
+    'cy' => 'cy_GB',
+    'da' => 'da_DK',
+    'de' => 'de_DE',
+    'el' => 'el_GR',
+    'en' => 'en_US',
+    'eo' => 'eo_EO',
+    'es' => 'es_ES',
+    'et' => 'et_EE',
+    'eu' => 'eu_ES',
+    'fa' => 'fa_IR',
+    'fi' => 'fi_FI',
+    'fo' => 'fo_FO',
+    'fr' => 'fr_FR',
+    'ga' => 'ga_IE',
+    'gl' => 'gl_ES',
+    'gn' => 'gn_PY',
+    'gu' => 'gu_IN',
+    'he' => 'he_IL',
+    'hi' => 'hi_IN',
+    'hr' => 'hr_HR',
+    'hu' => 'hu_HU',
+    'hy' => 'hy_AM',
+    'id' => 'id_ID',
+    'is' => 'is_IS',
+    'it' => 'it_IT',
+    'ja' => 'ja_JP',
+    'jv' => 'jv_ID',
+    'ka' => 'ka_GE',
+    'kk' => 'kk_KZ',
+    'km' => 'km_KH',
+    'kn' => 'kn_IN',
+    'ko' => 'ko_KR',
+    'ku' => 'ku_TR',
+    'la' => 'la_VA',
+    'lt' => 'lt_LT',
+    'lv' => 'lv_LV',
+    'mg' => 'mg_MG',
+    'mk' => 'mk_MK',
+    'ml' => 'ml_IN',
+    'mn' => 'mn_MN',
+    'mr' => 'mr_IN',
+    'ms' => 'ms_MY',
+    'mt' => 'mt_MT',
+    'nb' => 'nb_NO',
+    'ne' => 'ne_NP',
+    'nl' => 'nl_BE',
+    'nn' => 'nn_NO',
+    'pa' => 'pa_IN',
+    'pl' => 'pl_PL',
+    'ps' => 'ps_AF',
+    'qu' => 'qu_PE',
+    'rm' => 'rm_CH',
+    'ro' => 'ro_RO',
+    'ru' => 'ru_RU',
+    'sa' => 'sa_IN',
+    'se' => 'se_NO',
+    'sk' => 'sk_SK',
+    'sl' => 'sl_SI',
+    'so' => 'so_SO',
+    'sq' => 'sq_AL',
+    'sr' => 'sr_RS',
+    'sv' => 'sv_SE',
+    'sw' => 'sw_KE',
+    'ta' => 'ta_IN',
+    'te' => 'te_IN',
+    'tg' => 'tg_TJ',
+    'th' => 'th_TH',
+    'tl' => 'tl_ST',
+    'tr' => 'tr_TR',
+    'tt' => 'tt_RU',
+    'uk' => 'uk_UA',
+    'ur' => 'ur_PK',
+    'uz' => 'uz_UZ',
+    'vi' => 'vi_VN',
+    'xh' => 'xh_ZA',
+    'yi' => 'yi_DE',
+    'zh-hans' => 'zh_CN',
+    'zh-hant' => 'zh_TW',
+    'zu' => 'zu_ZA',
   );
-  return $language_map[$language->language];
+  if (empty($lang_code)) {
+    global $language;
+    $lang_code = $language->language;
+  }
+  if (isset($languages_map[$lang_code])) {
+    return $languages_map[$lang_code];
+  }
+  else {
+    return 'en_US';
+  }
 }
 
 /**
@@ -198,14 +281,4 @@ function meedan_facebook_page_build(&$page) {
       '#markup' => '<div id="fb-root"></div>',
     );
   }
-}
-
-/**
- * The Custom Channel URL that FB.init has as an option
- */
-function meedan_facebook_custom_channel_url() {
-  header("Cache-Control: public, s-maxage=31536000, max-age=31536000");
-  header("Expires: Sun, 1 Oct 2079 00:00:00 GMT");
-  print '<script src="http://connect.facebook.net/' . meedan_facebook_get_locale() . '/all.js"></script>';
-  exit;
 }

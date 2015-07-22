@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall hooks for Revisioning module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function revisioning_install() {
+  /*
+   * taxonomy_node_insert() and taxonomy_node_update() hooks must be executed
+   * before revisioning_node_insert() and revisioning_node_update(). So increase
+   * our weight to 1 or higher.
+   * A weight of 6 was chosen based on [#2142429].
+   */
+  db_update('system')
+    ->fields(array('weight' => 6))
+    ->condition('name', 'revisioning')
+    ->execute();
+
+  // Panels override fix, see http://drupal.org/node/519924.
+  variable_set('page_manager_override_anyway', TRUE);
+
+  // If requested, not yet published and unpublished nodes need to reveal their
+  // taxonomy terms in Views and in feeds (subject to permissions).
+  if (module_exists('taxonomy') && variable_get('revisioning_in_views_show_unpublished_content_terms', TRUE)) {
+    foreach (node_load_multiple(FALSE) as $node) {
+      revisioning_update_taxonomy_index($node, TRUE);
+    }
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function revisioning_uninstall() {
+  // Delete all revisioning_* variables at once.
+  db_query("DELETE FROM {variable} WHERE name LIKE 'revisioning_%%'");
+  // See above.
+  variable_del('page_manager_override_anyway');
+  foreach (node_type_get_types() as $type) {
+    // Maybe revisioning_auto_publish_<type> and new_revisions_<type>
+    // should be used in array, like 'revision_moderation' below?
+    variable_del('new_revisions_' . $type->type);
+    // Remove 'revision_moderation' from all node_options_<type> variables.
+    $variable_name = 'node_options_' . $type->type;
+    if ($node_options = variable_get($variable_name, NULL)) {
+      $node_options = array_diff($node_options, array('revision_moderation'));
+      variable_set($variable_name, $node_options);
+    }
+  }
+  // Make sure that unpublished nodes do not reveal their taxonomy terms, once
+  // Revisioning is uninstalled.
+  if (module_exists('taxonomy')) {
+    require_once 'revisioning.taxonomy.inc';
+
+    foreach (node_load_multiple(FALSE) as $node) {
+      // Modify node objects to be consistent with Revisioning being
+      // uninstalled, before updating the {taxonomy_index} table accordingly.
+      unset($node->revision_moderation);
+      revisioning_update_taxonomy_index($node, FALSE);
+    }
+  }
+}
+
+/**
+ * Adjust module weight.
+ *
+ * As of core 7.12 the new hooks taxonomy_node_insert() and
+ * taxonomy_node_update() must be executed before the associated revisioning
+ * hooks.
+ */
+function revisioning_update_7104() {
+  db_update('system')
+    ->fields(array('weight' => 1))
+    ->condition('name', 'revisioning')
+    ->execute();
+}
+
+/**
+ * To avoid problems when Revisioning is installed with Diff and Workbench too.
+ * See [#2142429].
+ */
+function revisioning_update_7107() {
+  db_update('system')
+    ->fields(array('weight' => '6'))
+    ->condition('name', 'revisioning')
+    ->execute();
+}

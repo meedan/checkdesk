@@ -1,0 +1,20 @@
+/**
+ * Responsive media (images, videos…)
+ *
+ * 1. Give the block an initial ratio of 5/3 to avoid FOUC
+ * 2. Stretch the contained media to the dimensions of its container
+ */
+
+.u-responsive-ratio {
+    position: relative;
+    padding-bottom: 60%;
+    width: 100%;
+    overflow: hidden;
+    img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        #{$alpha}: 0;
+    }
+}

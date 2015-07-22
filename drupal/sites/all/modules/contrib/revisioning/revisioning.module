@@ -1,0 +1,1229 @@
+<?php
+
+/**
+ * @file
+ * Allows content to be updated and reviewed before submitting it for
+ * publication, while the current live revision remains unchanged and publicly
+ * visible until the changes have been reviewed and found fit for publication
+ * by a moderator.
+ */
+
+// The 3 states a piece of content may be saved as.
+define('REVISIONING_NO_REVISION', 0);
+define('REVISIONING_NEW_REVISION_NO_MODERATION', 1);
+define('REVISIONING_NEW_REVISION_WITH_MODERATION', 2);
+
+// Paths node/%nid/view, node/%nid/edit open current revision.
+define('REVISIONING_LOAD_CURRENT', 0);
+// Paths node/%nid/view, node/%nid/edit open latest revison.
+define('REVISIONING_LOAD_LATEST', 1);
+
+define('REVISIONING_NEW_REVISION_WHEN_NOT_PENDING', 0);
+define('REVISIONING_NEW_REVISION_EVERY_SAVE', 1);
+
+define('REVISIONING_REVISIONS_BLOCK_OLDEST_AT_TOP', 0);
+define('REVISIONING_REVISIONS_BLOCK_NEWEST_AT_TOP', 1);
+
+module_load_include('inc', 'revisioning', 'revisioning_api');
+module_load_include('inc', 'revisioning', 'revisioning.pages');
+module_load_include('inc', 'revisioning', 'revisioning_theme');
+module_load_include('inc', 'revisioning', 'revisioning_tokens');
+module_load_include('inc', 'revisioning', 'revisioning_triggers_actions');
+module_load_include('inc', 'revisioning', 'revisioning.taxonomy');
+if (module_exists('rules')) {
+  // This is not supposed to be necessary, but without it bad things happen.
+  module_load_include('inc', 'revisioning', 'revisioning.rules');
+}
+
+
+/**
+ * Implements hook_help().
+ */
+function revisioning_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#revisioning':
+      $s = t('For documentation and tutorials see the <a href="@revisioning">Revisioning project page</a>',
+        array('@revisioning' => url('http://drupal.org/project/revisioning')));
+      break;
+
+    case 'node/%/revisions':
+      $s = t('To edit, publish or delete one of the revisions below, click on its saved date.');
+      break;
+
+    case 'admin/structure/trigger/revisioning':
+      $s = t("Below you can assign actions to run when certain publication-related events happen. For example, you could send an e-mail to an author when their pending content is pubished.");
+      break;
+
+    case 'accessible-content/i-created/pending':
+      $s = t('Showing all <em>pending</em> content <em>you created</em> and still have at least view access to.');
+      break;
+
+    case 'accessible-content/i-last-modified/pending':
+      $s = t('Showing all <em>pending</em> content <em>you last modified</em> and still have at least view access to.');
+      break;
+
+    case 'accessible-content/i-can-edit/pending':
+      $s = t('Showing all <em>pending</em> content you can <em>edit</em>.');
+      break;
+
+    case 'accessible-content/i-can-view/pending':
+      $s = t('Showing all <em>pending</em> content you have at least <em>view</em> access to.');
+      break;
+  }
+  return empty($s) ? '' : $s . '<br/>';
+}
+
+/**
+ * Implements hook_permission().
+ *
+ * Revisioning permissions. Note that permissions to view, revert and delete
+ * revisions already exist in node.module.
+ */
+function revisioning_permission() {
+
+  $edit_description = t('Also requires edit permission from either the Node or other content access module(s).');
+
+  $moderated_content_types = implode(', ', revisioning_moderated_content_types(FALSE));
+  $publish_description = empty($moderated_content_types)
+    ? t('Please select one or more content types for moderation by ticking the <em>New revision in draft, pending moderation</em> <strong>Publishing option</strong> at <em>Structure >> Content types >> edit</em>.')
+    : t('Applies to content types that are subject to moderation, i.e.: %moderated_content_types.',
+        array('%moderated_content_types' => $moderated_content_types));
+
+  if (!empty($moderated_content_types) && variable_get('revisioning_require_update_to_publish', TRUE)) {
+    $publish_description .= ' <br/>' . $edit_description;
+  }
+
+  $permissions = array(
+    'view revision status messages' => array(
+      'title' => t('View revision status messages'),
+      'description' => '',
+    ),
+    'edit revisions' => array(
+      'title' => t('Edit content revisions'),
+      'description' => $edit_description,
+    ),
+    'publish revisions' => array(
+      'title' => t("Publish content revisions (of anyone's content)"),
+      'description' => $publish_description,
+    ),
+    'unpublish current revision' => array(
+      'title' => t("Unpublish current revision (of anyone's content)"),
+      'description' => $publish_description,
+    ),
+  );
+  // Add per node-type view permissions in same way as edit permissions of node
+  // module, but only for moderated content-types.
+  foreach (node_type_get_types() as $type) {
+    $machine_name = check_plain($type->type);
+    if (revisioning_content_is_moderated($machine_name)) {
+      $permissions['view revisions of own ' . $machine_name . ' content'] = array(
+        'title' => t('%type-name: View revisions of own content', array('%type-name' => $type->name)));
+      $permissions['view revisions of any ' . $machine_name . ' content'] = array(
+        'title' => t("%type-name: View revisions of anyone's content", array('%type-name' => $type->name)));
+      $permissions['publish revisions of own ' . $machine_name . ' content'] = array(
+        'title' => t('%type-name: Publish revisions of own content', array('%type-name' => $type->name)));
+      $permissions['publish revisions of any ' . $machine_name . ' content'] = array(
+        'title' => t("%type-name: Publish revisions of anyone's content", array('%type-name' => $type->name)));
+    }
+  }
+  return $permissions;
+}
+
+/**
+ * Implements hook_menu().
+ *
+ * Define new menu items.
+ * Existing menu items are modified through hook_menu_alter().
+ */
+function revisioning_menu() {
+  $items = array();
+
+  // Start with the Revisioning config menu item, put under Content Authoring.
+  $items['admin/config/content/revisioning'] = array(
+    'title' => 'Revisioning',
+    'description' => 'Configure how content view and edit links behave. Customise revision summary listing.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('revisioning_admin_configure'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'revisioning.admin.inc',
+  );
+
+  // Plain link, not a tab, to allow users to unpublish a node.
+  $items['node/%node/unpublish-current'] = array(
+    // 'title' => t(Unpublish current revision'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('revisioning_unpublish_confirm', 1),
+    'access callback' => '_revisioning_access_node_revision',
+    'access arguments' => array('unpublish current revision', 1),
+    'type' => MENU_CALLBACK,
+  );
+
+  // Revision tab local subtasks (i.e. secondary tabs), up to 8 of them:
+  // list, view, edit, publish, unpublish, revert, delete and compare.
+  // All revision operations 'node/%node/revisions/%vid/<op>' are defined as
+  // local subtasks (subtabs) secondary to the primary 'node/%node/revisions'
+  // local task (primary tab).
+  //
+  // Subtab to the Revisions primary tab to allow going back to the revisions
+  // list without clicking the primary tab for a second time, which also works.
+  $items['node/%node/revisions/list'] = array(
+    'title' => 'List all revisions',
+    'access callback' => '_revisioning_access_node_revision',
+    'access arguments' => array('view revision list', 1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -20,
+  );
+
+  $items['node/%node/revisions/delete-archived'] = array(
+    'title' => 'Delete archived revisions',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('revisioning_delete_archived_confirm', 1),
+    'access callback' => '_revisioning_access_node_revision',
+    'access arguments' => array('delete archived revisions', 1),
+    'type' => MENU_CALLBACK,
+  );
+
+  // View revision local subtask.
+  // Note the use of %vid as opposed to %. This allows us to manipulate the
+  // second argument in the path through vid_to_arg().
+  $items['node/%node/revisions/%vid/view'] = array(
+    'title' => 'View',
+    'load arguments' => array(3),
+    'page callback' => '_revisioning_view_revision',
+    'page arguments' => array(1),
+    'access callback' => '_revisioning_access_node_revision',
+    'access arguments' => array('view revisions', 1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -10,
+    // 'tab_parent' => 'node/%/revisions',
+  );
+  // Edit revision local subtask.
+  $items['node/%node/revisions/%vid/edit'] = array(
+    'title' => 'Edit',
+    'load arguments' => array(3),
+    'page callback' => '_revisioning_edit_revision',
+    'page arguments' => array(1),
+    'access callback' => '_revisioning_access_node_revision',
+    'access arguments' => array('edit revisions', 1),
+    'file' => 'node.pages.inc',
+    'file path' => drupal_get_path('module', 'node'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -7,
+    // 'tab_parent' => 'node/%/revisions',
+  );
+  // Publish revision local subtask.
+  // As the menu is content type unaware, a further check on
+  // node->revision_moderation must be made to determine whether it is
+  // appropriate to show this tab.
+  // This is done in _revisioning_access_node_revision.
+  $items['node/%node/revisions/%vid/publish'] = array(
+    'title' => 'Publish',
+    'load arguments' => array(3),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('revisioning_publish_confirm', 1),
+    'access callback' => '_revisioning_access_node_revision',
+    'access arguments' => array('publish revisions', 1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -4,
+  );
+  // Unpublish node local subtask.
+  // As the menu is content type unaware, a further check on
+  // node->revision_moderation must be made to determine whether it is
+  // appropriate to show this tab.
+  // This is done in _revisioning_access_node_revision.
+  $items['node/%node/revisions/%vid/unpublish'] = array(
+    'title' => 'Unpublish',
+    'load arguments' => array(3),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('revisioning_unpublish_confirm', 1),
+    'access callback' => '_revisioning_access_node_revision',
+    'access arguments' => array('unpublish current revision', 1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -3,
+  );
+  // Revert to revision local subtask.
+  $items['node/%node/revisions/%vid/revert'] = array(
+    'title' => 'Revert to this',
+    'load arguments' => array(3),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('node_revision_revert_confirm', 1),
+    'access callback' => '_revisioning_access_node_revision',
+    'access arguments' => array('revert revisions', 1),
+    'file' => 'node.pages.inc',
+    'file path' => drupal_get_path('module', 'node'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -2,
+  );
+  // Delete revision local subtask.
+  $items['node/%node/revisions/%vid/delete'] = array(
+    'title' => 'Delete',
+    'load arguments' => array(3),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('node_revision_delete_confirm', 1),
+    'access callback' => '_revisioning_access_node_revision',
+    'access arguments' => array('delete revisions', 1),
+    'file' => 'node.pages.inc',
+    'file path' => drupal_get_path('module', 'node'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10,
+  );
+
+  // If Diff module is enabled, provide a "Compare to current" local subtask.
+  if (module_exists('diff')) {
+    $items['node/%node/revisions/%vid/compare'] = array(
+      'title' => 'Compare to current',
+      'load arguments' => array(3),
+      'page callback' => '_revisioning_compare_to_current_revision',
+      'page arguments' => array(1),
+      'access callback' => '_revisioning_access_node_revision',
+      'access arguments' => array('compare to current', 1),
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 0,
+      // 'tab_parent' => 'node/%/revisions',
+    );
+  }
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ *
+ * Modify menu items defined in other modules (in particular the Node module).
+ */
+function revisioning_menu_alter(&$items) {
+
+  // Change to access callbacks for existing node paths so that we properly
+  // control revision-related operation.
+  // Some also have their page callbacks altered, e.g to load the latest
+  // rather than the current revision of a node.
+  // Can't change node load function to, say nid_load(), as we'll run into
+  // trouble elsewhere, e.g. menu_get_object(), due to the fact that the
+  // prefix, e.g. '%nid', is meant to be a type name, i.e. '%node'.
+  //
+  // Alter the 3 primary node page tabs: View tab, Edit tab, Revisions tab ...
+  $items['node/%node']['access callback'] = '_revisioning_view_edit_access_callback';
+  $items['node/%node']['access arguments'] = array('view', 1);
+  $items['node/%node']['page callback'] = '_revisioning_view';
+  $items['node/%node']['page arguments'] = array(1);
+  // This is the MENU_DEFAULT_LOCAL_TASK, so inherits the above.
+  $items['node/%node/view']['title callback'] = '_revisioning_title_for_tab';
+  $items['node/%node/view']['title arguments'] = array(1, 'view');
+  $items['node/%node/view']['weight'] = -10;
+
+  $items['node/%node/edit']['access callback'] = '_revisioning_view_edit_access_callback';
+  $items['node/%node/edit']['access arguments'] = array('edit', 1);
+  $items['node/%node/edit']['page callback'] = '_revisioning_edit';
+  $items['node/%node/edit']['page arguments'] = array(1);
+  $items['node/%node/edit']['title callback'] = '_revisioning_title_for_tab';
+  $items['node/%node/edit']['title arguments'] = array(1, 'edit');
+
+  // 'Revisions' tab remains, but points to new page callback, allowing users
+  // to pick the revision to view, edit, publish, revert, unpublish, delete.
+  // Need to override _node_revision_access() call back as it disallows access
+  // to the 'Revisions' tab when there's only one revision, which will prevent
+  // users from getting to the publish/unpublish links.
+  $items['node/%node/revisions']['access callback'] = '_revisioning_access_node_revision';
+  $items['node/%node/revisions']['access arguments'] = array('view revision list', 1);
+  $items['node/%node/revisions']['page callback'] = 'revisioning_node_overview';
+  $items['node/%node/revisions']['page arguments'] = array(1);
+  $items['node/%node/revisions']['title callback'] = '_revisioning_title_for_tab';
+  $items['node/%node/revisions']['title arguments'] = array(1, 'revisions');
+
+  // Remove the node.module links as we defined our own versions, using %vid
+  unset($items['node/%node/revisions/%/view']);
+  unset($items['node/%node/revisions/%/revert']);
+  unset($items['node/%node/revisions/%/delete']);
+
+  if (module_exists('diff')) {
+    // If Diff module is enabled, make sure it uses correct access callback.
+    $items['node/%node/revisions/view']['access callback'] = '_revisioning_access_node_revision';
+    $items['node/%node/revisions/view']['access arguments'] = array('view revisions', 1);
+  }
+}
+
+/**
+ * Perform path manipulations for menu items containing the %vid wildcard.
+ *
+ * For example the ones from revisioning_menu().
+ * @see http://drupal.org/node/500864
+ */
+function vid_to_arg($arg, &$map, $index) {
+  if (empty($arg)) {
+    // For e.g. node/%/revisions.
+    // Suppresses subtabs of Revisions tab where %vid is omitted.
+    $map = array();
+  }
+  return $arg;
+}
+
+/**
+ * Implements hook_node_load().
+ *
+ * The same load op may occur multiple times during the same HTTP request, so
+ * hooray for caching!
+ *
+ * hook_node_load is called when viewing a single node
+ * node_load() -> node_load_multiple() ->
+ * DrupalDefaultEntityController->attachLoad()
+ *
+ * hook_node_load is also called on the /content summary page:
+ * node_admin_nodes() -> node_load_multiple() ->
+ * DrupalDefaultEntityController->attachLoad()
+ * 
+ * We do nothing in this 2nd case.
+ */
+function revisioning_node_load($nodes, $types) {
+  // The 'taxonomy/term/%' menu callback taxonomy_term_page() selects nodes
+  // based on presence of their nids in the {taxonomy_index} table, which is
+  // mainly based on publication status. Revisioning also updates the table for
+  // unpublished content so that in Views we can see the terms belonging to
+  // published as well as unpublished content. As a result we must re-apply
+  // access control when taxonomy feeds are displayed.
+  // See also revisioning_update_taxonomy_index().
+  //
+  $double_check_access = (strpos($_GET['q'], 'taxonomy/term') === 0) &&
+    variable_get('revisioning_in_views_show_unpublished_content_terms', TRUE);
+
+  // At this point status, comment, promote and sticky have been set on all of
+  // the $nodes according to the {node_revision} table (not the {node} table),
+  // using {node.vid} as the foreign key into {node_revision}.
+  $nodes_to_be_fixed = array();
+  foreach ($nodes as $nid => $node) {
+    if ($double_check_access && !node_access('view', $node)) {
+      // At this point we cannot remove the node object from $nodes,
+      // but we can set a flag to be checked in a later hook.
+      $node->dont_display = TRUE;
+    }
+    else {
+      revisioning_set_node_revision_info($node);
+      if (!empty($node->revision_moderation) && !empty($node->is_current)) {
+        // Hack!
+        // Because of core issue [#1120272/#542290], if the current revision is
+        // loaded, $node fields may in fact be those belonging to LATEST
+        // revision.
+        // So reload with FIELD_LOAD_REVISION. We can rely on $node->vid, that
+        // attribute is set correctly.
+        // Make sure to unset the already loaded fields or we end up with 2
+        // copies of each field, e.g. 2 bodies, 2 tags, 2 image attachments etc.
+        list($nid, $vid, $bundle) = entity_extract_ids('node', $node);
+        $instances = _field_invoke_get_instances('node', $bundle, array('deleted' => FALSE));
+        foreach ($instances as $instance) {
+          $field_name = $instance['field_name'];
+          unset($node->{$field_name});
+        }
+        $nodes_to_be_fixed[$nid] = $node;
+      }
+    }
+  }
+  if (!empty($nodes_to_be_fixed)) {
+    field_attach_load_revision('node', $nodes_to_be_fixed);
+    foreach ($nodes_to_be_fixed as $nid => $node) {
+      $nodes[$nid] = $node;
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_prepare_view().
+ *
+ * First of the dont_display hooks.
+ */
+function revisioning_entity_prepare_view($entities, $entity_type, $langcode) {
+  if ($entity_type == 'node') {
+    foreach ($entities as $node) {
+      if (!empty($node->dont_display)) {
+        $node->title = FALSE;
+        // This == COMMENT_NODE_HIDDEN if Comment module enabled.
+        $node->comment = 0;
+        $node->link = FALSE;
+        unset($node->body);
+        unset($node->rss_elements);
+      }
+      else {
+        // Display, however suppress comment form when revision is not current.
+        if (isset($node->comment) && !empty($node->revision_moderation) && empty($node->is_current)) {
+          // Prevent comment_node_view() from adding the comment form.
+          // This == COMMENT_NODE_HIDDEN;
+          $node->comment = 0;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_attach_view_alter().
+ */
+function revisioning_field_attach_view_alter(&$output, $context) {
+  if ($context['entity_type'] == 'node' && !empty($context['entity']->dont_display)) {
+    $output = array();
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function revisioning_node_view($node, $view_mode, $langcode) {
+  if (!empty($node->dont_display)) {
+    // Suppress "Read more".
+    $node->content = array();
+  }
+}
+
+/**
+ * Output a status message, provided teh user has the required permission.
+ *
+ * @param string $message
+ *   The status message to be displayed.
+ */
+function revisioning_set_status_message($message) {
+  if (user_access('view revision status messages')) {
+    drupal_set_message(filter_xss($message), 'status');
+  }
+}
+
+/**
+ * Implements hook_node_prepare().
+ *
+ * Called when presenting edit form.
+ */
+function revisioning_node_prepare($node) {
+  if (!empty($node->nid)) {
+    $count = _revisioning_get_number_of_revisions_newer_than($node->vid, $node->nid);
+    if ($count == 1) {
+      drupal_set_message(t('Please note there is one revision more recent than the one you are about to edit.'), 'warning');
+    }
+    elseif ($count > 1) {
+      drupal_set_message(t('Please note there are @count revisions more recent than the one you are about to edit.',
+        array('@count' => $count)), 'warning');
+    }
+  }
+}
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Called when saving, be it an edit or when creating a node.
+ *
+ * Note that the following may be set programmatically on the $node object
+ * before calling node_save($node):
+ *
+ * o $node->revision_operation, one of:
+ *
+ *   REVISIONING_NO_REVISION
+ *   ($node->revision == $node->revision_moderation == FALSE)
+ *
+ *   REVISIONING_NEW_REVISION_NO_MODERATION
+ *   ($node->revision == TRUE, $node->revision_moderation == FALSE)
+ *
+ *   REVISIONING_NEW_REVISION_WITH_MODERATION
+ *   ($node->revision == $node->revision_moderation == TRUE)
+ *
+ * o $node->revision_condition (applies only to NEW_REVISION_WITH_MODERATION):
+ *
+ *   REVISIONING_NEW_REVISION_EVERY_SAVE
+ *   REVISIONING_NEW_REVISION_WHEN_NOT_PENDING
+ */
+function revisioning_node_presave($node) {
+  revisioning_set_node_revision_info($node);
+
+  if (isset($node->revision_operation)) {
+    $node->revision = ($node->revision_operation > REVISIONING_NO_REVISION);
+    $node->revision_moderation = ($node->revision_operation == REVISIONING_NEW_REVISION_WITH_MODERATION);
+  }
+
+  if (!empty($node->revision_moderation) && revisioning_user_may_auto_publish($node)) {
+    revisioning_set_status_message(t('Auto-publishing this revision.'));
+    // Follow the default saving process making this revision current and
+    // published, as opposed to pending.
+    unset($node->revision_moderation);
+    // This is not required for correct operation, as a revision becomes
+    // pending based on vid > current_revision_id. But it looks less confusing,
+    // when the "Published" box is in sync with the moderation radio buttons.
+    $node->status = NODE_PUBLISHED;
+    $node->auto_publish = TRUE;
+  }
+
+  if (!isset($node->nid)) {
+    // New node, if moderated without Auto-publish, ignore the default Publish
+    // tickbox.
+    if (isset($node->revision_moderation) && $node->revision_moderation == TRUE) {
+      $node->status = NODE_NOT_PUBLISHED;
+    }
+    // Set these for Rules, see [#1627400]
+    $node->current_status  = $node->status;
+    $node->current_title   = $node->title;
+    $node->current_promote = $node->promote;
+    $node->current_sticky  = $node->sticky;
+    $node->current_comment = isset($node->comment) ? $node->comment : 0;
+    return;
+  }
+
+  if (!empty($node->revision_moderation) /* || !empty($auto_publish) */) {
+    // May want to do this for auto_publish too, to provide $node->current... to
+    // other modules, as a courtesy.
+    if (!isset($node->revision_condition) && !empty($node->revision) && !empty($node->is_pending)
+      && variable_get('new_revisions_' . $node->type, REVISIONING_NEW_REVISION_WHEN_NOT_PENDING) == REVISIONING_NEW_REVISION_WHEN_NOT_PENDING) {
+      revisioning_set_status_message(t('Updating existing draft, not creating new revision as this one is still pending.'));
+      // To tell revisioning_node_update().
+      $node->revision_condition = REVISIONING_NEW_REVISION_WHEN_NOT_PENDING;
+    }
+    if (isset($node->revision_condition)) {
+      // Tell node_save() whether a new revision should be created.
+      $node->revision = ($node->revision_condition == REVISIONING_NEW_REVISION_EVERY_SAVE);
+    }
+
+    $result = db_query("SELECT status, title, comment, promote, sticky FROM {node_revision} WHERE vid = :vid",
+      array(':vid' => $node->current_revision_id));
+    $current_revision = $result->fetchObject();
+    // Copy from {node_revision} the field values replicated on {node} before
+    // handing back to node_save(). This is a side-effect of core D7's somewhat
+    // "sick" table denormalisation.
+    // If the Scheduler module is used take the status from there. See
+    // revisioning_scheduler_api().
+    $node->current_status  = isset($node->scheduled_status) ? $node->scheduled_status : $current_revision->status;
+    $node->current_title   = $current_revision->title;
+    $node->current_promote = $current_revision->promote;
+    $node->current_sticky  = $current_revision->sticky;
+    $node->current_comment = isset($current_revision->comment) ? $current_revision->comment : 0;
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ *
+ * Note: $node->revision_moderation and $node->revision_condition may be set
+ * programmatically prior to calling node_save().
+ * See also: revisioning_node_pre_save().
+ */
+function revisioning_node_update($node) {
+
+  revisioning_update_taxonomy_index($node, variable_get('revisioning_in_views_show_unpublished_content_terms', TRUE));
+
+  // Check whether the node has a current_status property and update the
+  // node->status to allow node_save()'s call to node_access_acquire_grants()
+  // to create the correct node_access entry for the current_status.
+  if (isset($node->current_status)) {
+    $node->status = $node->current_status;
+  }
+
+  if (!empty($node->revision_moderation) && (isset($node->revision_condition) || !empty($node->revision))) {
+    // Enter when revision moderation is on and revision_condition=0,1
+    // Have to do this due to D7's "sick" denormalisation of node revision data.
+    // Resetting the fields duplicated from new {node_revision} back to their
+    // originial values to match the current revision as opposed to the latest
+    // revision. The latter is done by node_save() just before it calls this
+    // function.
+    // By resetting {node.vid} {node.vid} < {node_revision.vid}, which makes
+    // the newly created revision a pending revision in Revisioning's books.
+    // Note: cannot use $node->old_vid as set by node_save(), as this refers to
+    // the revision edited, which may not be the current, which is what we are
+    // after here.
+    db_update('node')
+      ->fields(array(
+        'vid'     => $node->current_revision_id,
+        'status'  => $node->current_status,
+        'title'   => $node->current_title,
+        // In case Comment module enabled.
+        'comment' => $node->current_comment,
+        'promote' => $node->current_promote,
+        'sticky'  => $node->current_sticky))
+      ->condition('nid', $node->nid)
+      ->execute();
+  }
+  // Generate a 'post update' event in Rules.
+  module_invoke_all('revisionapi', 'post update', $node);
+
+  // Add new revision usage records to files to prevent them being deleted.
+  $fields = field_info_instances('node', $node->type);
+  foreach ($fields as $field_name => $value) {
+    $field_info = field_info_field($field_name);
+    if ($field_info['type'] == 'file' || $field_info['type'] == 'image') {
+      // See #1996412.
+      $file_fields[$field_name] = $value;
+    }
+  }
+  // Create file revision entries for files created using older versions.
+  // $old_node = isset($node->original) ? $node->original : NULL;
+  // [#2276657]
+  $old_node = isset($node->original) && !empty($node->original) ? $node->original : NULL;
+  if (isset($old_node) && !empty($file_fields)) {
+    foreach ($file_fields as $file_field) {
+      if ($old_files = field_get_items('node', $old_node, $file_field['field_name'], $old_node->language)) {
+        foreach ($old_files as $old_single_file) {
+          if (!empty($old_single_file)) {
+            $old_file = (object) $old_single_file;
+            file_usage_add($old_file, 'revisioning', 'revision', $old_node->vid);
+          }
+        }
+      }
+    }
+  }
+  if (!empty($file_fields)) {
+    foreach ($file_fields as $file_field) {
+      if ($files = field_get_items('node', $node, $file_field['field_name'], $node->language)) {
+        foreach ($files as $single_file) {
+          $file = (object) $single_file;
+          file_usage_add($file, 'revisioning', 'revision', $node->vid);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * New node.
+ */
+function revisioning_node_insert($node) {
+
+  revisioning_update_taxonomy_index($node, variable_get('revisioning_in_views_show_unpublished_content_terms', TRUE));
+
+  if (!empty($node->revision_moderation)) {
+    revisioning_set_status_message($node->status ? t('Initial revision created and published.') : t('Initial draft created, pending publication.'));
+  }
+
+  // Add revision usage records to files to prevent them being deleted.
+  $fields = field_info_instances('node', $node->type);
+  foreach ($fields as $field_name => $value) {
+    $field_info = field_info_field($field_name);
+    if ($field_info['type'] == 'file') {
+      $file_fields[$field_name] = $value;
+    }
+  }
+  if (!empty($file_fields)) {
+    foreach ($file_fields as $file_field) {
+      if ($files = field_get_items('node', $node, $file_field['field_name'], $node->language)) {
+        foreach ($files as $single_file) {
+          $file = (object) $single_file;
+          file_usage_add($file, 'revisioning', 'revision', $node->vid);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function revisioning_node_delete($node) {
+  if ($revisions = node_revision_list($node)) {
+    $vids = array_keys($revisions);
+    db_delete('file_usage')->condition('module', 'revisioning')->condition('id', $vids, 'IN')->execute();
+  }
+}
+
+/**
+ * Implements hook_node_access_records_alter().
+ *
+ * If the node is not the current node this function clears the grants array and
+ * rebuilds it using the current node.
+ */
+function revisioning_node_access_records_alter(&$grants, $node) {
+
+  if (!revisioning_revision_is_current($node)) {
+    $current_node = node_load($node->nid, NULL, TRUE);
+    $grants = array();
+    foreach (module_implements('node_access_records') as $module) {
+      $function = $module . '_node_access_records';
+      if (function_exists($function)) {
+        $result = call_user_func_array($function, array($current_node));
+        if (isset($result)) {
+          if (is_array($result)) {
+            $grants = array_merge_recursive($grants, $result);
+          }
+          else {
+            $grants[] = $result;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function revisioning_views_api() {
+  return array(
+    'api' => views_api_version(),
+    'path' => drupal_get_path('module', 'revisioning') . '/views',
+  );
+}
+
+/**
+ * Implements hook_user_node_access().
+ */
+function revisioning_user_node_access($revision_op, $node, $account = NULL) {
+  if (!isset($account)) {
+    $account = $GLOBALS['user'];
+  }
+
+  $type = check_plain($node->type);
+
+  switch ($revision_op) {
+    case 'view current':
+      break;
+
+    case 'compare to current':
+    case 'view revisions':
+    case 'view revision list':
+      if (user_access('view revisions', $account)) {
+        break;
+      }
+      if (user_access('view revisions of any ' . $type . ' content', $account)) {
+        break;
+      }
+      if (($node->uid == $account->uid) && user_access('view revisions of own ' . $type . ' content', $account)) {
+        break;
+      }
+      return FALSE;
+
+    case 'edit current':
+      return 'update';
+
+    case 'edit revisions':
+    case 'revert revisions':
+      return user_access($revision_op, $account) ? 'update' : FALSE;
+
+    case 'publish revisions':
+      $node_op = variable_get('revisioning_require_update_to_publish', TRUE) ? 'update' : 'view';
+      if (user_access('publish revisions', $account)) {
+        return $node_op;
+      }
+      if (user_access('publish revisions of any ' . $type . ' content', $account)) {
+        return $node_op;
+      }
+      if (($node->uid == $account->uid) && user_access('publish revisions of own ' . $type . ' content', $account)) {
+        return $node_op;
+      }
+      return FALSE;
+
+    case 'unpublish current revision':
+      $node_op = variable_get('revisioning_require_update_to_publish', TRUE) ? 'update' : 'view';
+      return user_access('unpublish current revision', $account) ? $node_op : FALSE;
+
+    case 'delete revisions':
+    case 'delete archived revisions':
+      if (!user_access('delete revisions', $account)) {
+        return FALSE;
+      }
+    case 'delete node':
+      return 'delete';
+
+    default:
+      drupal_set_message(t("Unknown Revisioning operation '%revision_op'. Treating as 'view'.",
+        array('%revision_op' => $revision_op)), 'warning', FALSE);
+  }
+  return 'view';
+}
+
+/**
+ * Implements hook_scheduler_api().
+ */
+function revisioning_scheduler_api($node, $action) {
+  if ($action == 'pre_publish') {
+    $node->scheduled_status = NODE_PUBLISHED;
+  }
+  elseif ($action == 'pre_unpublish') {
+    $node->scheduled_status = NODE_NOT_PUBLISHED;
+  }
+}
+
+/**
+ * Test whether the supplied revision operation is appropriate for the node.
+ *
+ * This is irrespective of user permissions, e.g. even for an administrator it
+ * doesn't make sense to publish a node that is already published or to
+ * "revert" to the current revision.
+ *
+ * @param string $revision_op
+ *   For instance 'publish revisions', 'delete revisions'
+ * @param object $node
+ *   The node object
+ *
+ * @return bool
+ *   TRUE if the operation is appropriate for this node at this point
+ */
+function _revisioning_operation_appropriate($revision_op, $node) {
+
+  switch ($revision_op) {
+
+    case 'compare to current':
+      // Can't compare against itself.
+    case 'delete revisions':
+      // If the revision is the current one, suppress the delete operation
+      // @TODO ...unless it's the only revision, in which case delete the
+      // entire node; however this requires a different URL.
+      return !$node->is_current;
+
+    case 'delete archived revisions':
+      break;
+
+    case 'view revision list':
+      // For i.e. node revisions summary.
+      if (empty($node->revision_moderation) && isset($node->num_revisions) && $node->num_revisions == 1) {
+        // Suppress Revisions tab when when there's only 1 revision. This is
+        // consistent with core.
+        // However, when content is moderated (i.e. "New revision in draft,
+        // pending moderation" is ticked) we want to be able to get to the
+        // 'Unpublish current' link on this page and the 'Publish' tab on
+        // the next.
+        return FALSE;
+      }
+      break;
+
+    case 'edit revisions':
+      if (empty($node->revision_moderation) /* && !$node->is_current*/) {
+        return FALSE;
+      }
+      break;
+
+    case 'publish revisions':
+      // If the node isn't meant to be moderated,
+      // or the revision is not either pending or current but not published,
+      // then disallow publication.
+      if (empty($node->revision_moderation) ||
+          !($node->is_pending || ($node->is_current && !$node->status))) {
+        return FALSE;
+      }
+      break;
+
+    case 'unpublish current revision':
+      // If the node isn't meant to be moderated or it is unpublished already
+      // or we're not looking at the current revision, then unpublish is not an
+      // option.
+      if (empty($node->revision_moderation) || !$node->status || !$node->is_current) {
+        return FALSE;
+      }
+      break;
+
+    case 'revert revisions':
+      // If this revision is pending or current, suppress the reversion.
+      if ($node->is_pending || $node->is_current) {
+        return FALSE;
+      }
+      break;
+  }
+  return TRUE;
+}
+
+/**
+ * Determine whether the supplied revision operation is permitted on the node.
+ *
+ * This requires getting through three levels of defence:
+ * o Is the operation appropriate for this node at this time, e.g. a node must
+ *   not be published if it already is or if it isn't under moderation control
+ * o Does the user have permission for the requested REVISION operation?
+ * o Does the user have the NODE access rights (view/update/delete) for this
+ *   operation?
+ *
+ * @param string $revision_op
+ *   For instance 'publish revisions', 'delete revisions'
+ * @param object $node
+ *   The node object
+ *
+ * @return bool
+ *   TRUE if the user has access
+ */
+function _revisioning_access_node_revision($revision_op, $node) {
+
+  if (!_revisioning_operation_appropriate($revision_op, $node)) {
+    return FALSE;
+  }
+  // Check the revision-aspect of the operation.
+  $node_op = revisioning_user_node_access($revision_op, $node);
+  // ... then check with core to assess node permissions
+  // node_access will invoke hook_node_access(), i.e. revisioning_node_access().
+  $access = $node_op && node_access($node_op, $node);
+
+  // Let other modules override the outcome, if there are any.
+  // If any module denies access that is the final result, otherwise allow.
+  $overrides = module_invoke_all('revisioning_access_node_revision', $revision_op, $node);
+  return empty($overrides) ? $access : !in_array(NODE_ACCESS_DENY, $overrides, TRUE);
+}
+
+/**
+ * Implements hook_node_access().
+ *
+ * This gets invoked from node.module/node_access() after it has checked the
+ * standard node permissions using node_node_access() and just before it checks
+ * the node_access grants table.
+ * We basically return "don't care" except for one 'view' case, which replicates
+ * the node.module. "Don't care" in this case would result in "access denied".
+ */
+function revisioning_node_access($node, $node_op, $account) {
+  // Taken from node.module/node_access():
+  // If no modules implement hook_node_grants(), the default behaviour is to
+  // allow all users to view published nodes, so reflect that here,
+  // augmented for the 'view revisions' family of permissions, which apply to
+  // both published and unpublished nodes.
+  if ($node_op == 'view' && !module_implements('node_grants')) {
+    if ($node->status == NODE_PUBLISHED || (!empty($node->revision_moderation) && revisioning_user_node_access('view revisions', $node, $account))) {
+      return NODE_ACCESS_ALLOW;
+    }
+  }
+  // [#1492246]
+  // Deny access to unpublished, moderated content by anonymous users.
+  if (empty($node->status) && !empty($node->revision_moderation) && empty($account->uid)) {
+    return NODE_ACCESS_DENY;
+  }
+  return NODE_ACCESS_IGNORE;
+}
+
+/**
+ * Access callback function.
+ *
+ * Access callback for 'node/%', 'node/%/view' and 'node/%/edit' links that
+ * may appear anywhere on the site.
+ * At the time that this function is called the CURRENT revision will already
+ * have been loaded by the system. However depending on the value of the
+ * 'revisioning_view_callback' and 'revisioning_edit_callback' variables (as
+ * set on the admin/config/content/revisioning page), this may not be the
+ * desired revision.
+ * If these variables state that the LATEST revision should be loaded, we need
+ * to check at this point whether the user has permission to view this revision.
+ *
+ * The 'View current' and/or 'Edit current' tabs are suppressed when the current
+ * revision is already displayed via one of the Revisions subtabs.
+ * The 'View latest' and/or 'Edit latest' tabs are suppressed when the latest
+ * revision is already displayed via one of the Revisions subtabs.
+ *
+ * @param string $op
+ *   must be one of 'view' or 'edit'
+ * @param object $node
+ *   the node object
+ *
+ * @return bool
+ *   FALSE if access to the desired revision is denied
+ */
+function _revisioning_view_edit_access_callback($op, $node) {
+
+  $load_op = _revisioning_load_op($node, $op);
+
+  $vid = arg(3);
+  if (!empty($node->revision_moderation) && is_numeric($vid)) {
+    // The View, Edit primary tabs are requested indirectly, in the context of
+    // the secondary tabs under Revisions, e.g. node/%/revisions/%
+    if ($load_op == REVISIONING_LOAD_CURRENT && $vid == $node->current_revision_id) {
+      // Suppress 'View current' and 'Edit current' tabs when viewing current.
+      return FALSE;
+    }
+    if ($load_op == REVISIONING_LOAD_LATEST && $vid == revisioning_get_latest_revision_id($node->nid)) {
+      // Suppress 'View latest' and 'Edit latest' tabs when viewing latest.
+      return FALSE;
+    }
+  }
+  if ($load_op == REVISIONING_LOAD_LATEST) {
+    // _revisioning_load_op has already checked permission to view latest.
+    return TRUE;
+  }
+  $revision_op = ($op == 'view') ? 'view current' : 'edit current';
+  return _revisioning_access_node_revision($revision_op, $node);
+}
+
+/**
+ * Load a revision.
+ *
+ * Assuming that the node passed in is the current revision (core default),
+ * this function determines whether the lastest revision should be loaded
+ * instead, in which case it returns REVISIONING_LOAD_LATEST.
+ *
+ * @param object $node
+ *   only nodes of content types subject to moderation are
+ *   processed by this function
+ * @param string $op
+ *   either 'edit' or 'view'
+ * @param bool $check_access
+ *   whether revision access permissions should be checked; if the user has no
+ *   permission to load the latest revisions, then the function returns
+ *   REVISIONING_LOAD_CURRENT
+ *
+ * @return int
+ *   REVISIONING_LOAD_LATEST or REVISIONING_LOAD_CURRENT
+ */
+function _revisioning_load_op($node, $op, $check_access = TRUE) {
+  if (!empty($node->revision_moderation)) {
+    $view_mode = (int) variable_get('revisioning_view_callback', REVISIONING_LOAD_CURRENT);
+    $edit_mode = (int) variable_get('revisioning_edit_callback', REVISIONING_LOAD_CURRENT);
+    $load_op = ($op == 'edit') ? $edit_mode : $view_mode;
+    if ($load_op == REVISIONING_LOAD_LATEST) {
+      // Site is configured to load latest revision, but we'll only do this if
+      // the latest isn't loaded already and user has the permission to do so.
+      $latest_vid = revisioning_get_latest_revision_id($node->nid);
+      if ($latest_vid != $node->current_revision_id) {
+        if (!$check_access) {
+          return REVISIONING_LOAD_LATEST;
+        }
+        $original_vid = $node->vid;
+        $node->vid = $latest_vid;
+        $node->is_current = revisioning_revision_is_current($node);
+        $revision_op = ($op == 'view') ? 'view revisions' : 'edit revisions';
+        $access = _revisioning_access_node_revision($revision_op, $node);
+        // Restore $node (even though called by value), to remain consistent.
+        $node->vid = $original_vid;
+        $node->is_current = revisioning_revision_is_current($node);
+        if ($access) {
+          return REVISIONING_LOAD_LATEST;
+        }
+      }
+    }
+  }
+  return REVISIONING_LOAD_CURRENT;
+}
+
+/**
+ * Display node overview.
+ *
+ * Display all revisions of the supplied node in a themed table with links for
+ * the permitted operations above it.
+ *
+ * @return array
+ *   render array as returned by drupal_get_form()
+ */
+function revisioning_node_overview($node) {
+  return _revisioning_theme_revisions_summary($node);
+}
+
+/**
+ * Menu callback for the primary View tab.
+ *
+ * This is the same callback as used in core, except that in core current and
+ * latest revisions are always the same.
+ */
+function _revisioning_view($node) {
+  if (_revisioning_load_op($node, 'view') == REVISIONING_LOAD_LATEST) {
+    $vid_to_load = revisioning_get_latest_revision_id($node->nid);
+    $node = node_load($node->nid, $vid_to_load);
+  }
+  // This is the callback used by node.module for node/%node & node/%node/view
+  return node_page_view($node);
+}
+
+/**
+ * Callback for the primary Edit tab.
+ *
+ * This is the same callback as used in core, except that in core current and
+ * latest revisions are always the same.
+ */
+function _revisioning_edit($node) {
+  if (_revisioning_load_op($node, 'edit') == REVISIONING_LOAD_LATEST) {
+    $vid_to_load = revisioning_get_latest_revision_id($node->nid);
+    $node = node_load($node->nid, $vid_to_load);
+  }
+  _revisioning_set_custom_theme_if_necessary();
+  // This is the callback used by node.module for node/%node/edit
+  return node_page_edit($node);
+}
+
+/**
+ * Callback to view a particular revision.
+ */
+function _revisioning_view_revision($node) {
+  if (isset($node->nid)) {
+    /* For Panels: @todo test this thoroughly. See [#1567880]
+    $router_item = menu_get_item('node/' . $node->nid);
+    if (!empty($router_item['file'])) {
+      $path = $_SERVER['DOCUMENT_ROOT'] . base_path();
+      require_once $path . $router_item['file'];
+    }
+    // Call whatever function is assigned to the main node path but pass the
+    // current node as an argument. This approach allows for the reuse of Panel
+    // definition acting on node/%node.
+    if (isset($router_item['page_callback'])) {
+      return $router_item['page_callback']($node);
+    }*/
+  }
+  // This is the callback used by node.module for node/%node/revisions/%/view
+  return node_show($node, TRUE);
+}
+
+/**
+ * Callback to edit a particular revision.
+ *
+ * Note that there is no equivalent of this in core and we should not allow
+ * editing of a non-current revision, if $node->revision_moderation is not set.
+ * This is the job of the access callback _revisioning_access_node_revision().
+ */
+function _revisioning_edit_revision($node) {
+  _revisioning_set_custom_theme_if_necessary();
+  return node_page_edit($node);
+}
+
+/**
+ * Callback for the primary View, Edit and Revisions tabs titles.
+ *
+ * @param object $node
+ *   the node object
+ * @param string $tab
+ *   'view', 'edit' or 'revisions'
+ *
+ * @return string
+ *   translatable title string
+ */
+function _revisioning_title_for_tab($node, $tab) {
+  if ($tab == 'revisions') {
+    return is_numeric(arg(3)) ? t('Revision operations') : t('Revisions');
+  }
+  /*
+  if (empty($node->revision_moderation) || $node->num_revisions <= 1) {
+    return ($tab == 'edit' ? t('Edit') : t('View'));
+  }
+  if (_revisioning_load_op($node, $tab) == REVISIONING_LOAD_LATEST) {
+    return ($tab == 'edit' ? t('Edit latest') : t('View latest'));
+  }
+  return ($tab == 'edit' ? t('Edit current') : t('View current'));
+  */
+  if (!empty($node->revision_moderation) && $node->num_revisions > 1) {
+    if (_revisioning_load_op($node, $tab) == REVISIONING_LOAD_LATEST) {
+      return ($tab == 'edit' ? t('Edit latest') : t('View latest'));
+    }
+    if (_revisioning_access_node_revision('view revisions', $node)) {
+      return ($tab == 'edit' ? t('Edit current') : t('View current'));
+    }
+  }
+  return ($tab == 'edit' ? t('Edit') : t('View'));
+}
+
+/**
+ * Set custom theme.
+ */
+function _revisioning_set_custom_theme_if_necessary() {
+  // Use the admin theme if the user specified this at Appearance >> Settings.
+  // Note: first tick 'View the administration theme' at People >> Permissions.
+  if (variable_get('node_admin_theme', FALSE)) {
+    global $theme, $custom_theme;
+    $custom_theme = variable_get('admin_theme', $theme);
+  }
+}
+
+if (module_exists('diff')) {
+  /**
+   * Compare two revisions.
+   *
+   * Use diff's diff_diffs_show() function to compare specific revision to the
+   * current one.
+   */
+  function _revisioning_compare_to_current_revision($node) {
+    // For diff_diffs_show().
+    module_load_include('inc', 'diff', 'diff.pages');
+    // Make sure that latest of the two revisions is on the right.
+    if ($node->current_revision_id < $node->vid) {
+      return diff_diffs_show($node, $node->current_revision_id, $node->vid);
+    }
+    return diff_diffs_show($node, $node->vid, $node->current_revision_id);
+  }
+}
+
+/**
+ * Implements hook_page_manager_override().
+ *
+ * See http://drupal.org/node/1509674#comment-6702798
+ */
+function revisioning_page_manager_override($task_name) {
+  switch ($task_name) {
+    case 'node_view':
+      return '_revisioning_view';
+  }
+}

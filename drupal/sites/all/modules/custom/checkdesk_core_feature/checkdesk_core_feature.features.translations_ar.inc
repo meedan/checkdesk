@@ -947,7 +947,7 @@ This was an auto-generated email from !site; please do not respond directly to t
 ',
     'context' => '',
     'location' => '/index.php',
-    'translation' => 'مرحباً !recipient_name, 
+    'translation' => 'مرحباً !recipient_name,
 
 قام !author بإضافة تقرير جديد !report.
 
@@ -2316,7 +2316,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'location' => '/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط". 
+لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط".
 
 يمكنك تغيير إعدادات التنبيهات من <a href="!recipient_url">هنا</a>. هذه رسالة تلقائية من !site ويرجى عدم الرد عليها.
 ',
@@ -2729,7 +2729,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'location' => '/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط". 
+لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط".
 
 يمكنك تغيير إعدادات التنبيهات من <a href="!recipient_url">هنا</a>. هذه رسالة تلقائية من !site ويرجى عدم الرد عليها.
 ',
@@ -3845,7 +3845,7 @@ A new user <a href="!url">!name </a>has registered. If you want to accept this r
     'location' => '/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط". 
+لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط".
 ',
     'plid' => 0,
     'plural' => 0,
@@ -4160,7 +4160,7 @@ A new user <a href="!url">!name </a>has registered. If you want to accept this r
 ',
     'context' => '',
     'location' => '',
-    'translation' => 'مرحباً !recipient_name, 
+    'translation' => 'مرحباً !recipient_name,
 
 قام !author بتحديث الموضوع !story.
 
@@ -6703,7 +6703,7 @@ Story "!title" which you followed has a <a href="!url">new update</a>.', array()
 ',
     'context' => '',
     'location' => '/index.php',
-    'translation' => 'مرحباً !recipient_name, 
+    'translation' => 'مرحباً !recipient_name,
 
 قام !author بإضافة تقرير جديد !report.
 
@@ -7561,7 +7561,7 @@ This was an auto-generated email from !site, please do not respond directly to t
 ',
     'context' => '',
     'location' => '/index.php',
-    'translation' => 'مرحباً !recipient_name, 
+    'translation' => 'مرحباً !recipient_name,
 
 قام !author بإضافة موضوع جديد !story.
 
@@ -9683,15 +9683,6 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('In Progress', array(), array('context' => ''));
-  $translations['ar:default']['c974d6d1ee16df174cd3620eb8cadd99'] = array(
-    'source' => '<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">No comments</span>',
-    'context' => '',
-    'location' => '',
-    'translation' => '<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">لا تعليقات</span>',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translatables[] = t('<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">No comments</span>', array(), array('context' => ''));
   $translations['ar:default']['c9755f2fcfe04bd1c16c77a3314d476d'] = array(
     'source' => 'Relate all comments on the node. This will create 1 duplicate record for every comment. Usually if you need this it is better to create a comment view.',
     'context' => '',
@@ -11424,7 +11415,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['eaa9fe407fdfe0eb43e52cdd784267f0'] = array(
     'source' => '<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000, 
+  \'interval\' => 5000,
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
@@ -11433,7 +11424,7 @@ print theme(\'views_autorefresh\', array(
     'location' => '/ar',
     'translation' => '<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000, 
+  \'interval\' => 5000,
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
@@ -11443,7 +11434,7 @@ print theme(\'views_autorefresh\', array(
   );
   $translatables[] = t('<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000, 
+  \'interval\' => 5000,
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));

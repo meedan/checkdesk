@@ -547,6 +547,9 @@ function checkdesk_preprocess_node(&$variables) {
     $update_anchor = 'update-' . $variables['nid'];
     $update_link = url('node/' . $parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
     $variables['update_link'] = $update_link;
+    // load story title
+    $parent_story = node_load($parent_story_id);
+    $variables['parent_story'] = l($parent_story->title, 'node/'. $parent_story_id);
     global $language;
     // Set custom format based on language.
     if(date('Y') == format_date($node->created, 'custom', 'Y')) {
@@ -630,6 +633,7 @@ function checkdesk_preprocess_node(&$variables) {
           '#node' => node_load($variables['nid']),
         );
       }
+      $variables['more_stories'] = views_embed_view('more_stories', 'block_1', $variables['nid']);
       if ($variables['view_mode'] == 'checkdesk_collaborate') {
         // Get heartbeat activity for particular story
         $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
@@ -1118,6 +1122,32 @@ function _checkdesk_generate_lead_image($image, $image_caption) {
   }
 
   return $output;
+}
+
+/**
+ * Utiltiy function that generates a responsive img tag
+ * for lead image in containers as thumbnails
+ */
+function _checkdesk_generate_lead_image_thumbnail($image) {
+  $output = '';
+  // generate small, medium and large images
+  if(isset($image)) {
+    $lead_image_path = image_style_url('item_image_medium', $image);
+    $lead_image_uri = image_style_path('item_image_medium', $image);
+    $lead_image_size = getimagesize($lead_image_uri);
+    $lead_image_med_path = image_style_url('item_image_medium', $image);
+    $lead_image_small_path = image_style_url('item_image_small', $image);
+    // set small, med and large images in srcset
+    $output .= '<img';
+    $output .= ' srcset="' . $lead_image_med_path . ' 220w, ' . $lead_image_small_path . ' 120w"'; 
+    $output .= ' sizes="(min-width: 980px) 220px, (min-width: 740px) 220px, 120px"';
+    $output .= ' src="' . $lead_image_small_path . '"';
+    $output .= ' class="feature-image"';
+    $output .= '/>';
+  }
+
+  return $output;
+
 }
 
 /**
