@@ -51,7 +51,9 @@
 			  <?php print $created_at; ?>
 				<?php if (isset($story_commentcount)) { ?>
 					<div class="cd-item-count story-commentcount">
-			  		<span class="icon-comment-o"><?php print render($story_commentcount); ?></span>
+						<a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">
+			  			<span class="icon-comment-o"></span> <?php print render($story_commentcount); ?>
+			  		</a>
 					</div>
 				<?php } ?>
 			</aside>

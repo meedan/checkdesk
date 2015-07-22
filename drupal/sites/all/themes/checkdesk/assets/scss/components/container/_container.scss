@@ -195,13 +195,20 @@
   font-size: 14px;
   line-height: 1.3;
   color: $firefly30;
-  .icon-comment-o { 
-    @include icon(comment-o);
-    &:before, &:after { 
-      margin: 0;
-      margin-#{$omega}: 4px;
-    }
+}
+
+.cd-item-meta .icon-comment-o { 
+  @include icon(comment-o);
+  &:before, &:after { 
+    margin: 0;
   }
+}
+
+// make comment link above
+// the faux block link overlay
+.cd-item-meta .cd-item-count a {
+  position: relative;
+  z-index: 1;
 }
 
 .cd-item-meta .byline {
@@ -216,7 +223,6 @@
 }
 
 // rows
-
 @include cd-responsive('min-width: #{$width-tablet}') {
   .l-row {
     @include flexbox;

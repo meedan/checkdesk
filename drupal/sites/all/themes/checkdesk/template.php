@@ -1065,7 +1065,7 @@ function checkdesk_field__field_tags(&$variables) {
 
     $output = '<section id="media-tags" class="cd-container">';
     $output .= '<div class="cd-container-inner">';
-    $output .= '<div class="submeta"><h2 class="submeta-header">' . t('Topics') . '</h2>';
+    $output .= '<div class="submeta"><h2 class="submeta-header">' . t('Tags') . '</h2>';
     $output .= '<ul class="tag-list u-unstyled inline-list submeta-content">';
     foreach ($variables['element']['#items'] as $key => $item) {
       $tag_name = '<span class="tag-name">' . $item['taxonomy_term']->name . '</span>';
