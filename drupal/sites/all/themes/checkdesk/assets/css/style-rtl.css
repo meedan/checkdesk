@@ -6227,14 +6227,6 @@ body.cke_editable blockquote:after {
   color: #111314;
 }
 
-.cd-container-first {
-  margin-top: 0;
-  padding-top: 0;
-}
-.cd-container-first .cd-container-inner {
-  border: 0;
-}
-
 @media only screen and (min-width: 740px) {
   .cd-slice-wrapper {
     margin: 0 -8px;
@@ -6372,13 +6364,15 @@ body.cke_editable blockquote:after {
 
 @media (min-width: 1px) and (max-width: 740px) {
   .cd-item-content {
+    position: relative;
+    display: block;
     padding-bottom: 40px;
+    min-height: 72px;
   }
 }
-@media (min-width: 1px) and (max-width: 740px) {
+@media only screen and (min-width: 740px) {
   .cd-item-content {
-    display: block;
-    position: relative;
+    min-height: 132px;
   }
 }
 .cd-item-header {
@@ -6469,6 +6463,14 @@ body.cke_editable blockquote:after {
 .tone-default-item {
   background-color: #fff;
   color: #6f7a82;
+}
+
+.cd-container-first {
+  margin-top: 0;
+  padding-top: 0;
+}
+.cd-container-first .cd-container-inner {
+  border: 0;
 }
 
 .thumb-60 {

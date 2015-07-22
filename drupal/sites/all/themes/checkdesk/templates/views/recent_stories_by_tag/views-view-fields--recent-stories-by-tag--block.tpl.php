@@ -31,15 +31,15 @@
 ?>
 <div class="cd-item tone-default-item<?php if (isset($has_image_class)) { print ' ' . $has_image_class; } ?>">
 	<div class="cd-item-container">
-		<div class="cd-item-media-wrapper">
-			<?php if(isset($fields['uri']->raw)) { ?>
+		<?php if(isset($fields['uri']->raw)) { ?>
+			<div class="cd-item-media-wrapper">
 				<div class="cd-item-image-container u-responsive-ratio">
 					<figure class="media-lead">
 						<?php print $fields['uri']->content; ?>
 					</figure>
 				</div>
-			<?php } ?>
-		</div>
+			</div>
+		<?php } ?>
 		<div class="cd-item-content">
 			<div class="cd-item-header">
 				<h2 class="cd-item-title"><?php print l($fields['title']->raw, 'node/' . $fields['nid']->raw); ?></h2>
