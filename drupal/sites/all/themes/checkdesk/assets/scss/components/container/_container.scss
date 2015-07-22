@@ -195,6 +195,13 @@
   font-size: 14px;
   line-height: 1.3;
   color: $firefly30;
+  .icon-comment-o { 
+    @include icon(comment-o);
+    &:before, &:after { 
+      margin: 0;
+      margin-#{$omega}: 4px;
+    }
+  }
 }
 
 .cd-item-meta .byline {
