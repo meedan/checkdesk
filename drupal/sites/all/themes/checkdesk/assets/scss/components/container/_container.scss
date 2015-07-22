@@ -3,8 +3,8 @@
 }
 
 .cd-container-inner {
-	margin: $absolute-line-height/1.2 0 $absolute-line-height*1.25 0;
-  padding: $absolute-line-height/1.2 0;
+	margin: $absolute-line-height/1.2 0;
+  padding: 20px 0 0;
 
 	.cd-container & {
 		border-top: 1px solid $firefly10;	
@@ -12,16 +12,19 @@
 
 }
 
-.cd-container-header-title {
-  @include cd-sans-serif-family;
-  color: $firefly40;
-  text-transform: uppercase;
-  font-size: 14px;
-  @if $from-direction == 'left' {
-    letter-spacing: 0.15em;
-  }
+.cd-container-header {
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
-.cd-container-body {
-  padding-bottom: $absolute-line-height/1.2;
+.cd-container-header-title {
+  text-align: center;
+  color: $firefly60;
+  a { 
+    @include ctb-linkColor($firefly60);
+    text-decoration: none;
+  }
+  @if $from-direction == 'left' {
+    letter-spacing: -0.5px;
+  }
 }
