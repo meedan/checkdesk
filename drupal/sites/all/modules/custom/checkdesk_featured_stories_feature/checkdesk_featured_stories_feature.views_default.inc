@@ -160,7 +160,9 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_type'] = 'h2';
+  $handler->display->display_options['fields']['name']['element_class'] = 'cd-container-header-title';
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
   /* Field: Taxonomy term: Term ID */
   $handler->display->display_options['fields']['tid']['id'] = 'tid';
@@ -234,8 +236,12 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '4';
-  $handler->display->display_options['style_plugin'] = 'grid';
+  $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Relationship: Content: Lead image (field_lead_image:fid) */
+  $handler->display->display_options['relationships']['field_lead_image_fid']['id'] = 'field_lead_image_fid';
+  $handler->display->display_options['relationships']['field_lead_image_fid']['table'] = 'field_data_field_lead_image';
+  $handler->display->display_options['relationships']['field_lead_image_fid']['field'] = 'field_lead_image_fid';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -244,17 +250,21 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  /* Field: Content: Lead image */
-  $handler->display->display_options['fields']['field_lead_image']['id'] = 'field_lead_image';
-  $handler->display->display_options['fields']['field_lead_image']['table'] = 'field_data_field_lead_image';
-  $handler->display->display_options['fields']['field_lead_image']['field'] = 'field_lead_image';
-  $handler->display->display_options['fields']['field_lead_image']['label'] = '';
-  $handler->display->display_options['fields']['field_lead_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_lead_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_lead_image']['settings'] = array(
-    'image_style' => 'item_image_medium',
-    'image_link' => 'content',
-  );
+  /* Field: File: Path */
+  $handler->display->display_options['fields']['uri']['id'] = 'uri';
+  $handler->display->display_options['fields']['uri']['table'] = 'file_managed';
+  $handler->display->display_options['fields']['uri']['field'] = 'uri';
+  $handler->display->display_options['fields']['uri']['relationship'] = 'field_lead_image_fid';
+  $handler->display->display_options['fields']['uri']['label'] = '';
+  $handler->display->display_options['fields']['uri']['element_type'] = '0';
+  $handler->display->display_options['fields']['uri']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uri']['element_default_classes'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -295,6 +305,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
+    t('image from field_lead_image'),
     t('All'),
     t('Block'),
   );

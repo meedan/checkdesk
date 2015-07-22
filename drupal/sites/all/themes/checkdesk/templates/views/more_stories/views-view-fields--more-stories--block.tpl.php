@@ -24,14 +24,16 @@
  * @ingroup views_templates
  */
 ?>
-<?php foreach ($fields as $id => $field): ?>
-  <?php if (!empty($field->separator)): ?>
-    <?php print $field->separator; ?>
-  <?php endif; ?>
 
-  <?php print $field->wrapper_prefix; ?>
-    <?php print $field->label_html; ?>
-    <?php print $field->content; ?>
-  <?php print $field->wrapper_suffix; ?>
-<?php endforeach; ?>
-<?php print $stories; ?>
+<section class="cd-container">
+	<div class="cd-container-inner">
+		<?php foreach ($fields as $id => $field): ?>
+			<div class="cd-container-header">
+		 		<?php print $field->content; ?>
+		 	</div>
+		<?php endforeach; ?>
+		<div class="cd-container-body">
+			<?php print $stories; ?>
+		</div>
+	</div>
+</section>

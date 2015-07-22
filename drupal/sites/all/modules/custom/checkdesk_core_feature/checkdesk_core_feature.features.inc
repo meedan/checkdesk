@@ -424,14 +424,48 @@ function checkdesk_core_feature_image_default_styles() {
   $styles['item_image_medium'] = array(
     'label' => 'item_image_medium',
     'effects' => array(
-      1 => array(
+      2 => array(
         'name' => 'image_scale',
+        'data' => array(
+          'width' => 240,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+      3 => array(
+        'name' => 'image_crop',
         'data' => array(
           'width' => 220,
           'height' => 132,
-          'upscale' => 1,
+          'anchor' => 'center-center',
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  // Exported image style: item_image_small.
+  $styles['item_image_small'] = array(
+    'label' => 'item_image_small',
+    'effects' => array(
+      4 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 140,
+          'height' => '',
+          'upscale' => 0,
         ),
         'weight' => 1,
+      ),
+      5 => array(
+        'name' => 'image_crop',
+        'data' => array(
+          'width' => 120,
+          'height' => 72,
+          'anchor' => 'center-center',
+        ),
+        'weight' => 2,
       ),
     ),
   );
