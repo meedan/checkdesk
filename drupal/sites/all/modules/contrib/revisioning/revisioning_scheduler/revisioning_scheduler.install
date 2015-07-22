@@ -1,0 +1,62 @@
+<?php
+/**
+ * @file
+ * Database schema for Revisioning Scheduler module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function revisioning_scheduler_schema() {
+  $schema['revisioning_scheduler'] = array(
+    'description' => 'The base table for revisions that are scheduled to be published',
+    'fields' => array(
+      'revision_vid' => array(
+        'description' => 'The identifier for this revision',
+        'type' => 'int',
+        'not null' => TRUE),
+      'revision_nid' => array(
+        'description' => 'The primary identifier for this node',
+        'type' => 'int',
+        'not null' => TRUE),
+      'revision_uid' => array(
+        'description' => 'The user who submitted this revision',
+        'type' => 'int',
+        'not null' => TRUE),
+      'revision_date' => array(
+        'description' => 'The date when this revision will be published',
+        'type' => 'int',
+        'not null' => TRUE),
+    ),
+    'primary key' => array('revision_vid'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function revisioning_scheduler_install() {
+  db_update('system')
+    ->fields(array('weight' => 1))
+    ->condition('name', 'revisioning_scheduler')
+    ->execute();
+}
+
+/**
+ * Weight of revisioning_scheduler should be same as revisioning.
+ */
+function revisioning_scheduler_update_7014() {
+  db_update('system')
+    ->fields(array('weight' => 1))
+    ->condition('name', 'revisioning_scheduler')
+    ->execute();
+}
+
+/**
+ * Delete scheduled publication of revisions of already deleted nodes.
+ */
+function revisioning_scheduler_update_7015() {
+  db_query('DELETE FROM {revisioning_scheduler} WHERE revision_nid NOT IN (SELECT nid FROM {node})');
+}

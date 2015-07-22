@@ -547,6 +547,9 @@ function checkdesk_preprocess_node(&$variables) {
     $update_anchor = 'update-' . $variables['nid'];
     $update_link = url('node/' . $parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
     $variables['update_link'] = $update_link;
+    // load story title
+    $parent_story = node_load($parent_story_id);
+    $variables['parent_story'] = l($parent_story->title, 'node/'. $parent_story_id);
     global $language;
     // Set custom format based on language.
     if(date('Y') == format_date($node->created, 'custom', 'Y')) {
@@ -630,6 +633,7 @@ function checkdesk_preprocess_node(&$variables) {
           '#node' => node_load($variables['nid']),
         );
       }
+      $variables['more_stories'] = views_embed_view('more_stories', 'block_1', $variables['nid']);
       if ($variables['view_mode'] == 'checkdesk_collaborate') {
         // Get heartbeat activity for particular story
         $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
