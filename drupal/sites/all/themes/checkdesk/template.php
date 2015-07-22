@@ -1121,6 +1121,32 @@ function _checkdesk_generate_lead_image($image, $image_caption) {
 }
 
 /**
+ * Utiltiy function that generates a responsive img tag
+ * for lead image in containers as thumbnails
+ */
+function _checkdesk_generate_lead_image_thumbnail($image) {
+  $output = '';
+  // generate small, medium and large images
+  if(isset($image)) {
+    $lead_image_path = image_style_url('item_image_medium', $image);
+    $lead_image_uri = image_style_path('item_image_medium', $image);
+    $lead_image_size = getimagesize($lead_image_uri);
+    $lead_image_med_path = image_style_url('item_image_medium', $image);
+    $lead_image_small_path = image_style_url('item_image_small', $image);
+    // set small, med and large images in srcset
+    $output .= '<img';
+    $output .= ' srcset="' . $lead_image_med_path . ' 220w, ' . $lead_image_small_path . ' 120w"'; 
+    $output .= ' sizes="(min-width: 980px) 220px, (min-width: 740px) 220px, 120px"';
+    $output .= ' src="' . $lead_image_small_path . '"';
+    $output .= ' class="feature-image"';
+    $output .= '/>';
+  }
+
+  return $output;
+
+}
+
+/**
  * Implements hook_preprocess_button().
  */
 function checkdesk_preprocess_button(&$variables) {

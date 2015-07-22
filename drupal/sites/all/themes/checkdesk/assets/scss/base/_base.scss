@@ -35,7 +35,7 @@ html {
   padding-top: $padding-large-horizontal;
   @include cd-responsive('min-width: #{$width-tablet}') {
     padding-top: $padding-large-horizontal*2;  
-    max-width: 1040px;
+    max-width: 920px;
     margin-#{$alpha}: auto;
     margin-#{$omega}: auto;
   }
@@ -43,8 +43,15 @@ html {
 
 // for content pages
 // until sidebars are added as in search page
-body.page-liveblog #main #content, 
-body.page-node #main #content {
-  max-width: 720px;
+body.page-liveblog .story, 
+body.page-node .story {
+  max-width: 620px;
+}
+
+// report
+body.node-type-media .report {
+  max-width: 530px;
+  margin-#{$alpha}: auto;
+  margin-#{$omega}: auto;
 }
 
