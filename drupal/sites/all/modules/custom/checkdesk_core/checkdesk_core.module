@@ -950,6 +950,7 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
         'scope' => 'footer',
         'group' => JS_THEME,
         'weight' => '9990',
+        'every_page' => FALSE,
       )
     );
     // add chosen.js
@@ -959,6 +960,7 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
         'scope' => 'footer',
         'group' => JS_THEME,
         'weight' => '9990',
+        'every_page' => FALSE,
       )
     );
   }
