@@ -321,15 +321,14 @@ function checkdesk_core_update_7037() {
 }
 
 /**
- * Enable save draft - stories
+ * Enable save draft - stories.
  */
 function checkdesk_core_update_7038() {
   variable_set('save_draft_enabled_discussion', 1);
 }
 
 /**
- * Fix URLs in heartbeat messages that were fomratted before patching filter module to support "@" in URLs
- * @param type $sandbox
+ * Fix URLs in heartbeat messages that were fomratted before patching filter module to support "@" in URLs.
  */
 function checkdesk_core_update_7039(&$sandbox) {
   if(!isset($sandbox['progress'])){
@@ -371,22 +370,21 @@ function checkdesk_core_update_7039(&$sandbox) {
 }
 
 /**
- * Set collaboration alias for existing stories
+ * Set collaboration alias for existing stories.
  */
 function checkdesk_core_update_7040() {
-  // Set collaboration alias for existing stories
   db_query("INSERT INTO {url_alias} (source, alias, language) ( SELECT CONCAT('node/', nid, '/collaboration') as source, CONCAT('story/', nid, '/collaboration') as alias, 'und' FROM {node} WHERE type = 'discussion')");
 }
 
 /**
- * Disable views_autocomplete_filters
+ * Disable views_autocomplete_filters.
  */
 function checkdesk_core_update_7041() {
   module_disable(array('views_autocomplete_filters'));
 }
 
 /**
- * Update body format for stories to be liveblog
+ * Update body format for stories to be liveblog.
  */
 function checkdesk_core_update_7042() {
   db_query(
@@ -400,7 +398,7 @@ function checkdesk_core_update_7042() {
 }
 
 /**
- * Enable Promoted to front page for existing stories
+ * Enable Promoted to front page for existing stories.
  */
 function checkdesk_core_update_7043() {
   db_query('UPDATE {node} SET promote = :promote WHERE type = :type AND status = :status'
@@ -409,7 +407,7 @@ function checkdesk_core_update_7043() {
 }
 
 /**
- * Disable chosen
+ * Disable chosen.
  */
 function checkdesk_core_update_7044() {
   module_disable(array('chosen'));
@@ -426,8 +424,18 @@ function checkdesk_core_update_7045() {
 }
 
 /**
- * Flush activity_avatar image style
+ * Flush activity_avatar image style.
  */
 function checkdesk_core_update_7046() {
   image_style_flush(image_style_load('activity_avatar'));
+}
+
+/**
+ * Manually upgrade {file_managed.uri} to utf8mb4.
+ */
+function checkdesk_core_update_7047() {
+  db_query("ALTER TABLE {file_managed} DROP KEY uri");
+  db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8mb4_bin");
+  db_query("CREATE UNIQUE INDEX uri ON {file_managed} (uri(191))");
+  db_query("ALTER TABLE {file_managed} ENGINE=innodb");
 }
