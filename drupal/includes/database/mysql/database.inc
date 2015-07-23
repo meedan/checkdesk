@@ -27,6 +27,10 @@ class DatabaseConnection_mysql extends DatabaseConnection {
     $this->transactionalDDLSupport = FALSE;
 
     $this->connectionOptions = $connection_options;
+    
+    // Allow the drupal default charset to be overridden in the settings.php 
+    // database config
+    $charset = (array_key_exists('charset', $connection_options) ? $connection_options['charset'] : 'utf8');
 
     // The DSN should use either a socket or a host/port.
     if (isset($connection_options['unix_socket'])) {
@@ -39,7 +43,7 @@ class DatabaseConnection_mysql extends DatabaseConnection {
     // Character set is added to dsn to ensure PDO uses the proper character
     // set when escaping. This has security implications. See
     // https://www.drupal.org/node/1201452 for further discussion.
-    $dsn .= ';charset=utf8';
+    $dsn .= ';charset=' . $charset;
     $dsn .= ';dbname=' . $connection_options['database'];
     // Allow PDO options to be overridden.
     $connection_options += array(
@@ -58,10 +62,10 @@ class DatabaseConnection_mysql extends DatabaseConnection {
     // certain one has been set; otherwise, MySQL defaults to 'utf8_general_ci'
     // for UTF-8.
     if (!empty($connection_options['collation'])) {
-      $this->exec('SET NAMES utf8 COLLATE ' . $connection_options['collation']);
+      $this->exec('SET NAMES ' . $charset . ' COLLATE ' . $connection_options['collation']);
     }
     else {
-      $this->exec('SET NAMES utf8');
+      $this->exec('SET NAMES ' . $charset);
     }
 
     // Set MySQL init_commands if not already defined.  Default Drupal's MySQL

@@ -77,11 +77,11 @@ class DatabaseSchema_mysql extends DatabaseSchema {
    */
   protected function createTableSql($name, $table) {
     $info = $this->connection->getConnectionOptions();
-
     // Provide defaults if needed.
     $table += array(
       'mysql_engine' => 'InnoDB',
-      'mysql_character_set' => 'utf8',
+      // allow charset to be overridden in settings.php
+      'mysql_character_set' => (array_key_exists('charset', $info) ? $info['charset'] : 'utf8'),
     );
 
     $sql = "CREATE TABLE {" . $name . "} (\n";
@@ -129,6 +129,14 @@ class DatabaseSchema_mysql extends DatabaseSchema {
    *   The field specification, as per the schema data structure format.
    */
   protected function createFieldSql($name, $spec) {
+    $info = $this->connection->getConnectionOptions();
+    if (isset($spec['length']) && isset($info['charset'])) {
+      // If the length of the field is set and the collation is utf8mb4
+      // length should be 191 and not 255
+      if ($spec['length'] >= 192 && $info['charset'] == "utf8mb4") {
+        $spec['length'] = 191;
+      }
+    }
     $sql = "`" . $name . "` " . $spec['mysql_type'];
 
     if (in_array($spec['mysql_type'], array('VARCHAR', 'CHAR', 'TINYTEXT', 'MEDIUMTEXT', 'LONGTEXT', 'TEXT'))) {
