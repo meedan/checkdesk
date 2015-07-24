@@ -12,22 +12,26 @@
  */
 
 $databases['default']['default'] = array(
-  'driver'   => 'mysql',
-  'database' => 'ddINSTANCEdd',
-  'username' => 'ddINSTANCEdd',
-  'password' => 'ddPASSWORDdd',
-  'host'     => 'ddDBHOSTdd',
-  'prefix'   => '',
+  'driver'    => 'mysql',
+  'database'  => 'ddINSTANCEdd',
+  'username'  => 'ddINSTANCEdd',
+  'password'  => 'ddPASSWORDdd',
+  'host'      => 'ddDBHOSTdd',
+  'prefix'    => '',
+  'collation' => 'utf8mb4_general_ci',
+  'charset'   => 'utf8mb4'
 );
 // The before deployment database, used during complex deployments to ferry
 // data from previous schemas / site versions.
 $databases['before_deploy']['default'] = array(
-  'driver'   => $databases['default']['default']['driver'],
-  'database' => $databases['default']['default']['database'] . '_before_deploy',
-  'username' => $databases['default']['default']['username'],
-  'password' => $databases['default']['default']['password'],
-  'host'     => $databases['default']['default']['host'],
-  'prefix'   => $databases['default']['default']['prefix'],
+  'driver'    => $databases['default']['default']['driver'],
+  'database'  => $databases['default']['default']['database'] . '_before_deploy',
+  'username'  => $databases['default']['default']['username'],
+  'password'  => $databases['default']['default']['password'],
+  'host'      => $databases['default']['default']['host'],
+  'prefix'    => $databases['default']['default']['prefix'],
+  'collation' => $databases['default']['default']['collation'],
+  'charset'   => $databases['default']['default']['charset'],
 );
 
 
