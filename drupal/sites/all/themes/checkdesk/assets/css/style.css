@@ -2140,7 +2140,7 @@ body.page-liveblog #main #content {
 }
 
 body.page-node .story {
-  max-width: 620px;
+  max-width: 720px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -4254,7 +4254,7 @@ section#comment-form form .form-actions input {
   font-size: 16px;
   margin-left: 15px;
   margin-right: 0;
-  margin-top: -5px;
+  margin-bottom: 0;
 }
 section#comment-form form textarea {
   float: none;
@@ -5948,7 +5948,16 @@ body.cke_editable blockquote:after {
   word-wrap: break-word;
   *zoom: 1;
 }
-.item .item-content-wrapper {
+.item:before, .item:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.item:after {
+  clear: both;
+}
+
+.item-content-wrapper {
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   -ms-border-radius: 4px 4px 0 0;
@@ -5956,24 +5965,27 @@ body.cke_editable blockquote:after {
   border-radius: 4px 4px 0 0;
   background-color: #fff;
 }
-.item .item-message {
+
+.item-message {
   padding: 15px 20px 0 20px;
   background-color: #fff;
 }
-.item .item-message a {
+.item-message a {
   color: #6f7a82;
 }
-.item .item-message a:hover {
+.item-message a:hover {
   color: #111314;
 }
-.item .item-content-wrapper {
+
+.item-content-wrapper {
   padding: 6px 8px;
 }
 @media only screen and (min-width: 740px) {
-  .item .item-content-wrapper {
+  .item-content-wrapper {
     padding: 20px 20px 15px 20px;
   }
 }
+
 .item .item-content {
   display: block;
 }
@@ -5990,66 +6002,79 @@ body.cke_editable blockquote:after {
 .item .item-content p a:hover {
   color: #101b2e;
 }
-.item .item-content .item-body-text {
+
+.item .item-body-text {
   color: #3e4c57;
 }
-.item .item-content .item-body-text a {
+.item .item-body-text a {
   color: #4a74c0;
 }
-.item .item-content .item-body-text a:hover {
+.item .item-body-text a:hover {
   color: #101b2e;
 }
-.item .item-content .item-body-text ul, .item .item-content .item-body-text ol {
+.item .item-body-text ul, .item .item-body-text ol {
   margin: 0 0 10px 0;
   padding-left: 30px;
 }
-.item .open .item-controls .meta .count {
+
+.open .count {
   color: #3e4c57;
 }
-.item .item-controls .meta, .item .item-controls .actions {
+
+.item-controls .meta,
+.item-controls .actions {
   display: table-cell;
   width: 100%;
 }
-.item .item-controls .meta {
+
+.item-controls .meta {
   font-weight: 700;
 }
-.item .item-controls .meta .count {
+.item-controls .meta .count {
   color: #9fa6ac;
   text-decoration: none;
   margin-right: 30px;
 }
-.item .item-controls .meta .count:hover {
+.item-controls .meta .count:hover {
   color: #3e4c57;
 }
-.node-type-media .item .item-controls .meta .count {
+.node-type-media .item-controls .meta .count {
   color: #3e4c57;
 }
-.item .item-controls .populated {
+
+.item-controls .populated {
   cursor: pointer;
 }
-.item .item-controls .actions {
+
+.item-controls .actions {
   padding-right: 8px;
   cursor: pointer;
   white-space: nowrap;
 }
 @media only screen and (min-width: 740px) {
-  .item .item-controls .actions {
+  .item-controls .actions {
     padding-right: 20px;
   }
 }
-.item .item-controls .actions span[class^="icon-"], .item .item-controls .actions span[class*="icon-"] {
+.item-controls .actions span {
+  position: relative;
+}
+.item-controls .actions span[class^="icon-"], .item-controls .actions span[class*="icon-"] {
   font-size: 20px;
   color: #9fa6ac;
 }
-.item .item-controls .actions div {
+.item-controls .actions div {
   display: inline-block;
 }
-.item .item-controls .label {
+
+.item-controls .label {
   display: none;
 }
-.item .item-controls:hover .meta {
+
+.item-controls:hover .meta {
   color: #3e4c57;
 }
+
 .item .item-nested-content-wrapper {
   background-color: #f3f4f4;
   background-color: rgba(16, 33, 47, 0.05);
@@ -6120,12 +6145,14 @@ body.cke_editable blockquote:after {
 .item .item-nested-content-wrapper .pager-load-more .ajax-progress-throbber .throbber {
   background: url("../imgs/icons/loader_white.gif");
 }
+
 .item .open {
   color: #3e4c57;
 }
 .item .open .count {
   color: #3e4c57;
 }
+
 .item .item-nested-content {
   display: none;
 }
@@ -6166,6 +6193,7 @@ body.cke_editable blockquote:after {
   overflow: visible;
   max-height: none;
 }
+
 .item .item-nested-footer {
   margin-top: 20px;
   padding-top: 8px;
@@ -6193,14 +6221,6 @@ body.cke_editable blockquote:after {
 .item .item-nested-footer .helper span[class^="icon-"], .item .item-nested-footer .helper span[class*="icon-"], .item .item-nested-footer .helper a {
   color: #b7bcc0;
   text-decoration: none;
-}
-.item:before, .item:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.item:after {
-  clear: both;
 }
 
 .cd-container {
