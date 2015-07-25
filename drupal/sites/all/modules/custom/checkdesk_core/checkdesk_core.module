@@ -188,8 +188,7 @@ function _checkdesk_goto_search($preset) {
       $query['type'] = 'story';
       break;
     case 'my_drafts':
-      $query['status'] = 'All';
-      $query['state'] = 2;
+      $query['status'] = 0;
       $query['author'] = $user->name;
       break;
     case 'my_stories':
@@ -1039,7 +1038,6 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     //Set default language value
     $form['language']['#default_value'] = $language->language;
   }
-  /*
   //Hide submit button for CJ users
   if (!user_access('edit published content')) {
     if ($form['nid']['#value']) {
@@ -1054,7 +1052,6 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
       $form['actions']['submit']['#access'] = 0;
     }
   }
-  */
   if (in_array('journalist', $user->roles)) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
@@ -3649,20 +3646,16 @@ function _checkdesk_search_header() {
       case 'update':
       $selected = 'All';
         if (isset($_GET['status'])) {
-          $selected = ($_GET['status'] == 1) ? 'published' : 'drafts';
+          $selected = ($_GET['status'] == 0) ? 'drafts' : 'published';
         }
         // Check if user can access any drafts content then Show drafts link on search page header
         if (user_access('access any drafts content')) {
-          $links[] = l(t('Drafts'), 'search', array(
-              'attributes' => array('class' => ($selected == 'drafts') ? array('selected') : array()),
-              'query' => array('type' => $_GET['type'], 'state' => 2, 'status' => 'All'),
-              ));
+          $links[] = l(t('Drafts'), bef_replace_query_string_arg('status', 0, FALSE, FALSE, $path),
+            array('attributes' => array('class' => ($selected == 'drafts') ? 'selected' : '')));
         }
-        $links[] = l(t('Published'), 'search', array(
-            'attributes' => array('class' => ($selected == 'published') ? array('selected') : array()),
-            'query' => array('type' => $_GET['type'], 'status' => 1),
-            ));
-      break;
+        $links[] = l(t('Published'), bef_replace_query_string_arg('status', 1, FALSE, FALSE, $path),
+          array('attributes' => array('class' => ($selected == 'published') ? 'selected' : '')));
+      break;   
     }
   }
   return theme('checkdesk_core_render_search_header', array('links' => $links));
