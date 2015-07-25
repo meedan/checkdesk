@@ -428,7 +428,6 @@ function checkdesk_core_feature_views_default_views() {
     t('last »'),
     t('No users available.'),
     t('- Choose an operation -'),
-    t('Ban IP address of the current user'),
     t('Delete'),
     t('Change value'),
     t('Change user roles'),
@@ -1057,22 +1056,6 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
   $handler->display->display_options['filters']['status_extra']['table'] = 'node';
   $handler->display->display_options['filters']['status_extra']['field'] = 'status_extra';
-  /* Filter criterion: Content: State */
-  $handler->display->display_options['filters']['state']['id'] = 'state';
-  $handler->display->display_options['filters']['state']['table'] = 'node';
-  $handler->display->display_options['filters']['state']['field'] = 'state';
-  $handler->display->display_options['filters']['state']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['state']['expose']['operator_id'] = 'state_op';
-  $handler->display->display_options['filters']['state']['expose']['label'] = 'State';
-  $handler->display->display_options['filters']['state']['expose']['operator'] = 'state_op';
-  $handler->display->display_options['filters']['state']['expose']['identifier'] = 'state';
-  $handler->display->display_options['filters']['state']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    5 => 0,
-    4 => 0,
-  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -1184,7 +1167,6 @@ print _checkdesk_search_header();
     t('Fact-checking status (field_rating)'),
     t('Spam'),
     t('Flagged'),
-    t('State'),
     t('Page'),
     t('<?php
 print _checkdesk_search_header();

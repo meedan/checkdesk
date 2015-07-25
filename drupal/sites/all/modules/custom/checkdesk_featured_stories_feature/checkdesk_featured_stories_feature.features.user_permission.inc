@@ -19,15 +19,6 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'module' => 'flag',
   );
 
-  // Exported permission: 'edit revisions'.
-  $permissions['edit revisions'] = array(
-    'name' => 'edit revisions',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'revisioning',
-  );
-
   // Exported permission: 'flag delete'.
   $permissions['flag delete'] = array(
     'name' => 'flag delete',
@@ -122,26 +113,6 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'module' => 'override_node_options',
   );
 
-  // Exported permission: 'override discussion revision option'.
-  $permissions['override discussion revision option'] = array(
-    'name' => 'override discussion revision option',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'override_node_options',
-  );
-
-  // Exported permission: 'publish revisions'.
-  $permissions['publish revisions'] = array(
-    'name' => 'publish revisions',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'revisioning',
-  );
-
   // Exported permission: 'unflag delete'.
   $permissions['unflag delete'] = array(
     'name' => 'unflag delete',
@@ -203,16 +174,6 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'module' => 'flag',
   );
 
-  // Exported permission: 'unpublish current revision'.
-  $permissions['unpublish current revision'] = array(
-    'name' => 'unpublish current revision',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'revisioning',
-  );
-
   // Exported permission: 'view any unpublished discussion content'.
   $permissions['view any unpublished discussion content'] = array(
     'name' => 'view any unpublished discussion content',
@@ -231,15 +192,6 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
       'journalist' => 'journalist',
     ),
     'module' => 'view_unpublished',
-  );
-
-  // Exported permission: 'view revision status messages'.
-  $permissions['view revision status messages'] = array(
-    'name' => 'view revision status messages',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'revisioning',
   );
 
   return $permissions;
