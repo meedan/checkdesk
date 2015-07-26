@@ -1558,6 +1558,13 @@ function checkdesk_core_theme() {
         'resend' => NULL,
       ),
     ) + $base;
+  
+  $themes['checkdesk_core_most_popular_stories'] = array(
+      'template' => 'checkdesk_most_popular_stories',
+      'variables' => array(
+        'stories' => NULL,
+      ),
+   ) + $base;
 
   return $themes;
 }
@@ -3854,4 +3861,26 @@ function _checkdesk_main_navigation() {
     'second_group' => $second_group,
     'third_group' => $third_group,
   ));
+}
+
+/**
+ * List most popular stories.
+ */
+function _checkdesk_most_popular_stories() {
+    global $language;
+    $query = db_select('heartbeat_activity', 'ha');
+    $query->fields('n', array('title', 'nid'));
+    $query->fields('fm', array('uri'));
+    $query->innerjoin('node', 'n', 'ha.nid_target = n.nid AND n.type = :type', array(':type' => 'discussion'));
+    $query->leftjoin('field_data_field_lead_image', 'fi', 'n.nid = fi.entity_id');
+    $query->leftjoin('file_managed', 'fm', 'fi.field_lead_image_fid = fm.fid');
+    $query->condition('n.status', 1);
+    $query->condition('n.language', $language->language);
+    $query->condition('ha.timestamp', 'UNIX_TIMESTAMP(CURRENT_DATE - INTERVAL 7 DAY)', '>=');
+    $query->groupBy('n.nid');
+    $query->orderBy('COUNT( n.nid )', 'DESC');
+    $query->range(0, 4);
+    $result = $query->execute()->fetchAll();
+    
+    return theme('checkdesk_core_most_popular_stories', array('stories' => $result));
 }
