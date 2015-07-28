@@ -208,7 +208,6 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity(&$variables) {
  */
 function checkdesk_core_preprocess_checkdesk_core_most_popular_stories(&$variables) {
     foreach ($variables['stories'] as &$story) {
-        $story->title = l($story->title, 'node/'. $story->nid);
         if ($story->uri) {
             $story->image =  _checkdesk_generate_lead_image_thumbnail($story->uri);
         }

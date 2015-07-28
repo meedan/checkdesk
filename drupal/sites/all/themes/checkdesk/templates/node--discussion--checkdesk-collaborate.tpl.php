@@ -72,6 +72,11 @@
 
     </aside>
   </article>
+
+  <div class="most-popular component">
+    <?php print _checkdesk_most_popular_stories(); ?>
+  </div>
+  
 </section>
 
 <aside class="onward" role="complementary">

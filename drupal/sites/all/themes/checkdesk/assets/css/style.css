@@ -2129,20 +2129,33 @@ html {
 @media only screen and (min-width: 740px) {
   #main #content {
     padding-top: 40px;
-    max-width: 920px;
+    max-width: 1020px;
     margin-left: auto;
     margin-right: auto;
   }
 }
 
 body.page-liveblog #main #content {
-  max-width: 720px;
+  max-width: 620px;
+}
+
+#content-area .content {
+  position: relative;
 }
 
 body.page-node .story {
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 680px;
+}
+@media (min-width: 1px) and (max-width: 1080px) {
+  body.page-node .story {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media only screen and (min-width: 1080px) {
+  body.page-node .story {
+    margin-right: 320px;
+  }
 }
 
 body.node-type-media .report {
@@ -5141,16 +5154,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 
 .story {
-  *zoom: 1;
   margin-bottom: 12px;
-}
-.story:before, .story:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.story:after {
-  clear: both;
 }
 
 .story figure.media-lead {
@@ -5833,6 +5837,76 @@ body.cke_editable blockquote:after {
   margin-top: 0;
 }
 
+@media (min-width: 1px) and (max-width: 1080px) {
+  .most-popular {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1080px) {
+  .component {
+    padding-top: 30px;
+  }
+
+  .component-heading {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #3e4c57;
+    border-top: 1px solid #e7e8ea;
+    line-height: 20px;
+    letter-spacing: -0.4px;
+  }
+
+  .most-popular {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 300px;
+  }
+
+  .most-popular-item {
+    *zoom: 1;
+  }
+  .most-popular-item:before, .most-popular-item:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  .most-popular-item:after {
+    clear: both;
+  }
+  .most-popular-item a {
+    color: #3e4c57;
+    text-decoration: none;
+  }
+  .most-popular-item:not(:last-child) {
+    padding-bottom: 10px;
+  }
+  .most-popular-item:not(:first-child) {
+    padding-top: 10px;
+    border-top: 1px dotted #e7e8ea;
+  }
+
+  .most-popular-item-image {
+    float: left;
+    margin-right: 15px;
+    width: 120px;
+    height: 74px;
+  }
+  .most-popular-item-image img {
+    width: 100%;
+  }
+
+  .most-popular-item-headline {
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.4px;
+    font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+    padding-bottom: 10px;
+  }
+}
 .contained {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;

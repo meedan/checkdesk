@@ -35,7 +35,7 @@ html {
   padding-top: $padding-large-horizontal;
   @include cd-responsive('min-width: #{$width-tablet}') {
     padding-top: $padding-large-horizontal*2;  
-    max-width: 920px;
+    max-width: 1020px;
     margin-#{$alpha}: auto;
     margin-#{$omega}: auto;
   }
@@ -43,15 +43,24 @@ html {
 
 // for frontpage
 body.page-liveblog #main #content {
-  max-width: 720px;
+  max-width: 620px;
 }
 
 // for content pages
+#content-area .content {
+  position: relative;
+}
+
 // until sidebars are added as in search page
 body.page-node .story {
-  max-width: 720px;
-  margin-#{$alpha}: auto;
-  margin-#{$omega}: auto;
+  max-width: 680px;
+  @media (min-width: 1px) and (max-width: 1080px) {
+    margin-#{$alpha}: auto;
+    margin-#{$omega}: auto;
+  }
+  @include cd-responsive('min-width: 1080px') {
+    margin-#{$omega}: 320px;
+  }
 }
 
 // report

@@ -1,26 +1,18 @@
-<h2><?php print t('Most popular'); ?></h2>
-<ul class="">
-    <?php foreach ($stories as $id => $row): ?>
-        <li class="cd-slice-item l-row-item-span-1">
-            <?php $has_image_class = (isset($row->image)) ? ' cd-item-has-image' : ''; ?>
-            <div class="cd-item tone-default-item <?php print $has_image_class; ?>">
-                <div class="">
-                    <?php if (isset($row->image)) : ?>
-                        <div class="cd-item-media-wrapper">
-                            <div class="cd-item-image-container u-responsive-ratio">
-                                <figure class="media-lead">
-                                    <?php print $row->image; ?>
-                                </figure>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    <div class="cd-item-content">
-                        <div class="cd-item-header">
-                            <h2 class="cd-item-title"><?php print $row->title; ?></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-    <?php endforeach; ?>
+<h3 class="component-heading"><?php print t('Most popular'); ?></h3>
+<ul class="most-popular-items u-unstyled">
+  <?php foreach ($stories as $id => $row): ?>
+    <?php $has_image_class = (isset($row->image)) ? ' most-popular-item-has-image' : ''; ?>
+    <li class="most-popular-item<?php print $has_image_class; ?>">
+      <a class="most-popular-item-link" href="node/<?php print $row->nid; ?>">
+        <?php if (isset($row->image)) : ?>
+          <div class="most-popular-item-image">
+            <figure class="media-lead">
+              <?php print $row->image; ?>
+            </figure>
+          </div>
+        <?php endif; ?>
+        <h4 class="most-popular-item-headline"><?php print $row->title; ?></h4>
+      </a>
+    </li>
+  <?php endforeach; ?>
 </ul>
