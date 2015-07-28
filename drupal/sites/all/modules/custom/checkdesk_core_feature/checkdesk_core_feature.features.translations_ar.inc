@@ -2555,6 +2555,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Heartbeat activity content to form a news feed or heartbeat stream.', array(), array('context' => ''));
+  $translations['ar:default']['3823c97632d0bcdf31bff1aea3016d49'] = array(
+    'source' => 'More stories in [name] ',
+    'context' => '',
+    'location' => '',
+    'translation' => 'مزيد من القصص عن [name]',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('More stories in [name] ', array(), array('context' => ''));
   $translations['ar:default']['38559c871fba28d992ead51549367f83'] = array(
     'source' => '<>',
     'context' => '',
@@ -10881,6 +10890,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('The description associated with a taxonomy term.', array(), array('context' => ''));
+  $translations['ar:default']['df430c1374f6394e4da8223343b7d006'] = array(
+    'source' => 'Most popular',
+    'context' => '',
+    'location' => '',
+    'translation' => 'الأكثر انتشارا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Most popular', array(), array('context' => ''));
   $translations['ar:default']['df8cbabeb6dc92bc93fb409a5bcab4d9'] = array(
     'source' => 'URL path',
     'context' => '',
