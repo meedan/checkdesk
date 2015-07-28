@@ -3882,5 +3882,5 @@ function _checkdesk_most_popular_stories() {
     $query->range(0, 4);
     $result = $query->execute()->fetchAll();
     
-    return theme('checkdesk_core_most_popular_stories', array('stories' => $result));
+    return $result ? theme('checkdesk_core_most_popular_stories', array('stories' => $result)) : NULL;
 }
