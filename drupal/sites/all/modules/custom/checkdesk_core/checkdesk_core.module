@@ -933,38 +933,9 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   // Change title.
   drupal_set_title(t('Compose Update'));
 
-
   // Add CSS file for autocomplete field
   if($form['field_desk']) {
-    drupal_add_css(
-      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
-      array(
-        'scope' => 'footer',
-        'group' => CSS_THEME,
-        'weight' => '9999',
-        'every_page' => FALSE,
-      )
-    );
-    // add lib
-    drupal_add_js(
-      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
-      array(
-        'scope' => 'footer',
-        'group' => JS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
-    // add chosen.js
-    drupal_add_js(
-      drupal_get_path('theme', 'checkdesk') . '/assets/js/chosen.js',
-      array(
-        'scope' => 'footer',
-        'group' => JS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
+    _checkdesk_add_chosen_components();
   }
 
 }
@@ -2889,41 +2860,9 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
   }
-
-  // Add CSS file for chosen
+  
   if($form['field_stories']) {
-    drupal_add_css(
-      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
-      array(
-        'scope' => 'footer',
-        'group' => CSS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
-  }
-
-  // Add Chosen lib
-  if($form['field_stories']) {
-    drupal_add_js(
-      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
-      array(
-        'scope' => 'footer',
-        'group' => JS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
-    // add chosen.js
-    drupal_add_js(
-      drupal_get_path('theme', 'checkdesk') . '/assets/js/chosen.js',
-      array(
-        'scope' => 'footer',
-        'group' => JS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
+    _checkdesk_add_chosen_components();
   }
 
   // Add CSS file for autocomplete field
@@ -2945,6 +2884,42 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
   }
+}
+
+/**
+ * Add cc and js for chosen lib.
+ */
+function _checkdesk_add_chosen_components() {
+    // Add CSS file for chosen
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+    // Add Chosen lib
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+    // add chosen.js
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/chosen.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
 }
 
 /**
@@ -3876,11 +3851,10 @@ function _checkdesk_most_popular_stories() {
     $query->leftjoin('file_managed', 'fm', 'fi.field_lead_image_fid = fm.fid');
     $query->condition('n.status', 1);
     $query->condition('n.language', $language->language);
-    $query->condition('ha.timestamp', 'UNIX_TIMESTAMP(CURRENT_DATE - INTERVAL 7 DAY)', '>=');
+    $query->condition('ha.timestamp', strtotime("-1 week"), '>=');
     $query->groupBy('n.nid');
     $query->orderBy('COUNT( n.nid )', 'DESC');
     $query->range(0, 5);
     $result = $query->execute()->fetchAll();
-    
     return $result ? theme('checkdesk_core_most_popular_stories', array('stories' => $result)) : NULL;
 }
