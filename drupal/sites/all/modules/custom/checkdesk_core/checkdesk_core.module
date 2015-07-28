@@ -3879,7 +3879,7 @@ function _checkdesk_most_popular_stories() {
     $query->condition('ha.timestamp', 'UNIX_TIMESTAMP(CURRENT_DATE - INTERVAL 7 DAY)', '>=');
     $query->groupBy('n.nid');
     $query->orderBy('COUNT( n.nid )', 'DESC');
-    $query->range(0, 4);
+    $query->range(0, 5);
     $result = $query->execute()->fetchAll();
     
     return $result ? theme('checkdesk_core_most_popular_stories', array('stories' => $result)) : NULL;
