@@ -1094,7 +1094,9 @@ function checkdesk_field__field_tags(&$variables) {
  */
 function checkdesk_field__field_lead_image(&$variables) {
   // generate img tag with srcset
-  $output = _checkdesk_generate_lead_image($variables['element']['#items'][0]['uri'], $variables['element']['#items'][0]['image_field_caption']['value']);
+  $image_field_caption = isset($variables['element']['#items'][0]['image_field_caption']['value']) ? 
+          $variables['element']['#items'][0]['image_field_caption']['value'] : NULL;
+  $output = _checkdesk_generate_lead_image($variables['element']['#items'][0]['uri'], $image_field_caption);
   return $output;
 }
 
@@ -1117,7 +1119,7 @@ function _checkdesk_generate_lead_image($image, $image_caption) {
     $output .= '<img class="feature-image" src="' . $lead_image_small_path . '" />';
     $output .= '</picture>';
   }
-  if(isset($image_caption)) {
+  if (!empty($image_caption)) {
     $output .= '<figcaption>' . check_markup($image_caption, 'filtered_html') . '</figcaption>';
   }
 
