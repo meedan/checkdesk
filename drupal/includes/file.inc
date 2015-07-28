@@ -2123,7 +2123,7 @@ function file_download_access($uri) {
 function file_scan_directory($dir, $mask, $options = array(), $depth = 0) {
   // Merge in defaults.
   $options += array(
-    'nomask' => '/(\.\.?|CVS|node_modules)$/',
+    'nomask' => '/(\.\.?|CVS)$/',
     'callback' => 0,
     'recurse' => TRUE,
     'key' => 'uri',
