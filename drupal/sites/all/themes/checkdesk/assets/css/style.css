@@ -7510,28 +7510,83 @@ table th[class*="span"],
 }
 
 #my-notifications {
-  font-size: 12;
-  line-height: 1.3;
-}
-
-#my-notifications {
   width: 360px;
 }
 
-#my-notifications .heartbeat-activity {
+.view-my-notifications .pager-load-more {
+  *zoom: 1;
+  margin: 0;
+  padding: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  float: none;
+  clear: both;
+  position: relative;
+  text-align: center;
+}
+.view-my-notifications .pager-load-more:before, .view-my-notifications .pager-load-more:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.view-my-notifications .pager-load-more:after {
+  clear: both;
+}
+.view-my-notifications .pager-load-more li {
+  list-style: none;
+}
+.view-my-notifications .pager-load-more a {
+  display: inline-block;
+  width: 70%;
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #9fa6ac;
+  background-color: rgba(255, 255, 255, 0.8);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.view-my-notifications .pager-load-more a:hover {
+  color: #fff;
+  background-color: #2e77fc;
+  border: 1px solid #2e77fc;
+}
+.view-my-notifications .pager-load-more .ajax-progress-throbber {
+  position: absolute;
+  top: 4px;
+  right: 15px;
+}
+.view-my-notifications .pager-load-more .ajax-progress-throbber .throbber {
+  background: url("../imgs/icons/loader_white.gif");
+}
+
+.view-my-notifications .heartbeat-activity {
   color: #6f7a82;
   padding: 12px 15px;
   border-bottom: 1px solid rgba(16, 33, 47, 0.1);
   overflow: hidden;
 }
-#my-notifications .heartbeat-activity a {
-  color: #2e77fc;
+.view-my-notifications .heartbeat-activity a {
+  color: #6f7a82;
 }
-#my-notifications .heartbeat-activity a:hover {
+.view-my-notifications .heartbeat-activity a:hover {
+  color: #111314;
+}
+
+.view-my-notifications .heartbeat-activity .actor {
+  color: #2e77fc;
+  font-weight: bold;
+}
+.view-my-notifications .heartbeat-activity .actor:hover {
   color: #01225d;
 }
 
-#my-notifications .heartbeat-activity .activity-data {
+.view-my-notifications .heartbeat-activity .activity-data {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-flex;
@@ -7543,14 +7598,13 @@ table th[class*="span"],
   -moz-align-items: center;
   align-items: center;
 }
-#my-notifications .heartbeat-activity .activity-data .activity-data-image {
+.view-my-notifications .heartbeat-activity .activity-data .activity-data-image {
   margin-right: 15px;
   vertical-align: text-bottom;
 }
 
-#my-notifications .heartbeat-activity .activity-meta {
+.view-my-notifications .heartbeat-activity .activity-meta {
   margin-top: 6px;
-  padding-left: 26px;
   color: #9fa6ac;
 }
 
