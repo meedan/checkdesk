@@ -73,9 +73,11 @@
     </aside>
   </article>
 
-  <div class="most-popular component">
-    <?php print _checkdesk_most_popular_stories(); ?>
-  </div>
+  <?php if (!empty($most_popular_stories)): ?>
+        <div class="most-popular component">
+            <?php print $most_popular_stories; ?>
+        </div>
+    <?php endif; ?>
   
 </section>
 
