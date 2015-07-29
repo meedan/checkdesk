@@ -1185,7 +1185,8 @@ function checkdesk_core_views_pre_render(&$view) {
       $output = $stories->preview('block');
       $total_rows = $stories->total_rows;
       $stories->destroy();
-      if ($total_rows) {
+      // show container only if results are 4 or more
+      if ($total_rows > 3) {
         $view->result[$id]->stories = $output;
       }
       else {

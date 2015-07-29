@@ -74,16 +74,18 @@
   </article>
 
   <?php if (!empty($most_popular_stories)): ?>
-        <div class="most-popular component">
-            <?php print $most_popular_stories; ?>
-        </div>
-    <?php endif; ?>
+    <div class="most-popular component">
+      <?php print $most_popular_stories; ?>
+    </div>
+  <?php endif; ?>
   
 </section>
 
-<aside class="onward" role="complementary">
-  <?php print $more_stories; ?>
-</aside>
+<?php if (isset($more_stories)): ?>
+  <aside class="onward" role="complementary">
+    <?php print $more_stories; ?>
+  </aside>
+<?php endif; ?>
     
 <!-- story comments -->
 <div class="story-comments" id="story-comments-<?php print $node->nid; ?>">
