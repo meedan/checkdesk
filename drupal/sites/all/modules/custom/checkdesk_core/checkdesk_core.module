@@ -3843,6 +3843,16 @@ function _checkdesk_main_navigation() {
  */
 function _checkdesk_most_popular_stories() {
     global $language;
+    $activities = array(
+        'checkdesk_comment_on_report',
+        'status_report',
+        'checkdesk_fact_checking_on',
+        'checkdesk_fact_checking_on_by_citizen',
+        'checkdesk_follow_story',
+        'checkdesk_new_update_on_story_i_commented_on_update',
+        'checkdesk_report_suggested_to_story',
+        'checkdesk_flag_report',
+    );
     $query = db_select('heartbeat_activity', 'ha');
     $query->fields('n', array('title', 'nid'));
     $query->fields('fm', array('uri'));
@@ -3852,6 +3862,7 @@ function _checkdesk_most_popular_stories() {
     $query->condition('n.status', 1);
     $query->condition('n.language', $language->language);
     $query->condition('ha.timestamp', strtotime("-1 week"), '>=');
+    $query->condition('ha.message_id', $activities, 'IN');
     $query->groupBy('n.nid');
     $query->orderBy('COUNT( n.nid )', 'DESC');
     $query->range(0, 5);
