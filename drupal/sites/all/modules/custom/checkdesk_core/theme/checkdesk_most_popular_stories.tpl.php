@@ -3,7 +3,7 @@
   <?php foreach ($stories as $id => $row): ?>
     <?php $has_image_class = (isset($row->image)) ? ' most-popular-item-has-image' : ''; ?>
     <li class="most-popular-item<?php print $has_image_class; ?>">
-      <a class="most-popular-item-link" href="/node/<?php print $row->nid; ?>">
+      <a class="most-popular-item-link" href="<?php print $row->url; ?>">
         <?php if (isset($row->image)) : ?>
           <div class="most-popular-item-image">
             <figure class="media-lead">

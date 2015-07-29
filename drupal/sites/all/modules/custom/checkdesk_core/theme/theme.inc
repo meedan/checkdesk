@@ -211,5 +211,6 @@ function checkdesk_core_preprocess_checkdesk_core_most_popular_stories(&$variabl
         if ($story->uri) {
             $story->image =  _checkdesk_generate_lead_image_thumbnail($story->uri);
         }
+        $story->url = url('node/'. $story->nid, array('absolute' => TRUE));
     }
 }
