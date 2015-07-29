@@ -2,7 +2,7 @@
   <article class="story">
 
     <?php if(isset($content['field_lead_image'])) { ?>
-      <figure>
+      <figure class="media-lead">
         <?php print render($content['field_lead_image']); ?>
       </figure>
     <?php } ?>
@@ -71,11 +71,23 @@
       <?php endif; ?>
 
     </aside>
-
-    <!-- story comments -->
-    <div class="story-comments" id="story-comments-<?php print $node->nid; ?>">
-      <?php if (isset($content['custom_comments'])) print render($content['custom_comments']); ?>
-    </div>
-
   </article>
+    
+  <?php if (!empty($most_popular_stories)): ?>
+    <div class="most-popular component">
+      <?php print $most_popular_stories; ?>
+    </div>
+  <?php endif; ?>
+
 </section>
+
+<?php if (isset($more_stories)): ?>
+  <aside class="onward" role="complementary">
+    <?php print $more_stories; ?>
+  </aside>
+<?php endif; ?>
+    
+<!-- story comments -->
+<div class="story-comments" id="story-comments-<?php print $node->nid; ?>">
+  <?php if (isset($content['custom_comments'])) print render($content['custom_comments']); ?>
+</div>

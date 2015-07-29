@@ -263,20 +263,6 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
-    'action::system_block_ip_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 1,
-      'override_label' => 1,
-      'label' => 'Ban IP address of the current user',
-      'postpone_processing' => 0,
-    ),
-    'action::user_block_user_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 1,
-      'override_label' => 0,
-      'label' => '',
-      'postpone_processing' => 0,
-    ),
     'action::views_bulk_operations_delete_item' => array(
       'selected' => 1,
       'skip_confirmation' => 0,
@@ -297,41 +283,11 @@ function checkdesk_core_feature_views_default_views() {
       ),
       'postpone_processing' => 0,
     ),
-    'action::system_message_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'postpone_processing' => 0,
-    ),
-    'action::views_bulk_operations_script_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'postpone_processing' => 0,
-    ),
     'action::views_bulk_operations_user_roles_action' => array(
       'selected' => 1,
       'skip_confirmation' => 0,
       'override_label' => 1,
       'label' => 'Change user roles',
-      'postpone_processing' => 0,
-    ),
-    'action::views_bulk_operations_argument_selector_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'url' => '',
-      ),
-    ),
-    'action::system_goto_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
       'postpone_processing' => 0,
     ),
     'action::system_send_email_action' => array(
@@ -472,7 +428,6 @@ function checkdesk_core_feature_views_default_views() {
     t('last »'),
     t('No users available.'),
     t('- Choose an operation -'),
-    t('Ban IP address of the current user'),
     t('Delete'),
     t('Change value'),
     t('Change user roles'),
@@ -526,6 +481,7 @@ function checkdesk_core_feature_views_default_views() {
         'collapsible' => 0,
         'collapsible_label' => 'Sort options',
         'combine' => 1,
+        'combine_param' => 'sort_bef_combine',
         'combine_rewrite' => '',
         'reset' => 0,
         'reset_label' => '',
@@ -643,57 +599,6 @@ function checkdesk_core_feature_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
-    'type' => array(
-      'bef_format' => 'bef_links',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'any_label' => 'Everything',
-        'enable_fastlivefilter' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-            'secondary_label' => NULL,
-            'collapsible_label' => NULL,
-            'combine_rewrite' => NULL,
-            'reset_label' => NULL,
-            'bef_filter_description' => NULL,
-            'any_label' => NULL,
-            'filter_rewrite_values' => NULL,
-          ),
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-          'filter_rewrite_values' => NULL,
-        ),
-        'rewrite' => array(
-          'filter_rewrite_values' => '',
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-        ),
-        'secondary_label' => NULL,
-        'collapsible_label' => NULL,
-        'combine_rewrite' => NULL,
-        'reset_label' => NULL,
-        'filter_rewrite_values' => NULL,
-      ),
-      'secondary_label' => NULL,
-      'collapsible_label' => NULL,
-      'combine_rewrite' => NULL,
-      'reset_label' => NULL,
-      'bef_filter_description' => NULL,
-      'any_label' => NULL,
-      'filter_rewrite_values' => NULL,
-    ),
     'field_tags_tid' => array(
       'bef_format' => 'bef_links',
       'more_options' => array(
@@ -706,6 +611,7 @@ function checkdesk_core_feature_views_default_views() {
         'tokens' => array(
           'available' => array(
             0 => 'global_types',
+            1 => 'vocabulary',
             'secondary_label' => NULL,
             'collapsible_label' => NULL,
             'combine_rewrite' => NULL,
@@ -757,6 +663,7 @@ function checkdesk_core_feature_views_default_views() {
         'tokens' => array(
           'available' => array(
             0 => 'global_types',
+            1 => 'vocabulary',
             'secondary_label' => NULL,
             'collapsible_label' => NULL,
             'combine_rewrite' => NULL,
@@ -848,6 +755,57 @@ function checkdesk_core_feature_views_default_views() {
       'filter_rewrite_values' => NULL,
     ),
     'flagged_1' => array(
+      'bef_format' => 'bef_hidden',
+      'more_options' => array(
+        'bef_select_all_none' => FALSE,
+        'bef_collapsible' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'enable_fastlivefilter' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+            'secondary_label' => NULL,
+            'collapsible_label' => NULL,
+            'combine_rewrite' => NULL,
+            'reset_label' => NULL,
+            'bef_filter_description' => NULL,
+            'any_label' => NULL,
+            'filter_rewrite_values' => NULL,
+          ),
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+          'filter_rewrite_values' => NULL,
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+        ),
+        'secondary_label' => NULL,
+        'collapsible_label' => NULL,
+        'combine_rewrite' => NULL,
+        'reset_label' => NULL,
+        'filter_rewrite_values' => NULL,
+      ),
+      'secondary_label' => NULL,
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+      'bef_filter_description' => NULL,
+      'any_label' => NULL,
+      'filter_rewrite_values' => NULL,
+    ),
+    'state' => array(
       'bef_format' => 'bef_hidden',
       'more_options' => array(
         'bef_select_all_none' => FALSE,
@@ -1468,16 +1426,6 @@ print t(\'No content available\');
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['created']['expose']['label'] = 'Date';
-  /* Contextual filter: Content: Story (field_stories) */
-  $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';
-  $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_type'] = 'php';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_options']['code'] = 'return checkdesk_core__get_desk_reports_args();';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary_options']['items_per_page'] = '25';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -1750,16 +1698,6 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'g:ia - d M Y';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Story (field_stories) */
-  $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';
-  $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_type'] = 'php';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_options']['code'] = 'return checkdesk_core__get_desk_reports_args();';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary_options']['items_per_page'] = '25';
   /* Contextual filter: Content: Post date (with operator) */
   $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
   $handler->display->display_options['arguments']['created_operator']['table'] = 'node';
@@ -1849,8 +1787,8 @@ print t(\'No content available\');
     2 => '2',
     1 => 0,
     3 => 0,
-    4 => 0,
     5 => 0,
+    4 => 0,
   );
   $handler->display->display_options['path'] = 'desk-reports/autorefresh/%';
   $translatables['desk_reports'] = array(
@@ -1899,7 +1837,6 @@ print t(\'No content available\');
     t('Parent'),
     t('<div class="draggable">[field_link]</div>'),
     t('Date'),
-    t('All'),
     t('Block'),
     t('<span class="report-stream-filter-label">{key:[current-page:query:title_op]}</span>&nbsp;<span class="report-stream-filter-val">"[current-page:query:title]"</span>'),
     t('<span class="report-stream-filter-label">{key:[current-page:query:source_op]}</span>&nbsp;<span class="report-stream-filter-val">"[current-page:query:source]"</span>'),
@@ -1908,6 +1845,7 @@ print t(\'No content available\');
     t('By source'),
     t('By story'),
     t('Autorefresh'),
+    t('All'),
   );
   $export['desk_reports'] = $view;
 

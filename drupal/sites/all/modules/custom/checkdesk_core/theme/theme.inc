@@ -202,3 +202,15 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity(&$variables) {
   }
 
 }
+
+/**
+ * @param type $variables
+ */
+function checkdesk_core_preprocess_checkdesk_core_most_popular_stories(&$variables) {
+    foreach ($variables['stories'] as &$story) {
+        if ($story->uri) {
+            $story->image =  _checkdesk_generate_lead_image_thumbnail($story->uri);
+        }
+        $story->url = url('node/'. $story->nid, array('absolute' => TRUE));
+    }
+}

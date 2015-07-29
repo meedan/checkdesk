@@ -69,7 +69,6 @@ $omega: opposite-position($from-direction);
 
 // Mix of Drupal alerts and Twitter Bootstrap alerts.
 @import "components/dropdowns";
-@import "components/chosen";
 
 // Modals
 @import "components/responsive_modals";
@@ -87,6 +86,8 @@ $omega: opposite-position($from-direction);
 @import "base/base";
 @import "base/typography";
 @import "base/lists";
+@import "base/helpers";
+@import "base/faux-block-link";
 
 //checkdesk specific
 
@@ -131,6 +132,9 @@ $omega: opposite-position($from-direction);
 // Story blog page with discussion
 @import "module/content/story";
 @import "module/content/content_body";
+
+// Most Popular component
+@import "components/most_popular";
 
 // Common item styles
 @import "components/container/items";
@@ -179,7 +183,6 @@ $omega: opposite-position($from-direction);
 
 // Forms autocomplete and jquery ui
 @import "replace_drupal/jquery.ui.autocomplete";
-@import "replace_drupal/autocomplete";
 
 // Drupal styles
 // Drupal itself should not emit *any* CSS.
@@ -217,8 +220,6 @@ $omega: opposite-position($from-direction);
   text-align: left;
   direction: ltr;
 }
-
-@import "module/tour";
 
 // Based on bootstrap-tour default CSS
 

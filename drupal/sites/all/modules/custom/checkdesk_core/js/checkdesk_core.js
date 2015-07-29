@@ -70,6 +70,9 @@
 
       // CKEditor configuration, see: http://www.question2answer.org/qa/13255/simple-ckeditor-how-to-modify-it-to-be-simple-solution
       if (typeof CKEDITOR != 'undefined') {
+        // Force CKEditor plugins to be reloaded.
+        CKEDITOR.timestamp = ( new Date() ).valueOf();
+
         CKEDITOR.on('dialogDefinition', function(ev) {
           var dialog = ev.data, currentDialog;
 
@@ -246,16 +249,6 @@
     if (typeof(FB) != 'undefined') {
       window.fbAsyncInit();
     }
-  }
-
-  /**
-   * Facebook initialization callback.
-   */
-  window.fbAsyncInit = function() {
-    // Wait until FB object is loaded and initialized to refresh the embeds.
-    // @see http://thereisamoduleforthat.com/content/loading-facebook-embeds-ajax
-    FB.init({ xfbml: true });
-    FB.XFBML.parse();
   }
 
   // Custom client-side validations

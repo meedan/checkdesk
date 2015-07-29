@@ -1371,6 +1371,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->value = array(
     0 => 'status',
     1 => 'promote',
+    2 => 'revision',
   );
   $export['node_options_discussion'] = $strongarm;
 

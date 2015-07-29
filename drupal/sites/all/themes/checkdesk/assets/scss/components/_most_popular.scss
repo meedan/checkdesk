@@ -1,0 +1,63 @@
+@media (min-width: 1px) and (max-width: 1080px) {
+	.most-popular { display: none; }
+}
+
+@include cd-responsive('min-width: 1080px') {
+	.component {
+		padding-top: 30px;
+	}
+
+	.component-heading {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		font-size: 16px;
+		font-weight: bold;
+		color: $firefly80;
+    border-top: 1px solid $firefly10;
+		@if $from-direction == left {
+	    line-height: 20px;
+	    letter-spacing: -0.4px;
+	  }
+	}
+
+	.most-popular {
+		position: absolute;
+		top: 0;
+		#{$omega}: 0;
+		height: 100%;
+		width: 300px;
+	}
+
+	.most-popular-item {
+		@include ctb-clearfix;
+		a { 
+	    color: $firefly80;
+	  }
+	  &:not(:last-child) {
+      padding-bottom: 10px;
+    }
+    &:not(:first-child) { 
+    	padding-top: 10px;
+    	border-top: 1px dotted $firefly10;
+    }
+
+	}
+
+	.most-popular-item-image {
+		float: $alpha;
+		margin-#{$omega}: $gutter-width;
+		width: 120px;
+		height: 74px;
+		img { width: 100%; }
+	}
+
+	.most-popular-item-headline {
+		font-size: 14px;
+	  @if $from-direction == left {
+	    line-height: 18px;
+	    letter-spacing: -0.4px;
+	  }
+	  @include cd-serif-family;
+	  padding-bottom: 10px;
+	}
+}

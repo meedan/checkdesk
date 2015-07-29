@@ -73,6 +73,21 @@ function entity_menu_links_label($menu_link) {
  */
 function entity_menu_links_menu_link_alter(&$menu_link) {
   if (isset($menu_link['module']) && $menu_link['module'] == 'menu') {
+    // Ensure defaults are set as hook_menu_link_alter() is invoked before the
+    // defaults are applied.
+    // @see https://www.drupal.org/node/929176
+    $menu_link += array(
+      'menu_name' => 'navigation',
+      'weight' => 0,
+      'link_title' => '',
+      'hidden' => 0,
+      'has_children' => 0,
+      'expanded' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'customized' => 0,
+      'updated' => 0,
+    );
     $entity = (object) $menu_link;
     module_invoke_all('entity_presave', $entity, 'menu_link');
   }
@@ -319,6 +334,7 @@ function entity_menu_links_theme_registry_alter(&$theme_registry) {
   // Make sure that menu links don't get themed like regular entities.
   $hooks = preg_grep('/^menu_link(\.|__).+$/', array_keys($theme_registry));
   foreach ($hooks as $hook) {
+    $theme_registry[$hook]['render element'] = 'element';
     $theme_registry[$hook]['base hook'] = 'menu_link';
   }
 }
@@ -341,7 +357,7 @@ function entity_menu_links_form_alter(&$form, &$form_state, $form_id) {
 function entity_menu_links_entity_form_submit(&$form, &$form_state) {
   foreach ($form_state['values']['deploy_managed_ui']['plans'] as $plan => $checked) {
     if ($checked) {
-      $mlid = $form['mlid']['#value'];
+      $mlid = $form_state['values']['mlid'];
       // Reload entity resetting internal cache otherwise it will use original revision.
       $menu_link = entity_load('menu_link', array($mlid), array(), TRUE);
       deploy_manager_add_to_plan($plan, 'menu_link', $menu_link[$mlid]);

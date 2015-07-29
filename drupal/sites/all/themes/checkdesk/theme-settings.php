@@ -4,7 +4,11 @@
  * Implements hook_form_system_theme_settings_alter().
  *
  */
-function checkdesk_form_system_theme_settings_alter(&$form, &$form_state) {
+function checkdesk_form_system_theme_settings_alter(&$form, &$form_state, $form_id = NULL) {
+  // This hook can be called from 2 different places, and we only want
+  // to handle the call from `system_theme_settings()`.
+  // @see https://www.drupal.org/node/943212#comment-4885654
+  if (isset($form_id)) return;
 
   $form['header'] = array(
     '#type' => 'fieldset',
@@ -22,9 +26,6 @@ function checkdesk_form_system_theme_settings_alter(&$form, &$form_state) {
     '#title' => t('Partner logo (square version):'),
     '#description' => t('The partner logo will appear on the frontpage. The logo should be 400px tall and 400px wide and work on a white background.'),
   );
-  if (file_uri_scheme($path) === 'public') {
-    $path = file_uri_target($path);
-  }
   $form['header']['frontpage_logo_preview'] = array(
     '#markup' => (empty($path) ? '' : '<img src="' . image_style_url('partner_logo', $path) . '" />'),
   );
@@ -41,9 +42,6 @@ function checkdesk_form_system_theme_settings_alter(&$form, &$form_state) {
     '#title' => t('Partner Logo (wide version):'),
     '#description' => t('This version will appear on the top of stories. The logo should be 72px tall and up to 400px wide and work on a white background.'),
   );
-  if (file_uri_scheme($path) === 'public') {
-    $path = file_uri_target($path);
-  }
   $form['header']['header_logo_preview'] = array(
     '#markup' => (empty($path) ? '' : '<img src="' . image_style_url('header_logo', $path) . '" />'),
   );
@@ -59,32 +57,8 @@ function checkdesk_form_system_theme_settings_alter(&$form, &$form_state) {
     '#title' => t('Partner logo (badge version):'),
     '#description' => t('This version will appear on smaller screens and as your avatar. The logo should be a 400px tall and 400px wide.'),
   );
-  if (file_uri_scheme($path) === 'public') {
-    $path = file_uri_target($path);
-  }
   $form['header']['badge_logo_preview'] = array(
     '#markup' => (empty($path) ? '' : '<img src="' . image_style_url('activity_avatar', $path) . '" />'),
-  );
-
-  // footer logo
-  $form['footer'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Footer'),
-  );
-  $path = theme_get_setting('footer_image_path');
-  $form['footer']['footer_image_path'] = array(
-    '#type' => 'value',
-    '#value' => $path,
-  );
-  $form['footer']['footer_image_upload'] = array(
-    '#type' => 'file',
-    '#title' => t('Choose a logo that will appear in the footer:'),
-  );
-  if (file_uri_scheme($path) === 'public') {
-    $path = file_uri_target($path);
-  }
-  $form['footer']['footer_image_preview'] = array(
-    '#markup' => (empty($path) ? '' : '<img src="' . image_style_url('footer_partner_logo', $path) . '" />'),
   );
 
   $form['#submit'][] = 'checkdesk_settings_submit';
@@ -117,13 +91,6 @@ function checkdesk_settings_submit($form, &$form_state) {
     $file->status = 1;
     file_save($file);
     $_POST['badge_logo_path'] = $form_state['values']['badge_logo_path'] = $file->destination;
-  }
-
-  if ($file = file_save_upload('footer_image_upload', array('file_validate_is_image' => array()), $filepath, FILE_EXISTS_REPLACE)) {
-    // Make the file permanent
-    $file->status = 1;
-    file_save($file);
-    $_POST['footer_image_path'] = $form_state['values']['footer_image_path'] = $file->destination;
   }
 }
 

@@ -26,6 +26,11 @@
     }
   }
 
+  figure.element {
+    margin-top: 26px;
+    margin-bottom: 26px;
+  }
+
   // lists
   & > ul, & > ol {
     counter-reset: li;
@@ -75,6 +80,10 @@
     } @else {
       line-height: 32px;
     }
+  }
+
+  & > figure+h2 {
+    margin-top: 30px;
   }
 
   h2 {
