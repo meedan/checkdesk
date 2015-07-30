@@ -221,7 +221,7 @@
   padding-#{$omega}: 10px;
 }
 
-// links rows
+// rows
 @include cd-responsive('min-width: #{$width-tablet}') {
   .l-row {
     @include flexbox;
@@ -229,15 +229,27 @@
     @include flex-wrap(nowrap);
     @include align-content(stretch);
     @include align-items(stretch);
+    width: 100%; // Prevent consecutive rows from flexing together in FF
   }
 
-  .l-row-item-span-1 {
-    @include flex(1 1 auto);
+  .l-row-item {
+    @include flex(1);
+    @include flex-grow(1);
+    @include flex-basis(0);
+    width: 0; // Prevent items to grow out of their parent in FF
   }
 
-  .l-row-item-span-2 {
-    @include flex(2 1 auto);
+  // We only need this functionality for 2 & 4 column rows.
+  @for $column from 2 through 4 {
+    @for $span from 1 through 5 {
+      .l-row-cols-#{$column} {
+        .l-row-item-span-#{$span} {
+            @include flex($span 1 auto);
+        }
+      }
+    }
   }
+
 }
 
 // tones
