@@ -2151,10 +2151,16 @@ body.page-node .story {
     margin-left: auto;
   }
 }
+
 @media only screen and (min-width: 1080px) {
-  body.page-node .story {
+  body.page-node .most-popular-component .story {
     margin-left: 320px;
   }
+}
+
+body:not(.most-popular-component) .story {
+  margin-right: auto;
+  margin-left: auto;
 }
 
 body.node-type-media .report {

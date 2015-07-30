@@ -636,6 +636,9 @@ function checkdesk_preprocess_node(&$variables) {
       // Add more and most popular stories.
       $variables['more_stories'] = views_embed_view('more_stories', 'block_1', $variables['nid']);
       $variables['most_popular_stories'] =  _checkdesk_most_popular_stories();
+      if (!empty($variables['most_popular_stories'])) {
+        $variables['classes_array'][] = 'most-popular-component';
+      }
       if ($variables['view_mode'] == 'checkdesk_collaborate') {
         // Get heartbeat activity for particular story
         $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);

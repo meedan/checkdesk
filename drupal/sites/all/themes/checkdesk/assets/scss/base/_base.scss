@@ -51,16 +51,26 @@ body.page-liveblog #main #content {
   position: relative;
 }
 
-// until sidebars are added as in search page
+// default story size and centralized position
 body.page-node .story {
   max-width: 680px;
   @media (min-width: 1px) and (max-width: 1080px) {
     margin-#{$alpha}: auto;
     margin-#{$omega}: auto;
   }
+}
+
+// Add margin for the most popular component
+body.page-node .most-popular-component .story {
   @include cd-responsive('min-width: 1080px') {
     margin-#{$omega}: 320px;
   }
+}
+
+// align story body in center 
+body:not(.most-popular-component) .story {
+  margin-#{$alpha}: auto;
+  margin-#{$omega}: auto;
 }
 
 // report
