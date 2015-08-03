@@ -50,3 +50,11 @@ function checkdesk_notifications_update_7002() {
     user_save($user);
   }
 }
+
+
+/**
+ * Flush notifications_avatar image style
+ */
+function checkdesk_notifications_update_7003() {
+  image_style_flush(image_style_load('notifications_avatar'));
+}
