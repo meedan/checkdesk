@@ -62,7 +62,7 @@ CKEDITOR.plugins.add( 'mediaembed',
                         }
                         div.setHtml(embedCode);
                         figure.append(div);
-                        instance.insertHtml(figure.getOuterHtml());
+                        instance.insertHtml(figure.getOuterHtml() + '<p></p>');
                   }
               };
            } );
