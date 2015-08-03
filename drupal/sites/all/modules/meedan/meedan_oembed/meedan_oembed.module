@@ -602,7 +602,7 @@ function _meedan_oembed_filter_prepare($text, $filter) {
  */
 function _meedan_oembed_filter_process($text, $filter) {
   $matches = array();
-  preg_match_all('/\[[^:]+:([0-9]+)\]/u', $text, $matches);
+  preg_match_all('/\[[^:\]]+:([0-9]+)\]/u', $text, $matches);
   if (count($matches[1])) {
     $output = array();
     foreach ($matches[1] as $key => $nid) {
