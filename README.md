@@ -30,7 +30,7 @@ Checkdesk installation is similar to a [standard Drupal installation](https://dr
           'prefix'   => '',
         );
 
-5. You're now ready to run the Drupal installer. Choose the **Checkdesk** installation profile. During installation, you will be asked to configure a few Web services:
+5. You're now ready to run the Drupal installer by navigating to /install.php on your website (e.g. http://example.com/install.php). Choose the **Checkdesk** installation profile. During installation, you will be asked to configure a few Web services:
 
 * [Embedly](http://embed.ly/), a service that renders links into embeddable HTML components using oEmbed. Sign up for a free account and copy your account's **API Key** to the corresponding form field.
 * Twitter, to allow logging in through Twitter. To fill in:
