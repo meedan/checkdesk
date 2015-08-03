@@ -6,7 +6,7 @@ class CheckdeskDuplicateTestCase extends DrupalWebTestCase {
    * A user with permission to create media content.
    */
   protected $web_user;
-
+  protected $profile = 'checkdesk';
   public static function getInfo() {
     return array(
       'name' => 'Checkdesk duplicate unit tests',
@@ -63,5 +63,6 @@ class CheckdeskDuplicateTestCase extends DrupalWebTestCase {
     $node = $this->drupalGetNodeByTitle($edit['title']);
     $this->assertEqual($node->field_link[LANGUAGE_NONE][0]['url'], 'http://meedan.com/', 'Creating media with normalized URL.');
   }
+  
 }
  
