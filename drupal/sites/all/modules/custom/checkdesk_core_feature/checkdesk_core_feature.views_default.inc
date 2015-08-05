@@ -651,6 +651,58 @@ function checkdesk_core_feature_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
+    'field_section_tid_i18n' => array(
+      'bef_format' => 'bef_links',
+      'more_options' => array(
+        'bef_select_all_none' => FALSE,
+        'bef_collapsible' => 1,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'enable_fastlivefilter' => 1,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+            1 => 'vocabulary',
+            'secondary_label' => NULL,
+            'collapsible_label' => NULL,
+            'combine_rewrite' => NULL,
+            'reset_label' => NULL,
+            'bef_filter_description' => NULL,
+            'any_label' => NULL,
+            'filter_rewrite_values' => NULL,
+          ),
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+          'filter_rewrite_values' => NULL,
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+        ),
+        'secondary_label' => NULL,
+        'collapsible_label' => NULL,
+        'combine_rewrite' => NULL,
+        'reset_label' => NULL,
+        'filter_rewrite_values' => NULL,
+      ),
+      'secondary_label' => NULL,
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+      'bef_filter_description' => NULL,
+      'any_label' => NULL,
+      'filter_rewrite_values' => NULL,
+    ),
     'field_rating_tid' => array(
       'bef_format' => 'bef_links',
       'more_options' => array(
@@ -755,57 +807,6 @@ function checkdesk_core_feature_views_default_views() {
       'filter_rewrite_values' => NULL,
     ),
     'flagged_1' => array(
-      'bef_format' => 'bef_hidden',
-      'more_options' => array(
-        'bef_select_all_none' => FALSE,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'any_label' => '',
-        'enable_fastlivefilter' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-            'secondary_label' => NULL,
-            'collapsible_label' => NULL,
-            'combine_rewrite' => NULL,
-            'reset_label' => NULL,
-            'bef_filter_description' => NULL,
-            'any_label' => NULL,
-            'filter_rewrite_values' => NULL,
-          ),
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-          'filter_rewrite_values' => NULL,
-        ),
-        'rewrite' => array(
-          'filter_rewrite_values' => '',
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-        ),
-        'secondary_label' => NULL,
-        'collapsible_label' => NULL,
-        'combine_rewrite' => NULL,
-        'reset_label' => NULL,
-        'filter_rewrite_values' => NULL,
-      ),
-      'secondary_label' => NULL,
-      'collapsible_label' => NULL,
-      'combine_rewrite' => NULL,
-      'reset_label' => NULL,
-      'bef_filter_description' => NULL,
-      'any_label' => NULL,
-      'filter_rewrite_values' => NULL,
-    ),
-    'state' => array(
       'bef_format' => 'bef_hidden',
       'more_options' => array(
         'bef_select_all_none' => FALSE,
@@ -987,6 +988,25 @@ function checkdesk_core_feature_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'tags';
+  /* Filter criterion: Content: Section (field_section) (translated) */
+  $handler->display->display_options['filters']['field_section_tid_i18n']['id'] = 'field_section_tid_i18n';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['table'] = 'field_data_field_section';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['field'] = 'field_section_tid_i18n';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['group'] = 1;
+  $handler->display->display_options['filters']['field_section_tid_i18n']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['operator_id'] = 'field_section_tid_i18n_op';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['label'] = 'Section';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['operator'] = 'field_section_tid_i18n_op';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['identifier'] = 'field_section_tid_i18n';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_section_tid_i18n']['type'] = 'select';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['vocabulary'] = 'sections';
   /* Filter criterion: Field: Fact-checking status (field_rating) */
   $handler->display->display_options['filters']['field_rating_tid']['id'] = 'field_rating_tid';
   $handler->display->display_options['filters']['field_rating_tid']['table'] = 'field_data_field_rating';
@@ -1056,6 +1076,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
   $handler->display->display_options['filters']['status_extra']['table'] = 'node';
   $handler->display->display_options['filters']['status_extra']['field'] = 'status_extra';
+  $handler->display->display_options['filters']['status_extra']['group'] = 1;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -1163,6 +1184,7 @@ print _checkdesk_search_header();
     t('Post date'),
     t('Published'),
     t('Tags'),
+    t('Section'),
     t('Verification status'),
     t('Fact-checking status (field_rating)'),
     t('Spam'),

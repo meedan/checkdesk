@@ -1375,10 +1375,8 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         '#bef_enable_fastlivefilter' => 1,
         '#fastlivefilte_placeholder' => t('Search for story'),
       );
-    }
-
-    // Hide tag filter for updates
-    if (isset($_GET['type']) && $_GET['type'] === 'update') {
+      
+      // Hide tag filter for updates
       $form['#info']['filter-field_tags_tid']['label'] = NULL;
       $form['field_tags_tid']['#type'] = 'hidden';
       unset($form['field_tags_tid']['#theme']);
@@ -1388,7 +1386,16 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     if (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
       unset($form['type']['#options']['update']);
     }
-
+    if (isset($_GET['type']) && $_GET['type'] === 'story') {
+        $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
+        $form['field_section_tid_i18n']['#options']['All'] = '– ' . t('Any section') . ' –';
+    }
+    else {
+        // Hide section filter
+        $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
+        $form['field_section_tid_i18n']['#type'] = 'hidden';
+        unset($form['field_section_tid_i18n']['#theme']);
+    }
     // Add author filter for admin or journalist
     global $user;
     if ($user->uid) {
@@ -2069,12 +2076,23 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         break;
       }
     }
-    // Remove status condition if user selected type not reports.
+    // Remove status condition if selected type not equal report.
     if (isset($_GET['type']) && $_GET['type'] !== 'report' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
       $conditions = $query->where[1]['conditions'];
       foreach($conditions as $k => $v) {
         if (is_string($v['field']) && $v['field'] === 'field_data_field_rating.field_rating_tid') {
           unset($query->table_queue['field_data_field_rating']);
+          unset($query->where[1]['conditions'][$k]);
+          break;
+        }
+      }
+    }
+    // Remove section condition if selected type not equal story.
+    if (isset($_GET['type']) && $_GET['type'] !== 'story' && isset($_GET['field_section_tid_i18n']) && is_numeric($_GET['field_section_tid_i18n'])) {
+      $conditions = $query->where[1]['conditions'];
+      foreach($conditions as $k => $v) {
+        if (is_string($v['field']) && $v['field'] === 'field_data_field_section.field_section_tid') {
+          unset($query->table_queue['field_data_field_section']);
           unset($query->where[1]['conditions'][$k]);
           break;
         }
@@ -3652,11 +3670,17 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
   //This is a taxonomy page
   if (preg_match('|^taxonomy/term/([0-9]*)|', $original_path, $matches)) {
     if (is_numeric($matches[1])) {
-      $tags = taxonomy_vocabulary_machine_name_load('tags');
+      $vocabularies = taxonomy_get_vocabularies();
       $term = taxonomy_term_load($matches[1]);
-      if ($tags->vid == $term->vid) {
+      $term_vocabulary = $vocabularies[$term->vid];
+      if ($term_vocabulary->machine_name == 'tags') {
         $path = 'search';
         $options['query']['field_tags_tid'] = $matches[1];
+      }
+      elseif ($term_vocabulary->machine_name == 'sections') {
+        $path = 'search';
+        $options['query']['type'] = 'story';
+        $options['query']['field_section_tid_i18n'] = $matches[1];
       }
     }
   }
