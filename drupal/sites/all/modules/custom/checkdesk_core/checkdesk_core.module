@@ -3797,7 +3797,15 @@ function _checkdesk_main_navigation() {
     )),
     'class' => array($li_class, 'reports'),
   );
-
+  
+  $items[] = array(
+    'data' => l($reports_icon . '<span>' . t('Section') . '</span>', 'section', array(
+      'attributes' => array('class' => array($a_class, 'section-link')),
+      'html' => TRUE,
+    )),
+    'class' => array($li_class, 'section'),
+  );
+  
   $second_group = theme('item_list', array(
     'items' => $items,
     'title' => '',
