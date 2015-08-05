@@ -1331,7 +1331,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
   }
   
-  if ($vars['view']->name === 'recent_stories_by_tag') {
+  if ($vars['view']->name === 'recent_stories_by_tag' || $vars['view']->name === 'story_section') {
       // Facebook comments count
     if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
       $vars['story_commentcount'] = array(
