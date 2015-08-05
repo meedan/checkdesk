@@ -41,6 +41,9 @@ $has_image_class = isset($fields['uri']->raw) ? ' cd-item-has-image' : '';
         <?php } ?>
         <div class="cd-item-content">
             <div class="cd-item-header">
+                 <?php if (isset($fields['field_section']->content)) : ?>
+                <span class="cd-item-section"> <?php print $fields['field_section']->content . ' / ' ; ?> </span>
+                <?php endif; ?>
                 <h2 class="cd-item-title"><?php print l($fields['title']->raw, 'node/' . $fields['nid']->raw); ?></h2>
             </div>
             <aside class="cd-item-meta">

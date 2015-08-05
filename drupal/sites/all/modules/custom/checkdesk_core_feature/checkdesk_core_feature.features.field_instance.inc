@@ -437,13 +437,13 @@ function checkdesk_core_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 4,
       ),
       'checkdesk_search' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 4,
       ),
       'default' => array(
         'label' => 'above',
@@ -596,19 +596,21 @@ function checkdesk_core_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'checkdesk_collaborate' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 3,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 3,
       ),
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'i18n_taxonomy',
         'settings' => array(),
         'type' => 'i18n_taxonomy_term_reference_link',
@@ -857,11 +859,11 @@ function checkdesk_core_feature_field_default_field_instances() {
       ),
       'checkdesk_search' => array(
         'label' => 'above',
-        'module' => 'oembed_thumbnail',
+        'module' => 'oembedthumbnail',
         'settings' => array(
           'imagestyle' => '',
         ),
-        'type' => 'oembed_thumbnail',
+        'type' => 'oembedthumbnail',
         'weight' => 0,
       ),
       'collaborate_status' => array(

@@ -19,7 +19,11 @@
               <?php endif; ?>
               <span class="media-type"> <?php print t('Liveblog'); ?></span>
             </span>
-
+              
+            <?php if(isset($content['field_section'])) : ?>
+                <span class="section"><?php print render($content['field_section']) . ' / '; ?> </span>
+            <?php endif; ?>
+            
             <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
             <?php if(isset($node->name)) : ?>
               <span class="author"><?php print $story_authors; ?></span>

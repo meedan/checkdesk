@@ -1,12 +1,16 @@
 <section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
 
-    <?php if(isset($content['field_lead_image'])) { ?>
+    <?php if(isset($content['field_lead_image'])) : ?>
       <figure class="media-lead">
         <?php print render($content['field_lead_image']); ?>
       </figure>
-    <?php } ?>
+    <?php endif; ?>
 
+    <?php if (isset($content['field_section'])) : ?>
+        <div class="section"><?php print render($content['field_section']); ?> </div>
+    <?php endif; ?>
+                
     <h1 class="title">
       <?php print render($node->title); ?>
     </h1>
@@ -14,21 +18,21 @@
     <div class="story-meta">
       <div class="story-attributes">
         <?php print $creation_info_short; ?>
-        <?php if (isset($story_commentcount)) { ?>
+        <?php if (isset($story_commentcount)) : ?>
           <div class="story-commentcount">
             <a href="<?php print url('node/' . $node->nid, array('fragment' => 'story-comments-' . $node->nid)); ?>">
               <span class="icon-comment-o"><?php print render($story_commentcount); ?></span>
             </a>
           </div>
-        <?php } ?>
-        <?php if (isset($content['links']['checkdesk']['#links'])) { ?>
+        <?php endif; ?>
+        <?php if (isset($content['links']['checkdesk']['#links'])) : ?>
           <?php print render($content['links']); ?>
-        <?php } ?>
-        <?php if (isset($follow_story)) { ?>
+        <?php endif; ?>
+        <?php if (isset($follow_story)) : ?>
           <div class="story-follow">
             <?php print $follow_story; ?>
           </div>
-        <?php } ?>
+        <?php endif; ?>
       </div>
     </div>
 
@@ -41,20 +45,20 @@
     </div>
 
     <!-- collaboration -->
-    <?php if($story_links) { ?>
+    <?php if($story_links) : ?>
       <div class="story-collaboration-header-wrapper">
         <?php print $story_links; ?>
         <?php if(isset($story_collaborators)) { ?>    
            <?php print $story_collaborators; ?>
         <?php } ?>
       </div>
-    <?php } ?>
+    <?php endif; ?>
 
-    <?php if (isset($updates)) { ?>
+    <?php if (isset($updates)) : ?>
       <div class="story-updates-wrapper">
         <?php print $updates; ?>
       </div>
-    <?php } ?>
+    <?php endif; ?>
 
     <aside class="story-footer">
       <section class="cd-container cd-container--first">
