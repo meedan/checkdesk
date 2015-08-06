@@ -29,6 +29,19 @@
   }
 }
 
+// align title to normal for section pages
+.cd-container-section {
+  .cd-container-header-title {
+    text-align: $alpha;
+  }
+}
+
+// remove border from first container on section pages
+.view-story-section .cd-container-section:first-child .cd-container-inner {
+  border-top: 0 none;
+  margin-top: 0;
+  padding-top: 0;
+}
 
 
 // slices
@@ -232,7 +245,7 @@
   padding-#{$omega}: 10px;
 }
 
-// rows
+// link rows
 @include cd-responsive('min-width: #{$width-tablet}') {
   .l-row {
     @include flexbox;
@@ -260,8 +273,51 @@
       }
     }
   }
-
 }
+
+// container to handle links
+.cd-linkslist-container {
+  position: relative;
+}
+
+.cd-linkslist {
+  width: 100%;
+  @include flexbox;
+  @include flex-wrap(wrap);
+  .cd-slice-item {
+    @include cd-responsive('min-width: #{$width-tablet}') {
+      @include flex-grow(0);
+      @include flex-basis(100% / 4);
+    }
+  }
+}
+
+
+// links list
+.l-list {
+  width: 100%;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    @include flexbox;
+    @include flex-wrap(wrap);
+  }
+}
+
+.l-list-item {
+  @include flex-grow(0);
+  @include flex-basis(100%);
+}
+
+@for $column from 1 through 4 {
+  .l-list-columns-#{$column} {
+    .l-list-item {
+      @include cd-responsive('min-width: #{$width-tablet}') {
+        width: 100% / $column;
+        @include flex-basis(100% / $column);
+      }
+    }
+  }
+}
+
 
 // tones
 .tone-default-item {
