@@ -4008,6 +4008,20 @@ body.sidebar-second aside#sidebar-second {
   font-weight: 300;
 }
 
+.media-holder .media-content span.content-labels a {
+  color: #9fa6ac;
+}
+.media-holder .media-content span.content-labels a:hover {
+  color: #3b4044;
+}
+.media-holder .media-content span.content-labels:after {
+  content: '/';
+  display: inline-block;
+  color: #cfd3d5;
+  font-weight: normal;
+  margin-right: 4px;
+}
+
 .media-holder .media-content .title {
   font-size: 18px;
   font-weight: 700;
@@ -5183,10 +5197,10 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin: 30px 0 10px;
 }
 
-.story .section-label {
+.story .content-labels {
   text-align: center;
 }
-.story .section-label a {
+.story .content-labels a {
   display: block;
   padding-bottom: 5px;
   border-bottom: 1px dotted rgba(184, 152, 146, 0.2);
@@ -5194,7 +5208,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   color: #bfa29c;
   text-decoration: none;
 }
-.story .section-label a:hover {
+.story .content-labels a:hover {
   color: #573d38;
 }
 
@@ -6501,6 +6515,17 @@ body.cke_editable blockquote:after {
   font: inherit;
   line-height: inherit;
   word-wrap: break-word;
+}
+
+.cd-item-content-label {
+  color: #9fa6ac;
+}
+.cd-item-content-label:after {
+  content: '/';
+  display: inline-block;
+  color: #cfd3d5;
+  font-weight: normal;
+  margin-right: 4px;
 }
 
 .cd-item-meta {
