@@ -271,7 +271,9 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['field_section']['table'] = 'field_data_field_section';
   $handler->display->display_options['fields']['field_section']['field'] = 'field_section';
   $handler->display->display_options['fields']['field_section']['label'] = '';
+  $handler->display->display_options['fields']['field_section']['element_type'] = '0';
   $handler->display->display_options['fields']['field_section']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_section']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_section']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_section']['type'] = 'i18n_taxonomy_term_reference_plain';
   /* Sort criterion: Content: Post date */
