@@ -5188,6 +5188,21 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin: 30px 0 10px;
 }
 
+.story .section-label {
+  text-align: center;
+}
+.story .section-label a {
+  display: block;
+  padding-bottom: 5px;
+  border-bottom: 1px dotted rgba(184, 152, 146, 0.2);
+  font-weight: bold;
+  color: #bfa29c;
+  text-decoration: none;
+}
+.story .section-label a:hover {
+  color: #573d38;
+}
+
 .story .story-meta {
   *zoom: 1;
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;

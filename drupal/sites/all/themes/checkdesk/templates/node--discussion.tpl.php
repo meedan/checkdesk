@@ -8,7 +8,7 @@
     <?php endif; ?>
 
     <?php if (isset($content['field_section'])) : ?>
-        <div class="section"><?php print render($content['field_section']); ?> </div>
+      <div class="section-label"><?php print render($content['field_section']); ?></div>
     <?php endif; ?>
                 
     <h1 class="title">
