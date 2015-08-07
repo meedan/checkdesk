@@ -3820,9 +3820,10 @@ function _checkdesk_main_navigation() {
     'class' => array($li_class, 'reports'),
   );
   
+  $sections_icon = '<svg class="sections-icon" preserveAspectRatio="xMinYMin meet" viewBox="176 0 28 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#sections-icon"></use></svg>';
   $items[] = array(
-    'data' => l($reports_icon . '<span>' . t('Section') . '</span>', 'section', array(
-      'attributes' => array('class' => array($a_class, 'section-link')),
+    'data' => l($sections_icon . '<span>' . t('Sections') . '</span>', 'sections', array(
+      'attributes' => array('class' => array($a_class, 'sections-link')),
       'html' => TRUE,
     )),
     'class' => array($li_class, 'section'),

@@ -356,7 +356,9 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['name_i18n']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['fields']['name_i18n']['field'] = 'name_i18n';
   $handler->display->display_options['fields']['name_i18n']['label'] = '';
+  $handler->display->display_options['fields']['name_i18n']['element_type'] = '0';
   $handler->display->display_options['fields']['name_i18n']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name_i18n']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['name_i18n']['link_to_taxonomy'] = TRUE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
@@ -368,6 +370,10 @@ function checkdesk_featured_stories_feature_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'sections';
   $translatables['sections'] = array(
     t('Master'),
     t('Sections'),
@@ -378,6 +384,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('Asc'),
     t('Desc'),
     t('Block'),
+    t('Page'),
   );
   $export['sections'] = $view;
 
