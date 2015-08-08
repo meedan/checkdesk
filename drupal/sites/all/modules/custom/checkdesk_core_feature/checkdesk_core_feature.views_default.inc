@@ -995,7 +995,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['field_section_tid_i18n']['group'] = 1;
   $handler->display->display_options['filters']['field_section_tid_i18n']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['operator_id'] = 'field_section_tid_i18n_op';
-  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['label'] = 'Section';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['label'] = 'Sections';
   $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['operator'] = 'field_section_tid_i18n_op';
   $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['identifier'] = 'field_section_tid_i18n';
   $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['remember_roles'] = array(
@@ -1184,7 +1184,7 @@ print _checkdesk_search_header();
     t('Post date'),
     t('Published'),
     t('Tags'),
-    t('Section'),
+    t('Sections'),
     t('Verification status'),
     t('Fact-checking status (field_rating)'),
     t('Spam'),
