@@ -6,7 +6,11 @@
  *
  * @ingroup views_templates
  */
+
+$stories_rows = array_chunk($rows, 4, true);
+
 ?>
+
 <section class="cd-container cd-container-section">
 	<div class="cd-container-inner">
 	<?php if (!empty($title)): ?>
@@ -16,9 +20,11 @@
 	<?php endif; ?>
 	<div class="cd-container-body">
 		<div class="cd-slice-wrapper">
-			<?php if (count($rows) > 4): ?> 
+                    <?php foreach ($stories_rows as $s_rows) : ?>
+                    
+			<?php if (count($s_rows) == 4): ?> 
 					<ul class="cd-slice l-row l-row-cols-4 u-unstyled">
-						<?php foreach ($rows as $id => $row): ?>
+						<?php foreach ($s_rows as $id => $row): ?>
 						  <li class="cd-slice-item l-row-item l-row-item-span-1<?php if ($classes_array[$id]) { print ' ' . $classes_array[$id];  } ?>">
 						    <?php print $row; ?>
 						  </li>
@@ -27,7 +33,7 @@
 			<?php else : ?>
 				<div class="cd-linkslist-container">
 					<ul class="cd-slice cd-linkslist l-list l-list--columns-4 u-unstyled">
-						<?php foreach ($rows as $id => $row): ?>
+						<?php foreach ($s_rows as $id => $row): ?>
 						  <li class="cd-slice-item l-list-item l-list-item-span-1<?php if ($classes_array[$id]) { print ' ' . $classes_array[$id];  } ?>">
 						    <?php print $row; ?>
 						  </li>
@@ -35,6 +41,7 @@
 					</ul>
 				</div>
 			<?php endif; ?>
+                    <?php endforeach; ?>
 		</div>
 	</div>
 </section>
