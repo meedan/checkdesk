@@ -3822,16 +3822,17 @@ function _checkdesk_main_navigation() {
     )),
     'class' => array($li_class, 'reports'),
   );
-  
-  $sections_icon = '<svg class="sections-icon" preserveAspectRatio="xMinYMin meet" viewBox="176 0 28 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#sections-icon"></use></svg>';
-  $items[] = array(
-    'data' => l($sections_icon . '<span>' . t('Sections') . '</span>', 'sections', array(
-      'attributes' => array('class' => array($a_class, 'sections-link')),
-      'html' => TRUE,
-    )),
-    'class' => array($li_class, 'section'),
-  );
-  
+  // add sections icon if there are sections defined by the partner
+  if (_checkdesk_show_sections_link()) {
+    $sections_icon = '<svg class="sections-icon" preserveAspectRatio="xMinYMin meet" viewBox="176 0 28 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#sections-icon"></use></svg>';
+    $items[] = array(
+        'data' => l($sections_icon . '<span>' . t('Sections') . '</span>', 'sections', array(
+        'attributes' => array('class' => array($a_class, 'sections-link')),
+        'html' => TRUE,
+        )),
+        'class' => array($li_class, 'section'),
+    );
+  }
   $second_group = theme('item_list', array(
     'items' => $items,
     'title' => '',
@@ -3871,6 +3872,20 @@ function _checkdesk_main_navigation() {
     'second_group' => $second_group,
     'third_group' => $third_group,
   ));
+}
+
+/**
+ * Check if partner defined sections or not
+ */
+function _checkdesk_show_sections_link() {
+  if ($cache = cache_get('checkdesk_show_sections')) {
+    return $cache->data;
+  }
+  $vocabulary = taxonomy_vocabulary_machine_name_load('sections');
+  $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  $show_sections = count($terms) ? TRUE : FALSE;
+  cache_set('checkdesk_show_sections', $show_sections, 'cache');
+  return $show_sections;
 }
 
 /**
