@@ -1177,7 +1177,7 @@ function checkdesk_core_views_pre_render(&$view) {
       }
     }
   }
-  elseif ($view->name == 'more_stories') {
+  elseif ($view->name == 'more_stories' || $view->name == 'sections') {
     foreach ($view->result as $id => $tag) {
       $stories = views_get_view('recent_stories_by_tag');
       $stories->set_arguments(array($tag->tid));
@@ -1186,7 +1186,10 @@ function checkdesk_core_views_pre_render(&$view) {
       $total_rows = $stories->total_rows;
       $stories->destroy();
       // show container only if results are 4 or more
-      if ($total_rows > 3) {
+      if ($total_rows && $view->name == 'sections') {
+          $view->result[$id]->stories = $output;
+      }
+      elseif ($view->name == 'more_stories' && $total_rows > 3) {
         $view->result[$id]->stories = $output;
       }
       else {

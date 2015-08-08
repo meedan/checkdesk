@@ -1327,7 +1327,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     }
   }
   
-  if ($vars['view']->name === 'more_stories') {
+  if ($vars['view']->name === 'more_stories' || $vars['view']->name === 'sections') {
     $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
   }
   

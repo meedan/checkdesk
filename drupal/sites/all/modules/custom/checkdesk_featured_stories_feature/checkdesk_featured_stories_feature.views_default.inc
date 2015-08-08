@@ -235,7 +235,10 @@ function checkdesk_featured_stories_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Recent stories by tag';
+  $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_text'] = 'more stories';
+  $handler->display->display_options['link_display'] = 'custom_url';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -319,10 +322,11 @@ function checkdesk_featured_stories_feature_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['link_url'] = 'taxonomy/term/!1';
   $translatables['recent_stories_by_tag'] = array(
     t('Master'),
     t('Recent stories by tag'),
-    t('more'),
+    t('more stories'),
     t('Apply'),
     t('Reset'),
     t('Sort by'),
@@ -331,6 +335,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('image from field_lead_image'),
     t('All'),
     t('Block'),
+    t('more'),
   );
   $export['recent_stories_by_tag'] = $view;
 
