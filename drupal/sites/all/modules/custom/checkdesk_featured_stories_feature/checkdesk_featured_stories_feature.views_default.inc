@@ -171,6 +171,11 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['tid']['label'] = '';
   $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
+  /* Sort criterion: Taxonomy vocabulary: Vocabulary ID */
+  $handler->display->display_options['sorts']['vid']['id'] = 'vid';
+  $handler->display->display_options['sorts']['vid']['table'] = 'taxonomy_vocabulary';
+  $handler->display->display_options['sorts']['vid']['field'] = 'vid';
+  $handler->display->display_options['sorts']['vid']['order'] = 'DESC';
   /* Contextual filter: Content: Nid */
   $handler->display->display_options['arguments']['nid']['id'] = 'nid';
   $handler->display->display_options['arguments']['nid']['table'] = 'node';
@@ -356,10 +361,15 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['name_i18n']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['fields']['name_i18n']['field'] = 'name_i18n';
   $handler->display->display_options['fields']['name_i18n']['label'] = '';
-  $handler->display->display_options['fields']['name_i18n']['element_type'] = '0';
   $handler->display->display_options['fields']['name_i18n']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['name_i18n']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['name_i18n']['link_to_taxonomy'] = TRUE;
+  /* Field: Taxonomy term: Term ID */
+  $handler->display->display_options['fields']['tid']['id'] = 'tid';
+  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid']['label'] = '';
+  $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
   $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
@@ -367,9 +377,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['filters']['machine_name']['value'] = array(
     'sections' => 'sections',
   );
-
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block');
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
@@ -383,7 +390,8 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('Block'),
+    t('.'),
+    t(','),
     t('Page'),
   );
   $export['sections'] = $view;

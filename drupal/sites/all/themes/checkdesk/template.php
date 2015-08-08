@@ -1332,7 +1332,12 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   }
   
   if ($vars['view']->name === 'recent_stories_by_tag' || $vars['view']->name === 'story_section') {
-      // Facebook comments count
+    $vars['show_section'] = TRUE;
+    if (is_numeric($vars['view']->args[0])) {
+        $term = taxonomy_term_load($vars['view']->args[0]);
+        $vars['show_section'] = ($term->vocabulary_machine_name == 'sections') ? FALSE : TRUE;
+    }
+    // Facebook comments count
     if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
       $vars['story_commentcount'] = array(
           '#theme' => 'facebook_commentcount',
