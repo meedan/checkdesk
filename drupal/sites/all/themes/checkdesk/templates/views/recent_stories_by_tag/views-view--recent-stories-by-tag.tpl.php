@@ -33,6 +33,11 @@
     <?php print $title; ?>
   <?php endif; ?>
   <?php print render($title_suffix); ?>
+    
+  <?php if ($more): ?>
+    <?php print $more; ?>
+  <?php endif; ?>
+    
   <?php if ($header): ?>
     <div class="view-header">
       <?php print $header; ?>
@@ -67,10 +72,6 @@
     <div class="attachment attachment-after">
       <?php print $attachment_after; ?>
     </div>
-  <?php endif; ?>
-
-  <?php if ($more): ?>
-    <?php print $more; ?>
   <?php endif; ?>
 
   <?php if ($footer): ?>
