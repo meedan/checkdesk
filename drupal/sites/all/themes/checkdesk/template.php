@@ -1280,9 +1280,7 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
 function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
     if ($vars['more'] && arg(0) == 'sections') {
         if (is_numeric($vars['view']->args[0])) {
-            global $language;
-            $term = taxonomy_term_load($vars['view']->args[0]);
-            $term = i18n_taxonomy_term_get_translation($term, $language->language);
+            $term = i18n_taxonomy_localize_terms(taxonomy_term_load($vars['view']->args[0]));
             if ($term->vocabulary_machine_name == 'sections') {
                 $vars['more'] = l(t('See more stories from !taxonomy', array('!taxonomy' => $term->name)), 'taxonomy/term/' . $term->tid);
             }

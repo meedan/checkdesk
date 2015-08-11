@@ -1926,6 +1926,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('<a href="!url">@count more updates</a> related to <a href="!url">this story</a>. <a href="!url">View all</a>', array(), array('context' => ''));
+  $translations['ar:default']['2811e6c1082ad9b8cf1041c551fdf587'] = array(
+    'source' => 'See more stories from !taxonomy',
+    'context' => '',
+    'location' => '/ar/sections',
+    'translation' => 'عرض مزيد من القصص عن !taxonomy',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('See more stories from !taxonomy', array(), array('context' => ''));
   $translations['ar:default']['284746bfb01438b6e62245ba95be1734'] = array(
     'source' => 'Powered by ',
     'context' => '',
@@ -12423,6 +12432,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Cannot rename %table to %table_new: table %table doesn\'t exist.', array(), array('context' => ''));
+  $translations['ar:default']['fd10e4e92bcd2454a8639f793eebbb12'] = array(
+    'source' => 'More stories in [name_i18n] ',
+    'context' => '',
+    'location' => '/ar/story/1012',
+    'translation' => 'مزيد من القصص عن [name_i18n]',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('More stories in [name_i18n] ', array(), array('context' => ''));
   $translations['ar:default']['fdffbb203193714a9e8a3db8d2f49825'] = array(
     'source' => 'Machine-Name of the vocabulary a term is a member of. This will be the vocabulary that whichever term the "Taxonomy: Term" field is; and can similarly cause duplicates.',
     'context' => '',

@@ -150,19 +150,15 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['relationships']['nid']['table'] = 'taxonomy_index';
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['relationships']['nid']['required'] = TRUE;
-  /* Field: Taxonomy term: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['text'] = 'More stories in [name] ';
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['name']['element_type'] = '0';
-  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['name']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
+  /* Field: Taxonomy term: Name (translated) */
+  $handler->display->display_options['fields']['name_i18n']['id'] = 'name_i18n';
+  $handler->display->display_options['fields']['name_i18n']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name_i18n']['field'] = 'name_i18n';
+  $handler->display->display_options['fields']['name_i18n']['label'] = '';
+  $handler->display->display_options['fields']['name_i18n']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['name_i18n']['alter']['text'] = 'More stories in [name_i18n] ';
+  $handler->display->display_options['fields']['name_i18n']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name_i18n']['link_to_taxonomy'] = TRUE;
   /* Field: Taxonomy term: Term ID */
   $handler->display->display_options['fields']['tid']['id'] = 'tid';
   $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
@@ -213,7 +209,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('next ›'),
     t('last »'),
     t('node'),
-    t('More stories in [name] '),
+    t('More stories in [name_i18n] '),
     t('.'),
     t(','),
     t('All'),
