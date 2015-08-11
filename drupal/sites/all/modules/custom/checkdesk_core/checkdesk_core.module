@@ -3824,10 +3824,14 @@ function _checkdesk_main_navigation() {
   );
   // add sections icon if there are sections defined by the partner
   if (_checkdesk_show_sections_link()) {
+     $active_sections = '';
+    if (arg(0) == 'section' && arg(1) !== NULL) {
+        $active_sections = count(taxonomy_get_term_by_name(arg(1), 'sections')) ? 'active' : '';
+    }
     $sections_icon = '<svg class="sections-icon" preserveAspectRatio="xMinYMin meet" viewBox="176 0 28 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#sections-icon"></use></svg>';
     $items[] = array(
         'data' => l($sections_icon . '<span>' . t('Sections') . '</span>', 'sections', array(
-        'attributes' => array('class' => array($a_class, 'sections-link')),
+        'attributes' => array('class' => array($a_class, 'sections-link', $active_sections)),
         'html' => TRUE,
         )),
         'class' => array($li_class, 'section'),
