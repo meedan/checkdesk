@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Checkdesk nodejs integration module.
+ */
+
+/**
+ * Registers a channel with nodejs
+ */
+function checkdesk_nodejs_channel_add($channel_key) {
+  nodejs_send_content_channel_token($channel_key);
+}
