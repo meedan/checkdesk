@@ -6352,6 +6352,7 @@ body.cke_editable blockquote:after {
 .cd-container-inner {
   margin: 20px 0;
   padding: 20px 0 0;
+  position: relative;
 }
 .cd-container .cd-container-inner {
   border-top: 1px solid #e7e8ea;
@@ -6379,10 +6380,29 @@ body.cke_editable blockquote:after {
   text-align: left;
 }
 
-.view-story-section .cd-container-section:first-child .cd-container-inner {
+.cd-container .cd-container-inner .more-link {
+  position: absolute;
+  top: 30px;
+  right: 0;
+}
+.cd-container .cd-container-inner .more-link a {
+  color: #9fa6ac;
+  text-decoration: none;
+}
+.cd-container .cd-container-inner .more-link a:hover {
+  color: #3b4044;
+}
+
+.page-section .cd-container-section:first-child .cd-container-inner,
+.page-sections .cd-container-section:first-child .cd-container-inner {
   border-top: 0 none;
   margin-top: 0;
   padding-top: 0;
+}
+
+.page-section .cd-container-section:last-child,
+.page-sections .cd-container-section:last-child {
+  margin-bottom: 60px;
 }
 
 @media only screen and (min-width: 740px) {

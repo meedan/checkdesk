@@ -159,8 +159,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['text'] = 'More stories in [name] ';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['name']['element_type'] = 'h2';
-  $handler->display->display_options['fields']['name']['element_class'] = 'cd-container-header-title';
+  $handler->display->display_options['fields']['name']['element_type'] = '0';
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['name']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
@@ -366,6 +365,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['name_i18n']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['fields']['name_i18n']['field'] = 'name_i18n';
   $handler->display->display_options['fields']['name_i18n']['label'] = '';
+  $handler->display->display_options['fields']['name_i18n']['element_type'] = '0';
   $handler->display->display_options['fields']['name_i18n']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['name_i18n']['link_to_taxonomy'] = TRUE;
   /* Field: Taxonomy term: Term ID */

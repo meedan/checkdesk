@@ -27,7 +27,7 @@
  * @ingroup views_templates
  */
 ?>
-<div class="cd-slice-wrapper <?php print $classes; ?>">
+<div class="<?php print $classes; ?>">
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
     <?php print $title; ?>
@@ -35,7 +35,7 @@
   <?php print render($title_suffix); ?>
     
   <?php if ($more): ?>
-    <div class="more-link"><?php print $more; ?></div>
+    <?php print $more; ?>
   <?php endif; ?>
     
   <?php if ($header): ?>

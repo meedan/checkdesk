@@ -5,6 +5,7 @@
 .cd-container-inner {
 	margin: $absolute-line-height/1.2 0;
   padding: 20px 0 0;
+  position: relative;
 
 	.cd-container & {
 		border-top: 1px solid $firefly10;	
@@ -36,11 +37,30 @@
   }
 }
 
+// more link
+.cd-container .cd-container-inner .more-link {
+  position: absolute;
+  top: 30px;
+  #{$omega}: 0;
+  a { 
+    @include ctb-linkColor($firefly40); 
+    text-decoration: none;
+  }
+}
+
+
 // remove border from first container on section pages
-.view-story-section .cd-container-section:first-child .cd-container-inner {
+.page-section .cd-container-section:first-child .cd-container-inner,
+.page-sections .cd-container-section:first-child .cd-container-inner {
   border-top: 0 none;
   margin-top: 0;
   padding-top: 0;
+}
+
+// remove border from first container on section pages
+.page-section .cd-container-section:last-child,
+.page-sections .cd-container-section:last-child {
+  margin-bottom: 60px;
 }
 
 
