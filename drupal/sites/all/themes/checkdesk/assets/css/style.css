@@ -2491,6 +2491,12 @@ ul#breadcrumb h1 {
 @media only screen and (min-width: 740px) {
   ul#breadcrumb h1 {
     padding-right: 200px;
+    min-width: 300px;
+  }
+}
+@media (min-width: 1px) and (max-width: 740px) {
+  ul#breadcrumb h1 {
+    max-width: 160px;
   }
 }
 
