@@ -2585,16 +2585,16 @@ function checkdesk_core_custom_format_interval($timestamp) {
   if ($interval > $y) {
     return format_date($timestamp, 'custom', t('j M Y'));
   }
-  //interval between 3 months and year
-  if ($interval > (3*$m) && $interval <= $y ) {
+  //interval between 5 days and year
+  if ($interval > (5*$d) && $interval <= $y ) {
     return format_date($timestamp, 'custom', t('M j'));
   }
   //less than 5 sec (as soos as item is posted)
   if ($interval < 5) {
     return t('now');
   }
-  //interval beteen one day and 3 months.
-  if ($interval >= $d && $interval <= (3*$m)) {
+  //interval beteen one day and 5 days.
+  if ($interval >= $d && $interval <= (5*$d)) {
     $count = floor($interval / $d);
     return t('@countd', array('@count' => $count));
   }
