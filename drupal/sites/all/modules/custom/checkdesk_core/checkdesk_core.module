@@ -1053,6 +1053,24 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
 
   // Customize "Add more items" for authors.
   $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
+  // Limit sections based on current language.
+  $form['field_section'][LANGUAGE_NONE]['#options'] = array('[_none]' => t('- None -')) +  _checkdesk_load_sections();
+}
+
+/**
+ * Load sections based on current language.
+ */
+function _checkdesk_load_sections() {
+    global $language;
+    $sections = array();
+    $vocabulary =  taxonomy_vocabulary_machine_name_load('sections');
+    $terms = taxonomy_get_tree($vocabulary->vid);
+    foreach ($terms as $term) {
+        if ($term->language == $language->language) {
+            $sections[$term->tid] = $term->name;
+        }
+    }
+    return $sections;
 }
 
 /**
@@ -1391,7 +1409,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     }
     if (isset($_GET['type']) && $_GET['type'] === 'story') {
         $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
-        $form['field_section_tid_i18n']['#options']['All'] = '– ' . t('Any section') . ' –';
+        $form['field_section_tid_i18n']['#options'] = array('All' => '– ' . t('Any section') . ' –') + _checkdesk_load_sections();
     }
     else {
         // Hide section filter
@@ -2145,6 +2163,18 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     }
   }
 
+  if ($view->name == 'sections') {
+    $query->where[] = array(
+      'conditions' => array(array(
+        'field' => 'taxonomy_term_data.language',
+        'value' => array('***CURRENT_LANGUAGE***'),
+        'operator' => 'in',
+      )),
+      'args' => array(),
+      'type' => 'AND',
+    );
+  }
+  
   if ($view->name == 'recent_stories_by_tag') {
       // exclude current nid
       if (is_numeric(arg(1))) {
@@ -3671,7 +3701,7 @@ function _checkdesk_search_header() {
 function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
   global $user;
   //This is a taxonomy page
-  if (preg_match('|^taxonomy/term/([0-9]*)|', $original_path, $matches)) {
+  if (preg_match('|^taxonomy/term/([0-9]*)$|', $original_path, $matches)) {
     if (is_numeric($matches[1])) {
       $vocabularies = taxonomy_get_vocabularies();
       $term = taxonomy_term_load($matches[1]);
