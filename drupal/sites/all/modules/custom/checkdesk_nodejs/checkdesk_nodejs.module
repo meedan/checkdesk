@@ -5,9 +5,41 @@
  * Checkdesk nodejs integration module.
  */
 
+
 /**
- * Registers a channel with nodejs
+ * Implements hook_preprocess_views_view()
+ * Add nodejs channel for my_notifications view
  */
-function checkdesk_nodejs_channel_add($channel_key) {
-  nodejs_send_content_channel_token($channel_key);
+function checkdesk_nodejs_preprocess_views_view(&$vars) {
+  $view = $vars['view'];
+  
+  switch ($view->name) {
+    case 'my_notifications':
+      // Override header for checkdesk nodejs module.
+      // we might simply change headers interval to 0 in views but we should remove
+      // headers from views completely.
+      // @TODO: Review header override of views in favor of module override
+      global $user;
+      $path = drupal_get_path('module', 'checkdesk_notifications') . '/ping.php?user=' . $user->uid;
+      $vars['header'] = theme('views_autorefresh', array(
+          'interval' => 0, //use nodejs
+          'use_base_field' => TRUE,
+          'incremental' => FALSE,
+          'ping' => array('ping_base_path' => $path),
+          'view' => $vars['view'],
+      ));
+
+      // Register the view nodejs channel
+      nodejs_send_content_channel_token('views_autorefresh_my_notifications');
+      break;
+  }
+}
+
+/**
+ * Implements hook_heartbeat_activity_insert()
+ * Refresh notifications when new heartbeat activity inserted
+ * @todo filter which heartbeat activity to refresh the view for
+ */
+function checkdesk_nodejs_heartbeat_activity_insert($heartbeatActivity) {
+  views_autorefresh_nodejs_refresh(array('my_notifications'));
 }

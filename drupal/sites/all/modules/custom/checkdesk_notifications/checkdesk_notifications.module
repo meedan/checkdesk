@@ -63,6 +63,7 @@ function checkdesk_notifications_image_default_styles() {
           ),   
         )    
       );
+
   return $styles;
 }
 
@@ -74,41 +75,6 @@ function checkdesk_notifications_views_api() {
       'api' => 3,
       'path' => drupal_get_path('module', 'checkdesk_notifications'),
   );
-}
-
-/**
- * Implements hook_preprocess_views_view()
- * Add nodejs channel for my_notifications view
- */
-function checkdesk_notifications_preprocess_views_view(&$vars) {
-  $view = $vars['view'];
-
-  if ($view->name == 'my_notifications' && module_exists('checkdesk_nodejs')) {
-    // Override header for checkdesk nodejs module.
-    // we might simply change headers interval to 0 in views but we should remove
-    // headers from views completely.
-    // @TODO: Review header override of views in favor of module override
-    global $user;
-    $path = drupal_get_path('module', 'checkdesk_notifications') . '/ping.php?user=' . $user->uid;
-    $vars['header'] = theme('views_autorefresh', array(
-        'interval' => 0, //use nodejs
-        'use_base_field' => TRUE,
-        'incremental' => FALSE,
-        'ping' => array('ping_base_path' => $path),
-        'view' => $vars['view'],
-    ));
-    
-    // Register the view nodejs channel
-    checkdesk_nodejs_channel_add('views_autorefresh_my_notifications');
-  }
-}
-
-/**
- * Implements hook_heartbeat_activity_insert()
- * @todo filter which heartbeat activity to refresh the view for
- */
-function checkdesk_notifications_heartbeat_activity_insert($heartbeatActivity) {
-  views_autorefresh_nodejs_refresh(array('my_notifications'));
 }
 
 /**
