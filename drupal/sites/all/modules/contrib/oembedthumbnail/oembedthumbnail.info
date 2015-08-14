@@ -1,0 +1,18 @@
+;$Id$
+
+name = 'oEmbed Thumbnail'
+description = 'Extends oEmbed field module by adding another formatter for the link field which displays the thumbnail of oembeddable content.'
+package = 'oEmbed'
+dependencies[] = link
+dependencies[] = oembedcore
+dependencies[] = oembedfield
+dependencies[] = remote_stream_wrapper
+core = 7.x
+php = 5.2
+version = 7.x-1.0
+; Information added by drupal.org packaging script on 2013-10-01
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "oembedthumbnail"
+datestamp = "1380595216"
+

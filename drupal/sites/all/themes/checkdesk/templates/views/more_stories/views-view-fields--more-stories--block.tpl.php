@@ -29,7 +29,7 @@
 	<div class="cd-container-inner">
 		<?php foreach ($fields as $id => $field): ?>
 			<div class="cd-container-header">
-		 		<?php print $field->content; ?>
+		 		<h2 class="cd-container-header-title"><?php print $field->content; ?></h2>
 		 	</div>
 		<?php endforeach; ?>
 		<div class="cd-container-body">

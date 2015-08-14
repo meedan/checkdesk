@@ -457,6 +457,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
     'weight' => -44,
   );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('<user>');
@@ -475,7 +476,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('بيان التحقق من صحة المعلومات');
   t('شروط الاستخدام');
   t('عن Checkdesk');
-
 
   return $menu_links;
 }

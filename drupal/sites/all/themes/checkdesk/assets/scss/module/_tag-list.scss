@@ -5,28 +5,18 @@
 
 .tag-link {
   display: block;
-  margin-#{$omega}: 20px;
+  padding: 4px 8px;
   color: $firefly60;
+  background-color: rgba($firefly, 0.1);
+  border-radius: 4px;
   &:hover {
     color: $firefly80;
     text-decoration: none;
+    background-color: rgba($firefly, 0.2);
   } 
 }
 
 .tag-name {
   display: block;
-  overflow: hidden;
-	font-family: $serif-font-stack;
-	font-size: 20px;
   white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.tag-count {
-  color: $firefly40;
-	font-size: 12px;
-	text-transform: uppercase;
-  @if $from-direction == 'left' {
-    letter-spacing: 0.15em;
-  }
 }

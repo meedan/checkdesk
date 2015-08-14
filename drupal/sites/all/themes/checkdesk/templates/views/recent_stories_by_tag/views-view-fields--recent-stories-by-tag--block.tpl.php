@@ -24,38 +24,44 @@
  * @ingroup views_templates
  */
 
-	$author = _checkdesk_story_authors($fields['nid']->raw);
-	if(isset($fields['uri']->raw)) {
-		$has_image_class = 'cd-item-has-image';
-	}
+$author = _checkdesk_story_authors($fields['nid']->raw);
+$has_image_class = isset($fields['uri']->raw) ? ' cd-item-has-image' : '';
 ?>
-<div class="cd-item tone-default-item<?php if (isset($has_image_class)) { print ' ' . $has_image_class; } ?>">
-	<div class="cd-item-container">
-		<?php if(isset($fields['uri']->raw)) { ?>
-			<div class="cd-item-media-wrapper">
-				<div class="cd-item-image-container u-responsive-ratio">
-					<figure class="media-lead">
-						<?php print $fields['uri']->content; ?>
-					</figure>
-				</div>
-			</div>
-		<?php } ?>
-		<div class="cd-item-content">
-			<div class="cd-item-header">
-				<h2 class="cd-item-title"><?php print l($fields['title']->raw, 'node/' . $fields['nid']->raw); ?></h2>
-			</div>
-			<aside class="cd-item-meta">
-				<div class="byline">
-					<?php print $author; ?>
-				</div>
-			  <?php print $created_at; ?>
-				<?php if (isset($story_commentcount)) { ?>
-					<div class="cd-item-count story-commentcount">
-			  		<span class="icon-comment-o"><?php print render($story_commentcount); ?></span>
-					</div>
-				<?php } ?>
-			</aside>
-		</div>
-		<?php print l($fields['title']->raw, 'node/' . $fields['nid']->raw, array('attributes' => array('class' => array('u-faux-block-link-overlay')))); ?>
-	</div>
+
+<div class="cd-item tone-default-item<?php print $has_image_class; ?>">
+    <div class="cd-item-container">
+        <?php if (isset($fields['uri']->raw)) { ?>
+            <div class="cd-item-media-wrapper">
+                <div class="cd-item-image-container u-responsive-ratio">
+                    <figure class="media-lead">
+                        <?php print $fields['uri']->content; ?>
+                    </figure>
+                </div>
+            </div>
+        <?php } ?>
+        <div class="cd-item-content">
+            <div class="cd-item-header">
+                <h2 class="cd-item-title">
+                    <?php if (isset($fields['field_section']->content) && $show_section) : ?>
+                        <span class="cd-item-content-label"><?php print $fields['field_section']->content; ?></span>
+                    <?php endif; ?>
+                    <?php print $fields['title']->raw; ?>
+                </h2>
+            </div>
+            <aside class="cd-item-meta">
+                <div class="byline">
+                    <?php print $author; ?>
+                </div>
+                <?php print $created_at; ?>
+                <?php if (isset($story_commentcount)) : ?>
+                    <div class="cd-item-count story-commentcount">
+                        <a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">
+                            <span class="icon-comment-o"></span> <?php print render($story_commentcount); ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </aside>
+        </div>
+        <?php print l($fields['title']->raw, 'node/' . $fields['nid']->raw, array('attributes' => array('class' => array('u-faux-block-link-overlay')))); ?>
+    </div>
 </div>

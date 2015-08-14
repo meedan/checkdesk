@@ -633,7 +633,12 @@ function checkdesk_preprocess_node(&$variables) {
           '#node' => node_load($variables['nid']),
         );
       }
+      // Add more and most popular stories.
       $variables['more_stories'] = views_embed_view('more_stories', 'block_1', $variables['nid']);
+      $variables['most_popular_stories'] =  _checkdesk_most_popular_stories();
+      if (!empty($variables['most_popular_stories'])) {
+        $variables['classes_array'][] = 'most-popular-component';
+      }
       if ($variables['view_mode'] == 'checkdesk_collaborate') {
         // Get heartbeat activity for particular story
         $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
@@ -1065,16 +1070,14 @@ function checkdesk_field__field_tags(&$variables) {
 
     $output = '<section id="media-tags" class="cd-container">';
     $output .= '<div class="cd-container-inner">';
-    $output .= '<div class="submeta"><h2 class="submeta-header">' . t('Published in') . '</h2>';
+    $output .= '<div class="submeta"><h2 class="submeta-header">' . t('Tags') . '</h2>';
     $output .= '<ul class="tag-list u-unstyled inline-list submeta-content">';
     foreach ($variables['element']['#items'] as $key => $item) {
       $tag_name = '<span class="tag-name">' . $item['taxonomy_term']->name . '</span>';
-      $tag_count = _checkdesk_term_nc($item['tid'], FALSE, $type);
-      $count = '<span class="tag-count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</span>';
 
       $output .= '<li class="inline-list-item">';
 
-      $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'], array(
+      $output .= l($tag_name, 'taxonomy/term/' . $item['tid'], array(
           'html' => TRUE,
           'attributes' => array(
               'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
@@ -1094,7 +1097,9 @@ function checkdesk_field__field_tags(&$variables) {
  */
 function checkdesk_field__field_lead_image(&$variables) {
   // generate img tag with srcset
-  $output = _checkdesk_generate_lead_image($variables['element']['#items'][0]['uri'], $variables['element']['#items'][0]['image_field_caption']['value']);
+  $image_field_caption = isset($variables['element']['#items'][0]['image_field_caption']['value']) ? 
+          $variables['element']['#items'][0]['image_field_caption']['value'] : NULL;
+  $output = _checkdesk_generate_lead_image($variables['element']['#items'][0]['uri'], $image_field_caption);
   return $output;
 }
 
@@ -1117,7 +1122,7 @@ function _checkdesk_generate_lead_image($image, $image_caption) {
     $output .= '<img class="feature-image" src="' . $lead_image_small_path . '" />';
     $output .= '</picture>';
   }
-  if(isset($image_caption)) {
+  if (!empty($image_caption)) {
     $output .= '<figcaption>' . check_markup($image_caption, 'filtered_html') . '</figcaption>';
   }
 
@@ -1270,6 +1275,26 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
 }
 
 /**
+ * recent_stories_by_tag view
+ */
+function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
+    if ($vars['more'] && arg(0) == 'sections') {
+        if (is_numeric($vars['view']->args[0])) {
+            $term = taxonomy_term_load($vars['view']->args[0]);
+            if ($term->vocabulary_machine_name == 'sections') {
+                $vars['more'] = l(t('See more stories from !taxonomy', array('!taxonomy' => $term->name)), 'taxonomy/term/' . $term->tid);
+            }
+            else {
+                $vars['more'] = NULL;
+            }
+        }
+    }
+    else {
+        $vars['more'] = NULL;
+    }
+}
+
+/**
  * Implements template_preprocess_views_view_fields().
  */
 function checkdesk_preprocess_views_view_fields(&$vars) {
@@ -1322,12 +1347,17 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     }
   }
   
-  if ($vars['view']->name === 'more_stories') {
+  if ($vars['view']->name === 'more_stories' || $vars['view']->name === 'sections') {
     $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
   }
   
-  if ($vars['view']->name === 'recent_stories_by_tag') {
-      // Facebook comments count
+  if ($vars['view']->name === 'recent_stories_by_tag' || $vars['view']->name === 'story_section') {
+    $vars['show_section'] = TRUE;
+    if (is_numeric($vars['view']->args[0])) {
+        $term = taxonomy_term_load($vars['view']->args[0]);
+        $vars['show_section'] = ($term->vocabulary_machine_name == 'sections') ? FALSE : TRUE;
+    }
+    // Facebook comments count
     if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
       $vars['story_commentcount'] = array(
           '#theme' => 'facebook_commentcount',

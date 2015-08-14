@@ -2,7 +2,6 @@
 // aka Discussion Node 
 
 .story {
-  @include ctb-clearfix;
   margin-bottom: $absolute-line-height/2;
 }
 
@@ -36,6 +35,17 @@
   margin: $absolute-line-height*1.25 0 10px;
 }
 
+.story .content-labels {
+  text-align: center;
+  a { 
+    display: block;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted rgba($thatch, 0.2);
+    font-weight: bold;
+    @include ctb-linkColor($thatch80);
+    text-decoration: none;
+  }
+}
 
 .story .story-meta {
   @include ctb-clearfix;
@@ -314,7 +324,11 @@
   }
 }
 
-.story .story-comments {
+.story-comments {
+  border-top: 1px solid $firefly10;  
+  margin: $absolute-line-height/1.2 0;
+  padding: 20px 0 0;
+  text-align: center;
   .fb-comments {
     margin-top: $absolute-line-height/2;
   }

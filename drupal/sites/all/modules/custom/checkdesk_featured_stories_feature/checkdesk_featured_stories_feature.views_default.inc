@@ -150,20 +150,15 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['relationships']['nid']['table'] = 'taxonomy_index';
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['relationships']['nid']['required'] = TRUE;
-  /* Field: Taxonomy term: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['text'] = 'More stories in [name] ';
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['name']['element_type'] = 'h2';
-  $handler->display->display_options['fields']['name']['element_class'] = 'cd-container-header-title';
-  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['name']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
+  /* Field: Taxonomy term: Name (translated) */
+  $handler->display->display_options['fields']['name_i18n']['id'] = 'name_i18n';
+  $handler->display->display_options['fields']['name_i18n']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name_i18n']['field'] = 'name_i18n';
+  $handler->display->display_options['fields']['name_i18n']['label'] = '';
+  $handler->display->display_options['fields']['name_i18n']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['name_i18n']['alter']['text'] = 'More stories in [name_i18n] ';
+  $handler->display->display_options['fields']['name_i18n']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name_i18n']['link_to_taxonomy'] = TRUE;
   /* Field: Taxonomy term: Term ID */
   $handler->display->display_options['fields']['tid']['id'] = 'tid';
   $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
@@ -171,6 +166,11 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['tid']['label'] = '';
   $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
+  /* Sort criterion: Taxonomy vocabulary: Vocabulary ID */
+  $handler->display->display_options['sorts']['vid']['id'] = 'vid';
+  $handler->display->display_options['sorts']['vid']['table'] = 'taxonomy_vocabulary';
+  $handler->display->display_options['sorts']['vid']['field'] = 'vid';
+  $handler->display->display_options['sorts']['vid']['order'] = 'DESC';
   /* Contextual filter: Content: Nid */
   $handler->display->display_options['arguments']['nid']['id'] = 'nid';
   $handler->display->display_options['arguments']['nid']['table'] = 'node';
@@ -186,6 +186,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
   $handler->display->display_options['filters']['machine_name']['field'] = 'machine_name';
   $handler->display->display_options['filters']['machine_name']['value'] = array(
+    'sections' => 'sections',
     'tags' => 'tags',
   );
 
@@ -208,7 +209,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('next ›'),
     t('last »'),
     t('node'),
-    t('More stories in [name] '),
+    t('More stories in [name_i18n] '),
     t('.'),
     t(','),
     t('All'),
@@ -229,7 +230,10 @@ function checkdesk_featured_stories_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Recent stories by tag';
+  $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_text'] = 'more stories';
+  $handler->display->display_options['link_display'] = 'custom_url';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -265,20 +269,30 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['label'] = '';
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Section */
+  $handler->display->display_options['fields']['field_section']['id'] = 'field_section';
+  $handler->display->display_options['fields']['field_section']['table'] = 'field_data_field_section';
+  $handler->display->display_options['fields']['field_section']['field'] = 'field_section';
+  $handler->display->display_options['fields']['field_section']['label'] = '';
+  $handler->display->display_options['fields']['field_section']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_section']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_section']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_section']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_section']['type'] = 'i18n_taxonomy_term_reference_plain';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Content: Tags (field_tags) */
-  $handler->display->display_options['arguments']['field_tags_tid_1']['id'] = 'field_tags_tid_1';
-  $handler->display->display_options['arguments']['field_tags_tid_1']['table'] = 'field_data_field_tags';
-  $handler->display->display_options['arguments']['field_tags_tid_1']['field'] = 'field_tags_tid';
-  $handler->display->display_options['arguments']['field_tags_tid_1']['default_action'] = 'empty';
-  $handler->display->display_options['arguments']['field_tags_tid_1']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_tags_tid_1']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_tags_tid_1']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_tags_tid_1']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -293,13 +307,21 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'discussion' => 'discussion',
   );
+  /* Filter criterion: Content: Language */
+  $handler->display->display_options['filters']['language']['id'] = 'language';
+  $handler->display->display_options['filters']['language']['table'] = 'node';
+  $handler->display->display_options['filters']['language']['field'] = 'language';
+  $handler->display->display_options['filters']['language']['value'] = array(
+    '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
+  );
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['link_url'] = 'taxonomy/term/!1';
   $translatables['recent_stories_by_tag'] = array(
     t('Master'),
     t('Recent stories by tag'),
-    t('more'),
+    t('more stories'),
     t('Apply'),
     t('Reset'),
     t('Sort by'),
@@ -308,8 +330,76 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('image from field_lead_image'),
     t('All'),
     t('Block'),
+    t('more'),
   );
   $export['recent_stories_by_tag'] = $view;
+
+  $view = new view();
+  $view->name = 'sections';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'taxonomy_term_data';
+  $view->human_name = 'sections';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Sections';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Field: Taxonomy term: Name (translated) */
+  $handler->display->display_options['fields']['name_i18n']['id'] = 'name_i18n';
+  $handler->display->display_options['fields']['name_i18n']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name_i18n']['field'] = 'name_i18n';
+  $handler->display->display_options['fields']['name_i18n']['label'] = '';
+  $handler->display->display_options['fields']['name_i18n']['element_type'] = '0';
+  $handler->display->display_options['fields']['name_i18n']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name_i18n']['link_to_taxonomy'] = TRUE;
+  /* Field: Taxonomy term: Term ID */
+  $handler->display->display_options['fields']['tid']['id'] = 'tid';
+  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid']['label'] = '';
+  $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
+  /* Sort criterion: Taxonomy term: Weight */
+  $handler->display->display_options['sorts']['weight']['id'] = 'weight';
+  $handler->display->display_options['sorts']['weight']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['sorts']['weight']['field'] = 'weight';
+  /* Filter criterion: Taxonomy vocabulary: Machine name */
+  $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
+  $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
+  $handler->display->display_options['filters']['machine_name']['field'] = 'machine_name';
+  $handler->display->display_options['filters']['machine_name']['value'] = array(
+    'sections' => 'sections',
+  );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'sections';
+  $translatables['sections'] = array(
+    t('Master'),
+    t('Sections'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('.'),
+    t(','),
+    t('Page'),
+  );
+  $export['sections'] = $view;
 
   $view = new view();
   $view->name = 'story_authors';
@@ -726,6 +816,144 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('Attachment'),
   );
   $export['story_collaborators'] = $view;
+
+  $view = new view();
+  $view->name = 'story_section';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'story section';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Section';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'created',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Relationship: Content: Lead image (field_lead_image:fid) */
+  $handler->display->display_options['relationships']['field_lead_image_fid']['id'] = 'field_lead_image_fid';
+  $handler->display->display_options['relationships']['field_lead_image_fid']['table'] = 'field_data_field_lead_image';
+  $handler->display->display_options['relationships']['field_lead_image_fid']['field'] = 'field_lead_image_fid';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  /* Field: File: Path */
+  $handler->display->display_options['fields']['uri']['id'] = 'uri';
+  $handler->display->display_options['fields']['uri']['table'] = 'file_managed';
+  $handler->display->display_options['fields']['uri']['field'] = 'uri';
+  $handler->display->display_options['fields']['uri']['relationship'] = 'field_lead_image_fid';
+  $handler->display->display_options['fields']['uri']['label'] = '';
+  $handler->display->display_options['fields']['uri']['element_type'] = '0';
+  $handler->display->display_options['fields']['uri']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uri']['element_default_classes'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Post date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = '';
+  $handler->display->display_options['fields']['created']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['created']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['created']['custom_date_format'] = 'F Y';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
+  /* Field: Content: Section */
+  $handler->display->display_options['fields']['field_section']['id'] = 'field_section';
+  $handler->display->display_options['fields']['field_section']['table'] = 'field_data_field_section';
+  $handler->display->display_options['fields']['field_section']['field'] = 'field_section';
+  $handler->display->display_options['fields']['field_section']['label'] = '';
+  $handler->display->display_options['fields']['field_section']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_section']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_section']['type'] = 'i18n_taxonomy_term_reference_plain';
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['tid']['title'] = '%1';
+  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['tid']['validate_options']['vocabularies'] = array(
+    'sections' => 'sections',
+  );
+  $handler->display->display_options['arguments']['tid']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['tid']['validate']['fail'] = 'empty';
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'discussion' => 'discussion',
+  );
+  /* Filter criterion: Content: Language */
+  $handler->display->display_options['filters']['language']['id'] = 'language';
+  $handler->display->display_options['filters']['language']['table'] = 'node';
+  $handler->display->display_options['filters']['language']['field'] = 'language';
+  $handler->display->display_options['filters']['language']['value'] = array(
+    '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
+  );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'section';
+  $translatables['story_section'] = array(
+    t('Master'),
+    t('Section'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('image from field_lead_image'),
+    t('All'),
+    t('%1'),
+    t('Page'),
+  );
+  $export['story_section'] = $view;
 
   $view = new view();
   $view->name = 'user_followed_stories';

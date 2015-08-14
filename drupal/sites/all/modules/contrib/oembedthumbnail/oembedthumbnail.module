@@ -1,0 +1,136 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Includes all the necessary functions for the oEmbed thumbnails module
+ */
+
+/**
+ * Implements hook_field_formatter_info().
+ * Create a new field formatter for link fields.
+ */
+function oembedthumbnail_field_formatter_info() {
+  $formatters = array(
+    'oembedthumbnail' => array(
+      'label' => t('OEmbed Thumbnail'),
+      'field types' => array('link_field'),
+      'description' => t('Embeds links as thumbnails if possible - otherwise just links them.'),
+      'settings' => array('imagestyle' => ''),
+    ),
+  );
+
+  return $formatters;
+}
+
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ * Adds a dropdown to choose image styles on the field settings form.
+ */
+function oembedthumbnail_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $element = array();
+  $element['imagestyle'] = array(
+    '#title' => t('Image Style'),
+    '#type' => 'select',
+    '#options' => image_style_options(),
+    '#default_value' => $settings['imagestyle'],
+  );
+
+  return $element;
+}
+
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ * Adds details to the field formatting summary on the fields page.
+ */
+function oembedthumbnail_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $summary = '';
+  $summary .= t('Image Style') . ': ' . (!empty($settings['imagestyle']) ?  $settings['imagestyle'] : 'default');
+
+  return $summary;
+}
+
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function oembedthumbnail_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  foreach ($items as $delta => $item) {
+    $attributes = array();
+    $url = url($item['url'], $item + array('external' => TRUE));
+    $attributes = array_filter($display['settings']);
+
+    $element[$delta] = oembedcore_render_cache('oembed_thumbnail', $url, $attributes);
+  }
+
+  return $element;
+}
+
+
+/**
+ * Implements hook_element_info_alter().
+ * We need to make sure our pre-render function is called when generating the thumbnail.
+ */
+function oembedthumbnail_element_info_alter(&$types) {
+  $types['oembed_thumbnail']['#pre_render'][] = 'oembedthumbnail_pre_render_thumbnail';
+}
+
+
+/**
+ * #pre_render callback for 'oembedthumbnail' elements.
+ *
+ * For oEmbed responses, process the thumbnail image according to the chosen image style
+ */
+function oembedthumbnail_pre_render_thumbnail($element) {
+  // Only act when the oEmbed response is true.
+  if (!empty($element['#printed'])) {
+    return $element;
+  }
+
+  $embed = $element['#embed'];
+
+  // Check if the oEmbed response provides a thumbnail image.
+  if (!empty($embed->thumbnail_url)) {
+    $url = $embed->thumbnail_url;
+  }
+  // Otherwise, for photos use the original image.
+  elseif ($embed->type == 'photo') {
+    $url = $embed->url;
+  }
+
+  // If there's no URL for an image, don't render anything.
+  if (empty($url)) {
+    $element['#printed'] = TRUE;
+    return $element;
+  }
+
+  // Generate a remote url http://youtube.com/oembed/images/....
+  $remote_uri = file_create_url($url);
+
+  // Check if a remote file object exists in the {file_managed} table for this file...
+  $remote_file = remote_stream_wrapper_file_load_by_uri($url);
+
+  // If there is no file object, create one with the remote url  'http://youtube.com/oembed/images/.....
+  if (empty($remote_file)) {
+    $remote_file = remote_stream_wrapper_file_create_by_uri($remote_uri);
+    file_save($remote_file);  // From Dave Reid... Save the file as file_save will be deprecated in remote_stream_wrapper_file_create_by_uri so use it here...
+  }
+
+  // Now generate the derivative uri, public://styles/{style_name}/etc........
+  $derivative_uri = remote_stream_wrapper_image_style_path($element['#display_options']['imagestyle'], $remote_file->uri);
+
+  // From that internal uri generate an internal derative url, http://mysite.com/files/styles/{style_name}/etc.....
+  $element['#path'] = file_create_url($derivative_uri);
+
+  return $element;
+}

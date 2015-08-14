@@ -19,8 +19,14 @@
               <?php endif; ?>
               <span class="media-type"> <?php print t('Liveblog'); ?></span>
             </span>
+              
+            <div class="title">
+              <?php if(isset($content['field_section'])) : ?>
+                <span class="content-labels section-label"><?php print render($content['field_section']); ?></span>
+              <?php endif; ?>
+              <span class="title-text"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
+            </div>
 
-            <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
             <?php if(isset($node->name)) : ?>
               <span class="author"><?php print $story_authors; ?></span>
             <?php endif; ?>

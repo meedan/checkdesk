@@ -38,6 +38,17 @@
 	}
 }
 
+.media-holder .media-content span.content-labels {
+	a { @include ctb-linkColor($firefly40); }
+	&:after {
+		content: '/';
+		display: inline-block;
+		color: $firefly20;
+		font-weight: normal;
+		margin-#{$alpha}: 4px;
+	}
+}
+
 .media-holder .media-content .title {
 	font-size: 18px;
 	a { @include ctb-linkColor($strongBlue80); }

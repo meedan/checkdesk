@@ -85,6 +85,10 @@ ul#breadcrumb h1 {
   margin-bottom: 0;
   @include cd-responsive('min-width: #{$width-tablet}') {
     padding-#{$omega}: 200px;
+    min-width: 300px;
+  }
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    max-width: 160px;
   }
   overflow: hidden;
   @include cd-sans-serif-family;

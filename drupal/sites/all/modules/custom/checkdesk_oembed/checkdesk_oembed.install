@@ -28,3 +28,12 @@ function checkdesk_oembed_update_7000() {
 function checkdesk_oembed_update_7001() {
   db_query('DELETE FROM {cache_oembed} WHERE data LIKE :type', array(':type' => '%s:4:"type";s:5:"photo";%'));
 }
+
+/**
+ * Disable and uninstall oembed_thumbnai module
+ */
+function checkdesk_oembed_update_7002() {
+  $module_list = array('oembed_thumbnail');
+  module_disable($module_list, FALSE);
+  drupal_uninstall_modules($module_list, FALSE);
+}
