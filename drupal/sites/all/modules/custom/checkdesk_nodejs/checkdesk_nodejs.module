@@ -5,20 +5,19 @@
  * Checkdesk nodejs integration module.
  */
 
-
 /**
  * Implements hook_preprocess_views_view()
  * Add nodejs channel for my_notifications view
  */
 function checkdesk_nodejs_preprocess_views_view(&$vars) {
   $view = $vars['view'];
-  
+
   switch ($view->name) {
+    // Override header for checkdesk nodejs module.
+    // we might simply change headers interval to 0 in views but we should remove
+    // headers from views completely.
+    // @TODO: Review header override of views in favor of module override
     case 'my_notifications':
-      // Override header for checkdesk nodejs module.
-      // we might simply change headers interval to 0 in views but we should remove
-      // headers from views completely.
-      // @TODO: Review header override of views in favor of module override
       global $user;
       $path = drupal_get_path('module', 'checkdesk_notifications') . '/ping.php?user=' . $user->uid;
       $vars['header'] = theme('views_autorefresh', array(
@@ -32,6 +31,41 @@ function checkdesk_nodejs_preprocess_views_view(&$vars) {
       // Register the view nodejs channel
       nodejs_send_content_channel_token('views_autorefresh_my_notifications');
       break;
+
+    case 'liveblog':
+      $vars['header'] = theme('views_autorefresh', array(
+          'interval' => 0, //use nodejs
+          'ping' => array('ping_base_path' => drupal_get_path('module', 'checkdesk_core') . '/autorefresh/liveblog.php?type=discussion&field=changed'),
+          'incremental' => array(
+              'view_base_path' => 'liveblog/autorefresh',
+              'view_display_id' => 'page_1',
+              'view_name' => 'liveblog',
+          ),
+      ));
+
+      // Register the view nodejs channel
+      nodejs_send_content_channel_token('views_autorefresh_liveblog');
+      break;
+
+    case 'desk_reports':
+      $story = isset($_GET['story']) ? $_GET['story'] : 0;
+      $header = theme('views_autorefresh', array(
+          'interval' => 0, //use nodejs
+          'ping' => array(
+              'ping_base_path' => drupal_get_path('module', 'checkdesk_core') . '/autorefresh/liveblog.php?type=media&field=created&story=' . $story
+          ),
+          'incremental' => array(
+              'view_base_path' => 'desk-reports/autorefresh',
+              'view_display_id' => 'page_1',
+              'view_name' => 'desk_reports',
+          ),
+      ));
+      $header .= '<div class="filters-summary"><p>' . format_plural($view->total_rows, '<span>1</span> result. You can drag and drop it.', '<span>@count</span> results. Drag and drop the best ones.') . '</p></div>';
+      $vars['header'] = $header;
+      
+      // Register the view nodejs channel
+      nodejs_send_content_channel_token('views_autorefresh_desk_reports');
+      break;
   }
 }
 
@@ -42,4 +76,48 @@ function checkdesk_nodejs_preprocess_views_view(&$vars) {
  */
 function checkdesk_nodejs_heartbeat_activity_insert($heartbeatActivity) {
   views_autorefresh_nodejs_refresh(array('my_notifications'));
+}
+
+/**
+ * Implements hook_node_insert();
+ */
+function checkdesk_nodejs_node_insert($node) {
+  _checkdesk_nodejs_handle_node($node);
+}
+
+/**
+ * Implements hook_node_update();
+ */
+function checkdesk_nodejs_node_update($node) {
+  _checkdesk_nodejs_handle_node($node);
+}
+
+/**
+ * Implements hook_node_delete();
+ */
+function checkdesk_nodejs_node_delete($node) {
+  _checkdesk_nodejs_handle_node($node);
+}
+
+/**
+ * Handle all node operations
+ */
+function _checkdesk_nodejs_handle_node($node) {
+  $views_to_update = array();
+  switch ($node->type) {
+    case 'media':
+      $views_to_update[] = 'liveblog';
+      $views_to_update[] = 'desk_reports';
+      break;
+
+    case 'discussion':
+      $views_to_update[] = 'liveblog';
+      break;
+
+    case 'post':
+      $views_to_update[] = 'liveblog';
+      break;
+  }
+
+  views_autorefresh_nodejs_refresh($views_to_update);
 }
