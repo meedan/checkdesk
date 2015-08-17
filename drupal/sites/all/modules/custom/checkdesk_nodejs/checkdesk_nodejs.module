@@ -76,6 +76,59 @@ function checkdesk_nodejs_preprocess_views_view(&$vars) {
  */
 function checkdesk_nodejs_heartbeat_activity_insert($heartbeatActivity) {
   views_autorefresh_nodejs_refresh(array('my_notifications'));
+  if($heartbeatActivity->message_id == 'status_report') {
+    //watchdog('activityObject', '<pre>'. print_r($heartbeatActivity, true) .'</pre>');
+    $commands = array();
+    $node = node_load($heartbeatActivity->nid);
+    $report_status = _checkdesk_report_status($node);
+    //watchdog('report_status', '<pre>'. print_r($report_status, true) .'</pre>');
+    $commands[] = ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
+    $message = (object) array(
+        'channel' => 'report-status-'. $node->nid,
+        'commands' => $commands,
+        'callback' => 'reportReactor',
+        );
+    // Send the message to the channel we created
+    nodejs_send_content_channel_message($message);
+  }
+  elseif (in_array($heartbeatActivity->message_id ,array('checkdesk_fact_checking_on', 'checkdesk_fact_checking_set'))) {
+    $commands = array();
+    $node = node_load($heartbeatActivity->nid);
+    $node_view = node_view($node);
+    $node_view['comments'] = comment_node_page_additions($node);
+    // update activity stream
+    $report_activity = theme(
+    'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view)
+    );
+    $commands[] = ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
+    // notification channel is nid_target (story)
+    $message = (object) array(
+    'channel' => 'story-collaborate-'. $heartbeatActivity->nid_target,
+    'commands' => $commands,
+    'callback' => 'reportReactor',
+    );
+    // Send the message to the channel we created
+    nodejs_send_content_channel_message($message);
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function checkdesk_nodejs_node_view($node, $view_mode, $langcode) {
+  global $user;
+  if ($user->uid && $node->type == 'discussion' && $view_mode == 'checkdesk_collaborate') {
+    drupal_add_js(drupal_get_path('module', 'checkdesk_nodejs') . '/js/checkdesk_nodejs.js');
+    // Register nodejs channel
+    $nodejs_channel = 'story-collaborate-'. $node->nid;
+    nodejs_send_content_channel_token($nodejs_channel);
+  }
+  elseif ($node->type == 'media' && $view_mode == 'full') {
+      drupal_add_js(drupal_get_path('module', 'checkdesk_nodejs') . '/js/checkdesk_nodejs.js');
+      // Register nodejs channel
+      $nodejs_channel = 'report-status-'. $node->nid;
+      nodejs_send_content_channel_token($nodejs_channel);
+  }
 }
 
 /**
@@ -89,7 +142,7 @@ function checkdesk_nodejs_node_insert($node) {
  * Implements hook_node_update();
  */
 function checkdesk_nodejs_node_update($node) {
-  _checkdesk_nodejs_handle_node($node);
+   _checkdesk_nodejs_handle_node($node);
 }
 
 /**
