@@ -1054,7 +1054,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   // Customize "Add more items" for authors.
   $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
   // Limit sections based on current language.
-  $form['field_section'][LANGUAGE_NONE]['#options'] = array('[_none]' => t('- None -')) +  _checkdesk_load_sections();
+  $form['field_section'][LANGUAGE_NONE]['#options'] = array('_none' => t('- None -')) +  _checkdesk_load_sections();
 }
 
 /**
@@ -3918,7 +3918,9 @@ function _checkdesk_show_sections_link() {
   $vocabulary = taxonomy_vocabulary_machine_name_load('sections');
   $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
   $show_sections = count($terms) ? TRUE : FALSE;
-  cache_set('checkdesk_show_sections', $show_sections, 'cache');
+  if ($show_sections) {
+    cache_set('checkdesk_show_sections', $show_sections, 'cache');
+  }
   return $show_sections;
 }
 
