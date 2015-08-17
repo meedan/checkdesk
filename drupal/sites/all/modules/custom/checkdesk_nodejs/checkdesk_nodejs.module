@@ -76,39 +76,16 @@ function checkdesk_nodejs_preprocess_views_view(&$vars) {
  */
 function checkdesk_nodejs_heartbeat_activity_insert($heartbeatActivity) {
   views_autorefresh_nodejs_refresh(array('my_notifications'));
-  if($heartbeatActivity->message_id == 'status_report') {
-    //watchdog('activityObject', '<pre>'. print_r($heartbeatActivity, true) .'</pre>');
-    $commands = array();
-    $node = node_load($heartbeatActivity->nid);
-    $report_status = _checkdesk_report_status($node);
-    //watchdog('report_status', '<pre>'. print_r($report_status, true) .'</pre>');
-    $commands[] = ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
-    $message = (object) array(
-        'channel' => 'report-status-'. $node->nid,
-        'commands' => $commands,
-        'callback' => 'reportReactor',
-        );
-    // Send the message to the channel we created
-    nodejs_send_content_channel_message($message);
-  }
-  elseif (in_array($heartbeatActivity->message_id ,array('checkdesk_fact_checking_on', 'checkdesk_fact_checking_set'))) {
-    $commands = array();
-    $node = node_load($heartbeatActivity->nid);
-    $node_view = node_view($node);
-    $node_view['comments'] = comment_node_page_additions($node);
-    // update activity stream
-    $report_activity = theme(
-    'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view)
-    );
-    $commands[] = ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
-    // notification channel is nid_target (story)
-    $message = (object) array(
-    'channel' => 'story-collaborate-'. $heartbeatActivity->nid_target,
-    'commands' => $commands,
-    'callback' => 'reportReactor',
-    );
-    // Send the message to the channel we created
-    nodejs_send_content_channel_message($message);
+  watchdog('hb-activity', '<pre>'. print_r($heartbeatActivity, true) .'</pre>');
+  $commands = _checkdesk_nodejs_handle_report_activity($heartbeatActivity->message_id, $heartbeatActivity->nid);
+  if (count($commands)) {
+  $message = (object) array(
+      'channel' => 'report-status-'. $heartbeatActivity->nid,
+      'commands' => $commands,
+      'callback' => 'reportReactor',
+      );
+  // Send the message to the channel we created
+  //nodejs_send_content_channel_message($message);
   }
 }
 
@@ -173,4 +150,32 @@ function _checkdesk_nodejs_handle_node($node) {
   }
 
   views_autorefresh_nodejs_refresh($views_to_update);
+}
+
+
+function _checkdesk_nodejs_handle_report_activity($activity, $nid) {
+    watchdog('activity-activity', '<pre>'. print_r($activity, true) .'</pre>');
+    watchdog('activity-nid', '<pre>'. print_r($nid, true) .'</pre>');
+    $commands = array();
+    switch ($activity) {
+        case 'status_report':
+            watchdog('activity-nid', 'I am here');
+            $node = node_load($nid);
+            $report_status = _checkdesk_report_status($node);
+            $commands[] = ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
+            break;
+        case 'checkdesk_fact_checking_on':
+        case 'checkdesk_fact_checking_set':
+            $node = node_load($heartbeatActivity->nid);
+            $node_view = node_view($node);
+            $node_view['comments'] = comment_node_page_additions($node);
+            // update activity stream
+            $report_activity = theme(
+                'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view)
+            );
+            $commands[] = ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
+            break;
+    }
+    watchdog('activity-commands', '<pre>'. print_r($commands, true) .'</pre>');
+    return $commands;
 }
