@@ -198,7 +198,8 @@ function _checkdesk_goto_search($preset) {
       $query['type'] = 'story';
       break;
     case 'my_drafts':
-      $query['status'] = 0;
+      $query['status'] = 'All';
+      $query['state'] = 2;
       $query['author'] = $user->name;
       break;
     case 'my_stories':
@@ -3744,15 +3745,19 @@ function _checkdesk_search_header() {
       case 'update':
       $selected = 'All';
         if (isset($_GET['status'])) {
-          $selected = ($_GET['status'] == 0) ? 'drafts' : 'published';
+          $selected = ($_GET['status'] == 1) ? 'published': 'drafts';
         }
         // Check if user can access any drafts content then Show drafts link on search page header
         if (user_access('access any drafts content')) {
-          $links[] = l(t('Drafts'), bef_replace_query_string_arg('status', 0, FALSE, FALSE, $path),
-            array('attributes' => array('class' => ($selected == 'drafts') ? 'selected' : '')));
+            $links[] = l(t('Drafts'), 'search', array(
+              'attributes' => array('class' => ($selected == 'drafts') ? array('selected') : array()),
+              'query' => array('type' => $_GET['type'], 'state' => 2, 'status' => 'All'),
+              ));
         }
-        $links[] = l(t('Published'), bef_replace_query_string_arg('status', 1, FALSE, FALSE, $path),
-          array('attributes' => array('class' => ($selected == 'published') ? 'selected' : '')));
+        $links[] = l(t('Published'), 'search', array(
+            'attributes' => array('class' => ($selected == 'published') ? array('selected') : array()),
+            'query' => array('type' => $_GET['type'], 'status' => 1),
+            ));
       break;   
     }
   }
