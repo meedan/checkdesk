@@ -38,6 +38,15 @@ function _checkdesk_story_collaboration($node) {
 
       ', 'inline');
   }
+  else {
+    // Jump to collaboration tab.
+    drupal_add_js('  
+      jQuery(function() {
+       jQuery("html, body").animate({ scrollTop: jQuery(".story-tabs-wrapper").offset().top }, 1000);
+      });
+      ', 'inline');
+  }
+  
   $node_view = node_view($node, 'checkdesk_collaborate');
   $output .= render($node_view);
   return $output;
