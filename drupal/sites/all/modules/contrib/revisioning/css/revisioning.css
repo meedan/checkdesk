@@ -1,0 +1,25 @@
+.table-revisions th.form-submit,
+.table-revisions td .form-type-checkbox {
+  text-align: center;
+}
+
+.revision-pending td {
+  background-color: #fcc; /* pale pink */
+}
+
+.revision-current td {
+  background-color: #faa; /* red-pink when current revision is unpublished */
+}
+
+.revision-current.published td {
+  background-color: #ffc; /* pale yellow, same as node/node.css */
+}
+
+div.block-revisioning ul {
+  padding: 0 0 0 1em;
+}
+
+div.block-revisioning ul li {
+/*list-style-type: square;*/
+  margin: 0;
+}
