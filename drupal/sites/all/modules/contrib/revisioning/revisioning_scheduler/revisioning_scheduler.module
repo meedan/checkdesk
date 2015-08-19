@@ -1,0 +1,432 @@
+<?php
+/**
+ * @file
+ * Allows revisions to be published at specified dates and times.
+ *
+ * Authors:
+ * Zombienaute (drupal.org),aka Adam Bramley <adam@catalyst.net.nz>
+ * zepner (drupal.org)
+ * RdeBoer (drupal.org)
+ */
+
+define('REVISIONING_SCHEDULER_DEFAULT_DATE_FORMAT', 'd-m-Y H:i');
+define('REVISIONING_SCHEDULER_SLACK', 120);
+
+/**
+ * Implements hook_menu().
+ */
+function revisioning_scheduler_menu() {
+  $items = array();
+  // Put the administrative settings under Content on the Configuration page.
+  $items['admin/config/content/revisioning_scheduler'] = array(
+    'title' => 'Revisioning Scheduler',
+    'description' => 'Set the format for entering publication dates',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('revisioning_scheduler_admin_configure'),
+    'access arguments' => array('administer site configuration'),
+  );
+  return $items;
+}
+
+/**
+ * Menu callback for admin settings.
+ */
+function revisioning_scheduler_admin_configure() {
+  $date_format = variable_get('revisioning_scheduler_date_format');
+  $default_date_format = REVISIONING_SCHEDULER_DEFAULT_DATE_FORMAT;
+  if (empty($date_format)) {
+    $date_format = $default_date_format;
+  }
+  $help_text = t('Date and time must be separated by a space. See this <a target="_blank" href="!php_manual_page">manual page</a> for available symbols and their meaning.', array(
+    '!php_manual_page' => 'http://php.net/manual/en/function.date.php'));
+  $t_args = array(
+    '%date_format' => $default_date_format,
+    '%date' => date($date_format),
+  );
+  $form['revisioning_scheduler_date_format'] = array(
+    '#type' => 'textfield',
+    '#size' => 25,
+    '#title' => t('Format used for entering publication dates'),
+    '#default_value' => $date_format,
+    '#description' => $help_text . '<br/>' . ($date_format == $default_date_format
+      ? t('The default input format %date_format is used. <br/>Time now in this format: %date.', $t_args)
+      : t('Time now in above format: %date <br/>If left blank the date input format defaults to %date_format', $t_args)
+    ),
+  );
+  $form['revisioning_scheduler_on_edit_form'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow publication dates to be scheduled on the content edit form'),
+    '#default_value' => variable_get('revisioning_scheduler_on_edit_form', TRUE),
+    '#description' => t('In addition publication dates may be scheduled when you press the Publish or Revert links.'),
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_form_BASEFORMID_alter().
+ *
+ * This function adds a publication date & time field to the Edit form.
+ * It also loads a small javascript file, which controls visibility of the field
+ * in response to clicks on the revision moderation radio-buttons.
+ */
+function revisioning_scheduler_form_node_form_alter(&$form, &$form_state, $form_id) {
+
+  if (!empty($form['#node_edit_form']) && variable_get('revisioning_scheduler_on_edit_form', TRUE)) {
+
+    $node = $form_state['node'];
+    if (!user_access('administer nodes')) {
+      // If the node is already published then scheduling a publication date is
+      // inappropriate, unless the new revision goes into moderation.
+      // The exception are users with 'administer nodes' permission, as they
+      // can change the Published checkbox and moderation radio buttons, so we
+      // have to deal with that client-side, see file revision-schedule.js
+      if ($node->status == NODE_PUBLISHED) {
+        return;
+      }
+      if (empty($node->revision_moderation) && !(empty($node->nid) && revisioning_content_is_moderated($node->type, $node))) {
+        // No moderation specified and not a new node of a type subject to
+        // moderation.
+        return;
+      }
+      if (!revisioning_user_node_access('publish revisions', $node)) {
+        return;
+      }
+    }
+    // Don't offer the form if auto-publish is enabled for this node and user.
+    if (revisioning_user_may_auto_publish($node)) {
+      return;
+    }
+
+    $date_format = variable_get('revisioning_scheduler_date_format');
+    if (empty($date_format)) {
+      $date_format = REVISIONING_SCHEDULER_DEFAULT_DATE_FORMAT;
+    }
+    $description1 = t('Please use this format: %format, e.g %datetime. If you enter "now" this content will be published immediately.',
+      array(
+        '%format' => $date_format,
+        '%datetime' => format_date(time(), 'custom', $date_format),
+      )
+    );
+    $description2 = t('If you do not wish to schedule publication, leave the field blank.');
+
+    if (isset($node->vid)) {
+      $result = db_query('SELECT * FROM {revisioning_scheduler} WHERE revision_vid = :vid',
+        array(':vid' => $node->vid)
+      );
+      $revision = $result->fetchAssoc();
+    }
+    $scheduled_datetime = empty($revision) ? '' : format_date($revision['revision_date'], 'custom', $date_format);
+
+    $form['revision_information']['publication_date'] = array(
+      '#type' => 'textfield',
+      '#size' => 25,
+      '#maxlength' => 25,
+      '#title' => t('Optionally schedule a date and time for publication'),
+      '#description' => $description1 . ' ' . $description2,
+      '#default_value' => $scheduled_datetime,
+      '#weight' => 10,
+      '#attributes' => array('class' => array('publication-date')),
+    );
+    $form['#attached']['js'][] = drupal_get_path('module', 'revisioning_scheduler') . '/revision-schedule.js';
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Adds date and time fields to the publication and reverting forms.
+ * Also shows the entered date and time on the revisions summary.
+ */
+function revisioning_scheduler_form_alter(&$form, $form_state, $form_id) {
+
+  switch ($form_id) {
+
+    case 'revisioning_publish_confirm':
+    case 'node_revision_revert_confirm':
+      $vid = arg(3);
+      $result = db_query('SELECT * FROM {revisioning_scheduler} WHERE revision_vid = :vid',
+        array(':vid' => $vid)
+      );
+      $revision = $result->fetchAssoc();
+      if (!empty($revision)) {
+        drupal_set_message(t('This revision was already scheduled by !username for publication on %date. You may override this date and time.',
+          array(
+            '%date' => format_date($revision['revision_date']),
+            '!username' => theme('username', array('account' => user_load($revision['revision_uid']))),
+          )),
+          'warning', FALSE);
+      }
+      $date_format = variable_get('revisioning_scheduler_date_format');
+      if (empty($date_format)) {
+        $date_format = REVISIONING_SCHEDULER_DEFAULT_DATE_FORMAT;
+      }
+      $date_and_time = explode(' ', date($date_format));
+      $form['revisioning_scheduler_date'] = array(
+        '#title'         => $form_id == 'node_revision_revert_confirm' ? t('Date for reversion') : t('Date for publication'),
+        '#type'          => 'textfield',
+        '#description'   => t('Enter the date you want this revision to be published.'),
+        '#maxlength'     => 10,
+        '#size'          => 10,
+        '#default_value' => $date_and_time[0],
+        '#weight'        => -1,
+      );
+      $form['revisioning_scheduler_time'] = array(
+        '#title'         => $form_id == 'node_revision_revert_confirm' ? t('Time for reversion') : t('Time for publication'),
+        '#type'          => 'textfield',
+        '#maxlength'     => 5,
+        '#size'          => 5,
+        '#default_value' => $date_and_time[1],
+        '#description'   => t('Enter the time you want this revision to be published. Use the 24 hour clock.'),
+        '#weight'        => 0,
+      );
+      break;
+
+    case 'revisioning_revisions_summary':
+      $result = db_query('SELECT * FROM {revisioning_scheduler} WHERE revision_nid = :nid',
+        array(':nid' => arg(1))
+      );
+      foreach ($result as $revision) {
+        if ($revision->revision_date > time()) {
+          $form['info'][$revision->revision_vid]['#markup'] .= '<br/>' . t('Scheduled for publication on %date.',
+            array('%date' => format_date($revision->revision_date, 'long')));
+        }
+        else {
+          $form['info'][$revision->revision_vid]['#markup'] .= '<br/>' . t('Scheduled for publication at next cron run.');
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_validate().
+ */
+function revisioning_publish_confirm_validate($node, &$form) {
+  $date = check_plain($_POST['revisioning_scheduler_date']);
+  $date_format = variable_get('revisioning_scheduler_date_format');
+  if (empty($date_format)) {
+    $date_format = REVISIONING_SCHEDULER_DEFAULT_DATE_FORMAT;
+  }
+  $date_only_format = drupal_substr($date_format, 0, strpos($date_format, ' '));
+  if (strtotime($date) < strtotime(date($date_only_format))) {
+    form_set_error('revisioning_scheduler_date', t('The publication date you set is in the past.'));
+  }
+  else {
+    $time = check_plain($_POST['revisioning_scheduler_time']);
+    $scheduled_time = strtotime($date . $time);
+    // Add 90 seconds of slack to give user a chance to publish instantly by
+    // leaving time as is.
+    if ($scheduled_time < time() - REVISIONING_SCHEDULER_SLACK) {
+      form_set_error('revisioning_scheduler_time', t('The publication time you set is in the past.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_revisionapi().
+ *
+ * @see revisioning/revisioning_api.inc
+ */
+function revisioning_scheduler_revisionapi($op, $node) {
+  switch ($op) {
+    case 'pre publish':
+    case 'post revert':
+      if (empty($_POST['revisioning_scheduler_date'])) {
+        break;
+      }
+      $date = check_plain($_POST['revisioning_scheduler_date']);
+      $time = check_plain($_POST['revisioning_scheduler_time']);
+      $result = _revisioning_scheduler_schedule_publication($date, $time, $node);
+      if (isset($result)) {
+        // This will abort the current publication operation.
+        return FALSE;
+      }
+      break;
+
+    // The revision is being deleted. If it is scheduled for publishing, i.e.
+    // vid exists in {revisioning_scheduler} table, remove the scheduler entry.
+    case 'pre delete':
+      _revisioning_scheduler_unschedule($node->vid);
+      break;
+  }
+}
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Called when saving, be it an edit or when creating a node.
+ *
+ * Picks up the value for the scheduled publication date (if entered) and
+ * decides whether the node should be published immediately or scheduled for a
+ * later date.
+ */
+function revisioning_scheduler_node_presave($node) {
+  if (!isset($node->nid)) {
+    // This may happen when importing files using Feeds module.
+    return;
+  }
+  if (empty($node->revision_moderation) || !empty($node->auto_publish)) {
+    _revisioning_scheduler_unschedule_all_revisions($node->nid);
+  }
+  elseif (!empty($node->publication_date)) {
+    $datetime = explode(' ', trim($node->publication_date));
+    $date = $datetime[0];
+    $time = isset($datetime[1]) ? $datetime[1] : '00:00';
+    $node->publication_date = "$date $time";
+    $scheduled_time = strtotime($node->publication_date);
+    if ($date == 'now' || ($scheduled_time > time() - REVISIONING_SCHEDULER_SLACK && $scheduled_time <= time())) {
+      // Publish immediately without scheduling.
+      // Follow the default saving process making this revision current and
+      // published, as opposed to pending.
+      unset($node->revision_moderation);
+      $node->status = NODE_PUBLISHED;
+      _revisioning_scheduler_unschedule_all_revisions($node->nid);
+    }
+    else {
+      // Schedule publication date.
+      return;
+    }
+  }
+  // Publication date does not apply in this situation.
+  unset($node->publication_date);
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * Called when a new node has just been created.
+ */
+function revisioning_scheduler_node_insert($node) {
+  revisioning_scheduler_node_update($node);
+}
+
+/**
+ * Implements hook_node_update().
+ *
+ * This hook was chosen to invoke the scheduler because at this point vid has
+ * the new value.
+ */
+function revisioning_scheduler_node_update($node) {
+  if (empty($node->publication_date)) {
+    _revisioning_scheduler_unschedule($node->vid);
+  }
+  else {
+    $datetime = explode(' ', $node->publication_date);
+    _revisioning_scheduler_schedule_publication($datetime[0], $datetime[1], $node);
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function revisioning_scheduler_node_delete($node) {
+  // Delete scheduled publication of revisions of the deleted node.
+  _revisioning_scheduler_unschedule_all_revisions($node->nid);
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * If there are any revisions with times that have passed, then publish them
+ * and delete them from the database.
+ */
+function revisioning_scheduler_cron() {
+  module_load_include('inc', 'revisioning', 'revisioning_api');
+  $result = db_query('SELECT * FROM {revisioning_scheduler} WHERE revision_date <= :date',
+    array(':date' => time())
+  );
+  foreach ($result as $revision) {
+    if ($node_revision = node_load($revision->revision_nid, $revision->revision_vid)) {
+      _revisioning_publish_revision($node_revision);
+    }
+    _revisioning_scheduler_unschedule_all_revisions($revision->revision_nid);
+  }
+}
+
+/**
+ * Schedule the supplied node for publication at the supplied date & time.
+ *
+ * @param string $date
+ *   Publication date as a string, e.g. '25-12-2012'
+ * @param string $time
+ *   Publication time as a string, e.g. '23:59'
+ * @param object $node
+ *   The node object
+ *
+ * @return null|bool
+ *   TRUE: revision successfully scheduled
+ *   empty: revision not scheduled, should be published immediately
+ *   FALSE: error, date & time in the past or database error
+ */
+function _revisioning_scheduler_schedule_publication($date, $time, $node) {
+  $date = trim($date);
+  $time = trim($time);
+  if (empty($time)) {
+    $time = '00:00';
+  }
+  $scheduled_time = strtotime($date . $time);
+  if ($scheduled_time > time() - REVISIONING_SCHEDULER_SLACK) {
+    if ($scheduled_time <= time()) {
+      // Schedule immediately.
+      return;
+    }
+
+    _revisioning_scheduler_unschedule_all_revisions($node->nid);
+
+    global $user;
+    $data = array(
+      'revision_nid' => $node->nid,
+      'revision_vid' => $node->vid,
+      'revision_uid' => $user->uid,
+      'revision_date' => $scheduled_time,
+    );
+    if (drupal_write_record('revisioning_scheduler', $data)) {
+      if ($scheduled_time > time()) {
+        drupal_set_message(t('Revision scheduled for publication at %time on %date.', array('%time' => $time, '%date' => $date)));
+      }
+      else {
+        // Should never get here.
+        drupal_set_message(t('Revision will be published at next cron run.'));
+      }
+      return TRUE;
+    }
+  }
+  drupal_set_message(t('Publication could not be scheduled at this date & time: %date %time.', array('%date' => $date, '%time' => $time)), 'error');
+  return FALSE;
+}
+
+/**
+ * Delete all scheduled publication dates for this node, if any.
+ *
+ * @param int $nid
+ *   the unique node id
+ */
+function _revisioning_scheduler_unschedule_all_revisions($nid) {
+  return db_delete('revisioning_scheduler')
+    ->condition('revision_nid', $nid)
+    ->execute();
+}
+
+/**
+ * Check if there is a scheduled publication date for this revision.
+ *
+ * If so delete that date.
+ *
+ * @param int $vid
+ *   the unique revision id
+ */
+function _revisioning_scheduler_unschedule($vid) {
+  return db_delete('revisioning_scheduler')
+    ->condition('revision_vid', $vid)
+    ->execute();
+}
+
+/**
+ * Register View API information.
+ */
+function revisioning_scheduler_views_api() {
+  return array(
+    'api' => views_api_version(),
+    'path' => drupal_get_path('module', 'revisioning_scheduler'),
+  );
+}

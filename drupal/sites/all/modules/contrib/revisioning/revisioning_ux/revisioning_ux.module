@@ -1,0 +1,266 @@
+<?php
+
+/**
+ * @file
+ * Revisioning User Experience Adjustments
+ */
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Make sure that our hook_menu_alter is called after
+ * revisioning_menu_alter.
+ */
+function revisioning_ux_module_implements_alter(&$implementations, $hook) {
+  // Do nothing unless we implement the hook being tested (safety).
+  if (isset($implementations['revisioning_ux'])) {
+    switch ($hook) {
+      // Make hook menu_alter and hook theme run last.
+      case 'menu_alter':
+      case 'theme':
+        $group = $implementations['revisioning_ux'];
+        unset($implementations['revisioning_ux']);
+        $implementations['revisioning_ux'] = $group;
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function revisioning_ux_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'revisioning_revisions_summary') {
+    $vid = arg(3);
+    if (is_numeric($vid)) {
+      $form['info'][$vid]['#markup'] = '<div class="revisions-active">' . $form['info'][$vid]['#markup'] . '</div>';
+      drupal_add_css(drupal_get_path('module', 'revisioning_ux') . '/revisioning_ux.css');
+    }
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function revisioning_ux_menu() {
+  $items = array();
+
+  $items['node/%node/revisions/%vid/list'] = array(
+    'title' => 'List all revisions',
+    'access callback' => '_revisioning_access_node_revision',
+    'access arguments' => array('view revision list', 1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -20,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function revisioning_ux_page_alter(&$page) {
+  if (isset($page['content']['system_main']['#form_id']) && ($page['content']['system_main']['#form_id'] == 'revisioning_revisions_summary')) {
+    $node = node_load($page['content']['system_main']['nid']['#value']);
+    $page['content']['buttons']['#prefix'] = '<div class="revisioning-ux-buttons">';
+    $page['content']['buttons']['#suffix'] = '</div>';
+
+    if (!empty($node->revision_moderation)) {
+      if (_revisioning_access_node_revision('publish revisions', $node)) {
+        $page['content']['buttons']['publish'] = drupal_get_form('revisioning_ux_publish', $node);
+      }
+      elseif (_revisioning_access_node_revision('unpublish current revision', $node)) {
+        $page['content']['buttons']['unpublish'] = drupal_get_form('revisioning_ux_unpublish', $node);
+      }
+    }
+    if (_revisioning_access_node_revision('delete archived revisions', $node)) {
+      $num_archived = revisioning_get_number_of_archived_revisions($node);
+      if ($num_archived > 0) {
+        $page['content']['buttons']['delete-archived'] = drupal_get_form('revisioning_ux_delete_archived', $node);
+      }
+    }
+    if (_revisioning_access_node_revision('delete node', $node)) {
+      $page['content']['buttons']['delete-all'] = drupal_get_form('revisioning_ux_delete_all', $node);
+    }
+  }
+}
+
+/**
+ * Implements hook_menu_alter().
+ *
+ * Use a consistent title, 'Revision operations' for the
+ * revisions tab.  Insure that the sub-tabs shown on
+ * the various Revisioning Operations pages remain consistent.
+ */
+function revisioning_ux_menu_alter(&$items) {
+  // Put back the standard access callback (remove revisioning callback that
+  // hides 'View' and 'Edit').
+  $items['node/%node']['access callback'] = 'node_access';
+  $items['node/%node/revisions']['page arguments'] = array(
+    1, $items['node/%node/revisions']['page callback']);
+  $items['node/%node/revisions']['page callback'] = '_revisioning_ux_revisioning_redirect';
+  $items['node/%node/revisions']['title callback'] = '_revisioning_ux_revisioning_title_for_tab';
+  unset($items['node/%node/revisions/list']);
+  $items['node/%node/revisions/%vid/view']['title callback'] = '_revisioning_ux_revisioning_title_for_edit_and_view';
+  $items['node/%node/revisions/%vid/view']['title arguments'] = array(
+    1, 3, 'view');
+  $items['node/%node/revisions/%vid/edit']['title callback'] = '_revisioning_ux_revisioning_title_for_edit_and_view';
+  $items['node/%node/revisions/%vid/edit']['title arguments'] = array(
+    1, 3, 'edit');
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Load revisions-summary-reset.tpl.php instead of revsions-summary.tpl.php.
+ */
+function revisioning_ux_theme() {
+  $theme = array();
+  $theme['revisions_summary'] = array(
+    // Uses revisions-summary-reset.tpl.php.
+    'template' => 'revisions-summary-reset',
+  );
+  return $theme;
+}
+
+/**
+ * Redirect to revisions.
+ */
+function _revisioning_ux_revisioning_redirect($node, $was) {
+  $item = menu_get_item();
+  if ($item['path'] == 'node/%/revisions') {
+    drupal_goto('node/' . $node->nid . '/revisions/' . $node->current_revision_id . '/list');
+  }
+  return revisioning_node_overview($node);
+}
+
+/**
+ * Get title for tab.
+ */
+function _revisioning_ux_revisioning_title_for_tab($node, $tab) {
+  return t('Revision operations');
+}
+
+/**
+ * Get title for edit and view.
+ */
+function _revisioning_ux_revisioning_title_for_edit_and_view($node, $vid, $tab) {
+  $latest_vid = revisioning_get_latest_revision_id($node->nid);
+  $title = ($tab == 'edit') ? t('Edit') : t('View');
+  if ($vid == $node->current_revision_id) {
+    $title = ($tab == 'edit') ? t('Edit Current') : t('View Current');
+  }
+  elseif ($vid == $latest_vid) {
+    $title = ($tab == 'edit') ? t('Edit Latest') : t('View Latest');
+  }
+  return $title;
+}
+
+/**
+ * Form builder: Publish.
+ */
+function revisioning_ux_publish($form, $form_state, $node) {
+  $form = array();
+  $form['node'] = array(
+    '#type' => 'value',
+    '#value' => $node,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Publish'),
+    '#submit' => array('revisioning_ux_publish_submit'),
+  );
+  return $form;
+}
+
+/**
+ * Form submit function for publish button.
+ */
+function revisioning_ux_publish_submit(&$form, &$form_state) {
+  if (isset($form_state['values']['node'])) {
+    $node = $form_state['values']['node'];
+    $form_state['redirect'] = "node/{$node->nid}/publish";
+  }
+}
+
+/**
+ * Form builder: Unpublish.
+ */
+function revisioning_ux_unpublish($form, $form_state, $node) {
+  $form = array();
+  $form['node'] = array(
+    '#type' => 'value',
+    '#value' => $node,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Unpublish current revision'),
+    '#submit' => array('revisioning_ux_unpublish_submit'),
+  );
+  return $form;
+}
+
+/**
+ * Form submit function for unpublish button.
+ */
+function revisioning_ux_unpublish_submit(&$form, &$form_state) {
+  if (isset($form_state['values']['node'])) {
+    $node = $form_state['values']['node'];
+    $form_state['redirect'] = "node/{$node->nid}/unpublish-current";
+  }
+}
+
+/**
+ * Form builder: Delete archived.
+ */
+function revisioning_ux_delete_archived($form, $form_state, $node) {
+  $form = array();
+  $form['node'] = array(
+    '#type' => 'value',
+    '#value' => $node,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Delete archived'),
+    '#submit' => array('revisioning_ux_delete_archived_submit'),
+  );
+  return $form;
+}
+
+/**
+ * Form submit function for delete archived button.
+ */
+function revisioning_ux_delete_archived_submit(&$form, &$form_state) {
+  if (isset($form_state['values']['node'])) {
+    $node = $form_state['values']['node'];
+    $form_state['redirect'] = "node/{$node->nid}/revisions/delete-archived";
+  }
+}
+
+/**
+ * Form builder: Delete all.
+ */
+function revisioning_ux_delete_all($form, $form_state, $node) {
+  $text = (empty($node->revision_moderation) || $node->num_revisions == 1) ? t('Delete') : t('Delete all');
+  $form = array();
+  $form['node'] = array(
+    '#type' => 'value',
+    '#value' => $node,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => $text,
+    '#submit' => array('revisioning_ux_delete_all_submit'),
+  );
+  return $form;
+}
+
+/**
+ * Form submit function for delete all button.
+ */
+function revisioning_ux_delete_all_submit(&$form, &$form_state) {
+  if (isset($form_state['values']['node'])) {
+    $node = $form_state['values']['node'];
+    $form_state['redirect'] = "node/{$node->nid}/delete";
+  }
+}

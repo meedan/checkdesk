@@ -1,0 +1,23 @@
+name = Revisioning
+description = Allows the creation and modification of content while the current revision remains unchanged and publicly visible until the changes have been reviewed by a moderator.
+core = 7.x
+configure = admin/config/content/revisioning
+; List files that contain classes or interfaces
+files[] = views/revisioning_handler_field_node_last_editor.inc
+files[] = views/revisioning_handler_field_node_number_of_revisions.inc
+files[] = views/revisioning_handler_field_node_revision_moderation.inc
+files[] = views/revisioning_handler_field_node_state.inc
+files[] = views/revisioning_handler_field_revision_state.inc
+files[] = views/revisioning_handler_filter_node_number_of_revisions.inc
+files[] = views/revisioning_handler_filter_node_revision_moderation.inc
+files[] = views/revisioning_handler_filter_node_state.inc
+files[] = views/revisioning_handler_filter_revision_state.inc
+files[] = views/revisioning_handler_filter_revision_latest.inc
+files[] = views/revisioning_handler_filter_revision_latest_published.inc
+
+; Information added by Drupal.org packaging script on 2014-06-26
+version = "7.x-1.9"
+core = "7.x"
+project = "revisioning"
+datestamp = "1403741628"
+
