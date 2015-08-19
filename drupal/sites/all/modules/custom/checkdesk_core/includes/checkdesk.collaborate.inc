@@ -42,7 +42,7 @@ function _checkdesk_story_collaboration($node) {
     // Jump to collaboration tab.
     drupal_add_js('  
       jQuery(function() {
-       jQuery("html, body").animate({ scrollTop: jQuery(".story-tabs-wrapper").offset().top + jQuery(".story-body").height() }, 1000);
+       jQuery("html, body").delay(1000).animate({ scrollTop: jQuery(".story-tabs-wrapper").offset().top + jQuery(".story-body").height() }, 1000);
       });
       ', 'inline');
   }
