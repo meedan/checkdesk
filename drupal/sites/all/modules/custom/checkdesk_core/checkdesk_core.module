@@ -1041,18 +1041,21 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     //Set default language value
     $form['language']['#default_value'] = $language->language;
   }
-  //Hide submit button for CJ users
-  if (FALSE && !user_access('edit published content')) {
-    if ($form['nid']['#value']) {
-      if ($form['#node']->status) {
-        drupal_set_message(t('This story is already published. You can\'t edit it'), 'error');
-        drupal_goto('node/'. $form['nid']['#value']);
+  if (user_access('edit published content')) {
+      if (empty($form['#validate'])) {
+        $form['#validate'] = array();
       }
-      $form['actions']['submit']['#access'] = $form['#node']->status;
-      $form['actions']['draft']['#access'] = !$form['#node']->status;
-    }
-    else {
-      $form['actions']['submit']['#access'] = 0;
+      array_unshift($form['#validate'], '_checkdesk_new_revision_validate');
+      $form['actions']['cd_revision'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save as draft'),
+      '#class' => 'form-submit',
+      '#submit' => array('_checkdesk_new_revision_button_submit'),
+      // Between the default Save and Preview buttons.
+      '#weight' => 9,
+    );
+    if ($form['nid']['#value']) {
+        $form['actions']['submit']['#value'] = t('Publish');
     }
   }
   if (in_array('journalist', $user->roles)) {
@@ -1087,6 +1090,26 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
   // Limit sections based on current language.
   $form['field_section'][LANGUAGE_NONE]['#options'] = array('_none' => t('- None -')) +  _checkdesk_load_sections();
+}
+
+ /**
+ * Submit handler for the save a new revision.
+ *
+ * Calls all submit handlers on the save button.
+ */
+function _checkdesk_new_revision_button_submit($form, &$form_state) {
+  foreach ($form['actions']['submit']['#submit'] as $submit) {
+    $submit($form, $form_state);
+  }
+}
+
+/**
+ * Handles save draft form validation
+ */
+function _checkdesk_new_revision_validate($form, &$form_state) {
+  if ($form_state['triggering_element']['#value'] == $form['actions']['cd_revision']['#value']) {
+      $form_state['values']['revision_operation'] = 2;
+  }
 }
 
 /**
