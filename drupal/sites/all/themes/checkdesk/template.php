@@ -1340,6 +1340,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
     $vars['update_id'] = $vars['fields']['nid']->raw;
+    $vars['update_status'] = $vars['fields']['status']->raw ? 'published' : 'unpublished';
     if ($vars['counter'] === $vars['view']->total_rows) {
       $vars['update'] = $vars['fields']['rendered_entity']->content;
     } else {
