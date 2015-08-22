@@ -11,15 +11,13 @@
           <?php endif; ?>
 
           <div class="media-content">            
-            <span class="media-label">
-              <?php if ($status) : ?>
-                <span class="published"><?php print t('Published '); ?></span>
-              <?php else: ?>
-                 <span class="draft"><?php print t('Draft'); ?></span>
-              <?php endif; ?>
-              <span class="media-type"> <?php print t('Liveblog'); ?></span>
-            </span>
-              
+            <?php if ($status) : ?>
+              <span class="media-label published"><?php print t('Published '); ?>
+            <?php else: ?>
+              <span class="media-label draft"><?php print t('Draft'); ?>
+            <?php endif; ?>
+            <span class="media-type"> <?php print t('Liveblog'); ?></span></span>
+
             <div class="title">
               <?php if(isset($content['field_section'])) : ?>
                 <span class="content-labels section-label"><?php print render($content['field_section']); ?></span>
