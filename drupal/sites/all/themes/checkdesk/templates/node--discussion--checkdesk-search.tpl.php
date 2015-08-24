@@ -10,8 +10,8 @@
             </div>
           <?php endif; ?>
 
-          <div class="media-content">            
-            <?php if ($status) : ?>
+          <div class="media-content">    
+            <?php if ($story_status) : ?>
               <span class="media-label published"><?php print t('Published '); ?>
             <?php else: ?>
               <span class="media-label draft"><?php print t('Draft'); ?>
@@ -22,7 +22,7 @@
               <?php if(isset($content['field_section'])) : ?>
                 <span class="content-labels section-label"><?php print render($content['field_section']); ?></span>
               <?php endif; ?>
-              <span class="title-text"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
+              <span class="title-text"><?php print $story_link; ?></span>
             </div>
 
             <?php if(isset($node->name)) : ?>
