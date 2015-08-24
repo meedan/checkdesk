@@ -237,6 +237,7 @@ function checkdesk_core_menu_alter(&$items) {
   $items['node/%node/delete']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
   // make nodequeue tab localizable
   $items['node/%node/nodequeue']['title callback'] = 'checkdesk_core_nodequeue_tab_title';
+
   // deny access to node page
   $items['node']['access callback'] = FALSE;
   // fix edit account
@@ -246,6 +247,8 @@ function checkdesk_core_menu_alter(&$items) {
   );
   // Change revision tab title
   $items['node/%node/revisions']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
+  $items['node/%node/view']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
+  $items['node/%node/edit']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
   $items['node/%node/revisions/%vid/revert']['title callback'] = '_checkdesk_core_revisioning_title_for_revert';
 }
 
@@ -260,7 +263,10 @@ function checkdesk_core_nodequeue_tab_title() {
  * Get title for tab.
  */
 function _checkdesk_core_revisioning_title_for_tab($node, $tab) {
-  return t('Revision history');
+  if ($tab == 'revisions') {
+    return t('Revision history');
+  }
+  return ($tab == 'edit' ? t('Edit') : t('View'));
 }
 
 /**
