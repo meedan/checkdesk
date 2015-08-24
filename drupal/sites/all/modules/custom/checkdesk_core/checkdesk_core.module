@@ -1862,6 +1862,7 @@ function _redirect_footnote_delete($form, &$form_state) {
 function checkdesk_core_form_revisioning_revisions_summary_alter(&$form, $form_state, $form_id) {
     // loall all revisions
     $nid = $form['nid']['#value'];
+    $node = node_load($nid);
     $revisions = _revisioning_get_all_revisions_for_node($nid);
     // get first published revisions.
     foreach (array_reverse($form['status'], TRUE) as $k => $v) {
@@ -1874,10 +1875,10 @@ function checkdesk_core_form_revisioning_revisions_summary_alter(&$form, $form_s
         $revision = $revisions[$k];
         $text = t('Saved on');
         if ($k == $first_revision) {
-           $text = t('First publiched on');
+           $text = t('First published on');
         }
-        elseif ($form['status'][$k]['#value']) {
-           $text = t('Publiched changes on');
+        elseif ($form['status'][$k]['#value'] && $k <= $node->vid) {
+           $text = t('Published changes on');
         }
         $base_url = "node/$nid/revisions/{$revision->vid}";  
           $first_cell = t('!text !date !username ',
