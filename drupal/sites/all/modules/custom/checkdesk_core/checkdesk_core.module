@@ -1061,7 +1061,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
       '#weight' => 9,
     );
     if ($form['nid']['#value']) {
-        $form['actions']['submit']['#value'] = t('Publish');
+        $form['actions']['submit']['#value'] = t('Publish Changes');
     }
   }
   if (in_array('journalist', $user->roles)) {
