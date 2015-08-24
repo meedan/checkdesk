@@ -127,7 +127,6 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'name' => 'override discussion revision option',
     'roles' => array(
       'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'override_node_options',
   );
