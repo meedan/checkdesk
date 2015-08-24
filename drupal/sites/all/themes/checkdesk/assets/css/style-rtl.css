@@ -4000,33 +4000,34 @@ body.sidebar-second aside#sidebar-second {
 .media-holder .media-content > span {
   display: block;
   font-size: 14px;
-  color: #9fa6ac;
   line-height: 1.4;
   margin-top: 2px;
 }
 
-.media-holder .media-content .media-label {
+.media-label {
   font-size: 14px;
   font-weight: 700;
   color: #9fa6ac;
 }
-.media-holder .media-content .media-label .draft {
+.media-label.draft {
   color: #ec9131;
 }
-.media-holder .media-content .media-label .published {
+.media-label.published {
   color: #399664;
 }
-.media-holder .media-content .media-label .media-type {
+
+.media-type {
+  color: #9fa6ac;
   font-weight: 300;
 }
 
-.media-holder .media-content span.content-labels a {
+span.content-labels a {
   color: #9fa6ac;
 }
-.media-holder .media-content span.content-labels a:hover {
+span.content-labels a:hover {
   color: #3b4044;
 }
-.media-holder .media-content span.content-labels:after {
+span.content-labels:after {
   content: '/';
   display: inline-block;
   color: #cfd3d5;
@@ -5084,6 +5085,10 @@ div.sensitive-hide {
   text-decoration: none;
 }
 
+.update-unpublished {
+  background-color: rgba(184, 152, 146, 0.08);
+}
+
 body.page-liveblog #main .view-liveblog {
   *zoom: 1;
 }
@@ -5850,6 +5855,11 @@ body.cke_editable blockquote:after {
 
 .update .update-body .update-title {
   padding-top: 20px;
+}
+
+.update .update-body .media-label {
+  display: block;
+  padding-top: 24px;
 }
 
 .update .update-body .node-media {

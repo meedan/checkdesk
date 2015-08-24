@@ -431,3 +431,15 @@ function checkdesk_core_update_7045() {
 function checkdesk_core_update_7046() {
   image_style_flush(image_style_load('activity_avatar'));
 }
+
+/**
+ * Update checkdesck_core weight
+ */
+function checkdesk_core_update_7047() {
+  db_update('system')
+    ->fields(array(
+      'weight' => 99,
+    ))
+    ->condition('name', 'checkdesk_core')
+    ->execute();
+}

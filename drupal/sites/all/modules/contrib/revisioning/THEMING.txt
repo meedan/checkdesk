@@ -1,0 +1,19 @@
+
+If you wish to override the way the revisions table is constructed,
+implement in your own module the function below.
+
+If you decided to do so, don't forget to register your theme_hook() via
+<module>_theme() in a manner similar to what is done in revisioning_theme(),
+file revisioning_theme.inc.
+
+/*
+ * Custom alternative to the way Revisioning module themes its revisions table.
+ * @param $header
+ * @param $rows
+ * @return themed HTML, see for instance /includes/theme.inc/theme_table() and
+ *         diff.module/theme_diff_table()
+ *
+ * @ingroup themeable
+ */
+ function theme_table_revisions($header, $rows) {
+ }

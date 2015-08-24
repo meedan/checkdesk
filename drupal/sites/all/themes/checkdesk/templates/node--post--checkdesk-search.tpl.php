@@ -3,15 +3,12 @@
     <div class="media-holder media-inline-holder">
       <div class="media-content">
         
-        <span class="media-label">
-          <?php if ($status) : ?>
-            <span class="published"><?php print t('Published '); ?></span>
-          <?php else: ?>
-             <span class="draft"><?php print t('Draft'); ?></span>
-          <?php endif; ?>
-          <span class="media-type"> <?php print t('Liveblog update'); ?></span>
-        </span>
-        
+        <?php if ($status) : ?>
+          <span class="media-label published"><?php print t('Published '); ?>
+        <?php else: ?>
+          <span class="media-label draft"><?php print t('Draft'); ?>
+        <?php endif; ?>
+        <span class="media-type"> <?php print t('Liveblog update'); ?></span></span>
         <?php if (isset($title)) { ?>
           <span class="title">
             <a href="<?php print $update_link; ?>"><?php print $title; ?></a>

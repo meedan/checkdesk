@@ -654,10 +654,25 @@ function checkdesk_preprocess_node(&$variables) {
         if ($total_rows) {
           $variables['updates'] = $view_output;
         }
+        // Add draft class if user access draft revision
+        if ($node->is_pending) {
+            $variables['classes_array'][] = 'node-unpublished';
+        }
       }
     }
     elseif ($variables['view_mode'] == 'checkdesk_search') {
       $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
+      // Show content status (published / Draft)
+      if ($variables['status'] && isset($_GET['state']) && $_GET['state'] == 2) {
+          // get latest revision
+          $variables['story_status'] = 0;
+          $latest_vid = revisioning_get_latest_revision_id($node->nid);
+          $variables['story_link'] = l($node->title, 'node/' . $node->nid . '/revisions/' . $latest_vid . '/view' , array('html' => TRUE));
+      }
+      else {
+          $variables['story_status'] = $variables['status'];
+          $variables['story_link'] = l($node->title, 'node/' . $node->nid , array('html' => TRUE));
+      }
     }
 
     if ($variables['view_mode'] == 'checkdesk_search' || !empty($variables['heartbeat_row'])) {
@@ -1340,6 +1355,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
     $vars['update_id'] = $vars['fields']['nid']->raw;
+    $vars['update_status'] = $vars['fields']['status']->raw ? 'published' : 'unpublished';
     if ($vars['counter'] === $vars['view']->total_rows) {
       $vars['update'] = $vars['fields']['rendered_entity']->content;
     } else {

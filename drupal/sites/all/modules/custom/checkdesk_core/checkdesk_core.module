@@ -174,6 +174,16 @@ function checkdesk_core_menu() {
     'access callback' => 'user_is_anonymous',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
+  // revision cancel local subtask.
+  $items['node/%node/revisions/%vid/cancel'] = array(
+    'title' => 'Cancel',
+    'page callback' => '_checkdesk_revisions_cancel',
+    'page arguments' => array(1, 3),
+    'access callback' => TRUE,//'_revisioning_access_node_revision',
+     //'access arguments' => array('revert revisions', 1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -2,
+  );
   return $items;
 }
 
@@ -188,7 +198,8 @@ function _checkdesk_goto_search($preset) {
       $query['type'] = 'story';
       break;
     case 'my_drafts':
-      $query['status'] = 0;
+      $query['status'] = 'All';
+      $query['state'] = 2;
       $query['author'] = $user->name;
       break;
     case 'my_stories':
@@ -226,6 +237,7 @@ function checkdesk_core_menu_alter(&$items) {
   $items['node/%node/delete']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
   // make nodequeue tab localizable
   $items['node/%node/nodequeue']['title callback'] = 'checkdesk_core_nodequeue_tab_title';
+
   // deny access to node page
   $items['node']['access callback'] = FALSE;
   // fix edit account
@@ -233,6 +245,11 @@ function checkdesk_core_menu_alter(&$items) {
     'title' => 'Account',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
+  // Change revision tab title
+  $items['node/%node/revisions']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
+  $items['node/%node/view']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
+  $items['node/%node/edit']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
+  $items['node/%node/revisions/%vid/revert']['title callback'] = '_checkdesk_core_revisioning_title_for_revert';
 }
 
 /**
@@ -240,6 +257,27 @@ function checkdesk_core_menu_alter(&$items) {
  */
 function checkdesk_core_nodequeue_tab_title() {
   return t(variable_get('nodequeue_tab_name', 'Nodequeue'));
+}
+
+/**
+ * Get title for tab.
+ */
+function _checkdesk_core_revisioning_title_for_tab($node, $tab) {
+  if ($tab == 'revisions') {
+    return t('Revision history');
+  }
+  return ($tab == 'edit' ? t('Edit') : t('View'));
+}
+
+/**
+ * Get title for tab.
+ */
+function _checkdesk_core_revisioning_title_for_revert() {
+  return t('Restore this version');
+}
+
+function _checkdesk_revisions_cancel($node, $vid) {
+    drupal_goto('node/' . $node->nid);
 }
 
 /**
@@ -1009,18 +1047,21 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     //Set default language value
     $form['language']['#default_value'] = $language->language;
   }
-  //Hide submit button for CJ users
-  if (!user_access('edit published content')) {
-    if ($form['nid']['#value']) {
-      if ($form['#node']->status) {
-        drupal_set_message(t('This story is already published. You can\'t edit it'), 'error');
-        drupal_goto('node/'. $form['nid']['#value']);
+  if (user_access('edit published content')) {
+      if (empty($form['#validate'])) {
+        $form['#validate'] = array();
       }
-      $form['actions']['submit']['#access'] = $form['#node']->status;
-      $form['actions']['draft']['#access'] = !$form['#node']->status;
-    }
-    else {
-      $form['actions']['submit']['#access'] = 0;
+      array_unshift($form['#validate'], '_checkdesk_new_revision_validate');
+      $form['actions']['cd_revision'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save as draft'),
+      '#class' => 'form-submit',
+      '#submit' => array('_checkdesk_new_revision_button_submit'),
+      // Between the default Save and Preview buttons.
+      '#weight' => 9,
+    );
+    if ($form['nid']['#value']) {
+        $form['actions']['submit']['#value'] = t('Publish Changes');
     }
   }
   if (in_array('journalist', $user->roles)) {
@@ -1054,7 +1095,27 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   // Customize "Add more items" for authors.
   $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
   // Limit sections based on current language.
-  $form['field_section'][LANGUAGE_NONE]['#options'] = array('[_none]' => t('- None -')) +  _checkdesk_load_sections();
+  $form['field_section'][LANGUAGE_NONE]['#options'] = array('_none' => t('- None -')) +  _checkdesk_load_sections();
+}
+
+ /**
+ * Submit handler for the save a new revision.
+ *
+ * Calls all submit handlers on the save button.
+ */
+function _checkdesk_new_revision_button_submit($form, &$form_state) {
+  foreach ($form['actions']['submit']['#submit'] as $submit) {
+    $submit($form, $form_state);
+  }
+}
+
+/**
+ * Handles save draft form validation
+ */
+function _checkdesk_new_revision_validate($form, &$form_state) {
+  if ($form_state['triggering_element']['#value'] == $form['actions']['cd_revision']['#value']) {
+      $form_state['values']['revision_operation'] = 2;
+  }
 }
 
 /**
@@ -1794,6 +1855,40 @@ function _redirect_footnote_delete($form, &$form_state) {
     $form_state['redirect'] = $_SESSION['comment_referer'];
     unset($_SESSION['comment_referer']);
   }
+}
+/*
+ * Implements hook_form_FORM_ID_alter() for `flag_form`.
+*/
+function checkdesk_core_form_revisioning_revisions_summary_alter(&$form, $form_state, $form_id) {
+    // loall all revisions
+    $nid = $form['nid']['#value'];
+    $node = node_load($nid);
+    $revisions = _revisioning_get_all_revisions_for_node($nid);
+    // get first published revisions.
+    foreach (array_reverse($form['status'], TRUE) as $k => $v) {
+         if ($v['#value']) {
+             $first_revision = $k;
+             break;
+         }
+    }
+    foreach ($form['info'] as $k => $v) {
+        $revision = $revisions[$k];
+        $text = t('Saved on');
+        if ($k == $first_revision) {
+           $text = t('First published on');
+        }
+        elseif ($form['status'][$k]['#value'] && $k <= $node->vid) {
+           $text = t('Published changes on');
+        }
+        $base_url = "node/$nid/revisions/{$revision->vid}";  
+          $first_cell = t('!text !date !username ',
+            array(
+            '!date' => l(format_date($revision->timestamp, 'short'), "$base_url/view"),
+            '!username' => '<div class="revision-author">' . t('by ') . theme('username', array('account' => $revision)) . '</div>',
+            '!text' => $text,
+                ));
+          $form['info'][$k]['#markup'] = $first_cell;
+      }
 }
 
 /**
@@ -3680,15 +3775,19 @@ function _checkdesk_search_header() {
       case 'update':
       $selected = 'All';
         if (isset($_GET['status'])) {
-          $selected = ($_GET['status'] == 0) ? 'drafts' : 'published';
+          $selected = ($_GET['status'] == 1) ? 'published': 'drafts';
         }
         // Check if user can access any drafts content then Show drafts link on search page header
         if (user_access('access any drafts content')) {
-          $links[] = l(t('Drafts'), bef_replace_query_string_arg('status', 0, FALSE, FALSE, $path),
-            array('attributes' => array('class' => ($selected == 'drafts') ? 'selected' : '')));
+            $links[] = l(t('Drafts'), 'search', array(
+              'attributes' => array('class' => ($selected == 'drafts') ? array('selected') : array()),
+              'query' => array('type' => $_GET['type'], 'state' => 2, 'status' => 'All'),
+              ));
         }
-        $links[] = l(t('Published'), bef_replace_query_string_arg('status', 1, FALSE, FALSE, $path),
-          array('attributes' => array('class' => ($selected == 'published') ? 'selected' : '')));
+        $links[] = l(t('Published'), 'search', array(
+            'attributes' => array('class' => ($selected == 'published') ? array('selected') : array()),
+            'query' => array('type' => $_GET['type'], 'status' => 1),
+            ));
       break;   
     }
   }
@@ -3918,7 +4017,9 @@ function _checkdesk_show_sections_link() {
   $vocabulary = taxonomy_vocabulary_machine_name_load('sections');
   $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
   $show_sections = count($terms) ? TRUE : FALSE;
-  cache_set('checkdesk_show_sections', $show_sections, 'cache');
+  if ($show_sections) {
+    cache_set('checkdesk_show_sections', $show_sections, 'cache');
+  }
   return $show_sections;
 }
 

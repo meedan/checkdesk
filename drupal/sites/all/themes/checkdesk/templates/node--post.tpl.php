@@ -6,6 +6,9 @@
 ?>
 
 <div class="update-body">
+  <?php if ($node->status == 0) : ?>
+    <span class="media-label draft"><?php print t('Draft'); ?></span>
+  <?php endif; ?>
   <?php if (isset($title)) { ?>
     <h2 class="update-title"><?php print $title; ?></h2>
   <?php } ?>
