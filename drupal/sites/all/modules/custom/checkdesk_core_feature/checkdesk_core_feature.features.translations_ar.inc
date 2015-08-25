@@ -2433,7 +2433,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Collaboration',
     'context' => '',
     'location' => '/ar/story/35',
-    'translation' => 'تعاون',
+    'translation' => 'مشاركات',
     'plid' => 0,
     'plural' => 0,
   );
@@ -5630,6 +5630,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Follow us on:', array(), array('context' => ''));
+  $translations['ar:default']['741f6d3261f5e8e1bb24789ba6b95675'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> updated <a href="!story_url">story</a>',
+    'context' => '',
+    'location' => '/ar/views/ajax',
+    'translation' => 'قام <a class="actor" href="!user_url">!username</a> بتحديث <a href="!story_url"> هذا الموضوع </a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('<a class="actor" href="!user_url">!username</a> updated <a href="!story_url">story</a>', array(), array('context' => ''));
   $translations['ar:default']['7427fa24e05cc44d3b71636a72e4626c'] = array(
     'source' => 'Add comment link',
     'context' => '',

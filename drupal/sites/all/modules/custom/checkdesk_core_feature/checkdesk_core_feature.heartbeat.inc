@@ -795,7 +795,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_update_story';
   $heartbeatmessagetemplate->description = 'Existing story was updated';
-  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> update <a href="!story_url">story</a>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> updated <a href="!story_url">story</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
