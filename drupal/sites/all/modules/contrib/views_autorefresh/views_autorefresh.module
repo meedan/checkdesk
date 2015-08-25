@@ -61,6 +61,11 @@ function theme_views_autorefresh($variables) {
   // Signal modules to add their own plugins.
   module_invoke_all('views_autorefresh_plugins', $view);
 
+  // Check for nodejs and create view channel
+  if (module_exists('nodejs')) {
+    nodejs_send_content_channel_token('views_autorefresh_' . $view->name);
+    drupal_add_js(array('views_autorefresh' => array('useNodejs' => TRUE)), 'setting');
+  }
   return '<div class="auto-refresh">' . $link . '</div>';
 }
 

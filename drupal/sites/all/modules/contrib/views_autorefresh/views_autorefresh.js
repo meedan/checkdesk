@@ -68,7 +68,7 @@ Drupal.behaviors.views_autorefresh = {
                 Drupal.settings.views_autorefresh[settings.view_name].ajax = new Drupal.ajax(view, this, element_settings);
 
                 // Activate refresh timer.
-                if (Drupal.settings.views_autorefresh[settings.view_name].interval > 0) { // Only if interval is not 0
+                if (!Drupal.settings.views_autorefresh.useNodejs) { // Only if Nodejs is  not enabled
                   clearTimeout(Drupal.settings.views_autorefresh[settings.view_name].timer);
                   Drupal.views_autorefresh.timer(settings.view_name, anchor, target);
                 } else { // otherwise prepare to use nodejs
@@ -85,11 +85,11 @@ Drupal.behaviors.views_autorefresh = {
 Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
   Drupal.settings.views_autorefresh[view_name].timer = setTimeout(function() {
     clearTimeout(Drupal.settings.views_autorefresh[view_name].timer);
-    Drupal.views_autorefresh.refresh(view_name, anchor, target, true)
+    Drupal.views_autorefresh.refresh(view_name, anchor, target)
   }, Drupal.settings.views_autorefresh[view_name].interval);
 }
 
-Drupal.views_autorefresh.refresh = function(view_name, anchor, target, useTimer) {
+Drupal.views_autorefresh.refresh = function(view_name, anchor, target) {
   // Turn off "new" items class.
     $('.views-autorefresh-new', target).removeClass('views-autorefresh-new');
 
@@ -125,7 +125,7 @@ Drupal.views_autorefresh.refresh = function(view_name, anchor, target, useTimer)
             $(target).trigger('autorefresh_ping', parseInt(response.pong));
             $(anchor).trigger('click');
           }
-          else if (useTimer) {
+          else if (!Drupal.settings.views_autorefresh.useNodejs) {
             Drupal.views_autorefresh.timer(view_name, anchor, target);
           }
         },
@@ -211,8 +211,10 @@ Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, res
       $view.trigger('autorefresh.incremental', $source.size());
     }
 
-    // Reactivate refresh timer.
-    Drupal.views_autorefresh.timer(response.view_name, $('.auto-refresh a', $view), $view);
+    if (!Drupal.settings.views_autorefresh.useNodejs) {
+      // Reactivate refresh timer.
+      Drupal.views_autorefresh.timer(response.view_name, $('.auto-refresh a', $view), $view);
+    }
     
     // Attach behaviors
     Drupal.attachBehaviors($view);
@@ -222,13 +224,12 @@ Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, res
 // callback for nodejs message
 Drupal.Nodejs.callbacks.viewsAutoRefresh = {
   callback: function (message) {
-    console.log("Let's referesh the view");
+    console.log("Let's referesh the view " + message['view_id']);
     var viewName = message['view_id']
     Drupal.views_autorefresh.refresh(
             viewName,
             Drupal.settings.views_autorefresh[viewName].anchor,
-            Drupal.settings.views_autorefresh[viewName].target,
-            false
+            Drupal.settings.views_autorefresh[viewName].target
                     );
   }
 };
