@@ -1063,7 +1063,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
       '#weight' => 9,
     );
     if ($form['nid']['#value']) {
-        $form['actions']['submit']['#value'] = t('Publish changes');
+        $form['actions']['submit']['#value'] = $form['#node']->status ? t('Publish changes') : t('Publish');
     }
   }
   if (in_array('journalist', $user->roles)) {
@@ -1117,6 +1117,9 @@ function _checkdesk_new_revision_button_submit($form, &$form_state) {
 function _checkdesk_new_revision_validate($form, &$form_state) {
   if ($form_state['triggering_element']['#value'] == $form['actions']['cd_revision']['#value']) {
       $form_state['values']['revision_operation'] = 2;
+  }
+  elseif ($form_state['values']['nid'] && !$form_state['values']['status']) {
+      $form_state['values']['status'] = 1;
   }
 }
 
