@@ -250,6 +250,8 @@ function checkdesk_core_menu_alter(&$items) {
   $items['node/%node/view']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
   $items['node/%node/edit']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
   $items['node/%node/revisions/%vid/revert']['title callback'] = '_checkdesk_core_revisioning_title_for_revert';
+  unset($items['node/%node/revisions/list']);
+  unset($items['node/%node/revisions/%vid/edit']);
 }
 
 /**
@@ -1061,7 +1063,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
       '#weight' => 9,
     );
     if ($form['nid']['#value']) {
-        $form['actions']['submit']['#value'] = t('Publish Changes');
+        $form['actions']['submit']['#value'] = t('Publish changes');
     }
   }
   if (in_array('journalist', $user->roles)) {

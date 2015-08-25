@@ -672,7 +672,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'delete revisions',
     'roles' => array(
       'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
