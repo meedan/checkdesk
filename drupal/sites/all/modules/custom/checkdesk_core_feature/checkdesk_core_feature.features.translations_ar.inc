@@ -3774,6 +3774,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Go to story', array(), array('context' => ''));
+  $translations['ar:default']['4f8c27a0ec94806d7dce0f78e3d24fef'] = array(
+    'source' => 'Saved on',
+    'context' => '',
+    'location' => '',
+    'translation' => 'حُفظت فى',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Saved on', array(), array('context' => ''));
   $translations['ar:default']['4f8e7e26a8243eec1e248a31c209c3c9'] = array(
     'source' => 'Time last flagged',
     'context' => '',
