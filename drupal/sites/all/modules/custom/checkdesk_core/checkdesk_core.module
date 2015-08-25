@@ -1867,6 +1867,7 @@ function checkdesk_core_form_revisioning_revisions_summary_alter(&$form, $form_s
     $node = node_load($nid);
     $revisions = _revisioning_get_all_revisions_for_node($nid);
     // get first published revisions.
+    $first_revision = 0;
     foreach (array_reverse($form['status'], TRUE) as $k => $v) {
          if ($v['#value']) {
              $first_revision = $k;
