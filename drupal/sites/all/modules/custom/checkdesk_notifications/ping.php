@@ -110,6 +110,11 @@ if (should_notify($data, 'site_report_status_on_story_i_followed') && $followed_
   $query .= "(ha.message_id = 'status_report'
   AND ($followed_stories_condition)) OR ";
 }
+
+if (should_notify($data, 'site_update_draft_story')) {
+  $query .= "(ha.message_id = 'checkdesk_update_draft_story') OR ";
+}
+
 $query .= "FALSE) AND ha.timestamp > $timestamp AND ha.uid != $uid";
 // Execute query
 $count = get_result($query, $mysql);
