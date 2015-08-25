@@ -1,0 +1,65 @@
+<?php
+
+function checkdesk_yvr_menu() {
+	return [
+    'api/login' => [
+      'title' => 'Login',
+      'page callback' => 'checkdesk_yvr_login',
+    	'access callback' => '_checkdesk_yvr_access',
+      'type' => MENU_CALLBACK,
+    ],
+    'api/test' => [
+    	'title' => 'Test endpoint',
+    	'page callback' => 'checkdesk_yvr_test',
+    	'access callback' => '_checkdesk_yvr_access',
+    	'type' => MENU_CALLBACK,
+   	],
+	];
+}
+
+function _checkdesk_yvr_access() {
+	// TODO Check X-Checkdesk-Signature against payload
+	// @see checkdesk_bot
+	// TODO Check X-Checkdesk-Token and X-Checkdesk-Uuid, if set, against tokens table
+	if (array_key_exists('HTTP_X_CHECKDESK_UUID', $_SERVER)) {
+		$uid = $_SERVER['HTTP_X_CHECKDESK_UUID'];
+		$account = user_load($uid);
+		if (empty($account)) {
+			watchdog('checkdesk_yvr', 'User @uid not found', ['@uid' => $uid], WATCHDOG_ERROR);
+			return FALSE;
+		}
+		// Log user in
+		// @see http://stackoverflow.com/questions/8078266/drupal-7-programmatically-log-user-in
+		global $user;
+    $user = $account;
+    $login_array = ['name' => $account->name];
+    user_login_finalize($login_array);
+	}
+	return TRUE;
+}
+
+function checkdesk_yvr_login($username = null) {
+	// Given username and password:
+	// log the user in Drupal,
+	// create login token,
+	// return token and uid.
+	// TODO
+	if (empty($username)) $username = @$_REQUEST['username'];
+	$user = user_load_by_name($username);
+	if (empty($user)) {
+		drupal_access_denied();
+	}
+	$token = "hello caio!";
+	drupal_json_output([
+		'uuid' => $user->uid,
+		'token' => $token
+	]);
+}
+
+function checkdesk_yvr_test($request = null) {
+	if (empty($request)) $request = @$_REQUEST['request'];
+	global $user;
+	drupal_json_output([
+		'response' => 'Hello ' . $user->name . '! You requested: ' . print_r($request, true),
+	]);
+}
