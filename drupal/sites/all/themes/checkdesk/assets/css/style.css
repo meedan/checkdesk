@@ -2093,7 +2093,7 @@ div.ctools-modal-content .modal-content {
   display: none;
 }
 
-html {
+html:not(.embed) {
   height: 100%;
   background-color: #fbfaf9;
 }

@@ -131,6 +131,11 @@ function checkdesk_preprocess_html(&$variables) {
     }
   }
 
+  // Embed HTML template
+  if (arg(0) == 'embed' && arg(1) != '') {
+    $variables['theme_hook_suggestions'][] = 'html__embed';
+  }
+
   // Add classes about widgets sidebar
   if (checkdesk_widgets_visibility()) {
     if (!empty($variables['page']['widgets'])) {
@@ -278,10 +283,16 @@ function checkdesk_preprocess_page(&$variables) {
     }
   }
 
+   // Embed Page template
+  if (arg(0) == 'embed' && arg(1) != '') {
+    $variables['theme_hook_suggestions'][] = 'page__embed';
+  }
+
   // Page templates for each node type
   if (isset($variables['node'])) {
-    // If the node type is "discussion" the template suggestion will be "page--discussion.tpl.php".
-    if($variables['node']->type == 'discussion' || $variables['node']->type == 'media') {
+    // For discussion (story) and media (report) use a single template
+    // unless it appears as an embed
+    if(($variables['node']->type == 'discussion' || $variables['node']->type == 'media') && !(arg(0) == 'embed')) {
       $variables['theme_hook_suggestions'][] = 'page__content';
     }
   }
