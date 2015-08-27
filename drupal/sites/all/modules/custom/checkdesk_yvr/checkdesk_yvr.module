@@ -3,14 +3,20 @@
 function checkdesk_yvr_menu() {
   return [
     'api/login' => [
-      'title' => 'Login',
+      'title' => 'Login endpoint',
       'page callback' => 'checkdesk_yvr_login',
       'access callback' => TRUE,
       'type' => MENU_CALLBACK,
     ],
     'api/report' => [
-      'title' => 'Reports endpoint',
+      'title' => 'Report endpoint',
       'page callback' => 'checkdesk_yvr_report',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+    ],
+    'api/notification' => [
+      'title' => 'Notification endpoint',
+      'page callback' => 'checkdesk_yvr_notification',
       'access callback' => TRUE,
       'type' => MENU_CALLBACK,
     ],
@@ -35,7 +41,7 @@ function checkdesk_yvr_access() {
   return TRUE;
 }
 
-function checkdesk_yvr_login($username = null) {
+function checkdesk_yvr_login() {
   if (!checkdesk_yvr_access()) drupal_access_denied();
 
   // Given username and password:
@@ -43,7 +49,7 @@ function checkdesk_yvr_login($username = null) {
   // create login token,
   // return token and uid.
   // TODO
-  if (empty($username)) $username = @$_REQUEST['username'];
+  $username = @$_REQUEST['username'];
   $user = user_load_by_name($username);
   if (empty($user)) {
     drupal_access_denied();
@@ -55,9 +61,10 @@ function checkdesk_yvr_login($username = null) {
   ]);
 }
 
-function checkdesk_yvr_report($nid = null) {
+function checkdesk_yvr_report() {
   if (!checkdesk_yvr_access()) drupal_access_denied();
 
+  $nid = @$_REQUEST['nid'];
   switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
       return checkdesk_yvr_report_post($nid);
@@ -115,4 +122,44 @@ function checkdesk_yvr__import_report($report_url, $sender_uid, $story_nid = nul
     return $report;
   }
   return false;
+}
+
+function checkdesk_yvr_notification() {
+  if (!checkdesk_yvr_access()) drupal_access_denied();
+
+  switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+      return checkdesk_yvr_notification_get();
+    default:
+      // TODO watchdog
+      // TODO 400 bad request
+  }
+}
+
+function checkdesk_yvr_notification_get() {
+  $result = [];
+  foreach (views_get_view_result('my_notifications') as $row) {
+    $activity = heartbeat_activity_load($row->uaid);
+    $result[] = checkdesk_yvr_heartbeat_to_activity($activity);
+  }
+  drupal_json_output($result);
+}
+
+function checkdesk_yvr_heartbeat_to_activity($activity) {
+  $map = [
+    'new_report' => t('added new report'),
+  ];
+  $object = node_load($activity->nid);
+  return [
+    'actor' => [
+      'name' => $activity->actor->name,
+      'id' => $activity->actor->uid,
+    ],
+    'verb' => isset($map[$activity->message_id]) ? $map[$activity->message_id] : '(unknown action)',
+    'object' => [
+      'type' => $object->type,
+      'title' => $object->title,
+      'id' => $object->nid,
+    ],
+  ];
 }
