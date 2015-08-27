@@ -4327,6 +4327,15 @@ A new user <a href="!url">!name </a>has registered. If you want to accept this r
     'plural' => 0,
   );
   $translatables[] = t('Sign in / Sign up', array(), array('context' => ''));
+  $translations['ar:default']['5b2330f2c2a5b38a2a7f5f8303655de5'] = array(
+    'source' => 'by ',
+    'context' => '',
+    'location' => '',
+    'translation' => 'بواسطة ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('by ', array(), array('context' => ''));
   $translations['ar:default']['5b3aa1adbaacecbc861957db6caec50c'] = array(
     'source' => 'Hello !recipient_name,
 
@@ -6498,6 +6507,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Autocomplete', array(), array('context' => ''));
+  $translations['ar:default']['85124b7342bc9b8af4364a7d190718df'] = array(
+    'source' => 'Draft story updated',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'تحرير مسودة موضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Draft story updated', array(), array('context' => ''));
   $translations['ar:default']['851f023be781bbc9ee2154b7db28d1f3'] = array(
     'source' => 'Added ',
     'context' => '',
@@ -9430,15 +9448,6 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Import status', array(), array('context' => ''));
-  $translations['ar:default']['c1357afe24797a04d0618f3aa36128db'] = array(
-    'source' => 'by ',
-    'context' => '',
-    'location' => '',
-    'translation' => 'بواسطة ',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translatables[] = t('by ', array(), array('context' => ''));
   $translations['ar:default']['c1603e3ef425bf4385676bdb5a712388'] = array(
     'source' => 'Selected <strong>!row_count</strong> in this view.',
     'context' => '',
@@ -10917,6 +10926,29 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Search Terms', array(), array('context' => ''));
+  $translations['ar:default']['da89783c945ccf05ee7db83280fe17a6'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has created a new draft for story !story.
+
+<a href="!url">Click here </a> to edit this draft.
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name, 
+
+قام !author  بكتابة مسودة جدىدة للموضوع !story.
+
+ <a href="!url"> اضغط هنا </a> لتحديث هذا الموضوع.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+!author has created a new draft for story !story.
+
+<a href="!url">Click here </a> to edit this draft.
+', array(), array('context' => ''));
   $translations['ar:default']['db3af42ba64b595db6ab3ea999fe0bb1'] = array(
     'source' => 'Drafts',
     'context' => '',
@@ -12558,6 +12590,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('More stories in [name_i18n] ', array(), array('context' => ''));
+  $translations['ar:default']['fd4e7aa363d873a0b060f8a57dd91b10'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> updated a draft <a href="!story_url">story</a>',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'قام <a class="actor" href="!user_url">!username</a> بتحديث <a href="!story_url">مسودة هذا الموضوع </a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('<a class="actor" href="!user_url">!username</a> updated a draft <a href="!story_url">story</a>', array(), array('context' => ''));
   $translations['ar:default']['fdffbb203193714a9e8a3db8d2f49825'] = array(
     'source' => 'Machine-Name of the vocabulary a term is a member of. This will be the vocabulary that whichever term the "Taxonomy: Term" field is; and can similarly cause duplicates.',
     'context' => '',
