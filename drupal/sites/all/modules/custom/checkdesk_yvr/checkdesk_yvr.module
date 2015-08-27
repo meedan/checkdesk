@@ -5,40 +5,39 @@ function checkdesk_yvr_menu() {
     'api/login' => [
       'title' => 'Login',
       'page callback' => 'checkdesk_yvr_login',
-      'access callback' => '_checkdesk_yvr_access',
+      'access callback' => TRUE,
       'type' => MENU_CALLBACK,
     ],
-    'api/test' => [
-      'title' => 'Test endpoint',
-      'page callback' => 'checkdesk_yvr_test',
-      'access callback' => '_checkdesk_yvr_access',
+    'api/report' => [
+      'title' => 'Reports endpoint',
+      'page callback' => 'checkdesk_yvr_report',
+      'access callback' => TRUE,
       'type' => MENU_CALLBACK,
     ],
   ];
 }
 
-function _checkdesk_yvr_access() {
+function checkdesk_yvr_access() {
   // TODO Check X-Checkdesk-Signature against payload
   // @see checkdesk_bot
   // TODO Check X-Checkdesk-Token and X-Checkdesk-Uuid, if set, against tokens table
   if (array_key_exists('HTTP_X_CHECKDESK_UUID', $_SERVER)) {
+    global $user;
     $uid = $_SERVER['HTTP_X_CHECKDESK_UUID'];
     $account = user_load($uid);
     if (empty($account)) {
       watchdog('checkdesk_yvr', 'User @uid not found', ['@uid' => $uid], WATCHDOG_ERROR);
       return FALSE;
     }
-    // Log user in
-    // @see http://stackoverflow.com/questions/8078266/drupal-7-programmatically-log-user-in
-    global $user;
-    $user = $account;
-    $login_array = ['name' => $account->name];
-    user_login_finalize($login_array);
+    $form_state = ['uid' => $uid];
+    user_login_submit([], $form_state);
   }
   return TRUE;
 }
 
 function checkdesk_yvr_login($username = null) {
+  if (!checkdesk_yvr_access()) drupal_access_denied();
+
   // Given username and password:
   // log the user in Drupal,
   // create login token,
@@ -56,10 +55,64 @@ function checkdesk_yvr_login($username = null) {
   ]);
 }
 
-function checkdesk_yvr_test($request = null) {
-  if (empty($request)) $request = @$_REQUEST['request'];
+function checkdesk_yvr_report($nid = null) {
+  if (!checkdesk_yvr_access()) drupal_access_denied();
+
+  switch ($_SERVER['REQUEST_METHOD']) {
+    case 'POST':
+      return checkdesk_yvr_report_post($nid);
+    case 'GET':
+      return checkdesk_yvr_report_get($nid);
+    case 'DELETE':
+      return checkdesk_yvr_report_delete($nid);
+    default:
+      // TODO watchdog
+      // TODO 400 bad request
+  }
+}
+
+function checkdesk_yvr_report_post($nid) {
   global $user;
+  // TODO check user access
+  // TODO check existing $nid
+  $url = @$_REQUEST['url'];
+  // TODO validate url
+  $report = checkdesk_yvr__import_report($url, $user->uid);
+  // TODO validate report
   drupal_json_output([
-    'response' => 'Hello ' . $user->name . '! You requested: ' . print_r($request, true),
+    'report' => [
+      'id' => $report->nid,
+      'title' => $report->title,
+      'body' => $report->body[LANGUAGE_NONE][0]['value'],
+      'url' => $report->field_link[LANGUAGE_NONE][0]['url'],
+    ]
   ]);
+}
+
+function checkdesk_yvr_report_get($nid) {
+  // TODO
+}
+
+function checkdesk_yvr_report_delete($nid) {
+  // TODO
+}
+
+function checkdesk_yvr__import_report($report_url, $sender_uid, $story_nid = null) {
+  $report = new StdClass;
+  $report->type = 'media';
+  node_object_prepare($report);
+  $report->status = 1;
+  $report->title = ''; // auto_nodetitle should take care of that
+  $report->body[LANGUAGE_NONE][]['value'] = '';
+  $report->language = LANGUAGE_NONE;
+  $report->uid = $sender_uid;
+  $report->field_link[LANGUAGE_NONE][]['url'] = $report_url;
+  if (!empty($story_nid)) {
+    $report->field_stories[LANGUAGE_NONE][]['target_id'] = $story_nid;
+  }
+  if ($report = node_submit($report)) {
+    node_save($report);
+    return $report;
+  }
+  return false;
 }
