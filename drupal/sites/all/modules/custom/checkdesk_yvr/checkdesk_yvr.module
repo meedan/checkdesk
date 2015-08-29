@@ -152,7 +152,7 @@ function checkdesk_yvr_notification_get() {
   // activate nodejs channel.
   nodejs_send_content_channel_token('notifications');
 
-  return $result;
+  return $notifications;
 }
 
 function checkdesk_yvr_heartbeat_to_activity($activity) {
@@ -162,6 +162,7 @@ function checkdesk_yvr_heartbeat_to_activity($activity) {
   ];
   $object = node_load($activity->nid);
   return [
+    'id' => $activity->uaid,
     'actor' => [
       'name' => $activity->actor->name,
       'id' => $activity->actor->uid,
