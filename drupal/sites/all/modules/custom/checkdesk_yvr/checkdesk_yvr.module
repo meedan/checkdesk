@@ -5,19 +5,25 @@ function checkdesk_yvr_menu() {
     'api/login' => [
       'title' => 'Login endpoint',
       'page callback' => 'checkdesk_yvr_login',
-      'access callback' => TRUE,
+      'access callback' => true,
       'type' => MENU_CALLBACK,
     ],
     'api/report' => [
       'title' => 'Report endpoint',
       'page callback' => 'checkdesk_yvr_report',
-      'access callback' => TRUE,
+      'access callback' => true,
       'type' => MENU_CALLBACK,
     ],
     'api/notification' => [
       'title' => 'Notification endpoint',
       'page callback' => 'checkdesk_yvr_notification',
-      'access callback' => TRUE,
+      'access callback' => true,
+      'type' => MENU_CALLBACK,
+    ],
+    'checkdesk/test/notifications' => [
+      'title' => 'Test notifications update',
+      'page callback' => 'checkdesk_yvr_test_notifications',
+      'access callback' => true,
       'type' => MENU_CALLBACK,
     ],
   ];
@@ -67,11 +73,11 @@ function checkdesk_yvr_report() {
   $nid = @$_REQUEST['nid'];
   switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
-      return checkdesk_yvr_report_post($nid);
+      return drupal_json_output(checkdesk_yvr_report_post($nid));
     case 'GET':
-      return checkdesk_yvr_report_get($nid);
+      return drupal_json_output(checkdesk_yvr_report_get($nid));
     case 'DELETE':
-      return checkdesk_yvr_report_delete($nid);
+      return drupal_json_output(checkdesk_yvr_report_delete($nid));
     default:
       // TODO watchdog
       // TODO 400 bad request
@@ -84,16 +90,16 @@ function checkdesk_yvr_report_post($nid) {
   // TODO check existing $nid
   $url = @$_REQUEST['url'];
   // TODO validate url
-  $report = checkdesk_yvr__import_report($url, $user->uid);
+  $report = checkdesk_yvr_import_report($url, $user->uid);
   // TODO validate report
-  drupal_json_output([
+  return [
     'report' => [
       'id' => $report->nid,
       'title' => $report->title,
       'body' => $report->body[LANGUAGE_NONE][0]['value'],
       'url' => $report->field_link[LANGUAGE_NONE][0]['url'],
     ]
-  ]);
+  ];
 }
 
 function checkdesk_yvr_report_get($nid) {
@@ -104,7 +110,7 @@ function checkdesk_yvr_report_delete($nid) {
   // TODO
 }
 
-function checkdesk_yvr__import_report($report_url, $sender_uid, $story_nid = null) {
+function checkdesk_yvr_import_report($report_url, $sender_uid, $story_nid = null) {
   $report = new StdClass;
   $report->type = 'media';
   node_object_prepare($report);
@@ -129,7 +135,7 @@ function checkdesk_yvr_notification() {
 
   switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-      return checkdesk_yvr_notification_get();
+      return drupal_json_output(checkdesk_yvr_notification_get());
     default:
       // TODO watchdog
       // TODO 400 bad request
@@ -137,17 +143,22 @@ function checkdesk_yvr_notification() {
 }
 
 function checkdesk_yvr_notification_get() {
-  $result = [];
+  $notifications = [];
   foreach (views_get_view_result('my_notifications') as $row) {
     $activity = heartbeat_activity_load($row->uaid);
-    $result[] = checkdesk_yvr_heartbeat_to_activity($activity);
+    $notifications[] = checkdesk_yvr_heartbeat_to_activity($activity);
   }
-  drupal_json_output($result);
+
+  // activate nodejs channel.
+  nodejs_send_content_channel_token('notifications');
+
+  return $result;
 }
 
 function checkdesk_yvr_heartbeat_to_activity($activity) {
   $map = [
     'new_report' => t('added new report'),
+    'checkdesk_report_published_in_update' => t('published report'),
   ];
   $object = node_load($activity->nid);
   return [
@@ -155,11 +166,28 @@ function checkdesk_yvr_heartbeat_to_activity($activity) {
       'name' => $activity->actor->name,
       'id' => $activity->actor->uid,
     ],
-    'verb' => isset($map[$activity->message_id]) ? $map[$activity->message_id] : '(unknown action)',
+    'verb' => isset($map[$activity->message_id]) ? $map[$activity->message_id] : $activity->message_id,
     'object' => [
       'type' => $object->type,
       'title' => $object->title,
       'id' => $object->nid,
     ],
   ];
+}
+
+function checkdesk_yvr_heartbeat_activity_insert($heartbeatActivity) {
+  $message = (object)[
+    'channel' => 'notifications',
+    'activity' => checkdesk_yvr_heartbeat_to_activity($heartbeatActivity),
+    'callback' => 'notificationDisplay',
+  ];
+  // Send the message to the channel we created
+  nodejs_send_content_channel_message($message);
+}
+
+function checkdesk_yvr_test_notifications() {
+  nodejs_send_content_channel_token('notifications');
+  drupal_set_message(t('Perform some Checkdesk actions in another browser window and watch what happens here...'));
+  drupal_add_js(drupal_get_path('module', 'checkdesk_yvr') . '/checkdesk_yvr.js');
+  return '<ul id="notifications"></ul>';
 }
