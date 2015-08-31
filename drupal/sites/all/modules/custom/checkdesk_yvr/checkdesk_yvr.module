@@ -20,12 +20,6 @@ function checkdesk_yvr_menu() {
       'access callback' => true,
       'type' => MENU_CALLBACK,
     ],
-    'checkdesk/test/notifications' => [
-      'title' => 'Test notifications update',
-      'page callback' => 'checkdesk_yvr_test_notifications',
-      'access callback' => true,
-      'type' => MENU_CALLBACK,
-    ],
   ];
 }
 
@@ -74,10 +68,6 @@ function checkdesk_yvr_report() {
   switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
       return drupal_json_output(checkdesk_yvr_report_post($nid));
-    case 'GET':
-      return drupal_json_output(checkdesk_yvr_report_get($nid));
-    case 'DELETE':
-      return drupal_json_output(checkdesk_yvr_report_delete($nid));
     default:
       // TODO watchdog
       // TODO 400 bad request
@@ -100,14 +90,6 @@ function checkdesk_yvr_report_post($nid) {
       'url' => $report->field_link[LANGUAGE_NONE][0]['url'],
     ]
   ];
-}
-
-function checkdesk_yvr_report_get($nid) {
-  // TODO
-}
-
-function checkdesk_yvr_report_delete($nid) {
-  // TODO
 }
 
 function checkdesk_yvr_import_report($report_url, $sender_uid, $story_nid = null) {
@@ -148,10 +130,6 @@ function checkdesk_yvr_notification_get() {
     $activity = heartbeat_activity_load($row->uaid);
     $notifications[] = checkdesk_yvr_heartbeat_to_activity($activity);
   }
-
-  // activate nodejs channel.
-  nodejs_send_content_channel_token('notifications');
-
   return $notifications;
 }
 
@@ -178,17 +156,35 @@ function checkdesk_yvr_heartbeat_to_activity($activity) {
 
 function checkdesk_yvr_heartbeat_activity_insert($heartbeatActivity) {
   $message = (object)[
-    'channel' => 'notifications',
-    'activity' => checkdesk_yvr_heartbeat_to_activity($heartbeatActivity),
-    'callback' => 'notificationDisplay',
+    'type' => 'notification',
+    'value' => checkdesk_yvr_heartbeat_to_activity($heartbeatActivity),
   ];
-  // Send the message to the channel we created
-  nodejs_send_content_channel_message($message);
+  checkdesk_yvr_ws($message);
 }
 
-function checkdesk_yvr_test_notifications() {
-  nodejs_send_content_channel_token('notifications');
-  drupal_set_message(t('Perform some Checkdesk actions in another browser window and watch what happens here...'));
-  drupal_add_js(drupal_get_path('module', 'checkdesk_yvr') . '/checkdesk_yvr.js');
-  return '<ul id="notifications"></ul>';
+function checkdesk_yvr_ws($message) {
+  $ws = variable_get('checkdesk_yvr_ws', '');
+  if (empty($ws)) {
+    watchdog(
+      'checkdesk_yvr',
+      'No ws server specified in variable "checkdesk_yvr_ws".',
+      [],
+      WATCHDOG_ERROR
+    );
+    return false;
+  }
+  $response = drupal_http_request(
+    $ws . '/send',
+    [
+      'method' => 'POST',
+      'data' => json_encode($message),
+      'headers' => ['Content-Type' => 'application/json', 'Accept' => 'application/json'],
+    ]
+  );
+  watchdog(
+    'checkdesk_yvr',
+    'Received response from ws server: @response',
+    ['@response' => print_r($response, true)]
+  );
+  return true;
 }
