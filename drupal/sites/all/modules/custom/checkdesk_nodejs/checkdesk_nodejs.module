@@ -11,26 +11,30 @@
  * @todo filter which heartbeat activity to refresh the view for
  */
 function checkdesk_nodejs_heartbeat_activity_insert($heartbeatActivity) {
-  views_autorefresh_nodejs_refresh(array('my_notifications'));
-  $commands = _checkdesk_nodejs_handle_report_activity($heartbeatActivity->message_id, $heartbeatActivity->nid);
-  if (count($commands)) {
-     $channels = array();
-     // Update report channel
-     $channels[] = 'report-activity-'. $heartbeatActivity->nid;
-     if ($heartbeatActivity->nid_target) {
-         // update story collaboration channel
-         $channels[] = 'story-collaborate-'. $heartbeatActivity->nid_target;
-     }
-     foreach ($channels as $channel) {
-         $message = (object) array(
-            'channel' => $channel,
-            'commands' => $commands,
-            'callback' => 'reportReactor',
-            );
-        // Send the message to the channel we created
-        nodejs_send_content_channel_message($message);
-     }
-  }
+    views_autorefresh_nodejs_refresh(array('my_notifications'));
+    // Define report channels 
+    $channels = array();
+    $channels['full'] = 'report-activity-'. $heartbeatActivity->nid;
+    if ($heartbeatActivity->nid_target) {
+        // update story collaboration channel
+        $channels['checkdesk_collaborate'] = 'story-collaborate-'. $heartbeatActivity->nid_target;
+    }
+    foreach ($channels as $k => $channel) {
+        $commands = array();
+        $fun_name = '_checkdesk_nodejs_handle_report_activity_'. $k;
+        if (function_exists($fun_name)) {
+            $commands = $fun_name($heartbeatActivity->message_id, $heartbeatActivity->nid);
+            if (count($commands)) {
+                $message = (object) array(
+                    'channel' => $channel,
+                    'commands' => $commands,
+                    'callback' => 'reportReactor',
+                    );
+                // Send the message to the channel we created
+                 nodejs_send_content_channel_message($message);
+            }
+        }
+    }
 }
 
 /**
@@ -96,6 +100,19 @@ function _checkdesk_nodejs_handle_node($node) {
   views_autorefresh_nodejs_refresh($views_to_update);
 }
 
+/**
+ * Custom function to render activity for full view mode.
+ */
+function _checkdesk_nodejs_handle_report_activity_full($activity, $nid) {
+    return _checkdesk_nodejs_handle_report_activity($activity, $nid);
+}
+
+/**
+ * Custom function to render activity for checkdesk_collaborate mode.
+ */
+function _checkdesk_nodejs_handle_report_activity_checkdesk_collaborate($activity, $nid) {
+    return _checkdesk_nodejs_handle_report_activity($activity, $nid);
+}
 
 function _checkdesk_nodejs_handle_report_activity($activity, $nid) {
     $commands = array();

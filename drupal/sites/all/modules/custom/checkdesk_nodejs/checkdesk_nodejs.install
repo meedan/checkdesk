@@ -1,1 +1,10 @@
 <?php
+
+/**
+ * Disable and uninstall reactor
+ */
+function checkdesk_nodejs_update_7001() {
+  $module_list = array('reactor');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+}
