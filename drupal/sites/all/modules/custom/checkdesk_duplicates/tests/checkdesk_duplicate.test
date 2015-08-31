@@ -86,6 +86,8 @@ class CheckdeskDuplicateTestCase extends DrupalWebTestCase {
       'type' => 'media',
       'title' => $this->randomName(8),
       'field_link' => array(LANGUAGE_NONE => array(array('url' => $url))),
+      'promote' => 0,
+      'sticky' => 0,
     );
 
     node_save((object) $edit);
