@@ -443,3 +443,17 @@ function checkdesk_core_update_7047() {
     ->condition('name', 'checkdesk_core')
     ->execute();
 }
+
+/**
+ * Disable help block
+ */
+function checkdesk_core_update_7048() {
+  //change module weight to get twitter_signin alteration
+  db_update('block')
+    ->fields(array(
+      'status' => 0,
+    ))
+    ->condition('module', 'system')
+    ->condition('delta', 'help')
+    ->execute();
+}
