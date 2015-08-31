@@ -141,3 +141,6 @@ DirectoryIndex index.php index.html index.htm
     </FilesMatch>
   </IfModule>
 </IfModule>
+
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Headers "x-requested-with, Content-Type, origin, authorization, accept, client-security-token, x-checkdesk-uuid, x-checkdesk-token"
