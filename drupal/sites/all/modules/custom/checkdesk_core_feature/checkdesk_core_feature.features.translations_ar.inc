@@ -2640,7 +2640,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'More stories in [name] ',
     'context' => '',
     'location' => '',
-    'translation' => 'مزيد من القصص عن [name]',
+    'translation' => 'مزيد من القصص في [name]',
     'plid' => 0,
     'plural' => 0,
   );
@@ -12585,7 +12585,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'More stories in [name_i18n] ',
     'context' => '',
     'location' => '/ar/story/1012',
-    'translation' => 'مزيد من القصص عن [name_i18n]',
+    'translation' => 'مزيد من القصص في [name_i18n]',
     'plid' => 0,
     'plural' => 0,
   );
