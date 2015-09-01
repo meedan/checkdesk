@@ -28,6 +28,10 @@
     else if (choice) {
       $.extend(true, opts, choice);
     }
+    // Default modal.
+    else {
+      choice = 'default';
+    }
 
     var defaults = {
       modalTheme: 'CToolsModalDialog',
