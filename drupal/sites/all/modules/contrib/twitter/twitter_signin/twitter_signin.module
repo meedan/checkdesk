@@ -248,7 +248,7 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
   // If there was a problem, return to the login screen.
   if (!$success) {
     $_SESSION['twitter']['values'] = $response;
-    drupal_goto('user/login');
+    drupal_goto('user/register');
   }
 
   // The visitor successfully logged in.
