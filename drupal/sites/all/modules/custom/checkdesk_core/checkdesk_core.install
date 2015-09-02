@@ -157,12 +157,12 @@ function checkdesk_core_update_7023() {
 }
 
 /**
- * Update alias language to be 'und'
+ * Update alias language to be LANGUAGE_NONE
  */
 function checkdesk_core_update_7025() {
   db_update('url_alias')
     ->fields(array(
-      'language' => 'und',
+      'language' => LANGUAGE_NONE,
     ))
     ->execute();
 }

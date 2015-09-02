@@ -71,7 +71,7 @@ function checkdesk_bot__generate_response($tweet) {
   // TODO: take into account Twitter user's preferences, Checkdesk user preferences, browser settings, etc.
   global $language;
   $languages = language_list();
-  $langcode = empty($tweet['lang']) || $tweet['lang'] === 'und' || empty($languages[$tweet['lang']]) ? 
+  $langcode = empty($tweet['lang']) || $tweet['lang'] === LANGUAGE_NONE || empty($languages[$tweet['lang']]) ? 
     $language->language : $tweet['lang'];
 
   // Detect URL if any.
