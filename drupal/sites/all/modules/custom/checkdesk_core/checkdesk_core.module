@@ -2042,6 +2042,20 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       }
     }
   }
+  
+  if ($form_id == 'twitter_oauth_callback_form') {
+    $form['#validate'][] = '_checkdesk_twitter_oauth_callback_form_validate';
+  }
+}
+
+/**
+ * Twitter oauth custom validation to edit destination.
+ */
+function _checkdesk_twitter_oauth_callback_form_validate($form, &$form_state) {
+    if (isset($_SESSION['twitter_redirect'])) {
+        $form_state['twitter_oauth']["destination"] = $_SESSION['twitter_redirect'];
+        unset($_SESSION['twitter_redirect']);
+    }
 }
 
 /**
