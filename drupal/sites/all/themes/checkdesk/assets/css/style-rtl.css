@@ -5717,6 +5717,14 @@ body.cke_editable figure.element {
   margin-top: 26px;
   margin-bottom: 26px;
 }
+.story .story-body figure.element.cke_widget_element,
+.update .update-body figure.element.cke_widget_element,
+body.cke_editable figure.element.cke_widget_element {
+  width: 50%;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .story .story-body > ul, .story .story-body > ol,
 .update .update-body > ul,
 .update .update-body > ol,
