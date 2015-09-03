@@ -1,5 +1,24 @@
 <?php
 
+require_once libraries_get_path('FaviconDownloader') . '/src/FaviconDownloader.php';
+use Vincepare\FaviconDownloader\FaviconDownloader;
+
+/**
+ * Implementation of hook_menu().
+ */
+function meedan_oembed_menu() {
+  return array(
+    'meedan/test/favicon' => array(
+      'title' => 'Test favicon fetcher',
+      'description' => 'Test favicon fetching functionality.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('meedan_oembed_test_favicon'),
+      'access arguments' => array('administer site configuration'),
+      'type' => MENU_CALLBACK,
+    ),
+  );
+}
+
 /**
  * Implementation of hook_theme().
  */
@@ -205,6 +224,7 @@ function meedan_oembed_add_extra_information(&$embed) {
       }
     }
   }
+  // TODO Move this out of here.
   if ($embed->provider_name == 'YouTube' && !empty($embed->thumbnail_url)) {
     // Use Youtube thumbnail that doesn't have black borders
     $embed->thumbnail_url = str_replace('hqdefault.jpg', 'mqdefault.jpg', $embed->thumbnail_url);
@@ -504,8 +524,6 @@ function _meedan_inline_thumbnail_bg($node, $classes = array()) {
  *  path of favicon
  * @see https://github.com/vincepare/FaviconDownloader
  */
-require_once libraries_get_path('FaviconDownloader') . '/src/FaviconDownloader.php';
-use Vincepare\FaviconDownloader\FaviconDownloader;
 function _meedan_oembed_fetch_favicon($url, $force = FALSE) {
   $default = drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png';
 
@@ -657,4 +675,31 @@ function _meedan_oembed_filter_process($text, $filter) {
  */
 function _meedan_oembed_filter_tips($filter, $format, $long = FALSE) {
   return t('<em>[media-title:$nid]</em> is replaced with the Meedan oEmbed node view for <em>$nid</em>.');
+}
+
+/**
+ * Form handler for `meedan_oembed_test_favicon`.
+ */
+function meedan_oembed_test_favicon($form, &$form_state) {
+  if (!empty($form_state['values']['url'])) {
+    $url = $form_state['values']['url'];
+    $favicon = new FaviconDownloader($url);
+    drupal_set_message(print_r($favicon->debug(TRUE), TRUE));
+  }
+  $form['url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('URL'),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+  return $form;
+}
+
+/**
+ * Form submit handler for `meedan_oembed_test_favicon`.
+ */
+function meedan_oembed_test_favicon_submit($form, &$form_state) {
+  $form_state['rebuild'] = TRUE;
 }
