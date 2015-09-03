@@ -514,7 +514,7 @@ function _meedan_oembed_fetch_favicon($url, $force = FALSE) {
   $favicon_dir = 'oembed_favicon/';
   $favicon_path = $files_path . $favicon_dir;
   if (!file_prepare_directory($favicon_path, FILE_CREATE_DIRECTORY)) {
-    watchbot('meedan_oembed', 'Failed to create "files/oembed_favicon" folder. Aborting favicon fetch.', array(), WATCHDOG_ERROR);
+    watchdog('meedan_oembed', 'Failed to create "files/oembed_favicon" folder. Aborting favicon fetch.', array(), WATCHDOG_ERROR);
     return $default;
   }
 
@@ -532,9 +532,9 @@ function _meedan_oembed_fetch_favicon($url, $force = FALSE) {
   $favicon = new FaviconDownloader($url);
   if (!$favicon->icoExists) {
     $favicon_path .= '.png';
-    watchbot('meedan_oembed', 'Failed to fetch favicon for "@url". Using default thumbnail.', array('@url' => $url), WATCHDOG_ERROR);
+    watchdog('meedan_oembed', 'Failed to fetch favicon for "@url". Using default thumbnail.', array('@url' => $url), WATCHDOG_ERROR);
     if (!file_unmanaged_copy($default, $favicon_path)) {
-      watchbot('meedan_oembed', 'Failed to copy default thumbnail to "@path". Aborting caching.', array('@path' => $favicon_path), WATCHDOG_ERROR);
+      watchdog('meedan_oembed', 'Failed to copy default thumbnail to "@path". Aborting caching.', array('@path' => $favicon_path), WATCHDOG_ERROR);
       return $default;
     }
     return $favicon_path;
@@ -543,7 +543,7 @@ function _meedan_oembed_fetch_favicon($url, $force = FALSE) {
   // Save new favicon.
   $favicon_path .= '.' . $favicon->icoType;
   if (!file_put_contents($favicon_path, $favicon->icoData)) {
-    watchbot('meedan_oembed', 'Failed to save favicon file to "@path". Aborting caching.', array('@path' => $favicon_path), WATCHDOG_ERROR);
+    watchdog('meedan_oembed', 'Failed to save favicon file to "@path". Aborting caching.', array('@path' => $favicon_path), WATCHDOG_ERROR);
     return $favicon->icoUrl;
   }
 
