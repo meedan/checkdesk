@@ -663,15 +663,11 @@ function checkdesk_preprocess_node(&$variables) {
     elseif ($variables['view_mode'] == 'checkdesk_search') {
       $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
       // Show content status (published / Draft)
-      if ($variables['status'] && isset($_GET['state']) && $_GET['state'] == 2) {
-          // get latest revision
-          $variables['story_status'] = 0;
-          $latest_vid = revisioning_get_latest_revision_id($node->nid);
-          $variables['story_link'] = l($node->title, 'node/' . $node->nid . '/revisions/' . $latest_vid . '/view' , array('html' => TRUE));
+      if ($variables['is_current']) {
+          $variables['story_link'] = l($node->title, 'node/' . $node->nid , array('html' => TRUE));
       }
       else {
-          $variables['story_status'] = $variables['status'];
-          $variables['story_link'] = l($node->title, 'node/' . $node->nid , array('html' => TRUE));
+          $variables['story_link'] = l($node->title, 'node/' . $node->nid . '/revisions/' . $node->vid . '/view' , array('html' => TRUE));
       }
     }
 

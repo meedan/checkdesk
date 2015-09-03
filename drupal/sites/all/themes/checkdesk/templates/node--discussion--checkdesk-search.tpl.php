@@ -11,7 +11,7 @@
           <?php endif; ?>
 
           <div class="media-content">    
-            <?php if ($story_status) : ?>
+            <?php if ($is_current) : ?>
               <span class="media-label published"><?php print t('Published '); ?>
             <?php else: ?>
               <span class="media-label draft"><?php print t('Draft'); ?>
