@@ -906,13 +906,13 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
  */
 function checkdesk_core_node_view_alter(&$build) {
     // Check draft listing page
-    if ($build['#node']->status && isset($_GET['state']) && $_GET['state'] == 2) {
+    if ($build['#node']->status && $build ['#view_mode'] == 'checkdesk_search' && isset($_GET['state']) && $_GET['state'] == 2) {
         $latest_vid = revisioning_get_latest_revision_id($build['#node']->nid);
         if ($latest_vid) {
             $build['#node'] = node_load($build['#node']->nid, $latest_vid);
-            node_build_content($build['#node']);
+            node_build_content($build['#node'], $build ['#view_mode']);
             $build['field_section'] = $build['#node']->content['field_section'];
-            //$build['field_tags'] = $build['#node']->content['field_tags'];
+            $build['field_tags'] = $build['#node']->content['field_tags'];
         }
     }
 }
