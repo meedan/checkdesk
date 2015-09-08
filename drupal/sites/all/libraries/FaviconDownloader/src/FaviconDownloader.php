@@ -101,6 +101,7 @@ class FaviconDownloader
         
         // Default favicon URL
         $this->icoUrl = $this->siteUrl.'favicon.ico';
+        $this->icoType = 'ico';
         $this->findMethod = 'default';
         
         // HTML <head> tag extraction
@@ -116,8 +117,9 @@ class FaviconDownloader
         
         // HTML <link> icon tag analysis
         // @see http://stackoverflow.com/a/171499/209184
-        if (preg_match_all('#<\\s*link[^>]*(rel=(["\'])(\\\\?.)*?icon*?\\2)[^>]*>#i', $htmlHead, $matches)) {
+        if (preg_match_all('#<\s*link[^>]*(rel=(["\'])[^>\2]*icon[^>\2]*\2)[^>]*>#i', $htmlHead, $matches)) {
             $link_tag = end($matches[0]);
+            dsm($link_tag);
             $this->debugInfo['link_tag'] = $link_tag;
             
             // HTML <link> icon tag href analysis

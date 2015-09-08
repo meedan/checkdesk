@@ -861,7 +861,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
           $node->content['report_verification_footnote'] = isset($footnote->comment_body[LANGUAGE_NONE][0]['value']) ? $footnote->comment_body[LANGUAGE_NONE][0]['value'] : '';
         }
       }
-      $node->content['field_link'] = _meedan_render_oembed_activity_type($node, $heartbeat_row);
+      $node->content['field_link'] = _checkdesk_core_render_activity_type($node, $heartbeat_row);
     }
   }
 
@@ -899,6 +899,22 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
     );
   }
 
+}
+
+function _checkdesk_core_render_activity_type($node, $heartbeat_row) {
+  // TODO: get this mapping from admin interface.
+  // for now will use mapping array with key = activity type and value = formatter name.
+  $mapping = array(
+    'checkdesk_report_suggested_to_story' => 'meedan_inline_full_mode',
+  );
+
+  if ($heartbeat_row && isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
+    $output = field_view_field('node', $node, 'field_link', array('type' => $mapping[$heartbeat_row->heartbeat_activity_message_id]));
+  }
+  else {
+    $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
+  }
+  return $output;
 }
 
 /*
