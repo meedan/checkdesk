@@ -3889,7 +3889,8 @@ function _checkdesk_main_navigation() {
     // Add js to remove other active classes
     drupal_add_js('
       jQuery(function() {
-       jQuery("nav a.active:not(a.search-nav-selected)").removeClass("active");
+        jQuery("nav a.active:not(a.search-nav-selected)").removeClass("active");
+        jQuery("div#search ul.control-page-items li a").removeClass("active")
       });
       ', 'inline');
   }
