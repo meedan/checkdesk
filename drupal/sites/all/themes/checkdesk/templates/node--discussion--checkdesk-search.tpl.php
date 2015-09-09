@@ -10,17 +10,21 @@
             </div>
           <?php endif; ?>
 
-          <div class="media-content">            
-            <span class="media-label">
-              <?php if ($status) : ?>
-                <span class="published"><?php print t('Published '); ?></span>
-              <?php else: ?>
-                 <span class="draft"><?php print t('Draft'); ?></span>
-              <?php endif; ?>
-              <span class="media-type"> <?php print t('Liveblog'); ?></span>
-            </span>
+          <div class="media-content">    
+            <?php if ($is_current && $status) : ?>
+              <span class="media-label published"><?php print t('Published '); ?>
+            <?php else: ?>
+              <span class="media-label draft"><?php print t('Draft'); ?>
+            <?php endif; ?>
+            <span class="media-type"> <?php print t('Liveblog'); ?></span></span>
 
-            <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
+            <div class="title">
+              <?php if(isset($content['field_section'])) : ?>
+                <span class="content-labels section-label"><?php print render($content['field_section']); ?></span>
+              <?php endif; ?>
+              <span class="title-text"><?php print $story_link; ?></span>
+            </div>
+
             <?php if(isset($node->name)) : ?>
               <span class="author"><?php print $story_authors; ?></span>
             <?php endif; ?>

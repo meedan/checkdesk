@@ -633,7 +633,12 @@ function checkdesk_preprocess_node(&$variables) {
           '#node' => node_load($variables['nid']),
         );
       }
+      // Add more and most popular stories.
       $variables['more_stories'] = views_embed_view('more_stories', 'block_1', $variables['nid']);
+      $variables['most_popular_stories'] =  _checkdesk_most_popular_stories();
+      if (!empty($variables['most_popular_stories'])) {
+        $variables['classes_array'][] = 'most-popular-component';
+      }
       if ($variables['view_mode'] == 'checkdesk_collaborate') {
         // Get heartbeat activity for particular story
         $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
@@ -649,10 +654,21 @@ function checkdesk_preprocess_node(&$variables) {
         if ($total_rows) {
           $variables['updates'] = $view_output;
         }
+        // Add draft class if user access draft revision
+        if ($node->is_pending) {
+            $variables['classes_array'][] = 'node-unpublished';
+        }
       }
     }
     elseif ($variables['view_mode'] == 'checkdesk_search') {
       $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
+      // Show content status (published / Draft)
+      if ($variables['is_current']) {
+          $variables['story_link'] = l($node->title, 'node/' . $node->nid , array('html' => TRUE));
+      }
+      else {
+          $variables['story_link'] = l($node->title, 'node/' . $node->nid . '/revisions/' . $node->vid . '/view' , array('html' => TRUE));
+      }
     }
 
     if ($variables['view_mode'] == 'checkdesk_search' || !empty($variables['heartbeat_row'])) {
@@ -1092,7 +1108,9 @@ function checkdesk_field__field_tags(&$variables) {
  */
 function checkdesk_field__field_lead_image(&$variables) {
   // generate img tag with srcset
-  $output = _checkdesk_generate_lead_image($variables['element']['#items'][0]['uri'], $variables['element']['#items'][0]['image_field_caption']['value']);
+  $image_field_caption = isset($variables['element']['#items'][0]['image_field_caption']['value']) ? 
+          $variables['element']['#items'][0]['image_field_caption']['value'] : NULL;
+  $output = _checkdesk_generate_lead_image($variables['element']['#items'][0]['uri'], $image_field_caption);
   return $output;
 }
 
@@ -1115,7 +1133,7 @@ function _checkdesk_generate_lead_image($image, $image_caption) {
     $output .= '<img class="feature-image" src="' . $lead_image_small_path . '" />';
     $output .= '</picture>';
   }
-  if(isset($image_caption)) {
+  if (!empty($image_caption)) {
     $output .= '<figcaption>' . check_markup($image_caption, 'filtered_html') . '</figcaption>';
   }
 
@@ -1268,6 +1286,26 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
 }
 
 /**
+ * recent_stories_by_tag view
+ */
+function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
+    if ($vars['more'] && arg(0) == 'sections') {
+        if (is_numeric($vars['view']->args[0])) {
+            $term = taxonomy_term_load($vars['view']->args[0]);
+            if ($term->vocabulary_machine_name == 'sections') {
+                $vars['more'] = l(t('See more stories from !taxonomy', array('!taxonomy' => $term->name)), 'taxonomy/term/' . $term->tid);
+            }
+            else {
+                $vars['more'] = NULL;
+            }
+        }
+    }
+    else {
+        $vars['more'] = NULL;
+    }
+}
+
+/**
  * Implements template_preprocess_views_view_fields().
  */
 function checkdesk_preprocess_views_view_fields(&$vars) {
@@ -1313,6 +1351,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
     $vars['update_id'] = $vars['fields']['nid']->raw;
+    $vars['update_status'] = $vars['fields']['status']->raw ? 'published' : 'unpublished';
     if ($vars['counter'] === $vars['view']->total_rows) {
       $vars['update'] = $vars['fields']['rendered_entity']->content;
     } else {
@@ -1320,12 +1359,17 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     }
   }
   
-  if ($vars['view']->name === 'more_stories') {
+  if ($vars['view']->name === 'more_stories' || $vars['view']->name === 'sections') {
     $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
   }
   
-  if ($vars['view']->name === 'recent_stories_by_tag') {
-      // Facebook comments count
+  if ($vars['view']->name === 'recent_stories_by_tag' || $vars['view']->name === 'story_section') {
+    $vars['show_section'] = TRUE;
+    if (is_numeric($vars['view']->args[0])) {
+        $term = taxonomy_term_load($vars['view']->args[0]);
+        $vars['show_section'] = ($term->vocabulary_machine_name == 'sections') ? FALSE : TRUE;
+    }
+    // Facebook comments count
     if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
       $vars['story_commentcount'] = array(
           '#theme' => 'facebook_commentcount',

@@ -18,23 +18,35 @@
 .media-holder .media-content > span {
 	display: block;
 	font-size: 14px;
-	color: $firefly40;
 	line-height: 1.4;
 	margin-top: 2px;
 }
 
-.media-holder .media-content .media-label {
+.media-label {
 	font-size: 14px;
 	font-weight: 700;
 	color: $firefly40;
-	.draft {
+	&.draft {
 		color: $undetermined;
 	}
-	.published {
+	&.published {
 		color: $verified;
 	}
-	.media-type {
-		font-weight: 300;
+}
+
+.media-type {
+	color: $firefly40;
+	font-weight: 300;
+}
+
+span.content-labels {
+	a { @include ctb-linkColor($firefly40); }
+	&:after {
+		content: '/';
+		display: inline-block;
+		color: $firefly20;
+		font-weight: normal;
+		margin-#{$alpha}: 4px;
 	}
 }
 

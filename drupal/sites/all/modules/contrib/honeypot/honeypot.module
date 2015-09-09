@@ -45,6 +45,12 @@ function honeypot_cron() {
   db_delete('honeypot_user')
     ->condition('timestamp', time() - variable_get('honeypot_expire', 300), '<')
     ->execute();
+
+  // Regenerate the honeypot css file if it does not exist.
+  $honeypot_css = honeypot_get_css_file_path();
+  if (!file_exists($honeypot_css)) {
+    honeypot_create_css(variable_get('honeypot_element_name', 'url'));
+  }
 }
 
 /**
@@ -192,6 +198,9 @@ function honeypot_add_form_protection(&$form, &$form_state, $options = array()) 
       $attributes = array('autocomplete' => 'off');
     }
 
+    // Get the path to the honeypot css file.
+    $honeypot_css = honeypot_get_css_file_path();
+
     // Build the honeypot element.
     $honeypot_class = $honeypot_element . '-textfield';
     $form[$honeypot_element] = array(
@@ -206,7 +215,7 @@ function honeypot_add_form_protection(&$form, &$form_state, $options = array()) 
       // Hide honeypot using CSS.
       '#attached' => array(
         'css' => array(
-          'data' => variable_get('file_public_path', conf_path() . '/files') . '/honeypot/honeypot.css',
+          'data' => $honeypot_css,
         ),
       ),
     );
@@ -218,7 +227,7 @@ function honeypot_add_form_protection(&$form, &$form_state, $options = array()) 
     $form['honeypot_time'] = array(
       '#type' => 'hidden',
       '#title' => t('Timestamp'),
-      '#default_value' => time(),
+      '#default_value' => honeypot_get_signed_timestamp(time()),
       '#element_validate' => array('_honeypot_time_restriction_validate'),
     );
 
@@ -258,18 +267,18 @@ function _honeypot_time_restriction_validate($element, &$form_state) {
   }
 
   // Get the time value.
-  $honeypot_time = $form_state['values']['honeypot_time'];
+  $honeypot_time = honeypot_get_time_from_signed_timestamp($form_state['values']['honeypot_time']);
 
   // Get the honeypot_time_limit.
   $time_limit = honeypot_get_time_limit($form_state['values']);
 
   // Make sure current time - (time_limit + form time value) is greater than 0.
   // If not, throw an error.
-  if (time() < ($honeypot_time + $time_limit)) {
+  if (!$honeypot_time || time() < ($honeypot_time + $time_limit)) {
     _honeypot_log($form_state['values']['form_id'], 'honeypot_time');
     // Get the time limit again, since it increases after first failure.
     $time_limit = honeypot_get_time_limit($form_state['values']);
-    $form_state['values']['honeypot_time'] = time();
+    $form_state['values']['honeypot_time'] = honeypot_get_signed_timestamp(time());
     form_set_error('', t('There was a problem with your form submission. Please wait @limit seconds and try again.', array('@limit' => $time_limit)));
   }
 }
@@ -307,16 +316,20 @@ function honeypot_get_time_limit($form_values = array()) {
 
   // Only calculate time limit if honeypot_time_limit has a value > 0.
   if ($honeypot_time_limit) {
+    $expire_time = variable_get('honeypot_expire', 300);
     // Get value from {honeypot_user} table for authenticated users.
     if ($user->uid) {
-      $number = db_query("SELECT COUNT(*) FROM {honeypot_user} WHERE uid = :uid", array(':uid' => $user->uid))->fetchField();
+      $number = db_query("SELECT COUNT(*) FROM {honeypot_user} WHERE uid = :uid AND timestamp > :time", array(
+        ':uid' => $user->uid,
+        ':time' => time() - $expire_time,
+      ))->fetchField();
     }
     // Get value from {flood} table for anonymous users.
     else {
       $number = db_query("SELECT COUNT(*) FROM {flood} WHERE event = :event AND identifier = :hostname AND timestamp > :time", array(
         ':event' => 'honeypot',
         ':hostname' => ip_address(),
-        ':time' => time() - variable_get('honeypot_expire', 300),
+        ':time' => time() - $expire_time,
       ))->fetchField();
     }
     // Don't add more than 30 days' worth of extra time.
@@ -381,7 +394,20 @@ function honeypot_log_failure($form_id, $type) {
 }
 
 /**
- * Create CSS file for Honeypot.
+ * Retrieve the location of the Honeypot CSS file.
+ *
+ * @return string
+ *   The path to the honeypot.css file.
+ */
+function honeypot_get_css_file_path() {
+  return variable_get('file_public_path', conf_path() . '/files') . '/honeypot/honeypot.css';
+}
+
+/**
+ * Create CSS file to hide the Honeypot field.
+ *
+ * @param string $element_name
+ *   The honeypot element class name (e.g. 'url').
  */
 function honeypot_create_css($element_name) {
   $path = 'public://honeypot';
@@ -394,4 +420,43 @@ function honeypot_create_css($element_name) {
     $data = '.' . $element_name . '-textfield { display: none !important; }';
     file_unmanaged_save_data($data, $filename, FILE_EXISTS_REPLACE);
   }
+}
+
+/**
+ * Sign the timestamp $time.
+ *
+ * @param mixed $time
+ *   The timestamp to sign.
+ *
+ * @return string
+ *   A signed timestamp in the form timestamp|HMAC.
+ */
+function honeypot_get_signed_timestamp($time) {
+  return $time . '|' . drupal_hmac_base64($time, drupal_get_private_key());
+}
+
+/**
+ * Validate a signed timestamp.
+ *
+ * @param string $signed_timestamp
+ *   A timestamp concateneted with the signature
+ *
+ * @return int
+ *   The timestamp if the signature is correct, 0 otherwise.
+ */
+function honeypot_get_time_from_signed_timestamp($signed_timestamp) {
+  $honeypot_time = 0;
+
+  list($timestamp, $received_hmac) = explode('|', $signed_timestamp);
+
+  if ($timestamp && $received_hmac) {
+    $calculated_hmac = drupal_hmac_base64($timestamp, drupal_get_private_key());
+    // Prevent leaking timing information, compare second order hmacs.
+    $random_key = drupal_random_bytes(32);
+    if (drupal_hmac_base64($calculated_hmac, $random_key) === drupal_hmac_base64($received_hmac, $random_key)) {
+      $honeypot_time = $timestamp;
+    }
+  }
+
+  return $honeypot_time;
 }

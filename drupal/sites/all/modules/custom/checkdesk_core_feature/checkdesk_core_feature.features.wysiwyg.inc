@@ -68,6 +68,8 @@ function checkdesk_core_feature_wysiwyg_default_profiles() {
           'Strike' => 1,
           'BulletedList' => 1,
           'NumberedList' => 1,
+          'Undo' => 1,
+          'Redo' => 1,
           'Link' => 1,
           'Blockquote' => 1,
           'Source' => 1,

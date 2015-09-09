@@ -64,10 +64,10 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $form['report_preview']['#weight'] = 0;
 
     // Change field attributes
-    $form['body']['und'][0]['#attributes'] = array('placeholder' => t('Add more info or write a description. What\'s the context? Does this link need to be fact-checked? What evidence do you have?'), 'rows' => 3);
+    $form['body'][LANGUAGE_NONE][0]['#attributes'] = array('placeholder' => t('Add more info or write a description. What\'s the context? Does this link need to be fact-checked? What evidence do you have?'), 'rows' => 3);
 
     // Description textarea should not be resizable
-    $form['body']['und'][0]['#resizable'] = FALSE;
+    $form['body'][LANGUAGE_NONE][0]['#resizable'] = FALSE;
 
     // Load JavaScript for the form
     $form['#after_build'] = array('_checkdesk_bookmarklet_load_javascript_for_bookmarklet_form');
@@ -92,7 +92,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
       global $base_url;
       if ((isset($_GET['meedan_bookmarklet_prepopulate']) && preg_match('/^' . preg_quote($base_url, '/') . '/', $_GET['meedan_bookmarklet_prepopulate']['field_link'])) || empty($_GET['meedan_bookmarklet_prepopulate']['field_link'])) {
         foreach (array('title', 'body', 'field_link') as $field) {
-          if (isset($form[$field])) $form[$field]['und'][0]['#default_value'] = '';
+          if (isset($form[$field])) $form[$field][LANGUAGE_NONE][0]['#default_value'] = '';
         }
         $form['#after_build'][] = '_checkdesk_bookmarklet_load_javascript_for_internal_bookmarklet';
       }

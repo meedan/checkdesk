@@ -174,6 +174,16 @@ function checkdesk_core_menu() {
     'access callback' => 'user_is_anonymous',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
+  // revision cancel local subtask.
+  $items['node/%node/revisions/%vid/cancel'] = array(
+    'title' => 'Cancel',
+    'page callback' => '_checkdesk_revisions_cancel',
+    'page arguments' => array(1, 3),
+    'access callback' => TRUE,//'_revisioning_access_node_revision',
+     //'access arguments' => array('revert revisions', 1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -2,
+  );
   return $items;
 }
 
@@ -227,6 +237,7 @@ function checkdesk_core_menu_alter(&$items) {
   $items['node/%node/delete']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
   // make nodequeue tab localizable
   $items['node/%node/nodequeue']['title callback'] = 'checkdesk_core_nodequeue_tab_title';
+
   // deny access to node page
   $items['node']['access callback'] = FALSE;
   // fix edit account
@@ -234,6 +245,13 @@ function checkdesk_core_menu_alter(&$items) {
     'title' => 'Account',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
+  // Change revision tab title
+  $items['node/%node/revisions']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
+  $items['node/%node/view']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
+  $items['node/%node/edit']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
+  $items['node/%node/revisions/%vid/revert']['title callback'] = '_checkdesk_core_revisioning_title_for_revert';
+  unset($items['node/%node/revisions/list']);
+  unset($items['node/%node/revisions/%vid/edit']);
 }
 
 /**
@@ -241,6 +259,27 @@ function checkdesk_core_menu_alter(&$items) {
  */
 function checkdesk_core_nodequeue_tab_title() {
   return t(variable_get('nodequeue_tab_name', 'Nodequeue'));
+}
+
+/**
+ * Get title for tab.
+ */
+function _checkdesk_core_revisioning_title_for_tab($node, $tab) {
+  if ($tab == 'revisions') {
+    return t('Revision history');
+  }
+  return ($tab == 'edit' ? t('Edit') : t('View'));
+}
+
+/**
+ * Get title for tab.
+ */
+function _checkdesk_core_revisioning_title_for_revert() {
+  return t('Restore this version');
+}
+
+function _checkdesk_revisions_cancel($node, $vid) {
+    drupal_goto('node/' . $node->nid);
 }
 
 /**
@@ -862,6 +901,22 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
 
 }
 
+/**
+ * Implements hook_node_view_alter().
+ */
+function checkdesk_core_node_view_alter(&$build) {
+    // Check draft listing page
+    if ($build['#node']->status && $build ['#view_mode'] == 'checkdesk_search' && isset($_GET['state']) && $_GET['state'] == 2) {
+        $latest_vid = revisioning_get_latest_revision_id($build['#node']->nid);
+        if ($latest_vid) {
+            $build['#node'] = node_load($build['#node']->nid, $latest_vid);
+            node_build_content($build['#node'], $build ['#view_mode']);
+            $build['field_section'] = $build['#node']->content['field_section'];
+            $build['field_tags'] = $build['#node']->content['field_tags'];
+        }
+    }
+}
+
 /*
  * Implements hook_contextual_links_view_alter().
  */
@@ -934,38 +989,9 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   // Change title.
   drupal_set_title(t('Compose Update'));
 
-
   // Add CSS file for autocomplete field
   if($form['field_desk']) {
-    drupal_add_css(
-      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
-      array(
-        'scope' => 'footer',
-        'group' => CSS_THEME,
-        'weight' => '9999',
-        'every_page' => FALSE,
-      )
-    );
-    // add lib
-    drupal_add_js(
-      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
-      array(
-        'scope' => 'footer',
-        'group' => JS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
-    // add chosen.js
-    drupal_add_js(
-      drupal_get_path('theme', 'checkdesk') . '/assets/js/chosen.js',
-      array(
-        'scope' => 'footer',
-        'group' => JS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
+    _checkdesk_add_chosen_components();
   }
 
 }
@@ -1039,22 +1065,23 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     //Set default language value
     $form['language']['#default_value'] = $language->language;
   }
-  /*
-  //Hide submit button for CJ users
-  if (!user_access('edit published content')) {
-    if ($form['nid']['#value']) {
-      if ($form['#node']->status) {
-        drupal_set_message(t('This story is already published. You can\'t edit it'), 'error');
-        drupal_goto('node/'. $form['nid']['#value']);
+  if (user_access('edit published content')) {
+      if (empty($form['#validate'])) {
+        $form['#validate'] = array();
       }
-      $form['actions']['submit']['#access'] = $form['#node']->status;
-      $form['actions']['draft']['#access'] = !$form['#node']->status;
-    }
-    else {
-      $form['actions']['submit']['#access'] = 0;
+      array_unshift($form['#validate'], '_checkdesk_new_revision_validate');
+      $form['actions']['cd_revision'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save as draft'),
+      '#class' => 'form-submit',
+      '#submit' => array('_checkdesk_new_revision_button_submit'),
+      // Between the default Save and Preview buttons.
+      '#weight' => 9,
+    );
+    if ($form['nid']['#value']) {
+        $form['actions']['submit']['#value'] = $form['#node']->status ? t('Publish changes') : t('Publish');
     }
   }
-  */
   if (in_array('journalist', $user->roles)) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
@@ -1085,6 +1112,47 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
 
   // Customize "Add more items" for authors.
   $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
+  // Limit sections based on current language.
+  $form['field_section'][LANGUAGE_NONE]['#options'] = array('_none' => t('- None -')) +  _checkdesk_load_sections();
+}
+
+ /**
+ * Submit handler for the save a new revision.
+ *
+ * Calls all submit handlers on the save button.
+ */
+function _checkdesk_new_revision_button_submit($form, &$form_state) {
+  foreach ($form['actions']['submit']['#submit'] as $submit) {
+    $submit($form, $form_state);
+  }
+}
+
+/**
+ * Handles save draft form validation
+ */
+function _checkdesk_new_revision_validate($form, &$form_state) {
+  if ($form_state['triggering_element']['#value'] == $form['actions']['cd_revision']['#value']) {
+      $form_state['values']['revision_operation'] = 2;
+  }
+  elseif ($form_state['values']['nid'] && !$form_state['values']['status']) {
+      $form_state['values']['status'] = 1;
+  }
+}
+
+/**
+ * Load sections based on current language.
+ */
+function _checkdesk_load_sections() {
+    global $language;
+    $sections = array();
+    $vocabulary =  taxonomy_vocabulary_machine_name_load('sections');
+    $terms = taxonomy_get_tree($vocabulary->vid);
+    foreach ($terms as $term) {
+        if ($term->language == $language->language) {
+            $sections[$term->tid] = $term->name;
+        }
+    }
+    return $sections;
 }
 
 /**
@@ -1209,7 +1277,7 @@ function checkdesk_core_views_pre_render(&$view) {
       }
     }
   }
-  elseif ($view->name == 'more_stories') {
+  elseif ($view->name == 'more_stories' || $view->name == 'sections') {
     foreach ($view->result as $id => $tag) {
       $stories = views_get_view('recent_stories_by_tag');
       $stories->set_arguments(array($tag->tid));
@@ -1217,7 +1285,11 @@ function checkdesk_core_views_pre_render(&$view) {
       $output = $stories->preview('block');
       $total_rows = $stories->total_rows;
       $stories->destroy();
-      if ($total_rows) {
+      // show container only if results are 4 or more
+      if ($total_rows && $view->name == 'sections') {
+          $view->result[$id]->stories = $output;
+      }
+      elseif ($view->name == 'more_stories' && $total_rows > 3) {
         $view->result[$id]->stories = $output;
       }
       else {
@@ -1406,10 +1478,8 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         '#bef_enable_fastlivefilter' => 1,
         '#fastlivefilte_placeholder' => t('Search for story'),
       );
-    }
-
-    // Hide tag filter for updates
-    if (isset($_GET['type']) && $_GET['type'] === 'update') {
+      
+      // Hide tag filter for updates
       $form['#info']['filter-field_tags_tid']['label'] = NULL;
       $form['field_tags_tid']['#type'] = 'hidden';
       unset($form['field_tags_tid']['#theme']);
@@ -1419,7 +1489,16 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     if (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
       unset($form['type']['#options']['update']);
     }
-
+    if (isset($_GET['type']) && $_GET['type'] === 'story') {
+        $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
+        $form['field_section_tid_i18n']['#options'] = array('All' => '– ' . t('Any section') . ' –') + _checkdesk_load_sections();
+    }
+    else {
+        // Hide section filter
+        $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
+        $form['field_section_tid_i18n']['#type'] = 'hidden';
+        unset($form['field_section_tid_i18n']['#theme']);
+    }
     // Add author filter for admin or journalist
     global $user;
     if ($user->uid) {
@@ -1561,6 +1640,13 @@ function checkdesk_core_theme() {
         'resend' => NULL,
       ),
     ) + $base;
+  
+  $themes['checkdesk_core_most_popular_stories'] = array(
+      'template' => 'checkdesk_most_popular_stories',
+      'variables' => array(
+        'stories' => NULL,
+      ),
+   ) + $base;
 
   return $themes;
 }
@@ -1738,7 +1824,7 @@ function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, 
     $form['author']['mail'] = NULL;
     $form['actions']['submit']['#attributes']['class'] = array('btn');
     $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['rows'] = 1;
-    $form['comment_body']['und'][0]['#attributes']['class'] = array('expanding');
+    $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['class'] = array('expanding');
     $form['actions']['submit']['#value'] = t('Add footnote');
     $form['actions']['submit']['#ajax'] = array(
       'callback' => '_checkdesk_comment_form_submit',
@@ -1790,6 +1876,41 @@ function _redirect_footnote_delete($form, &$form_state) {
     $form_state['redirect'] = $_SESSION['comment_referer'];
     unset($_SESSION['comment_referer']);
   }
+}
+/*
+ * Implements hook_form_FORM_ID_alter() for `flag_form`.
+*/
+function checkdesk_core_form_revisioning_revisions_summary_alter(&$form, $form_state, $form_id) {
+    // loall all revisions
+    $nid = $form['nid']['#value'];
+    $node = node_load($nid);
+    $revisions = _revisioning_get_all_revisions_for_node($nid);
+    // get first published revisions.
+    $first_revision = 0;
+    foreach (array_reverse($form['status'], TRUE) as $k => $v) {
+         if ($v['#value']) {
+             $first_revision = $k;
+             break;
+         }
+    }
+    foreach ($form['info'] as $k => $v) {
+        $revision = $revisions[$k];
+        $text = t('Saved on');
+        if ($k == $first_revision) {
+           $text = t('First published on');
+        }
+        elseif ($form['status'][$k]['#value'] && $k <= $node->vid) {
+           $text = t('Published changes on');
+        }
+        $base_url = "node/$nid/revisions/{$revision->vid}";  
+          $first_cell = t('!text !date !username ',
+            array(
+            '!date' => l(format_date($revision->timestamp, 'short'), "$base_url/view"),
+            '!username' => '<div class="revision-author">' . t('by ') . theme('username', array('account' => $revision)) . '</div>',
+            '!text' => $text,
+                ));
+          $form['info'][$k]['#markup'] = $first_cell;
+      }
 }
 
 /**
@@ -1937,6 +2058,20 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       }
     }
   }
+  
+  if ($form_id == 'twitter_oauth_callback_form') {
+    $form['#validate'][] = '_checkdesk_twitter_oauth_callback_form_validate';
+  }
+}
+
+/**
+ * Twitter oauth custom validation to edit destination.
+ */
+function _checkdesk_twitter_oauth_callback_form_validate($form, &$form_state) {
+    if (isset($_SESSION['twitter_redirect'])) {
+        $form_state['twitter_oauth']["destination"] = $_SESSION['twitter_redirect'];
+        unset($_SESSION['twitter_redirect']);
+    }
 }
 
 /**
@@ -2093,12 +2228,23 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         break;
       }
     }
-    // Remove status condition if user selected type not reports.
+    // Remove status condition if selected type not equal report.
     if (isset($_GET['type']) && $_GET['type'] !== 'report' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
       $conditions = $query->where[1]['conditions'];
       foreach($conditions as $k => $v) {
         if (is_string($v['field']) && $v['field'] === 'field_data_field_rating.field_rating_tid') {
           unset($query->table_queue['field_data_field_rating']);
+          unset($query->where[1]['conditions'][$k]);
+          break;
+        }
+      }
+    }
+    // Remove section condition if selected type not equal story.
+    if (isset($_GET['type']) && $_GET['type'] !== 'story' && isset($_GET['field_section_tid_i18n']) && is_numeric($_GET['field_section_tid_i18n'])) {
+      $conditions = $query->where[1]['conditions'];
+      foreach($conditions as $k => $v) {
+        if (is_string($v['field']) && $v['field'] === 'field_data_field_section.field_section_tid') {
+          unset($query->table_queue['field_data_field_section']);
           unset($query->where[1]['conditions'][$k]);
           break;
         }
@@ -2148,6 +2294,18 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     }
   }
 
+  if ($view->name == 'sections') {
+    $query->where[] = array(
+      'conditions' => array(array(
+        'field' => 'taxonomy_term_data.language',
+        'value' => array('***CURRENT_LANGUAGE***'),
+        'operator' => 'in',
+      )),
+      'args' => array(),
+      'type' => 'AND',
+    );
+  }
+  
   if ($view->name == 'recent_stories_by_tag') {
       // exclude current nid
       if (is_numeric(arg(1))) {
@@ -2588,16 +2746,16 @@ function checkdesk_core_custom_format_interval($timestamp) {
   if ($interval > $y) {
     return format_date($timestamp, 'custom', t('j M Y'));
   }
-  //interval between 3 months and year
-  if ($interval > (3*$m) && $interval <= $y ) {
+  //interval between 5 days and year
+  if ($interval > (5*$d) && $interval <= $y ) {
     return format_date($timestamp, 'custom', t('M j'));
   }
   //less than 5 sec (as soos as item is posted)
   if ($interval < 5) {
     return t('now');
   }
-  //interval beteen one day and 3 months.
-  if ($interval >= $d && $interval <= (3*$m)) {
+  //interval beteen one day and 5 days.
+  if ($interval >= $d && $interval <= (5*$d)) {
     $count = floor($interval / $d);
     return t('@countd', array('@count' => $count));
   }
@@ -2885,41 +3043,9 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
   }
-
-  // Add CSS file for chosen
+  
   if($form['field_stories']) {
-    drupal_add_css(
-      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
-      array(
-        'scope' => 'footer',
-        'group' => CSS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
-  }
-
-  // Add Chosen lib
-  if($form['field_stories']) {
-    drupal_add_js(
-      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
-      array(
-        'scope' => 'footer',
-        'group' => JS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
-    // add chosen.js
-    drupal_add_js(
-      drupal_get_path('theme', 'checkdesk') . '/assets/js/chosen.js',
-      array(
-        'scope' => 'footer',
-        'group' => JS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
+    _checkdesk_add_chosen_components();
   }
 
   // Add CSS file for autocomplete field
@@ -2941,6 +3067,42 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     // Hide comment settings
     $form['comment_settings']['#access'] = FALSE;
   }
+}
+
+/**
+ * Add cc and js for chosen lib.
+ */
+function _checkdesk_add_chosen_components() {
+    // Add CSS file for chosen
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/components/chosen.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+    // Add Chosen lib
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/chosen.jquery.min.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+    // add chosen.js
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/chosen.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
 }
 
 /**
@@ -3649,11 +3811,11 @@ function _checkdesk_search_header() {
       case 'update':
       $selected = 'All';
         if (isset($_GET['status'])) {
-          $selected = ($_GET['status'] == 1) ? 'published' : 'drafts';
+          $selected = ($_GET['status'] == 1) ? 'published': 'drafts';
         }
         // Check if user can access any drafts content then Show drafts link on search page header
         if (user_access('access any drafts content')) {
-          $links[] = l(t('Drafts'), 'search', array(
+            $links[] = l(t('Drafts'), 'search', array(
               'attributes' => array('class' => ($selected == 'drafts') ? array('selected') : array()),
               'query' => array('type' => $_GET['type'], 'state' => 2, 'status' => 'All'),
               ));
@@ -3662,7 +3824,7 @@ function _checkdesk_search_header() {
             'attributes' => array('class' => ($selected == 'published') ? array('selected') : array()),
             'query' => array('type' => $_GET['type'], 'status' => 1),
             ));
-      break;
+      break;   
     }
   }
   return theme('checkdesk_core_render_search_header', array('links' => $links));
@@ -3674,13 +3836,17 @@ function _checkdesk_search_header() {
 function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
   global $user;
   //This is a taxonomy page
-  if (preg_match('|^taxonomy/term/([0-9]*)|', $original_path, $matches)) {
+  if (preg_match('|^taxonomy/term/([0-9]*)$|', $original_path, $matches)) {
     if (is_numeric($matches[1])) {
-      $tags = taxonomy_vocabulary_machine_name_load('tags');
+      $vocabularies = taxonomy_get_vocabularies();
       $term = taxonomy_term_load($matches[1]);
-      if ($tags->vid == $term->vid) {
+      $term_vocabulary = $vocabularies[$term->vid];
+      if ($term_vocabulary->machine_name == 'tags') {
         $path = 'search';
         $options['query']['field_tags_tid'] = $matches[1];
+      }
+      elseif ($term_vocabulary->machine_name == 'sections') {
+        $path = 'section/' . $term->name;
       }
     }
   }
@@ -3723,7 +3889,8 @@ function _checkdesk_main_navigation() {
     // Add js to remove other active classes
     drupal_add_js('
       jQuery(function() {
-       jQuery("nav a.active:not(a.search-nav-selected)").removeClass("active");
+        jQuery("nav a.active:not(a.search-nav-selected)").removeClass("active");
+        jQuery("div#search ul.control-page-items li a").removeClass("active")
       });
       ', 'inline');
   }
@@ -3821,7 +3988,21 @@ function _checkdesk_main_navigation() {
     )),
     'class' => array($li_class, 'reports'),
   );
-
+  // add sections icon if there are sections defined by the partner
+  if (_checkdesk_show_sections_link()) {
+     $active_sections = '';
+    if (arg(0) == 'section' && arg(1) !== NULL) {
+        $active_sections = count(taxonomy_get_term_by_name(arg(1), 'sections')) ? 'active' : '';
+    }
+    $sections_icon = '<svg class="sections-icon" preserveAspectRatio="xMinYMin meet" viewBox="176 0 28 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#sections-icon"></use></svg>';
+    $items[] = array(
+        'data' => l($sections_icon . '<span>' . t('Sections') . '</span>', 'sections', array(
+        'attributes' => array('class' => array($a_class, 'sections-link', $active_sections)),
+        'html' => TRUE,
+        )),
+        'class' => array($li_class, 'section'),
+    );
+  }
   $second_group = theme('item_list', array(
     'items' => $items,
     'title' => '',
@@ -3861,4 +4042,52 @@ function _checkdesk_main_navigation() {
     'second_group' => $second_group,
     'third_group' => $third_group,
   ));
+}
+
+/**
+ * Check if partner defined sections or not
+ */
+function _checkdesk_show_sections_link() {
+  if ($cache = cache_get('checkdesk_show_sections')) {
+    return $cache->data;
+  }
+  $vocabulary = taxonomy_vocabulary_machine_name_load('sections');
+  $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  $show_sections = count($terms) ? TRUE : FALSE;
+  if ($show_sections) {
+    cache_set('checkdesk_show_sections', $show_sections, 'cache');
+  }
+  return $show_sections;
+}
+
+/**
+ * List most popular stories.
+ */
+function _checkdesk_most_popular_stories() {
+    global $language;
+    $activities = array(
+        'checkdesk_comment_on_report',
+        'status_report',
+        'checkdesk_fact_checking_on',
+        'checkdesk_fact_checking_on_by_citizen',
+        'checkdesk_follow_story',
+        'checkdesk_new_update_on_story_i_commented_on_update',
+        'checkdesk_report_suggested_to_story',
+        'checkdesk_flag_report',
+    );
+    $query = db_select('heartbeat_activity', 'ha');
+    $query->fields('n', array('title', 'nid'));
+    $query->fields('fm', array('uri'));
+    $query->innerjoin('node', 'n', 'ha.nid_target = n.nid AND n.type = :type', array(':type' => 'discussion'));
+    $query->leftjoin('field_data_field_lead_image', 'fi', 'n.nid = fi.entity_id');
+    $query->leftjoin('file_managed', 'fm', 'fi.field_lead_image_fid = fm.fid');
+    $query->condition('n.status', 1);
+    $query->condition('n.language', $language->language);
+    $query->condition('ha.timestamp', strtotime("-1 week"), '>=');
+    $query->condition('ha.message_id', $activities, 'IN');
+    $query->groupBy('n.nid');
+    $query->orderBy('COUNT( n.nid )', 'DESC');
+    $query->range(0, 5);
+    $result = $query->execute()->fetchAll();
+    return $result ? theme('checkdesk_core_most_popular_stories', array('stories' => $result)) : NULL;
 }

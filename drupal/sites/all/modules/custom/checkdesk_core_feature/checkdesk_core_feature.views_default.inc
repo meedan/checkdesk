@@ -428,7 +428,6 @@ function checkdesk_core_feature_views_default_views() {
     t('last »'),
     t('No users available.'),
     t('- Choose an operation -'),
-    t('Ban IP address of the current user'),
     t('Delete'),
     t('Change value'),
     t('Change user roles'),
@@ -601,6 +600,58 @@ function checkdesk_core_feature_views_default_views() {
       'filter_rewrite_values' => NULL,
     ),
     'field_tags_tid' => array(
+      'bef_format' => 'bef_links',
+      'more_options' => array(
+        'bef_select_all_none' => FALSE,
+        'bef_collapsible' => 1,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'enable_fastlivefilter' => 1,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+            1 => 'vocabulary',
+            'secondary_label' => NULL,
+            'collapsible_label' => NULL,
+            'combine_rewrite' => NULL,
+            'reset_label' => NULL,
+            'bef_filter_description' => NULL,
+            'any_label' => NULL,
+            'filter_rewrite_values' => NULL,
+          ),
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+          'filter_rewrite_values' => NULL,
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+        ),
+        'secondary_label' => NULL,
+        'collapsible_label' => NULL,
+        'combine_rewrite' => NULL,
+        'reset_label' => NULL,
+        'filter_rewrite_values' => NULL,
+      ),
+      'secondary_label' => NULL,
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+      'bef_filter_description' => NULL,
+      'any_label' => NULL,
+      'filter_rewrite_values' => NULL,
+    ),
+    'field_section_tid_i18n' => array(
       'bef_format' => 'bef_links',
       'more_options' => array(
         'bef_select_all_none' => FALSE,
@@ -988,6 +1039,25 @@ function checkdesk_core_feature_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'tags';
+  /* Filter criterion: Content: Section (field_section) (translated) */
+  $handler->display->display_options['filters']['field_section_tid_i18n']['id'] = 'field_section_tid_i18n';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['table'] = 'field_data_field_section';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['field'] = 'field_section_tid_i18n';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['group'] = 1;
+  $handler->display->display_options['filters']['field_section_tid_i18n']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['operator_id'] = 'field_section_tid_i18n_op';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['label'] = 'Sections';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['operator'] = 'field_section_tid_i18n_op';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['identifier'] = 'field_section_tid_i18n';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_section_tid_i18n']['type'] = 'select';
+  $handler->display->display_options['filters']['field_section_tid_i18n']['vocabulary'] = 'sections';
   /* Filter criterion: Field: Fact-checking status (field_rating) */
   $handler->display->display_options['filters']['field_rating_tid']['id'] = 'field_rating_tid';
   $handler->display->display_options['filters']['field_rating_tid']['table'] = 'field_data_field_rating';
@@ -1057,6 +1127,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
   $handler->display->display_options['filters']['status_extra']['table'] = 'node';
   $handler->display->display_options['filters']['status_extra']['field'] = 'status_extra';
+  $handler->display->display_options['filters']['status_extra']['group'] = 1;
   /* Filter criterion: Content: State */
   $handler->display->display_options['filters']['state']['id'] = 'state';
   $handler->display->display_options['filters']['state']['table'] = 'node';
@@ -1180,6 +1251,7 @@ print _checkdesk_search_header();
     t('Post date'),
     t('Published'),
     t('Tags'),
+    t('Sections'),
     t('Verification status'),
     t('Fact-checking status (field_rating)'),
     t('Spam'),
@@ -2478,6 +2550,12 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  /* Field: Content: Published */
+  $handler->display->display_options['fields']['status']['id'] = 'status';
+  $handler->display->display_options['fields']['status']['table'] = 'node';
+  $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['type'] = 'boolean';
+  $handler->display->display_options['fields']['status']['not'] = 0;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -2492,13 +2570,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['arguments']['field_desk_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_desk_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_desk_target_id']['summary_options']['items_per_page'] = '25';
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -2547,6 +2618,20 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
   $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['defaults']['header'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'post' => 'post',
+  );
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
   $translatables['updates_for_stories'] = array(
     t('Master'),
     t('Updates for stories'),
@@ -2558,6 +2643,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('Desc'),
     t('View result counter'),
     t('Nid'),
+    t('Published'),
     t('All'),
     t('Block'),
     t('Auto-refresh'),

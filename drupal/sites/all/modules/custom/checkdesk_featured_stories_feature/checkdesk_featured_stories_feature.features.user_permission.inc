@@ -127,7 +127,6 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'name' => 'override discussion revision option',
     'roles' => array(
       'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'override_node_options',
   );
@@ -237,7 +236,16 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
   $permissions['view revision status messages'] = array(
     'name' => 'view revision status messages',
     'roles' => array(
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
+    ),
+    'module' => 'revisioning',
+  );
+
+  // Exported permission: 'view revisions of own discussion content'.
+  $permissions['view revisions of own discussion content'] = array(
+    'name' => 'view revisions of own discussion content',
+    'roles' => array(
+      'citizen journalist' => 'citizen journalist',
     ),
     'module' => 'revisioning',
   );

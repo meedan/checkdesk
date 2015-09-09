@@ -157,12 +157,12 @@ function checkdesk_core_update_7023() {
 }
 
 /**
- * Update alias language to be 'und'
+ * Update alias language to be LANGUAGE_NONE
  */
 function checkdesk_core_update_7025() {
   db_update('url_alias')
     ->fields(array(
-      'language' => 'und',
+      'language' => LANGUAGE_NONE,
     ))
     ->execute();
 }
@@ -438,4 +438,29 @@ function checkdesk_core_update_7047() {
   db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8mb4_bin");
   db_query("CREATE UNIQUE INDEX uri ON {file_managed} (uri(191))");
   db_query("ALTER TABLE {file_managed} ENGINE=innodb");
+
+/**
+ * Update checkdesck_core weight
+ */
+  db_update('system')
+    ->fields(array(
+      'weight' => 99,
+    ))
+    ->condition('name', 'checkdesk_core')
+    ->execute();
 }
+
+/**
+ * Disable help block
+ */
+function checkdesk_core_update_7048() {
+  //change module weight to get twitter_signin alteration
+  db_update('block')
+    ->fields(array(
+      'status' => 0,
+    ))
+    ->condition('module', 'system')
+    ->condition('delta', 'help')
+    ->execute();
+}
+

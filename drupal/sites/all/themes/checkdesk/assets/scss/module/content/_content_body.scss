@@ -29,6 +29,12 @@
   figure.element {
     margin-top: 26px;
     margin-bottom: 26px;
+    &.cke_widget_element {
+      width: 50%;
+      max-width: 620px; // follows body.page-liveblog #main #content from base
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   // lists
@@ -154,9 +160,15 @@
 }
 
 // update body
-.update .update-body .update-title { 
+.update .update-body .update-title {
   padding-top: 20px; // to align with update number
 }
+
+.update .update-body .media-label { 
+  display: block;
+  padding-top: 24px; // to align with update number
+}
+
 .update .update-body .node-media {
   @include ctb-clearfix;
   margin: 0 0 $absolute-line-height/4 0;

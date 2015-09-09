@@ -23,21 +23,7 @@
  */
 ?>
 <?php 
-	// if (empty($output)) {
-    // $story_default_image = array(
-	    // 'style_name' => 'item_image_medium',
-	    // 'path' => 'public://story.jpg',
-    // );
-	  // print theme('image_style', $story_default_image);
-	// }
-	// else {
-		// $story_image = array(
-  //     'style_name' => 'item_image_medium',
-  //     'path' => $output,
-	 //  );
-	 //  print theme('image_style', $story_image);
-	// }
-	if (!empty($output)) {
-		print _checkdesk_generate_lead_image_thumbnail($output);
-	}
+    if (!empty($output)) {
+        print _checkdesk_generate_lead_image_thumbnail($output);
+    }
 ?>
