@@ -80,8 +80,14 @@ function checkdesk_core_feature_wysiwyg_default_profiles() {
         'confighelper' => array(
           'confighelper' => 1,
         ),
+        'mediaoembed' => array(
+          'mediaoembed' => 1,
+        ),
         'mediaembed' => array(
           'MediaEmbed' => 1,
+        ),
+        'drupal' => array(
+          'media' => 1,
         ),
       ),
       'toolbar_loc' => 'top',
