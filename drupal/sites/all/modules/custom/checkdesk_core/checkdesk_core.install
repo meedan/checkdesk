@@ -457,3 +457,10 @@ function checkdesk_core_update_7048() {
     ->condition('delta', 'help')
     ->execute();
 }
+
+/**
+ * Enable Checkdesk Photos Feature
+ */
+function checkdesk_core_update_7049() {
+  module_enable(array('checkdesk_photos_feature'));
+}
