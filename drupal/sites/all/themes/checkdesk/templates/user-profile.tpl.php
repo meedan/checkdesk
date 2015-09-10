@@ -42,7 +42,7 @@
         <?php print render($user_profile['user_picture']); ?>
     </div>
     <div class="user-name">
-        <?php print $user->name; ?>
+        <?php print $account_name; ?>
     </div>
     <div class="user-roles">
         <?php print $roles; ?>
@@ -52,7 +52,7 @@
     </div>
     <?php print render($user_profile['twitter']); ?>
     <?php if ($user_stories) : ?>
-        <h3><?php print t('Stories by !user', array('!user' => $user->name)); ?></h3>
+        <h3><?php print t('Stories by !user', array('!user' => $account_name)); ?></h3>
         <div class="user-stories">
             <?php print $user_stories; ?>
         </div>

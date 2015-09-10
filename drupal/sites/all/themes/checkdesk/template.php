@@ -1410,12 +1410,14 @@ function checkdesk_preprocess_meedan_sensitive_content_display(&$vars) {
 function checkdesk_preprocess_user_profile(&$vars) {
   //$vars['member_for'] = t('Member for @time', array('@time' => $vars['user_profile']['summary']['member_for']['#markup']));
   $vars['user_profile']['twitter']['#title'] = '';
-  $roles = $vars['user']->roles;
+  $account = $vars['elements']['#account'];
+  $vars['account_name'] = $account->name;
+  $roles = $account->roles;
   unset($roles[DRUPAL_AUTHENTICATED_RID]);
   $vars['roles'] = implode(' ', $roles);
   $view = views_get_view('user_stories');
-  $view->display['default']->display_options['filters']['uid']['value'][0] = $vars['user']->uid;
-  $view->display['default']->display_options['filters']['field_additional_authors_target_id']['value']['value'] = $vars['user']->uid;
+  $view->display['default']->display_options['filters']['uid']['value'][0] = $account->uid;
+  $view->display['default']->display_options['filters']['field_additional_authors_target_id']['value']['value'] = $account->uid;
   $view->get_total_rows = TRUE;
   $view_output = $view->preview('block');
   $total_rows = $view->total_rows;

@@ -57,7 +57,9 @@
   <?php endif; ?>
 
   <?php if ($rows): ?>
-    <?php print $rows; ?>
+    <div class="view-content items">
+      <?php print $rows; ?>
+    </div>
   <?php elseif ($empty): ?>
     <div class="view-empty">
       <?php print $empty; ?>
@@ -65,7 +67,9 @@
   <?php endif; ?>
 
   <?php if ($pager): ?>
-    <?php print $pager; ?>
+    <div class="view-story-container-pager">
+      <?php print $pager; ?>
+    </div>
   <?php endif; ?>
 
   <?php if ($attachment_after): ?>

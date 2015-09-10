@@ -1336,6 +1336,8 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['advance']['content_class'] = '> .view-user-stories .view-content';
+  $handler->display->display_options['pager']['options']['advance']['pager_selector'] = '.view-story-container-pager .pager-load-more';
   $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
   $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
