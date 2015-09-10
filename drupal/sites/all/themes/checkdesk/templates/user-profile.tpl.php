@@ -50,6 +50,7 @@
     <div class="user-bio">
         <?php print render($user_profile['field_bio']); ?>
     </div>
+    <?php print render($user_profile['twitter']); ?>
     <?php if ($user_stories) : ?>
         <h3><?php print t('Stories by !user', array('!user' => $user->name)); ?></h3>
         <div class="user-stories">

@@ -1376,7 +1376,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
   }
   
-  if (in_array($vars['view']->name, array('recent_stories_by_tag', 'story_section', 'featured_story', 'most_popular'))) {
+  if (in_array($vars['view']->name, array('recent_stories_by_tag', 'story_section', 'featured_story', 'most_popular', 'user_stories'))) {
     $vars['show_section'] = TRUE;
     if (is_numeric($vars['view']->args[0])) {
         $term = taxonomy_term_load($vars['view']->args[0]);
@@ -1409,11 +1409,13 @@ function checkdesk_preprocess_meedan_sensitive_content_display(&$vars) {
  */
 function checkdesk_preprocess_user_profile(&$vars) {
   //$vars['member_for'] = t('Member for @time', array('@time' => $vars['user_profile']['summary']['member_for']['#markup']));
+  $vars['user_profile']['twitter']['#title'] = '';
   $roles = $vars['user']->roles;
   unset($roles[DRUPAL_AUTHENTICATED_RID]);
   $vars['roles'] = implode(' ', $roles);
-  $view = views_get_view('recent_stories_by_tag');
-  $view->set_arguments(array('all'));
+  $view = views_get_view('user_stories');
+  $view->display['default']->display_options['filters']['uid']['value'][0] = $vars['user']->uid;
+  $view->display['default']->display_options['filters']['field_additional_authors_target_id']['value']['value'] = $vars['user']->uid;
   $view->get_total_rows = TRUE;
   $view_output = $view->preview('block');
   $total_rows = $view->total_rows;
@@ -1421,6 +1423,7 @@ function checkdesk_preprocess_user_profile(&$vars) {
   if ($total_rows) {
     $vars['user_stories'] = $view_output;
   }
+
 }
 
 /*
