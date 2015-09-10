@@ -1289,6 +1289,10 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
  * recent_stories_by_tag view
  */
 function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
+    if (drupal_is_front_page()) {
+      $vars['title'] = t('New and updated stories');
+    }
+    //$vars['view']->build_info['title'] = 'MY CUSTOM TITLE';
     if ($vars['more'] && arg(0) == 'sections') {
         if (is_numeric($vars['view']->args[0])) {
             $term = taxonomy_term_load($vars['view']->args[0]);
@@ -1303,6 +1307,15 @@ function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
     else {
         $vars['more'] = NULL;
     }
+}
+
+/**
+ * most_popular view
+ */
+function checkdesk_preprocess_views_view__most_popular(&$vars) {
+  if (drupal_is_front_page()) {
+    $vars['title'] = t('Most popular');
+  }
 }
 
 /**
@@ -1363,7 +1376,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
   }
   
-  if ($vars['view']->name === 'recent_stories_by_tag' || $vars['view']->name === 'story_section') {
+  if (in_array($vars['view']->name, array('recent_stories_by_tag', 'story_section', 'featured_story', 'most_popular'))) {
     $vars['show_section'] = TRUE;
     if (is_numeric($vars['view']->args[0])) {
         $term = taxonomy_term_load($vars['view']->args[0]);
@@ -1380,7 +1393,6 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       '!inverval' => checkdesk_core_custom_format_interval($vars['row']->node_created),
       '!datetime' => format_date($vars['row']->node_created, 'custom', t('l M d, Y \a\t g:i:sa'))
     ));
-    
   }
 }
 
