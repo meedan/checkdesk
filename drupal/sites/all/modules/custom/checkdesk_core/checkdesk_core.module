@@ -915,6 +915,7 @@ function _checkdesk_core_render_activity_type($node, $heartbeat_row) {
     $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
   }
   return $output;
+}
 
 /**
  * Implements hook_node_view_alter().
