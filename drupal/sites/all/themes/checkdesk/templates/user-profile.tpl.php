@@ -50,7 +50,18 @@
     <div class="user-bio">
         <?php print render($user_profile['field_bio']); ?>
     </div>
-    <?php print render($user_profile['twitter']); ?>
+    <div class="user-social-accounts">
+        <?php if (isset($user_profile['twitter'])) : ?>
+            <div class="user-twitter">
+                <?php print render($user_profile['twitter']); ?>
+            </div>
+        <?php endif; ?>
+        <?php if ($facebook) : ?>
+            <div class="user-facebook">
+                <?php print $facebook; ?>
+            </div>
+        <?php endif; ?>
+    </div>
     <?php if ($user_stories) : ?>
         <h3><?php print t('Stories by !user', array('!user' => $account_name)); ?></h3>
         <div class="user-stories">
