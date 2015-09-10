@@ -915,6 +915,21 @@ function _checkdesk_core_render_activity_type($node, $heartbeat_row) {
     $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
   }
   return $output;
+
+/**
+ * Implements hook_node_view_alter().
+ */
+function checkdesk_core_node_view_alter(&$build) {
+    // Check draft listing page
+    if ($build['#node']->status && $build ['#view_mode'] == 'checkdesk_search' && isset($_GET['state']) && $_GET['state'] == 2) {
+        $latest_vid = revisioning_get_latest_revision_id($build['#node']->nid);
+        if ($latest_vid) {
+            $build['#node'] = node_load($build['#node']->nid, $latest_vid);
+            node_build_content($build['#node'], $build ['#view_mode']);
+            $build['field_section'] = $build['#node']->content['field_section'];
+            $build['field_tags'] = $build['#node']->content['field_tags'];
+        }
+    }
 }
 
 /*
@@ -3889,7 +3904,8 @@ function _checkdesk_main_navigation() {
     // Add js to remove other active classes
     drupal_add_js('
       jQuery(function() {
-       jQuery("nav a.active:not(a.search-nav-selected)").removeClass("active");
+        jQuery("nav a.active:not(a.search-nav-selected)").removeClass("active");
+        jQuery("div#search ul.control-page-items li a").removeClass("active")
       });
       ', 'inline');
   }
