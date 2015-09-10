@@ -1407,8 +1407,20 @@ function checkdesk_preprocess_meedan_sensitive_content_display(&$vars) {
 /**
  * Process variables for user-profile.tpl.php.
  */
-function checkdesk_preprocess_user_profile(&$variables) {
-  $variables['member_for'] = t('Member for @time', array('@time' => $variables['user_profile']['summary']['member_for']['#markup']));
+function checkdesk_preprocess_user_profile(&$vars) {
+  //$vars['member_for'] = t('Member for @time', array('@time' => $vars['user_profile']['summary']['member_for']['#markup']));
+  $roles = $vars['user']->roles;
+  unset($roles[DRUPAL_AUTHENTICATED_RID]);
+  $vars['roles'] = implode(' ', $roles);
+  $view = views_get_view('recent_stories_by_tag');
+  $view->set_arguments(array('all'));
+  $view->get_total_rows = TRUE;
+  $view_output = $view->preview('block');
+  $total_rows = $view->total_rows;
+  $view->destroy();
+  if ($total_rows) {
+    $vars['user_stories'] = $view_output;
+  }
 }
 
 /*
