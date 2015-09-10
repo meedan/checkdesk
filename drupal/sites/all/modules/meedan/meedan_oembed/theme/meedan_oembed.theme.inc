@@ -37,8 +37,8 @@ function template_preprocess_meedan_full_mode(&$vars) {
     $vars['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
   }
   // Media description
-  if(isset($node->body['und'][0]['value'])) {
-    $vars['media_description'] = check_markup($node->body['und'][0]['value'], 'filtered_html');
+  if(isset($node->body[LANGUAGE_NONE][0]['value'])) {
+    $vars['media_description'] = check_markup($node->body[LANGUAGE_NONE][0]['value'], 'filtered_html');
   }
   // Set favicon 
   if (isset($embed->favicon_link)) {
@@ -81,7 +81,7 @@ function template_preprocess_meedan_full_mode(&$vars) {
 
   // Load report status
   if(isset($node->field_rating)) {
-    if($node->field_rating['und'][0]['tid'] != 4) {
+    if($node->field_rating[LANGUAGE_NONE][0]['tid'] != 4) {
       $vars['report_status'] = _checkdesk_report_status($node);
     }
   }
@@ -112,8 +112,8 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
     $vars['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
   }
   // Media description
-  if(isset($node->body['und'][0]['value'])) {
-    $vars['media_description'] = check_markup($node->body['und'][0]['value'], 'filtered_html');
+  if(isset($node->body[LANGUAGE_NONE][0]['value'])) {
+    $vars['media_description'] = check_markup($node->body[LANGUAGE_NONE][0]['value'], 'filtered_html');
   }
   // Set favicon 
   if (isset($embed->favicon_link)) {
@@ -157,7 +157,7 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
 
   // Load report status
   if(isset($node->field_rating)) {
-    if($node->field_rating['und'][0]['tid'] == 2) {
+    if($node->field_rating[LANGUAGE_NONE][0]['tid'] == 2) {
       $vars['report_status'] = _checkdesk_report_status($node);
     }
   }
@@ -188,8 +188,8 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
     $vars['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
   }
   // Media description
-  if(isset($node->body['und'][0]['value'])) {
-    $vars['media_description'] = check_markup($node->body['und'][0]['value'], 'filtered_html');
+  if(isset($node->body[LANGUAGE_NONE][0]['value'])) {
+    $vars['media_description'] = check_markup($node->body[LANGUAGE_NONE][0]['value'], 'filtered_html');
   }
   // Set favicon 
   if (isset($embed->favicon_link)) {
@@ -224,7 +224,7 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
 
   // Load report status
   if(isset($node->field_rating)) {
-    if($node->field_rating['und'][0]['tid'] == 2) {
+    if($node->field_rating[LANGUAGE_NONE][0]['tid'] == 2) {
       $vars['report_status'] = _checkdesk_report_status($node);
     }
   }
