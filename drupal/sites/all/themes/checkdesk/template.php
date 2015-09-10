@@ -1378,7 +1378,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   
   if (in_array($vars['view']->name, array('recent_stories_by_tag', 'story_section', 'featured_story', 'most_popular', 'user_stories'))) {
     $vars['show_section'] = TRUE;
-    if (is_numeric($vars['view']->args[0])) {
+    if (isset($vars['view']->args[0]) && is_numeric($vars['view']->args[0])) {
         $term = taxonomy_term_load($vars['view']->args[0]);
         $vars['show_section'] = ($term->vocabulary_machine_name == 'sections') ? FALSE : TRUE;
     }
