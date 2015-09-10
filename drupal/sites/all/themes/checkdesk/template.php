@@ -1584,12 +1584,12 @@ function _checkdesk_story_authors($node) {
       $authors = array($node->uid => $node->name) + $authors;
     }
     foreach ($authors as $uid => $name) {
-      $output[] = l($name, 'user/'. $uid, array('attributes' => array('class' => 'contributor')));
+      $output[] = l($name, 'user/'. $uid, array('attributes' => array('class' => array('contributor'))));
     }
     $story_authors = implode(', ', $output);
   }
   else {
-    $story_authors = l($node->name, 'user/'. $node->uid, array('attributes' => array('class' => 'contributor')));
+    $story_authors = l($node->name, 'user/'. $node->uid, array('attributes' => array('class' => array('contributor'))));
   }
   return $story_authors;
 }
