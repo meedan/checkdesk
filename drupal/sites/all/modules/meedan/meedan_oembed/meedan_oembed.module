@@ -41,8 +41,8 @@ function meedan_oembed_refresh_access($node) {
  */
 function meedan_oembed_refresh($node) {
   $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), FALSE, TRUE);
-  drupal_set_message(print_r($embed, TRUE));
-  return '';
+  drupal_set_message(t('Refreshed oEmbed information: @embed', array('@embed' => print_r($embed, TRUE))));
+  drupal_goto('node/' . $node->nid);
 }
 
 /**
@@ -537,9 +537,7 @@ function _meedan_oembed_fetch_favicon($url, $force_refresh = FALSE) {
   $default = drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png';
 
   // Create/check favicon directory.
-  $files_path = file_default_scheme() . '://';
-  $favicon_dir = 'oembed_favicon/';
-  $favicon_path = $files_path . $favicon_dir;
+  $favicon_path = file_default_scheme() . '://oembed_favicon/';
   if (!file_prepare_directory($favicon_path, FILE_CREATE_DIRECTORY)) {
     watchdog('meedan_oembed', 'Failed to create @path folder. Aborting favicon fetch.', array('@path' => $favicon_path), WATCHDOG_ERROR);
     return $default;
@@ -564,7 +562,8 @@ function _meedan_oembed_fetch_favicon($url, $force_refresh = FALSE) {
   // Fetch favicon and fallback to default if necessary.
   $favicon = new FaviconDownloader($url);
   if (!$favicon->icoExists) {
-    $favicon_path .= '.' . pathinfo($default, PATHINFO_EXTENSION);
+    // Forcing it to 'ico' extension because of legacy icons.
+    $favicon_path .= '.' . 'ico'; // pathinfo($default, PATHINFO_EXTENSION);
     watchdog('meedan_oembed', 'Failed to fetch favicon for @url. Using default thumbnail.', array('@url' => $url), WATCHDOG_ERROR);
     if (!file_unmanaged_copy($default, $favicon_path)) {
       watchdog('meedan_oembed', 'Failed to copy default thumbnail to @path. Aborting caching.', array('@path' => $favicon_path), WATCHDOG_ERROR);
