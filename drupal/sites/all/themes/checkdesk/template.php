@@ -1289,7 +1289,7 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
  * recent_stories_by_tag view
  */
 function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
-    if (drupal_is_front_page()) {
+    if (drupal_is_front_page() || $_GET['q'] == 'front-page') {
       $vars['title'] = t('New and updated stories');
     }
     //$vars['view']->build_info['title'] = 'MY CUSTOM TITLE';
@@ -1313,7 +1313,7 @@ function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
  * most_popular view
  */
 function checkdesk_preprocess_views_view__most_popular(&$vars) {
-  if (drupal_is_front_page()) {
+  if (drupal_is_front_page() || $_GET['q'] == 'front-page') {
     $vars['title'] = t('Most popular');
   }
 }
