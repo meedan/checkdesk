@@ -217,12 +217,7 @@ function _checkdesk_bookmarklet_media_preview_callback() {
  */
 function _checkdesk_media_widget_callback($nid) {
   $node = node_load($nid);
-  $render = field_view_field('node', $node, 'field_link',
-      array(
-          'type' => 'meedan_oembed_thumbnail',
-          'settings' => array('imagestyle' => 'report_thumbnail'),
-      )
-  );
+  $render = node_view($node, 'meedan_oembed');
   $media_ref = checkdesk_core_droppable_reference($node);
   $response = array(
     'preview' => render($render),

@@ -8,7 +8,7 @@
                 breakBeforeOpen : false,
                 breakAfterOpen : false,
                 breakBeforeClose : false,
-                breakAfterClose : true
+                breakAfterClose : false
             }
         instance.dataProcessor.writer.setRules('p', rules);
         instance.dataProcessor.writer.setRules('div', rules);
