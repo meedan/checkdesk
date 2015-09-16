@@ -1,63 +1,33 @@
+<?php
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/header.js', array('scope' => 'footer', 'weight' => 99));
+?>
 <!-- ______________________ HEADER _______________________ -->
 <header id="header">
   <?php if ($page['navigation']) : ?>
     <?php print render($page['navigation']); ?>
   <?php endif; ?>
   <div class="metabar">
-    <ul id="breadcrumb">
-      <?php if($logo_icon): ?>
-        <li class="nav-toggle">
-          <?php print $logo_icon; ?>
-        </li>
-      <?php endif; ?>
-      <?php if($is_front): ?>
+    <?php if ($page['header']): ?>
+      <ul id="breadcrumb">
+        <?php if($logo_icon): ?>
+          <li class="nav-toggle">
+            <?php print $logo_icon; ?>
+          </li>
+        <?php endif; ?>
         <li>
           <?php print render($page['header']); ?>
         </li>
-      <?php elseif ($title): ?>
-        <li>
-          <h1 class="title">
-            <?php
-              if (arg(0) == 'user' && arg(1) == 'register') {
-                print t('Create an account');
-              } elseif (arg(0) == 'user' && arg(1) == 'password') {
-                print t('Retrieve lost password');
-              } elseif (arg(0) == 'user' && arg(1) == 'login') {
-                print t('Sign In');
-              } elseif (arg(0) == 'user' && arg(1) == '') {
-                print t('Sign In');
-              } elseif (arg(0) == 'user' && is_numeric(arg(1))) {
-                $account = user_load(arg(1));
-                if (arg(2) == 'notifications') {
-                  print t('Receive notifications');
-                }
-                else {
-                  // print $account->name;
-                }
-              } else {
-                print $title;
-              }
-            ?>
-          </h1>
-        </li>
-      <?php endif; ?>
-    </ul>
-    
+      </ul>
+    <?php endif; ?>
+
     <?php if ($secondary_nav): ?>
       <?php print $secondary_nav; ?>
     <?php endif; ?>
-
-    <?php if ($page['utility_menu']) : ?>
-      <?php print render($page['utility_menu']); ?>
-    <?php endif; ?>
-
   </div>
-
 </header>
 
 <!-- ______________________ MAIN _______________________ -->
-
-<div id="main" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+<div id="main" class="clearfix">
 
   <?php if ($page['sidebar_first']): ?>
     <div id="sidebar-first" class="column sidebar first">
@@ -67,16 +37,10 @@
     </div>
   <?php endif; ?>
 
-  <?php if ($page['widgets'] && checkdesk_widgets_visibility()): ?>
-    <aside id="widgets" class="column widgets">
-      <div id="widgets-inner" class="inner">
-        <?php print render($page['widgets']); ?>
-      </div>
-     </aside>
-  <?php endif; ?> 
-
   <div id="content">
-      <?php if ($messages || $tabs || $action_links): ?>
+    <div id="content-inner" class="inner column center">
+
+      <?php if ($title|| $messages || $tabs || $action_links): ?>
         <div id="content-header">
 
           <?php print render($title_suffix); ?>
@@ -85,7 +49,7 @@
           </div>
           <?php print render($page['help']); ?>
 
-          <?php if ($tabs): ?>
+          <?php if ($tabs && $logged_in): ?>
             <div class="tabs"><?php print render($tabs); ?></div>
           <?php endif; ?>
 
@@ -101,21 +65,26 @@
       </div>
 
       <?php // print $feed_icons; ?>
-  </div> <!-- /content -->
+
+    </div>
+  </div> <!-- /content-inner /content -->
+
+
+  
 
   <?php if ($page['sidebar_second']): ?>
-    <aside id="sidebar-second" class="column sidebar-second">
+    <div id="sidebar-second" class="column sidebar second">
       <div id="sidebar-second-inner" class="inner">
         <?php print render($page['sidebar_second']); ?>
       </div>
-    </aside>
+    </div>
   <?php endif; ?> <!-- /sidebar-second -->
 
   <!-- ______________________ FOOTER _______________________ -->
 
   <?php if (checkdesk_footer_visibility()) : ?>        
-  <?php if (isset($information_nav) || isset($footer_nav)): ?>
-    <footer id="footer">
+  <?php if ($information_nav || $footer_nav): ?>
+    <div id="footer">
       <div id="footer-inner" class="inner">
         <?php if($page['footer']): ?>
           <?php print render($page['footer']); ?>
@@ -127,8 +96,11 @@
           <?php print $information_nav; ?>
         <?php endif; ?>
       </div>
-    </footer> <!-- /footer -->
+    </div> <!-- /footer -->
   <?php endif; ?>
   <?php endif; ?>
+
+
+
 
 </div> <!-- /main -->

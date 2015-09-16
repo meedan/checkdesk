@@ -278,6 +278,11 @@ function checkdesk_preprocess_page(&$variables) {
     }
   }
 
+  // Profile page template
+  if(arg(2) == 'users') {
+    $variables['theme_hook_suggestions'][] = 'page__user';
+  }
+
   // Page templates for each node type
   if (isset($variables['node'])) {
     // If the node type is "discussion" the template suggestion will be "page--discussion.tpl.php".
