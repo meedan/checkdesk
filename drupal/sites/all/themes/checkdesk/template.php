@@ -1413,8 +1413,9 @@ function checkdesk_preprocess_user_profile(&$vars) {
   // User twitter
   $twitter_accounts = twitter_twitter_accounts($account);
   if($twitter_accounts) {
+    $vars['twitter'] = '';
     foreach ($twitter_accounts as $twitter_account) { 
-      $vars['twitter'] = l('<span class="icon-twitter"></span>', 'https://www.twitter.com/'. $twitter_account->screen_name, array('html' => TRUE));
+      $vars['twitter'] .= l('<span class="icon-twitter"></span>', 'https://www.twitter.com/'. $twitter_account->screen_name, array('html' => TRUE));
     }
   }
   // User fb
