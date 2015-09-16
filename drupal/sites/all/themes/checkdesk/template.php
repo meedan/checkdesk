@@ -1294,10 +1294,6 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
  * recent_stories_by_tag view
  */
 function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
-    if (drupal_is_front_page() || $_GET['q'] == 'front-page') {
-      $vars['title'] = t('New and updated stories');
-    }
-    //$vars['view']->build_info['title'] = 'MY CUSTOM TITLE';
     if ($vars['more'] && arg(0) == 'sections') {
         if (is_numeric($vars['view']->args[0])) {
             $term = taxonomy_term_load($vars['view']->args[0]);
@@ -1312,15 +1308,6 @@ function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
     else {
         $vars['more'] = NULL;
     }
-}
-
-/**
- * most_popular view
- */
-function checkdesk_preprocess_views_view__most_popular(&$vars) {
-  if (drupal_is_front_page() || $_GET['q'] == 'front-page') {
-    $vars['title'] = t('Most popular');
-  }
 }
 
 /**
@@ -1398,6 +1385,10 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       '!inverval' => checkdesk_core_custom_format_interval($vars['row']->node_created),
       '!datetime' => format_date($vars['row']->node_created, 'custom', t('l M d, Y \a\t g:i:sa'))
     ));
+  }
+
+  if ($vars['view']->name === 'frontpage_sections') {
+    $vars['latest_story'] = $vars['view']->result[$vars['view']->row_index]->latest_story ;
   }
 }
 

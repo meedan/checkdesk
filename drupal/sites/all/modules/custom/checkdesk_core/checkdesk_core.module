@@ -1320,6 +1320,24 @@ function checkdesk_core_views_pre_render(&$view) {
       }
     }
   }
+  elseif ($view->name == 'frontpage_sections') {
+      foreach ($view->result as $id => $section) {
+          $latest_story = views_get_view('recent_stories_by_tag');
+          $latest_story->display['default']->pager['options']['items_per_page'] = 1;
+          //print_r($latest_story->display['default']->pager);exit;
+          $latest_story->set_arguments(array($section->tid));
+          $latest_story->get_total_rows = TRUE;
+          $output = $latest_story->preview('block');
+          $total_rows = $latest_story->total_rows;
+          $latest_story->destroy();
+          if ($total_rows) {
+              $view->result[$id]->latest_story = $output;
+          }
+          else {
+              unset($view->result[$id]);
+          }
+      }
+  }
 }
 
 /**
