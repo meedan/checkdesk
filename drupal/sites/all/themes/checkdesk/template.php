@@ -1372,7 +1372,9 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     $vars['show_section'] = TRUE;
     if (isset($vars['view']->args[0]) && is_numeric($vars['view']->args[0])) {
         $term = taxonomy_term_load($vars['view']->args[0]);
-        $vars['show_section'] = ($term->vocabulary_machine_name == 'sections') ? FALSE : TRUE;
+        if ($term) {
+          $vars['show_section'] = ($term->vocabulary_machine_name == 'sections') ? FALSE : TRUE;
+        }
     }
     // Facebook comments count
     if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
