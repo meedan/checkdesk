@@ -48,20 +48,22 @@
   <div class="user-bio">
       <?php print render($user_profile['field_bio']); ?>
   </div>
-  <div class="user-social-accounts">
-      <?php if (isset($user_profile['twitter'])) : ?>
-          <div class="user-twitter">
-              <?php print render($user_profile['twitter']); ?>
-          </div>
-      <?php endif; ?>
-      <?php if ($facebook) : ?>
-          <div class="user-facebook">
-              <?php print $facebook; ?>
-          </div>
-      <?php endif; ?>
+  <div class="elsewhere user-social-accounts">
+      <ul>
+        <?php if (isset($twitter)) : ?>
+          <li class="user-twitter">
+            <?php print $twitter; ?>
+          </li>
+        <?php endif; ?>
+        <?php if (isset($facebook)) : ?>
+          <li class="user-facebook">
+            <?php print $facebook; ?>
+          </li>
+        <?php endif; ?>
+      </ul>
   </div>
 </div>
-<?php if ($user_stories) : ?>
+<?php if(isset($user_stories)) : ?>
 <section class="cd-container">
   <div class="cd-container-inner">
     <div class="cd-container-header">

@@ -1414,10 +1414,17 @@ function checkdesk_preprocess_user_profile(&$vars) {
   $vars['user_profile']['twitter']['#title'] = '';
   $account = $vars['elements']['#account'];
   $vars['account_name'] = $account->name;
+  // User twitter
+  $twitter_accounts = twitter_twitter_accounts($account);
+  if($twitter_accounts) {
+    foreach ($twitter_accounts as $twitter_account) { 
+      $vars['twitter'] = l('<span class="icon-twitter"></span>', 'https://www.twitter.com/'. $twitter_account->screen_name, array('html' => TRUE));
+    }
+  }
   // User fb
   $fbid = fboauth_fbid_load($account->uid);
   if ($fbid) {
-    $vars['facebook'] = l('Facebook', 'https://www.facebook.com/'. $fbid);
+    $vars['facebook'] = l('<span class="icon-facebook"></span>', 'https://www.facebook.com/'. $fbid, array('html' => TRUE));
   }
   // User roles
   $roles = $account->roles;
