@@ -299,10 +299,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['path'] = 'sawy-sections';
   $translatables['frontpage_sections'] = array(
     t('Master'),
     t('Sections'),
@@ -315,7 +311,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('.'),
     t(','),
     t('Block'),
-    t('Page'),
   );
   $export['frontpage_sections'] = $view;
 
