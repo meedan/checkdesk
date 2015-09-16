@@ -1408,6 +1408,8 @@ function checkdesk_preprocess_meedan_sensitive_content_display(&$vars) {
  * Process variables for user-profile.tpl.php.
  */
 function checkdesk_preprocess_user_profile(&$vars) {
+  // $user = user_load($variables['uid']);
+  $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-180'), FALSE, 'medium');
   //$vars['member_for'] = t('Member for @time', array('@time' => $vars['user_profile']['summary']['member_for']['#markup']));
   $vars['user_profile']['twitter']['#title'] = '';
   $account = $vars['elements']['#account'];

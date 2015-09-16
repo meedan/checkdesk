@@ -48,6 +48,13 @@
   }
 }
 
+// load more
+.cd-container .cd-container-inner {
+  // add styles for load more pager
+  @include ctb-load-more-pager;
+}
+
+
 
 // remove border from first container on section pages
 .page-section .cd-container-section:first-child .cd-container-inner,

@@ -3474,7 +3474,7 @@ function checkdesk_core_actions_set_followers($node) {
   }
 }
 
-function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
+function _set_user_avatar_bg($account, $classes = array(), $link = TRUE, $image_style = 'activity_avatar') {
   if (isset($account->picture->uri)) {
     $avatar_uri = $account->picture->uri;
   }
@@ -3484,8 +3484,8 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
 
   $avatar = '';
   if ($avatar_uri) {
-    $derivative_uri = image_style_path('activity_avatar', $avatar_uri);
-    $success = file_exists($derivative_uri) || image_style_create_derivative(image_style_load('activity_avatar'), $avatar_uri, $derivative_uri);
+    $derivative_uri = image_style_path($image_style, $avatar_uri);
+    $success = file_exists($derivative_uri) || image_style_create_derivative(image_style_load($image_style), $avatar_uri, $derivative_uri);
 
     $new_image_url = file_create_url($derivative_uri);
 

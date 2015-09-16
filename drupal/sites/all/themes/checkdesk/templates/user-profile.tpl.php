@@ -34,38 +34,42 @@
  * @ingroup themeable
  */
 ?>
-<!--
-<h2 class="user-member-for"><?php print render($member_for); ?></h2>
--->
+
 <div class="profile"<?php print $attributes; ?>>
-    <div class="user-avatar">
-        <?php print render($user_profile['user_picture']); ?>
-    </div>
-    <div class="user-name">
-        <?php print $account_name; ?>
-    </div>
-    <div class="user-roles">
-        <?php print $roles; ?>
-    </div>
-    <div class="user-bio">
-        <?php print render($user_profile['field_bio']); ?>
-    </div>
-    <div class="user-social-accounts">
-        <?php if (isset($user_profile['twitter'])) : ?>
-            <div class="user-twitter">
-                <?php print render($user_profile['twitter']); ?>
-            </div>
-        <?php endif; ?>
-        <?php if ($facebook) : ?>
-            <div class="user-facebook">
-                <?php print $facebook; ?>
-            </div>
-        <?php endif; ?>
-    </div>
-    <?php if ($user_stories) : ?>
-        <h3><?php print t('Stories by !user', array('!user' => $account_name)); ?></h3>
-        <div class="user-stories">
-            <?php print $user_stories; ?>
-        </div>
-    <?php endif; ?>
+  <div class="user-avatar">
+      <?php print $user_avatar; ?>
+  </div>
+  <div class="user-name">
+      <?php print $account_name; ?>
+  </div>
+  <div class="user-roles">
+      <?php print $roles; ?>
+  </div>
+  <div class="user-bio">
+      <?php print render($user_profile['field_bio']); ?>
+  </div>
+  <div class="user-social-accounts">
+      <?php if (isset($user_profile['twitter'])) : ?>
+          <div class="user-twitter">
+              <?php print render($user_profile['twitter']); ?>
+          </div>
+      <?php endif; ?>
+      <?php if ($facebook) : ?>
+          <div class="user-facebook">
+              <?php print $facebook; ?>
+          </div>
+      <?php endif; ?>
+  </div>
 </div>
+<?php if ($user_stories) : ?>
+<section class="cd-container">
+  <div class="cd-container-inner">
+    <div class="cd-container-header">
+      <h2 class="cd-container-header-title"><?php print t('Stories by !user', array('!user' => $account_name)); ?></h2>
+    </div>
+    <div class="cd-container-body">
+      <?php print $user_stories; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
