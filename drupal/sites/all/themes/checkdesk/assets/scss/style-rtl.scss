@@ -11,10 +11,10 @@ $from-direction: right;
 // $absolute-line-height: $absolute-line-height * 1.2; // increase to account for arabic
 $header-font-stack: $ar-header-font-stack;
 $body-font-stack: $ar-body-font-stack;
-$nav-font-stack: $ar-body-font-stack;
 
 // 2. Arabic fonts
-@import url(https://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notonaskharabic.css);
+@import url(https://fonts.googleapis.com/earlyaccess/notokufiarabic.css.css);
 
 // 3.
 // Now we reload all styles with this updated configuration
@@ -56,17 +56,14 @@ html body.i18n-ar {
   }
 }
 
-.update .update-body .update-title {
-  margin-top: $absolute-line-height / 2;
-  font-size: 26px;
-  font-weight: 300;
-}
-
 .update .update-body p {
   line-height: 30px;
 }
 
 // report
+.report {
+  font-family: $ar-font-stack;
+}
 
 .report .activity {
   font-size: 16px;

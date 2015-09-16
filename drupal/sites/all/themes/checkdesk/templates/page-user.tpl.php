@@ -32,7 +32,7 @@
                   print t('Receive notifications');
                 }
                 else {
-                  print $account->name;
+                  // print $account->name;
                 }
               } else {
                 print $title;

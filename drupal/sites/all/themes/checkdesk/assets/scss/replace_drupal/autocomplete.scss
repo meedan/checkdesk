@@ -2,7 +2,7 @@
 @import "colors";
 @import "bowerbird/colors";
 // Directional defaults
-$from-direction: left !default;
+@import "global";
 // Aliases for bidirectional stuff
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
@@ -23,12 +23,20 @@ $omega: opposite-position($from-direction);
 // @extend directly or use icon() mixin to do it for you
 @import "bowerbird/icons/fontawesome";
 
+// Forms autocomplete and jquery ui
+@import "replace_drupal/jquery.ui.autocomplete";
+
+// =======================================================================
+// Autocomplete 
+//
 
 ul.ui-autocomplete {
   max-height: 240px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 3px;
+  background: #fff;
+  border: 1px solid #aaaaaa;
   @if $from-direction == right {
     padding: 3px 0 3px $gutter-width*2;
   }

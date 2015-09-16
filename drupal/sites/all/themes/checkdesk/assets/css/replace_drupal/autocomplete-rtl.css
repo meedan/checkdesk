@@ -50,7 +50,7 @@
   padding: 0;
   margin: 0;
   display: block;
-  float: left;
+  float: right;
 }
 
 .ui-menu .ui-menu {
@@ -61,8 +61,8 @@
   margin: 0;
   padding: 0;
   zoom: 1;
-  float: left;
-  clear: left;
+  float: right;
+  clear: right;
   width: 100%;
 }
 
@@ -87,6 +87,7 @@ ul.ui-autocomplete {
   padding: 3px;
   background: #fff;
   border: 1px solid #aaaaaa;
+  padding: 3px 0 3px 30px;
 }
 
 a.autocomplete-deluxe-single:hover {
@@ -115,7 +116,7 @@ a.autocomplete-deluxe-single:hover {
 }
 
 div.autocomplete-deluxe-container input.autocomplete-deluxe-form {
-  padding: 4px 5px;
+  padding: 0px 5px;
   border: none;
 }
 
@@ -140,7 +141,7 @@ div.autocomplete-deluxe-container input.autocomplete-deluxe-form-single {
 
 span.autocomplete-deluxe-value-delete {
   display: inline-block;
-  float: right;
+  float: left;
   width: 18px;
   width: 18px;
   /* Prevent text selection. */
@@ -180,7 +181,7 @@ div.autocomplete-deluxe-multiple {
   border-radius: 3px;
   display: inline-block;
   position: relative;
-  padding: 6px 7.5px 4px;
+  padding: 6px 7.5px 2px;
   cursor: text;
   height: auto !important;
   margin: 0;
@@ -194,12 +195,12 @@ input.autocomplete-deluxe-form.autocomplete-deluxe-multiple {
   border: 3px none;
   width: 25px;
   margin-left: 5px;
-  float: left;
+  float: right;
 }
 
 div.autocomplete-deluxe-throbber {
   width: 16px;
-  float: right;
+  float: left;
   height: 50%;
 }
 
@@ -212,15 +213,15 @@ div.autocomplete-deluxe-throbber {
 }
 
 .autocomplete-deluxe-item {
-  float: left;
+  float: right;
   position: relative;
   border-radius: 3px;
   background-clip: padding-box;
   background-color: #e7e8ea;
   border: 1px solid #cfd3d5;
   cursor: default;
-  margin: 3px 7.5px 3px 5px;
-  padding: 3px 30px 3px 5px;
+  margin: 3px 5px 3px 7.5px;
+  padding: 3px 5px 3px 30px;
   color: #3e4c57;
 }
 
@@ -228,7 +229,7 @@ div.autocomplete-deluxe-throbber {
   color: #9fa6ac;
   display: block;
   position: absolute;
-  right: 15px;
+  left: 15px;
   top: 3px;
   width: 12px;
 }

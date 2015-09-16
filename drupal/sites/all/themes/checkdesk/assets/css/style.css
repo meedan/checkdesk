@@ -5712,11 +5712,11 @@ body.cke_editable .node-media .media {
 .story .story-body p,
 .update .update-body p,
 body.cke_editable p {
-  margin: 0 0 26px 0;
   color: #3e4c57;
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-size: 18px;
   word-wrap: break-word;
+  margin: 0 0 26px 0;
+  font-size: 18px;
   line-height: 26px;
   letter-spacing: -0.23px;
 }
@@ -5740,10 +5740,10 @@ body.cke_editable figure.element.cke_widget_element {
 body.cke_editable > ul,
 body.cke_editable > ol {
   counter-reset: li;
-  margin: 0 0 26px 0;
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-size: 18px;
   color: #3e4c57;
+  margin: 0 0 26px 0;
+  font-size: 18px;
   line-height: 26px;
   letter-spacing: -0.23px;
 }
@@ -5812,15 +5812,17 @@ body.cke_editable > figure + h2 {
 .story .story-body h2,
 .update .update-body h2,
 body.cke_editable h2 {
-  color: #283743;
+  margin-bottom: 0;
   font-weight: bold;
+  color: #283743;
 }
 .story .story-body h3,
 .update .update-body h3,
 body.cke_editable h3 {
-  color: #6f7a82;
   margin-bottom: 30px;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 22px;
+  color: #6f7a82;
   line-height: 30px;
   letter-spacing: -0.64px;
 }
