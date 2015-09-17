@@ -1418,7 +1418,7 @@ function checkdesk_preprocess_user_profile(&$vars) {
     $elsewhere = '';
     foreach ($twitter_accounts as $twitter_account) { 
       $elsewhere .= '<li class="user-twitter">';
-      $elsewhere .= l('<span class="icon-twitter"></span>', 'https://www.twitter.com/'. $twitter_account->screen_name, array('html' => TRUE));
+      $elsewhere .= l('<span class="icon-twitter"></span>', 'https://www.twitter.com/'. $twitter_account->screen_name, array('html' => TRUE, 'attributes' => array('title' => '@' . $twitter_account->screen_name)));
       $elsewhere .= '</li>';
     }
   }
@@ -1426,7 +1426,7 @@ function checkdesk_preprocess_user_profile(&$vars) {
   $fbid = fboauth_fbid_load($account->uid);
   if ($fbid) {
     $elsewhere .= '<li class="user-facebook">';
-    $elsewhere .= l('<span class="icon-facebook"></span>', 'https://www.facebook.com/'. $fbid, array('html' => TRUE));
+    $elsewhere .= l('<span class="icon-facebook"></span>', 'https://www.facebook.com/'. $fbid, array('html' => TRUE, 'attributes' => array('title' => 'facebook.com/' . $fbid)));
     $elsewhere .= '</li>';
   }
   // prepare social links as elsewhere
