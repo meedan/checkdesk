@@ -143,11 +143,16 @@ $omega: opposite-position($from-direction);
 // Container
 @import "module/container/container";
 @import "module/container/containers";
-@import "module/container/tones";
-@import "module/container/cd_item";
+@import "module/container/slices";
+@import "module/container/l_row";
 @import "module/container/l_list";
 @import "module/container/linkslist";
-@import "module/container/l_row";
+// Container item tones
+@import "module/container/tones";
+// Container item
+@import "module/container/cd_item";
+@import "module/container/cd_items";
+
 
 // Story colloboration activity
 @import "module/activity";

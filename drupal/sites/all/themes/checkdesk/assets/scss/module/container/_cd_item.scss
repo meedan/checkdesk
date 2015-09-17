@@ -1,3 +1,38 @@
+// Horizontal item
+@mixin cd-item-horizontal($media-width, $media-align: right) {
+  .cd-item-image-container {
+        box-sizing: border-box;
+        padding-#{$alpha}: $gutter-width;
+  }
+  // IE10/11 ignore boxsizing on flex-basis'd element.
+    // Option is extra wrapping div or this slightly overblow selector.
+    .cd-item-content {
+        position: relative;
+
+        > * {
+            box-sizing: border-box;
+            padding-#{$omega}: $gutter-width;
+        }
+    }
+  .cd-item-container {
+    @include flex-wrap(wrap);
+    @if $media-align == right {
+                @include flex-direction(row-reverse);
+            } @else {
+                @include flex-direction(row);
+            }
+  }
+  .cd-item-media-wrapper {
+      flex-basis: $media-width;
+  }
+  .cd-item-content {
+      flex-basis: (100% - $media-width);
+      // DAMN YOU IE10/11 FLEXWRAP BOX SIZING BUG
+      max-width: (100% - $media-width);
+  }
+}
+
+
 // item 
 @media (min-width: 1px) and (max-width: #{$width-tablet}) {
   .cd-item {

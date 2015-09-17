@@ -72,22 +72,3 @@
 .page-sections .cd-container-section:last-child {
   margin-bottom: 60px;
 }
-
-
-// slices
-@include cd-responsive('min-width: #{$width-tablet}') {
-  .cd-slice-wrapper {
-    margin: 0 -8px;
-  }
-}
-
-.cd-slice-item {
-  position: relative;
-  margin-bottom: 10px;
-}
-
-@include cd-responsive('min-width: #{$width-tablet}') {
-  .cd-slice-item {
-    @include flexbox;
-  }
-}
