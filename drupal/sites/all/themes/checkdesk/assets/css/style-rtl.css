@@ -7029,22 +7029,20 @@ x x x x x x x x
 */
 /*
 
-Three quarter item. Looks like a wide standard, a bit like this:
+Full item with 75% width media.
 
-************************************************************************************************
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-
+***********************************************************************************************
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ************************************************************************************************
 
 */
@@ -7055,18 +7053,18 @@ Three quarter item. Looks like a wide standard, a bit like this:
 }
 
 @media only screen and (min-width: 740px) {
-  .cd-item-three-quarters-tablet .cd-item-image-container {
+  .cd-item-full-media-75-tablet .cd-item-image-container {
     box-sizing: border-box;
     padding-right: 15px;
   }
-  .cd-item-three-quarters-tablet .cd-item-content {
+  .cd-item-full-media-75-tablet .cd-item-content {
     position: relative;
   }
-  .cd-item-three-quarters-tablet .cd-item-content > * {
+  .cd-item-full-media-75-tablet .cd-item-content > * {
     box-sizing: border-box;
     padding-left: 15px;
   }
-  .cd-item-three-quarters-tablet .cd-item-container {
+  .cd-item-full-media-75-tablet .cd-item-container {
     -webkit-flex-wrap: wrap;
     -moz-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
@@ -7078,14 +7076,14 @@ Three quarter item. Looks like a wide standard, a bit like this:
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
   }
-  .cd-item-three-quarters-tablet .cd-item-media-wrapper {
-    flex-basis: 75.5%;
+  .cd-item-full-media-75-tablet .cd-item-media-wrapper {
+    flex-basis: 74%;
   }
-  .cd-item-three-quarters-tablet .cd-item-content {
-    flex-basis: 24.5%;
-    max-width: 24.5%;
+  .cd-item-full-media-75-tablet .cd-item-content {
+    flex-basis: 26%;
+    max-width: 26%;
   }
-  .cd-item-three-quarters-tablet .cd-item-header {
+  .cd-item-full-media-75-tablet .cd-item-header {
     font-size: 26px;
     font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
     padding-bottom: 10px;

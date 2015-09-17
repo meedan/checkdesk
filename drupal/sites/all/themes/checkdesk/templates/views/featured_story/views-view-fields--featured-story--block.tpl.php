@@ -26,7 +26,7 @@
   $author = _checkdesk_story_authors($fields['nid']->raw);
   $has_image_class = isset($fields['uri']->raw) ? ' cd-item-has-image' : '';
 ?>
-<div class="cd-item tone-default-item<?php print $has_image_class; ?> cd-item-standard-mobile cd-item-three-quarters-tablet">
+<div class="cd-item tone-default-item<?php print $has_image_class; ?> cd-item-standard-mobile cd-item-full-media-75-tablet">
     <div class="cd-item-container">
         <?php if (isset($fields['uri']->raw)) { ?>
             <div class="cd-item-media-wrapper">
