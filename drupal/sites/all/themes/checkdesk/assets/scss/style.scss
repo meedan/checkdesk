@@ -137,12 +137,17 @@ $omega: opposite-position($from-direction);
 @import "components/most_popular";
 
 // Common item styles
-@import "components/container/items";
-@import "components/container/item";
+@import "module/items";
+@import "module/item";
 
 // Container
-@import "components/container/container";
-@import "components/container/containers";
+@import "module/container/container";
+@import "module/container/containers";
+@import "module/container/tones";
+@import "module/container/cd_item";
+@import "module/container/l_list";
+@import "module/container/linkslist";
+@import "module/container/l_row";
 
 // Story colloboration activity
 @import "module/activity";
