@@ -48,9 +48,9 @@
   <div class="user-bio">
       <?php print render($user_profile['field_bio']); ?>
   </div>
-  <?php if (isset($elsewhere)) : ?>
+  <?php if (isset($social_accounts)) : ?>
     <div class="elsewhere user-social-accounts">
-      <?php print $elsewhere; ?>
+      <?php print $social_accounts; ?>
     </div>
   <?php endif; ?>
 </div>

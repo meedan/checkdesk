@@ -1412,27 +1412,28 @@ function checkdesk_preprocess_user_profile(&$vars) {
   $vars['user_profile']['twitter']['#title'] = '';
   $account = $vars['elements']['#account'];
   $vars['account_name'] = $account->name;
+  $social_accounts = array();
   // User twitter
   $twitter_accounts = twitter_twitter_accounts($account);
   if($twitter_accounts) {
-    $elsewhere = '';
-    foreach ($twitter_accounts as $twitter_account) { 
-      $elsewhere .= '<li class="user-twitter">';
-      $elsewhere .= l('<span class="icon-twitter"></span>', 'https://www.twitter.com/'. $twitter_account->screen_name, array('html' => TRUE, 'attributes' => array('title' => '@' . $twitter_account->screen_name)));
-      $elsewhere .= '</li>';
+    foreach ($twitter_accounts as $twitter_account) {
+      $social_accounts[] = array(
+        'data' => l('<span class="icon-twitter"></span>', 'https://www.twitter.com/'. $twitter_account->screen_name, array('html' => TRUE, 'attributes' => array('title' => '@' . $twitter_account->screen_name))),
+        'class' => array('user-twitter'),
+      );
     }
   }
   // User fb
   $fbid = fboauth_fbid_load($account->uid);
   if ($fbid) {
-    $elsewhere .= '<li class="user-facebook">';
-    $elsewhere .= l('<span class="icon-facebook"></span>', 'https://www.facebook.com/'. $fbid, array('html' => TRUE, 'attributes' => array('title' => 'facebook.com/' . $fbid)));
-    $elsewhere .= '</li>';
+    $social_accounts[] = array(
+      'data' => l('<span class="icon-facebook"></span>', 'https://www.facebook.com/'. $fbid, array('html' => TRUE, 'attributes' => array('title' => 'facebook.com/' . $fbid))),
+      'class' => array('user-facebook'),
+    );
   }
   // prepare social links as elsewhere
-  if (isset($elsewhere)) {
-    $elsewhere = '<ul>' . $elsewhere . '</ul>';
-    $vars['elsewhere'] = $elsewhere;  
+  if (count($social_accounts)) {
+    $vars['social_accounts'] = theme('item_list', array('items' => $social_accounts, 'title' => ''));
   }
 
   // User roles
