@@ -6629,16 +6629,26 @@ body.cke_editable blockquote:after {
   padding-bottom: 10px;
 }
 
+.cd-item-lead {
+  padding-bottom: 10px;
+  color: #6f7a82;
+}
+
 @media (min-width: 1px) and (max-width: 740px) {
   .cd-item-header {
     font-size: 14px;
     padding-bottom: 5px;
+  }
+
+  .cd-item-lead {
+    display: none;
   }
 }
 .cd-item-title {
   font: inherit;
   line-height: inherit;
   word-wrap: break-word;
+  margin-bottom: 0;
 }
 
 .cd-item-content-label {
@@ -6980,7 +6990,7 @@ body.cke_editable blockquote:after {
 
 .tone-default-item {
   background-color: #fff;
-  color: #6f7a82;
+  color: #3e4c57;
 }
 
 .cd-container-first {

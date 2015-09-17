@@ -212,6 +212,11 @@
   padding-bottom: 10px;
 }
 
+.cd-item-lead {
+  padding-bottom: 10px;
+  color: $firefly60;
+}
+
 @media (min-width: 1px) and (max-width: #{$width-tablet}) {
   .cd-item-header {
     font-size: 14px;
@@ -221,12 +226,16 @@
     }
     padding-bottom: 5px;
   }
+  .cd-item-lead {
+    display: none;
+  }
 }
 
 .cd-item-title {
   font: inherit;
   line-height: inherit;
   word-wrap: break-word;
+  margin-bottom: 0;
 }
 
 .cd-item-content-label {
@@ -352,5 +361,5 @@
 // tones
 .tone-default-item {
   background-color: #fff;
-  color: $firefly60;
+  color: $firefly80;
 }

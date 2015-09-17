@@ -1415,16 +1415,26 @@ function checkdesk_preprocess_user_profile(&$vars) {
   // User twitter
   $twitter_accounts = twitter_twitter_accounts($account);
   if($twitter_accounts) {
-    $vars['twitter'] = '';
+    $elsewhere = '';
     foreach ($twitter_accounts as $twitter_account) { 
-      $vars['twitter'] .= l('<span class="icon-twitter"></span>', 'https://www.twitter.com/'. $twitter_account->screen_name, array('html' => TRUE));
+      $elsewhere .= '<li class="user-twitter">';
+      $elsewhere .= l('<span class="icon-twitter"></span>', 'https://www.twitter.com/'. $twitter_account->screen_name, array('html' => TRUE));
+      $elsewhere .= '</li>';
     }
   }
   // User fb
   $fbid = fboauth_fbid_load($account->uid);
   if ($fbid) {
-    $vars['facebook'] = l('<span class="icon-facebook"></span>', 'https://www.facebook.com/'. $fbid, array('html' => TRUE));
+    $elsewhere .= '<li class="user-facebook">';
+    $elsewhere .= l('<span class="icon-facebook"></span>', 'https://www.facebook.com/'. $fbid, array('html' => TRUE));
+    $elsewhere .= '</li>';
   }
+  // prepare social links as elsewhere
+  if (isset($elsewhere)) {
+    $elsewhere = '<ul>' . $elsewhere . '</ul>';
+    $vars['elsewhere'] = $elsewhere;  
+  }
+
   // User roles
   $roles = $account->roles;
   unset($roles[DRUPAL_AUTHENTICATED_RID]);

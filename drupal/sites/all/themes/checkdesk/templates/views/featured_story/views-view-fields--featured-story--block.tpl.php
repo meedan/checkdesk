@@ -23,23 +23,43 @@
  *
  * @ingroup views_templates
  */
+  $author = _checkdesk_story_authors($fields['nid']->raw);
+  $has_image_class = isset($fields['uri']->raw) ? ' cd-item-has-image' : '';
 ?>
-<?php foreach ($fields as $id => $field): ?>
-  <?php if (!empty($field->separator)): ?>
-    <?php print $field->separator; ?>
-  <?php endif; ?>
-
-  <?php print $field->wrapper_prefix; ?>
-    <?php print $field->label_html; ?>
-    <?php print $field->content; ?>
-  <?php print $field->wrapper_suffix; ?>
-<?php endforeach; ?>
-
-<?php print $created_at; ?>
-<?php if (isset($story_commentcount)) : ?>
-  <div class="cd-item-count story-commentcount">
-    <a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">
-      <span class="icon-comment-o"></span> <?php print render($story_commentcount); ?>
-    </a>
-  </div>
-<?php endif; ?>
+<div class="cd-item tone-default-item<?php print $has_image_class; ?>">
+    <div class="cd-item-container">
+        <?php if (isset($fields['uri']->raw)) { ?>
+            <div class="cd-item-media-wrapper">
+                <div class="cd-item-image-container u-responsive-ratio">
+                    <figure class="media-lead">
+                        <?php print $fields['uri']->content; ?>
+                    </figure>
+                </div>
+            </div>
+        <?php } ?>
+        <div class="cd-item-content">
+            <div class="cd-item-header">
+                <h1 class="cd-item-title">
+                    <?php print $fields['title']->raw; ?>
+                </h1>
+            </div>
+            <div class="cd-item-lead">
+              <?php print $fields['body']->content; ?>
+            </div>
+            <aside class="cd-item-meta">
+                <div class="byline">
+                    <?php print $author; ?>
+                </div>
+                <?php print $created_at; ?>
+                <?php if (isset($story_commentcount)) { ?>
+                    <div class="cd-item-count story-commentcount">
+                        <a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">
+                            <span class="icon-comment-o"></span> <?php print render($story_commentcount); ?>
+                        </a>
+                    </div>
+                <?php } ?>
+            </aside>
+        </div>
+        <?php print l($fields['title']->raw, 'node/' . $fields['nid']->raw, array('attributes' => array('class' => array('u-faux-block-link-overlay')))); ?>
+    </div>
+</div>
