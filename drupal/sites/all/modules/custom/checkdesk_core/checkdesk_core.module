@@ -1336,6 +1336,7 @@ function checkdesk_core_views_pre_render(&$view) {
               unset($view->result[$id]);
           }
       }
+      $view->total_rows = count($view->result);
   }
 }
 
@@ -2334,7 +2335,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     }
   }
 
-  if ($view->name == 'sections') {
+  if ($view->name == 'sections' || $view->name == 'frontpage_sections') {
     $query->where[] = array(
       'conditions' => array(array(
         'field' => 'taxonomy_term_data.language',
