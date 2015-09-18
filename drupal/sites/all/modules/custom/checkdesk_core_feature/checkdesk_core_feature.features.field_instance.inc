@@ -571,7 +571,7 @@ function checkdesk_core_feature_field_default_field_instances() {
       'image_field_caption' => 1,
       'max_filesize' => '',
       'max_resolution' => '',
-      'min_resolution' => '',
+      'min_resolution' => '940x520',
       'title_field' => 0,
       'user_register_form' => FALSE,
     ),
@@ -579,7 +579,6 @@ function checkdesk_core_feature_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
-        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'throbber',
       ),
