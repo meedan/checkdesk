@@ -55,3 +55,37 @@ function checkdesk_featured_stories_feature_fe_nodequeue_export_fields() {
 
   return $nodequeues;
 }
+
+/**
+ * Implements hook_image_default_styles().
+ */
+function checkdesk_featured_stories_feature_image_default_styles() {
+  $styles = array();
+
+  // Exported image style: item_image_large.
+  $styles['item_image_large'] = array(
+    'label' => 'item_image_large',
+    'effects' => array(
+      7 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 880,
+          'height' => '',
+          'upscale' => 1,
+        ),
+        'weight' => 1,
+      ),
+      8 => array(
+        'name' => 'image_crop',
+        'data' => array(
+          'width' => 700,
+          'height' => 420,
+          'anchor' => 'center-center',
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  return $styles;
+}
