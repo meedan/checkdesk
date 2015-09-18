@@ -6877,19 +6877,6 @@ body.cke_editable blockquote:after {
   box-sizing: border-box;
 }
 
-@media (min-width: 1px) and (max-width: 740px) {
-  .cd-item-content {
-    position: relative;
-    display: block;
-    padding-bottom: 40px;
-    min-height: 80px;
-  }
-}
-@media only screen and (min-width: 740px) {
-  .cd-item-content {
-    min-height: 132px;
-  }
-}
 .cd-item-header {
   font-size: 16px;
   font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
@@ -6899,18 +6886,9 @@ body.cke_editable blockquote:after {
 .cd-item-lead {
   padding-bottom: 10px;
   color: #6f7a82;
+  display: none;
 }
 
-@media (min-width: 1px) and (max-width: 740px) {
-  .cd-item-header {
-    font-size: 14px;
-    padding-bottom: 5px;
-  }
-
-  .cd-item-lead {
-    display: none;
-  }
-}
 .cd-item-title {
   font: inherit;
   line-height: inherit;
@@ -7043,6 +7021,9 @@ Full item with 75% width media.
 @media (min-width: 1px) and (max-width: 740px) {
   .cd-item-standard-mobile .cd-item-image-container {
     display: block;
+  }
+  .cd-item-standard-mobile .cd-item-header {
+    font-size: 20px;
   }
 }
 
@@ -7184,9 +7165,21 @@ Full item with 75% width media.
     max-width: 25%;
   }
   .cd-item-full-media-75-tablet .cd-item-header {
-    font-size: 26px;
+    font-size: 24px;
     font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
     padding-bottom: 10px;
+  }
+  .cd-item-full-media-75-tablet .cd-item-lead,
+  .cd-item-full-media-75-tablet .cd-item-image-container {
+    display: block;
+  }
+  .cd-item-full-media-75-tablet.cd-item--has-no-image .cd-item-lead {
+    display: block;
+  }
+}
+@media only screen and (min-width: 740px) and (min-width: 980px) {
+  .cd-item-full-media-75-tablet .cd-item-header {
+    font-size: 26px;
   }
 }
 

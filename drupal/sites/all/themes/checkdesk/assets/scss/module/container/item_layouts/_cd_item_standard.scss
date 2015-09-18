@@ -30,4 +30,14 @@ x x x x x x x x
     .cd-item-image-container {
         display: block;
     }
+
+    // TEMPORARY until font size is based on the arrangement in the slices
+    .cd-item-header {
+    	font-size: 20px;
+	    @if $from-direction == left {
+	      line-height: 26px;
+	      letter-spacing: -0.5px;
+	    }
+    }
+
 }

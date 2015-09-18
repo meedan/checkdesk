@@ -24,13 +24,36 @@ Full item with 75% width media.
   @include cd-item-horizontal(75%); // Works out as same width as 9 col on desktop and 6.333 col on tablet to align with other items
 
   .cd-item-header {
-    font-size: 26px;
+
+    font-size: 24px;
     @if $from-direction == left {
-      line-height: 32px;
-      letter-spacing: -1.04px;
+      line-height: 30px;
+      letter-spacing: -1px;
     }
     @include cd-serif-family;
     padding-bottom: 10px;
+
+    @include cd-responsive('min-width: #{$width-desktop}') {
+      font-size: 26px;
+      @if $from-direction == left {
+        line-height: 32px;
+        letter-spacing: -1.04px;
+      }
+    }
+
   }
+
+  .cd-item-lead,
+  .cd-item-image-container {
+      display: block;
+  }
+
+  &.cd-item--has-no-image {
+      .cd-item-lead {
+          display: block;
+      }
+  }
+
+
 
 }

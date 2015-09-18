@@ -1160,8 +1160,8 @@ function _checkdesk_generate_lead_image_thumbnail($image) {
     $lead_image_small_path = image_style_url('item_image_small', $image);
     // set small, med and large images in srcset
     $output .= '<img';
-    $output .= ' srcset="' . $lead_image_large_path . ' 700w, ' . $lead_image_med_path . ' 220w, ' . $lead_image_small_path . ' 120w"'; 
-    $output .= ' sizes="(min-width: 980px) 700px, (min-width: 740px) 220px, 120px"';
+    $output .= ' srcset="' . $lead_image_large_path . ' 700w, ' . $lead_image_med_path . ' 520w, ' . $lead_image_small_path . ' 120w"'; 
+    $output .= ' sizes="(min-width: 980px) 700px, (min-width: 740px) 520px, 100%"';
     $output .= ' src="' . $lead_image_small_path . '"';
     $output .= ' class="feature-image"';
     $output .= '/>';

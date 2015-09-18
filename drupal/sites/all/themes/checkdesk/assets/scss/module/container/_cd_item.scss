@@ -98,21 +98,6 @@
   @include box-sizing(border-box);
 }
 
-@media (min-width: 1px) and (max-width: #{$width-tablet}) {
-  .cd-item-content {
-    position: relative;
-    display: block;
-    padding-bottom: 40px;
-    min-height: 80px;
-  }
-}
-
-@include cd-responsive('min-width: #{$width-tablet}') {
-  .cd-item-content { 
-    min-height: 132px;
-  }
-}
-
 .cd-item-header {
   font-size: 16px;
   @if $from-direction == left {
@@ -126,20 +111,7 @@
 .cd-item-lead {
   padding-bottom: 10px;
   color: $firefly60;
-}
-
-@media (min-width: 1px) and (max-width: #{$width-tablet}) {
-  .cd-item-header {
-    font-size: 14px;
-    @if $from-direction == left {
-      line-height: 18px;
-      letter-spacing: -0.3px;
-    }
-    padding-bottom: 5px;
-  }
-  .cd-item-lead {
-    display: none;
-  }
+  display: none;
 }
 
 .cd-item-title {

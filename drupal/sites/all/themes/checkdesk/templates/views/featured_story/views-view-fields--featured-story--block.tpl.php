@@ -26,15 +26,15 @@
   $author = _checkdesk_story_authors($fields['nid']->raw);
   if (isset($fields['uri']->raw)) {
     $has_image_class =  ' cd-item-has-image';  
-    $list_type_class = ' cd-item-list-media-mobile';
+    // $list_type_class = ' cd-item-list-media-mobile';
   } else {
     $has_image_class = '';
-    $list_type_class = ' cd-item-list-mobile';
+    // $list_type_class = ' cd-item-list-mobile';
   }
   
 
 ?>
-<div class="cd-item tone-default-item<?php print $has_image_class . $list_type_class; ?> cd-item-full-media-75-tablet">
+<div class="cd-item tone-default-item<?php print $has_image_class ?> cd-item-standard-mobile cd-item-full-media-75-tablet">
     <div class="cd-item-container">
         <?php if (isset($fields['uri']->raw)) { ?>
             <div class="cd-item-media-wrapper">
