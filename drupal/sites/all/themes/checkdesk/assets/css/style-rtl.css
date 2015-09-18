@@ -6794,10 +6794,6 @@ body.cke_editable blockquote:after {
   .cd-item {
     width: 100%;
   }
-
-  .cd-item-has-image {
-    position: relative;
-  }
 }
 @media only screen and (min-width: 740px) {
   .cd-item {
@@ -6827,20 +6823,6 @@ body.cke_editable blockquote:after {
   color: #b7bcc0;
 }
 
-@media (min-width: 1px) and (max-width: 740px) {
-  .cd-item-has-image .cd-item-container {
-    display: block;
-    padding-right: 124px;
-  }
-  .cd-item-has-image .cd-item-container:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 2;
-  }
-}
 @media only screen and (min-width: 740px) {
   .cd-item-container {
     display: -webkit-box;
@@ -6881,16 +6863,6 @@ body.cke_editable blockquote:after {
   box-sizing: border-box;
 }
 
-@media (min-width: 1px) and (max-width: 740px) {
-  .cd-item-media-wrapper {
-    position: absolute;
-    display: block;
-    width: 120px;
-    margin-right: -120px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-  }
-}
 .cd-item-image-container {
   display: block;
 }
@@ -7029,6 +7001,28 @@ x x x x x x x x
 */
 /*
 
+List item. Looks a bit like this:
+
+***********************************************
+x x x x x x x x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x x x x x x x x x
+
+***********************************************
+
+ */
+/*
+
+Media list item. Looks a bit like this:
+
+***********************************************
+0000000  x x x x x x x x x x x x x x x x x x x
+0000000  x x x x x x x x x x x x x x x x x x x x
+0000000
+***********************************************
+
+ */
+/*
+
 Full item with 75% width media.
 
 ***********************************************************************************************
@@ -7049,6 +7043,112 @@ Full item with 75% width media.
 @media (min-width: 1px) and (max-width: 740px) {
   .cd-item-standard-mobile .cd-item-image-container {
     display: block;
+  }
+}
+
+@media (min-width: 1px) and (max-width: 740px) {
+  .cd-item-list-mobile .cd-item-header {
+    font-size: 14px;
+    padding-bottom: 5px;
+  }
+  .cd-item-list-mobile .cd-item-lead {
+    display: none;
+  }
+  .cd-item-list-mobile .cd-item-media-wrapper {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 740px) {
+  .cd-item-list-tablet .cd-item-header {
+    font-size: 14px;
+    padding-bottom: 5px;
+  }
+  .cd-item-list-tablet .cd-item-lead {
+    display: none;
+  }
+  .cd-item-list-tablet .cd-item-media-wrapper {
+    display: none;
+  }
+}
+
+@media (min-width: 1px) and (max-width: 740px) {
+  .cd-item-list-media-mobile .cd-item-header {
+    font-size: 14px;
+    padding-bottom: 5px;
+  }
+  .cd-item-list-media-mobile .cd-item-lead {
+    display: none;
+  }
+  .cd-item-list-media-mobile .cd-item-media-wrapper {
+    display: none;
+  }
+  .cd-item-list-media-mobile .cd-item-content {
+    min-height: 80px;
+    position: relative;
+  }
+  .cd-item-list-media-mobile.cd-item-has-image {
+    position: relative;
+  }
+  .cd-item-list-media-mobile.cd-item-has-image:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    width: 120px;
+  }
+  .cd-item-list-media-mobile.cd-item-has-image .cd-item-container {
+    padding-right: 124px;
+  }
+  .cd-item-list-media-mobile.cd-item-has-image .cd-item-media-wrapper {
+    position: absolute;
+    display: block;
+    width: 120px;
+    margin-right: -120px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}
+
+@media only screen and (min-width: 740px) {
+  .cd-item-list-media-tablet .cd-item-header {
+    font-size: 14px;
+    padding-bottom: 5px;
+  }
+  .cd-item-list-media-tablet .cd-item-lead {
+    display: none;
+  }
+  .cd-item-list-media-tablet .cd-item-media-wrapper {
+    display: none;
+  }
+  .cd-item-list-media-tablet .cd-item-content {
+    min-height: 80px;
+    position: relative;
+  }
+  .cd-item-list-media-tablet.cd-item-has-image {
+    position: relative;
+  }
+  .cd-item-list-media-tablet.cd-item-has-image:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    width: 120px;
+  }
+  .cd-item-list-media-tablet.cd-item-has-image .cd-item-container {
+    padding-right: 124px;
+  }
+  .cd-item-list-media-tablet.cd-item-has-image .cd-item-media-wrapper {
+    position: absolute;
+    display: block;
+    width: 120px;
+    margin-right: -120px;
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
 }
 
@@ -7077,11 +7177,11 @@ Full item with 75% width media.
     flex-direction: row-reverse;
   }
   .cd-item-full-media-75-tablet .cd-item-media-wrapper {
-    flex-basis: 74%;
+    flex-basis: 75%;
   }
   .cd-item-full-media-75-tablet .cd-item-content {
-    flex-basis: 26%;
-    max-width: 26%;
+    flex-basis: 25%;
+    max-width: 25%;
   }
   .cd-item-full-media-75-tablet .cd-item-header {
     font-size: 26px;

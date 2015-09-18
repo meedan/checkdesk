@@ -1,0 +1,57 @@
+/*
+
+Media list item. Looks a bit like this:
+
+***********************************************
+0000000  x x x x x x x x x x x x x x x x x x x
+0000000  x x x x x x x x x x x x x x x x x x x x
+0000000
+***********************************************
+
+ */
+
+@mixin cd-item-list-media () {
+  @include cd-item-list;
+
+  // calculate image width
+  $media-ratio: 5 / 3;
+  $item-vertical-padding: $absolute-line-height / 4;
+  $item-min-height: 72px;
+  $image-width: 120px;
+  $item-min-height: $image-width / $media-ratio;
+  $mobile-media-padding: ($absolute-line-height / 6); //4px
+
+  .cd-item-content {
+    min-height: $item-min-height + ($mobile-media-padding * 2);
+    position: relative;
+  }
+
+  &.cd-item-has-image {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      #{$alpha}: 0;
+      #{$omega}: 0;
+      z-index: 2;
+      width: $image-width;
+    }
+
+    .cd-item-container {
+      padding-#{$alpha}: $image-width + $mobile-media-padding;
+    }
+
+    .cd-item-media-wrapper {
+      position: absolute;
+      display: block;
+      width: $image-width;
+      margin-#{$alpha}: - $image-width;
+      margin-top: $mobile-media-padding;
+      margin-bottom: $mobile-media-padding;
+    }
+    
+  }
+
+}

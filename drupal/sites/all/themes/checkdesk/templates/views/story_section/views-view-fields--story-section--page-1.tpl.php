@@ -25,10 +25,16 @@
  */
 
 $author = _checkdesk_story_authors($fields['nid']->raw);
-$has_image_class = isset($fields['uri']->raw) ? ' cd-item-has-image' : '';
+if (isset($fields['uri']->raw)) {
+    $has_image_class =  ' cd-item-has-image';  
+    $list_type_class = ' cd-item-list-media-mobile';
+  } else {
+    $has_image_class = '';
+    $list_type_class = ' cd-item-list-mobile';
+  }
 
 ?>
-<div class="cd-item tone-default-item<?php print $has_image_class; ?>">
+<div class="cd-item tone-default-item<?php print $has_image_class . $list_type_class; ?>">
     <div class="cd-item-container">
         <?php if (isset($fields['uri']->raw)) { ?>
             <div class="cd-item-media-wrapper">

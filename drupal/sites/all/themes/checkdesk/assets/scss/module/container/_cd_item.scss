@@ -38,9 +38,6 @@
   .cd-item {
     width: 100%;
   }
-  .cd-item-has-image {
-    position: relative;
-  }
 }
 
 @include cd-responsive('min-width: #{$width-tablet}') {
@@ -61,21 +58,6 @@
   }
   .cd-item-meta a {
     color: $firefly30;
-  }
-}
-
-@media (min-width: 1px) and (max-width: #{$width-tablet}) {
-  .cd-item-has-image .cd-item-container {
-    display: block;
-    padding-#{$alpha}: 124px;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      #{$alpha}: 0;
-      #{$omega}: 0;
-      z-index: 2;
-    }
   }
 }
 
@@ -102,17 +84,6 @@
 .cd-item-media-wrapper {
   position: relative;
   @include box-sizing(border-box);
-}
-
-@media (min-width: 1px) and (max-width: #{$width-tablet}) {
-  .cd-item-media-wrapper {
-    position: absolute;
-    display: block;
-    width: 120px;
-    margin-#{$alpha}: -120px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-  }
 }
 
 .cd-item-image-container {
