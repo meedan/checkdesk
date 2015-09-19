@@ -1439,7 +1439,11 @@ function checkdesk_preprocess_user_profile(&$vars) {
   // User roles
   $roles = $account->roles;
   unset($roles[DRUPAL_AUTHENTICATED_RID]);
-  $vars['roles'] = implode(' ', $roles);
+  $vars['roles'] = '';
+  foreach ($roles as $role) {
+    $vars['roles'] .=  '<span class="role">' . $role . '</span>';
+  }
+  
   // User stories
   $view = views_get_view('user_stories');
   $view->display['default']->display_options['filters']['uid']['value'][0] = $account->uid;
@@ -1620,4 +1624,28 @@ function _checkdesk_story_authors($node) {
     $story_authors = l($node->name, 'user/'. $node->uid, array('attributes' => array('class' => array('contributor'))));
   }
   return $story_authors;
+}
+
+
+/**
+ * Return view output with container markup
+ * @param $title
+ * @param $view_output
+ * @return html output
+ */
+function _checkdesk_container_markup($title, $view_output) { 
+  $output = '';
+  $output .= '<section class="cd-container">';
+  $output .= '<div class="cd-container-inner">';
+  if (!empty($title)) {
+    $output .= '<div class="cd-container-header">';
+    $output .= '<h2 class="cd-container-header-title">' . $title . '</h2>';
+    $output .= '</div>';
+  }
+  $output .= '<div class="cd-container-body">';
+  $output .= $view_output;
+  $output .= '</div>';
+  $output .= '</section>';
+
+  return $output;
 }

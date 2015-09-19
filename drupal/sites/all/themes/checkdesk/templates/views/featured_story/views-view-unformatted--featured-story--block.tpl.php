@@ -9,7 +9,7 @@
 
 ?>
 
-<section class="cd-container cd-container-section">
+<section class="cd-container cd-container-section cd-container-first">
 	<div class="cd-container-inner">
 	<?php if (!empty($title)): ?>
 		<div class="cd-container-header">

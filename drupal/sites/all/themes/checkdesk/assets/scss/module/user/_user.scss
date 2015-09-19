@@ -3,6 +3,7 @@
 
 .profile {
 	text-align: center;
+	font-size: 18px;
 }
 
 .profile .avatar {
@@ -14,10 +15,18 @@
 }
 
 .user-name {
-	font-size: 18px;
 	font-weight: bold;
 }
 
 .user-roles {
 	color: $firefly40;
+	.role {
+		margin: 0 10px;
+	}
+}
+
+.user-bio {
+	margin-top: 20px;
+	margin-bottom: 30px;
+	color: $firefly60;
 }

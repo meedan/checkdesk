@@ -6476,11 +6476,9 @@ body.cke_editable blockquote:after {
   margin-bottom: 60px;
 }
 
-.cd-container-first {
+.cd-container-first .cd-container-inner {
   margin-top: 0;
   padding-top: 0;
-}
-.cd-container-first .cd-container-inner {
   border: 0;
 }
 
@@ -9008,6 +9006,7 @@ ul.pager {
 
 .profile {
   text-align: center;
+  font-size: 18px;
 }
 
 .profile .avatar {
@@ -9036,12 +9035,20 @@ ul.pager {
 }
 
 .user-name {
-  font-size: 18px;
   font-weight: bold;
 }
 
 .user-roles {
   color: #9fa6ac;
+}
+.user-roles .role {
+  margin: 0 10px;
+}
+
+.user-bio {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  color: #6f7a82;
 }
 
 .page-user-login #main h1.title,
