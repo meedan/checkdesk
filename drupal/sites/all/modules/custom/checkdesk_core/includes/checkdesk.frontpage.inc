@@ -29,7 +29,7 @@ function _checkdesk_front_page() {
         jQuery(function() {
             jQuery(".view-recent-stories-by-tag li").hover(
                 function () {
-                    jQuery(this).find("div.cd-item-content").toggleClass("u-faux-block-link-hover")
+                    jQuery(this).find("div.cd-item-container").toggleClass("u-faux-block-link-hover")
                 }
             )
         });
