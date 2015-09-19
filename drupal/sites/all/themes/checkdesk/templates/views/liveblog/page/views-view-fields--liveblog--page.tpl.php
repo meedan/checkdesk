@@ -29,7 +29,7 @@
 
     <?php if(isset($fields['uri']->raw)) { ?>
       <figure class="media-lead">
-        <?php print l(_checkdesk_generate_lead_image($fields['uri']->raw, NULL), 'node/' . $fields['nid']->raw, array(
+        <?php print l(_checkdesk_generate_lead_image_directed($fields['uri']->raw, NULL), 'node/' . $fields['nid']->raw, array(
       'html' => TRUE)); ?>
         <?php if(isset($fields['caption']->content)) { ?>
           <figcaption><?php print check_markup($fields['caption']->raw, 'filtered_html'); ?></figcaption>

@@ -87,5 +87,30 @@ function checkdesk_featured_stories_feature_image_default_styles() {
     ),
   );
 
+  // Exported image style: item_image_list.
+  $styles['item_image_list'] = array(
+    'label' => 'item_image_list',
+    'effects' => array(
+      11 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 140,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+      12 => array(
+        'name' => 'image_crop',
+        'data' => array(
+          'width' => 120,
+          'height' => 72,
+          'anchor' => 'center-center',
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
   return $styles;
 }

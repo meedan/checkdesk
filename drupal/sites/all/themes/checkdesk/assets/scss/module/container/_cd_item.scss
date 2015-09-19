@@ -166,3 +166,12 @@
   float: $alpha;
   padding-#{$omega}: 10px;
 }
+
+// Default hover for containter items
+.cd-item .u-faux-block-link-hover {
+  background-color: #efefef;
+  .cd-item-image-container {
+    background-color: #000000;
+    opacity: .9;
+  }
+}

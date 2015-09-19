@@ -23,17 +23,20 @@
  *
  * @ingroup views_templates
  */
+	if(isset($latest_story->file_managed_field_data_field_lead_image_uri)) {
+		$lead_image_path = image_style_url('item_image_large', $latest_story->file_managed_field_data_field_lead_image_uri);
+	}
 ?>
-<?php foreach ($fields as $id => $field): ?>
-  <?php if (!empty($field->separator)): ?>
-    <?php print $field->separator; ?>
-  <?php endif; ?>
 
-  <?php print $field->wrapper_prefix; ?>
-    <?php print $field->label_html; ?>
-    <?php print $field->content; ?>
-  <?php print $field->wrapper_suffix; ?>
-<?php endforeach; ?>
-<div class="latest-story">
-  <?php print $latest_story ?>
+<div class="cd-item cd-item-section tone-section-item">
+    <div class="cd-item-container cd-item-background-image-container" <?php if(isset($lead_image_path)) : ?>style="background-image: url('<?php print $lead_image_path ?>')" <?php endif; ?>>
+        <div class="cd-item-content">
+            <div class="cd-item-header">
+                <h2 class="cd-item-title cd-item-section-title">
+                    <?php print $fields['name']->raw; ?>
+                </h2>
+            </div>
+        </div>
+        <?php print l($fields['name']->raw, 'taxonomy/term/' . $fields['tid']->raw, array('attributes' => array('class' => array('u-faux-block-link-overlay')))); ?>
+    </div>
 </div>

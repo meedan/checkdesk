@@ -1,0 +1,63 @@
+/*
+
+Section item. Looks a bit like this:
+
+********************
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 x x x x x x x 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+*********************
+
+*/
+
+
+@mixin cd-item-section {
+    .cd-item-background-image-container {
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      position: relative;
+      z-index: 0;
+      // add a color overlay on image
+      &:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: $firefly;
+        opacity: 0.35;
+        z-index: -1;
+        pointer-events: none;
+      }
+    }
+
+    .u-faux-block-link-hover {
+      background-color: #000000;
+      opacity: .9;
+    }
+
+    .cd-item-image-container {
+      display: block;
+    }
+
+    .cd-item-content {
+      padding: 50px 0;
+      z-index: 1;
+    }
+
+    .cd-item-header {
+      text-align: center;
+    }
+
+}

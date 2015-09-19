@@ -1115,15 +1115,15 @@ function checkdesk_field__field_lead_image(&$variables) {
   // generate img tag with srcset
   $image_field_caption = isset($variables['element']['#items'][0]['image_field_caption']['value']) ? 
           $variables['element']['#items'][0]['image_field_caption']['value'] : NULL;
-  $output = _checkdesk_generate_lead_image($variables['element']['#items'][0]['uri'], $image_field_caption);
+  $output = _checkdesk_generate_lead_image_directed($variables['element']['#items'][0]['uri'], $image_field_caption);
   return $output;
 }
 
 /**
  * Utiltiy function that generates a responsive img tag
- * for lead image in the story node
+ * for lead image in the story node using art directed technique
  */
-function _checkdesk_generate_lead_image($image, $image_caption = '') {
+function _checkdesk_generate_lead_image_directed($image, $image_caption = '') {
   $output = '';
   // generate small, medium and large images
   if(isset($image)) {
@@ -1147,20 +1147,19 @@ function _checkdesk_generate_lead_image($image, $image_caption = '') {
 
 /**
  * Utiltiy function that generates a responsive img tag
- * for lead image in containers as thumbnails
+ * for lead image in containers as large images
  */
-function _checkdesk_generate_lead_image_thumbnail($image) {
+function _checkdesk_generate_lead_image($image) {
   $output = '';
   // generate small, medium and large images
   if(isset($image)) {
     $lead_image_path = image_style_url('item_image_medium', $image);
-    $lead_image_uri = image_style_path('item_image_medium', $image);
     $lead_image_large_path = image_style_url('item_image_large', $image);
     $lead_image_med_path = image_style_url('item_image_medium', $image);
     $lead_image_small_path = image_style_url('item_image_small', $image);
     // set small, med and large images in srcset
     $output .= '<img';
-    $output .= ' srcset="' . $lead_image_large_path . ' 700w, ' . $lead_image_med_path . ' 520w, ' . $lead_image_small_path . ' 120w"'; 
+    $output .= ' srcset="' . $lead_image_large_path . ' 700w, ' . $lead_image_med_path . ' 520w, ' . $lead_image_small_path . ' 220w"'; 
     $output .= ' sizes="(min-width: 980px) 700px, (min-width: 740px) 520px, 100%"';
     $output .= ' src="' . $lead_image_small_path . '"';
     $output .= ' class="feature-image"';
@@ -1169,6 +1168,27 @@ function _checkdesk_generate_lead_image_thumbnail($image) {
 
   return $output;
 
+}
+
+/**
+ * Utiltiy function that generates a responsive img tag
+ * for lead image in containers as thumbnails
+ */
+function _checkdesk_generate_lead_image_thumbnail($image) {
+  $output = '';
+  // generate small and list size images
+  if(isset($image)) {
+    $lead_image_small_path = image_style_url('item_image_small', $image);
+    $lead_image_list_path = image_style_url('item_image_small', $image);
+    // set small, med and large images in srcset
+    $output .= '<img';
+    $output .= ' srcset="' . $lead_image_small_path . ' 220w, ' . $lead_image_list_path . ' 120w"'; 
+    $output .= ' sizes="(min-width: 980px) 220px, (min-width: 740px) 220px, 120px"';
+    $output .= ' src="' . $lead_image_list_path . '"';
+    $output .= ' class="feature-image"';
+    $output .= '/>';
+  }
+  return $output;
 }
 
 /**

@@ -1327,10 +1327,11 @@ function checkdesk_core_views_pre_render(&$view) {
           $latest_story->set_arguments(array($section->tid));
           $latest_story->get_total_rows = TRUE;
           $output = $latest_story->preview('block');
+          $stories = $latest_story->result;
           $total_rows = $latest_story->total_rows;
           $latest_story->destroy();
           if ($total_rows) {
-              $view->result[$id]->latest_story = $output;
+              $view->result[$id]->latest_story = $stories[0];
           }
           else {
               unset($view->result[$id]);

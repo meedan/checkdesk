@@ -25,7 +25,7 @@
 <?php 
 
 if (!empty($output)) {
-    print _checkdesk_generate_lead_image_thumbnail($output);
+    print _checkdesk_generate_lead_image($output);
 }
 
 ?>

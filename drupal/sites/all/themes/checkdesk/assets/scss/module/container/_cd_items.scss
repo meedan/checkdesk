@@ -1,5 +1,6 @@
 
 @import 'item_layouts/cd_item_standard';
+@import 'item_layouts/cd_item_section';
 @import 'item_layouts/cd_item_list';
 @import 'item_layouts/cd_item_list_media';
 @import 'item_layouts/cd_item_full_media_75';
@@ -33,6 +34,10 @@
     @include cd-responsive('min-width: #{$width-tablet}') {
         @include cd-item-list-media;
     }
+}
+
+.cd-item-section {
+    @include cd-item-section; 
 }
 
 .cd-item-full-media-75-tablet {

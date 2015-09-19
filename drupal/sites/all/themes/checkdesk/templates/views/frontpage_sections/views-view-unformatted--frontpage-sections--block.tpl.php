@@ -9,13 +9,11 @@
 
 ?>
 
-<section class="cd-container cd-container-section cd-container-first">
+<section class="cd-container">
 	<div class="cd-container-inner">
-	<?php if (!empty($title)): ?>
 		<div class="cd-container-header">
 	  	<h2 class="cd-container-header-title"><?php print t('Sections'); ?></h2>
 		</div>
-	<?php endif; ?>
 	<div class="cd-container-body">
   	<div class="cd-slice-wrapper">
 			<ul class="cd-slice l-row l-row-cols-4 u-unstyled">

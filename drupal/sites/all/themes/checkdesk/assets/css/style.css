@@ -2122,6 +2122,12 @@ html {
     padding-right: 50px;
   }
 }
+@media only screen and (min-width: 980px) {
+  #main #content, #main #widgets, #main footer {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
 
 #main #content {
   padding-top: 20px;
@@ -2129,7 +2135,7 @@ html {
 @media only screen and (min-width: 740px) {
   #main #content {
     padding-top: 40px;
-    max-width: 1020px;
+    max-width: 940px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -2359,7 +2365,7 @@ clickable areas within it as directly nesting a tags breaks things.
 
 .u-faux-block-link a {
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 .u-faux-block-link-overlay {
@@ -2375,7 +2381,7 @@ clickable areas within it as directly nesting a tags breaks things.
 
 a.u-faux-block-link-overlay {
   position: absolute;
-  z-index: 0;
+  z-index: 9;
   opacity: 0;
 }
 
@@ -3257,6 +3263,8 @@ svg.logo-icon {
 
   body.sidebar-first #main #content {
     margin-left: 360px;
+    padding-left: 50px;
+    padding-right: 50px;
     -webkit-box-flex: 4;
     -webkit-flex: 4;
     -moz-box-flex: 4;
@@ -3451,6 +3459,7 @@ body.sidebar-second aside#sidebar-second {
     -moz-flex: 4;
     -ms-flex: 4;
     flex: 4;
+    padding-left: 50px;
     padding-right: 20px;
     max-width: 860px;
   }
@@ -6799,6 +6808,11 @@ body.cke_editable blockquote:after {
   color: #3e4c57;
 }
 
+.tone-section-item {
+  background-color: #9fa6ac;
+  color: #fff;
+}
+
 @media (min-width: 1px) and (max-width: 740px) {
   .cd-item {
     width: 100%;
@@ -6962,6 +6976,14 @@ body.cke_editable blockquote:after {
   padding-right: 10px;
 }
 
+.cd-item .u-faux-block-link-hover {
+  background-color: #efefef;
+}
+.cd-item .u-faux-block-link-hover .cd-item-image-container {
+  background-color: #000000;
+  opacity: .9;
+}
+
 /*
 
 Standard item. Looks a bit like this:
@@ -6985,6 +7007,25 @@ x x x x x x x x
 
 
 
+*********************
+
+*/
+/*
+
+Section item. Looks a bit like this:
+
+********************
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 x x x x x x x 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
 *********************
 
 */
@@ -7152,6 +7193,41 @@ Full item with 75% width media.
     margin-top: 4px;
     margin-bottom: 4px;
   }
+}
+
+.cd-item-section .cd-item-background-image-container {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 0;
+}
+.cd-item-section .cd-item-background-image-container:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #10212f;
+  opacity: 0.35;
+  z-index: -1;
+  pointer-events: none;
+}
+.cd-item-section .u-faux-block-link-hover {
+  background-color: #000000;
+  opacity: .9;
+}
+.cd-item-section .cd-item-image-container {
+  display: block;
+}
+.cd-item-section .cd-item-content {
+  padding: 50px 0;
+  z-index: 1;
+}
+.cd-item-section .cd-item-header {
+  text-align: center;
 }
 
 @media only screen and (min-width: 740px) {
