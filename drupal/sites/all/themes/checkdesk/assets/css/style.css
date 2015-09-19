@@ -6980,7 +6980,7 @@ body.cke_editable blockquote:after {
   background-color: #efefef;
 }
 .cd-item .u-faux-block-link-hover .cd-item-image-container {
-  background-color: #000000;
+  background-color: #10212f;
   opacity: .9;
 }
 
@@ -7223,8 +7223,13 @@ Full item with 75% width media.
   display: block;
 }
 .cd-item-section .cd-item-content {
-  padding: 50px 0;
+  padding: 20px 0;
   z-index: 1;
+}
+@media only screen and (min-width: 740px) {
+  .cd-item-section .cd-item-content {
+    padding: 50px 0;
+  }
 }
 .cd-item-section .cd-item-header {
   text-align: center;

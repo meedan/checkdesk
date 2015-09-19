@@ -52,7 +52,10 @@ Section item. Looks a bit like this:
     }
 
     .cd-item-content {
-      padding: 50px 0;
+      padding: 20px 0;
+      @include cd-responsive('min-width: #{$width-tablet}') {
+        padding: 50px 0;
+      }
       z-index: 1;
     }
 
