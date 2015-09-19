@@ -5220,7 +5220,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   font-style: normal;
   font-size: 38px;
   line-height: 58px;
-  letter-spacing: -1px;
+  word-spacing: -2px;
   color: #283743;
   margin: 30px 0 10px;
 }
@@ -5733,8 +5733,8 @@ body.cke_editable figure.element {
 body.cke_editable figure.element.cke_widget_element {
   width: 50%;
   max-width: 620px;
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
 }
 .story .story-body > ul, .story .story-body > ol,
 .update .update-body > ul,
@@ -5827,7 +5827,6 @@ body.cke_editable h3 {
   color: #6f7a82;
   font-size: 26px;
   line-height: 36px;
-  letter-spacing: -0.8px;
 }
 .story .story-body hr,
 .update .update-body hr,
@@ -6891,6 +6890,8 @@ body.cke_editable blockquote:after {
 
 .cd-item-header {
   font-size: 16px;
+  font-size: 18px;
+  word-spacing: -0.5px;
   font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   padding-bottom: 10px;
 }
@@ -7069,6 +7070,7 @@ Full item with 75% width media.
 @media (min-width: 1px) and (max-width: 740px) {
   .cd-item-list-mobile .cd-item-header {
     font-size: 14px;
+    font-size: 16px;
     padding-bottom: 5px;
   }
   .cd-item-list-mobile .cd-item-lead {
@@ -7082,6 +7084,7 @@ Full item with 75% width media.
 @media only screen and (min-width: 740px) {
   .cd-item-list-tablet .cd-item-header {
     font-size: 14px;
+    font-size: 16px;
     padding-bottom: 5px;
   }
   .cd-item-list-tablet .cd-item-lead {
@@ -7095,6 +7098,7 @@ Full item with 75% width media.
 @media (min-width: 1px) and (max-width: 740px) {
   .cd-item-list-media-mobile .cd-item-header {
     font-size: 14px;
+    font-size: 16px;
     padding-bottom: 5px;
   }
   .cd-item-list-media-mobile .cd-item-lead {
@@ -7135,6 +7139,7 @@ Full item with 75% width media.
 @media only screen and (min-width: 740px) {
   .cd-item-list-media-tablet .cd-item-header {
     font-size: 14px;
+    font-size: 16px;
     padding-bottom: 5px;
   }
   .cd-item-list-media-tablet .cd-item-lead {
@@ -7245,6 +7250,8 @@ Full item with 75% width media.
   }
   .cd-item-full-media-75-tablet .cd-item-header {
     font-size: 24px;
+    font-size: 26px;
+    word-spacing: -1px;
     font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
     padding-bottom: 10px;
   }
@@ -7259,6 +7266,8 @@ Full item with 75% width media.
 @media only screen and (min-width: 740px) and (min-width: 980px) {
   .cd-item-full-media-75-tablet .cd-item-header {
     font-size: 26px;
+    font-size: 28px;
+    word-spacing: -1px;
   }
 }
 

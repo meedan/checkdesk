@@ -29,6 +29,9 @@ Full item with 75% width media.
     @if $from-direction == left {
       line-height: 30px;
       letter-spacing: -1px;
+    } @else {
+      font-size: 26px;
+      word-spacing: -1px;
     }
     @include cd-serif-family;
     padding-bottom: 10px;
@@ -38,6 +41,9 @@ Full item with 75% width media.
       @if $from-direction == left {
         line-height: 32px;
         letter-spacing: -1.04px;
+      } @else {
+        font-size: 28px;
+        word-spacing: -1px;
       }
     }
 

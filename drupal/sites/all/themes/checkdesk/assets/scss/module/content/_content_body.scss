@@ -34,8 +34,8 @@
     &.cke_widget_element {
       width: 50%;
       max-width: 620px; // follows body.page-liveblog #main #content from base
-      margin-left: auto;
-      margin-right: auto;
+      margin-#{$alpha}: auto;
+      margin-#{$omega}: auto;
     }
   }
 
@@ -117,7 +117,6 @@
     } @else {
       font-size: 26px;
       line-height: 36px;
-      letter-spacing: -0.8px;
     }
   }
 

@@ -103,6 +103,9 @@
   @if $from-direction == left {
     line-height: 20px;
     letter-spacing: -0.4px;
+  } @else {
+    font-size: 18px;
+    word-spacing: -0.5px;
   }
   @include cd-serif-family;
   padding-bottom: 10px;
