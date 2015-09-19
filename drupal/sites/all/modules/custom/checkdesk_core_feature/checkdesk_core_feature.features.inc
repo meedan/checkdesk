@@ -420,24 +420,99 @@ function checkdesk_core_feature_image_default_styles() {
     ),
   );
 
-  // Exported image style: item_image_medium.
-  $styles['item_image_medium'] = array(
-    'label' => 'item_image_medium',
+  // Exported image style: item_image_large.
+  $styles['item_image_large'] = array(
+    'label' => 'item_image_large',
     'effects' => array(
-      2 => array(
+      7 => array(
         'name' => 'image_scale',
         'data' => array(
-          'width' => 240,
+          'width' => 880,
+          'height' => '',
+          'upscale' => 1,
+        ),
+        'weight' => 1,
+      ),
+      8 => array(
+        'name' => 'image_crop',
+        'data' => array(
+          'width' => 700,
+          'height' => 420,
+          'anchor' => 'center-center',
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  // Exported image style: item_image_list.
+  $styles['item_image_list'] = array(
+    'label' => 'item_image_list',
+    'effects' => array(
+      19 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 180,
           'height' => '',
           'upscale' => 0,
         ),
         'weight' => 1,
       ),
-      3 => array(
+      20 => array(
         'name' => 'image_crop',
         'data' => array(
-          'width' => 220,
-          'height' => 132,
+          'width' => 160,
+          'height' => 96,
+          'anchor' => 'center-center',
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  // Exported image style: item_image_list_small.
+  $styles['item_image_list_small'] = array(
+    'label' => 'item_image_list_small',
+    'effects' => array(
+      11 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 140,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+      12 => array(
+        'name' => 'image_crop',
+        'data' => array(
+          'width' => 120,
+          'height' => 72,
+          'anchor' => 'center-center',
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  // Exported image style: item_image_medium.
+  $styles['item_image_medium'] = array(
+    'label' => 'item_image_medium',
+    'effects' => array(
+      15 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 555,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+      16 => array(
+        'name' => 'image_crop',
+        'data' => array(
+          'width' => 520,
+          'height' => 312,
           'anchor' => 'center-center',
         ),
         'weight' => 2,
@@ -449,20 +524,20 @@ function checkdesk_core_feature_image_default_styles() {
   $styles['item_image_small'] = array(
     'label' => 'item_image_small',
     'effects' => array(
-      4 => array(
+      17 => array(
         'name' => 'image_scale',
         'data' => array(
-          'width' => 140,
+          'width' => 240,
           'height' => '',
           'upscale' => 0,
         ),
         'weight' => 1,
       ),
-      5 => array(
+      18 => array(
         'name' => 'image_crop',
         'data' => array(
-          'width' => 120,
-          'height' => 72,
+          'width' => 220,
+          'height' => 132,
           'anchor' => 'center-center',
         ),
         'weight' => 2,
