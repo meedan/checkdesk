@@ -1250,6 +1250,9 @@ function checkdesk_preprocess_views_view(&$vars) {
       $function($vars);
     }
   }
+  if ($vars['view']->tag == 'stories_container') {
+      drupal_add_js(drupal_get_path('module', 'checkdesk_core') . "/js/stories_container.js");
+  }
 }
 
 /**

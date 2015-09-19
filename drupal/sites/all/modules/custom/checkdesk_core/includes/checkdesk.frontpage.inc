@@ -25,15 +25,6 @@ function _checkdesk_front_page() {
     $total_rows = $view->total_rows;
     $view->destroy();
     if ($total_rows) {
-        drupal_add_js('
-        jQuery(function() {
-            jQuery(".view-recent-stories-by-tag li").hover(
-                function () {
-                    jQuery(this).find("div.cd-item-container").toggleClass("u-faux-block-link-hover")
-                }
-            )
-        });
-        ', 'inline');
         $title = t('New and updated stories');
         $output .= _checkdesk_container_markup($title, $view_output);
     }
