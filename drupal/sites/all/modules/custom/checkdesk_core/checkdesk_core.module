@@ -1821,7 +1821,11 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
           }
           $path = drupal_lookup_path('source', urldecode($alias), $langcode);
           if (empty($path)) $path = $alias;
-          $messages[$key]->variables[$variable] = url($path, array('language' => $language, 'absolute' => TRUE, 'alias' => TRUE));
+          $options = array('language' => $language, 'absolute' => TRUE, 'alias' => TRUE);
+          if (isset($url['fragment'])) {
+            $options['fragment'] = $url['fragment'];
+          }
+          $messages[$key]->variables[$variable] = url($path, $options);
         }
       }
     }

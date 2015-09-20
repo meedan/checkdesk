@@ -163,7 +163,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_new_update_on_story_i_commented_on_update" : "checkdesk_new_update_on_story_i_commented_on_update" } },
             "!user_url" : [ "node:author:url" ],
             "!username" : [ "node:author:name" ],
-            "!update_url" : "\\u003C?php\\r\\necho  url(\\u0027node\\/\\u0027 . $node-\\u003Efield_desk[LANGUAGE_NONE][0][\\u0027target_id\\u0027], array(\\u0027fragment\\u0027 =\\u003E \\u0027update-\\u0027.$node-\\u003Enid, \\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE))\\r\\n?\\u003E",
+            "!update_url" : "\\u003C?php\\r\\necho  url(\\u0027node\\/\\u0027 . $node-\\u003Efield_desk[LANGUAGE_NONE][0][\\u0027target_id\\u0027], array(\\u0027fragment\\u0027 =\\u003E \\u0027update-\\u0027.$node-\\u003Enid, \\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE));\\r\\n?\\u003E",
             "!story_url" : [ "node:field-desk:url" ],
             "!story" : [ "node:field-desk:title" ]
           }
@@ -592,7 +592,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_new_update_on_story_i_commented_on_update" : "checkdesk_new_update_on_story_i_commented_on_update" } },
             "!user_url" : [ "node:author:url" ],
             "!username" : [ "node:author:name" ],
-            "!update_url" : "\\u003C?php\\r\\necho  url(\\u0027node\\/\\u0027 . $node-\\u003Efield_desk[LANGUAGE_NONE][0][\\u0027target_id\\u0027], array(\\u0027fragment\\u0027 =\\u003E \\u0027update-\\u0027.$node-\\u003Enid, \\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE))\\r\\n?\\u003E",
+            "!update_url" : "\\u003C?php\\r\\necho url(\\u0027node\\/\\u0027 . $node-\\u003Efield_desk[LANGUAGE_NONE][0][\\u0027target_id\\u0027], array(\\u0027fragment\\u0027 =\\u003E \\u0027update-\\u0027.$node-\\u003Enid, \\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE));\\r\\n?\\u003E",
             "!story_url" : [ "node:field-desk:url" ],
             "!story" : [ "node:field-desk:title" ]
           }
