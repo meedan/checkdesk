@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * Implements hook_meedan_oembed()
+ */
+function meedan_oembed_bridge_meedan_oembed() {
+  return array(
+      'speakbridge' => array(
+          'callback' => 'meedan_oembed_bridge_handler',
+          'provider_name' => 'meedan_oembed_bridge',
+      )
+  );
+}
+
+/**
+ * Attempts to create an oembed response from a bridge entry.
+ */
+function meedan_oembed_bridge_handler($provider, $url) {
+  if (substr($url, -5) == '.html') { //check for optional .html extension in url
+    $url = substr($url, 0, strlen($url) - 5);
+  }
+  $js = '<script type="text/javascript" src="' . $url . '.js"></script>';
+
+  $embed = new stdClass();
+  $embed->html = $js;
+  $embed->original_url = $url;
+  $embed->provider_name = "Bridge";
+  $embed->type = 'rich';
+  $embed->provider_url = 'https://speakbridge.io';
+  $embed->height = NULL;
+  $embed->url = $url;
+  $embed->description = '';
+  $embed->link_description = '';
+  $embed->title = 'Bridge';
+  $embed->version='1.0';
+  $embed->body = '';
+  return $embed;
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function meedan_oembed_bridge_theme() {
+  $path = drupal_get_path('module', 'meedan_oembed_bridge') . '/theme';
+  $file = 'meedan_oembed_bridge.theme.inc';
+
+  return array(
+    'meedan_oembed_thumbnail_bridge' => array(
+      'variables' => array('url' => NULL, 'attributes' => NULL, 'title' => NULL),
+      'template' => 'oembed-thumbnail',
+      'path' => $path,
+      'file' => $file,
+    ),
+  );
+}
