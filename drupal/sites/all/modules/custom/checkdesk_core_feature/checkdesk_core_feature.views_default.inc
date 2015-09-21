@@ -2377,35 +2377,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['arguments']['created_operator']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['created_operator']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['path'] = 'updates_for_stories/autorefresh/%';
-
-  /* Display: Liveblog Block */
-  $handler = $view->new_display('block', 'Liveblog Block', 'block_1');
-  $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'load_more';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '4';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
-  $handler->display->display_options['pager']['options']['more_button_text'] = 'Load more updates';
-  $handler->display->display_options['pager']['options']['advance']['content_class'] = '> .updates-for-stories-content .view-content';
-  $handler->display->display_options['pager']['options']['advance']['pager_selector'] = '.updates-for-stories-pager .pager-load-more';
-  $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
-  $handler->display->display_options['pager']['options']['load_all'] = 0;
-  $handler->display->display_options['defaults']['header'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'post' => 'post',
-  );
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '1';
   $translatables['updates_for_stories'] = array(
     t('Master'),
     t('Updates for stories'),
@@ -2421,15 +2392,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('All'),
     t('Block'),
     t('Auto-refresh'),
-    t('Liveblog Block'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('Load more updates'),
   );
   $export['updates_for_stories'] = $view;
 
