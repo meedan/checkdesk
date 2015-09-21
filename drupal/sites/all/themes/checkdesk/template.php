@@ -1352,30 +1352,6 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     // Get embed type
     $vars['media_type_class'] = checkdesk_oembed_embed_class_type($report_nid);
   }
-
-  if ($vars['view']->name === 'liveblog') {
-    $vars['updates'] = isset($vars['view']->result[$vars['view']->row_index]->updates) ? $vars['view']->result[$vars['view']->row_index]->updates : '';
-
-    // Facebook comments count
-    if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
-      $vars['story_commentcount'] = array(
-          '#theme' => 'facebook_commentcount',
-          '#node' => node_load($vars['fields']['nid']->raw),
-      );
-    }
-    // Add follow story flag
-    if ($user->uid) {
-      $follow_story = flag_create_link('follow_story', $vars['fields']['nid']->raw);
-    }   else {
-      $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
-      $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
-      // append count
-      if (isset($flag_count['follow_story'])) {
-        $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
-      }
-    }
-    $vars['follow_story'] = $follow_story;
-  }
   
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
