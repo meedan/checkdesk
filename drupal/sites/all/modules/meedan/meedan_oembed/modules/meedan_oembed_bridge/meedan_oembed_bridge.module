@@ -38,14 +38,14 @@ function meedan_oembed_bridge_handler($provider, $url) {
 }
 
 /**
- * Implementation of hook_theme().
+ * Implements hook_theme().
  */
 function meedan_oembed_bridge_theme() {
   $path = drupal_get_path('module', 'meedan_oembed_bridge') . '/theme';
   $file = 'meedan_oembed_bridge.theme.inc';
 
   return array(
-    'meedan_oembed_thumbnail_bridge' => array(
+    'meedan_oembed_thumbnail_speakbridge' => array(
       'variables' => array('url' => NULL, 'attributes' => NULL, 'title' => NULL),
       'template' => 'oembed-thumbnail',
       'path' => $path,
