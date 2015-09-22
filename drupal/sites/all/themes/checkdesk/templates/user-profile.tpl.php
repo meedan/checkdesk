@@ -43,7 +43,9 @@
       <?php print $account_name; ?>
   </div>
   <div class="user-roles">
-      <?php print $roles; ?>
+    <?php foreach($roles as $role) : ?>
+      <span class="role"><?php print t($role); ?></span>
+    <?php endforeach; ?>
   </div>
   <div class="user-bio">
       <?php print render($user_profile['field_bio']); ?>

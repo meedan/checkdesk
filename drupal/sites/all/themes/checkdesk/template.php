@@ -1439,11 +1439,7 @@ function checkdesk_preprocess_user_profile(&$vars) {
   // User roles
   $roles = $account->roles;
   unset($roles[DRUPAL_AUTHENTICATED_RID]);
-  $vars['roles'] = '';
-  foreach ($roles as $role) {
-    $vars['roles'] .=  '<span class="role">' . $role . '</span>';
-  }
-  
+  $vars['roles'] = $roles;
   // User stories
   $view = views_get_view('user_stories');
   $view->display['default']->display_options['filters']['uid']['value'][0] = $account->uid;
