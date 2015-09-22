@@ -23,7 +23,7 @@ function meedan_oembed_bridge_handler($provider, $url) {
   $html = '<blockquote id="' . $placeholder_id . '" class="bridge-embed-placeholder"></blockquote>' .
           '<script type="text/javascript" src="' . $url . '.js"></script>';
   $embed = new stdClass();
-  $embed->html = $js;
+  $embed->html = $html;
   $embed->original_url = $url;
   $embed->provider_name = "Bridge";
   $embed->type = 'rich';
