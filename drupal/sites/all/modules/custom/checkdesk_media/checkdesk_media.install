@@ -1,0 +1,8 @@
+<?php
+/**
+ * Delete ALT and TITLE fields from image file type
+ */
+function checkdesk_media_update_7001() {
+  field_delete_field('field_file_image_alt_text');
+  field_delete_field('field_file_image_title_text');
+}
