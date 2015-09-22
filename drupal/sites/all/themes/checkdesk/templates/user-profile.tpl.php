@@ -66,3 +66,16 @@
   </div>
 </section>
 <?php endif; ?>
+
+<?php if(isset($followed_stories)) : ?>
+<section class="cd-container">
+  <div class="cd-container-inner">
+    <div class="cd-container-header">
+      <h2 class="cd-container-header-title"><?php print t('Followed stories by !user', array('!user' => $account_name)); ?></h2>
+    </div>
+    <div class="cd-container-body">
+      <?php print $followed_stories; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
