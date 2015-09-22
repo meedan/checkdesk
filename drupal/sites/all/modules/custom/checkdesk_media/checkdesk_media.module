@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_entity_info_alter();
+ */
+function checkdesk_media_entity_info_alter(&$entity_info) {
+  $entity_info['file']['view modes']['embed'] = array(
+  'label' => t('Embed'),
+  'custom settings' => TRUE,
+  );
+}
