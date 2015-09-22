@@ -816,6 +816,15 @@ They provided the following explanation for flagging:
 !reason
 
 <a href="!flagged_node_edit_url">Click here</a> to review.', array(), array('context' => ''));
+  $translations['ar:default']['107d604bd991170fdf604859ba8afed1'] = array(
+    'source' => 'New and updated stories',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'قصص جديدة و محدثة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('New and updated stories', array(), array('context' => ''));
   $translations['ar:default']['10aec35353f9c4096a71c38654c3d402'] = array(
     'source' => 'cancel',
     'context' => '',
@@ -7822,6 +7831,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Relate a content revision to the user who created the revision.', array(), array('context' => ''));
+  $translations['ar:default']['a1e4db8a754a7d6d2faa10aec31816c4'] = array(
+    'source' => 'Stories by !user',
+    'context' => '',
+    'location' => '',
+    'translation' => 'قصص !user',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Stories by !user', array(), array('context' => ''));
   $translations['ar:default']['a274f4d4670213a9045ce258c6c56b80'] = array(
     'source' => 'Notifications',
     'context' => '',
