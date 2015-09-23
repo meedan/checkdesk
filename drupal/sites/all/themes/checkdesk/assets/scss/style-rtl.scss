@@ -40,6 +40,13 @@ html body.i18n-ar,
   font-size: 18px;
 }
 
+// Make container story
+// headers use Kufi
+.cd-item-header h1, 
+.cd-item-header h2 {
+	font-family: $header-font-stack;
+}
+
 // Use Sans Serif fallback
 #header nav ul li a span,
 .update-by,
