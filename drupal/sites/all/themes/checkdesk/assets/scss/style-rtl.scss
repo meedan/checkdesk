@@ -29,11 +29,6 @@ html body.i18n-ar,
   text-align: right;
 }
 
-// set font size for Arabic
-html body.i18n-ar {
-  // font-size: $large-font-size;
-}
-
 // Specific overrides where we can not simply match the English font selection
 
 #toolbar {
@@ -45,42 +40,15 @@ html body.i18n-ar {
   font-size: 18px;
 }
 
+// Use Sans Serif fallback
+#header nav ul li a span,
+.update-by,
+.report,
+.cd-item-meta,
+.item-content,
+.media-holder .media-content .description p {
+  font-family: $ar-font-stack; 
+} 
+
 // stories
 // see story_body.scss
-
-// update
-
-.posts {
-  h3 a {
-    font-family: $ar-body-font-stack;
-  }
-}
-
-.update .update-body p {
-  line-height: 30px;
-}
-
-// report
-.report {
-  font-family: $ar-font-stack;
-}
-
-.report .activity {
-  font-size: 16px;
-}
-
-.report .activity-list-footer {
-  font-size: 15px;
-  .helper {
-    display: none;
-  }
-}
-
-.report .report-activity .activity-wrapper .view-content .activity {
-  line-height: 26px;
-}
-
-.report .report-activity .activity-wrapper .view-content .activity header .actor {
-  // TEMP until English characters get properly rendered with unicode range
-  padding-top: 18px;
-}

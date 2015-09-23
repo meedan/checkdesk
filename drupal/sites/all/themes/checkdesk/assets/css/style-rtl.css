@@ -1895,7 +1895,7 @@ div.ctools-modal-content .modal-content {
   margin: 0 auto 10px;
   width: 260px;
   text-align: right;
-  font-size: 14.5px;
+  font-size: 17.5px;
   line-height: 32px;
 }
 .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin {
@@ -4066,7 +4066,6 @@ span.content-labels:after {
   color: #101b2e;
 }
 .media-holder .media-content .description p {
-  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   color: #6f7a82;
   font-size: 16px;
   line-height: 22px;
@@ -11093,33 +11092,11 @@ html body.i18n-ar,
   font-size: 18px;
 }
 
-.posts h3 a {
-  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
-}
-
-.update .update-body p {
-  line-height: 30px;
-}
-
-.report {
+#header nav ul li a span,
+.update-by,
+.report,
+.cd-item-meta,
+.item-content,
+.media-holder .media-content .description p {
   font-family: "Noto Naskh Arabic", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.report .activity {
-  font-size: 16px;
-}
-
-.report .activity-list-footer {
-  font-size: 15px;
-}
-.report .activity-list-footer .helper {
-  display: none;
-}
-
-.report .report-activity .activity-wrapper .view-content .activity {
-  line-height: 26px;
-}
-
-.report .report-activity .activity-wrapper .view-content .activity header .actor {
-  padding-top: 18px;
 }
