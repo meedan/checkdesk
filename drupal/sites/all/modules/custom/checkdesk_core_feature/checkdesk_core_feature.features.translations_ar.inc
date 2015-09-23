@@ -1517,6 +1517,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Updated week', array(), array('context' => ''));
+  $translations['ar:default']['200ceb26807d6bf99fd6f4f0d1ca54d4'] = array(
+    'source' => 'administrator',
+    'context' => '',
+    'location' => '',
+    'translation' => 'مدير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('administrator', array(), array('context' => ''));
   $translations['ar:default']['204211fa22eeb23c3c02fa07da86fb00'] = array(
     'source' => 'Current node\'s creation time',
     'context' => '',
@@ -6345,6 +6354,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('<a href="!user_url" class="actor">!username</a> has turned on fact-checking for a <a href="!report_url">report</a> you added', array(), array('context' => ''));
+  $translations['ar:default']['82ad21b5762c06c3eb611a807982ab76'] = array(
+    'source' => 'journalist',
+    'context' => '',
+    'location' => '',
+    'translation' => 'صحفي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('journalist', array(), array('context' => ''));
   $translations['ar:default']['83038e8b9973defe5633ea93c4655001'] = array(
     'source' => 'Published in',
     'context' => '',
@@ -9190,6 +9208,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Is new', array(), array('context' => ''));
+  $translations['ar:default']['bca8a84d8508313a5e8a0ebb3439e36c'] = array(
+    'source' => 'citizen journalist',
+    'context' => '',
+    'location' => '',
+    'translation' => 'صحفي مواطن',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('citizen journalist', array(), array('context' => ''));
   $translations['ar:default']['bcb37020635cab570765bf3c2444984a'] = array(
     'source' => 'There was a problem with your form submission. Please wait @limit seconds and try again.',
     'context' => '',
