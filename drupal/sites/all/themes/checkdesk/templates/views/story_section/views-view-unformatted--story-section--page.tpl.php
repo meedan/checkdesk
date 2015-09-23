@@ -33,7 +33,7 @@ $stories_rows = array_chunk($rows, 4, true);
 			<?php else : ?>
 				<div class="cd-slice-wrapper">
 					<div class="cd-linkslist-container">
-						<ul class="cd-slice cd-linkslist l-list l-list--columns-4 u-unstyled">
+						<ul class="cd-slice cd-linkslist l-list l-list-columns-4 u-unstyled">
 							<?php foreach ($s_rows as $id => $row): ?>
 							  <li class="cd-slice-item l-list-item l-list-item-span-1<?php if ($classes_array[$id]) { print ' ' . $classes_array[$id];  } ?>">
 							    <?php print $row; ?>
