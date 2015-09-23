@@ -26,22 +26,6 @@
         });
       });
 
-      // Remove duplicates added incrementally by views_autorefresh after loading more content with views_load_more
-      $('.view-liveblog').unbind('views_load_more.new_content').bind('views_load_more.new_content', function(event, content) {
-        $(content).find('.desk').each(function() {
-          $('.view-liveblog #' + $(this).attr('id')).eq(0).remove();
-        });
-      });
-
-      // If an updated story already exists, remove it
-      $('.view-liveblog', context).unbind('autorefresh.incremental').bind('autorefresh.incremental', function(event, count) {
-        if (count > 0) {
-          $(this).find('.posts:eq(0) .desk').each(function(desk) {
-            $('.posts + .posts #' + $(this).attr('id')).remove();
-          });
-        }
-      });
-
       // add class when end of fact-checking log is reached
       // and also when there is no pager
       $('.report-activity .view').bind('scroll', function() {

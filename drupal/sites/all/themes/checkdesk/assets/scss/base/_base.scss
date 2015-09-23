@@ -29,13 +29,17 @@ html {
     padding-#{$alpha}: 50px;
     padding-#{$omega}: 50px;
   }
+  @include cd-responsive('min-width: #{$width-desktop}') {
+    padding-#{$alpha}: 100px;
+    padding-#{$omega}: 100px;
+  }
 }
 
 #main #content {
   padding-top: $padding-large-horizontal;
   @include cd-responsive('min-width: #{$width-tablet}') {
     padding-top: $padding-large-horizontal*2;  
-    max-width: 1020px;
+    max-width: 940px;
     margin-#{$alpha}: auto;
     margin-#{$omega}: auto;
   }

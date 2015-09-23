@@ -60,7 +60,9 @@ span.content-labels {
 	margin-top: 0;
 	a { @include ctb-linkColor($strongBlue80); }
 	p { 
-		@include cd-sans-serif-family;
+		@if $from-direction == 'left' {
+			@include cd-sans-serif-family;
+		}
 		color: $firefly60;
 		font-size: 16px;
 		line-height: 22px;

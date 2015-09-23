@@ -1,0 +1,24 @@
+// links list
+.l-list {
+  width: 100%;
+  @include cd-responsive('min-width: #{$width-tablet}') {
+    @include flexbox;
+    @include flex-wrap(wrap);
+  }
+}
+
+.l-list-item {
+  @include flex-grow(0);
+  @include flex-basis(100%);
+}
+
+@for $column from 1 through 4 {
+  .l-list-columns-#{$column} {
+    .l-list-item {
+      @include cd-responsive('min-width: #{$width-tablet}') {
+        width: 100% / $column;
+        @include flex-basis(100% / $column);
+      }
+    }
+  }
+}

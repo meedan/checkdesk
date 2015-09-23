@@ -32,7 +32,7 @@ function honeypot_admin_form($form, &$form_state) {
   $form['configuration']['honeypot_element_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Honeypot element name'),
-    '#description' => t("The name of the Honeypot form field. It's usually most effective to use a generic name like email, homepage, or name, but this should be changed if it interferes with fields that are already in your forms. Must not contain spaces or special characters."),
+    '#description' => t("The name of the Honeypot form field. It's usually most effective to use a generic name like email, homepage, or link, but this should be changed if it interferes with fields that are already in your forms. Must not contain spaces or special characters."),
     '#default_value' => variable_get('honeypot_element_name', 'url'),
     '#required' => TRUE,
     '#size' => 30,
@@ -169,6 +169,16 @@ function honeypot_admin_form_validate($form, &$form_state) {
   // Make sure Honeypot element name only contains A-Z, 0-9.
   if (!preg_match("/^[-_a-zA-Z0-9]+$/", $form_state['values']['honeypot_element_name'])) {
     form_set_error('honeypot_element_name', t("The element name cannot contain spaces or other special characters."));
+  }
+
+  // Make sure Honeypot element name isn't one of the reserved names.
+  $reserved_element_names = array(
+    'name',
+    'pass',
+    'website',
+  );
+  if (in_array($form_state['values']['honeypot_element_name'], $reserved_element_names)) {
+    form_set_error('honeypot_element_name', t("The element name cannot match one of the common Drupal form field names (e.g. @names).", array('@names' => implode(', ', $reserved_element_names))));
   }
 }
 

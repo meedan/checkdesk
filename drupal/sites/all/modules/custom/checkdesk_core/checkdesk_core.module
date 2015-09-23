@@ -184,6 +184,13 @@ function checkdesk_core_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => -2,
   );
+  $items['front-page'] = array(
+    'title' => '',
+    'page callback' => '_checkdesk_front_page',
+    'access arguments' => array('access content'),
+    'file' => 'checkdesk.frontpage.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
+  );
   return $items;
 }
 
@@ -250,6 +257,8 @@ function checkdesk_core_menu_alter(&$items) {
   $items['node/%node/view']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
   $items['node/%node/edit']['title callback'] = '_checkdesk_core_revisioning_title_for_tab';
   $items['node/%node/revisions/%vid/revert']['title callback'] = '_checkdesk_core_revisioning_title_for_revert';
+  unset($items['node/%node/revisions/list']);
+  unset($items['node/%node/revisions/%vid/edit']);
 }
 
 /**
@@ -859,7 +868,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
           $node->content['report_verification_footnote'] = isset($footnote->comment_body[LANGUAGE_NONE][0]['value']) ? $footnote->comment_body[LANGUAGE_NONE][0]['value'] : '';
         }
       }
-      $node->content['field_link'] = _meedan_render_oembed_activity_type($node, $heartbeat_row);
+      $node->content['field_link'] = _checkdesk_core_render_activity_type($node, $heartbeat_row);
     }
   }
 
@@ -897,6 +906,38 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
     );
   }
 
+}
+
+function _checkdesk_core_render_activity_type($node, $heartbeat_row) {
+  // TODO: get this mapping from admin interface.
+  // for now will use mapping array with key = activity type and value = formatter name.
+  $mapping = array(
+    'checkdesk_report_suggested_to_story' => 'meedan_inline_full_mode',
+  );
+
+  if ($heartbeat_row && isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
+    $output = field_view_field('node', $node, 'field_link', array('type' => $mapping[$heartbeat_row->heartbeat_activity_message_id]));
+  }
+  else {
+    $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_node_view_alter().
+ */
+function checkdesk_core_node_view_alter(&$build) {
+    // Check draft listing page
+    if ($build['#node']->status && $build ['#view_mode'] == 'checkdesk_search' && isset($_GET['state']) && $_GET['state'] == 2) {
+        $latest_vid = revisioning_get_latest_revision_id($build['#node']->nid);
+        if ($latest_vid) {
+            $build['#node'] = node_load($build['#node']->nid, $latest_vid);
+            node_build_content($build['#node'], $build ['#view_mode']);
+            $build['field_section'] = $build['#node']->content['field_section'];
+            $build['field_tags'] = $build['#node']->content['field_tags'];
+        }
+    }
 }
 
 /*
@@ -1061,7 +1102,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
       '#weight' => 9,
     );
     if ($form['nid']['#value']) {
-        $form['actions']['submit']['#value'] = t('Publish Changes');
+        $form['actions']['submit']['#value'] = $form['#node']->status ? t('Publish changes') : t('Publish');
     }
   }
   if (in_array('journalist', $user->roles)) {
@@ -1115,6 +1156,9 @@ function _checkdesk_new_revision_button_submit($form, &$form_state) {
 function _checkdesk_new_revision_validate($form, &$form_state) {
   if ($form_state['triggering_element']['#value'] == $form['actions']['cd_revision']['#value']) {
       $form_state['values']['revision_operation'] = 2;
+  }
+  elseif ($form_state['values']['nid'] && !$form_state['values']['status']) {
+      $form_state['values']['status'] = 1;
   }
 }
 
@@ -1190,19 +1234,6 @@ function checkdesk_core_views_pre_render(&$view) {
     // Send view results to client.
     drupal_add_js(array('checkdesk' => array('reports' => $data)), 'setting');
   }
-  else if ($view->name == 'liveblog') {
-    foreach ($view->result as $id => $story) {
-      $updates = views_get_view('updates_for_stories');
-      $updates->set_arguments(array($story->nid));
-      $updates->get_total_rows = TRUE;
-      $output = $updates->preview('block_1');
-      $total_rows = $updates->total_rows;
-      $updates->destroy();
-      if ($total_rows) {
-        $view->result[$id]->updates = $output;
-      }
-    }
-  }
   elseif ($view->name == 'story_collaboration') {
     foreach ($view->result as $k => $v) {
       // Localize some variables
@@ -1275,6 +1306,25 @@ function checkdesk_core_views_pre_render(&$view) {
         unset($view->result[$id]);
       }
     }
+  }
+  elseif ($view->name == 'frontpage_sections') {
+      foreach ($view->result as $id => $section) {
+          $latest_story = views_get_view('recent_stories_by_tag');
+          $latest_story->display['default']->display_options['pager']['options']['items_per_page'] = 1;
+          $latest_story->set_arguments(array($section->tid));
+          $latest_story->get_total_rows = TRUE;
+          $output = $latest_story->preview('block');
+          $stories = $latest_story->result;
+          $total_rows = $latest_story->total_rows;
+          $latest_story->destroy();
+          if ($total_rows) {
+              $view->result[$id]->latest_story = $stories[0];
+          }
+          else {
+              unset($view->result[$id]);
+          }
+      }
+      $view->total_rows = count($view->result);
   }
 }
 
@@ -1758,7 +1808,11 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
           }
           $path = drupal_lookup_path('source', urldecode($alias), $langcode);
           if (empty($path)) $path = $alias;
-          $messages[$key]->variables[$variable] = url($path, array('language' => $language, 'absolute' => TRUE, 'alias' => TRUE));
+          $options = array('language' => $language, 'absolute' => TRUE, 'alias' => TRUE);
+          if (isset($url['fragment'])) {
+            $options['fragment'] = $url['fragment'];
+          }
+          $messages[$key]->variables[$variable] = url($path, $options);
         }
       }
     }
@@ -1803,7 +1857,7 @@ function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, 
     $form['author']['mail'] = NULL;
     $form['actions']['submit']['#attributes']['class'] = array('btn');
     $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['rows'] = 1;
-    $form['comment_body']['und'][0]['#attributes']['class'] = array('expanding');
+    $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['class'] = array('expanding');
     $form['actions']['submit']['#value'] = t('Add footnote');
     $form['actions']['submit']['#ajax'] = array(
       'callback' => '_checkdesk_comment_form_submit',
@@ -1865,6 +1919,7 @@ function checkdesk_core_form_revisioning_revisions_summary_alter(&$form, $form_s
     $node = node_load($nid);
     $revisions = _revisioning_get_all_revisions_for_node($nid);
     // get first published revisions.
+    $first_revision = 0;
     foreach (array_reverse($form['status'], TRUE) as $k => $v) {
          if ($v['#value']) {
              $first_revision = $k;
@@ -2036,6 +2091,20 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       }
     }
   }
+  
+  if ($form_id == 'twitter_oauth_callback_form') {
+    $form['#validate'][] = '_checkdesk_twitter_oauth_callback_form_validate';
+  }
+}
+
+/**
+ * Twitter oauth custom validation to edit destination.
+ */
+function _checkdesk_twitter_oauth_callback_form_validate($form, &$form_state) {
+    if (isset($_SESSION['twitter_redirect'])) {
+        $form_state['twitter_oauth']["destination"] = $_SESSION['twitter_redirect'];
+        unset($_SESSION['twitter_redirect']);
+    }
 }
 
 /**
@@ -2258,7 +2327,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     }
   }
 
-  if ($view->name == 'sections') {
+  if ($view->name == 'sections' || $view->name == 'frontpage_sections') {
     $query->where[] = array(
       'conditions' => array(array(
         'field' => 'taxonomy_term_data.language',
@@ -3415,7 +3484,7 @@ function checkdesk_core_actions_set_followers($node) {
   }
 }
 
-function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
+function _set_user_avatar_bg($account, $classes = array(), $link = TRUE, $image_style = 'activity_avatar') {
   if (isset($account->picture->uri)) {
     $avatar_uri = $account->picture->uri;
   }
@@ -3425,8 +3494,8 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
 
   $avatar = '';
   if ($avatar_uri) {
-    $derivative_uri = image_style_path('activity_avatar', $avatar_uri);
-    $success = file_exists($derivative_uri) || image_style_create_derivative(image_style_load('activity_avatar'), $avatar_uri, $derivative_uri);
+    $derivative_uri = image_style_path($image_style, $avatar_uri);
+    $success = file_exists($derivative_uri) || image_style_create_derivative(image_style_load($image_style), $avatar_uri, $derivative_uri);
 
     $new_image_url = file_create_url($derivative_uri);
 
@@ -3853,7 +3922,8 @@ function _checkdesk_main_navigation() {
     // Add js to remove other active classes
     drupal_add_js('
       jQuery(function() {
-       jQuery("nav a.active:not(a.search-nav-selected)").removeClass("active");
+        jQuery("nav a.active:not(a.search-nav-selected)").removeClass("active");
+        jQuery("div#search ul.control-page-items li a").removeClass("active")
       });
       ', 'inline');
   }
@@ -4026,7 +4096,7 @@ function _checkdesk_show_sections_link() {
 /**
  * List most popular stories.
  */
-function _checkdesk_most_popular_stories() {
+function _checkdesk_most_popular_stories($data = FALSE) {
     global $language;
     $activities = array(
         'checkdesk_comment_on_report',
@@ -4051,6 +4121,9 @@ function _checkdesk_most_popular_stories() {
     $query->groupBy('n.nid');
     $query->orderBy('COUNT( n.nid )', 'DESC');
     $query->range(0, 5);
+    if ($data) {
+      return $query->execute()->fetchCol(1);
+    }
     $result = $query->execute()->fetchAll();
     return $result ? theme('checkdesk_core_most_popular_stories', array('stories' => $result)) : NULL;
 }

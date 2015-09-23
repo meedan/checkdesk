@@ -1,0 +1,16 @@
+// container to handle links
+.cd-linkslist-container {
+  position: relative;
+}
+
+.cd-linkslist {
+  width: 100%;
+  @include flexbox;
+  @include flex-wrap(wrap);
+  .cd-slice-item {
+    @include cd-responsive('min-width: #{$width-tablet}') {
+      @include flex-grow(0);
+      @include flex-basis(100% / 4);
+    }
+  }
+}

@@ -157,12 +157,12 @@ function checkdesk_core_update_7023() {
 }
 
 /**
- * Update alias language to be 'und'
+ * Update alias language to be LANGUAGE_NONE
  */
 function checkdesk_core_update_7025() {
   db_update('url_alias')
     ->fields(array(
-      'language' => 'und',
+      'language' => LANGUAGE_NONE,
     ))
     ->execute();
 }
@@ -442,4 +442,62 @@ function checkdesk_core_update_7047() {
     ))
     ->condition('name', 'checkdesk_core')
     ->execute();
+}
+
+/**
+ * Disable help block
+ */
+function checkdesk_core_update_7048() {
+  //change module weight to get twitter_signin alteration
+  db_update('block')
+    ->fields(array(
+      'status' => 0,
+    ))
+    ->condition('module', 'system')
+    ->condition('delta', 'help')
+    ->execute();
+}
+
+/**
+ * Enable Checkdesk Photos Feature
+ */
+function checkdesk_core_update_7049() {
+  module_enable(array('checkdesk_photos_feature'));
+}
+
+/**
+ * Fix update URLs in heartbeat messages to link to story page with anchor to update.
+ */
+function checkdesk_core_update_7050(&$sandbox) {
+  if(!isset($sandbox['progress'])){
+    $sandbox['progress'] = 0;
+    $sandbox['last_uaid'] = 0;
+    $sandbox['limit'] = 500;
+    $sandbox['max'] = db_query('
+        SELECT COUNT(uaid) FROM {heartbeat_activity}
+        WHERE message_id = :message_id AND variables NOT LIKE :term
+        ', array(':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update', ':term' =>'%#update-%'))->fetchField();
+  }
+  $result = db_query_range('
+    SELECT uaid, variables, ha.nid, ha.nid_target
+    FROM {heartbeat_activity} ha
+    WHERE message_id = :message_id AND variables NOT LIKE :term AND uaid > :uaid
+    ',0, $sandbox['limit'], array(
+          ':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update',
+          ':term' => '%#update-%',
+          ':uaid' => $sandbox['last_uaid']
+      )
+  );
+
+  foreach ($result as $row) {
+      $variables = heartbeat_decode_message_variables($row->variables);
+      if (array_key_exists('!update_url', $variables)) {
+        $variables['!update_url'] = url('node/' . $row->nid_target, array('fragment' => 'update-'.$row->nid, 'absolute' => TRUE, 'alias' => TRUE));
+        db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
+            , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
+      }
+    $sandbox['progress']++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_uaid'] = $row->uaid;
 }

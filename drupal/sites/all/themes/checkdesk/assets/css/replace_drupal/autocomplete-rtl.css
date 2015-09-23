@@ -1,0 +1,261 @@
+.icon-muted {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.icon-light {
+  color: #fff;
+}
+
+.icon-dark {
+  color: #333333;
+}
+
+/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+   readers do not read off random characters that represent icons */
+.autocomplete-deluxe-item-delete:before {
+  content: "\f00d";
+}
+
+/*
+ * jQuery UI Autocomplete 1.8.7
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Autocomplete#theming
+ */
+.ui-autocomplete {
+  position: absolute;
+  cursor: default;
+}
+
+/* workarounds */
+* html .ui-autocomplete {
+  width: 1px;
+}
+
+/* without this, the menu expands to 100% in IE6 */
+/*
+ * jQuery UI Menu 1.8.7
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Menu#theming
+ */
+.ui-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  float: right;
+}
+
+.ui-menu .ui-menu {
+  margin-top: -3px;
+}
+
+.ui-menu .ui-menu-item {
+  margin: 0;
+  padding: 0;
+  zoom: 1;
+  float: right;
+  clear: right;
+  width: 100%;
+}
+
+.ui-menu .ui-menu-item a {
+  text-decoration: none;
+  display: block;
+  padding: .2em .4em;
+  line-height: 1.5;
+  zoom: 1;
+}
+
+.ui-menu .ui-menu-item a.ui-state-hover,
+.ui-menu .ui-menu-item a.ui-state-active {
+  font-weight: normal;
+  margin: -1px;
+}
+
+ul.ui-autocomplete {
+  max-height: 240px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 3px;
+  background: #fff;
+  border: 1px solid #aaaaaa;
+  padding: 3px 0 3px 30px;
+}
+
+a.autocomplete-deluxe-single:hover {
+  text-decoration: none;
+}
+
+.ui-autocomplete .ui-state-hover {
+  background: #2e77fc;
+  border-color: #2e77fc;
+  color: #fff;
+  padding: 0;
+  margin: 0;
+}
+
+.autocomplete-deluxe-container {
+  display: inline-block;
+  position: relative;
+  padding: 0;
+  border: 1px solid #CCCCCC;
+  background: no-repeat -38px -22px, -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
+  background: no-repeat -38px -22px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%);
+  background: no-repeat -38px -22px, -moz-linear-gradient(top, #eeeeee 1%, white 15%);
+  background: no-repeat -38px -22px, -o-linear-gradient(top, #eeeeee 1%, white 15%);
+  background: no-repeat -38px -22px, -ms-linear-gradient(top, #eeeeee 1%, white 15%);
+  background: no-repeat -38px -22px, linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+}
+
+div.autocomplete-deluxe-container input.autocomplete-deluxe-form {
+  padding: 0px 5px;
+  border: none;
+}
+
+div.autocomplete-deluxe-container input.autocomplete-deluxe-form-single {
+  width: 90%;
+  border: none;
+  background: no-repeat -38px -22px, -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
+  background: no-repeat -38px -22px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%);
+  background: no-repeat -38px -22px, -moz-linear-gradient(top, #eeeeee 1%, white 15%);
+  background: no-repeat -38px -22px, -o-linear-gradient(top, #eeeeee 1%, white 15%);
+  background: no-repeat -38px -22px, -ms-linear-gradient(top, #eeeeee 1%, white 15%);
+  background: no-repeat -38px -22px, linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+}
+
+.autocomplete-deluxe-search {
+  margin: 0px 0px 4px 0px;
+  padding: 3px 4px;
+  position: relative;
+  white-space: nowrap;
+  z-index: 1010;
+}
+
+span.autocomplete-deluxe-value-delete {
+  display: inline-block;
+  float: left;
+  width: 18px;
+  width: 18px;
+  /* Prevent text selection. */
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.autocomplete-deluxe-single-open {
+  border: 1px solid #aaa;
+  -webkit-box-shadow: 0 1px 0 #fff inset;
+  -moz-box-shadow: 0 1px 0 #fff inset;
+  -o-box-shadow: 0 1px 0 #fff inset;
+  box-shadow: 0 1px 0 #fff inset;
+  background-color: #eee;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff', GradientType=0 );
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(20%, #eeeeee), color-stop(80%, white));
+  background-image: -webkit-linear-gradient(top, #eeeeee 20%, white 80%);
+  background-image: -moz-linear-gradient(top, #eeeeee 20%, white 80%);
+  background-image: -o-linear-gradient(top, #eeeeee 20%, white 80%);
+  background-image: -ms-linear-gradient(top, #eeeeee 20%, white 80%);
+  background-image: linear-gradient(top, #eeeeee 20%, #ffffff 80%);
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-bottomright: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+div.autocomplete-deluxe-multiple {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+  padding: 6px 7.5px 2px;
+  cursor: text;
+  height: auto !important;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  cursor: text;
+}
+
+input.autocomplete-deluxe-form.autocomplete-deluxe-multiple {
+  border: 3px none;
+  width: 25px;
+  margin-left: 5px;
+  float: right;
+}
+
+div.autocomplete-deluxe-throbber {
+  width: 16px;
+  float: left;
+  height: 50%;
+}
+
+.autocomplete-deluxe-closed {
+  background: url(/misc/throbber.gif) no-repeat 100% -40px;
+}
+
+.autocomplete-deluxe-open {
+  background: url(/misc/throbber.gif) no-repeat 100% 8px;
+}
+
+.autocomplete-deluxe-item {
+  float: right;
+  position: relative;
+  border-radius: 3px;
+  background-clip: padding-box;
+  background-color: #e7e8ea;
+  border: 1px solid #cfd3d5;
+  cursor: default;
+  margin: 3px 5px 3px 7.5px;
+  padding: 3px 5px 3px 30px;
+  color: #3e4c57;
+}
+
+.autocomplete-deluxe-item-delete {
+  color: #9fa6ac;
+  display: block;
+  position: absolute;
+  left: 15px;
+  top: 3px;
+  width: 12px;
+}
+.autocomplete-deluxe-item-delete:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.autocomplete-deluxe-item-delete:hover {
+  color: #9d261d;
+}
+
+.autocomplete-deluxe-item-focus {
+  background: none repeat scroll 0 0 #D4D4D4;
+}
+
+.autocomplete-deluxe-highlight-char {
+  color: #2155b4;
+  font-weight: bold;
+}

@@ -1,0 +1,75 @@
+.cd-container {
+	@include ctb-clearfix;
+}
+
+.cd-container-inner {
+	margin: $absolute-line-height/1.2 0;
+  padding: 20px 0 0;
+  position: relative;
+
+	.cd-container & {
+		border-top: 1px solid $firefly10;	
+	}
+
+}
+
+.cd-container-header {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.cd-container-header-title {
+  text-align: center;
+  color: $firefly60;
+  a { 
+    @include ctb-linkColor($firefly60);
+    text-decoration: none;
+  }
+  @if $from-direction == 'left' {
+    letter-spacing: -0.5px;
+  }
+}
+
+// align title to normal for section pages
+.cd-container-section {
+  .cd-container-header-title {
+    text-align: $alpha;
+  }
+}
+
+// more link
+.cd-container .cd-container-inner .more-link {
+  position: absolute;
+  top: 30px;
+  #{$omega}: 0;
+  a { 
+    @include ctb-linkColor($firefly40); 
+    text-decoration: none;
+  }
+}
+
+// load more
+.cd-container .cd-container-inner {
+  // add styles for load more pager
+  @include ctb-load-more-pager;
+}
+
+
+
+// remove border from first container on section pages
+.page-section .cd-container-section:first-child .cd-container-inner,
+.page-sections .cd-container-section:first-child .cd-container-inner {
+  border-top: 0 none;
+  margin-top: 0;
+  padding-top: 0;
+  .more-link {
+    top: 0;
+  }
+}
+
+// add bottom margin for last container
+.page-section .cd-container-section:last-child,
+.page-sections .cd-container-section:last-child {
+  margin-bottom: 60px;
+}
+

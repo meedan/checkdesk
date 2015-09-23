@@ -1,0 +1,180 @@
+// Horizontal item
+@mixin cd-item-horizontal($media-width, $media-align: right) {
+  .cd-item-image-container {
+        box-sizing: border-box;
+        padding-#{$alpha}: $gutter-width;
+  }
+  // IE10/11 ignore boxsizing on flex-basis'd element.
+    // Option is extra wrapping div or this slightly overblow selector.
+    .cd-item-content {
+        position: relative;
+
+        > * {
+            box-sizing: border-box;
+            padding-#{$omega}: $gutter-width;
+        }
+    }
+  .cd-item-container {
+    @include flex-wrap(wrap);
+    @if $media-align == right {
+                @include flex-direction(row-reverse);
+            } @else {
+                @include flex-direction(row);
+            }
+  }
+  .cd-item-media-wrapper {
+      flex-basis: $media-width;
+  }
+  .cd-item-content {
+      flex-basis: (100% - $media-width);
+      // DAMN YOU IE10/11 FLEXWRAP BOX SIZING BUG
+      max-width: (100% - $media-width);
+  }
+}
+
+
+// item 
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  .cd-item {
+    width: 100%;
+  }
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  .cd-item {
+    @include flexbox;
+    @include flex(1 1 auto);
+    margin-#{$alpha}: 8px;
+    margin-#{$omega}: 8px;
+  }
+}
+
+
+.cd-item-container {
+  position: relative;
+  a { 
+    color: $firefly60;
+    text-decoration: none;
+  }
+  .cd-item-meta a {
+    color: $firefly30;
+  }
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  .cd-item-container {
+    @include flexbox;
+    @include flex-direction(column);
+    @include flex(1 1 auto);
+    @include box-sizing(border-box);
+    width: 0;
+  }
+}
+
+.cd-item-container:hover {
+  a { 
+    color: $firefly80;
+    text-decoration: none;
+  }
+  .cd-item-meta a {
+    color: $firefly40;
+  }
+}
+
+.cd-item-media-wrapper {
+  position: relative;
+  @include box-sizing(border-box);
+}
+
+.cd-item-image-container {
+  display: block;
+}
+
+.cd-item-content {
+  padding-top: 4px;
+  padding-#{$alpha}: 8px;
+  padding-#{$omega}: 8px;
+  padding-bottom: 50px;
+  @include box-sizing(border-box);
+}
+
+.cd-item-header {
+  font-size: 16px;
+  @if $from-direction == left {
+    line-height: 20px;
+    letter-spacing: -0.4px;
+  } @else {
+    font-size: 18px;
+    word-spacing: -0.5px;
+  }
+  @include cd-serif-family;
+  padding-bottom: 10px;
+}
+
+.cd-item-lead {
+  padding-bottom: 10px;
+  color: $firefly60;
+  display: none;
+}
+
+.cd-item-title {
+  font: inherit;
+  line-height: inherit;
+  word-wrap: break-word;
+  margin-bottom: 0;
+}
+
+.cd-item-content-label {
+  color: $firefly40;
+  &:after {
+    content: '/';
+    display: inline-block;
+    color: $firefly20;
+    font-weight: normal;
+    margin-#{$alpha}: 4px;
+  }
+}
+
+.cd-item-meta {
+  position: absolute;
+  bottom: 4px;
+  #{$alpha}: 8px;
+  #{$omega}: 8px;
+  font-size: 14px;
+  line-height: 1.3;
+  color: $firefly30;
+}
+
+.cd-item-meta .icon-comment-o { 
+  @include icon(comment-o);
+  &:before, &:after { 
+    margin: 0;
+  }
+}
+
+// make comment link above
+// the faux block link overlay
+.cd-item-meta .cd-item-count a {
+  position: relative;
+  z-index: 1;
+}
+
+.cd-item-meta .byline {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cd-item-meta .timestamp {
+  float: $alpha;
+  padding-#{$omega}: 10px;
+}
+
+// Default hover for containter items
+.cd-item .u-faux-block-link-hover {
+  background-color: #efefef;
+  .cd-item-image-container {
+    background-color: $firefly;
+    opacity: .9;
+  }
+}
