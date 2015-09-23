@@ -16,7 +16,7 @@
             <?php else: ?>
               <span class="media-label draft"><?php print t('Draft'); ?>
             <?php endif; ?>
-            <span class="media-type"> <?php print t('Liveblog'); ?></span></span>
+            <span class="media-type"> <?php print t('Story'); ?></span></span>
 
             <div class="title">
               <?php if(isset($content['field_section'])) : ?>
