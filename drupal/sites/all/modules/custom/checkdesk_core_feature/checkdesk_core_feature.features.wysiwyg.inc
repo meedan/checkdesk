@@ -83,9 +83,6 @@ function checkdesk_core_feature_wysiwyg_default_profiles() {
         'mediaembed' => array(
           'MediaEmbed' => 1,
         ),
-        'drupal' => array(
-          'media' => 1,
-        ),
       ),
       'toolbar_loc' => 'top',
       'toolbar_align' => 'left',

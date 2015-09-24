@@ -124,11 +124,6 @@ function checkdesk_core_feature_filter_default_formats() {
         'status' => 1,
         'settings' => array(),
       ),
-      'media_filter' => array(
-        'weight' => 2,
-        'status' => 1,
-        'settings' => array(),
-      ),
       'filter_htmlcorrector' => array(
         'weight' => 10,
         'status' => 1,
