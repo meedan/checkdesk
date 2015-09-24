@@ -19,4 +19,10 @@ function checkdesk_media_wysiwyg_editor_settings_alter(&$settings, &$context) {
     $settings['removePlugins'] = 'image';           // disable image properties dialog
   }
 }
-?>
+
+/**
+ * Implements hook_form_form_id_alter();
+ */
+function checkdesk_media_form_media_wysiwyg_format_form_alter(&$form, &$form_state) {
+  drupal_add_css('.form-item-format {display: none;}', array('type' => 'inline')); // hide image view mode selection form item
+}
