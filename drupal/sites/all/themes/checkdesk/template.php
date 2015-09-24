@@ -1368,7 +1368,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
   }
   
-  if (in_array($vars['view']->name, array('recent_stories_by_tag', 'story_section', 'featured_story', 'most_popular', 'user_stories'))) {
+  if ($vars['view']->tag == 'stories_container' || in_array($vars['view']->name, array('story_section', 'featured_story'))) {
     $vars['show_section'] = TRUE;
     if (isset($vars['view']->args[0]) && is_numeric($vars['view']->args[0])) {
         $term = taxonomy_term_load($vars['view']->args[0]);
@@ -1439,11 +1439,7 @@ function checkdesk_preprocess_user_profile(&$vars) {
   // User roles
   $roles = $account->roles;
   unset($roles[DRUPAL_AUTHENTICATED_RID]);
-  $vars['roles'] = '';
-  foreach ($roles as $role) {
-    $vars['roles'] .=  '<span class="role">' . $role . '</span>';
-  }
-  
+  $vars['roles'] = $roles;
   // User stories
   $view = views_get_view('user_stories');
   $view->display['default']->display_options['filters']['uid']['value'][0] = $account->uid;
@@ -1455,6 +1451,19 @@ function checkdesk_preprocess_user_profile(&$vars) {
   if ($total_rows) {
     $vars['user_stories'] = $view_output;
   }
+
+    // followed stories
+    $view = views_get_view('followed_stories');
+    $view->set_arguments(array($account->uid));
+    $view->display['default']->display_options['filters']['uid']['value'][0] = $account->uid;
+    $view->display['default']->display_options['filters']['field_additional_authors_target_id']['value']['value'] = $account->uid;
+    $view->get_total_rows = TRUE;
+    $view_output = $view->preview('block');
+    $total_rows = $view->total_rows;
+    $view->destroy();
+    if ($total_rows) {
+        $vars['followed_stories'] = $view_output;
+    }
 
 }
 

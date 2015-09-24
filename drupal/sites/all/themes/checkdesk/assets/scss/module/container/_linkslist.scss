@@ -7,6 +7,11 @@
   width: 100%;
   @include flexbox;
   @include flex-wrap(wrap);
+
+  &.cd-linkslist-sections {
+    @include justify-content(center);
+  }
+
   .cd-slice-item {
     @include cd-responsive('min-width: #{$width-tablet}') {
       @include flex-grow(0);
