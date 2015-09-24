@@ -15,7 +15,8 @@ function checkdesk_media_entity_info_alter(&$entity_info) {
  */
 function checkdesk_media_wysiwyg_editor_settings_alter(&$settings, &$context) {
   if($context['profile']->editor == 'ckeditor') {
-    $settings['extraAllowedContent'] = 'img(*)[*]';
+    $settings['extraAllowedContent'] = 'img(*)[*]'; // enable img tag in CKEditor
+    $settings['removePlugins'] = 'image';           // disable image properties dialog
   }
 }
 ?>
