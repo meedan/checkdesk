@@ -394,7 +394,7 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
     else {
       $vars['favicon_link'] = '';
     }
-    if ($embed->error) $vars['embed_error'] = t('It was not possible to parse this report.');
+    if (isset($embed->error)) $vars['embed_error'] = t('It was not possible to parse this report.');
   }
 }
 
