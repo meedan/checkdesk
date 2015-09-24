@@ -13,12 +13,12 @@ function checkdesk_core_enable() {
  */
 function checkdesk_core_schema() {
   $schema['checkdesk_reports_updates'] = array(
-    'description' => 'The base table to associate reports with updates.',
-    'fields' => array(
-      'update_nid' => array('type' => 'int', 'length' => 10 , 'unsigned' => TRUE,  'not null' => TRUE),
-      'report_nid' => array('type' => 'int', 'length' => 10 , 'unsigned' => TRUE,  'not null' => TRUE),
-    ),
-    'primary key' => array('update_nid', 'report_nid'),
+      'description' => 'The base table to associate reports with updates.',
+      'fields' => array(
+          'update_nid' => array('type' => 'int', 'length' => 10, 'unsigned' => TRUE, 'not null' => TRUE),
+          'report_nid' => array('type' => 'int', 'length' => 10, 'unsigned' => TRUE, 'not null' => TRUE),
+      ),
+      'primary key' => array('update_nid', 'report_nid'),
   );
   return $schema;
 }
@@ -36,20 +36,17 @@ function checkdesk_core_requirements($phase) {
     $fboauth_secret = variable_get('fboauth_secret', NULL);
     if (!($fboauth_id && $fboauth_secret)) {
       $requirements['facebook_keys']['value'] = $t('Missing');
-      $requirements['facebook_keys']['description'] =
-        $t('In order to interact with Facebook, you need to create an application at ' .
-           '<a href="https://developers.facebook.com/apps" target="_blank">Facebook Developers</a> ' .
-           'and set the generated application keys at the ' .
-           '<a href="/admin/config/people/fboauth">Facebook OAuth settings page</a>.');
+      $requirements['facebook_keys']['description'] = $t('In order to interact with Facebook, you need to create an application at ' .
+              '<a href="https://developers.facebook.com/apps" target="_blank">Facebook Developers</a> ' .
+              'and set the generated application keys at the ' .
+              '<a href="/admin/config/people/fboauth">Facebook OAuth settings page</a>.');
       $requirements['facebook_keys']['severity'] = REQUIREMENT_WARNING;
-    }
-    else {
+    } else {
       $requirements['facebook_keys']['value'] = $t('Configured');
       $requirements['facebook_keys']['severity'] = REQUIREMENT_OK;
     }
   }
   return $requirements;
-
 }
 
 /**
@@ -59,11 +56,11 @@ function checkdesk_core_requirements($phase) {
 function checkdesk_core_update_7001() {
   //change module weight to get twitter_signin alteration
   db_update('system')
-    ->fields(array(
-      'weight' => 5,
-    ))
-    ->condition('name', 'checkdesk_core')
-    ->execute();
+          ->fields(array(
+              'weight' => 5,
+          ))
+          ->condition('name', 'checkdesk_core')
+          ->execute();
 }
 
 /**
@@ -161,10 +158,10 @@ function checkdesk_core_update_7023() {
  */
 function checkdesk_core_update_7025() {
   db_update('url_alias')
-    ->fields(array(
-      'language' => LANGUAGE_NONE,
-    ))
-    ->execute();
+          ->fields(array(
+              'language' => LANGUAGE_NONE,
+          ))
+          ->execute();
 }
 
 /**
@@ -216,9 +213,9 @@ function checkdesk_core_update_7030() {
     preg_match_all('/\[[^:]+:([0-9]+)\]/u', $row->body_value, $matches);
     if (count($matches[1])) {
       foreach ($matches[1] as $key => $nid) {
-        if(!in_array($nid, $reports)) {
+        if (!in_array($nid, $reports)) {
           $reports[] = $nid;
-          $data[] = array('update_nid' =>$row->nid, 'report_nid' => $nid);
+          $data[] = array('update_nid' => $row->nid, 'report_nid' => $nid);
         }
       }
     }
@@ -247,7 +244,7 @@ function checkdesk_core_update_7031() {
 
 /**
  * Uninstall recaptcha modules.
-*/
+ */
 function checkdesk_core_update_7032() {
   drupal_uninstall_modules(array('recaptcha'), FALSE);
   drupal_uninstall_modules(array('captcha'), FALSE);
@@ -262,8 +259,7 @@ function checkdesk_core_update_7033() {
   $result = array_intersect($hostnames, $auto_approved);
   if (count($result)) {
     variable_set('user_register', USER_REGISTER_VISITORS);
-  }
-  else {
+  } else {
     variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
   }
 }
@@ -306,7 +302,7 @@ function checkdesk_core_update_7036() {
         ", array(
           ':name' => $user->name,
           ':uid' => $user->uid,
-        ));
+      ));
     }
   }
 }
@@ -332,14 +328,14 @@ function checkdesk_core_update_7038() {
  * @param type $sandbox
  */
 function checkdesk_core_update_7039(&$sandbox) {
-  if(!isset($sandbox['progress'])){
+  if (!isset($sandbox['progress'])) {
     $sandbox['progress'] = 0;
     $sandbox['last_uaid'] = 0;
     $sandbox['limit'] = 400;
     $sandbox['max'] = db_query('
         SELECT COUNT(uaid) FROM {heartbeat_activity}
         WHERE message_id = :message_id AND variables LIKE :term
-        ', array(':message_id' => 'new_comment_report', ':term' =>'%/</a>@%'))->fetchField();
+        ', array(':message_id' => 'new_comment_report', ':term' => '%/</a>@%'))->fetchField();
   }
   $result = db_query_range('
     SELECT uaid, variables, ha.nid, ha.uid, ha.nid_target, ha.cid , u.name, n.title
@@ -347,11 +343,11 @@ function checkdesk_core_update_7039(&$sandbox) {
     INNER JOIN {node} n ON ha.nid = n.nid
     INNER JOIN {users} u ON ha.uid = u.uid
     WHERE message_id = :message_id AND variables LIKE :term AND uaid > :uaid
-    ',0, $sandbox['limit'], array(
+    ', 0, $sandbox['limit'], array(
       ':message_id' => 'new_comment_report',
       ':term' => '%/</a>@%',
       ':uaid' => $sandbox['last_uaid']
-    )
+          )
   );
 
   foreach ($result as $row) {
@@ -364,7 +360,7 @@ function checkdesk_core_update_7039(&$sandbox) {
                 , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
       }
     }
-    $sandbox['progress']++;
+    $sandbox['progress'] ++;
   }
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
   $sandbox['last_uaid'] = $row->uaid;
@@ -390,12 +386,12 @@ function checkdesk_core_update_7041() {
  */
 function checkdesk_core_update_7042() {
   db_query(
-    'UPDATE {field_data_body} set body_format = :format  WHERE bundle = :type'
-    , array(':format' => 'liveblog', ':type' => 'discussion')
+          'UPDATE {field_data_body} set body_format = :format  WHERE bundle = :type'
+          , array(':format' => 'liveblog', ':type' => 'discussion')
   );
   db_query(
-    'UPDATE {field_revision_body} set body_format = :format  WHERE bundle = :type'
-    , array(':format' => 'liveblog', ':type' => 'discussion')
+          'UPDATE {field_revision_body} set body_format = :format  WHERE bundle = :type'
+          , array(':format' => 'liveblog', ':type' => 'discussion')
   );
 }
 
@@ -404,7 +400,7 @@ function checkdesk_core_update_7042() {
  */
 function checkdesk_core_update_7043() {
   db_query('UPDATE {node} SET promote = :promote WHERE type = :type AND status = :status'
-  , array(':promote' => 1, ':type' => 'discussion', ':status' => 1)
+          , array(':promote' => 1, ':type' => 'discussion', ':status' => 1)
   );
 }
 
@@ -420,8 +416,8 @@ function checkdesk_core_update_7044() {
  */
 function checkdesk_core_update_7045() {
   db_query('UPDATE {languages} set formula = :formula WHERE language = :language', array(
-    ':formula' => '(($n==0)?(1):(($n==1)?(0):(($n==2)?(2):(((($n%100)>=3)&&(($n%100)<=10))?(3):(((($n%100)>=11)&&(($n%100)<=99))?(4):5)))))',
-    ':language' => 'ar'
+      ':formula' => '(($n==0)?(1):(($n==1)?(0):(($n==2)?(2):(((($n%100)>=3)&&(($n%100)<=10))?(3):(((($n%100)>=11)&&(($n%100)<=99))?(4):5)))))',
+      ':language' => 'ar'
   ));
 }
 
@@ -437,11 +433,11 @@ function checkdesk_core_update_7046() {
  */
 function checkdesk_core_update_7047() {
   db_update('system')
-    ->fields(array(
-      'weight' => 99,
-    ))
-    ->condition('name', 'checkdesk_core')
-    ->execute();
+          ->fields(array(
+              'weight' => 99,
+          ))
+          ->condition('name', 'checkdesk_core')
+          ->execute();
 }
 
 /**
@@ -450,53 +446,46 @@ function checkdesk_core_update_7047() {
 function checkdesk_core_update_7048() {
   //change module weight to get twitter_signin alteration
   db_update('block')
-    ->fields(array(
-      'status' => 0,
-    ))
-    ->condition('module', 'system')
-    ->condition('delta', 'help')
-    ->execute();
-}
-
-/**
- * Enable Checkdesk Photos Feature
- */
-function checkdesk_core_update_7049() {
-  module_enable(array('checkdesk_photos_feature'));
+          ->fields(array(
+              'status' => 0,
+          ))
+          ->condition('module', 'system')
+          ->condition('delta', 'help')
+          ->execute();
 }
 
 /**
  * Fix update URLs in heartbeat messages to link to story page with anchor to update.
  */
 function checkdesk_core_update_7050(&$sandbox) {
-  if(!isset($sandbox['progress'])){
+  if (!isset($sandbox['progress'])) {
     $sandbox['progress'] = 0;
     $sandbox['last_uaid'] = 0;
     $sandbox['limit'] = 500;
     $sandbox['max'] = db_query('
         SELECT COUNT(uaid) FROM {heartbeat_activity}
         WHERE message_id = :message_id AND variables NOT LIKE :term
-        ', array(':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update', ':term' =>'%#update-%'))->fetchField();
+        ', array(':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update', ':term' => '%#update-%'))->fetchField();
   }
   $result = db_query_range('
     SELECT uaid, variables, ha.nid, ha.nid_target
     FROM {heartbeat_activity} ha
     WHERE message_id = :message_id AND variables NOT LIKE :term AND uaid > :uaid
-    ',0, $sandbox['limit'], array(
-          ':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update',
-          ':term' => '%#update-%',
-          ':uaid' => $sandbox['last_uaid']
-      )
+    ', 0, $sandbox['limit'], array(
+      ':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update',
+      ':term' => '%#update-%',
+      ':uaid' => $sandbox['last_uaid']
+          )
   );
 
   foreach ($result as $row) {
-      $variables = heartbeat_decode_message_variables($row->variables);
-      if (array_key_exists('!update_url', $variables)) {
-        $variables['!update_url'] = url('node/' . $row->nid_target, array('fragment' => 'update-'.$row->nid, 'absolute' => TRUE, 'alias' => TRUE));
-        db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
-            , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
-      }
-    $sandbox['progress']++;
+    $variables = heartbeat_decode_message_variables($row->variables);
+    if (array_key_exists('!update_url', $variables)) {
+      $variables['!update_url'] = url('node/' . $row->nid_target, array('fragment' => 'update-' . $row->nid, 'absolute' => TRUE, 'alias' => TRUE));
+      db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
+              , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
+    }
+    $sandbox['progress'] ++;
   }
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
   $sandbox['last_uaid'] = $row->uaid;
