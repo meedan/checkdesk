@@ -9,6 +9,18 @@
  */
 
 /**
+ * Implements hook_init().
+ */
+function meedan_facebook_init() {
+  // Inject FB script everywhere.
+  drupal_add_js(array('meedanFacebook' => array(
+    'language' => meedan_facebook_get_locale(),
+    'appId' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
+  )), 'setting');
+  drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
+}
+
+/**
  * Implements hook_theme().
  */
 function meedan_facebook_theme() {
@@ -68,12 +80,6 @@ function theme_facebook_commentcount($variables) {
 
   meedan_facebook_add_metatag();
 
-  drupal_add_js(array('meedanFacebookComments' => array(
-    'language' => meedan_facebook_get_locale(),
-    'appId' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
-  )), 'setting');
-  drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
-
   $node = $variables['node'];
   $nid = $node->nid;
   $path = _meedan_facebook_get_path($nid);
@@ -92,12 +98,6 @@ function theme_facebook_comments($variables) {
   $nid = $node->nid;
 
   meedan_facebook_add_metatag();
-
-  drupal_add_js(array('meedanFacebookComments' => array(
-    'language' => meedan_facebook_get_locale(),
-    'appId' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
-  )), 'setting');
-  drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
 
   $path = _meedan_facebook_get_path($nid);
   $output = '<div class="fb-comments" data-href="' . $path . '" data-num-posts="' . $per_page . '" data-nid="' . $nid . '" id="fb-comments-' . $nid . '" data-version="v2.3"></div>';
