@@ -490,3 +490,11 @@ function checkdesk_core_update_7050(&$sandbox) {
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
   $sandbox['last_uaid'] = $row->uaid;
 }
+
+/**
+ * Localize existing sections taxonomy.
+ */
+function checkdesk_core_update_7051() {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('sections');
+  db_query('UPDATE {taxonomy_term_data} SET language = :language WHERE vid = :vid', array(':language' => LANGUAGE_NONE, ':vid' => $vocabulary->vid));
+}
