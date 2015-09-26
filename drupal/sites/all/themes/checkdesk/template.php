@@ -1318,20 +1318,16 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
  * recent_stories_by_tag view
  */
 function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
-    if ($vars['more'] && arg(0) == 'sections') {
-        if (is_numeric($vars['view']->args[0])) {
-            $term = taxonomy_term_load($vars['view']->args[0]);
-            if ($term->vocabulary_machine_name == 'sections') {
-                $vars['more'] = l(t('See more stories from !taxonomy', array('!taxonomy' => $term->name)), 'taxonomy/term/' . $term->tid);
-            }
-            else {
-                $vars['more'] = NULL;
-            }
-        }
+  if ($vars['more'] && arg(0) == 'sections' && is_numeric($vars['view']->args[0])) {
+    $term = taxonomy_term_load($vars['view']->args[0]);
+    if ($term->vocabulary_machine_name == 'sections') {
+      $vars['more'] = l(t('See more stories from !taxonomy', array('!taxonomy' => i18n_taxonomy_term_name($term))), 'taxonomy/term/' . $term->tid);
+    } else {
+      $vars['more'] = NULL;
     }
-    else {
-        $vars['more'] = NULL;
-    }
+  } else {
+    $vars['more'] = NULL;
+  }
 }
 
 /**

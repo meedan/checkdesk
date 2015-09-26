@@ -1135,8 +1135,6 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
 
   // Customize "Add more items" for authors.
   $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
-  // Limit sections based on current language.
-  $form['field_section'][LANGUAGE_NONE]['#options'] = array('_none' => t('- None -')) +  _checkdesk_load_sections();
 }
 
  /**
@@ -1160,22 +1158,6 @@ function _checkdesk_new_revision_validate($form, &$form_state) {
   elseif ($form_state['values']['nid'] && !$form_state['values']['status']) {
       $form_state['values']['status'] = 1;
   }
-}
-
-/**
- * Load sections based on current language.
- */
-function _checkdesk_load_sections() {
-    global $language;
-    $sections = array();
-    $vocabulary =  taxonomy_vocabulary_machine_name_load('sections');
-    $terms = taxonomy_get_tree($vocabulary->vid);
-    foreach ($terms as $term) {
-        if ($term->language == $language->language) {
-            $sections[$term->tid] = $term->name;
-        }
-    }
-    return $sections;
 }
 
 /**
@@ -1520,7 +1502,6 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     }
     if (isset($_GET['type']) && $_GET['type'] === 'story') {
         $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
-        $form['field_section_tid_i18n']['#options'] = array('All' => '– ' . t('Any section') . ' –') + _checkdesk_load_sections();
     }
     else {
         // Hide section filter
@@ -2223,8 +2204,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       $query->add_where(1,'f.field_stories_target_id', 1, 'IS NULL');
     }
   }
-
-  if ($view->name == 'checkdesk_search') {
+  elseif ($view->name == 'checkdesk_search') {
     // Update type condition with right values.
     if (isset($_GET['type']) && $_GET['type'] !== 'All') {
       foreach($query->where[1]['conditions'] as $k => $v) {
@@ -2241,13 +2221,6 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
           }
           $query->where[1]['conditions'][$k]['value'] = $selected_type;
         }
-        /*
-        // List all languages if user filter by report.
-        if (is_string($v['field']) && $v['field'] === 'node.language' && $_GET['type'] === 'report') {
-          $all_language = array_merge(array_keys(language_list()), array(LANGUAGE_NONE));
-          $query->where[1]['conditions'][$k]['value'] = $all_language;
-        }
-        */
       }
     }
     // Add where condition based on flag type for reports.
@@ -2326,20 +2299,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       }
     }
   }
-
-  if ($view->name == 'sections' || $view->name == 'frontpage_sections') {
-    $query->where[] = array(
-      'conditions' => array(array(
-        'field' => 'taxonomy_term_data.language',
-        'value' => array('***CURRENT_LANGUAGE***'),
-        'operator' => 'in',
-      )),
-      'args' => array(),
-      'type' => 'AND',
-    );
-  }
-  
-  if ($view->name == 'recent_stories_by_tag') {
+  elseif ($view->name == 'recent_stories_by_tag') {
       // exclude current nid
       if (is_numeric(arg(1))) {
         $query->add_where(1,'node.nid', arg(1), '!=');
