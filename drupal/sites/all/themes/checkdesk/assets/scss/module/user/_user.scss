@@ -1,2 +1,32 @@
 // User section profile
-// to be designed
+
+
+.profile {
+	text-align: center;
+	font-size: 18px;
+}
+
+.profile .avatar {
+  margin-top: 20px;
+	margin-bottom: 20px;
+	border: 6px solid $firefly20;
+	@include cd-avatar('inline', 180px, 0);
+  @include border-radius(50%);
+}
+
+.user-name {
+	font-weight: bold;
+}
+
+.user-roles {
+	color: $firefly40;
+	.role {
+		margin: 0 10px;
+	}
+}
+
+.user-bio {
+	margin-top: 20px;
+	margin-bottom: 30px;
+	color: $firefly60;
+}

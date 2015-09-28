@@ -391,13 +391,13 @@ function checkdesk_core_feature_metatag_export_default() {
         'value' => '[node:checkdesk-summary]',
       ),
       'canonical' => array(
-        'value' => '[current-page:url:absolute]?fbrefresh=[node:changed:raw]',
+        'value' => '[current-page:url:absolute]',
       ),
       'og:type' => array(
         'value' => 'article',
       ),
       'og:url' => array(
-        'value' => '[current-page:url:absolute]?fbrefresh=[node:changed:raw]',
+        'value' => '[current-page:url:absolute]',
       ),
       'og:title' => array(
         'value' => '[node:title]',

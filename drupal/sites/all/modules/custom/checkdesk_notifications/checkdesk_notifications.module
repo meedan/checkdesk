@@ -241,9 +241,6 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
       if ($subscriptions['site_update_story']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_update_story'");
       }
-      if ($subscriptions['site_update_draft_story']) {
-        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_update_draft_story'");
-      }
       if ($subscriptions['site_new_report']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'new_report'");
       }
@@ -299,6 +296,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     if ($subscriptions['site_report_status_on_story_i_followed']&& $is_follower) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'status_report'
       AND ( $followed_stories_condition )");
+    }
+    if ($subscriptions['site_update_draft_story']) {
+      $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_update_draft_story'");
     }
 
     $query->add_where_expression(1, "FALSE");

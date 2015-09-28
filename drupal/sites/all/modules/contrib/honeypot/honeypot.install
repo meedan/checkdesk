@@ -142,6 +142,7 @@ function honeypot_update_7003() {
  * Create Honeypot CSS file.
  */
 function honeypot_update_7004() {
+  drupal_load('module', 'honeypot');
   module_load_include('inc', 'honeypot', 'honeypot.admin');
   honeypot_create_css(variable_get('honeypot_element_name', 'url'));
 }

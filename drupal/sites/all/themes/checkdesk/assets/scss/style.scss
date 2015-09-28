@@ -126,9 +126,6 @@ $omega: opposite-position($from-direction);
 // Checkdesk updates
 @import "module/content/update";
 
-// Liveblog page
-@import "module/content/liveblog";
-
 // Story blog page with discussion
 @import "module/content/story";
 @import "module/content/content_body";
@@ -137,12 +134,22 @@ $omega: opposite-position($from-direction);
 @import "components/most_popular";
 
 // Common item styles
-@import "components/container/items";
-@import "components/container/item";
+@import "module/items";
+@import "module/item";
 
 // Container
-@import "components/container/container";
-@import "components/container/containers";
+@import "module/container/container";
+@import "module/container/containers";
+@import "module/container/slices";
+@import "module/container/l_row";
+@import "module/container/l_list";
+@import "module/container/linkslist";
+// Container item tones
+@import "module/container/tones";
+// Container item
+@import "module/container/cd_item";
+@import "module/container/cd_items";
+
 
 // Story colloboration activity
 @import "module/activity";
@@ -173,7 +180,7 @@ $omega: opposite-position($from-direction);
 @import "components/pagination";
 
 // Checkdesk user accounts
-// @import "module/user/user"; // enable when designed
+@import "module/user/user";
 @import "module/user/user_forms";
 @import "module/user/administer_users";
 @import "module/user/user_menu";

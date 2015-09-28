@@ -1,5 +1,6 @@
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notonaskharabic.css);
+@import url(https://fonts.googleapis.com/earlyaccess/notokufiarabic.css.css);
 @import url(https://fonts.googleapis.com/css?family=Lato:400,400italic,700|Merriweather:400,400italic,700);
 @font-face {
   font-family: "FontAwesome";
@@ -250,7 +251,7 @@ input,
 button,
 select,
 textarea {
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Kufi Arabic", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 label {
@@ -281,7 +282,7 @@ input[type="color"],
   padding: 10px 6px;
   margin-bottom: 6px;
   font-size: 18px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   color: #777777;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -1665,7 +1666,7 @@ textarea {
 ul.dropdown-menu a {
   display: block;
   padding: 6px 14px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-weight: normal;
   line-height: 24px;
   white-space: nowrap;
@@ -1894,7 +1895,7 @@ div.ctools-modal-content .modal-content {
   margin: 0 auto 10px;
   width: 260px;
   text-align: right;
-  font-size: 14.5px;
+  font-size: 17.5px;
   line-height: 32px;
 }
 .modal-dialog-signin .modal-dialog-actions a.twitter-action-signin {
@@ -2121,6 +2122,12 @@ html:not(.embed) {
     padding-left: 50px;
   }
 }
+@media only screen and (min-width: 980px) {
+  #main #content, #main #widgets, #main footer {
+    padding-right: 100px;
+    padding-left: 100px;
+  }
+}
 
 #main #content {
   padding-top: 20px;
@@ -2128,7 +2135,7 @@ html:not(.embed) {
 @media only screen and (min-width: 740px) {
   #main #content {
     padding-top: 40px;
-    max-width: 1020px;
+    max-width: 940px;
     margin-right: auto;
     margin-left: auto;
   }
@@ -2269,7 +2276,7 @@ body {
   line-height: 24px;
   font-size: 15px;
   color: #10212f;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   text-align: right;
 }
 
@@ -2277,7 +2284,7 @@ h1, h2, h3, h4 {
   margin: 0;
   padding: 0;
   margin-bottom: 12px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Kufi Arabic", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -2289,14 +2296,14 @@ h1 {
 }
 
 nav {
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;
   font-style: normal;
 }
 
 #sidebar-first {
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   font-weight: 400;
   font-style: normal;
@@ -2358,7 +2365,7 @@ clickable areas within it as directly nesting a tags breaks things.
 
 .u-faux-block-link a {
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 .u-faux-block-link-overlay {
@@ -2374,7 +2381,7 @@ clickable areas within it as directly nesting a tags breaks things.
 
 a.u-faux-block-link-overlay {
   position: absolute;
-  z-index: 0;
+  z-index: 9;
   opacity: 0;
 }
 
@@ -2481,7 +2488,7 @@ ul#breadcrumb a {
 ul#breadcrumb h1 {
   margin-bottom: 0;
   overflow: hidden;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 28px;
   font-weight: 700;
   white-space: nowrap;
@@ -3019,7 +3026,7 @@ svg.logo-icon {
 
 .submeta-header {
   margin-left: 15px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: inherit;
   color: #9fa6ac;
 }
@@ -3109,7 +3116,7 @@ svg.logo-icon {
   border-top: 4px solid #e7e8ea;
   padding-top: 0.71429;
   margin-bottom: 0.71429;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-weight: 700;
   font-size: 18px;
   color: #9fa6ac;
@@ -3257,6 +3264,8 @@ svg.logo-icon {
 
   body.sidebar-first #main #content {
     margin-right: 360px;
+    padding-right: 50px;
+    padding-left: 50px;
     -webkit-box-flex: 4;
     -webkit-flex: 4;
     -moz-box-flex: 4;
@@ -3321,7 +3330,7 @@ svg.logo-icon {
     text-align: center;
     margin-top: 6px;
     margin-bottom: 12px;
-    font-family: "Droid Arabic Naskh", serif;
+    font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
     font-size: 15px;
     font-weight: 700;
     color: #9fa6ac;
@@ -3407,7 +3416,7 @@ body.sidebar-second .cd-container .pager-load-more a {
   text-align: center;
   margin-top: 6px;
   margin-bottom: 12px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   font-weight: 700;
   color: #9fa6ac;
@@ -3449,6 +3458,7 @@ body.sidebar-second aside#sidebar-second {
     -moz-flex: 4;
     -ms-flex: 4;
     flex: 4;
+    padding-right: 50px;
     padding-left: 20px;
     max-width: 860px;
   }
@@ -3615,7 +3625,7 @@ body.sidebar-second aside#sidebar-second {
   padding: 12px 15px 10px;
   background-color: #F3F4F4;
   border-bottom: 1px solid rgba(16, 33, 47, 0.05);
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   color: #9fa6ac;
   height: 45px;
   width: 100%;
@@ -3639,7 +3649,7 @@ body.sidebar-second aside#sidebar-second {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   color: #9fa6ac;
   font-size: 16px;
   height: 45px;
@@ -3771,7 +3781,7 @@ body.sidebar-second aside#sidebar-second {
   *zoom: 1;
   padding-top: 6px;
   margin: 24px 0 12px 0;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   text-align: center;
 }
 #footer:before, #footer:after {
@@ -4056,7 +4066,6 @@ span.content-labels:after {
   color: #101b2e;
 }
 .media-holder .media-content .description p {
-  font-family: "Droid Arabic Naskh", serif;
   color: #6f7a82;
   font-size: 16px;
   line-height: 22px;
@@ -4628,7 +4637,7 @@ div.sensitive-hide {
   border-top: 1px solid rgba(16, 33, 47, 0.02);
   padding: 6px 30px 4.8px;
   font-size: 15px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   color: #9fa6ac;
 }
 .view-desk-reports .filters-summary:before {
@@ -4696,7 +4705,7 @@ div.sensitive-hide {
   cursor: move;
   border: 1px solid rgba(16, 33, 47, 0.2);
   background-color: #fff;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
 }
 .report-row .report-content {
   *zoom: 1;
@@ -4976,7 +4985,7 @@ div.sensitive-hide {
 }
 
 .update .update-footer {
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
 }
 .update .update-footer .actor {
   margin-right: 5px;
@@ -5089,103 +5098,6 @@ div.sensitive-hide {
   background-color: rgba(184, 152, 146, 0.08);
 }
 
-body.page-liveblog #main .view-liveblog {
-  *zoom: 1;
-}
-body.page-liveblog #main .view-liveblog:before, body.page-liveblog #main .view-liveblog:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-body.page-liveblog #main .view-liveblog:after {
-  clear: both;
-}
-body.page-liveblog #main .view-liveblog .desk {
-  position: relative;
-  *zoom: 1;
-  margin-bottom: 0;
-  margin-top: 30px;
-  overflow: visible;
-}
-body.page-liveblog #main .view-liveblog .desk:before, body.page-liveblog #main .view-liveblog .desk:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-body.page-liveblog #main .view-liveblog .desk:after {
-  clear: both;
-}
-body.page-liveblog #main .view-liveblog .desk:first-child {
-  margin-top: 0;
-}
-body.page-liveblog #main .view-liveblog .desk h1 {
-  color: #283743;
-}
-body.page-liveblog #main .view-liveblog .desk h1 a {
-  display: block;
-  border-bottom: 1px dotted rgba(255, 255, 255, 0.01);
-  color: #283743;
-}
-body.page-liveblog #main .view-liveblog .desk h1 a:hover {
-  background-color: #efefef;
-  background-color: #f3f4f4;
-  border-bottom: 1px dotted #e7e8ea;
-  text-decoration: none;
-}
-body.page-liveblog #main .view-liveblog .desk h1 a:active {
-  background-color: #c5d9fe;
-}
-body.page-liveblog #main .view-liveblog .pager-load-more {
-  *zoom: 1;
-  margin: 0;
-  padding: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  float: none;
-  clear: both;
-  position: relative;
-  text-align: center;
-}
-body.page-liveblog #main .view-liveblog .pager-load-more:before, body.page-liveblog #main .view-liveblog .pager-load-more:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-body.page-liveblog #main .view-liveblog .pager-load-more:after {
-  clear: both;
-}
-body.page-liveblog #main .view-liveblog .pager-load-more li {
-  list-style: none;
-}
-body.page-liveblog #main .view-liveblog .pager-load-more a {
-  display: inline-block;
-  width: 70%;
-  text-align: center;
-  margin-top: 6px;
-  margin-bottom: 12px;
-  font-family: "Droid Arabic Naskh", serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: #9fa6ac;
-  background-color: rgba(255, 255, 255, 0.8);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
-body.page-liveblog #main .view-liveblog .pager-load-more a:hover {
-  color: #fff;
-  background-color: #2e77fc;
-  border: 1px solid #2e77fc;
-}
-body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber {
-  position: absolute;
-  top: 4px;
-  left: 15px;
-}
-body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber .throbber {
-  background: url("../imgs/icons/loader_white.gif");
-}
-
 .story {
   margin-bottom: 12px;
 }
@@ -5210,6 +5122,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   font-style: normal;
   font-size: 38px;
   line-height: 58px;
+  word-spacing: -2px;
   color: #283743;
   margin: 30px 0 10px;
 }
@@ -5231,7 +5144,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 
 .story .story-meta {
   *zoom: 1;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   color: #bfa29c;
 }
 .story .story-meta:before, .story .story-meta:after {
@@ -5484,7 +5397,7 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
 .story .story-collaborators .sc-users h3 {
   margin: 0;
   padding: 0;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-weight: 700;
   font-size: 18px;
   color: #6f7a82;
@@ -5603,7 +5516,7 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
   text-align: center;
   margin-top: 6px;
   margin-bottom: 12px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   font-weight: 700;
   color: #9fa6ac;
@@ -5632,7 +5545,7 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
   margin-top: 20px;
   padding: 6px 0;
   color: #9fa6ac;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
 }
 .story .story-footer:before, .story .story-footer:after {
@@ -5704,11 +5617,11 @@ body.cke_editable .node-media .media {
 .story .story-body p,
 .update .update-body p,
 body.cke_editable p {
-  margin: 0 0 26px 0;
   color: #3e4c57;
-  font-family: "Droid Arabic Naskh", serif;
-  font-size: 18px;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   word-wrap: break-word;
+  margin: 0 0 30px 0;
+  font-size: 20px;
   line-height: 30px;
 }
 .story .story-body figure.element,
@@ -5717,16 +5630,24 @@ body.cke_editable figure.element {
   margin-top: 26px;
   margin-bottom: 26px;
 }
+.story .story-body figure.element.cke_widget_element,
+.update .update-body figure.element.cke_widget_element,
+body.cke_editable figure.element.cke_widget_element {
+  width: 50%;
+  max-width: 620px;
+  margin-right: auto;
+  margin-left: auto;
+}
 .story .story-body > ul, .story .story-body > ol,
 .update .update-body > ul,
 .update .update-body > ol,
 body.cke_editable > ul,
 body.cke_editable > ol {
   counter-reset: li;
-  margin: 0 0 26px 0;
-  font-family: "Droid Arabic Naskh", serif;
-  font-size: 18px;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   color: #3e4c57;
+  margin: 0 0 30px 0;
+  font-size: 20px;
   line-height: 30px;
 }
 .story .story-body > ul ul, .story .story-body > ul ol, .story .story-body > ol ul, .story .story-body > ol ol,
@@ -5793,15 +5714,21 @@ body.cke_editable > figure + h2 {
 .story .story-body h2,
 .update .update-body h2,
 body.cke_editable h2 {
+  margin-bottom: 0;
+  font-weight: bold;
   color: #283743;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
+  font-size: 22px;
 }
 .story .story-body h3,
 .update .update-body h3,
 body.cke_editable h3 {
-  color: #6f7a82;
   margin-bottom: 30px;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 22px;
-  line-height: 34px;
+  color: #6f7a82;
+  font-size: 26px;
+  line-height: 36px;
 }
 .story .story-body hr,
 .update .update-body hr,
@@ -5944,7 +5871,7 @@ body.cke_editable blockquote:after {
 
   .most-popular-item-headline {
     font-size: 14px;
-    font-family: "Droid Arabic Naskh", serif;
+    font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
     padding-bottom: 10px;
   }
 }
@@ -6237,7 +6164,7 @@ body.cke_editable blockquote:after {
   text-align: center;
   margin-top: 6px;
   margin-bottom: 12px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   font-weight: 700;
   color: #9fa6ac;
@@ -6392,6 +6319,57 @@ body.cke_editable blockquote:after {
   color: #3b4044;
 }
 
+.cd-container .cd-container-inner .pager-load-more {
+  *zoom: 1;
+  margin: 0;
+  padding: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  float: none;
+  clear: both;
+  position: relative;
+  text-align: center;
+}
+.cd-container .cd-container-inner .pager-load-more:before, .cd-container .cd-container-inner .pager-load-more:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.cd-container .cd-container-inner .pager-load-more:after {
+  clear: both;
+}
+.cd-container .cd-container-inner .pager-load-more li {
+  list-style: none;
+}
+.cd-container .cd-container-inner .pager-load-more a {
+  display: inline-block;
+  width: 70%;
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #9fa6ac;
+  background-color: rgba(255, 255, 255, 0.8);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.cd-container .cd-container-inner .pager-load-more a:hover {
+  color: #fff;
+  background-color: #2e77fc;
+  border: 1px solid #2e77fc;
+}
+.cd-container .cd-container-inner .pager-load-more .ajax-progress-throbber {
+  position: absolute;
+  top: 4px;
+  left: 15px;
+}
+.cd-container .cd-container-inner .pager-load-more .ajax-progress-throbber .throbber {
+  background: url("../imgs/icons/loader_white.gif");
+}
+
 .page-section .cd-container-section:first-child .cd-container-inner,
 .page-sections .cd-container-section:first-child .cd-container-inner {
   border-top: 0 none;
@@ -6406,6 +6384,12 @@ body.cke_editable blockquote:after {
 .page-section .cd-container-section:last-child,
 .page-sections .cd-container-section:last-child {
   margin-bottom: 60px;
+}
+
+.cd-container-first .cd-container-inner {
+  margin-top: 0;
+  padding-top: 0;
+  border: 0;
 }
 
 @media only screen and (min-width: 740px) {
@@ -6427,207 +6411,6 @@ body.cke_editable blockquote:after {
     display: flex;
   }
 }
-@media (min-width: 1px) and (max-width: 740px) {
-  .cd-item {
-    width: 100%;
-  }
-
-  .cd-item-has-image {
-    position: relative;
-  }
-}
-@media only screen and (min-width: 740px) {
-  .cd-item {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 1 auto;
-    -moz-box-flex: 1;
-    -moz-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    margin-right: 8px;
-    margin-left: 8px;
-  }
-}
-.cd-item-container {
-  position: relative;
-}
-.cd-item-container a {
-  color: #6f7a82;
-  text-decoration: none;
-}
-.cd-item-container .cd-item-meta a {
-  color: #b7bcc0;
-}
-
-@media (min-width: 1px) and (max-width: 740px) {
-  .cd-item-has-image .cd-item-container {
-    display: block;
-    padding-right: 124px;
-  }
-  .cd-item-has-image .cd-item-container:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 2;
-  }
-}
-@media only screen and (min-width: 740px) {
-  .cd-item-container {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-direction: normal;
-    -webkit-box-orient: vertical;
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 1 auto;
-    -moz-box-flex: 1;
-    -moz-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 0;
-  }
-}
-.cd-item-container:hover a {
-  color: #3e4c57;
-  text-decoration: none;
-}
-.cd-item-container:hover .cd-item-meta a {
-  color: #9fa6ac;
-}
-
-.cd-item-media-wrapper {
-  position: relative;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-@media (min-width: 1px) and (max-width: 740px) {
-  .cd-item-media-wrapper {
-    position: absolute;
-    display: block;
-    width: 120px;
-    margin-right: -120px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-  }
-}
-.cd-item-image-container {
-  display: block;
-}
-
-.cd-item-content {
-  padding-top: 4px;
-  padding-right: 8px;
-  padding-left: 8px;
-  padding-bottom: 50px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-@media (min-width: 1px) and (max-width: 740px) {
-  .cd-item-content {
-    position: relative;
-    display: block;
-    padding-bottom: 40px;
-    min-height: 72px;
-  }
-}
-@media only screen and (min-width: 740px) {
-  .cd-item-content {
-    min-height: 132px;
-  }
-}
-.cd-item-header {
-  font-size: 16px;
-  font-family: "Droid Arabic Naskh", serif;
-  padding-bottom: 10px;
-}
-
-@media (min-width: 1px) and (max-width: 740px) {
-  .cd-item-header {
-    font-size: 14px;
-    padding-bottom: 5px;
-  }
-}
-.cd-item-title {
-  font: inherit;
-  line-height: inherit;
-  word-wrap: break-word;
-}
-
-.cd-item-content-label {
-  color: #9fa6ac;
-}
-.cd-item-content-label:after {
-  content: '/';
-  display: inline-block;
-  color: #cfd3d5;
-  font-weight: normal;
-  margin-right: 4px;
-}
-
-.cd-item-meta {
-  position: absolute;
-  bottom: 4px;
-  right: 8px;
-  left: 8px;
-  font-size: 14px;
-  line-height: 1.3;
-  color: #b7bcc0;
-}
-
-.cd-item-meta .icon-comment-o:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.cd-item-meta .icon-comment-o:before, .cd-item-meta .icon-comment-o:after {
-  margin: 0;
-}
-
-.cd-item-meta .cd-item-count a {
-  position: relative;
-  z-index: 1;
-}
-
-.cd-item-meta .byline {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.cd-item-meta .timestamp {
-  float: right;
-  padding-left: 10px;
-}
-
 @media only screen and (min-width: 740px) {
   .l-row {
     display: -webkit-box;
@@ -6811,36 +6594,6 @@ body.cke_editable blockquote:after {
     flex: 5 1 auto;
   }
 }
-.cd-linkslist-container {
-  position: relative;
-}
-
-.cd-linkslist {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -moz-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-@media only screen and (min-width: 740px) {
-  .cd-linkslist .cd-slice-item {
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -moz-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    -webkit-flex-basis: 25%;
-    -moz-flex-basis: 25%;
-    -ms-flex-preferred-size: 25%;
-    flex-basis: 25%;
-  }
-}
-
 .l-list {
   width: 100%;
 }
@@ -6910,17 +6663,525 @@ body.cke_editable blockquote:after {
   }
 }
 
-.tone-default-item {
-  background-color: #fff;
-  color: #6f7a82;
+.cd-linkslist-container {
+  position: relative;
 }
 
-.cd-container-first {
-  margin-top: 0;
-  padding-top: 0;
+.cd-linkslist {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
-.cd-container-first .cd-container-inner {
-  border: 0;
+.cd-linkslist.cd-linkslist-sections {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+}
+@media only screen and (min-width: 740px) {
+  .cd-linkslist .cd-slice-item {
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -moz-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -webkit-flex-basis: 25%;
+    -moz-flex-basis: 25%;
+    -ms-flex-preferred-size: 25%;
+    flex-basis: 25%;
+  }
+}
+
+.tone-default-item {
+  background-color: #fff;
+  color: #3e4c57;
+}
+
+.tone-section-item {
+  background-color: #9fa6ac;
+  color: #fff;
+}
+
+@media (min-width: 1px) and (max-width: 740px) {
+  .cd-item {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 740px) {
+  .cd-item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -moz-box-flex: 1;
+    -moz-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    margin-right: 8px;
+    margin-left: 8px;
+  }
+}
+.cd-item-container {
+  position: relative;
+}
+.cd-item-container a {
+  color: #6f7a82;
+  text-decoration: none;
+}
+.cd-item-container .cd-item-meta a {
+  color: #b7bcc0;
+}
+
+@media only screen and (min-width: 740px) {
+  .cd-item-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -moz-box-flex: 1;
+    -moz-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 0;
+  }
+}
+.cd-item-container:hover a {
+  color: #3e4c57;
+  text-decoration: none;
+}
+.cd-item-container:hover .cd-item-meta a {
+  color: #9fa6ac;
+}
+
+.cd-item-media-wrapper {
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.cd-item-image-container {
+  display: block;
+}
+
+.cd-item-content {
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-bottom: 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.cd-item-header {
+  font-size: 16px;
+  font-size: 18px;
+  word-spacing: -0.5px;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
+  padding-bottom: 10px;
+}
+
+.cd-item-lead {
+  padding-bottom: 10px;
+  color: #6f7a82;
+  display: none;
+}
+
+.cd-item-title {
+  font: inherit;
+  line-height: inherit;
+  word-wrap: break-word;
+  margin-bottom: 0;
+}
+
+.cd-item-content-label {
+  color: #9fa6ac;
+}
+.cd-item-content-label:after {
+  content: '/';
+  display: inline-block;
+  color: #cfd3d5;
+  font-weight: normal;
+  margin-right: 4px;
+}
+
+.cd-item-meta {
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  left: 8px;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #b7bcc0;
+}
+
+.cd-item-meta .icon-comment-o:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cd-item-meta .icon-comment-o:before, .cd-item-meta .icon-comment-o:after {
+  margin: 0;
+}
+
+.cd-item-meta .cd-item-count {
+  display: none;
+}
+
+.cd-item-meta .cd-item-count a {
+  position: relative;
+  z-index: 1;
+}
+
+.cd-item-meta .byline {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cd-item-meta .timestamp {
+  float: right;
+  padding-left: 10px;
+}
+
+.cd-item .u-faux-block-link-hover {
+  background-color: #efefef;
+}
+.cd-item .u-faux-block-link-hover .cd-item-image-container {
+  background-color: #10212f;
+  opacity: .9;
+}
+
+/*
+
+Standard item. Looks a bit like this:
+
+********************
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+
+x x x x x x x x x x
+x x x x x x x x x x x
+x x x x x x x x
+
+
+
+
+
+
+
+*********************
+
+*/
+/*
+
+Section item. Looks a bit like this:
+
+********************
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 x x x x x x x 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+*********************
+
+*/
+/*
+
+List item. Looks a bit like this:
+
+***********************************************
+x x x x x x x x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x x x x x x x x x
+
+***********************************************
+
+ */
+/*
+
+Media list item. Looks a bit like this:
+
+***********************************************
+0000000  x x x x x x x x x x x x x x x x x x x
+0000000  x x x x x x x x x x x x x x x x x x x x
+0000000
+***********************************************
+
+ */
+/*
+
+Full item with 75% width media.
+
+***********************************************************************************************
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+************************************************************************************************
+
+*/
+@media (min-width: 1px) and (max-width: 740px) {
+  .cd-item-standard-mobile .cd-item-image-container {
+    display: block;
+  }
+  .cd-item-standard-mobile .cd-item-header {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1px) and (max-width: 740px) {
+  .cd-item-list-mobile .cd-item-header {
+    font-size: 14px;
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+  .cd-item-list-mobile .cd-item-lead {
+    display: none;
+  }
+  .cd-item-list-mobile .cd-item-media-wrapper {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 740px) {
+  .cd-item-list-tablet .cd-item-header {
+    font-size: 14px;
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+  .cd-item-list-tablet .cd-item-lead {
+    display: none;
+  }
+  .cd-item-list-tablet .cd-item-media-wrapper {
+    display: none;
+  }
+}
+
+@media (min-width: 1px) and (max-width: 740px) {
+  .cd-item-list-media-mobile .cd-item-header {
+    font-size: 14px;
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+  .cd-item-list-media-mobile .cd-item-lead {
+    display: none;
+  }
+  .cd-item-list-media-mobile .cd-item-media-wrapper {
+    display: none;
+  }
+  .cd-item-list-media-mobile .cd-item-content {
+    min-height: 80px;
+    position: relative;
+  }
+  .cd-item-list-media-mobile.cd-item-has-image {
+    position: relative;
+  }
+  .cd-item-list-media-mobile.cd-item-has-image:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    width: 120px;
+  }
+  .cd-item-list-media-mobile.cd-item-has-image .cd-item-container {
+    padding-right: 124px;
+  }
+  .cd-item-list-media-mobile.cd-item-has-image .cd-item-media-wrapper {
+    position: absolute;
+    display: block;
+    width: 120px;
+    margin-right: -120px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}
+
+@media only screen and (min-width: 740px) {
+  .cd-item-list-media-tablet .cd-item-header {
+    font-size: 14px;
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+  .cd-item-list-media-tablet .cd-item-lead {
+    display: none;
+  }
+  .cd-item-list-media-tablet .cd-item-media-wrapper {
+    display: none;
+  }
+  .cd-item-list-media-tablet .cd-item-content {
+    min-height: 80px;
+    position: relative;
+  }
+  .cd-item-list-media-tablet.cd-item-has-image {
+    position: relative;
+  }
+  .cd-item-list-media-tablet.cd-item-has-image:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    width: 120px;
+  }
+  .cd-item-list-media-tablet.cd-item-has-image .cd-item-container {
+    padding-right: 124px;
+  }
+  .cd-item-list-media-tablet.cd-item-has-image .cd-item-media-wrapper {
+    position: absolute;
+    display: block;
+    width: 120px;
+    margin-right: -120px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}
+
+.cd-item-section .cd-item-background-image-container {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 0;
+}
+.cd-item-section .cd-item-background-image-container:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #10212f;
+  opacity: 0.35;
+  z-index: -1;
+  pointer-events: none;
+}
+.cd-item-section .u-faux-block-link-hover {
+  background-color: #000000;
+  opacity: .9;
+}
+.cd-item-section .cd-item-image-container {
+  display: block;
+}
+.cd-item-section .cd-item-content {
+  padding: 20px 0;
+  z-index: 1;
+}
+@media only screen and (min-width: 740px) {
+  .cd-item-section .cd-item-content {
+    padding: 50px 0;
+  }
+}
+.cd-item-section .cd-item-header {
+  text-align: center;
+}
+
+@media only screen and (min-width: 740px) {
+  .cd-item-full-media-75-tablet .cd-item-image-container {
+    box-sizing: border-box;
+    padding-right: 15px;
+  }
+  .cd-item-full-media-75-tablet .cd-item-content {
+    position: relative;
+  }
+  .cd-item-full-media-75-tablet .cd-item-content > * {
+    box-sizing: border-box;
+    padding-left: 15px;
+  }
+  .cd-item-full-media-75-tablet .cd-item-container {
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+    -webkit-flex-direction: row-reverse;
+    -moz-flex-direction: row-reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+  }
+  .cd-item-full-media-75-tablet .cd-item-media-wrapper {
+    flex-basis: 75%;
+  }
+  .cd-item-full-media-75-tablet .cd-item-content {
+    flex-basis: 25%;
+    max-width: 25%;
+  }
+  .cd-item-full-media-75-tablet .cd-item-header {
+    font-size: 24px;
+    font-size: 26px;
+    word-spacing: -1px;
+    font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
+    padding-bottom: 10px;
+  }
+  .cd-item-full-media-75-tablet .cd-item-lead,
+  .cd-item-full-media-75-tablet .cd-item-image-container {
+    display: block;
+  }
+  .cd-item-full-media-75-tablet.cd-item--has-no-image .cd-item-lead {
+    display: block;
+  }
+}
+@media only screen and (min-width: 740px) and (min-width: 980px) {
+  .cd-item-full-media-75-tablet .cd-item-header {
+    font-size: 26px;
+    font-size: 28px;
+    word-spacing: -1px;
+  }
 }
 
 .thumb-60 {
@@ -6946,6 +7207,11 @@ body.cke_editable blockquote:after {
 .thumb-22 {
   width: 22px;
   height: 22px;
+}
+
+.thumb-180 {
+  width: 180px;
+  height: 180px;
 }
 
 .icon-share:before {
@@ -7244,7 +7510,7 @@ body.cke_editable blockquote:after {
   text-align: center;
   margin-top: 6px;
   margin-bottom: 12px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   font-weight: 700;
   color: #9fa6ac;
@@ -7412,7 +7678,7 @@ body.cke_editable blockquote:after {
 .activity .update-added h3.update-title {
   margin: 0;
   padding: 0;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 18px;
   font-weight: 700;
 }
@@ -7555,12 +7821,12 @@ select[multiple], select[size] {
 }
 
 form {
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
 }
 form input[type="password"],
 form input[type="text"],
 form textarea {
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -7709,7 +7975,7 @@ form .messages-inline {
 form input[type="password"],
 form input[type="text"],
 form textarea {
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -7748,7 +8014,7 @@ form .image-widget input[type="file"] {
   box-sizing: border-box;
   padding: 12px 15px;
   background-color: #f3f4f4;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   vertical-align: middle;
   -webkit-border-radius: 3px;
@@ -7766,7 +8032,7 @@ form .image-widget input[type="submit"] {
 }
 form select {
   float: none;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
 }
 form .form-wrapper {
   margin: 12px 0;
@@ -7859,7 +8125,7 @@ table th[class*="span"],
   text-align: center;
   margin-top: 6px;
   margin-bottom: 12px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   font-weight: 700;
   color: #9fa6ac;
@@ -7949,7 +8215,7 @@ table th[class*="span"],
 #my-notifications .notifications-settings-link a {
   display: block;
   padding: 6px 14px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-weight: normal;
   line-height: 24px;
   white-space: nowrap;
@@ -8011,7 +8277,7 @@ table th[class*="span"],
 #incoming-reports-filters {
   *zoom: 1;
   margin-top: 24px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
 }
 #incoming-reports-filters:before, #incoming-reports-filters:after {
@@ -8041,7 +8307,7 @@ table th[class*="span"],
   display: inline-block;
   margin: 0;
   padding: 0;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 20px;
   color: #6f7a82;
 }
@@ -8741,6 +9007,53 @@ ul.pager {
   cursor: default;
 }
 
+.profile {
+  text-align: center;
+  font-size: 18px;
+}
+
+.profile .avatar {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 6px solid #cfd3d5;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #fff;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.user-roles {
+  color: #9fa6ac;
+}
+.user-roles .role {
+  margin: 0 10px;
+}
+
+.user-bio {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  color: #6f7a82;
+}
+
 .page-user-login #main h1.title,
 .page-user-register #main h1.title,
 .page-user-password #main h1.title {
@@ -8781,7 +9094,7 @@ ul.pager {
 }
 .user-login-wrapper .user-links, .user-register-wrapper .user-links {
   *zoom: 1;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -8799,7 +9112,7 @@ ul.pager {
 .user-login-wrapper .form-item-remember-me label, .user-register-wrapper .form-item-remember-me label {
   display: inline-block;
   color: #b7bcc0;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -8818,7 +9131,7 @@ ul.pager {
 }
 .user-login-wrapper .form-actions .user-new-account-link, .user-register-wrapper .form-actions .user-new-account-link {
   float: left;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   color: #f3f4f4;
 }
@@ -8832,7 +9145,7 @@ ul.pager {
   margin: 0;
   padding: 0;
   background: none;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   font-weight: normal;
   color: #2e77fc;
@@ -8910,7 +9223,7 @@ ul.pager {
 #my-account a {
   display: block;
   padding: 6px 14px;
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-weight: normal;
   line-height: 24px;
   white-space: nowrap;
@@ -10782,43 +11095,25 @@ html body.i18n-ar,
 }
 
 #toolbar {
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
 }
 
 #partner-header-slogan {
-  font-family: "Droid Arabic Naskh", serif;
+  font-family: "Noto Kufi Arabic", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
 }
 
-.posts h3 a {
-  font-family: "Droid Arabic Naskh", serif;
+ul#breadcrumb h1,
+.cd-item-header h1,
+.cd-item-header h2 {
+  font-family: "Noto Kufi Arabic", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.update .update-body .update-title {
-  margin-top: 12px;
-  font-size: 26px;
-  font-weight: 300;
-}
-
-.update .update-body p {
-  line-height: 30px;
-}
-
-.report .activity {
-  font-size: 16px;
-}
-
-.report .activity-list-footer {
-  font-size: 15px;
-}
-.report .activity-list-footer .helper {
-  display: none;
-}
-
-.report .report-activity .activity-wrapper .view-content .activity {
-  line-height: 26px;
-}
-
-.report .report-activity .activity-wrapper .view-content .activity header .actor {
-  padding-top: 18px;
+#header nav ul li a span,
+.update-by,
+.report,
+.cd-item-meta,
+.item-content,
+.media-holder .media-content .description p {
+  font-family: "Noto Naskh Arabic", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
