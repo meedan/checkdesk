@@ -8,7 +8,7 @@ Drupal.behaviors.meedanFacebook = {
 
   updateCommentsCount: function(path) {
     var value = Drupal.behaviors.meedanFacebook.comments[path] || 0;
-    $('.fb-comments-count[data-href="' + path + '"]').html(value);
+    $('.fb-comments-count[data-href="' + path + '"]').html(value).parents('.story-commentcount.cd-item-count').toggle(value > 0);
   },
 
   attach: function(context, settings) {
@@ -25,6 +25,7 @@ Drupal.behaviors.meedanFacebook = {
         $('.fb-comments-count').each(function() {
           var href = $(this).attr('data-href');
           Drupal.behaviors.meedanFacebook.comments[href] = parseInt($(this).text());
+          $(this).parents('.story-commentcount.cd-item-count').toggle(Drupal.behaviors.meedanFacebook.comments[href] > 0);
         });
       });
 
