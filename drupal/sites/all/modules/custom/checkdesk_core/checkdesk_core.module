@@ -4057,7 +4057,6 @@ function _checkdesk_show_sections_link() {
  * List most popular stories.
  */
 function _checkdesk_most_popular_stories($data = FALSE) {
-    global $language;
     $activities = array(
         'checkdesk_comment_on_report',
         'status_report',
@@ -4075,7 +4074,6 @@ function _checkdesk_most_popular_stories($data = FALSE) {
     $query->leftjoin('field_data_field_lead_image', 'fi', 'n.nid = fi.entity_id');
     $query->leftjoin('file_managed', 'fm', 'fi.field_lead_image_fid = fm.fid');
     $query->condition('n.status', 1);
-    $query->condition('n.language', $language->language);
     $query->condition('ha.timestamp', strtotime("-1 week"), '>=');
     $query->condition('ha.message_id', $activities, 'IN');
     $query->groupBy('n.nid');
