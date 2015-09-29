@@ -122,7 +122,7 @@ function checkdesk_bot__generate_response($tweet) {
       '!screen_name this link already exists: !url',
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
-        '!url' => url('node/' . key($duplicates), array('absolute' => TRUE)),
+        '!url' => url('node/' . key($duplicates), array('absolute' => TRUE, 'language' => $language)),
       ),
       array(
         'langcode' => $langcode,
@@ -144,7 +144,7 @@ function checkdesk_bot__generate_response($tweet) {
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
         '!site_name' => variable_get('site_name', t('Checkdesk')),
-        '!url' => url('node/add/media', array('query' => array('url' => $report_url), 'absolute' => TRUE)),
+        '!url' => url('node/add/media', array('query' => array('url' => $report_url), 'absolute' => TRUE, 'language' => $language)),
       ),
       array(
         'langcode' => $langcode,
@@ -161,7 +161,7 @@ function checkdesk_bot__generate_response($tweet) {
     array(
       '!screen_name' => '@' . $tweet['user']['screen_name'],
       '!site_name' => variable_get('site_name', t('Checkdesk')),
-      '!url' => url('node/' . $report->nid, array('absolute' => TRUE)),
+      '!url' => url('node/' . $report->nid, array('absolute' => TRUE, 'language' => $language)),
     ),
     array(
       'langcode' => $langcode,
