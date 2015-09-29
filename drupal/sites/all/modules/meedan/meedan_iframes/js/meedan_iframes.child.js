@@ -22,15 +22,18 @@ jQuery(function ($) {
 
     if (height !== htmlHeight) {
       htmlHeight = height;
-
       window.parent.postMessage([id, 'setHeight', htmlHeight].join(';'), '*');
     }
 
     setTimeout(checkHTMLHeight, 30);
   }
 
-  // Start the checker
+  // Redirect links and forms to parent.
+  $('a,form').attr('target', '_top');
+
+  // Start the checker.
   checkHTMLHeight();
 
+  // Inform the parent we are live.
   window.parent.postMessage([id, 'loaded'].join(';'), '*');
 });
