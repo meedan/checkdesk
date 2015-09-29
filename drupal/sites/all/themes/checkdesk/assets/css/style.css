@@ -2093,7 +2093,7 @@ div.ctools-modal-content .modal-content {
   display: none;
 }
 
-html {
+html:not(.embed) {
   height: 100%;
   background-color: #fbfaf9;
 }
@@ -6237,10 +6237,10 @@ body.cke_editable blockquote:after {
 .item .item-nested-content > div::-webkit-scrollbar-thumb:window-inactive {
   background: #cfd3d5;
 }
-.node-type-media .item .item-nested-content {
+.node-type-media:not(.page-embed) .item .item-nested-content {
   display: block;
 }
-.node-type-media .item .item-nested-content > div {
+.node-type-media:not(.page-embed) .item .item-nested-content > div {
   overflow: visible;
   max-height: none;
 }
