@@ -34,7 +34,7 @@ function checkdesk_featured_stories_feature_fe_nodequeue_export_fields() {
     'name' => 'featured_stories',
     'title' => 'Featured Stories',
     'subqueue_title' => '',
-    'size' => 0,
+    'size' => 1,
     'link' => 'Feature this story',
     'link_remove' => 'Unfeature this story',
     'owner' => 'nodequeue',
