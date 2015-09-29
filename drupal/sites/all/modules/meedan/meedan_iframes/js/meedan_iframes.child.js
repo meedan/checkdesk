@@ -14,7 +14,7 @@ jQuery(function ($) {
     var ds = Drupal && Drupal.settings ? Drupal.settings : false,
         height;
 
-    if (ds && ds.meedanIframes) {
+    if (ds && ds.meedanIframes && $(ds.meedanIframes.contentSelector).length > 0) {
       height = $(ds.meedanIframes.contentSelector).outerHeight(true);
     } else {
       height = $('body')[0].offsetHeight;
