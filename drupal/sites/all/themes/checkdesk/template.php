@@ -1402,8 +1402,18 @@ function checkdesk_preprocess_meedan_sensitive_content_display(&$vars) {
  * Process variables for user-profile.tpl.php.
  */
 function checkdesk_preprocess_user_profile(&$vars) {
-  // $user = user_load($variables['uid']);
-  $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-180'), FALSE, 'medium');
+  if ($vars['elements']['#account']->picture->uri) {
+    // check the size of profile avatar image
+    $avatar_image_size = getimagesize($vars['elements']['#account']->picture->uri);
+    // Use large avatar if the image is larger than 180px
+    if ($avatar_image_size[0] > 180) {
+      $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-180'), FALSE, 'medium');
+    } 
+    // Use small style if the image is small
+    else {
+      $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-60'), FALSE);
+    }
+  }
   //$vars['member_for'] = t('Member for @time', array('@time' => $vars['user_profile']['summary']['member_for']['#markup']));
   $vars['user_profile']['twitter']['#title'] = '';
   $account = $vars['elements']['#account'];

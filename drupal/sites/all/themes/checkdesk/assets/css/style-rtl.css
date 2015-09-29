@@ -9015,6 +9015,32 @@ ul.pager {
 .profile .avatar {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.profile .thumb-60 {
+  border: 2px solid #cfd3d5;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #fff;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.profile .thumb-180 {
   border: 6px solid #cfd3d5;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -9043,9 +9069,16 @@ ul.pager {
 
 .user-roles {
   color: #9fa6ac;
+  margin-top: 10px;
+  font-size: 15px;
 }
 .user-roles .role {
-  margin: 0 10px;
+  display: inline-block;
+  padding: 4px 8px;
+  margin: 0 5px;
+  color: #9fa6ac;
+  background-color: rgba(16, 33, 47, 0.05);
+  border-radius: 4px;
 }
 
 .user-bio {
