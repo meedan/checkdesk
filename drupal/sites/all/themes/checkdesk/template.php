@@ -1438,8 +1438,6 @@ function checkdesk_preprocess_user_profile(&$vars) {
   $vars['roles'] = $roles;
   // User stories
   $view = views_get_view('user_stories');
-  $view->display['default']->display_options['filters']['uid']['value'][0] = $account->uid;
-  $view->display['default']->display_options['filters']['field_additional_authors_target_id']['value']['value'] = $account->uid;
   $view->get_total_rows = TRUE;
   $view_output = $view->preview('block');
   $total_rows = $view->total_rows;
@@ -1451,8 +1449,6 @@ function checkdesk_preprocess_user_profile(&$vars) {
     // followed stories
     $view = views_get_view('followed_stories');
     $view->set_arguments(array($account->uid));
-    $view->display['default']->display_options['filters']['uid']['value'][0] = $account->uid;
-    $view->display['default']->display_options['filters']['field_additional_authors_target_id']['value']['value'] = $account->uid;
     $view->get_total_rows = TRUE;
     $view_output = $view->preview('block');
     $total_rows = $view->total_rows;

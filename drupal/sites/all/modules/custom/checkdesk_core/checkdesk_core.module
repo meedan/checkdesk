@@ -2305,6 +2305,18 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         $query->add_where(1,'node.nid', arg(1), '!=');
       }
   }
+  elseif ($view->name == 'user_stories') {
+    if (arg(0) == 'user' && is_numeric(arg(1))) {
+      $query->where[2]['conditions'][0]['value'] = array(arg(1));
+      $query->where[2]['conditions'][1]['value'] = arg(1);
+    }
+  }
+  elseif ($view->name == 'followed_stories') {
+    if (arg(0) == 'user' && is_numeric(arg(1))) {
+      $query->where[1]['conditions'][2]['value'] = array(arg(1));
+      $query->where[2]['conditions'][0]['value'] = arg(1);
+    }
+  }
 }
 
 /**
