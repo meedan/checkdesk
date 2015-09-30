@@ -2,8 +2,6 @@
 
 /**
  * Implementation of hook_menu().
- *
- * curl -H "Content-Type: application/json" -X POST -d '@tweet.json' http://checkdesk.local/en/api/v1/bot
  */
 function checkdesk_bot_menu() {
   return array(
@@ -19,7 +17,6 @@ function checkdesk_bot_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('checkdesk_bot__admin_settings'),
       'access arguments' => array('administer site configuration'),
-      'type' => MENU_LOCAL_TASK,
     ),
   );
 }
