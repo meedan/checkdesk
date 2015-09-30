@@ -296,7 +296,7 @@ function checkdesk_preprocess_page(&$variables) {
     );
     // add css for 
     drupal_add_css(
-      drupal_get_path('theme', 'checkdesk') . '/assets/css/module/cd_embed_cta.css',
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/module/cd_embed.css',
       array(
         'scope' => 'footer',
         'group' => CSS_THEME,
