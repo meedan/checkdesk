@@ -2076,6 +2076,11 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'twitter_oauth_callback_form') {
     $form['#validate'][] = '_checkdesk_twitter_oauth_callback_form_validate';
   }
+
+  if ($form_id == 'taxonomy_form_term') {
+    // Change text format to avoid translation warning (Ticket #4247)
+    $form['description']['#format'] = 'plain_text';
+  }
 }
 
 /**
