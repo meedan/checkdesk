@@ -171,10 +171,6 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f0e5";
 }
 
-#footer-inner .icon-comments-o:before {
-  content: "\f0e6";
-}
-
 ul#user-menu .icon-bell-o:before {
   content: "\f0a2";
 }
@@ -2170,7 +2166,7 @@ body:not(.most-popular-component) .story {
   margin-right: auto;
 }
 
-body.node-type-media .report {
+body.node-type-media:not(.page-embed) .report {
   max-width: 530px;
   margin-left: auto;
   margin-right: auto;
@@ -3867,23 +3863,6 @@ body.sidebar-second aside#sidebar-second {
 }
 #footer-inner ul li .ajax-progress-throbber {
   display: none;
-}
-#footer-inner .icon-comments-o:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: white;
-  font-size: 21.5px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-#footer-inner .icon-comments-o:before {
-  margin: 0;
 }
 
 #partner-header {

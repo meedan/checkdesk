@@ -1,0 +1,53 @@
+@charset "UTF-8";
+@import "colors";
+@import "bowerbird/colors";
+// Directional defaults
+@import "global";
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+@import "mixins";
+
+// Bowerbird Compass Extension
+// See also README.md and ../bowerbird/README.md
+// Requires: base
+@import "bowerbird";
+
+// Bowerbird font-icon support mixin: icon()
+@import "bowerbird/icons/icons";
+
+// Load @extendable %icon- selectors
+// @extend directly or use icon() mixin to do it for you
+@import "bowerbird/icons/fontawesome";
+
+.icon-comments-o { 
+	@include icon(comments-o, 18px); 
+	&:before, &:after { 
+    margin: 0 2px;
+  }
+
+}
+
+.cd-embed .media-holder {
+	border: 1px solid $firefly5;	
+}
+
+.cd-embed-footer {
+	margin: 10px 0;
+	// override button style
+	.btn-sm {
+		padding-top: 4px;
+		padding-bottom: 4px;
+	}
+
+	a.checkdesk {
+		padding-top: 4px;
+		padding-bottom: 4px;
+		text-align: $omega;
+		float: $omega;
+		color: $firefly20;
+	}
+}	

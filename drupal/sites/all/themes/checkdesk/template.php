@@ -283,6 +283,28 @@ function checkdesk_preprocess_page(&$variables) {
    // Embed Page template
   if (arg(0) == 'embed' && arg(1) != '') {
     $variables['theme_hook_suggestions'][] = 'page__embed';
+
+    // add call to action (cta) cd embed footer
+    $variables['cd_embed_footer'] = array(
+      '#type' => 'link',
+      '#title' => '<span class="icon-comments-o"></span> ' . '<span class="cta-text">' . t('Help verify this report') . '</span>',
+      '#href' => url('node/' . $variables['node']->nid, array('absolute' => TRUE)),
+      '#options' => array(
+        'attributes' => array('class' => array('btn', 'btn-primary-alt' , 'btn-sm')),
+        'html' => TRUE,
+      )
+    );
+    // add css for 
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/module/cd_embed_cta.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9999',
+        'every_page' => FALSE,
+      )
+    );
+
   }
   else if(arg(2) == 'users') {
   // Profile page template
