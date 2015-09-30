@@ -5065,6 +5065,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Search result', array(), array('context' => ''));
+  $translations['ar:default']['68a8f9f73b1cd1556dd3c782eb4bfae7'] = array(
+    'source' => 'Help verify this report',
+    'context' => '',
+    'location' => '/ar/embed/154',
+    'translation' => 'ساهم في التحقق من هذا التقرير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Help verify this report', array(), array('context' => ''));
   $translations['ar:default']['68d14b7f276640e6c6b4440bea4155e6'] = array(
     'source' => 'Comments are responses to node content.',
     'context' => '',
@@ -5554,6 +5563,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Add a block here.', array(), array('context' => ''));
+  $translations['ar:default']['7129050a8348ec23f9494c6c8f7558fa'] = array(
+    'source' => 'Powered by Checkdesk',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'بدعم من Checkdesk',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Powered by Checkdesk', array(), array('context' => ''));
   $translations['ar:default']['714ac0f08dacad0d55d804e28888769e'] = array(
     'source' => '@entity_label flag',
     'context' => '',
