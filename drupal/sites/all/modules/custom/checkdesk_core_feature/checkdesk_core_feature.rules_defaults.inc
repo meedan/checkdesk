@@ -117,6 +117,26 @@ function checkdesk_core_feature_default_rules_configuration() {
       ]
     }
   }');
+  $items['checkdesk_core_feature_notify_subscribed_users_story_revision'] = entity_import('rules_config', '{ "checkdesk_core_feature_notify_subscribed_users_story_revision" : {
+      "LABEL" : "Notify subscribed users: story revision",
+      "PLUGIN" : "action set",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "USES VARIABLES" : { "story" : { "label" : "Story", "type" : "node" } },
+      "ACTION SET" : [
+        { "notify_subscribers" : {
+            "object" : [ "story" ],
+            "event" : "email_publish_own_story_revision",
+            "subject" : "A revision to your story has been published",
+            "message" : "Hello !recipient_name,\\r\\n\\r\\nA revision to your \\u003Ca href=\\u0022!url\\u0022\\u003Estory\\u003C\\/a\\u003Ehas been published.\\r\\n",
+            "actor" : [ "story:author" ],
+            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!author\\u0027 =\\u003E user_load($story-\\u003Euid)-\\u003Ename, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $story-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
+          }
+        }
+      ]
+    }
+  }');
   $items['checkdesk_core_feature_notify_subscribed_users_update_story'] = entity_import('rules_config', '{ "checkdesk_core_feature_notify_subscribed_users_update_story" : {
       "LABEL" : "Notify subscribed users: update story",
       "PLUGIN" : "action set",
@@ -1013,6 +1033,33 @@ function checkdesk_core_feature_default_rules_configuration() {
                 }
               }
             ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_publish_story_revision'] = entity_import('rules_config', '{ "rules_publish_story_revision" : {
+      "LABEL" : "Publish story revision",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "php", "rules_scheduler" ],
+      "ON" : { "node_update--discussion" : { "bundle" : "discussion" } },
+      "IF" : [
+        { "node_is_of_type" : {
+            "node" : [ "node" ],
+            "type" : { "value" : { "discussion" : "discussion" } }
+          }
+        },
+        { "user_has_role" : { "account" : [ "node:author" ], "roles" : { "value" : { "4" : "4" } } } },
+        { "php_eval" : { "code" : "$existing_node = node_load($node-\\u003Enid, $node-\\u003Evid);\\r\\nwatchdog(\\u0027Sawy-node\\u0027, \\u0027\\u003Cpre\\u003E\\u0027. print_r($existing_node, true) .\\u0027\\u003C\\/pre\\u003E\\u0027);\\r\\nif ($existing_node-\\u003Eis_current) {\\r\\n   return TRUE;\\r\\n}\\r\\nreturn FALSE;" } }
+      ],
+      "DO" : [
+        { "drupal_message" : { "message" : "Publish pending revision" } },
+        { "schedule" : {
+            "component" : "checkdesk_core_feature_notify_subscribed_users_story_revision",
+            "date" : "now",
+            "param_story" : [ "node" ]
           }
         }
       ]
