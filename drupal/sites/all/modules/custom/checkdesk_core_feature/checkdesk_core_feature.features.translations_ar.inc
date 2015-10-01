@@ -4788,6 +4788,16 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Path module form elements', array(), array('context' => ''));
+  $translations['ar:default']['61be5cbe764871988ea40527bcd28d18'] = array(
+    'source' => '%title is @publication_status. It has @count[2] revisions.',
+    'context' => '',
+    'location' => '/ar/node/317/revisions',
+    'translation' => '%title is @publication_status. تحتوي على مراجعتان.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('%title is @publication_status. It has @count[2] revisions.', array(), array('context' => ''));
   $translations['ar:default']['620c0e2624a5a25c2240bea3cf66a418'] = array(
     'source' => 'Published in ',
     'context' => '',
@@ -6040,6 +6050,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Powered by', array(), array('context' => ''));
+  $translations['ar:default']['7a6aa9f99aaea74f5bac39df712a1b35'] = array(
+    'source' => '%title is @publication_status. It has @count[3] revisions.',
+    'context' => '',
+    'location' => '/ar/node/307/revisions',
+    'translation' => '%title is @publication_status.تحتوي على @count[3] مراجعات.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('%title is @publication_status. It has @count[3] revisions.', array(), array('context' => ''));
   $translations['ar:default']['7a803f79addebadbebc457f24f6de1b2'] = array(
     'source' => 'View all @total footnotes',
     'context' => '',
@@ -8273,6 +8292,24 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Provide a simple link to edit the content.', array(), array('context' => ''));
+  $translations['ar:default']['a848b23b35a61dc1ab85fab9caeeeb9e'] = array(
+    'source' => 'Hello !recipient_name,
+
+A revision to your <a href="!url">story</a>has been published.
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+تم نشر تعديل <a href="!url"> لقصتك</a>.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+A revision to your <a href="!url">story</a>has been published.
+', array(), array('context' => ''));
   $translations['ar:default']['a87cf9e9eeb45555e6b3c13002d15f28'] = array(
     'source' => 'Bring in data about the user being addressed.',
     'context' => '',
@@ -8685,6 +8722,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Edit description', array(), array('context' => ''));
+  $translations['ar:default']['af1bb3f7eccc2d61ea139276b0e4deac'] = array(
+    'source' => 'A revision to your story has been published',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'تم نشر تعديل لقصتك',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('A revision to your story has been published', array(), array('context' => ''));
   $translations['ar:default']['af7c1edfee7bdc1f8e9ef7b7fa5377ad'] = array(
     'source' => 'Reports flagged as spam cannot be unflagged.',
     'context' => '',
@@ -9389,6 +9435,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Provide a simple link to edit the translations.', array(), array('context' => ''));
+  $translations['ar:default']['bda732aa355e14cb879995aa06032b26'] = array(
+    'source' => 'Delete this revision',
+    'context' => '',
+    'location' => '/ar/node/329/edit',
+    'translation' => 'حذف هذا المرجع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Delete this revision', array(), array('context' => ''));
   $translations['ar:default']['bdff3b5f5585a252d03b09c770c84e1a'] = array(
     'source' => 'An autocomplete text field.',
     'context' => '',
@@ -10206,6 +10261,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Email address for a given user. This field is normally not shown to users, so be cautious when using it.', array(), array('context' => ''));
+  $translations['ar:default']['cda9c1c5e2b44c278c1d1788f3b1c76e'] = array(
+    'source' => '%title is @publication_status. It has only one revision',
+    'context' => '',
+    'location' => '/ar/node/317/revisions',
+    'translation' => '%title is @publication_status. تحتوي على مراجعة واحدة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('%title is @publication_status. It has only one revision', array(), array('context' => ''));
   $translations['ar:default']['ce0570baa693338d4c57f7543737d942'] = array(
     'source' => 'Other nodes that link to the node.',
     'context' => '',
@@ -12582,6 +12646,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('The date the user last logged in to the site.', array(), array('context' => ''));
+  $translations['ar:default']['f842efc77995bb13f43dfdb33c00ce81'] = array(
+    'source' => 'Delete (all revisions)',
+    'context' => '',
+    'location' => '/ar/node/301/edit',
+    'translation' => 'حذ ف (كل المراجعات)',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Delete (all revisions)', array(), array('context' => ''));
   $translations['ar:default']['f89fbcc552048d8dbbb85545f288c480'] = array(
     'source' => 'Desired block weight exceeds available weight options, please check weights for blocks before saving',
     'context' => '',

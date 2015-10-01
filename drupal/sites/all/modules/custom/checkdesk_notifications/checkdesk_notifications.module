@@ -135,7 +135,7 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
         'token type' => 'node',
       );
       $events[$context . '_publish_own_story_revision'] = array(
-        'label' => $label . t('Publish own story revision'),
+        'label' => $label . t('Own revision to story is published'),
         'token type' => 'node',
       );
     }
