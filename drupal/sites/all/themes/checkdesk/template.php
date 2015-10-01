@@ -1434,7 +1434,7 @@ function checkdesk_preprocess_meedan_sensitive_content_display(&$vars) {
  * Process variables for user-profile.tpl.php.
  */
 function checkdesk_preprocess_user_profile(&$vars) {
-  if ($vars['elements']['#account']->picture->uri) {
+  if (isset($vars['elements']['#account']->picture->uri)) {
     // check the size of profile avatar image
     $avatar_image_size = getimagesize($vars['elements']['#account']->picture->uri);
     // Use large avatar if the image is larger than 180px

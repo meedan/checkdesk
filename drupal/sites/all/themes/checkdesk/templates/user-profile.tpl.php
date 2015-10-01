@@ -36,9 +36,11 @@
 ?>
 
 <div class="profile"<?php print $attributes; ?>>
+  <?php if(isset($user_avatar)) : ?>
   <div class="user-avatar">
       <?php print $user_avatar; ?>
   </div>
+  <?php endif; ?>
   <div class="user-name">
       <?php print $account_name; ?>
   </div>
