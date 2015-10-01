@@ -11985,6 +11985,15 @@ print theme(\'views_autorefresh\', array(
     'plural' => 0,
   );
   $translatables[] = t('Posted to !published', array(), array('context' => ''));
+  $translations['ar:default']['ed30202d4cb98f632e95e362ca6f1b92'] = array(
+    'source' => 'A revision to your <a href="!story_url">story</a> has been published',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'تم نشر تعديل <a href="!story_url">لقصتك</a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('A revision to your <a href="!story_url">story</a> has been published', array(), array('context' => ''));
   $translations['ar:default']['ed42606c7c0b96f4b4106330a94e22a5'] = array(
     'source' => 'Date and time of when the last comment was posted.',
     'context' => '',
