@@ -861,6 +861,15 @@ They provided the following explanation for flagging:
     'plural' => 0,
   );
   $translatables[] = t('By e-mail', array(), array('context' => ''));
+  $translations['ar:default']['11ecbe22d9d0b07c2d358175cb6429b2'] = array(
+    'source' => 'Own revision to story is published',
+    'context' => '',
+    'location' => '/ar/user/83/edit/notifications',
+    'translation' => 'تم نشر تعديلاتي لقصة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Own revision to story is published', array(), array('context' => ''));
   $translations['ar:default']['11f30c5526ab77c65b37c59103588d4a'] = array(
     'source' => 'Block current user',
     'context' => '',
@@ -1364,7 +1373,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'New story created',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'تم إضافة موضوع جديد',
+    'translation' => 'تم إضافة قصة جديده',
     'plid' => 0,
     'plural' => 0,
   );
@@ -5612,7 +5621,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'source' => 'Change report status on a story I followed',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'تم تعديل حالة تقرير لموضوع متابع',
+    'translation' => 'تم تعديل حالة تقرير لقصةمتابعة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -6611,6 +6620,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Autocomplete', array(), array('context' => ''));
+  $translations['ar:default']['85124b7342bc9b8af4364a7d190718df'] = array(
+    'source' => 'Existing draft story updated',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'تم تعديل مسودة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Existing draft story updated', array(), array('context' => ''));
   $translations['ar:default']['851f023be781bbc9ee2154b7db28d1f3'] = array(
     'source' => 'Added ',
     'context' => '',
@@ -8367,7 +8385,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Existing story updated',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'تحرير موضوع منشور',
+    'translation' => 'تحرير قصة منشورة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -11323,7 +11341,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'New update on a story I followed',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'تحديث جديد لموضوع متابع',
+    'translation' => 'تحديث جديد لقصةمتابعة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -13329,6 +13347,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Draft  stories', array(), array('context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title'));
+  $translations['ar:menu']['b48b9a053ce15999a9da52bbe0a59d88'] = array(
+    'source' => 'Sign in',
+    'context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title',
+    'location' => 'menu:item:9a684326-a352-d454-517b-878bb9468e91:title',
+    'translation' => 'تسجيل الدخول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sign in', array(), array('context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title'));
   $translations['ar:menu']['ccad5ea8329325c1f37b39e288708bcc'] = array(
     'source' => 'Update story',
     'context' => 'item::title',
