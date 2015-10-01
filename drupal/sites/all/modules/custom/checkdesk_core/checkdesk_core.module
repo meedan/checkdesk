@@ -704,7 +704,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $links['dropdown-direction'] = $layout['omega'];
     }
     $embed_data = array();
-    if ($node->type == 'media' || $node->type == 'discussion') {
+    if ($node->type == 'media') {
       $embed_title = 'Embed this ';
       $embed_title .= ($node->type == 'media') ? 'report' : 'story';
       $embed_data = array('nid' => $node->nid, 'title' => $embed_title);
@@ -751,21 +751,20 @@ function checkdesk_core_share_links($url, $title, $type, $embed = array()) {
     'link_type' => 'link',
     'cd_group' => 'checkdesk-share',
   );
-  // Uncomment when story embeds are fixed - @ark
   // show embed if nid has a value
-  // if (isset($embed['nid'])) {
-  //   if (!isset($embed['title'])) {
-  //     $embed['title'] = 'Embed this story';
-  //   }
-  //   $links['checkdesk-share-embed'] = array(
-  //     'html' => TRUE,
-  //     'title' => t($embed['title']) . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($embed['nid'])) . '</textarea>',
-  //     'href' => $url,
-  //     'attributes' => array('title' => $title, 'class' => array('embed'), 'onclick' => 'return false;'),
-  //     'link_type' => 'link',
-  //     'cd_group' => 'checkdesk-share',
-  //   );
-  // }
+  if (isset($embed['nid'])) {
+    if (!isset($embed['title'])) {
+      $embed['title'] = 'Embed this story';
+    }
+    $links['checkdesk-share-embed'] = array(
+      'html' => TRUE,
+      'title' => t($embed['title']) . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($embed['nid'])) . '</textarea>',
+      'href' => $url,
+      'attributes' => array('title' => $title, 'class' => array('embed'), 'onclick' => 'return false;'),
+      'link_type' => 'link',
+      'cd_group' => 'checkdesk-share',
+    );
+  }
 
   return $links;
 }
