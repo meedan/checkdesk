@@ -1,9 +1,9 @@
-(function() {
+(function($) {
   function numpf(n, a) {
     return a[plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5];
   }
 
-jQuery.timeago.settings.strings = {
+$.timeago.settings.strings = {
     prefixAgo: "منذ",
     prefixFromNow: "بعد",
     suffixAgo: null,
@@ -93,4 +93,4 @@ jQuery.timeago.settings.strings = {
        '%d عامًا',
        '%d عام']);}
   };
-})();
+})(jQuery);
