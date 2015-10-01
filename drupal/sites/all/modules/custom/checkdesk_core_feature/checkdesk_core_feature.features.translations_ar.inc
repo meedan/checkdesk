@@ -8292,6 +8292,24 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Provide a simple link to edit the content.', array(), array('context' => ''));
+  $translations['ar:default']['a848b23b35a61dc1ab85fab9caeeeb9e'] = array(
+    'source' => 'Hello !recipient_name,
+
+A revision to your <a href="!url">story</a>has been published.
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+تم نشر تعديل <a href="!url"> لقصتك</a>.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+A revision to your <a href="!url">story</a>has been published.
+', array(), array('context' => ''));
   $translations['ar:default']['a87cf9e9eeb45555e6b3c13002d15f28'] = array(
     'source' => 'Bring in data about the user being addressed.',
     'context' => '',
@@ -8704,6 +8722,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Edit description', array(), array('context' => ''));
+  $translations['ar:default']['af1bb3f7eccc2d61ea139276b0e4deac'] = array(
+    'source' => 'A revision to your story has been published',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'تم نشر تعديل لقصتك',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('A revision to your story has been published', array(), array('context' => ''));
   $translations['ar:default']['af7c1edfee7bdc1f8e9ef7b7fa5377ad'] = array(
     'source' => 'Reports flagged as spam cannot be unflagged.',
     'context' => '',
