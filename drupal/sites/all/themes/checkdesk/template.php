@@ -267,10 +267,10 @@ function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
 
   // load timeago library along with localized file
-  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/jquery.timeago.js');
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/jquery.timeago.js', array('preprocess' => false));
   $localized = drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/jquery.timeago.' . $language->language . '.js';
   if (file_exists($localized)) {
-    drupal_add_js($localized);
+    drupal_add_js($localized, array('preprocess' => false));
   }
 
   // 404 PAGE template
