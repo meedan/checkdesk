@@ -1043,7 +1043,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "php", "rules_scheduler" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
       "ON" : { "node_update--discussion" : { "bundle" : "discussion" } },
       "IF" : [
         { "node_is_of_type" : {
@@ -1055,7 +1055,14 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "php_eval" : { "code" : "$existing_node = node_load($node-\\u003Enid, $node-\\u003Evid);\\r\\nwatchdog(\\u0027Sawy-node\\u0027, \\u0027\\u003Cpre\\u003E\\u0027. print_r($existing_node, true) .\\u0027\\u003C\\/pre\\u003E\\u0027);\\r\\nif ($existing_node-\\u003Eis_current) {\\r\\n   return TRUE;\\r\\n}\\r\\nreturn FALSE;" } }
       ],
       "DO" : [
-        { "drupal_message" : { "message" : "Publish pending revision" } },
+        { "heartbeat_activity_checkdesk_publish_own_story_revision" : {
+            "nid" : [ "node:nid" ],
+            "uid" : [ "site:current-user:uid" ],
+            "uid_target" : [ "node:author:uid" ],
+            "message_id" : { "value" : { "checkdesk_publish_own_story_revision" : "checkdesk_publish_own_story_revision" } },
+            "!story_url" : [ "node:url" ]
+          }
+        },
         { "schedule" : {
             "component" : "checkdesk_core_feature_notify_subscribed_users_story_revision",
             "date" : "now",
