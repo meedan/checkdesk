@@ -350,9 +350,9 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
       break;
     case 'email_fact_checking_on':
     case 'email_fact_checking_set':
-    case 'enail_publish_own_story_revision':
+    case 'email_publish_own_story_revision':
       $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
-      break;
+    break;
     case 'email_fact_status_changed_for_commenter':
       $uids = db_query("SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.nid = $object->nid")->fetchCol();
       break;
