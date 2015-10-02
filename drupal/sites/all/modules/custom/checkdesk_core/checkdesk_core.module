@@ -700,9 +700,15 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     // Set direction for Updates
     if ($node->type == 'post') {
       $links['dropdown-direction'] = $layout['alpha'];
-    } else {
+    } 
+    // unset direction for story/discussion
+    elseif ($node->type == 'discussion') {
+      $links['dropdown-direction'] = '';
+    } 
+    else {
       $links['dropdown-direction'] = $layout['omega'];
     }
+    
     $embed_data = array();
     if ($node->type == 'media') {
       $embed_title = 'Embed this ';

@@ -1573,7 +1573,11 @@ function checkdesk_checkdesk_core_render_links($variables) {
     $list_title = '<span class="' . $icon_class . '">' . $list_title . '</span>';
     $href = isset($link_type['href']) ? $link_type['href'] : '#';
     $output .= l($list_title, $href, $link_type);
-    $output .= '<ul class="dropdown-menu pull-' . $options['direction'] . '">';
+    if ($options['direction']) {
+      $output .= '<ul class="dropdown-menu pull-' . $options['direction'] . '">';  
+    } else {
+      $output .= '<ul class="dropdown-menu">';
+    }
     foreach ($items as $item) {
       $output .= '<li>' . $item . '</li>';
     }
