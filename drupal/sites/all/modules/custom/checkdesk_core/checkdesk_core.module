@@ -1412,8 +1412,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['reset']['#attributes']['onclick'] =
             'javascript: jQuery("#views-exposed-form-desk-reports-block").clearForm();jQuery("#edit-submit-desk-reports").trigger("click");return false;';
   }
-
-  if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
+  elseif ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
     // Add custom field for type
     $form['type'] = array(
       '#type' => 'select',
@@ -1507,13 +1506,17 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       unset($form['type']['#options']['update']);
     }
     if (isset($_GET['type']) && $_GET['type'] === 'story') {
-        $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
+      $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
     }
     else {
-        // Hide section filter
-        $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
-        $form['field_section_tid_i18n']['#type'] = 'hidden';
-        unset($form['field_section_tid_i18n']['#theme']);
+      // Hide section filter
+      $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
+      $form['field_section_tid_i18n']['#type'] = 'hidden';
+      unset($form['field_section_tid_i18n']['#theme']);
+      // Hide language filter
+      $form['#info']['filter-language']['label'] = NULL;
+      $form['language']['#type'] = 'hidden';
+      unset($form['language']['#theme']);
     }
     // Add author filter for admin or journalist
     global $user;
@@ -2256,14 +2259,16 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         }
       }
     }
-    // Remove section condition if selected type not equal story.
-    if (isset($_GET['type']) && $_GET['type'] !== 'story' && isset($_GET['field_section_tid_i18n']) && is_numeric($_GET['field_section_tid_i18n'])) {
+    // Remove section condition and language if selected type not equal story.
+    if (isset($_GET['type']) && $_GET['type'] !== 'story' && (isset($_GET['field_section_tid_i18n']) || isset($_GET['language']))) {
       $conditions = $query->where[1]['conditions'];
       foreach($conditions as $k => $v) {
         if (is_string($v['field']) && $v['field'] === 'field_data_field_section.field_section_tid') {
           unset($query->table_queue['field_data_field_section']);
           unset($query->where[1]['conditions'][$k]);
-          break;
+        }
+        elseif (is_string($v['field']) && $v['field'] === 'node.language') {
+          unset($query->where[1]['conditions'][$k]);
         }
       }
     }
