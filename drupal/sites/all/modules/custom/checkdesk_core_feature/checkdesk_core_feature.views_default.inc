@@ -1191,7 +1191,6 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['language']['table'] = 'node';
   $handler->display->display_options['filters']['language']['field'] = 'language';
   $handler->display->display_options['filters']['language']['value'] = array(
-    'und' => 'und',
     'ar' => 'ar',
     'en' => 'en',
   );
