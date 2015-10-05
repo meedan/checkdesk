@@ -1,7 +1,7 @@
-<div class="media-holder media-inline-holder<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
+<div class="media-holder media-inline-holder">
   <?php if (isset($embed->html)) : ?>
     <div class="media">
-      <div class="facebook-holder">
+      <div class="bridge-holder">
         <?php print $embed->html; ?>
       </div>  
     </div>

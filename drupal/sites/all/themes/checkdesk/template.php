@@ -131,6 +131,11 @@ function checkdesk_preprocess_html(&$variables) {
     }
   }
 
+  // Embed HTML template
+  if (arg(0) == 'embed' && arg(1) != '') {
+    $variables['theme_hook_suggestions'][] = 'html__embed';
+  }
+
   // Add classes about widgets sidebar
   if (checkdesk_widgets_visibility()) {
     if (!empty($variables['page']['widgets'])) {
@@ -262,10 +267,10 @@ function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
 
   // load timeago library along with localized file
-  drupal_add_js(drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago.js");
-  $localized_timeago = drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago." . $language->language . ".js";
-  if (file_exists($localized_timeago)) {
-    drupal_add_js($localized_timeago);
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/jquery.timeago.js', array('weight' => 999));
+  $localized = drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/jquery.timeago.' . $language->language . '.js';
+  if (file_exists($localized)) {
+    drupal_add_js($localized, array('weight' => 1000));
   }
 
   // 404 PAGE template
@@ -278,15 +283,42 @@ function checkdesk_preprocess_page(&$variables) {
     }
   }
 
+   // Embed Page template
+  if (arg(0) == 'embed' && arg(1) != '') {
+    $variables['theme_hook_suggestions'][] = 'page__embed';
+
+    // add call to action (cta) cd embed footer
+    $variables['cd_embed_footer'] = array(
+      '#type' => 'link',
+      '#title' => '<span class="icon-comments-o"></span> ' . '<span class="cta-text">' . t('Help verify this report') . '</span>',
+      '#href' => url('node/' . $variables['node']->nid, array('absolute' => TRUE)),
+      '#options' => array(
+        'attributes' => array('class' => array('btn', 'btn-primary-alt' , 'btn-sm')),
+        'html' => TRUE,
+      )
+    );
+    // add css for 
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/module/cd_embed.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9999',
+        'every_page' => FALSE,
+      )
+    );
+
+  }
+  else if(arg(2) == 'users') {
   // Profile page template
-  if(arg(2) == 'users') {
     $variables['theme_hook_suggestions'][] = 'page__user';
   }
 
   // Page templates for each node type
   if (isset($variables['node'])) {
-    // If the node type is "discussion" the template suggestion will be "page--discussion.tpl.php".
-    if($variables['node']->type == 'discussion' || $variables['node']->type == 'media') {
+    // For discussion (story) and media (report) use a single template
+    // unless it appears as an embed
+    if(($variables['node']->type == 'discussion' || $variables['node']->type == 'media') && !(arg(0) == 'embed')) {
       $variables['theme_hook_suggestions'][] = 'page__content';
     }
   }
@@ -1318,20 +1350,16 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
  * recent_stories_by_tag view
  */
 function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
-    if ($vars['more'] && arg(0) == 'sections') {
-        if (is_numeric($vars['view']->args[0])) {
-            $term = taxonomy_term_load($vars['view']->args[0]);
-            if ($term->vocabulary_machine_name == 'sections') {
-                $vars['more'] = l(t('See more stories from !taxonomy', array('!taxonomy' => $term->name)), 'taxonomy/term/' . $term->tid);
-            }
-            else {
-                $vars['more'] = NULL;
-            }
-        }
+  if ($vars['more'] && arg(0) == 'sections' && is_numeric($vars['view']->args[0])) {
+    $term = taxonomy_term_load($vars['view']->args[0]);
+    if ($term->vocabulary_machine_name == 'sections') {
+      $vars['more'] = l(t('See more stories from !taxonomy', array('!taxonomy' => i18n_taxonomy_term_name($term))), 'taxonomy/term/' . $term->tid);
+    } else {
+      $vars['more'] = NULL;
     }
-    else {
-        $vars['more'] = NULL;
-    }
+  } else {
+    $vars['more'] = NULL;
+  }
 }
 
 /**
@@ -1406,8 +1434,18 @@ function checkdesk_preprocess_meedan_sensitive_content_display(&$vars) {
  * Process variables for user-profile.tpl.php.
  */
 function checkdesk_preprocess_user_profile(&$vars) {
-  // $user = user_load($variables['uid']);
-  $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-180'), FALSE, 'medium');
+  if (isset($vars['elements']['#account']->picture->uri)) {
+    // check the size of profile avatar image
+    $avatar_image_size = getimagesize($vars['elements']['#account']->picture->uri);
+    // Use large avatar if the image is larger than 180px
+    if ($avatar_image_size[0] > 180) {
+      $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-180'), FALSE, 'medium');
+    } 
+    // Use small style if the image is small
+    else {
+      $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-60'), FALSE);
+    }
+  }
   //$vars['member_for'] = t('Member for @time', array('@time' => $vars['user_profile']['summary']['member_for']['#markup']));
   $vars['user_profile']['twitter']['#title'] = '';
   $account = $vars['elements']['#account'];
@@ -1442,8 +1480,6 @@ function checkdesk_preprocess_user_profile(&$vars) {
   $vars['roles'] = $roles;
   // User stories
   $view = views_get_view('user_stories');
-  $view->display['default']->display_options['filters']['uid']['value'][0] = $account->uid;
-  $view->display['default']->display_options['filters']['field_additional_authors_target_id']['value']['value'] = $account->uid;
   $view->get_total_rows = TRUE;
   $view_output = $view->preview('block');
   $total_rows = $view->total_rows;
@@ -1455,8 +1491,6 @@ function checkdesk_preprocess_user_profile(&$vars) {
     // followed stories
     $view = views_get_view('followed_stories');
     $view->set_arguments(array($account->uid));
-    $view->display['default']->display_options['filters']['uid']['value'][0] = $account->uid;
-    $view->display['default']->display_options['filters']['field_additional_authors_target_id']['value']['value'] = $account->uid;
     $view->get_total_rows = TRUE;
     $view_output = $view->preview('block');
     $total_rows = $view->total_rows;
@@ -1539,7 +1573,11 @@ function checkdesk_checkdesk_core_render_links($variables) {
     $list_title = '<span class="' . $icon_class . '">' . $list_title . '</span>';
     $href = isset($link_type['href']) ? $link_type['href'] : '#';
     $output .= l($list_title, $href, $link_type);
-    $output .= '<ul class="dropdown-menu pull-' . $options['direction'] . '">';
+    if ($options['direction']) {
+      $output .= '<ul class="dropdown-menu pull-' . $options['direction'] . '">';  
+    } else {
+      $output .= '<ul class="dropdown-menu">';
+    }
     foreach ($items as $item) {
       $output .= '<li>' . $item . '</li>';
     }

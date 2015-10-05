@@ -138,12 +138,11 @@
 	& > div { 
 		position: relative;
 		margin-top: 20px;
-		max-height: 300px;
 		overflow: auto;
 		padding-#{$omega}: 20px;
 		@include cd-simple-scrollbar;
 	}
-	.node-type-media & {
+	.node-type-media:not(.page-embed) & {
 		display: block;
 		& > div { 
 			overflow: visible;

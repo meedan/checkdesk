@@ -180,7 +180,7 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity(&$variables) {
         $variables['status_class'] = strtolower(str_replace(' ', '-', $status_name));
 
       }
-      if (user_is_logged_in()) {
+      if (user_is_logged_in() || arg(0) == 'embed' ) {
         $variables['media_activity_footer'] = '';
       }
       else {

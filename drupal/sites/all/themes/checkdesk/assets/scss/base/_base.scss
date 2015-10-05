@@ -4,7 +4,7 @@
 //  Default checkdesk layout
 //
 
-html {
+html:not(.embed) {
   height: 100%;
   background-color: $thatch5Alt;
 }
@@ -78,7 +78,7 @@ body:not(.most-popular-component) .story {
 }
 
 // report
-body.node-type-media .report {
+body.node-type-media:not(.page-embed) .report {
   max-width: 530px;
   margin-#{$alpha}: auto;
   margin-#{$omega}: auto;
