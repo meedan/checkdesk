@@ -5624,6 +5624,20 @@ body.cke_editable figure.element.cke_widget_element {
   margin-left: auto;
   margin-right: auto;
 }
+.story .story-body figure.element figcaption,
+.update .update-body figure.element figcaption,
+body.cke_editable figure.element figcaption {
+  border: 0 none;
+  color: #9fa6ac;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 5px;
+}
+.story .story-body figure.element a,
+.update .update-body figure.element a,
+body.cke_editable figure.element a {
+  word-wrap: break-word;
+}
 .story .story-body > ul, .story .story-body > ol,
 .update .update-body > ul,
 .update .update-body > ol,

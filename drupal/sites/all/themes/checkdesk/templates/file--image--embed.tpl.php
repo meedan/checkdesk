@@ -67,16 +67,20 @@
  *
  * @ingroup themeable
  */
+
+  dsm($file);
+
 ?>
+
 <figure class="element element-image">
   <?php print render($content['file']); ?>
   <?php if (!empty($content['field_media_caption'][0]['#markup']) || !empty($content['field_media_credits'])): ?>
   <figcaption>
     <?php if (!empty($content['field_media_caption'][0]['#markup'])): ?>
-    <div class="caption"><?php print render($content['field_media_caption']) ?></div>
+      <?php print render($content['field_media_caption']) ?>
     <?php endif; ?>
     <?php if (!empty($content['field_media_credits'])): ?>
-    <div class="credits"><?php print render($content['field_media_credits']) ?></div>
+      <?php print render($content['field_media_credits']) ?>
     <?php endif; ?>
   </figcaption>
   <?php  endif; ?>
