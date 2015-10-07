@@ -12040,6 +12040,15 @@ print theme(\'views_autorefresh\', array(
     'plural' => 0,
   );
   $translatables[] = t('Relate all content associated with a media source. This can produce duplicate entries if a source is used in multiple nodes.', array(), array('context' => ''));
+  $translations['ar:default']['ec855bdfd68c059eb1496bccbf4c42ea'] = array(
+    'source' => 'Followed stories by !user',
+    'context' => '',
+    'location' => '/ar/users/admin',
+    'translation' => 'قصص يتابعها !user',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Followed stories by !user', array(), array('context' => ''));
   $translations['ar:default']['ecc0c39a0c302406fcf99a09ad47d8ee'] = array(
     'source' => 'Referencing entity',
     'context' => '',
