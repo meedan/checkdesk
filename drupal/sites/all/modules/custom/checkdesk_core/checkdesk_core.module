@@ -4069,15 +4069,9 @@ function _checkdesk_main_navigation() {
  * Check if partner defined sections or not
  */
 function _checkdesk_show_sections_link() {
-  if ($cache = cache_get('checkdesk_show_sections')) {
-    return $cache->data;
-  }
   $vocabulary = taxonomy_vocabulary_machine_name_load('sections');
   $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
   $show_sections = count($terms) ? TRUE : FALSE;
-  if ($show_sections) {
-    cache_set('checkdesk_show_sections', $show_sections, 'cache');
-  }
   return $show_sections;
 }
 
