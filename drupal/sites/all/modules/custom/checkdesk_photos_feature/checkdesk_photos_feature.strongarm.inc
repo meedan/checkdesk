@@ -219,7 +219,7 @@ function checkdesk_photos_feature_strongarm() {
   $strongarm->name = 'media_wysiwyg_wysiwyg_browser_plugins';
   $strongarm->value = array(
     0 => 'upload',
-    1 => 'media_default--media_browser_1',
+    1 => 'checkdesk_media_browser--photo_browser',
   );
   $export['media_wysiwyg_wysiwyg_browser_plugins'] = $strongarm;
 
