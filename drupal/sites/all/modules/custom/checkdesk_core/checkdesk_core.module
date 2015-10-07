@@ -259,6 +259,8 @@ function checkdesk_core_menu_alter(&$items) {
   $items['node/%node/revisions/%vid/revert']['title callback'] = '_checkdesk_core_revisioning_title_for_revert';
   unset($items['node/%node/revisions/list']);
   unset($items['node/%node/revisions/%vid/edit']);
+  $items['node/%node/edit']['access callback'] = 'node_access';
+  $items['node/%node/edit']['access arguments'] = array('update', 1);
 }
 
 /**
