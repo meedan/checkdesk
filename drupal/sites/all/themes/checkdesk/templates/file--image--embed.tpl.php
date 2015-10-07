@@ -68,12 +68,13 @@
  * @ingroup themeable
  */
 
-  dsm($file);
+  // render responsive image with alt, title
+  $inline_image = _checkdesk_generate_inline_image($file);
 
 ?>
 
 <figure class="element element-image">
-  <?php print render($content['file']); ?>
+  <?php print $inline_image; ?>
   <?php if (!empty($content['field_media_caption'][0]['#markup']) || !empty($content['field_media_credits'])): ?>
   <figcaption>
     <?php if (!empty($content['field_media_caption'][0]['#markup'])): ?>
