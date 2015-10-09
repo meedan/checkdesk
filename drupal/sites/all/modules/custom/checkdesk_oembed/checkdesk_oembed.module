@@ -47,7 +47,7 @@ function checkdesk_oembed_embed_access($node) {
 function checkdesk_oembed_embed($node) {
   drupal_add_library('meedan_iframes', 'meedan_iframes.child');
 
-  drupal_add_js(array('meedanIframes' => array('contentSelector' => '#main')), 'setting');
+  drupal_add_js(array('meedanIframes' => array('contentSelector' => '.cd-embed')), 'setting');
 
   return node_view_multiple(array($node->nid => $node), 'meedan_oembed');
 }
@@ -111,8 +111,6 @@ function checkdesk_oembed_meedan_oembed_embed_alter($embed) {
       return strlen($match[0]) >= 4 ? 'X' : $match[0];
     }, $embed->title);
   }
-  // Fetch favicon here to fix old reports
-  $embed->favicon_link = _meedan_oembed_fetch_favicon($embed->original_url);
 }
 
 /**

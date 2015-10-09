@@ -66,8 +66,6 @@
           // reset the main and metabar
           $('#main').css('top', '');
           $('.metabar').css('position', '');
-          // make sure header is not in header-up state
-          $('.metabar').removeClass('header-up');
           // close responsive nav
           nav.close();
         }

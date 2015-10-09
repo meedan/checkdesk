@@ -9,6 +9,18 @@
  */
 
 /**
+ * Implements hook_init().
+ */
+function meedan_facebook_init() {
+  // Inject FB script everywhere.
+  drupal_add_js(array('meedanFacebook' => array(
+    'language' => meedan_facebook_get_locale(),
+    'appId' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
+  )), 'setting');
+  drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
+}
+
+/**
  * Implements hook_theme().
  */
 function meedan_facebook_theme() {
@@ -47,16 +59,26 @@ function _meedan_facebook_get_path($nid) {
 }
 
 /**
+ * Add FB app ID in an HTML meta tag.
+ */
+function meedan_facebook_add_metatag() {
+  $app_id = variable_get('meedan_facebook_appid', variable_get('fboauth_id', ''));
+  drupal_add_html_head(array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'property' => 'fb:app_id',
+      'content' => $app_id,
+    ),
+  ), 'meedan_facebook_appid');
+}
+
+/**
  * Implements `facebook_commentcount` theme.
  */
 function theme_facebook_commentcount($variables) {
   global $base_url;
 
-  drupal_add_js(array('meedanFacebookComments' => array(
-    'language' => meedan_facebook_get_locale(),
-    'appId' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
-  )), 'setting');
-  drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
+  meedan_facebook_add_metatag();
 
   $node = $variables['node'];
   $nid = $node->nid;
@@ -75,11 +97,7 @@ function theme_facebook_comments($variables) {
   $per_page = variable_get('meedan_facebook_comments_per_page', 10);
   $nid = $node->nid;
 
-  drupal_add_js(array('meedanFacebookComments' => array(
-    'language' => meedan_facebook_get_locale(),
-    'appId' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
-  )), 'setting');
-  drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
+  meedan_facebook_add_metatag();
 
   $path = _meedan_facebook_get_path($nid);
   $output = '<div class="fb-comments" data-href="' . $path . '" data-num-posts="' . $per_page . '" data-nid="' . $nid . '" id="fb-comments-' . $nid . '" data-version="v2.3"></div>';

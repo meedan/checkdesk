@@ -1,0 +1,69 @@
+.icon-muted {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.icon-light {
+  color: #fff;
+}
+
+.icon-dark {
+  color: #333333;
+}
+
+/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+   readers do not read off random characters that represent icons */
+.icon-comments-o:before {
+  content: "\f0e6";
+}
+
+.icon-comments-o:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-comments-o:before, .icon-comments-o:after {
+  margin: 0 2px;
+}
+
+.cd-embed {
+  max-width: 620px;
+}
+
+.cd-embed .media-holder {
+  border: 1px solid #f3f4f4;
+}
+
+.cd-embed-footer {
+  *zoom: 1;
+  margin: 10px 0;
+}
+.cd-embed-footer:before, .cd-embed-footer:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.cd-embed-footer:after {
+  clear: both;
+}
+.cd-embed-footer .btn-sm {
+  float: right;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: right;
+}
+.cd-embed-footer a.checkdesk {
+  float: left;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: left;
+  color: #cfd3d5;
+}

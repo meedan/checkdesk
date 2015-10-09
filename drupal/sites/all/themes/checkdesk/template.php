@@ -131,6 +131,11 @@ function checkdesk_preprocess_html(&$variables) {
     }
   }
 
+  // Embed HTML template
+  if (arg(0) == 'embed' && arg(1) != '') {
+    $variables['theme_hook_suggestions'][] = 'html__embed';
+  }
+
   // Add classes about widgets sidebar
   if (checkdesk_widgets_visibility()) {
     if (!empty($variables['page']['widgets'])) {
@@ -262,10 +267,10 @@ function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
 
   // load timeago library along with localized file
-  drupal_add_js(drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago.js");
-  $localized_timeago = drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago." . $language->language . ".js";
-  if (file_exists($localized_timeago)) {
-    drupal_add_js($localized_timeago);
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/jquery.timeago.js', array('weight' => 999));
+  $localized = drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/jquery.timeago.' . $language->language . '.js';
+  if (file_exists($localized)) {
+    drupal_add_js($localized, array('weight' => 1000));
   }
 
   // 404 PAGE template
@@ -278,10 +283,42 @@ function checkdesk_preprocess_page(&$variables) {
     }
   }
 
+   // Embed Page template
+  if (arg(0) == 'embed' && arg(1) != '') {
+    $variables['theme_hook_suggestions'][] = 'page__embed';
+
+    // add call to action (cta) cd embed footer
+    $variables['cd_embed_footer'] = array(
+      '#type' => 'link',
+      '#title' => '<span class="icon-comments-o"></span> ' . '<span class="cta-text">' . t('Help verify this report') . '</span>',
+      '#href' => url('node/' . $variables['node']->nid, array('absolute' => TRUE)),
+      '#options' => array(
+        'attributes' => array('class' => array('btn', 'btn-primary-alt' , 'btn-sm')),
+        'html' => TRUE,
+      )
+    );
+    // add css for 
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/module/cd_embed.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9999',
+        'every_page' => FALSE,
+      )
+    );
+
+  }
+  else if(arg(2) == 'users') {
+  // Profile page template
+    $variables['theme_hook_suggestions'][] = 'page__user';
+  }
+
   // Page templates for each node type
   if (isset($variables['node'])) {
-    // If the node type is "discussion" the template suggestion will be "page--discussion.tpl.php".
-    if($variables['node']->type == 'discussion' || $variables['node']->type == 'media') {
+    // For discussion (story) and media (report) use a single template
+    // unless it appears as an embed
+    if(($variables['node']->type == 'discussion' || $variables['node']->type == 'media') && !(arg(0) == 'embed')) {
       $variables['theme_hook_suggestions'][] = 'page__content';
     }
   }
@@ -1110,15 +1147,15 @@ function checkdesk_field__field_lead_image(&$variables) {
   // generate img tag with srcset
   $image_field_caption = isset($variables['element']['#items'][0]['image_field_caption']['value']) ? 
           $variables['element']['#items'][0]['image_field_caption']['value'] : NULL;
-  $output = _checkdesk_generate_lead_image($variables['element']['#items'][0]['uri'], $image_field_caption);
+  $output = _checkdesk_generate_lead_image_directed($variables['element']['#items'][0]['uri'], $image_field_caption);
   return $output;
 }
 
 /**
  * Utiltiy function that generates a responsive img tag
- * for lead image in the story node
+ * for lead image in the story node using art directed technique
  */
-function _checkdesk_generate_lead_image($image, $image_caption) {
+function _checkdesk_generate_lead_image_directed($image, $image_caption = '') {
   $output = '';
   // generate small, medium and large images
   if(isset($image)) {
@@ -1142,21 +1179,20 @@ function _checkdesk_generate_lead_image($image, $image_caption) {
 
 /**
  * Utiltiy function that generates a responsive img tag
- * for lead image in containers as thumbnails
+ * for lead image in containers as large images
  */
-function _checkdesk_generate_lead_image_thumbnail($image) {
+function _checkdesk_generate_lead_image($image) {
   $output = '';
   // generate small, medium and large images
   if(isset($image)) {
     $lead_image_path = image_style_url('item_image_medium', $image);
-    $lead_image_uri = image_style_path('item_image_medium', $image);
-    $lead_image_size = getimagesize($lead_image_uri);
+    $lead_image_large_path = image_style_url('item_image_large', $image);
     $lead_image_med_path = image_style_url('item_image_medium', $image);
     $lead_image_small_path = image_style_url('item_image_small', $image);
     // set small, med and large images in srcset
     $output .= '<img';
-    $output .= ' srcset="' . $lead_image_med_path . ' 220w, ' . $lead_image_small_path . ' 120w"'; 
-    $output .= ' sizes="(min-width: 980px) 220px, (min-width: 740px) 220px, 120px"';
+    $output .= ' srcset="' . $lead_image_large_path . ' 700w, ' . $lead_image_med_path . ' 520w, ' . $lead_image_small_path . ' 220w"'; 
+    $output .= ' sizes="(min-width: 980px) 700px, (min-width: 740px) 520px, 100%"';
     $output .= ' src="' . $lead_image_small_path . '"';
     $output .= ' class="feature-image"';
     $output .= '/>';
@@ -1164,6 +1200,28 @@ function _checkdesk_generate_lead_image_thumbnail($image) {
 
   return $output;
 
+}
+
+/**
+ * Utiltiy function that generates a responsive img tag
+ * for lead image in containers as thumbnails
+ */
+function _checkdesk_generate_lead_image_thumbnail($image) {
+  $output = '';
+  // generate small and list size images
+  if(isset($image)) {
+    $lead_image_small_path = image_style_url('item_image_small', $image);
+    $lead_image_list_path = image_style_url('item_image_list', $image);
+    $lead_image_list_small_path = image_style_url('item_image_list_small', $image);
+    // set small, med and large images in srcset
+    $output .= '<img';
+    $output .= ' srcset="' . $lead_image_small_path . ' 220w, ' . $lead_image_list_path . ' 160w, ' . $lead_image_list_small_path . ' 120w"'; 
+    $output .= ' sizes="(min-width: 980px) 220px, (min-width: 740px) 160px, 120px"';
+    $output .= ' src="' . $lead_image_list_path . '"';
+    $output .= ' class="feature-image"';
+    $output .= '/>';
+  }
+  return $output;
 }
 
 /**
@@ -1224,6 +1282,9 @@ function checkdesk_preprocess_views_view(&$vars) {
     if (function_exists($function)) {
       $function($vars);
     }
+  }
+  if ($vars['view']->tag == 'stories_container') {
+      drupal_add_js(drupal_get_path('module', 'checkdesk_core') . "/js/stories_container.js");
   }
 }
 
@@ -1289,20 +1350,16 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
  * recent_stories_by_tag view
  */
 function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
-    if ($vars['more'] && arg(0) == 'sections') {
-        if (is_numeric($vars['view']->args[0])) {
-            $term = taxonomy_term_load($vars['view']->args[0]);
-            if ($term->vocabulary_machine_name == 'sections') {
-                $vars['more'] = l(t('See more stories from !taxonomy', array('!taxonomy' => $term->name)), 'taxonomy/term/' . $term->tid);
-            }
-            else {
-                $vars['more'] = NULL;
-            }
-        }
+  if ($vars['more'] && arg(0) == 'sections' && is_numeric($vars['view']->args[0])) {
+    $term = taxonomy_term_load($vars['view']->args[0]);
+    if ($term->vocabulary_machine_name == 'sections') {
+      $vars['more'] = l(t('See more stories from !taxonomy', array('!taxonomy' => i18n_taxonomy_term_name($term))), 'taxonomy/term/' . $term->tid);
+    } else {
+      $vars['more'] = NULL;
     }
-    else {
-        $vars['more'] = NULL;
-    }
+  } else {
+    $vars['more'] = NULL;
+  }
 }
 
 /**
@@ -1323,30 +1380,6 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     // Get embed type
     $vars['media_type_class'] = checkdesk_oembed_embed_class_type($report_nid);
   }
-
-  if ($vars['view']->name === 'liveblog') {
-    $vars['updates'] = isset($vars['view']->result[$vars['view']->row_index]->updates) ? $vars['view']->result[$vars['view']->row_index]->updates : '';
-
-    // Facebook comments count
-    if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
-      $vars['story_commentcount'] = array(
-          '#theme' => 'facebook_commentcount',
-          '#node' => node_load($vars['fields']['nid']->raw),
-      );
-    }
-    // Add follow story flag
-    if ($user->uid) {
-      $follow_story = flag_create_link('follow_story', $vars['fields']['nid']->raw);
-    }   else {
-      $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
-      $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
-      // append count
-      if (isset($flag_count['follow_story'])) {
-        $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
-      }
-    }
-    $vars['follow_story'] = $follow_story;
-  }
   
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
@@ -1363,11 +1396,13 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
   }
   
-  if ($vars['view']->name === 'recent_stories_by_tag' || $vars['view']->name === 'story_section') {
+  if ($vars['view']->tag == 'stories_container' || in_array($vars['view']->name, array('story_section', 'featured_story'))) {
     $vars['show_section'] = TRUE;
-    if (is_numeric($vars['view']->args[0])) {
+    if (isset($vars['view']->args[0]) && is_numeric($vars['view']->args[0])) {
         $term = taxonomy_term_load($vars['view']->args[0]);
-        $vars['show_section'] = ($term->vocabulary_machine_name == 'sections') ? FALSE : TRUE;
+        if ($term) {
+          $vars['show_section'] = ($term->vocabulary_machine_name == 'sections') ? FALSE : TRUE;
+        }
     }
     // Facebook comments count
     if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
@@ -1380,7 +1415,10 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       '!inverval' => checkdesk_core_custom_format_interval($vars['row']->node_created),
       '!datetime' => format_date($vars['row']->node_created, 'custom', t('l M d, Y \a\t g:i:sa'))
     ));
-    
+  }
+
+  if ($vars['view']->name === 'frontpage_sections') {
+    $vars['latest_story'] = $vars['view']->result[$vars['view']->row_index]->latest_story ;
   }
 }
 
@@ -1395,8 +1433,72 @@ function checkdesk_preprocess_meedan_sensitive_content_display(&$vars) {
 /**
  * Process variables for user-profile.tpl.php.
  */
-function checkdesk_preprocess_user_profile(&$variables) {
-  $variables['member_for'] = t('Member for @time', array('@time' => $variables['user_profile']['summary']['member_for']['#markup']));
+function checkdesk_preprocess_user_profile(&$vars) {
+  if (isset($vars['elements']['#account']->picture->uri)) {
+    // check the size of profile avatar image
+    $avatar_image_size = getimagesize($vars['elements']['#account']->picture->uri);
+    // Use large avatar if the image is larger than 180px
+    if ($avatar_image_size[0] > 180) {
+      $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-180'), FALSE, 'medium');
+    } 
+    // Use small style if the image is small
+    else {
+      $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-60'), FALSE);
+    }
+  }
+  //$vars['member_for'] = t('Member for @time', array('@time' => $vars['user_profile']['summary']['member_for']['#markup']));
+  $vars['user_profile']['twitter']['#title'] = '';
+  $account = $vars['elements']['#account'];
+  $vars['account_name'] = $account->name;
+  $social_accounts = array();
+  // User twitter
+  $twitter_accounts = twitter_twitter_accounts($account);
+  if($twitter_accounts) {
+    foreach ($twitter_accounts as $twitter_account) {
+      $social_accounts[] = array(
+        'data' => l('<span class="icon-twitter"></span>', 'https://www.twitter.com/'. $twitter_account->screen_name, array('html' => TRUE, 'attributes' => array('title' => '@' . $twitter_account->screen_name))),
+        'class' => array('user-twitter'),
+      );
+    }
+  }
+  // User fb
+  $fbid = fboauth_fbid_load($account->uid);
+  if ($fbid) {
+    $social_accounts[] = array(
+      'data' => l('<span class="icon-facebook"></span>', 'https://www.facebook.com/'. $fbid, array('html' => TRUE, 'attributes' => array('title' => 'facebook.com/' . $fbid))),
+      'class' => array('user-facebook'),
+    );
+  }
+  // prepare social links as elsewhere
+  if (count($social_accounts)) {
+    $vars['social_accounts'] = theme('item_list', array('items' => $social_accounts, 'title' => ''));
+  }
+
+  // User roles
+  $roles = $account->roles;
+  unset($roles[DRUPAL_AUTHENTICATED_RID]);
+  $vars['roles'] = $roles;
+  // User stories
+  $view = views_get_view('user_stories');
+  $view->get_total_rows = TRUE;
+  $view_output = $view->preview('block');
+  $total_rows = $view->total_rows;
+  $view->destroy();
+  if ($total_rows) {
+    $vars['user_stories'] = $view_output;
+  }
+
+    // followed stories
+    $view = views_get_view('followed_stories');
+    $view->set_arguments(array($account->uid));
+    $view->get_total_rows = TRUE;
+    $view_output = $view->preview('block');
+    $total_rows = $view->total_rows;
+    $view->destroy();
+    if ($total_rows) {
+        $vars['followed_stories'] = $view_output;
+    }
+
 }
 
 /*
@@ -1471,7 +1573,11 @@ function checkdesk_checkdesk_core_render_links($variables) {
     $list_title = '<span class="' . $icon_class . '">' . $list_title . '</span>';
     $href = isset($link_type['href']) ? $link_type['href'] : '#';
     $output .= l($list_title, $href, $link_type);
-    $output .= '<ul class="dropdown-menu pull-' . $options['direction'] . '">';
+    if ($options['direction']) {
+      $output .= '<ul class="dropdown-menu pull-' . $options['direction'] . '">';  
+    } else {
+      $output .= '<ul class="dropdown-menu">';
+    }
     foreach ($items as $item) {
       $output .= '<li>' . $item . '</li>';
     }
@@ -1557,12 +1663,36 @@ function _checkdesk_story_authors($node) {
       $authors = array($node->uid => $node->name) + $authors;
     }
     foreach ($authors as $uid => $name) {
-      $output[] = l($name, 'user/'. $uid, array('attributes' => array('class' => 'contributor')));
+      $output[] = l($name, 'user/'. $uid, array('attributes' => array('class' => array('contributor'))));
     }
     $story_authors = implode(', ', $output);
   }
   else {
-    $story_authors = l($node->name, 'user/'. $node->uid, array('attributes' => array('class' => 'contributor')));
+    $story_authors = l($node->name, 'user/'. $node->uid, array('attributes' => array('class' => array('contributor'))));
   }
   return $story_authors;
+}
+
+
+/**
+ * Return view output with container markup
+ * @param $title
+ * @param $view_output
+ * @return html output
+ */
+function _checkdesk_container_markup($title, $view_output) { 
+  $output = '';
+  $output .= '<section class="cd-container">';
+  $output .= '<div class="cd-container-inner">';
+  if (!empty($title)) {
+    $output .= '<div class="cd-container-header">';
+    $output .= '<h2 class="cd-container-header-title">' . $title . '</h2>';
+    $output .= '</div>';
+  }
+  $output .= '<div class="cd-container-body">';
+  $output .= $view_output;
+  $output .= '</div>';
+  $output .= '</section>';
+
+  return $output;
 }

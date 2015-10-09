@@ -144,12 +144,19 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access user profiles'] = array(
     'name' => 'access user profiles',
     'roles' => array(
-      'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
-      'citizen journalist' => 'citizen journalist',
-      'journalist' => 'journalist',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: 'add authenticated twitter accounts'.
+  $permissions['add authenticated twitter accounts'] = array(
+    'name' => 'add authenticated twitter accounts',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'twitter',
   );
 
   // Exported permission: 'add report to story'.
@@ -166,7 +173,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['add twitter accounts'] = array(
     'name' => 'add twitter accounts',
     'roles' => array(
-      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'twitter',
   );

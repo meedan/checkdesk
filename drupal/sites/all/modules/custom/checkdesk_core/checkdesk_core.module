@@ -184,6 +184,13 @@ function checkdesk_core_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => -2,
   );
+  $items['front-page'] = array(
+    'title' => '',
+    'page callback' => '_checkdesk_front_page',
+    'access arguments' => array('access content'),
+    'file' => 'checkdesk.frontpage.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
+  );
   return $items;
 }
 
@@ -252,6 +259,8 @@ function checkdesk_core_menu_alter(&$items) {
   $items['node/%node/revisions/%vid/revert']['title callback'] = '_checkdesk_core_revisioning_title_for_revert';
   unset($items['node/%node/revisions/list']);
   unset($items['node/%node/revisions/%vid/edit']);
+  $items['node/%node/edit']['access callback'] = 'node_access';
+  $items['node/%node/edit']['access arguments'] = array('update', 1);
 }
 
 /**
@@ -693,11 +702,17 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     // Set direction for Updates
     if ($node->type == 'post') {
       $links['dropdown-direction'] = $layout['alpha'];
-    } else {
+    } 
+    // unset direction for story/discussion
+    elseif ($node->type == 'discussion') {
+      $links['dropdown-direction'] = '';
+    } 
+    else {
       $links['dropdown-direction'] = $layout['omega'];
     }
+    
     $embed_data = array();
-    if ($node->type == 'media' || $node->type == 'discussion') {
+    if ($node->type == 'media') {
       $embed_title = 'Embed this ';
       $embed_title .= ($node->type == 'media') ? 'report' : 'story';
       $embed_data = array('nid' => $node->nid, 'title' => $embed_title);
@@ -861,7 +876,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
           $node->content['report_verification_footnote'] = isset($footnote->comment_body[LANGUAGE_NONE][0]['value']) ? $footnote->comment_body[LANGUAGE_NONE][0]['value'] : '';
         }
       }
-      $node->content['field_link'] = _meedan_render_oembed_activity_type($node, $heartbeat_row);
+      $node->content['field_link'] = _checkdesk_core_render_activity_type($node, $heartbeat_row);
     }
   }
 
@@ -899,6 +914,22 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
     );
   }
 
+}
+
+function _checkdesk_core_render_activity_type($node, $heartbeat_row) {
+  // TODO: get this mapping from admin interface.
+  // for now will use mapping array with key = activity type and value = formatter name.
+  $mapping = array(
+    'checkdesk_report_suggested_to_story' => 'meedan_inline_full_mode',
+  );
+
+  if ($heartbeat_row && isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
+    $output = field_view_field('node', $node, 'field_link', array('type' => $mapping[$heartbeat_row->heartbeat_activity_message_id]));
+  }
+  else {
+    $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
+  }
+  return $output;
 }
 
 /**
@@ -1112,8 +1143,6 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
 
   // Customize "Add more items" for authors.
   $form['field_additional_authors'][LANGUAGE_NONE]['add_more']['#value'] = t('Add author');
-  // Limit sections based on current language.
-  $form['field_section'][LANGUAGE_NONE]['#options'] = array('_none' => t('- None -')) +  _checkdesk_load_sections();
 }
 
  /**
@@ -1137,22 +1166,6 @@ function _checkdesk_new_revision_validate($form, &$form_state) {
   elseif ($form_state['values']['nid'] && !$form_state['values']['status']) {
       $form_state['values']['status'] = 1;
   }
-}
-
-/**
- * Load sections based on current language.
- */
-function _checkdesk_load_sections() {
-    global $language;
-    $sections = array();
-    $vocabulary =  taxonomy_vocabulary_machine_name_load('sections');
-    $terms = taxonomy_get_tree($vocabulary->vid);
-    foreach ($terms as $term) {
-        if ($term->language == $language->language) {
-            $sections[$term->tid] = $term->name;
-        }
-    }
-    return $sections;
 }
 
 /**
@@ -1210,19 +1223,6 @@ function checkdesk_core_views_pre_render(&$view) {
 
     // Send view results to client.
     drupal_add_js(array('checkdesk' => array('reports' => $data)), 'setting');
-  }
-  else if ($view->name == 'liveblog') {
-    foreach ($view->result as $id => $story) {
-      $updates = views_get_view('updates_for_stories');
-      $updates->set_arguments(array($story->nid));
-      $updates->get_total_rows = TRUE;
-      $output = $updates->preview('block_1');
-      $total_rows = $updates->total_rows;
-      $updates->destroy();
-      if ($total_rows) {
-        $view->result[$id]->updates = $output;
-      }
-    }
   }
   elseif ($view->name == 'story_collaboration') {
     foreach ($view->result as $k => $v) {
@@ -1296,6 +1296,25 @@ function checkdesk_core_views_pre_render(&$view) {
         unset($view->result[$id]);
       }
     }
+  }
+  elseif ($view->name == 'frontpage_sections') {
+      foreach ($view->result as $id => $section) {
+          $latest_story = views_get_view('recent_stories_by_tag');
+          $latest_story->display['default']->display_options['pager']['options']['items_per_page'] = 1;
+          $latest_story->set_arguments(array($section->tid));
+          $latest_story->get_total_rows = TRUE;
+          $output = $latest_story->preview('block');
+          $stories = $latest_story->result;
+          $total_rows = $latest_story->total_rows;
+          $latest_story->destroy();
+          if ($total_rows) {
+              $view->result[$id]->latest_story = $stories[0];
+          }
+          else {
+              unset($view->result[$id]);
+          }
+      }
+      $view->total_rows = count($view->result);
   }
 }
 
@@ -1395,8 +1414,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['reset']['#attributes']['onclick'] =
             'javascript: jQuery("#views-exposed-form-desk-reports-block").clearForm();jQuery("#edit-submit-desk-reports").trigger("click");return false;';
   }
-
-  if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
+  elseif ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
     // Add custom field for type
     $form['type'] = array(
       '#type' => 'select',
@@ -1490,14 +1508,17 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       unset($form['type']['#options']['update']);
     }
     if (isset($_GET['type']) && $_GET['type'] === 'story') {
-        $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
-        $form['field_section_tid_i18n']['#options'] = array('All' => '– ' . t('Any section') . ' –') + _checkdesk_load_sections();
+      $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
     }
     else {
-        // Hide section filter
-        $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
-        $form['field_section_tid_i18n']['#type'] = 'hidden';
-        unset($form['field_section_tid_i18n']['#theme']);
+      // Hide section filter
+      $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
+      $form['field_section_tid_i18n']['#type'] = 'hidden';
+      unset($form['field_section_tid_i18n']['#theme']);
+      // Hide language filter
+      $form['#info']['filter-language']['label'] = NULL;
+      $form['language']['#type'] = 'hidden';
+      unset($form['language']['#theme']);
     }
     // Add author filter for admin or journalist
     global $user;
@@ -1779,7 +1800,11 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
           }
           $path = drupal_lookup_path('source', urldecode($alias), $langcode);
           if (empty($path)) $path = $alias;
-          $messages[$key]->variables[$variable] = url($path, array('language' => $language, 'absolute' => TRUE, 'alias' => TRUE));
+          $options = array('language' => $language, 'absolute' => TRUE, 'alias' => TRUE);
+          if (isset($url['fragment'])) {
+            $options['fragment'] = $url['fragment'];
+          }
+          $messages[$key]->variables[$variable] = url($path, $options);
         }
       }
     }
@@ -2062,6 +2087,11 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'twitter_oauth_callback_form') {
     $form['#validate'][] = '_checkdesk_twitter_oauth_callback_form_validate';
   }
+
+  if ($form_id == 'taxonomy_form_term') {
+    // Change text format to avoid translation warning (Ticket #4247)
+    $form['description']['#format'] = 'plain_text';
+  }
 }
 
 /**
@@ -2190,8 +2220,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       $query->add_where(1,'f.field_stories_target_id', 1, 'IS NULL');
     }
   }
-
-  if ($view->name == 'checkdesk_search') {
+  elseif ($view->name == 'checkdesk_search') {
     // Update type condition with right values.
     if (isset($_GET['type']) && $_GET['type'] !== 'All') {
       foreach($query->where[1]['conditions'] as $k => $v) {
@@ -2208,13 +2237,6 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
           }
           $query->where[1]['conditions'][$k]['value'] = $selected_type;
         }
-        /*
-        // List all languages if user filter by report.
-        if (is_string($v['field']) && $v['field'] === 'node.language' && $_GET['type'] === 'report') {
-          $all_language = array_merge(array_keys(language_list()), array(LANGUAGE_NONE));
-          $query->where[1]['conditions'][$k]['value'] = $all_language;
-        }
-        */
       }
     }
     // Add where condition based on flag type for reports.
@@ -2239,14 +2261,16 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         }
       }
     }
-    // Remove section condition if selected type not equal story.
-    if (isset($_GET['type']) && $_GET['type'] !== 'story' && isset($_GET['field_section_tid_i18n']) && is_numeric($_GET['field_section_tid_i18n'])) {
+    // Remove section condition and language if selected type not equal story.
+    if (isset($_GET['type']) && $_GET['type'] !== 'story' && (isset($_GET['field_section_tid_i18n']) || isset($_GET['language']))) {
       $conditions = $query->where[1]['conditions'];
       foreach($conditions as $k => $v) {
         if (is_string($v['field']) && $v['field'] === 'field_data_field_section.field_section_tid') {
           unset($query->table_queue['field_data_field_section']);
           unset($query->where[1]['conditions'][$k]);
-          break;
+        }
+        elseif (is_string($v['field']) && $v['field'] === 'node.language') {
+          unset($query->where[1]['conditions'][$k]);
         }
       }
     }
@@ -2293,24 +2317,23 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       }
     }
   }
-
-  if ($view->name == 'sections') {
-    $query->where[] = array(
-      'conditions' => array(array(
-        'field' => 'taxonomy_term_data.language',
-        'value' => array('***CURRENT_LANGUAGE***'),
-        'operator' => 'in',
-      )),
-      'args' => array(),
-      'type' => 'AND',
-    );
-  }
-  
-  if ($view->name == 'recent_stories_by_tag') {
+  elseif ($view->name == 'recent_stories_by_tag') {
       // exclude current nid
       if (is_numeric(arg(1))) {
         $query->add_where(1,'node.nid', arg(1), '!=');
       }
+  }
+  elseif ($view->name == 'user_stories') {
+    if (arg(0) == 'user' && is_numeric(arg(1))) {
+      $query->where[2]['conditions'][0]['value'] = array(arg(1));
+      $query->where[2]['conditions'][1]['value'] = arg(1);
+    }
+  }
+  elseif ($view->name == 'followed_stories') {
+    if (arg(0) == 'user' && is_numeric(arg(1))) {
+      $query->where[1]['conditions'][2]['value'] = array(arg(1));
+      $query->where[2]['conditions'][0]['value'] = arg(1);
+    }
   }
 }
 
@@ -3451,7 +3474,7 @@ function checkdesk_core_actions_set_followers($node) {
   }
 }
 
-function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
+function _set_user_avatar_bg($account, $classes = array(), $link = TRUE, $image_style = 'activity_avatar') {
   if (isset($account->picture->uri)) {
     $avatar_uri = $account->picture->uri;
   }
@@ -3461,8 +3484,8 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE) {
 
   $avatar = '';
   if ($avatar_uri) {
-    $derivative_uri = image_style_path('activity_avatar', $avatar_uri);
-    $success = file_exists($derivative_uri) || image_style_create_derivative(image_style_load('activity_avatar'), $avatar_uri, $derivative_uri);
+    $derivative_uri = image_style_path($image_style, $avatar_uri);
+    $success = file_exists($derivative_uri) || image_style_create_derivative(image_style_load($image_style), $avatar_uri, $derivative_uri);
 
     $new_image_url = file_create_url($derivative_uri);
 
@@ -4048,46 +4071,43 @@ function _checkdesk_main_navigation() {
  * Check if partner defined sections or not
  */
 function _checkdesk_show_sections_link() {
-  if ($cache = cache_get('checkdesk_show_sections')) {
-    return $cache->data;
-  }
   $vocabulary = taxonomy_vocabulary_machine_name_load('sections');
   $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
   $show_sections = count($terms) ? TRUE : FALSE;
-  if ($show_sections) {
-    cache_set('checkdesk_show_sections', $show_sections, 'cache');
-  }
   return $show_sections;
 }
 
 /**
  * List most popular stories.
  */
-function _checkdesk_most_popular_stories() {
-    global $language;
-    $activities = array(
-        'checkdesk_comment_on_report',
-        'status_report',
-        'checkdesk_fact_checking_on',
-        'checkdesk_fact_checking_on_by_citizen',
-        'checkdesk_follow_story',
-        'checkdesk_new_update_on_story_i_commented_on_update',
-        'checkdesk_report_suggested_to_story',
-        'checkdesk_flag_report',
-    );
-    $query = db_select('heartbeat_activity', 'ha');
-    $query->fields('n', array('title', 'nid'));
-    $query->fields('fm', array('uri'));
-    $query->innerjoin('node', 'n', 'ha.nid_target = n.nid AND n.type = :type', array(':type' => 'discussion'));
-    $query->leftjoin('field_data_field_lead_image', 'fi', 'n.nid = fi.entity_id');
-    $query->leftjoin('file_managed', 'fm', 'fi.field_lead_image_fid = fm.fid');
-    $query->condition('n.status', 1);
-    $query->condition('n.language', $language->language);
-    $query->condition('ha.timestamp', strtotime("-1 week"), '>=');
-    $query->condition('ha.message_id', $activities, 'IN');
-    $query->groupBy('n.nid');
-    $query->orderBy('COUNT( n.nid )', 'DESC');
-    $query->range(0, 5);
-    $result = $query->execute()->fetchAll();
-    return $result ? theme('checkdesk_core_most_popular_stories', array('stories' => $result)) : NULL;
+function _checkdesk_most_popular_stories($data = FALSE) {
+  $nid = arg(0) == 'node' ? arg(1) : 0;
+  $activities = array(
+      'checkdesk_comment_on_report',
+      'status_report',
+      'checkdesk_fact_checking_on',
+      'checkdesk_fact_checking_on_by_citizen',
+      'checkdesk_follow_story',
+      'checkdesk_new_update_on_story_i_commented_on_update',
+      'checkdesk_report_suggested_to_story',
+      'checkdesk_flag_report',
+  );
+  $query = db_select('heartbeat_activity', 'ha');
+  $query->fields('n', array('title', 'nid'));
+  $query->fields('fm', array('uri'));
+  $query->innerjoin('node', 'n', 'ha.nid_target = n.nid AND n.type = :type', array(':type' => 'discussion'));
+  $query->leftjoin('field_data_field_lead_image', 'fi', 'n.nid = fi.entity_id');
+  $query->leftjoin('file_managed', 'fm', 'fi.field_lead_image_fid = fm.fid');
+  $query->condition('n.status', 1);
+  $query->condition('n.nid', $nid, '<>');
+  $query->condition('ha.timestamp', strtotime("-1 week"), '>=');
+  $query->condition('ha.message_id', $activities, 'IN');
+  $query->groupBy('n.nid');
+  $query->orderBy('COUNT( n.nid )', 'DESC');
+  $query->range(0, 5);
+  if ($data) {
+    return $query->execute()->fetchCol(1);
+  }
+  $result = $query->execute()->fetchAll();
+  return $result ? theme('checkdesk_core_most_popular_stories', array('stories' => $result)) : NULL;
 }
