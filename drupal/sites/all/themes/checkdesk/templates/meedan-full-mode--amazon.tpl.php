@@ -20,9 +20,9 @@
   <span>
     <?php if(isset($favicon_link)) : ?><span class="provider-icon"><?php print $favicon_link ?></span><?php endif; ?> <span class="ts"><?php print $media_creation_info; ?></span>
   </span>
+  <?php if(isset($report_status['status'])) : ?>
+    <div class="media-status">
+      <?php print $report_status['status']; ?>
+    </div>
+  <?php endif; ?>
 </div>
-<?php if(isset($report_status['status'])) : ?>
-  <span class="media-status">
-    <?php print $report_status['status']; ?>
-  </span>
-<?php endif; ?>
