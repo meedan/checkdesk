@@ -513,7 +513,7 @@ function checkdesk_core_update_7052(&$sandbox) {
         ', array(':message_id' => array('checkdesk_add_story', 'checkdesk_update_story', 'checkdesk_publish_own_story_revision', 'checkdesk_update_draft_story')))->fetchField();
   }
   $result = db_query_range('
-    SELECT uaid, variables, ha.nid, ha.nid_target
+    SELECT uaid, variables, ha.nid, n.title
     FROM {heartbeat_activity} ha
     INNER JOIN {node} n ON n.nid = ha.nid
     WHERE message_id IN (:message_id) AND uaid > :uaid
