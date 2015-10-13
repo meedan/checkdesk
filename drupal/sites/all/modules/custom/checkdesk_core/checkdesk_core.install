@@ -498,3 +498,40 @@ function checkdesk_core_update_7051() {
   $vocabulary = taxonomy_vocabulary_machine_name_load('sections');
   db_query('UPDATE {taxonomy_term_data} SET language = :language WHERE vid = :vid', array(':language' => LANGUAGE_NONE, ':vid' => $vocabulary->vid));
 }
+
+/**
+ * Add story title to story's heartbeat activities.
+ */
+function checkdesk_core_update_7052(&$sandbox) {
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['last_uaid'] = 0;
+    $sandbox['limit'] = 500;
+    $sandbox['max'] = db_query('
+        SELECT COUNT(uaid) FROM {heartbeat_activity}
+        WHERE message_id IN (:message_id)
+        ', array(':message_id' => array('checkdesk_add_story', 'checkdesk_update_story', 'checkdesk_publish_own_story_revision', 'checkdesk_update_draft_story')))->fetchField();
+  }
+  $result = db_query_range('
+    SELECT uaid, variables, ha.nid, ha.nid_target
+    FROM {heartbeat_activity} ha
+    INNER JOIN {node} n ON n.nid = ha.nid
+    WHERE message_id IN (:message_id) AND uaid > :uaid
+    ', 0, $sandbox['limit'], array(
+          ':message_id' =>  array('checkdesk_add_story', 'checkdesk_update_story', 'checkdesk_publish_own_story_revision', 'checkdesk_update_draft_story'),
+          ':uaid' => $sandbox['last_uaid']
+      )
+  );
+
+  foreach ($result as $row) {
+    $variables = heartbeat_decode_message_variables($row->variables);
+    if (!array_key_exists('!story', $variables)) {
+      $variables['!story'] = $row->title;
+      db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
+          , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
+    }
+    $sandbox['progress'] ++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_uaid'] = $row->uaid;
+}
