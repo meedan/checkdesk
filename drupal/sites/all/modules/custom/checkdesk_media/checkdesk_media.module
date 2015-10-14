@@ -41,6 +41,17 @@ function checkdesk_media_preprocess_media_dialog_page(&$variables) {
   $variables['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
   drupal_add_js(array('basePathCheckdeskTheme' => $variables['basePathCheckdeskTheme']), 'setting');
 
+  // add some js bits
+    drupal_add_js(
+      drupal_get_path('theme', 'checkdesk') . '/assets/js/media.js',
+      array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'weight' => '9990',
+        'every_page' => FALSE,
+      )
+    );
+
   // Add css files for media browser
   // Media CSS to override the css supplied by the module
   drupal_add_css(

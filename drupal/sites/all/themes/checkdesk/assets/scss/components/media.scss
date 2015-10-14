@@ -32,10 +32,6 @@ $omega: opposite-position($from-direction);
 
 #media-browser-page .form-actions {
   clear: both;
-  .button {
-    @extend .btn;
-    @extend .btn-primary;
-  }
 }
 
 #media-browser-tabset #branding {
@@ -44,12 +40,19 @@ $omega: opposite-position($from-direction);
 
 #media-wysiwyg-format-form {
   padding: 20px;
+  #preview {
+    max-width: 200px;
+  }
+  .fieldset-legend {
+    display: none;
+  }
 }
 
 // hide image view mode selection form item
 #media-wysiwyg-format-form .form-item-format {
   display: none;
 }
+
 
 // Copied and slightly modified media.css file from the module
 

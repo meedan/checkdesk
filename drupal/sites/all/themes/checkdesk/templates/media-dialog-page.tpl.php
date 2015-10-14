@@ -73,7 +73,7 @@
     <div id="media-browser-tabset">
       <div id="branding" class="clearfix">
         <div>
-          <h1><?php print render($page['content']['system_main']['title']); ?></h1>
+          <h2><?php print render($page['content']['system_main']['title']); ?></h2>
         </div>
         <div id="media-tabs-wrapper">
           <?php print render($page['content']['system_main']['tabset']['tabs']); ?>
