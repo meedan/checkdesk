@@ -3,6 +3,44 @@
  *  File with utilities to handle media in html editing.
  */
 (function ($) {
+  var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+  var reverseEntityMap = {
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#39;': "'",
+  };
+
+  /**
+   * Escape to HTML entities to prevent a string being interpreted as markup.
+   */
+  function escapeToEntities(content) {
+    if (typeof content != 'string') {
+      return content;
+    }
+    return content.replace(/[&<>"']/g, function (character) {
+      return entityMap[character];
+    });
+  }
+
+  /**
+   * Unescape HTML entities back to their literal characters.
+   */
+  function unescapeFromEntities(content) {
+    if (typeof content != 'string') {
+      return content;
+    }
+    return content.replace(/&(?:amp|lt|gt|quot|#39);/g, function (character) {
+      return reverseEntityMap[character];
+    });
+  }
 
   Drupal.media = Drupal.media || {};
   /**
@@ -33,6 +71,21 @@
           // Ensure that the media JSON is valid.
           try {
             var media_definition = JSON.parse(media_json);
+            // Attributes and fields could be escaped to HTML entities to avoid
+            // them being interpreted as markup. Only performs one pass, so
+            // double-escaped entities are only unescaped once and restored.
+            for (var attribute in media_definition.attributes) {
+              if (!media_definition.attributes.hasOwnProperty(attribute)) {
+                continue;
+              }
+              media_definition.attributes[attribute] = unescapeFromEntities(media_definition.attributes[attribute]);
+            }
+            for (var field in media_definition.fields) {
+              if (!media_definition.fields.hasOwnProperty(field)) {
+                continue;
+              }
+              media_definition.fields[field] = unescapeFromEntities(media_definition.fields[field]);
+            }
           }
           catch (err) {
             // @todo: error logging.
@@ -205,7 +258,8 @@
       if (fid = element.data('fid')) {
         Drupal.media.filter.ensureDataMap();
 
-        if (file_info = Drupal.settings.mediaDataMap[fid]) {
+        // Make a deep clone to not return a reference into mediaDataMap.
+        if (file_info = $.extend(true, {}, Drupal.settings.mediaDataMap[fid])) {
           file_info.attributes = {};
 
           $.each(Drupal.settings.media.wysiwyg_allowed_attributes, function(i, a) {

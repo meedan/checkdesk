@@ -116,6 +116,13 @@ function media_wysiwyg_token_to_markup($match, $wysiwyg = FALSE) {
     $recursion_stop[$file->fid] = TRUE;
 
     $tag_info['file'] = $file;
+    // Attribute and field values had some entities escaped to not be
+    // interpreted as markup and thus need to be unescaped.
+    foreach (array('attributes', 'fields') as $type) {
+      foreach ($tag_info[$type] as $key => $value) {
+        $tag_info[$type][$key] = decode_entities($value);
+      }
+    }
 
     // The class attributes is a string, but drupal requires it to be
     // an array, so we fix it here.
