@@ -18,6 +18,10 @@ function checkdesk_media_wysiwyg_editor_settings_alter(&$settings, &$context) {
     $settings['extraAllowedContent'] = 'img(*)[*]'; // enable img tag in CKEditor
     $settings['removePlugins'] = 'image';           // disable image properties dialog
   }
+  // Set height for caption and credit fields
+  if($context['profile']->format == 'captions') {
+    $settings['height'] = 100;
+  }
 }
 
 /**
