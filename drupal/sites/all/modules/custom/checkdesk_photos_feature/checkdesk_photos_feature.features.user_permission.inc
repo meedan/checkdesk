@@ -87,6 +87,17 @@ function checkdesk_photos_feature_user_default_permissions() {
     'module' => 'media_wysiwyg',
   );
 
+  // Exported permission: 'use text format captions'.
+  $permissions['use text format captions'] = array(
+    'name' => 'use text format captions',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'filter',
+  );
+
   // Exported permission: 'view files'.
   $permissions['view files'] = array(
     'name' => 'view files',
