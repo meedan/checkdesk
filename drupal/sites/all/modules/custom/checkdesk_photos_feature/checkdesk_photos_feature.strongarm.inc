@@ -168,14 +168,14 @@ function checkdesk_photos_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'media_resizable';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['media_resizable'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'media_width';
-  $strongarm->value = '670';
+  $strongarm->value = '400';
   $export['media_width'] = $strongarm;
 
   $strongarm = new stdClass();
