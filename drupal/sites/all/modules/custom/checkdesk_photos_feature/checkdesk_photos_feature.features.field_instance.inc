@@ -66,16 +66,20 @@ function checkdesk_photos_feature_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
+          'captions' => 'captions',
           'filtered_html' => 0,
           'full_html' => 0,
           'liveblog' => 0,
           'php_code' => 0,
-          'plain_text' => 'plain_text',
+          'plain_text' => 0,
         ),
         'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
+            'captions' => array(
+              'weight' => 0,
+            ),
             'filtered_html' => array(
               'weight' => -50,
             ),
@@ -170,16 +174,20 @@ function checkdesk_photos_feature_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
+          'captions' => 'captions',
           'filtered_html' => 0,
           'full_html' => 0,
           'liveblog' => 0,
           'php_code' => 0,
-          'plain_text' => 'plain_text',
+          'plain_text' => 0,
         ),
         'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
+            'captions' => array(
+              'weight' => 0,
+            ),
             'filtered_html' => array(
               'weight' => -50,
             ),
