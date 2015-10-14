@@ -23,15 +23,15 @@ function checkdesk_media_wysiwyg_editor_settings_alter(&$settings, &$context) {
 /**
  * Implements hook_form_form_id_alter();
  */
-function checkdesk_media_form_media_wysiwyg_format_form_alter(&$form, &$form_state) {
-  // drupal_add_css('.form-item-format {display: none;}', array('type' => 'inline')); // hide image view mode selection form item
-}
+// function checkdesk_media_form_media_wysiwyg_format_form_alter(&$form, &$form_state) {
+//   // drupal_add_css('.form-item-format {display: none;}', array('type' => 'inline')); // hide image view mode selection form item
+// }
 
 
-function checkdesk_media_media_browser_plugins_alter(&$plugin_output) {
-  // dsm($plugin_output);
+// function checkdesk_media_media_browser_plugins_alter(&$plugin_output) {
+//   // dsm($plugin_output);
   
-}
+// }
 
 /**
  * Add messages to the page.
@@ -42,6 +42,17 @@ function checkdesk_media_preprocess_media_dialog_page(&$variables) {
   drupal_add_js(array('basePathCheckdeskTheme' => $variables['basePathCheckdeskTheme']), 'setting');
 
   // Add css files for media browser
+  // Media CSS to override the css supplied by the module
+  drupal_add_css(
+    drupal_get_path('theme', 'checkdesk') . '/assets/css/components/media.css',
+    array(
+      'scope' => 'footer',
+      'group' => CSS_THEME,
+      'weight' => '9990',
+      'every_page' => FALSE,
+    )
+  );
+
   // Jquery UI dialog
   drupal_add_css(
     drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/jquery_ui_dialog.css',
