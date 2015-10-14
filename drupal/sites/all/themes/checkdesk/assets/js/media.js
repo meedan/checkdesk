@@ -5,7 +5,7 @@
   // Add classes to buttons in media browser forms
   Drupal.behaviors.mediaBrowser = {
     attach: function(context) {
-      $('.page-media').find('.fake-ok').addClass('btn btn-primary');
+      $('.page-media').find('.fake-ok, .button-yes').addClass('btn btn-primary');
     }
   };
 
