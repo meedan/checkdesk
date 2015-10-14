@@ -28,9 +28,9 @@
   </span>
 </div>
 <?php if(isset($report_status['status'])) : ?>
-  <span class="media-status">
+  <div class="media-status">
     <?php print $report_status['status']; ?>
-  </span>
+  </div>
 <?php endif; ?>
 <?php if(isset($embed->html) && $embed->type == 'rich') : ?>
   <div class="media">

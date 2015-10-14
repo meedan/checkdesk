@@ -3521,15 +3521,10 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE, $image_
  */
 function _checkdesk_render_footnotes($node) {
   $node_view = node_view($node);
-  $view = views_get_view('activity_report');
-  $view->set_arguments(array($node->nid));
-  $view->get_total_rows = TRUE;
-  $view_output = $view->preview('block');
-  $total_rows = $view->total_rows;
-  $view->destroy();
-  if ($total_rows) {
-    $media_activity_report_count = $total_rows;
-    $media_activity_report = $view_output;
+  $activity_report = _checkdesk_load_activity_report($node->nid);
+  if ($activity_report['total_rows']) {
+    $media_activity_report_count = $activity_report['total_rows'];
+    $media_activity_report = $activity_report['view_output'];
   }
   $html = '<div id="report-activity-node-' . $node->nid . '" class="item-nested-content-wrapper open">';
   $html .= '<div class="activity-item-controls item-controls">';
@@ -4110,4 +4105,26 @@ function _checkdesk_most_popular_stories($data = FALSE) {
   }
   $result = $query->execute()->fetchAll();
   return $result ? theme('checkdesk_core_most_popular_stories', array('stories' => $result)) : NULL;
+}
+
+/**
+ * Load report activities based on issue #4287
+ */
+function _checkdesk_load_activity_report($nid) {
+  $view = views_get_view('activity_report');
+  $view->set_arguments(array($nid));
+  $view->get_total_rows = TRUE;
+  $view->display['default']->display_options['pager']['options']['items_per_page'] = variable_get('checkdesk_comments_first_limit', 20);
+  $view_output = $view->preview('block');
+  $view->destroy();
+  $total_rows = $view->total_rows;
+  if ($total_rows <= variable_get('checkdesk_comments_all_limit', 30)) {
+    $view->display['default']->display_options['pager']['options']['items_per_page'] = variable_get('checkdesk_comments_all_limit', 30);
+    $view_output = $view->preview('block');
+    $view->destroy();
+  }
+  return array(
+      'view_output' => $view_output,
+      'total_rows' => $total_rows,
+  );
 }
