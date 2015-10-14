@@ -367,6 +367,7 @@ class ReportFlaggingReactor extends Reactor {
   }
 }
 
+
 function _reactor_render_activity($node) {
   $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
     $node->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
@@ -374,18 +375,13 @@ function _reactor_render_activity($node) {
   $status_name = $term->name;
   $activity = $count = '';
   if ($status_name !== 'Not Applicable') {
-    $view = views_get_view('activity_report');
-    $view->set_arguments(array($node->nid));
-    $view->get_total_rows = TRUE;
-    $view_output = $view->preview('block');
-    $total_rows = $view->total_rows;
-    $view->destroy();
-    if ($total_rows) {
+    $activity_report = _checkdesk_load_activity_report($node->nid);
+    if ($activity_report['total_rows']) {
       $count = theme(
-        'checkdesk_core_report_activity_count', array('count' => $total_rows, 'nid' => $node->nid)
+        'checkdesk_core_report_activity_count', array('count' => $activity_report['total_rows'], 'nid' => $node->nid)
       );
       $activity =  theme(
-        'checkdesk_core_report_activity_stream', array('activity' => $view_output, 'nid' => $node->nid)
+        'checkdesk_core_report_activity_stream', array('activity' => $activity_report['view_output'], 'nid' => $node->nid)
       );
     }
   }
