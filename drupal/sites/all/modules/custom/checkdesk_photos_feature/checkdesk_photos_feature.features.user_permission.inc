@@ -25,7 +25,6 @@ function checkdesk_photos_feature_user_default_permissions() {
   $permissions['create files'] = array(
     'name' => 'create files',
     'roles' => array(
-      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'file_entity',
@@ -73,9 +72,7 @@ function checkdesk_photos_feature_user_default_permissions() {
   // Exported permission: 'edit own image files'.
   $permissions['edit own image files'] = array(
     'name' => 'edit own image files',
-    'roles' => array(
-      'citizen journalist' => 'citizen journalist',
-    ),
+    'roles' => array(),
     'module' => 'file_entity',
   );
 
@@ -94,7 +91,6 @@ function checkdesk_photos_feature_user_default_permissions() {
   $permissions['view files'] = array(
     'name' => 'view files',
     'roles' => array(
-      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'file_entity',
