@@ -84,7 +84,7 @@ function checkdesk_photos_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'file_entity_alt';
-  $strongarm->value = '[file:field_media_caption]';
+  $strongarm->value = '';
   $export['file_entity_alt'] = $strongarm;
 
   $strongarm = new stdClass();
