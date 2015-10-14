@@ -543,20 +543,3 @@ function checkdesk_core_update_7052(&$sandbox) {
 function checkdesk_core_update_7053() {
   module_enable(array('checkdesk_photos_feature'));
 }
-
-/**
- * Disable unwanted file types
- */
-function checkdesk_core_update_7054() {
-  file_type_disable('video');
-  file_type_disable('audio');
-  file_type_disable('document');
-}
-
-/**
- * Delete ALT and TITLE fields of image file type
- */
-function checkdesk_core_update_7055(&$sandbox) {
-  field_delete_field('field_file_image_title_text');
-  field_delete_field('field_file_image_alt_text');
-}
