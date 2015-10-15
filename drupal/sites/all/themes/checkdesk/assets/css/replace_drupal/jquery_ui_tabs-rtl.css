@@ -17,17 +17,17 @@
 .ui-tabs .ui-tabs-nav {
   margin: 0;
   padding-top: .2em;
-  padding-right: .2em;
+  padding-left: .2em;
   padding-bottom: 0;
-  padding-left: 0;
+  padding-right: 0;
 }
 
 .ui-tabs .ui-tabs-nav li {
   list-style: none;
-  float: left;
+  float: right;
   position: relative;
   top: 1px;
-  margin-right: .2em;
+  margin-left: .2em;
   margin-bottom: 1px;
   border-bottom: 0 !important;
   padding: 0;
@@ -35,7 +35,7 @@
 }
 
 .ui-tabs .ui-tabs-nav li a {
-  float: left;
+  float: right;
   padding: .5em 1em;
   text-decoration: none;
 }
