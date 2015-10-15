@@ -19,7 +19,7 @@
 
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-.content-filter .form-type-textfield:before, .content-filter .selected:before, .icon-search:before {
+.page-search .content-filter .form-type-textfield:before, .page-search .content-filter .selected:before, .icon-search:before {
   content: "\f002";
 }
 
@@ -105,7 +105,7 @@ label.option.not-applicable:before {
   content: "\f068";
 }
 
-.content-filter .filters-toggle:not(.element-hidden):before {
+.page-search .content-filter .filters-toggle:not(.element-hidden):before {
   content: "\f06e";
 }
 
@@ -119,11 +119,11 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f074";
 }
 
-.views-exposed-widget label:before, .icon-chevron-up:before {
+.page-search .views-exposed-widget label:before, .icon-chevron-up:before {
   content: "\f077";
 }
 
-.open > label:before, .icon-chevron-down:before {
+.page-search .open > label:before, .icon-chevron-down:before {
   content: "\f078";
 }
 
@@ -1840,6 +1840,19 @@ div.ctools-modal-content .modal-content {
   display: none;
 }
 
+.ui-dialog-content html {
+  background: none;
+}
+
+@media screen and (max-width: 767px) {
+  .ui-dialog {
+    left: 0% !important;
+    right: 0% !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 auto;
+  }
+}
 .modal-dialog, .modal-forms-modal-content {
   text-align: center;
 }
@@ -2093,7 +2106,7 @@ div.ctools-modal-content .modal-content {
   display: none;
 }
 
-html:not(.embed) {
+html:not(.embed):not(.media-browser) {
   height: 100%;
   background-color: #fbfaf9;
 }
@@ -3515,7 +3528,7 @@ body.sidebar-second aside#sidebar-second {
     margin-bottom: 0;
   }
 }
-.content-filter {
+.page-search .content-filter {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -3526,19 +3539,19 @@ body.sidebar-second aside#sidebar-second {
   margin-bottom: 20px;
 }
 
-.filter-list {
+.page-search .filter-list {
   margin: 0;
   padding: 0;
   margin: 0 -15px;
 }
-.filter-list li {
+.page-search .filter-list li {
   list-style: none;
 }
-.filter-list li {
+.page-search .filter-list li {
   display: block;
 }
 
-.views-exposed-widget label {
+.page-search .views-exposed-widget label {
   display: block;
   padding: 12px 15px 10px;
   padding-right: 30px;
@@ -3552,10 +3565,10 @@ body.sidebar-second aside#sidebar-second {
   font-weight: 700;
   position: relative;
 }
-.views-exposed-widget label:hover {
+.page-search .views-exposed-widget label:hover {
   color: #3e4c57;
 }
-.views-exposed-widget label:before {
+.page-search .views-exposed-widget label:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -3569,16 +3582,16 @@ body.sidebar-second aside#sidebar-second {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.views-exposed-widget label:before {
+.page-search .views-exposed-widget label:before {
   position: absolute;
   top: 12px;
   right: 10px;
 }
 
-.open > label {
+.page-search .open > label {
   position: relative;
 }
-.open > label:before {
+.page-search .open > label:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -3592,13 +3605,13 @@ body.sidebar-second aside#sidebar-second {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.open > label:before {
+.page-search .open > label:before {
   position: absolute;
   top: 12px;
   right: 10px;
 }
 
-.content-filter .form-type-bef-link a {
+.page-search .content-filter .form-type-bef-link a {
   display: block;
   position: relative;
   padding: 12px 15px 10px;
@@ -3613,15 +3626,15 @@ body.sidebar-second aside#sidebar-second {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.content-filter .form-type-bef-link a:hover {
+.page-search .content-filter .form-type-bef-link a:hover {
   background-color: #fff;
 }
 
-.content-filter a.active {
+.page-search .content-filter a.active {
   color: #2e77fc;
   font-weight: 700;
 }
-.content-filter a.active:before {
+.page-search .content-filter a.active:before {
   content: "";
   width: 5px;
   background: #2e77fc;
@@ -3631,7 +3644,7 @@ body.sidebar-second aside#sidebar-second {
   left: 0;
 }
 
-.content-filter input.search {
+.page-search .content-filter input.search {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -3645,14 +3658,14 @@ body.sidebar-second aside#sidebar-second {
   height: 45px;
   width: 100%;
 }
-.content-filter input.search:focus {
+.page-search .content-filter input.search:focus {
   background-color: #fff;
   color: #6f7a82;
   border-bottom-color: #2e77fc;
   outline: 0;
 }
 
-.content-filter input#edit-keys {
+.page-search .content-filter input#edit-keys {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -3681,7 +3694,7 @@ body.sidebar-second aside#sidebar-second {
   border-right: 1px solid #E7E8EA;
   border-bottom: 1px solid rgba(16, 33, 47, 0.05);
 }
-.content-filter input#edit-keys:focus {
+.page-search .content-filter input#edit-keys:focus {
   background-color: white;
   color: #2e77fc;
   border: 1px solid rgba(16, 33, 47, 0.1);
@@ -3693,10 +3706,10 @@ body.sidebar-second aside#sidebar-second {
   transition: all 0.3s linear;
 }
 
-.content-filter .form-type-textfield {
+.page-search .content-filter .form-type-textfield {
   position: relative;
 }
-.content-filter .form-type-textfield:before {
+.page-search .content-filter .form-type-textfield:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -3710,16 +3723,16 @@ body.sidebar-second aside#sidebar-second {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.content-filter .form-type-textfield:before {
+.page-search .content-filter .form-type-textfield:before {
   position: absolute;
   top: 10px;
   right: 10px;
 }
 
-.content-filter .selected {
+.page-search .content-filter .selected {
   position: relative;
 }
-.content-filter .selected:before {
+.page-search .content-filter .selected:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -3733,30 +3746,30 @@ body.sidebar-second aside#sidebar-second {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.content-filter .selected:before {
+.page-search .content-filter .selected:before {
   position: absolute;
   top: 10px;
   right: 10px;
 }
 
-.views-exposed-widget .bef-select-as-links .search-list {
+.page-search .views-exposed-widget .bef-select-as-links .search-list {
   max-height: 234px;
   overflow: auto;
   position: relative;
   /* Track */
   /* Handle */
 }
-.views-exposed-widget .bef-select-as-links .search-list::-webkit-scrollbar {
+.page-search .views-exposed-widget .bef-select-as-links .search-list::-webkit-scrollbar {
   width: 6px;
 }
-.views-exposed-widget .bef-select-as-links .search-list::-webkit-scrollbar-track {
+.page-search .views-exposed-widget .bef-select-as-links .search-list::-webkit-scrollbar-track {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
   border-radius: 2px;
 }
-.views-exposed-widget .bef-select-as-links .search-list::-webkit-scrollbar-thumb {
+.page-search .views-exposed-widget .bef-select-as-links .search-list::-webkit-scrollbar-thumb {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
@@ -3764,20 +3777,20 @@ body.sidebar-second aside#sidebar-second {
   border-radius: 2px;
   background: #cfd3d5;
 }
-.views-exposed-widget .bef-select-as-links .search-list::-webkit-scrollbar-thumb:window-inactive {
+.page-search .views-exposed-widget .bef-select-as-links .search-list::-webkit-scrollbar-thumb:window-inactive {
   background: #cfd3d5;
 }
 
-.content-filter .filters-toggle:not(.element-hidden) {
+.page-search .content-filter .filters-toggle:not(.element-hidden) {
   display: block;
   margin-top: 12px;
   color: #9fa6ac;
 }
-.content-filter .filters-toggle:not(.element-hidden):hover {
+.page-search .content-filter .filters-toggle:not(.element-hidden):hover {
   text-decoration: none;
   color: #3e4c57;
 }
-.content-filter .filters-toggle:not(.element-hidden):before {
+.page-search .content-filter .filters-toggle:not(.element-hidden):before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;

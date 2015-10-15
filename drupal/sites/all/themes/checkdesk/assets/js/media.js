@@ -2,10 +2,15 @@
 (function ($) {
 	'use strict';
 
-  // Add classes to buttons in media browser forms
   Drupal.behaviors.mediaBrowser = {
     attach: function(context) {
-      $('.page-media').find('.fake-ok, .button-yes').addClass('btn btn-primary');
+    	// Add class to html inside the modal iframe
+    	$('.page-media').parent('html').addClass('media-browser');
+    	// Add classes to buttons in media browser forms
+      $('.page-media').find('.fake-ok').addClass('btn btn-primary');
+      $('.page-media').find('.button-yes').addClass('btn btn-default');
+      // On the media browser / photo library change submit button text to select
+      $('.page-media-browser').find('.button-yes').text(Drupal.t('Select'));
     }
   };
 

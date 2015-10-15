@@ -1,11 +1,11 @@
-.content-filter {
+.page-search .content-filter {
 	@include border-radius(4px);
 	background-color: #fff;
 	padding: 15px;
 	margin-bottom: 20px;
 }
 
-.filter-list {
+.page-search .filter-list {
 	@include reset-list-style;
 	margin: 0 -15px;
 	li {
@@ -13,7 +13,7 @@
 	}
 }
 
-.views-exposed-widget label {
+.page-search .views-exposed-widget label {
 	display: block;
 	padding: 12px 15px 10px;
 	padding-#{$omega}: 30px;
@@ -37,7 +37,7 @@
 }
 
 // chevron up for open filter group
-.open > label {
+.page-search .open > label {
 	@include icon(chevron-down, 12px);
 	position: relative;
 	&:before {
@@ -47,7 +47,7 @@
 	}
 }
 
-.content-filter .form-type-bef-link a {
+.page-search .content-filter .form-type-bef-link a {
 	display: block;
 	position: relative;
 	padding: 12px 15px 10px;
@@ -64,7 +64,7 @@
 	}
 }
 
-.content-filter a.active {
+.page-search .content-filter a.active {
 	color: $dodgerBlue;
 	font-weight: 700;
 	&:before {
@@ -78,7 +78,7 @@
 	}
 }
 
-.content-filter input.search {
+.page-search .content-filter input.search {
 	@include box-sizing(border-box);
 	border: 0;
 	display: block;
@@ -97,7 +97,7 @@
 	}
 }
 
-.content-filter input#edit-keys {
+.page-search .content-filter input#edit-keys {
 	@include box-sizing(border-box);
 	@include border-radius(4px 4px 0 0);
 	@include box-shadow(none);
@@ -127,7 +127,7 @@
 	}
 }
 
-.content-filter .form-type-textfield {
+.page-search .content-filter .form-type-textfield {
 	@include icon(search, 18px, $firefly60);
 	position: relative;
 	&:before {
@@ -137,7 +137,7 @@
 	}
 }
 
-.content-filter .selected {
+.page-search .content-filter .selected {
 	@include icon(search, 18px, $dodgerBlue);
 	position: relative;
 	&:before {
@@ -147,14 +147,14 @@
 	}
 }
 
-.views-exposed-widget .bef-select-as-links .search-list {
+.page-search .views-exposed-widget .bef-select-as-links .search-list {
 	max-height: 234px;
 	overflow: auto;
 	position: relative;
 	@include cd-simple-scrollbar;
 }
 
-.content-filter .filters-toggle:not(.element-hidden) {
+.page-search .content-filter .filters-toggle:not(.element-hidden) {
 	display: block;
 	margin-top: 12px;
 	color: $firefly40;

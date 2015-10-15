@@ -23,23 +23,43 @@ $omega: opposite-position($from-direction);
 @import "replace_ctb/navs";
 @import "replace_ctb/buttons";
 
-// Overrides for the media browser modal forms
-#media-browser-page .views-exposed-form .views-exposed-widget {
-  float: $alpha;
-  padding-top: .5em;
-  padding-#{$alpha}: 1em;
-  max-width: 30%;
+/* *********************************************************** */
+/* Overrides for the media browser modal forms */
+
+#media-browser-page {
+  padding: 10px;
 }
 
-#media-browser-page .form-actions {
-  clear: both;
-  a {
-    color: #fff;
+#media-browser-page .views-exposed-widgets {
+  @include flexbox;
+  @include flex-wrap(wrap);
+  @media screen and (max-width: 767px) {
+    @include justify-content(center);
+  }
+}
+
+@include cd-responsive('min-width: #{$width-tablet}') {
+  #media-browser-page .views-exposed-widget {
+    margin-#{$omega}: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+// Hide fields in search except file title
+@media screen and (max-width: 767px) {
+  #media-browser-page .views-widget-filter-field_media_caption_value,
+  #media-browser-page .views-widget-sort-sort_bef_combine {
+    display: none;
   }
 }
 
 #media-browser-tabset #branding {
 	border-bottom: 1px solid #ccc;
+}
+
+#media-browser-tabset .media-browser-tab {
+  padding-top: 20px;
+  padding-bottom: 50px;
 }
 
 #media-wysiwyg-format-form {
@@ -57,8 +77,36 @@ $omega: opposite-position($from-direction);
   display: none;
 }
 
+// make input file behave better
+#media-browser-page input[type="file"] {
+  max-width: 100%;
+}
 
-// Copied and slightly modified media.css file from the module
+#media-browser-page .form-wrapper {
+  margin: 0;
+}
+
+#media-browser-page .form-actions {
+  clear: both;
+  position: fixed;
+  display: block;
+  bottom: 0;
+  #{$alpha}: 0;
+  #{$omega}: 0;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-top: 1px solid $firefly10;
+  text-align: $omega;
+  .btn { margin-bottom: 0; }
+  .btn-default { color: $btn-default-color; }
+}
+
+
+
+/* *********************************************************** */
+/* Responsive Modal */
+/* See: _responsive_modals.scss */
+/* Copied and slightly modified media.css file from the module */
 
 /**
  * @file
@@ -161,8 +209,15 @@ $omega: opposite-position($from-direction);
   padding: 0;
 }
 
+.media-list-thumbnails {
+  @include flexbox;
+  @include flex-wrap(wrap);
+  @media screen and (max-width: 767px) {
+    @include justify-content(center);
+  }
+}
+
 .media-list-thumbnails li {
-  float: $alpha;
   list-style: none;
   margin-#{$omega}: 10px;
   margin-bottom: 10px;

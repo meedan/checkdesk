@@ -76,3 +76,22 @@ div.ctools-modal-content .modal-content {
 .modal-title {
   display: none;
 }
+
+
+// For media browser modal 
+
+
+.ui-dialog-content html {
+  background: none;
+}
+
+// For mobile screens
+@media screen and (max-width: 767px) {
+  .ui-dialog {
+    #{$alpha}: 0% !important;
+    #{$omega}: 0% !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 auto;
+  }
+}

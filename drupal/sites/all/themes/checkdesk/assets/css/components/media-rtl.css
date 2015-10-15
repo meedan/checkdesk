@@ -1072,22 +1072,52 @@ a.btn.disabled, fieldset[disabled] a.btn {
   border-radius: 3px;
 }
 
-#media-browser-page .views-exposed-form .views-exposed-widget {
-  float: right;
-  padding-top: .5em;
-  padding-right: 1em;
-  max-width: 30%;
+/* *********************************************************** */
+/* Overrides for the media browser modal forms */
+#media-browser-page {
+  padding: 10px;
 }
 
-#media-browser-page .form-actions {
-  clear: both;
+#media-browser-page .views-exposed-widgets {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
-#media-browser-page .form-actions a {
-  color: #fff;
+@media screen and (max-width: 767px) {
+  #media-browser-page .views-exposed-widgets {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+  }
 }
 
+@media only screen and (min-width: 740px) {
+  #media-browser-page .views-exposed-widget {
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+}
+@media screen and (max-width: 767px) {
+  #media-browser-page .views-widget-filter-field_media_caption_value,
+  #media-browser-page .views-widget-sort-sort_bef_combine {
+    display: none;
+  }
+}
 #media-browser-tabset #branding {
   border-bottom: 1px solid #ccc;
+}
+
+#media-browser-tabset .media-browser-tab {
+  padding-top: 20px;
+  padding-bottom: 50px;
 }
 
 #media-wysiwyg-format-form {
@@ -1104,6 +1134,37 @@ a.btn.disabled, fieldset[disabled] a.btn {
   display: none;
 }
 
+#media-browser-page input[type="file"] {
+  max-width: 100%;
+}
+
+#media-browser-page .form-wrapper {
+  margin: 0;
+}
+
+#media-browser-page .form-actions {
+  clear: both;
+  position: fixed;
+  display: block;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-top: 1px solid #e7e8ea;
+  text-align: left;
+}
+#media-browser-page .form-actions .btn {
+  margin-bottom: 0;
+}
+#media-browser-page .form-actions .btn-default {
+  color: #6f7a82;
+}
+
+/* *********************************************************** */
+/* Responsive Modal */
+/* See: _responsive_modals.scss */
+/* Copied and slightly modified media.css file from the module */
 /**
  * @file
  * Styles for the media library.
@@ -1201,8 +1262,28 @@ a.btn.disabled, fieldset[disabled] a.btn {
   padding: 0;
 }
 
+.media-list-thumbnails {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 767px) {
+  .media-list-thumbnails {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+  }
+}
+
 .media-list-thumbnails li {
-  float: right;
   list-style: none;
   margin-left: 10px;
   margin-bottom: 10px;
