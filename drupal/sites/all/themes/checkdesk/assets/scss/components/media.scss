@@ -28,6 +28,7 @@ $omega: opposite-position($from-direction);
   float: $alpha;
   padding-top: .5em;
   padding-#{$alpha}: 1em;
+  max-width: 30%;
 }
 
 #media-browser-page .form-actions {
@@ -98,14 +99,14 @@ $omega: opposite-position($from-direction);
 }
 
 #media-browser-tabset #branding h1 {
-  float: left;
+  float: $alpha;
   height: 16px;
   margin-top: 0px;
 }
 
 /* Float the tabs right to keep the UI consistent across themes */
 #media-tabs-wrapper {
-  float: right;
+  float: $omega;
 }
 
 #media-browser-tabset ul.tabs {
@@ -116,19 +117,19 @@ $omega: opposite-position($from-direction);
 /* Reset the height to match the browser */
 #media-browser-tabset ul.tabs.primary li a:link {
   font-weight: bold;
-  margin-right: 0;
+  margin-#{$omega}: 0;
 }
 
 /* *********************************************************** */
 /* Media item display */
 
 .media-item {
-  background: #eee;
-  border: 1px solid #CCCCCC;
-  box-shadow: inset 0 0 15px rgba(0,0,0,.1), inset 0 0 0 1px rgba(0,0,0,.05);
+  background: $firefly2;
+  border: 1px solid $firefly10;
   display: inline-block;
-  padding: 5px;
+  padding: 8px;
   position: relative;
+  border-radius: 4px;
 }
 
 .media-item img {
@@ -137,13 +138,13 @@ $omega: opposite-position($from-direction);
 
 .media-item .label-wrapper {
   background: rgba(255,255,255,.8);
+  border-radius: 0 0 4px 4px;
   bottom: 0;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.15);
-  left: 0;
+  #{$alpha}: 0;
   max-height: 100%;
   overflow: hidden;
   position: absolute;
-  right: 0;
+  #{$omega}: 0;
   text-align: center;
   word-wrap: break-word;
 }
@@ -161,9 +162,10 @@ $omega: opposite-position($from-direction);
 }
 
 .media-list-thumbnails li {
-  float: left;
+  float: $alpha;
   list-style: none;
-  margin: 0 10px 10px 0;
+  margin-#{$omega}: 10px;
+  margin-bottom: 10px;
 }
 
 .media-list-thumbnails li a {
@@ -171,8 +173,8 @@ $omega: opposite-position($from-direction);
 }
 
 .media-list-thumbnails .media-item.selected {
-  background: #F4ECC7;
-  border-color: #058AC5;
+  background: rgba($brand-primary, .4);
+  border-color: $brand-primary;
 }
 
 .media-list-thumbnails .media-item:hover {
@@ -190,7 +192,7 @@ $omega: opposite-position($from-direction);
 
 .media-list-thumbnails .form-type-checkbox {
   bottom: 117px;
-  left: 6px;
+  #{$alpha}: 6px;
   margin: 0;
   padding: 0;
   position: relative;
@@ -200,6 +202,6 @@ $omega: opposite-position($from-direction);
 
 .media-widget .preview {
   display: inline-block;
-  margin-right: 10px;
+  margin-#{$omega}: 10px;
   vertical-align: middle;
 }

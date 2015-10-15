@@ -267,13 +267,13 @@ select[size] {
 .form-type-radio,
 .form-type-checkbox {
   min-height: 24px;
-  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .form-type-radio input[type="radio"],
 .form-type-checkbox input[type="checkbox"] {
-  float: left;
-  margin-left: -20px;
+  float: right;
+  margin-right: -20px;
 }
 
 .controls > .form-type-radio:first-child,
@@ -335,7 +335,7 @@ input[type="checkbox"][readonly] {
   margin-bottom: 15px;
 }
 .form-actions .btn:not(:last-child) {
-  margin-right: 15px;
+  margin-left: 15px;
 }
 
 .help-block {
@@ -453,7 +453,7 @@ input[type="checkbox"][readonly] {
 
 .nav-tabs > li,
 .nav-pills > li {
-  float: left;
+  float: right;
 }
 
 .nav-tabs > li > a,
@@ -517,11 +517,11 @@ input[type="checkbox"][readonly] {
 }
 
 .admin-nav-tabs > li {
-  margin-right: 10px;
+  margin-left: 10px;
   margin-bottom: 10px;
 }
 .admin-nav-tabs > li span {
-  margin-right: 5px;
+  margin-left: 5px;
 }
 .admin-nav-tabs > li span.icon-file:before {
   font-family: "FontAwesome";
@@ -1073,9 +1073,9 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 #media-browser-page .views-exposed-form .views-exposed-widget {
-  float: left;
+  float: right;
   padding-top: .5em;
-  padding-left: 1em;
+  padding-right: 1em;
   max-width: 30%;
 }
 
@@ -1141,14 +1141,14 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 #media-browser-tabset #branding h1 {
-  float: left;
+  float: right;
   height: 16px;
   margin-top: 0px;
 }
 
 /* Float the tabs right to keep the UI consistent across themes */
 #media-tabs-wrapper {
-  float: right;
+  float: left;
 }
 
 #media-browser-tabset ul.tabs {
@@ -1159,7 +1159,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 /* Reset the height to match the browser */
 #media-browser-tabset ul.tabs.primary li a:link {
   font-weight: bold;
-  margin-right: 0;
+  margin-left: 0;
 }
 
 /* *********************************************************** */
@@ -1181,11 +1181,11 @@ a.btn.disabled, fieldset[disabled] a.btn {
   background: rgba(255, 255, 255, 0.8);
   border-radius: 0 0 4px 4px;
   bottom: 0;
-  left: 0;
+  right: 0;
   max-height: 100%;
   overflow: hidden;
   position: absolute;
-  right: 0;
+  left: 0;
   text-align: center;
   word-wrap: break-word;
 }
@@ -1202,9 +1202,9 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 .media-list-thumbnails li {
-  float: left;
+  float: right;
   list-style: none;
-  margin-right: 10px;
+  margin-left: 10px;
   margin-bottom: 10px;
 }
 
@@ -1232,7 +1232,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 .media-list-thumbnails .form-type-checkbox {
   bottom: 117px;
-  left: 6px;
+  right: 6px;
   margin: 0;
   padding: 0;
   position: relative;
@@ -1241,6 +1241,6 @@ a.btn.disabled, fieldset[disabled] a.btn {
 /* File field */
 .media-widget .preview {
   display: inline-block;
-  margin-right: 10px;
+  margin-left: 10px;
   vertical-align: middle;
 }
