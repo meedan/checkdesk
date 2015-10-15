@@ -199,6 +199,10 @@ ul#user-menu .icon-bell-o:before {
   content: "\f16a";
 }
 
+.elsewhere ul li a span.icon-instagram:before {
+  content: "\f16d";
+}
+
 .elsewhere ul li a span.icon-tumblr:before {
   content: "\f173";
 }
@@ -3214,6 +3218,20 @@ svg.logo-icon {
   -moz-osx-font-smoothing: grayscale;
 }
 .elsewhere ul li a span.icon-tumblr:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.elsewhere ul li a span.icon-instagram:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
