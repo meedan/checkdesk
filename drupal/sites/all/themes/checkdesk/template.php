@@ -287,6 +287,8 @@ function checkdesk_preprocess_page(&$variables) {
   if (arg(0) == 'embed' && arg(1) != '') {
     $variables['theme_hook_suggestions'][] = 'page__embed';
 
+    unset($variables['page']['content']['user_alert_user_alert']);
+
     // add call to action (cta) cd embed footer
     $variables['cd_embed_footer'] = array(
       '#type' => 'link',
