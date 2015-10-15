@@ -5,17 +5,6 @@
 define('CHECKDESK_OEMBED_VERSION', '1.0');
 
 /**
- * Implements hook_custom_theme().
- *
- * Switches to the 'checkdesk_embed' theme when on the embed page.
- */
-function checkdesk_oembed_custom_theme() {
-  if (arg(0) == 'embed') {
-    return 'checkdesk_embed';
-  }
-}
-
-/**
  * Implements hook_menu().
  */
 function checkdesk_oembed_menu() {

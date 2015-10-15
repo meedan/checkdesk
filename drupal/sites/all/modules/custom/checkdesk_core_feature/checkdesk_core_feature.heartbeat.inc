@@ -15,7 +15,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_add_story';
   $heartbeatmessagetemplate->description = 'A new story was added';
-  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added a new <a href="!story_url">story</a>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added a new story "<a href="!story_url">!story</a>"';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -38,6 +38,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
     '!user_url' => '',
     '!username' => '',
     '!story_url' => '',
+    '!story' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
@@ -626,7 +627,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_publish_own_story_revision';
   $heartbeatmessagetemplate->description = 'A revision to your story has been published';
-  $heartbeatmessagetemplate->message = 'A revision to your <a href="!story_url">story</a> has been published';
+  $heartbeatmessagetemplate->message = 'A revision to your story "<a href="!story_url">!story</a>" has been published';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -647,6 +648,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   );
   $heartbeatmessagetemplate->variables = array(
     '!story_url' => '',
+    '!story' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
@@ -847,7 +849,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_update_draft_story';
   $heartbeatmessagetemplate->description = 'Existing draft story was updated';
-  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> updated a draft <a href="!story_url">story</a>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> updated a draft story "<a href="!story_url">!story</a>"';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -870,6 +872,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
     '!user_url' => '',
     '!username' => '',
     '!story_url' => '',
+    '!story' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
@@ -901,7 +904,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_update_story';
   $heartbeatmessagetemplate->description = 'Existing story was updated';
-  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> updated <a href="!story_url">story</a>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> updated story "<a href="!story_url">!story</a>"';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -924,6 +927,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
     '!user_url' => '',
     '!username' => '',
     '!story_url' => '',
+    '!story' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(

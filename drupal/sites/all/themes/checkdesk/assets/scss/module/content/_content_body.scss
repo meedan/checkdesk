@@ -37,6 +37,14 @@
       margin-#{$alpha}: auto;
       margin-#{$omega}: auto;
     }
+    figcaption {
+      border: 0 none;
+      color: $firefly40;
+      font-size: 16px;
+      line-height: 20px;
+      margin-top: 5px;
+    }
+    a { word-wrap: break-word; }
   }
 
   // lists
