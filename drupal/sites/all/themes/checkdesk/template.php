@@ -287,6 +287,8 @@ function checkdesk_preprocess_page(&$variables) {
   if (arg(0) == 'embed' && arg(1) != '') {
     $variables['theme_hook_suggestions'][] = 'page__embed';
 
+    unset($variables['page']['content']['user_alert_user_alert']);
+
     // add call to action (cta) cd embed footer
     $variables['cd_embed_footer'] = array(
       '#type' => 'link',
@@ -1154,6 +1156,10 @@ function checkdesk_field__field_lead_image(&$variables) {
 /**
  * Utiltiy function that generates a responsive img tag
  * for lead image in the story node using art directed technique
+ * @param image
+ *   image uri
+ * @param image_caption
+ *   String with caption
  */
 function _checkdesk_generate_lead_image_directed($image, $image_caption = '') {
   $output = '';
@@ -1180,6 +1186,8 @@ function _checkdesk_generate_lead_image_directed($image, $image_caption = '') {
 /**
  * Utiltiy function that generates a responsive img tag
  * for lead image in containers as large images
+ * @param image
+ *   image uri
  */
 function _checkdesk_generate_lead_image($image) {
   $output = '';
@@ -1205,6 +1213,8 @@ function _checkdesk_generate_lead_image($image) {
 /**
  * Utiltiy function that generates a responsive img tag
  * for lead image in containers as thumbnails
+ * @param image
+ *   image uri
  */
 function _checkdesk_generate_lead_image_thumbnail($image) {
   $output = '';
@@ -1222,6 +1232,41 @@ function _checkdesk_generate_lead_image_thumbnail($image) {
     $output .= '/>';
   }
   return $output;
+}
+
+/**
+ * Utiltiy function that generates a responsive img tag
+ * for inline images with no cropping with alt, title
+ * @param image_file
+ *   Full file object.
+ * 
+ */
+function _checkdesk_generate_inline_image($image_file) {
+  $output = '';
+  // generate small, medium and large images
+  if(isset($image_file)) {
+    $image = $image_file->uri;
+    $image_path = image_style_url('inline_image_medium', $image);
+    $image_large_path = image_style_url('inline_image_large', $image);
+    $image_med_path = image_style_url('inline_image_medium', $image);
+    $image_small_path = image_style_url('inline_image_small', $image);
+    // set small, med and large images in srcset
+    $output .= '<img';
+    $output .= ' srcset="' . $image_large_path . ' 660w, ' . $image_med_path . ' 605w, ' . $image_small_path . ' 445w"'; 
+    $output .= ' sizes="(min-width: 660px) 620px, (min-width: 480px) 605px, 445px"';
+    $output .= ' src="' . $image_small_path . '"';
+    $output .= ' class="inline-image"';
+    if(!empty($image_file->alt)) {
+      $output .= ' alt="' . $image_file->alt .  '"';
+    }
+    if(!empty($image_file->title)) {
+      $output .= ' title="' . $image_file->title .  '"';  
+    }
+    $output .= '/>';
+  }
+
+  return $output;
+
 }
 
 /**
@@ -1421,6 +1466,8 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     $vars['latest_story'] = $vars['view']->result[$vars['view']->row_index]->latest_story ;
   }
 }
+
+
 
 /**
  * Template preprocessor for `meedan_sensitive_content_display`.

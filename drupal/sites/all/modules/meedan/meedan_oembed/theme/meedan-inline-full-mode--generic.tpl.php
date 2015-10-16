@@ -32,9 +32,9 @@
         </span>
       </div>
       <?php if(isset($report_status['status'])) : ?>
-        <span class="inline-attachment-status media-status">
+        <div class="inline-attachment-status media-status">
           <?php print $report_status['status']; ?>
-        </span>
+        </div>
       <?php endif; ?>
       <?php if(isset($embed->html) && $embed->type == 'rich') : ?>
         <div class="media">

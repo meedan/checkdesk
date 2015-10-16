@@ -1129,7 +1129,6 @@ return _checkdesk_core_auto_title($node);
   $strongarm->value = array(
     'checkdesk' => 'checkdesk',
     'bartik' => 0,
-    'checkdesk_embed' => 0,
     'seven' => 0,
   );
   $export['meedan_custom_css_enabled_themes'] = $strongarm;
