@@ -531,3 +531,11 @@ function checkdesk_core_update_7052() {
 function checkdesk_core_update_7053() {
   module_enable(array('checkdesk_photos_feature'));
 }
+
+/**
+ * Index field_stories_target_id field
+ */
+function checkdesk_core_update_7054() {
+  db_query('ALTER TABLE {field_data_field_stories} ADD INDEX (field_stories_target_id)');
+  db_query('ALTER TABLE {field_revision_field_stories} ADD INDEX (field_stories_target_id)');
+}
