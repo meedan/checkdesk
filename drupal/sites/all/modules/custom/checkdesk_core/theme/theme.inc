@@ -166,21 +166,17 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity(&$variables) {
   $total_rows = '';
   $variables['show_activity'] = ($variables['view_mode'] == 'checkdesk_search') ? FALSE : TRUE;
   if ($status_name !== 'Not Applicable') {
-    $view = views_get_view('activity_report');
-    $view->set_arguments(array($variables['nid']));
-    $view->get_total_rows = TRUE;
-    $view_output = $view->preview('block');
-    $total_rows = $view->total_rows;
-    $view->destroy();
+    $activity_report = _checkdesk_load_activity_report($variables['nid']);
+    $total_rows = $activity_report['total_rows'];
     if ($variables['show_activity']) {
       if ($total_rows) {
         $variables['media_activity_report'] = theme(
-          'checkdesk_core_report_activity_stream', array('activity' => $view_output, 'nid' => $variables['nid'])
+          'checkdesk_core_report_activity_stream', array('activity' => $activity_report['view_output'], 'nid' => $variables['nid'])
         );
         $variables['status_class'] = strtolower(str_replace(' ', '-', $status_name));
 
       }
-      if (user_is_logged_in()) {
+      if (user_is_logged_in() || arg(0) == 'embed' ) {
         $variables['media_activity_footer'] = '';
       }
       else {

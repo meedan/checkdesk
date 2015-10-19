@@ -1,5 +1,50 @@
 <?php
 
+require_once libraries_get_path('FaviconDownloader') . '/src/FaviconDownloader.php';
+use Vincepare\FaviconDownloader\FaviconDownloader;
+
+/**
+ * Implementation of hook_menu().
+ */
+function meedan_oembed_menu() {
+  return array(
+    'meedan/test/favicon' => array(
+      'title' => 'Test favicon fetcher',
+      'description' => 'Test favicon fetching functionality.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('meedan_oembed_test_favicon'),
+      'access arguments' => array('administer site configuration'),
+      'type' => MENU_CALLBACK,
+    ),
+    'node/%node/oembed' => array(
+      'title' => 'oEmbed',
+      'description' => 'Refresh oEmbed information for this report',
+      'page callback' => 'meedan_oembed_refresh',
+      'page arguments' => array(1),
+      'access callback' => 'meedan_oembed_refresh_access',
+      'access arguments' => array(1),
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 99,
+    ),
+  );
+}
+
+/**
+ * Access callback to check if node is a report.
+ */
+function meedan_oembed_refresh_access($node) {
+  return $node->type === 'media' && user_access('administer site configuration');
+}
+
+/**
+ * Menu callback
+ */
+function meedan_oembed_refresh($node) {
+  $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), FALSE, TRUE);
+  drupal_set_message(t('Refreshed oEmbed information: @embed', array('@embed' => print_r($embed, TRUE))));
+  drupal_goto('node/' . $node->nid);
+}
+
 /**
  * Implementation of hook_theme().
  */
@@ -80,18 +125,19 @@ function meedan_oembed_theme() {
  *       The maximum height of the embed, in pixels.
  * @param boolean $retry_if_error
  *   Whether the media should be reparsed if an error happened. Defaults to FALSE.
- * @param boolean $no_cache
+ * @param boolean $force_refresh
  *   Optional, when set to TRUE the cache will be ignored AND reset for this
  *   oembed response.
  * @return
  *   an object representing the embeddable data of the URL.
  */
-function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE, $no_cache = FALSE) {
-  $provider = array();
-  $provider['endpoint'] = 'http://api.embed.ly/1/oembed';
+function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE, $force_refresh = FALSE) {
+  $provider = array(
+    'endpoint' => 'http://api.embed.ly/1/oembed'
+  );
 
   // Set provider name specific to domain name to use it on #theme function
-  $domain  = _meedan_oembed_get_domain_name($url);
+  $domain = _meedan_oembed_get_domain_name($url);
   $handler = meedan_oembed_get_handler_for_domain($domain);
 
   if ($handler && isset($handler['provider_name'])) {
@@ -115,13 +161,10 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
   $embed = FALSE;
 
   // Cache hit
-  if (!$no_cache && $cache && isset($cache->data) && (!isset($cache->data->error) || !$cache->data->error || !$retry_if_error)) {
+  if (!$force_refresh && $cache && isset($cache->data) && (!isset($cache->data->error) || !$cache->data->error || !$retry_if_error)) {
     $embed = $cache->data;
     $embed->original_url = $url;
     $embed->provider = $provider;
-
-    drupal_alter('meedan_oembed_embed', $embed);
-
     return $embed;
   }
   // Ask for fresh data, remove cache first
@@ -137,7 +180,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed = $handler['callback']($provider, $url);
   }
 
-  if (!$embed || (isset($embed->error) && $embed->error)) {
+  if (!$embed || !empty($embed->error)) {
     $original_embed = $embed;
 
     if (!$embed || $embed->try_embedly) {
@@ -153,7 +196,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     }
 
     // Embedly failed, provide some fallback embed content
-    if (is_null($embed) || $embed === FALSE || (isset($embed->error) && $embed->error)) {
+    if (!$embed || !empty($embed->error)) {
       // Ensure NULL and FALSE become (object) array()
       $embed = (object) $embed;
       unset($embed->scalar);
@@ -178,11 +221,8 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     }
   }
 
-  if ($embed && (!isset($embed->error) || !$embed->error)) {
-    meedan_oembed_add_extra_information($embed);
-    $embed->error = FALSE;
-  }
-  drupal_alter('meedan_oembed_embed', $embed);
+  // Allow modules to augment the embed information.
+  drupal_alter('meedan_oembed_embed', $embed, $force_refresh);
 
   // Set result to cache, even if error
   cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
@@ -191,12 +231,15 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
 }
 
 /**
- * Scrape page to extract oEmbed-relevent information.
+ * Implementation of `hook_meedan_oembed_embed_alter`.
  */
-function meedan_oembed_add_extra_information(&$embed) {
+function meedan_oembed_meedan_oembed_embed_alter(&$embed, $force_refresh) {
+  // Get favicon link.
+  $embed->favicon_link = _meedan_oembed_fetch_favicon($embed->original_url, $force_refresh);
+
   // TODO Get thumbnail.
   if (empty($embed->thumbnail_url)) {
-    if ($embed->type == 'photo') {
+    if ($embed->type === 'photo') {
       // put original url as thumbnail url
       // if original url is itself an image path
       $original_image = getimagesize($embed->original_url);
@@ -205,6 +248,8 @@ function meedan_oembed_add_extra_information(&$embed) {
       }
     }
   }
+
+  // TODO Move this out of here.
   if ($embed->provider_name == 'YouTube' && !empty($embed->thumbnail_url)) {
     // Use Youtube thumbnail that doesn't have black borders
     $embed->thumbnail_url = str_replace('hqdefault.jpg', 'mqdefault.jpg', $embed->thumbnail_url);
@@ -349,7 +394,7 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
     else {
       $vars['favicon_link'] = '';
     }
-    if ($embed->error) $vars['embed_error'] = t('It was not possible to parse this report.');
+    if (isset($embed->error)) $vars['embed_error'] = t('It was not possible to parse this report.');
   }
 }
 
@@ -452,30 +497,14 @@ function meedan_oembed_field_formatter_view($entity_type, $entity, $field, $inst
   return $element;
 }
 
-function _meedan_render_oembed_activity_type($node, $heartbeat_row) {
-  // TODO: get this mapping from admin interface.
-  // for now will use mapping array with key = activity type and value = formatter name.
-  $mapping = array(
-    'checkdesk_report_suggested_to_story' => 'meedan_inline_full_mode',
-  );
-
-  if ($heartbeat_row && isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
-    $output = field_view_field('node', $node, 'field_link', array('type' => $mapping[$heartbeat_row->heartbeat_activity_message_id]));
-  }
-  else {
-    $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
-  }
-  return $output;
-}
-
 function _meedan_inline_thumbnail_bg($node, $classes = array()) {
   if (isset($node->embed->thumbnail_url)) {
     $thumbnail_url = $node->embed->thumbnail_url;
     $thumbnail_title = isset($node->embed->title) ? $node->embed->title : $node->title;
   }
-  elseif (isset($node->field_lead_image['und'][0]['uri'])) {
-    $derivative_uri = image_style_path('medium', $node->field_lead_image['und'][0]['uri']);
-    $success = file_exists($derivative_uri) || image_style_create_derivative('medium', $node->field_lead_image['und'][0]['uri'], $derivative_uri);
+  elseif (isset($node->field_lead_image[LANGUAGE_NONE][0]['uri'])) {
+    $derivative_uri = image_style_path('medium', $node->field_lead_image[LANGUAGE_NONE][0]['uri']);
+    $success = file_exists($derivative_uri) || image_style_create_derivative('medium', $node->field_lead_image[LANGUAGE_NONE][0]['uri'], $derivative_uri);
     $thumbnail_url = file_create_url($derivative_uri);
     $thumbnail_title = $node->title;
   }
@@ -497,35 +526,64 @@ function _meedan_inline_thumbnail_bg($node, $classes = array()) {
 }
 
 /**
- * depnd on geticon library https://github.com/gokercebeci/geticon/blob/master/class.geticon.php
+ * Get favicon for URL and cache it locally.
  * @param string $url
  *  media URL
  * @return string
  *  path of favicon
+ * @see https://github.com/vincepare/FaviconDownloader
  */
-function _meedan_oembed_fetch_favicon($url) {
-  // Check exists of favicon directory
-  $files_path = file_default_scheme()."://";
-  $favicon_dir = 'oembed_favicon/';
-  $favicon_path = $files_path . $favicon_dir;
-  file_prepare_directory($favicon_path, FILE_CREATE_DIRECTORY);
-  // Generate favicon file name same as geticon class
+function _meedan_oembed_fetch_favicon($url, $force_refresh = FALSE) {
+  $default = drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png';
+
+  // Create/check favicon directory.
+  $favicon_path = file_default_scheme() . '://oembed_favicon/';
+  if (!file_prepare_directory($favicon_path, FILE_CREATE_DIRECTORY)) {
+    watchdog('meedan_oembed', 'Failed to create @path folder. Aborting favicon fetch.', array('@path' => $favicon_path), WATCHDOG_ERROR);
+    return $default;
+  }
+
+  // Generate favicon filename and check cache.
   $mod_url = trim(str_replace(array('http://', 'https://', 'http:/', 'https:/'), '', trim($url)), '/');
   $mod_url = parse_url('http://' . $mod_url);
   $mod_url['host'] = str_replace('www.', '', $mod_url['host']);
-  $icon_path = $favicon_path . str_replace(array('.', '/'), '-', $mod_url['host']) . '.ico';
-  // check favicon exists before calling geticon
-  if (!file_exists($icon_path)) {
-    // fetch favicon
-    require_once libraries_get_path('geticon') .'/class.geticon.drupal.php';
-    new geticon($url, $files_path, $favicon_dir);
+  $favicon_path .= str_replace(array('.', '/'), '-', $mod_url['host']);
+  $files = glob(drupal_realpath($favicon_path) . '.*');
+  if ($files) {
+    // Found matching cached files. Either return first one, or delete them all.
+    if (!$force_refresh) {
+      return $favicon_path . '.' . pathinfo($files[0], PATHINFO_EXTENSION);
+    }
+    else foreach ($files as $file) {
+      unlink($file);
+    }
   }
-  // check if favicon generated by geticon or not
-  if (!file_exists($icon_path)) {
-    // Use default one.
-    $icon_path = drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png';
+
+  // Fetch favicon and fallback to default if necessary.
+  $favicon = new FaviconDownloader($url);
+  if (!$favicon->icoExists) {
+    // Forcing it to 'ico' extension because of legacy icons.
+    $favicon_path .= '.' . 'ico'; // pathinfo($default, PATHINFO_EXTENSION);
+    watchdog('meedan_oembed', 'Failed to fetch favicon for @url. Using default thumbnail.', array('@url' => $url), WATCHDOG_ERROR);
+    if (!file_unmanaged_copy($default, $favicon_path)) {
+      watchdog('meedan_oembed', 'Failed to copy default thumbnail to @path. Aborting caching.', array('@path' => $favicon_path), WATCHDOG_ERROR);
+      return $default;
+    }
+    return $favicon_path;
   }
-  return $icon_path;
+
+  // Save new favicon.
+  // Forcing it to 'ico' extension because of legacy icons.
+  $favicon_path .= '.' . 'ico'; // $favicon->icoType;
+  if (!file_put_contents($favicon_path, $favicon->icoData)) {
+    watchdog('meedan_oembed', 'Failed to save favicon file to @path. Aborting caching.', array('@path' => $favicon_path), WATCHDOG_ERROR);
+    return $favicon->icoUrl;
+  }
+
+  watchdog('meedan_oembed', 'Favicon downloader output: @output', array(
+    '@output' => print_r($favicon->debug(TRUE), TRUE),
+  ), WATCHDOG_DEBUG);
+  return $favicon_path;
 }
 
 /**
@@ -632,4 +690,31 @@ function _meedan_oembed_filter_process($text, $filter) {
  */
 function _meedan_oembed_filter_tips($filter, $format, $long = FALSE) {
   return t('<em>[media-title:$nid]</em> is replaced with the Meedan oEmbed node view for <em>$nid</em>.');
+}
+
+/**
+ * Form handler for `meedan_oembed_test_favicon`.
+ */
+function meedan_oembed_test_favicon($form, &$form_state) {
+  if (!empty($form_state['values']['url'])) {
+    $url = $form_state['values']['url'];
+    $favicon = new FaviconDownloader($url);
+    drupal_set_message(print_r($favicon->debug(TRUE), TRUE));
+  }
+  $form['url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('URL'),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+  return $form;
+}
+
+/**
+ * Form submit handler for `meedan_oembed_test_favicon`.
+ */
+function meedan_oembed_test_favicon_submit($form, &$form_state) {
+  $form_state['rebuild'] = TRUE;
 }

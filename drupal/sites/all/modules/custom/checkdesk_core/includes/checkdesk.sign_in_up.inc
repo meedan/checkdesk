@@ -12,6 +12,9 @@ function checkdesk_sign_in_up_callback($js = NULL) {
   $links = array();
   drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_sign_in_up.js');
   if (twitter_api_keys()) {
+    if (isset($_GET['destination'])) {
+        $_SESSION['twitter_redirect'] = $_GET['destination'];
+    }
     $links['twitter'] = twitter_signin_button();
   }
   // Add FB

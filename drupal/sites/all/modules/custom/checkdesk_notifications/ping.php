@@ -95,6 +95,8 @@ if ($is_journalist) {
     $query .= "(ha.message_id = 'checkdesk_new_update_on_story_i_commented_on_update' AND ha.nid_target IN (SELECT field_desk_target_id FROM field_data_field_desk f INNER JOIN comment c ON c.nid = f.entity_id WHERE entity_type = 'node' AND bundle = 'post' AND c.uid = $uid AND c.created < ha.timestamp)) OR ";
   if (should_notify($data, 'site_report_published_in_update'))
     $query .= "(ha.message_id = 'checkdesk_report_published_in_update' AND ha.uid_target = $uid) OR ";
+  if (should_notify($data, 'site_publish_own_story_revision'))
+    $query .= "(ha.message_id = 'checkdesk_publish_own_story_revision' AND ha.uid_target = $uid) OR ";
 }
 $follow_story_query = 'SELECT entity_id, timestamp FROM flag f INNER JOIN flagging fi ON f.fid = fi.fid AND f.name = "follow_story" WHERE uid = ' . $uid;
 $followed_stories_condition = get_followed_stories($follow_story_query, $mysql);
@@ -110,6 +112,11 @@ if (should_notify($data, 'site_report_status_on_story_i_followed') && $followed_
   $query .= "(ha.message_id = 'status_report'
   AND ($followed_stories_condition)) OR ";
 }
+
+if (should_notify($data, 'site_update_draft_story')) {
+  $query .= "(ha.message_id = 'checkdesk_update_draft_story') OR ";
+}
+
 $query .= "FALSE) AND ha.timestamp > $timestamp AND ha.uid != $uid";
 // Execute query
 $count = get_result($query, $mysql);

@@ -9,6 +9,18 @@
  */
 
 /**
+ * Implements hook_init().
+ */
+function meedan_facebook_init() {
+  // Inject FB script everywhere.
+  drupal_add_js(array('meedanFacebook' => array(
+    'language' => meedan_facebook_get_locale(),
+    'appId' => _meedan_facebook_get_appid(),
+  )), 'setting');
+  drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
+}
+
+/**
  * Implements hook_theme().
  */
 function meedan_facebook_theme() {
@@ -20,6 +32,17 @@ function meedan_facebook_theme() {
       'variables' => array('node' => NULL),
     ),
   );
+}
+
+function _meedan_facebook_get_appid() {
+  $appid = variable_get('meedan_facebook_appid', '');
+  if (empty($appid) && module_exists('fboauth')) {
+    $appid = variable_get('fboauth_id', '');
+  }
+  if (empty($appid)) {
+    watchdog('meedan_facebook', 'Facebook app ID not set - neither in fboauth_id nor in meedan_facebook_appid.', array(), WATCHDOG_WARNING);
+  }
+  return $appid;
 }
 
 /**
@@ -47,16 +70,25 @@ function _meedan_facebook_get_path($nid) {
 }
 
 /**
+ * Add FB app ID in an HTML meta tag.
+ */
+function meedan_facebook_add_metatag() {
+  drupal_add_html_head(array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'property' => 'fb:app_id',
+      'content' => _meedan_facebook_get_appid(),
+    ),
+  ), 'meedan_facebook_appid');
+}
+
+/**
  * Implements `facebook_commentcount` theme.
  */
 function theme_facebook_commentcount($variables) {
   global $base_url;
 
-  drupal_add_js(array('meedanFacebookComments' => array(
-    'language' => meedan_facebook_get_locale(),
-    'appId' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
-  )), 'setting');
-  drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
+  meedan_facebook_add_metatag();
 
   $node = $variables['node'];
   $nid = $node->nid;
@@ -75,11 +107,7 @@ function theme_facebook_comments($variables) {
   $per_page = variable_get('meedan_facebook_comments_per_page', 10);
   $nid = $node->nid;
 
-  drupal_add_js(array('meedanFacebookComments' => array(
-    'language' => meedan_facebook_get_locale(),
-    'appId' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
-  )), 'setting');
-  drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
+  meedan_facebook_add_metatag();
 
   $path = _meedan_facebook_get_path($nid);
   $output = '<div class="fb-comments" data-href="' . $path . '" data-num-posts="' . $per_page . '" data-nid="' . $nid . '" id="fb-comments-' . $nid . '" data-version="v2.3"></div>';
@@ -247,12 +275,14 @@ function meedan_facebook_admin_settings() {
     '#title' => t('App ID'),
     '#size' => 20, 
     '#maxlengh' => 50, 
-    '#description' => t('To use Facebook Connect, a Facebook app must be created. Create your app at <a href="@url">My Apps</a> on Facebook.', 
+    '#description' => t('To use Facebook Connect, a Facebook app must be created. Create your app at <a href="@url">My Apps</a> on Facebook. If left empty, the App ID from <a href="@fboauth">Facebook OAuth settings</a> will be used, which is currently: <strong>@fboauth_id</strong>.', 
       array(
         '@url' => 'https://developers.facebook.com/apps/',
+        '@fboauth' => url('/admin/config/people/fboauth'),
+        '@fboauth_id' => variable_get('fboauth_id', t('(blank)')),
       )
     ),
-    '#default_value' => variable_get('meedan_facebook_appid', variable_get('fboauth_id', '')),
+    '#default_value' => variable_get('meedan_facebook_appid', ''),
   );
   $form['meedan_facebook_comments_per_page'] = array(
     '#type' => 'textfield',
@@ -268,6 +298,7 @@ function meedan_facebook_admin_settings() {
     '#default_value' => variable_get('meedan_facebook_base_path', 'raw'),
     '#options' => array('first' => t('Use the first alias found for this node'), 'last' => t('Use the last alias found for this node'), 'raw' => t('Do not use an alias, use a raw path (eg, node/123)')),
   );
+
   return system_settings_form($form);
 }
 

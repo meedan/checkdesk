@@ -2,8 +2,6 @@
 
 /**
  * Implementation of hook_menu().
- *
- * curl -H "Content-Type: application/json" -X POST -d '@tweet.json' http://checkdesk.local/en/api/v1/bot
  */
 function checkdesk_bot_menu() {
   return array(
@@ -19,7 +17,6 @@ function checkdesk_bot_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('checkdesk_bot__admin_settings'),
       'access arguments' => array('administer site configuration'),
-      'type' => MENU_LOCAL_TASK,
     ),
   );
 }
@@ -67,12 +64,10 @@ function checkdesk_bot__generate_response($tweet) {
     $sender = user_load($sender_uid);
   }
 
-  // Decide on reply language.
+  // Decide on reply language, currently site default language.
   // TODO: take into account Twitter user's preferences, Checkdesk user preferences, browser settings, etc.
-  global $language;
-  $languages = language_list();
-  $langcode = empty($tweet['lang']) || $tweet['lang'] === 'und' || empty($languages[$tweet['lang']]) ? 
-    $language->language : $tweet['lang'];
+  $language = variable_get('language_default');
+  $langcode = $language->language;
 
   // Detect URL if any.
   if (1 === count($tweet['entities']['urls'])) {
@@ -124,7 +119,7 @@ function checkdesk_bot__generate_response($tweet) {
       '!screen_name this link already exists: !url',
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
-        '!url' => url('node/' . key($duplicates), array('absolute' => TRUE)),
+        '!url' => url('node/' . key($duplicates), array('absolute' => TRUE, 'language' => $language)),
       ),
       array(
         'langcode' => $langcode,
@@ -146,7 +141,7 @@ function checkdesk_bot__generate_response($tweet) {
       array(
         '!screen_name' => '@' . $tweet['user']['screen_name'],
         '!site_name' => variable_get('site_name', t('Checkdesk')),
-        '!url' => url('node/add/media', array('query' => array('url' => $report_url), 'absolute' => TRUE)),
+        '!url' => url('node/add/media', array('query' => array('url' => $report_url), 'absolute' => TRUE, 'language' => $language)),
       ),
       array(
         'langcode' => $langcode,
@@ -163,7 +158,7 @@ function checkdesk_bot__generate_response($tweet) {
     array(
       '!screen_name' => '@' . $tweet['user']['screen_name'],
       '!site_name' => variable_get('site_name', t('Checkdesk')),
-      '!url' => url('node/' . $report->nid, array('absolute' => TRUE)),
+      '!url' => url('node/' . $report->nid, array('absolute' => TRUE, 'language' => $language)),
     ),
     array(
       'langcode' => $langcode,

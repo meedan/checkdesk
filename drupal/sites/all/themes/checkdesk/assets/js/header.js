@@ -29,9 +29,11 @@
         var st = $(window).scrollTop();
 
         // Make sure they scroll more than delta
-        if (Math.abs(lastScrollTop - st) <= delta && st >= delta) 
+        if (Math.abs(lastScrollTop - st) <= delta && st >= delta) {
+          lastScrollTop = st;
           return;
-        
+        }
+
         // add helper classes to body
         if (st < lastScrollTop) {
           $('body').removeClass('scroll-down').addClass('scroll-up');
@@ -39,7 +41,6 @@
           $('body').addClass('scrolling');
           $('body').removeClass('scroll-up').addClass('scroll-down');
         }
-
 
         // If current position > last position AND scrolled past navbar...
         if (st > lastScrollTop && st > (headerHeight + (buffer))) {

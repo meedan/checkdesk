@@ -14,7 +14,7 @@ jQuery(function ($) {
     var ds = Drupal && Drupal.settings ? Drupal.settings : false,
         height;
 
-    if (ds && ds.meedanIframes) {
+    if (ds && ds.meedanIframes && $(ds.meedanIframes.contentSelector).length > 0) {
       height = $(ds.meedanIframes.contentSelector).outerHeight(true);
     } else {
       height = $('body')[0].offsetHeight;
@@ -22,15 +22,18 @@ jQuery(function ($) {
 
     if (height !== htmlHeight) {
       htmlHeight = height;
-
       window.parent.postMessage([id, 'setHeight', htmlHeight].join(';'), '*');
     }
 
     setTimeout(checkHTMLHeight, 30);
   }
 
-  // Start the checker
+  // Redirect links and forms to parent.
+  $('a,form').attr('target', '_top');
+
+  // Start the checker.
   checkHTMLHeight();
 
+  // Inform the parent we are live.
   window.parent.postMessage([id, 'loaded'].join(';'), '*');
 });

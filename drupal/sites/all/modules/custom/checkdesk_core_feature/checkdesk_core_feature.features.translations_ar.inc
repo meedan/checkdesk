@@ -218,6 +218,15 @@ function checkdesk_core_feature_translations_ar_defaults() {
     'plural' => 0,
   );
   $translatables[] = t('Provide a simple link to the content.', array(), array('context' => ''));
+  $translations['ar:default']['049829053348e63d3edbddaa9c42bb4e'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> added a new story "<a href="!story_url">!story</a>"',
+    'context' => '',
+    'location' => '/ar/my-notifications',
+    'translation' => 'قام <a class="actor" href="!user_url">!username</a> بإضافة موضوع جديد "<a href="!story_url">!story</a>"',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('<a class="actor" href="!user_url">!username</a> added a new story "<a href="!story_url">!story</a>"', array(), array('context' => ''));
   $translations['ar:default']['04ec3b36351857d6430b295f91a19688'] = array(
     'source' => 'Liveblog update',
     'context' => '',
@@ -227,6 +236,15 @@ function checkdesk_core_feature_translations_ar_defaults() {
     'plural' => 0,
   );
   $translatables[] = t('Liveblog update', array(), array('context' => ''));
+  $translations['ar:default']['04f678a8274750a701874dd7a61bd2cc'] = array(
+    'source' => 'First published on',
+    'context' => '',
+    'location' => '',
+    'translation' => 'نُشِر أولاً في',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('First published on', array(), array('context' => ''));
   $translations['ar:default']['051e5ce1a082d4902dec835df60f1d1a'] = array(
     'source' => 'Flaggable node',
     'context' => '',
@@ -534,6 +552,29 @@ function checkdesk_core_feature_translations_ar_defaults() {
     'plural' => 0,
   );
   $translatables[] = t('The original-language version of this node, if one exists.', array(), array('context' => ''));
+  $translations['ar:default']['0b0c468b3b9ad3a1ffc254cf9bffacb8'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has added a new story !story.
+
+<a href="!url">Click here </a> to view or update this story.
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name,
+
+قام !author بإضافة موضوع جديد !story.
+
+ <a href="!url"> اضغط هنا </a> لمعرفة أو تحديث هذا الموضوع.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+!author has added a new story !story.
+
+<a href="!url">Click here </a> to view or update this story.
+', array(), array('context' => ''));
   $translations['ar:default']['0b4db271fc4624853e634ef6882ea8be'] = array(
     'source' => 'View all',
     'context' => '',
@@ -624,6 +665,15 @@ function checkdesk_core_feature_translations_ar_defaults() {
     'plural' => 0,
   );
   $translatables[] = t('Uncategorized', array(), array('context' => ''));
+  $translations['ar:default']['0d111f56964985f562aaaaf9d2980787'] = array(
+    'source' => 'archived',
+    'context' => '',
+    'location' => '',
+    'translation' => 'أرشيف',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('archived', array(), array('context' => ''));
   $translations['ar:default']['0d250bc0efe3cc1b9740a8ec333ef899'] = array(
     'source' => 'Flag counter',
     'context' => '',
@@ -775,6 +825,15 @@ They provided the following explanation for flagging:
 !reason
 
 <a href="!flagged_node_edit_url">Click here</a> to review.', array(), array('context' => ''));
+  $translations['ar:default']['107d604bd991170fdf604859ba8afed1'] = array(
+    'source' => 'New and updated stories',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'قصص جديدة و محدثة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('New and updated stories', array(), array('context' => ''));
   $translations['ar:default']['10aec35353f9c4096a71c38654c3d402'] = array(
     'source' => 'cancel',
     'context' => '',
@@ -811,6 +870,15 @@ They provided the following explanation for flagging:
     'plural' => 0,
   );
   $translatables[] = t('By e-mail', array(), array('context' => ''));
+  $translations['ar:default']['11ecbe22d9d0b07c2d358175cb6429b2'] = array(
+    'source' => 'Own revision to story is published',
+    'context' => '',
+    'location' => '/ar/user/83/edit/notifications',
+    'translation' => 'تم نشر تعديلاتي لقصة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Own revision to story is published', array(), array('context' => ''));
   $translations['ar:default']['11f30c5526ab77c65b37c59103588d4a'] = array(
     'source' => 'Block current user',
     'context' => '',
@@ -1314,7 +1382,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'New story created',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'تم إضافة موضوع جديد',
+    'translation' => 'تم إضافة قصة جديده',
     'plid' => 0,
     'plural' => 0,
   );
@@ -1490,6 +1558,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Updated week', array(), array('context' => ''));
+  $translations['ar:default']['200ceb26807d6bf99fd6f4f0d1ca54d4'] = array(
+    'source' => 'administrator',
+    'context' => '',
+    'location' => '',
+    'translation' => 'مدير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('administrator', array(), array('context' => ''));
   $translations['ar:default']['204211fa22eeb23c3c02fa07da86fb00'] = array(
     'source' => 'Current node\'s creation time',
     'context' => '',
@@ -1602,6 +1679,15 @@ Go to !story_url to compose a new update to the story using that report.
 You can edit your notification settings from !recipient_url.
 
 This was an auto-generated email from !site, please do not respond directly to this email.', array(), array('context' => ''));
+  $translations['ar:default']['20cd62b157b4d95d87b9145da73d4702'] = array(
+    'source' => 'Published changes on',
+    'context' => '',
+    'location' => '',
+    'translation' => 'نُشِرت التعديلات في',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Published changes on', array(), array('context' => ''));
   $translations['ar:default']['2182a74bab7188d959e795d9301e87ff'] = array(
     'source' => 'Markdown',
     'context' => '',
@@ -1827,6 +1913,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Image must be less than !size.', array(), array('context' => ''));
+  $translations['ar:default']['25e7568dc652f917fa9290980292ee85'] = array(
+    'source' => 'Upload Date',
+    'context' => '',
+    'location' => '/en/admin/structure/views/view/checkdesk_media_browser/edit',
+    'translation' => 'تاريخ الرفع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Upload Date', array(), array('context' => ''));
   $translations['ar:default']['26037f65ea76f9510197d4283d7368c5'] = array(
     'source' => '!type by !author on !date.',
     'context' => '',
@@ -1908,6 +2003,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Any author', array(), array('context' => ''));
+  $translations['ar:default']['273d981c128a36fa099842a665865696'] = array(
+    'source' => 'in draft/pending publication',
+    'context' => '',
+    'location' => '',
+    'translation' => 'منتظر النشر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('in draft/pending publication', array(), array('context' => ''));
   $translations['ar:default']['274d0fa8838447f084a0eb00f3f50a58'] = array(
     'source' => 'Nodes represent the main site content items.',
     'context' => '',
@@ -2115,6 +2219,15 @@ print theme(\'views_autorefresh\', array(
     'plural' => 0,
   );
   $translatables[] = t('The ID of the file.', array(), array('context' => ''));
+  $translations['ar:default']['2df38e81dec7137106a28647c48d2b1a'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> updated story "<a href="!story_url">!story</a>"',
+    'context' => '',
+    'location' => '/ar/my-notifications',
+    'translation' => 'قام <a class="actor" href="!user_url">!username</a> بتحديث هذا الموضوع "<a href="!story_url">!story</a>"',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('<a class="actor" href="!user_url">!username</a> updated story "<a href="!story_url">!story</a>"', array(), array('context' => ''));
   $translations['ar:default']['2e056a65e6419d748bba034dc45d44ff'] = array(
     'source' => 'Sticky in lists',
     'context' => '',
@@ -2295,6 +2408,15 @@ print theme(\'views_autorefresh\', array(
     'plural' => 0,
   );
   $translatables[] = t('The type of entity that is related to the file.', array(), array('context' => ''));
+  $translations['ar:default']['31cc01801647f06a7019f4501f2c90c8'] = array(
+    'source' => 'current revision (published)',
+    'context' => '',
+    'location' => '',
+    'translation' => 'المراجعة الحالية (نُشِرت)',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('current revision (published)', array(), array('context' => ''));
   $translations['ar:default']['3275a766e2cb580dadaadd4978a5c9b0'] = array(
     'source' => 'Blogged by ',
     'context' => '',
@@ -2331,6 +2453,15 @@ print theme(\'views_autorefresh\', array(
     'plural' => 0,
   );
   $translatables[] = t('Language negotiation', array(), array('context' => ''));
+  $translations['ar:default']['32e0aff0a003b46d15afbfb324aee6ce'] = array(
+    'source' => 'Oldest First',
+    'context' => '',
+    'location' => '/en/admin/structure/views/view/checkdesk_media_browser/edit',
+    'translation' => 'القديم أولا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Oldest First', array(), array('context' => ''));
   $translations['ar:default']['32fe59513f5bbdd353b4527cc6af55ce'] = array(
     'source' => 'Reset your password',
     'context' => '',
@@ -2388,7 +2519,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Collaboration',
     'context' => '',
     'location' => '/ar/story/35',
-    'translation' => 'تعاون',
+    'translation' => 'مشاركات',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2582,6 +2713,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Created month', array(), array('context' => ''));
+  $translations['ar:default']['37db894e2602cfcb8100ed787998ecec'] = array(
+    'source' => 'You have not selected anything!',
+    'context' => '',
+    'location' => 'sites/all/modules/contrib/media/js/media.popups.js',
+    'translation' => 'لم تختر شيئا!',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('You have not selected anything!', array(), array('context' => ''));
   $translations['ar:default']['37f118c132659296ae366bd1ddb34eea'] = array(
     'source' => 'Heartbeat activity content to form a news feed or heartbeat stream.',
     'context' => '',
@@ -2595,7 +2735,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'More stories in [name] ',
     'context' => '',
     'location' => '',
-    'translation' => 'مزيد من القصص عن [name]',
+    'translation' => 'مزيد من القصص في [name]',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2914,6 +3054,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t(' new', array(), array('context' => ''));
+  $translations['ar:default']['3f1a8ee4a0f6e173d4cd08c20bb9353e'] = array(
+    'source' => '!screen_name sorry, but this is one of my links!',
+    'context' => '',
+    'location' => '/en/api/v1/bot',
+    'translation' => '!screen_name اللينك دا من #المنصة ماينفعش أنشر موضوعاتي باسمك',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('!screen_name sorry, but this is one of my links!', array(), array('context' => ''));
   $translations['ar:default']['3f2e83c44c65f0ff283ee70f21d348b9'] = array(
     'source' => 'Provide a simple link to delete the content.',
     'context' => '',
@@ -3604,6 +3753,15 @@ This was an auto-generated email from !site, please do not respond directly to t
 You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
 
 This was an auto-generated email from !site, please do not respond directly to this email.', array(), array('context' => ''));
+  $translations['ar:default']['4c91b92fe6502e6bc4314b45ee8cf3c1'] = array(
+    'source' => '!screen_name sorry, I need a link to import.',
+    'context' => '',
+    'location' => '/en/api/v1/bot',
+    'translation' => '!screen_name لازم تبعت لينك علشان أنشرهولك. ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('!screen_name sorry, I need a link to import.', array(), array('context' => ''));
   $translations['ar:default']['4cc6684df7b4a92b1dec6fce3264fac8'] = array(
     'source' => 'Global',
     'context' => '',
@@ -3729,6 +3887,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Go to story', array(), array('context' => ''));
+  $translations['ar:default']['4f8c27a0ec94806d7dce0f78e3d24fef'] = array(
+    'source' => 'Saved on',
+    'context' => '',
+    'location' => '',
+    'translation' => 'حُفظت فى',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Saved on', array(), array('context' => ''));
   $translations['ar:default']['4f8e7e26a8243eec1e248a31c209c3c9'] = array(
     'source' => 'Time last flagged',
     'context' => '',
@@ -3756,6 +3923,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Time ago', array(), array('context' => ''));
+  $translations['ar:default']['50601093fae796bdbdd8eaa8bd3e72e8'] = array(
+    'source' => 'Caption contains',
+    'context' => '',
+    'location' => '/en/admin/structure/views/view/checkdesk_media_browser/edit/photo_browser',
+    'translation' => 'الشرح يحتوي على',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Caption contains', array(), array('context' => ''));
   $translations['ar:default']['508462d2ba5e6dbffab4367ef4bdd091'] = array(
     'source' => '@label:delta',
     'context' => '',
@@ -3943,6 +4119,15 @@ A new user <a href="!url">!name </a>has registered. If you want to accept this r
     'plural' => 0,
   );
   $translatables[] = t('Fluid grid', array(), array('context' => ''));
+  $translations['ar:default']['54564cd0d8da41ef7748d67e6b9f51d3'] = array(
+    'source' => 'Revision history',
+    'context' => '',
+    'location' => '/ar/story/3233/collaboration',
+    'translation' => 'تاريخ المراجعات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Revision history', array(), array('context' => ''));
   $translations['ar:default']['54b491a485803ad8ac1a03cf4fc5cd9b'] = array(
     'source' => 'Pick the appropriate verification status',
     'context' => '',
@@ -4264,6 +4449,15 @@ A new user <a href="!url">!name </a>has registered. If you want to accept this r
     'plural' => 0,
   );
   $translatables[] = t('Sign in / Sign up', array(), array('context' => ''));
+  $translations['ar:default']['5b2330f2c2a5b38a2a7f5f8303655de5'] = array(
+    'source' => 'by ',
+    'context' => '',
+    'location' => '',
+    'translation' => 'بواسطة ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('by ', array(), array('context' => ''));
   $translations['ar:default']['5b3aa1adbaacecbc861957db6caec50c'] = array(
     'source' => 'Hello !recipient_name,
 
@@ -4309,6 +4503,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('To help verify this report, please <a href="@login_url">sign in</a>', array(), array('context' => ''));
+  $translations['ar:default']['5b66e3c9d6ff3f461c58d8b198dbff66'] = array(
+    'source' => 'Restore this version',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إستعادة هذه النسخة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Restore this version', array(), array('context' => ''));
   $translations['ar:default']['5b8a1cc18efbfbb8a83b37fc9a9eb5b8'] = array(
     'source' => 'Message text',
     'context' => '',
@@ -4639,6 +4842,16 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Path module form elements', array(), array('context' => ''));
+  $translations['ar:default']['61be5cbe764871988ea40527bcd28d18'] = array(
+    'source' => '%title is @publication_status. It has @count[2] revisions.',
+    'context' => '',
+    'location' => '/ar/node/317/revisions',
+    'translation' => '%title is @publication_status. تحتوي على مراجعتان.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('%title is @publication_status. It has @count[2] revisions.', array(), array('context' => ''));
   $translations['ar:default']['620c0e2624a5a25c2240bea3cf66a418'] = array(
     'source' => 'Published in ',
     'context' => '',
@@ -4925,6 +5138,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Search result', array(), array('context' => ''));
+  $translations['ar:default']['68a8f9f73b1cd1556dd3c782eb4bfae7'] = array(
+    'source' => 'Help verify this report',
+    'context' => '',
+    'location' => '/ar/embed/154',
+    'translation' => 'ساهم في التحقق من هذا التقرير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Help verify this report', array(), array('context' => ''));
   $translations['ar:default']['68d14b7f276640e6c6b4440bea4155e6'] = array(
     'source' => 'Comments are responses to node content.',
     'context' => '',
@@ -5036,6 +5258,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('The parent comment.', array(), array('context' => ''));
+  $translations['ar:default']['6a9d7e9f1bb03943c92098a16b25d82e'] = array(
+    'source' => '!screen_name this link already exists: !url',
+    'context' => '',
+    'location' => '/en/api/v1/bot',
+    'translation' => '!screen_name اللينك دا موجود عندي أصلاً: !url. ابعت حاجة جديدة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('!screen_name this link already exists: !url', array(), array('context' => ''));
   $translations['ar:default']['6ac2c69b148a083bb0af8736e08bca09'] = array(
     'source' => 'Queue \'Featured Stories\'',
     'context' => '',
@@ -5405,6 +5636,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Add a block here.', array(), array('context' => ''));
+  $translations['ar:default']['7129050a8348ec23f9494c6c8f7558fa'] = array(
+    'source' => 'Powered by Checkdesk',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'بدعم من Checkdesk',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Powered by Checkdesk', array(), array('context' => ''));
   $translations['ar:default']['714ac0f08dacad0d55d804e28888769e'] = array(
     'source' => '@entity_label flag',
     'context' => '',
@@ -5445,7 +5685,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'source' => 'Change report status on a story I followed',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'تم تعديل حالة تقرير لموضوع متابع',
+    'translation' => 'تم تعديل حالة تقرير لقصةمتابعة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -5558,6 +5798,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Follow us on:', array(), array('context' => ''));
+  $translations['ar:default']['741f6d3261f5e8e1bb24789ba6b95675'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> updated <a href="!story_url">story</a>',
+    'context' => '',
+    'location' => '/ar/views/ajax',
+    'translation' => 'قام <a class="actor" href="!user_url">!username</a> بتحديث <a href="!story_url"> هذا الموضوع </a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('<a class="actor" href="!user_url">!username</a> updated <a href="!story_url">story</a>', array(), array('context' => ''));
   $translations['ar:default']['7427fa24e05cc44d3b71636a72e4626c'] = array(
     'source' => 'Add comment link',
     'context' => '',
@@ -5855,6 +6104,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Powered by', array(), array('context' => ''));
+  $translations['ar:default']['7a6aa9f99aaea74f5bac39df712a1b35'] = array(
+    'source' => '%title is @publication_status. It has @count[3] revisions.',
+    'context' => '',
+    'location' => '/ar/node/307/revisions',
+    'translation' => '%title is @publication_status.تحتوي على @count[3] مراجعات.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('%title is @publication_status. It has @count[3] revisions.', array(), array('context' => ''));
   $translations['ar:default']['7a803f79addebadbebc457f24f6de1b2'] = array(
     'source' => 'View all @total footnotes',
     'context' => '',
@@ -5927,6 +6185,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('@label:!column', array(), array('context' => ''));
+  $translations['ar:default']['7c0408cc61e9c0143cbc5a5199468139'] = array(
+    'source' => 'Name contains',
+    'context' => '',
+    'location' => '/en/admin/structure/views/view/checkdesk_media_browser/edit',
+    'translation' => 'الإسم يحتوي على',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Name contains', array(), array('context' => ''));
   $translations['ar:default']['7c22279a45bab9651eebc6630c312105'] = array(
     'source' => 'Unflag spam',
     'context' => '',
@@ -6026,6 +6293,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Passphrase', array(), array('context' => ''));
+  $translations['ar:default']['7daeced9ff123eb7a7e3b82a5e27e96b'] = array(
+    'source' => 'Publish changes',
+    'context' => '',
+    'location' => '/ar/node/3232/edit',
+    'translation' => 'أنشر التعديلات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Publish changes', array(), array('context' => ''));
   $translations['ar:default']['7dd7cd514726666cfc5ca33ade85447f'] = array(
     'source' => 'The language the comment is in.',
     'context' => '',
@@ -6260,6 +6536,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('<a href="!user_url" class="actor">!username</a> has turned on fact-checking for a <a href="!report_url">report</a> you added', array(), array('context' => ''));
+  $translations['ar:default']['82ad21b5762c06c3eb611a807982ab76'] = array(
+    'source' => 'journalist',
+    'context' => '',
+    'location' => '',
+    'translation' => 'صحفي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('journalist', array(), array('context' => ''));
   $translations['ar:default']['83038e8b9973defe5633ea93c4655001'] = array(
     'source' => 'Published in',
     'context' => '',
@@ -6278,6 +6563,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Has Avatar', array(), array('context' => ''));
+  $translations['ar:default']['830dc8c696d1c8081208b1f92e06dc0b'] = array(
+    'source' => '- Unassigned -',
+    'context' => '',
+    'location' => '/ar/search?status=All&keys=&type=report&type=report&field_tags_tid=All&field_tags_tid=All&field_rating_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC&media_flags=All&media_flags=All&report_story=None&report_story=None&author=All&author=All',
+    'translation' => '- غير مرتبط -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('- Unassigned -', array(), array('context' => ''));
   $translations['ar:default']['833de5744e6bbe4aec33af8795c80e25'] = array(
     'source' => 'The raw numeric user ID.',
     'context' => '',
@@ -6345,6 +6639,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Evaluates a mathematical expression and displays it.', array(), array('context' => ''));
+  $translations['ar:default']['840316e840d760d169ce28d485490376'] = array(
+    'source' => '!screen_name thanks! Please visit !site_name to submit your link: !url',
+    'context' => '',
+    'location' => '/en/api/v1/bot',
+    'translation' => '!screen_name شكراً! تعالى إشترك على #المنصة علشان أنشرلك اللينك: !url',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('!screen_name thanks! Please visit !site_name to submit your link: !url', array(), array('context' => ''));
   $translations['ar:default']['843f2812f595e7ec7c5036e89fde02d6'] = array(
     'source' => 'Exclude',
     'context' => '',
@@ -6399,6 +6702,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Autocomplete', array(), array('context' => ''));
+  $translations['ar:default']['85124b7342bc9b8af4364a7d190718df'] = array(
+    'source' => 'Existing draft story updated',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'تم تعديل مسودة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Existing draft story updated', array(), array('context' => ''));
   $translations['ar:default']['851f023be781bbc9ee2154b7db28d1f3'] = array(
     'source' => 'Added ',
     'context' => '',
@@ -6789,6 +7101,15 @@ Story "!title" which you followed has a <a href="!url">new update</a>.', array()
     'plural' => 0,
   );
   $translatables[] = t('The language this translation is in.', array(), array('context' => ''));
+  $translations['ar:default']['8bc47c4179c0f7c6c65fcf1d51b327ad'] = array(
+    'source' => 'Photo Library',
+    'context' => '',
+    'location' => '/en/admin/structure/views/view/checkdesk_media_browser/edit/photo_browser',
+    'translation' => 'مكتبة الصور',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Photo Library', array(), array('context' => ''));
   $translations['ar:default']['8c00a9fe6213e6dcf1648d5fe5d89d1b'] = array(
     'source' => 'Success: Report created',
     'context' => '',
@@ -7072,6 +7393,24 @@ This was an auto-generated email from !site; please do not respond directly to t
 You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
 
 This was an auto-generated email from !site; please do not respond directly to this email.', array(), array('context' => ''));
+  $translations['ar:default']['93da65a9fd0004d9477aeac024e08e15'] = array(
+    'source' => 'options',
+    'context' => '',
+    'location' => '/ar/media/37/format-form?render=media-popup&fields=undefined',
+    'translation' => 'خيارات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('options', array(), array('context' => ''));
+  $translations['ar:default']['93ee55ee88a97dda046a01d20389e509'] = array(
+    'source' => 'Upload a new file',
+    'context' => '',
+    'location' => '/ar/media/browser?render=media-popup&types%5B%5D=image&activePlugins=&enabledPlugins%5B%5D=upload&enabledPlugins%5B%5D=checkdesk_media_browser--photo_browser&file_directory=story-inline-images&id=media_wysiwyg&plugins=undefined',
+    'translation' => 'ارفع ملف جديد',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Upload a new file', array(), array('context' => ''));
   $translations['ar:default']['93f40afd04f0b6da1a069734c016b928'] = array(
     'source' => 'Fact-checking has been enabled for this report.',
     'context' => '',
@@ -7141,6 +7480,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Add report to story', array(), array('context' => ''));
+  $translations['ar:default']['947147e4b341c1dcefe547c2edd07175'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> updated a draft story "<a href="!story_url">!story</a>"',
+    'context' => '',
+    'location' => '/ar/my-notifications',
+    'translation' => 'قام <a class="actor" href="!user_url">!username</a> بتحديث مسودة هذا الموضوع "<a href="!story_url">!story</a>"',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('<a class="actor" href="!user_url">!username</a> updated a draft story "<a href="!story_url">!story</a>"', array(), array('context' => ''));
   $translations['ar:default']['94f5ee7db89178971fc45408f7f52dfc'] = array(
     'source' => 'The unique ID of the node.',
     'context' => '',
@@ -7276,6 +7624,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Singular LID', array(), array('context' => ''));
+  $translations['ar:default']['97bb65f98579648bd73357974f3b3ea5'] = array(
+    'source' => 'Add media',
+    'context' => '',
+    'location' => '/ar/embed/119',
+    'translation' => 'أضف ميديا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Add media', array(), array('context' => ''));
   $translations['ar:default']['97bc592b27a9ada2d9a4bb418ed0ebed'] = array(
     'source' => 'now',
     'context' => '',
@@ -7737,6 +8094,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Relate a content revision to the user who created the revision.', array(), array('context' => ''));
+  $translations['ar:default']['a1e4db8a754a7d6d2faa10aec31816c4'] = array(
+    'source' => 'Stories by !user',
+    'context' => '',
+    'location' => '',
+    'translation' => 'قصص !user',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Stories by !user', array(), array('context' => ''));
   $translations['ar:default']['a274f4d4670213a9045ce258c6c56b80'] = array(
     'source' => 'Notifications',
     'context' => '',
@@ -8034,6 +8400,24 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Provide a simple link to edit the content.', array(), array('context' => ''));
+  $translations['ar:default']['a848b23b35a61dc1ab85fab9caeeeb9e'] = array(
+    'source' => 'Hello !recipient_name,
+
+A revision to your <a href="!url">story</a>has been published.
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+تم نشر تعديل <a href="!url"> لقصتك</a>.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+A revision to your <a href="!url">story</a>has been published.
+', array(), array('context' => ''));
   $translations['ar:default']['a87cf9e9eeb45555e6b3c13002d15f28'] = array(
     'source' => 'Bring in data about the user being addressed.',
     'context' => '',
@@ -8146,7 +8530,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Existing story updated',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'تحرير موضوع منشور',
+    'translation' => 'تحرير قصة منشورة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -8419,6 +8803,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Entity Reference', array(), array('context' => ''));
+  $translations['ar:default']['ae8925e690415685500aefb95d94dba3'] = array(
+    'source' => 'Embedding %filename',
+    'context' => '',
+    'location' => '/ar/media/37/format-form?render=media-popup&fields=undefined',
+    'translation' => 'تضمين %filename',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Embedding %filename', array(), array('context' => ''));
   $translations['ar:default']['aebaa13c501bcad7dae3a08ca3192dfe'] = array(
     'source' => 'Add headline',
     'context' => '',
@@ -8446,6 +8839,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Edit description', array(), array('context' => ''));
+  $translations['ar:default']['af1bb3f7eccc2d61ea139276b0e4deac'] = array(
+    'source' => 'A revision to your story has been published',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'تم نشر تعديل لقصتك',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('A revision to your story has been published', array(), array('context' => ''));
   $translations['ar:default']['af7c1edfee7bdc1f8e9ef7b7fa5377ad'] = array(
     'source' => 'Reports flagged as spam cannot be unflagged.',
     'context' => '',
@@ -8916,6 +9318,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('User uid', array(), array('context' => ''));
+  $translations['ar:default']['b918f4d641f71aa6c772f7fcbf5793ec'] = array(
+    'source' => '!screen_name thanks! You can access your link here: !url',
+    'context' => '',
+    'location' => '/en/api/v1/bot',
+    'translation' => '!screen_name شكراً! أنا نشرت اللينك على #المنصة: !url',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('!screen_name thanks! You can access your link here: !url', array(), array('context' => ''));
   $translations['ar:default']['b94ee5e0c13ff4c52ef22df7e194c4c9'] = array(
     'source' => 'The media source name.',
     'context' => '',
@@ -9087,6 +9498,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Is new', array(), array('context' => ''));
+  $translations['ar:default']['bca8a84d8508313a5e8a0ebb3439e36c'] = array(
+    'source' => 'citizen journalist',
+    'context' => '',
+    'location' => '',
+    'translation' => 'صحفي مواطن',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('citizen journalist', array(), array('context' => ''));
   $translations['ar:default']['bcb37020635cab570765bf3c2444984a'] = array(
     'source' => 'There was a problem with your form submission. Please wait @limit seconds and try again.',
     'context' => '',
@@ -9132,6 +9552,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Provide a simple link to edit the translations.', array(), array('context' => ''));
+  $translations['ar:default']['bda732aa355e14cb879995aa06032b26'] = array(
+    'source' => 'Delete this revision',
+    'context' => '',
+    'location' => '/ar/node/329/edit',
+    'translation' => 'حذف هذا المرجع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Delete this revision', array(), array('context' => ''));
   $translations['ar:default']['bdff3b5f5585a252d03b09c770c84e1a'] = array(
     'source' => 'An autocomplete text field.',
     'context' => '',
@@ -9619,6 +10048,29 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('The name of the comment\'s author. Can be rendered as a link to the author\'s homepage.', array(), array('context' => ''));
+  $translations['ar:default']['c71796d9706bb03762e457b8ad885740'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has updated the story !story.
+
+<a href="!url">Click here </a> to view or update this story.
+',
+    'context' => '',
+    'location' => '',
+    'translation' => 'مرحباً !recipient_name,
+
+قام !author بتحديث الموضوع !story.
+
+ <a href="!url"> اضغط هنا </a> لمعرفة أو تحديث هذا الموضوع.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+!author has updated the story !story.
+
+<a href="!url">Click here </a> to view or update this story.
+', array(), array('context' => ''));
   $translations['ar:default']['c74bdc61eab14f26f5c4a2bbe47c0560'] = array(
     'source' => 'Filter to ensure content has or has not been flagged.',
     'context' => '',
@@ -9719,6 +10171,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('<a href="!flag_author_url" class="actor">!flag_author_name</a> followed this story', array(), array('context' => ''));
+  $translations['ar:default']['c8f969908fbea4e6b5008c75600f295c'] = array(
+    'source' => 'A revision to your story "<a href="!story_url">!story</a>" has been published',
+    'context' => '',
+    'location' => '/ar/views/ajax',
+    'translation' => 'تم نشر تعديل لقصتك "<a href="!story_url">!story</a>"',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('A revision to your story "<a href="!story_url">!story</a>" has been published', array(), array('context' => ''));
   $translations['ar:default']['c9093ae39a3e21c99a7f6ebd38fb1376'] = array(
     'source' => 'Are you sure you want to flag this report?',
     'context' => '',
@@ -9881,6 +10342,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Stories', array(), array('context' => ''));
+  $translations['ar:default']['cc7e6c3f88e0e3655e44947ca962c1fb'] = array(
+    'source' => 'Draft story updated',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'تحرير مسودة موضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Draft story updated', array(), array('context' => ''));
   $translations['ar:default']['cd04986fed9f2447e44dcf509c121e72'] = array(
     'source' => 'Taxonomy Term',
     'context' => '',
@@ -9917,6 +10387,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('Email address for a given user. This field is normally not shown to users, so be cautious when using it.', array(), array('context' => ''));
+  $translations['ar:default']['cda9c1c5e2b44c278c1d1788f3b1c76e'] = array(
+    'source' => '%title is @publication_status. It has only one revision',
+    'context' => '',
+    'location' => '/ar/node/317/revisions',
+    'translation' => '%title is @publication_status. تحتوي على مراجعة واحدة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('%title is @publication_status. It has only one revision', array(), array('context' => ''));
   $translations['ar:default']['ce0570baa693338d4c57f7543737d942'] = array(
     'source' => 'Other nodes that link to the node.',
     'context' => '',
@@ -10121,6 +10600,15 @@ A <a href="!report_url">report</a> which you have submitted has been published i
     'plural' => 0,
   );
   $translatables[] = t('The full name Twitter account user.', array(), array('context' => ''));
+  $translations['ar:default']['d16f06ee25f7ca030af734812845704d'] = array(
+    'source' => 'Newest First',
+    'context' => '',
+    'location' => '/en/admin/structure/views/view/checkdesk_media_browser/edit',
+    'translation' => 'الحديث أولا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Newest First', array(), array('context' => ''));
   $translations['ar:default']['d187fd165d03d5abd3b5b9a49018d472'] = array(
     'source' => 'Current node\'s update time',
     'context' => '',
@@ -10809,6 +11297,29 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Search Terms', array(), array('context' => ''));
+  $translations['ar:default']['da89783c945ccf05ee7db83280fe17a6'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has created a new draft for story !story.
+
+<a href="!url">Click here </a> to edit this draft.
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name, 
+
+قام !author  بكتابة مسودة جدىدة للموضوع !story.
+
+ <a href="!url"> اضغط هنا </a> لتحديث هذا الموضوع.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Hello !recipient_name,
+
+!author has created a new draft for story !story.
+
+<a href="!url">Click here </a> to edit this draft.
+', array(), array('context' => ''));
   $translations['ar:default']['db3af42ba64b595db6ab3ea999fe0bb1'] = array(
     'source' => 'Drafts',
     'context' => '',
@@ -11029,7 +11540,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'New update on a story I followed',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'تحديث جديد لموضوع متابع',
+    'translation' => 'تحديث جديد لقصةمتابعة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -11412,6 +11923,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Delete item', array(), array('context' => ''));
+  $translations['ar:default']['e900cc14e700d27d5bb3a20756d26bf3'] = array(
+    'source' => 'Unpublish current revision',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إلغاء نشر النسخة الحالية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Unpublish current revision', array(), array('context' => ''));
   $translations['ar:default']['e90e718445f3644ed84f8237defb9f53'] = array(
     'source' => 'Heartbeat Activity Entity',
     'context' => '',
@@ -11466,6 +11986,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Spam', array(), array('context' => ''));
+  $translations['ar:default']['e9f6811b8212f57303dad486e044ffb5'] = array(
+    'source' => '!screen_name sorry, I can only understand a single link to import.',
+    'context' => '',
+    'location' => '/en/api/v1/bot',
+    'translation' => '!screen_name ابعتلي لينك واحد علشان أنشره',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('!screen_name sorry, I can only understand a single link to import.', array(), array('context' => ''));
   $translations['ar:default']['ea2337393dd487ccd50084e2506638b8'] = array(
     'source' => '<a class="actor" href="!user_url">!username</a> added a new <a href="!story_url">story</a>',
     'context' => '',
@@ -11646,6 +12175,15 @@ print theme(\'views_autorefresh\', array(
     'plural' => 0,
   );
   $translatables[] = t('Relate all content associated with a media source. This can produce duplicate entries if a source is used in multiple nodes.', array(), array('context' => ''));
+  $translations['ar:default']['ec855bdfd68c059eb1496bccbf4c42ea'] = array(
+    'source' => 'Followed stories by !user',
+    'context' => '',
+    'location' => '/ar/users/admin',
+    'translation' => 'قصص يتابعها !user',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Followed stories by !user', array(), array('context' => ''));
   $translations['ar:default']['ecc0c39a0c302406fcf99a09ad47d8ee'] = array(
     'source' => 'Referencing entity',
     'context' => '',
@@ -11673,6 +12211,15 @@ print theme(\'views_autorefresh\', array(
     'plural' => 0,
   );
   $translatables[] = t('Posted to !published', array(), array('context' => ''));
+  $translations['ar:default']['ed30202d4cb98f632e95e362ca6f1b92'] = array(
+    'source' => 'A revision to your <a href="!story_url">story</a> has been published',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'تم نشر تعديل <a href="!story_url">لقصتك</a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('A revision to your <a href="!story_url">story</a> has been published', array(), array('context' => ''));
   $translations['ar:default']['ed42606c7c0b96f4b4106330a94e22a5'] = array(
     'source' => 'Date and time of when the last comment was posted.',
     'context' => '',
@@ -12243,6 +12790,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('The date the user last logged in to the site.', array(), array('context' => ''));
+  $translations['ar:default']['f842efc77995bb13f43dfdb33c00ce81'] = array(
+    'source' => 'Delete (all revisions)',
+    'context' => '',
+    'location' => '/ar/node/301/edit',
+    'translation' => 'حذ ف (كل المراجعات)',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Delete (all revisions)', array(), array('context' => ''));
   $translations['ar:default']['f89fbcc552048d8dbbb85545f288c480'] = array(
     'source' => 'Desired block weight exceeds available weight options, please check weights for blocks before saving',
     'context' => '',
@@ -12436,11 +12992,20 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'More stories in [name_i18n] ',
     'context' => '',
     'location' => '/ar/story/1012',
-    'translation' => 'مزيد من القصص عن [name_i18n]',
+    'translation' => 'مزيد من القصص في [name_i18n]',
     'plid' => 0,
     'plural' => 0,
   );
   $translatables[] = t('More stories in [name_i18n] ', array(), array('context' => ''));
+  $translations['ar:default']['fd4e7aa363d873a0b060f8a57dd91b10'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> updated a draft <a href="!story_url">story</a>',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'قام <a class="actor" href="!user_url">!username</a> بتحديث <a href="!story_url">مسودة هذا الموضوع </a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('<a class="actor" href="!user_url">!username</a> updated a draft <a href="!story_url">story</a>', array(), array('context' => ''));
   $translations['ar:default']['fdffbb203193714a9e8a3db8d2f49825'] = array(
     'source' => 'Machine-Name of the vocabulary a term is a member of. This will be the vocabulary that whichever term the "Taxonomy: Term" field is; and can similarly cause duplicates.',
     'context' => '',
@@ -12657,6 +13222,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Comment', array(), array('context' => 'comment_body:comment_node_discussion:label'));
+  $translations['ar:field']['19e8869b1d8ac9c777876fdba56c3f76'] = array(
+    'source' => 'Caption',
+    'context' => 'field_media_caption:image:label',
+    'location' => 'field:field_media_caption:image:label',
+    'translation' => 'الشرح',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Caption', array(), array('context' => 'field_media_caption:image:label'));
   $translations['ar:field']['1a206884c12fc2eb51849b188507640f'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
@@ -12675,6 +13249,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Attachment', array(), array('context' => 'field_attachment:comment_node_discussion:label'));
+  $translations['ar:field']['29dedd81199c6b53fe0c84939ed01f26'] = array(
+    'source' => 'Credits',
+    'context' => 'field_media_credits:image:label',
+    'location' => 'field:field_media_credits:image:label',
+    'translation' => 'العزو',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Credits', array(), array('context' => 'field_media_credits:image:label'));
   $translations['ar:field']['2d291378a8a29af401a45aec8688733a'] = array(
     'source' => 'Tags',
     'context' => 'field_tags:media:label',
@@ -12801,6 +13384,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Additional authors', array(), array('context' => 'field_additional_authors:discussion:label'));
+  $translations['ar:menu']['0438c40111de0a6a702090159db84319'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:64951ef2-f0ea-4842-a761-c42b353bbf41:title',
+    'location' => 'menu:item:64951ef2-f0ea-4842-a761-c42b353bbf41:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Administer users', array(), array('context' => 'item:64951ef2-f0ea-4842-a761-c42b353bbf41:title'));
   $translations['ar:menu']['088c54353062fa1753915940e4554a57'] = array(
     'source' => 'Supported by Meedan',
     'context' => 'item:93091458-8370-4ca5-9fae-2ac710021e68:title',
@@ -12810,6 +13402,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Supported by Meedan', array(), array('context' => 'item:93091458-8370-4ca5-9fae-2ac710021e68:title'));
+  $translations['ar:menu']['0eb75c5777c828137fbcf49daefd4d36'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:09718b34-de51-4935-bff9-923c9deff48e:title',
+    'location' => 'menu:item:09718b34-de51-4935-bff9-923c9deff48e:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Administer users', array(), array('context' => 'item:09718b34-de51-4935-bff9-923c9deff48e:title'));
   $translations['ar:menu']['17e27e281a78c343adb7d06e100ebe3f'] = array(
     'source' => 'Notifications',
     'context' => 'item:5626ddfd-e3f6-7ba4-f9ff-f8c36ff9d636:title',
@@ -12828,6 +13429,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Powered by', array(), array('context' => 'item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title'));
+  $translations['ar:menu']['4a96915db3dd45df3b923cc0948cd434'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
+    'location' => 'menu:item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Administer users', array(), array('context' => 'item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title'));
   $translations['ar:menu']['4ad0da873268b2981438fc2645b8da1e'] = array(
     'source' => 'My stories',
     'context' => 'item:ae44ca85-2011-439a-a2ee-98bfa24187df:title',
@@ -12846,6 +13456,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Logout', array(), array('context' => 'item:391be377-17db-a134-4d21-c6742d07ca4e:title'));
+  $translations['ar:menu']['586d5b816e7ac4d0b6e436f7ebce4323'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
+    'location' => 'menu:item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Administer users', array(), array('context' => 'item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title'));
   $translations['ar:menu']['5cf36afb9ce6ecdf2895b7b364262da2'] = array(
     'source' => 'Main menu',
     'context' => 'menu:main-menu:title',
@@ -12855,6 +13474,24 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Main menu', array(), array('context' => 'menu:main-menu:title'));
+  $translations['ar:menu']['5d1ed88d7b62faf70088c982fa425477'] = array(
+    'source' => 'My account',
+    'context' => 'item:42e9e86e-42ae-8d04-0d50-e42bde8cbbda:title',
+    'location' => 'menu:item:42e9e86e-42ae-8d04-0d50-e42bde8cbbda:title',
+    'translation' => 'حسابي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('My account', array(), array('context' => 'item:42e9e86e-42ae-8d04-0d50-e42bde8cbbda:title'));
+  $translations['ar:menu']['5f86b2e80a57e6e9aea1ceeed72fadfd'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
+    'location' => 'menu:item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Administer users', array(), array('context' => 'item:90119a03-9ff0-9324-11f8-f501ab2a5135:title'));
   $translations['ar:menu']['66124c1bf88fc3c69212b7baa7ec4020'] = array(
     'source' => 'Create story',
     'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
@@ -12864,6 +13501,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Create story', array(), array('context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title'));
+  $translations['ar:menu']['6af2b2a74a46e161bf78b738d6778c87'] = array(
+    'source' => 'Update story',
+    'context' => 'item:d1a4a4e9-b0c3-8d94-11a4-34f35bda25c1:title',
+    'location' => 'menu:item:d1a4a4e9-b0c3-8d94-11a4-34f35bda25c1:title',
+    'translation' => 'حدث القصة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Update story', array(), array('context' => 'item:d1a4a4e9-b0c3-8d94-11a4-34f35bda25c1:title'));
   $translations['ar:menu']['7190454c99aee4c465d058e2ead671b5'] = array(
     'source' => 'Edit fact-checking statement',
     'context' => 'item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
@@ -12945,15 +13591,24 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Draft  stories', array(), array('context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title'));
-  $translations['ar:menu']['b48b9a053ce15999a9da52bbe0a59d88'] = array(
-    'source' => 'Sign in',
-    'context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title',
-    'location' => 'menu:item:9a684326-a352-d454-517b-878bb9468e91:title',
-    'translation' => 'تسجيل الدخول',
+  $translations['ar:menu']['ccad5ea8329325c1f37b39e288708bcc'] = array(
+    'source' => 'Update story',
+    'context' => 'item::title',
+    'location' => 'menu:item::title',
+    'translation' => 'حدث القصة',
     'plid' => 0,
     'plural' => 0,
   );
-  $translatables[] = t('Sign in', array(), array('context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title'));
+  $translatables[] = t('Update story', array(), array('context' => 'item::title'));
+  $translations['ar:menu']['d018096dec8b344b7ebb52b9633093e4'] = array(
+    'source' => 'Take tour',
+    'context' => 'item::title',
+    'location' => 'menu:item::title',
+    'translation' => 'تحديث موضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Take tour', array(), array('context' => 'item::title'));
   $translations['ar:menu']['d992247deb6fe04e5f08c9bf081af1f4'] = array(
     'source' => 'Submit report',
     'context' => 'item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
@@ -12963,6 +13618,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Submit report', array(), array('context' => 'item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title'));
+  $translations['ar:menu']['dfbb19bb84cd0197993b8291d5358659'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:16dcd9b5-d588-4ee8-a112-d99ce98f0f11:title',
+    'location' => 'menu:item:16dcd9b5-d588-4ee8-a112-d99ce98f0f11:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Administer users', array(), array('context' => 'item:16dcd9b5-d588-4ee8-a112-d99ce98f0f11:title'));
   $translations['ar:menu']['ea6e9fc97146e6a13dc26482854025de'] = array(
     'source' => 'Settings',
     'context' => 'item:99759df7-5990-47f8-9a09-273b3cc268dd:title',
@@ -12981,6 +13645,24 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Manage users', array(), array('context' => 'item:485c5e2e-cc65-4904-91e1-1ec580b522d5:title'));
+  $translations['ar:menu']['f43197b87055e4e538fac1fb2ede2082'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:37f9c620-24cb-4b3d-9f9d-abf9c5bb0a9d:title',
+    'location' => 'menu:item:37f9c620-24cb-4b3d-9f9d-abf9c5bb0a9d:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Administer users', array(), array('context' => 'item:37f9c620-24cb-4b3d-9f9d-abf9c5bb0a9d:title'));
+  $translations['ar:menu']['f474d46deac46f4afa0574c64664d368'] = array(
+    'source' => 'Information',
+    'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'translation' => 'معلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Information', array(), array('context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title'));
   $translations['ar:menu']['f62799e0b42171ab73ee0e833dabe923'] = array(
     'source' => 'Edit fact-checking statement',
     'context' => 'item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
@@ -12990,6 +13672,24 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Edit fact-checking statement', array(), array('context' => 'item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title'));
+  $translations['ar:menu']['f7002eb573f7ed7cd44f52ebca8a0b5f'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'location' => 'menu:item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Administer users', array(), array('context' => 'item:dbb94a78-169f-6a54-f507-7701e610920a:title'));
+  $translations['ar:menu']['fa1d5eeb06066a579cb6222441a37541'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:90476ce1-c57a-48e8-b95a-abc56aae9886:title',
+    'location' => 'menu:item:90476ce1-c57a-48e8-b95a-abc56aae9886:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Administer users', array(), array('context' => 'item:90476ce1-c57a-48e8-b95a-abc56aae9886:title'));
   $translations['ar:taxonomy']['12813189e549be09a79e6442d4671fac'] = array(
     'source' => 'Undetermined',
     'context' => 'term:ba27bacf-4d99-4c1d-bdce-a7fb35fafd43:name',

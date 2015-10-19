@@ -13,15 +13,17 @@
   }
   
   p {
-    margin: 0 0 26px 0;
     color: $firefly80;
     @include cd-serif-family;
-    font-size: 18px;
     word-wrap: break-word;
     @if $from-direction == left {
+      margin: 0 0 26px 0;
+      font-size: 18px;
       line-height: 26px;
       letter-spacing: -0.23px;
     } @else {
+      margin: 0 0 30px 0;
+      font-size: 20px;
       line-height: 30px;
     }
   }
@@ -29,19 +31,35 @@
   figure.element {
     margin-top: 26px;
     margin-bottom: 26px;
+    &.cke_widget_element {
+      width: 50%;
+      max-width: 620px; // follows body.page-liveblog #main #content from base
+      margin-#{$alpha}: auto;
+      margin-#{$omega}: auto;
+    }
+    figcaption {
+      border: 0 none;
+      color: $firefly40;
+      font-size: 16px;
+      line-height: 20px;
+      margin-top: 5px;
+    }
+    a { word-wrap: break-word; }
   }
 
   // lists
   & > ul, & > ol {
     counter-reset: li;
-    margin: 0 0 26px 0;
     @include cd-serif-family;
-    font-size: 18px;
     color: $firefly80;
     @if $from-direction == left {
+      margin: 0 0 26px 0;
+      font-size: 18px;
       line-height: 26px;
       letter-spacing: -0.23px;
     } @else {
+      margin: 0 0 30px 0;
+      font-size: 20px;
       line-height: 30px;
     }
     ul, ol {
@@ -87,21 +105,26 @@
   }
 
   h2 {
+    margin-bottom: 0;
+    font-weight: bold;
     color: $firefly90;
-    @if $from-direction == left {
-      font-weight: bold;
+    @if $from-direction == right {
+      @include cd-serif-family;
+      font-size: 22px;
     }
   }
 
   h3 {
-    color: $firefly60;
     margin-bottom: 30px;
+    @include cd-serif-family;
     font-size: 22px;
+    color: $firefly60;
     @if $from-direction == left {
       line-height: 30px;
       letter-spacing: -0.64px;
     } @else {
-      line-height: 34px;
+      font-size: 26px;
+      line-height: 36px;
     }
   }
 

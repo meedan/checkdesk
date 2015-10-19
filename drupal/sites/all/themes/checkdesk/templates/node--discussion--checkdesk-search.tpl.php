@@ -11,12 +11,12 @@
           <?php endif; ?>
 
           <div class="media-content">    
-            <?php if ($story_status) : ?>
+            <?php if ($is_current && $status) : ?>
               <span class="media-label published"><?php print t('Published '); ?>
             <?php else: ?>
               <span class="media-label draft"><?php print t('Draft'); ?>
             <?php endif; ?>
-            <span class="media-type"> <?php print t('Liveblog'); ?></span></span>
+            <span class="media-type"> <?php print t('Story'); ?></span></span>
 
             <div class="title">
               <?php if(isset($content['field_section'])) : ?>

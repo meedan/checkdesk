@@ -13,5 +13,12 @@
         instance.dataProcessor.writer.setRules('p', rules);
         instance.dataProcessor.writer.setRules('div', rules);
         instance.dataProcessor.writer.setRules('figure', rules);
+
+        //catch ctrl+clicks on <a>'s in edit mode to open hrefs in new tab/window
+        jQuery('iframe').contents().click(function(el) {  
+          if(typeof el.target.href != 'undefined' && el.ctrlKey == true) {          
+            window.open(el.target.href, 'new' + el.screenX);
+          }
+        });
     });
 })();

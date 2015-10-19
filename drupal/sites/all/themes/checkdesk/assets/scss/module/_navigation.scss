@@ -183,7 +183,7 @@ svg.logo-icon {
 
   svg.create-story-icon {
     top: 11px;
-    @if $from-direction == right {
+    @if $from-direction == 'right' {
       #{$alpha}: -5px;
     }
     width: 30px;

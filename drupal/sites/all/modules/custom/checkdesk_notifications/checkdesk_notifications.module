@@ -134,6 +134,10 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
           'label' => $label . t('Report I submitted is published in an update'),
           'token type' => 'node',
       );
+      $events[$context . '_publish_own_story_revision'] = array(
+        'label' => $label . t('Own revision to story is published'),
+        'token type' => 'node',
+      );
     }
     $events[$context . '_comment_on_report'] = array(
         'label' => $label . t('Comment on report'),
@@ -166,6 +170,10 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
     $events[$context . '_report_status_on_story_i_followed'] = array(
         'label' => $label . t('Change report status on a story I followed'),
         'token type' => 'node',
+    );
+    $events[$context . '_update_draft_story'] = array(
+      'label' => $label . t('Existing draft story updated'),
+      'token type' => 'node',
     );
   }
 }
@@ -252,6 +260,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
       if ($subscriptions['site_comment_on_report']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report' AND c2.uid = :uid AND heartbeat_activity.timestamp > c2.created", array(':uid' => $params[':uid']));
       }
+      if ($subscriptions['site_publish_own_story_revision']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_publish_own_story_revision' AND heartbeat_activity.uid_target = :uid", array(':uid' => $params[':uid']));
+      }
     }
 
     // Activities for any user
@@ -290,6 +301,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     if ($subscriptions['site_report_status_on_story_i_followed'] && $is_follower) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'status_report'
       AND ( $followed_stories_condition )");
+    }
+    if ($subscriptions['site_update_draft_story']) {
+      $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_update_draft_story'");
     }
 
     $query->add_where_expression(1, "FALSE");
@@ -333,11 +347,10 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
       $uids = db_query("SELECT DISTINCT(c2.uid) FROM {comment} c1 INNER JOIN {comment} c2 ON c1.pid = c2.cid WHERE c1.cid = $object->cid")->fetchCol();
       break;
     case 'email_fact_checking_on':
-      $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
-      break;
     case 'email_fact_checking_set':
+    case 'email_publish_own_story_revision':
       $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
-      break;
+    break;
     case 'email_fact_status_changed_for_commenter':
       $uids = db_query("SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.nid = $object->nid")->fetchCol();
       break;
@@ -358,6 +371,9 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
     case 'email_report_status_on_story_i_followed':
       $nid_target = $object->field_stories[LANGUAGE_NONE][0]['target_id'];
       $uids = db_query("SELECT DISTINCT(ha.uid) FROM {heartbeat_activity} ha  WHERE nid_target = $nid_target")->fetchCol();
+      break;
+    case 'email_update_draft_story':
+      $uids = db_query("(SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id) UNION (SELECT n.uid FROM {node} n WHERE n.nid = $object->nid)")->fetchCol();
       break;
   }
   return $uids;

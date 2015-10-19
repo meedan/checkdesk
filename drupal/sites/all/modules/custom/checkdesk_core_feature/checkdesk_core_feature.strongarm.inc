@@ -1129,7 +1129,6 @@ return _checkdesk_core_auto_title($node);
   $strongarm->value = array(
     'checkdesk' => 'checkdesk',
     'bartik' => 0,
-    'checkdesk_embed' => 0,
     'seven' => 0,
   );
   $export['meedan_custom_css_enabled_themes'] = $strongarm;
@@ -1606,13 +1605,6 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'revisioning_in_views_show_unpublished_content_terms';
-  $strongarm->value = 1;
-  $export['revisioning_in_views_show_unpublished_content_terms'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'revisioning_no_moderation_by_default';
   $strongarm->value = 1;
   $export['revisioning_no_moderation_by_default'] = $strongarm;
@@ -1712,7 +1704,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'site_frontpage';
-  $strongarm->value = 'liveblog';
+  $strongarm->value = 'front-page';
   $export['site_frontpage'] = $strongarm;
 
   $strongarm = new stdClass();

@@ -1,0 +1,14 @@
+<?php
+/**
+ * Implements hook_install();
+ */
+function checkdesk_media_install() {
+  // Delete ALT and TITLE fields from image file type
+  field_delete_field('field_file_image_alt_text');
+  field_delete_field('field_file_image_title_text');
+  
+  // Disable unused file types
+  file_type_disable('video');
+  file_type_disable('audio');
+  file_type_disable('document');
+}

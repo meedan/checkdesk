@@ -1,7 +1,9 @@
 <?php
 
 function checkdesk_duplicates_enable() {
-  checkdesk_duplicates_update_7001($sandbox);
+  if (db_table_exists('field_data_field_link')) {
+      checkdesk_duplicates_update_7001($sandbox);
+  }
 }
 /**
  * Normalize existing URLs
