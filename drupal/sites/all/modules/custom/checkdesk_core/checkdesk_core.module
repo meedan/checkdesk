@@ -2540,6 +2540,21 @@ function checkdesk_core_query_features_menu_link_alter($query) {
 }
 
 /**
+ * Implements hook_query_TAG_alter() for entityreference.
+ */
+function checkdesk_core_query_entityreference_alter($query) {
+  if (!empty($query->alterMetaData['field']) && $query->alterMetaData['field']['field_name'] === 'field_stories') {
+    $story = menu_get_object();
+    $limit = 50;
+    $nids = db_query("SELECT nid FROM {node} WHERE type='discussion' ORDER BY created DESC LIMIT $limit")->fetchCol();
+    if ($story && $story->type == 'discussion') {
+      $nids[] = $story->nid;
+    }
+    $query->condition('nid', $nids, 'IN');
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter() for `flag_confirm`.
  */
 function checkdesk_core_form_flag_confirm_alter(&$form, $form_state, $form_id) {
