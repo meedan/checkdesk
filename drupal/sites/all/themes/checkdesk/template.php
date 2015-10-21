@@ -264,6 +264,8 @@ function checkdesk_preprocess_block(&$variables) {
  * @see page.tpl.php
  */
 function checkdesk_preprocess_page(&$variables) {
+    drupal_set_message('<time datetime="2015-10-21T15:45:00+02:00" class="timeago">9 min ago</time>');
+
   global $user, $language;
 
   // load timeago library along with localized file
@@ -621,7 +623,7 @@ function checkdesk_preprocess_node(&$variables) {
       }
     }
   }
-
+  
   if ($variables['type'] == 'discussion') {
     // get authors
     $variables['story_authors'] = _checkdesk_story_authors($variables['node']);
