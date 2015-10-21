@@ -607,7 +607,7 @@ function checkdesk_preprocess_node(&$variables) {
         '@user' => url('user/' . $variables['uid']),
         '!user' => $node->name,
     ));
-    $variables['created_at'] = t('<time datetime="!isodatetime" class="timeago">!interval ago</time>', array(
+    $variables['created_at'] = t('<time datetime="!isodatetime" class="timeago">!datetime</time>', array(
         '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
         '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
         '!interval' => format_interval((time() - $variables['created']), 1),
