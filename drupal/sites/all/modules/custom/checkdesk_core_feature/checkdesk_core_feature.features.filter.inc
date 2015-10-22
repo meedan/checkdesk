@@ -94,7 +94,7 @@ function checkdesk_core_feature_filter_default_formats() {
     'weight' => -98,
     'filters' => array(
       'filter_html' => array(
-        'weight' => -10,
+        'weight' => -50,
         'status' => 1,
         'settings' => array(
           'allowed_html' => '<a> <em> <strong> <blockquote> <ul> <ol> <li> <p> <div> <iframe> <h2> <h3> <hr> <img> <figure> <script>',
@@ -103,34 +103,34 @@ function checkdesk_core_feature_filter_default_formats() {
         ),
       ),
       'filter_checkdesk_markup' => array(
-        'weight' => 0,
+        'weight' => -49,
         'status' => 1,
         'settings' => array(),
       ),
       'filter_autop' => array(
-        'weight' => 0,
+        'weight' => -48,
+        'status' => 1,
+        'settings' => array(),
+      ),
+      'filter_meedan_oembed' => array(
+        'weight' => -47,
+        'status' => 1,
+        'settings' => array(),
+      ),
+      'media_filter' => array(
+        'weight' => -46,
         'status' => 1,
         'settings' => array(),
       ),
       'filter_url' => array(
-        'weight' => 0,
+        'weight' => -45,
         'status' => 1,
         'settings' => array(
           'filter_url_length' => 72,
         ),
       ),
-      'filter_meedan_oembed' => array(
-        'weight' => 0,
-        'status' => 1,
-        'settings' => array(),
-      ),
-      'media_filter' => array(
-        'weight' => 2,
-        'status' => 1,
-        'settings' => array(),
-      ),
       'filter_htmlcorrector' => array(
-        'weight' => 10,
+        'weight' => -44,
         'status' => 1,
         'settings' => array(),
       ),

@@ -201,6 +201,10 @@ ul#user-menu .icon-bell-o:before {
   content: "\f16a";
 }
 
+.elsewhere ul li a span.icon-instagram:before {
+  content: "\f16d";
+}
+
 .elsewhere ul li a span.icon-tumblr:before {
   content: "\f173";
 }
@@ -3215,6 +3219,20 @@ svg.logo-icon {
   -moz-osx-font-smoothing: grayscale;
 }
 .elsewhere ul li a span.icon-tumblr:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.elsewhere ul li a span.icon-instagram:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -10004,13 +10022,16 @@ ul.secondary a.active {
 }
 
 .ui-dialog .ui-dialog-title {
-  float: left;
-  margin: .1em 16px .2em 0;
+  float: right;
+  margin-top: .1em;
+  margin-left: 16px;
+  margin-bottom: .2em;
+  margin-right: 0;
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
   position: absolute;
-  right: .3em;
+  left: .3em;
   top: 50%;
   width: 19px;
   margin: -10px 0 0 0;
@@ -10037,7 +10058,7 @@ ul.secondary a.active {
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-  text-align: left;
+  text-align: right;
   border-width: 1px 0 0 0;
   background-image: none;
   margin: .5em 0 0 0;
@@ -10045,18 +10066,21 @@ ul.secondary a.active {
 }
 
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-  float: right;
+  float: left;
 }
 
 .ui-dialog .ui-dialog-buttonpane button {
-  margin: .5em .4em .5em 0;
+  margin-top: .5em;
+  margin-left: .4em;
+  margin-bottom: .5em;
+  margin-right: 0;
   cursor: pointer;
 }
 
 .ui-dialog .ui-resizable-se {
   width: 14px;
   height: 14px;
-  right: 3px;
+  left: 3px;
   bottom: 3px;
 }
 

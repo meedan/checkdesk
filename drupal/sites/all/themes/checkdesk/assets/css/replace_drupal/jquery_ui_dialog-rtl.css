@@ -20,16 +20,16 @@
 }
 
 .ui-dialog .ui-dialog-title {
-  float: left;
+  float: right;
   margin-top: .1em;
-  margin-right: 16px;
+  margin-left: 16px;
   margin-bottom: .2em;
-  margin-left: 0;
+  margin-right: 0;
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
   position: absolute;
-  right: .3em;
+  left: .3em;
   top: 50%;
   width: 19px;
   margin: -10px 0 0 0;
@@ -56,7 +56,7 @@
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-  text-align: left;
+  text-align: right;
   border-width: 1px 0 0 0;
   background-image: none;
   margin: .5em 0 0 0;
@@ -64,21 +64,21 @@
 }
 
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-  float: right;
+  float: left;
 }
 
 .ui-dialog .ui-dialog-buttonpane button {
   margin-top: .5em;
-  margin-right: .4em;
+  margin-left: .4em;
   margin-bottom: .5em;
-  margin-left: 0;
+  margin-right: 0;
   cursor: pointer;
 }
 
 .ui-dialog .ui-resizable-se {
   width: 14px;
   height: 14px;
-  right: 3px;
+  left: 3px;
   bottom: 3px;
 }
 

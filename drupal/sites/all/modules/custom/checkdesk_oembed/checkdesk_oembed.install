@@ -1,27 +1,6 @@
 <?php
 
 /**
- * Implements hook_install().
- */
-function checkdesk_oembed_install() {
-  db_query("UPDATE {system} SET status = 1 WHERE type = 'theme' AND name = 'checkdesk_embed'");
-}
-
-/**
- * Implements hook_uninstall().
- */
-function checkdesk_oembed_uninstall() {
-  db_query("UPDATE {system} SET status = 0 WHERE type = 'theme' AND name = 'checkdesk_embed'");
-}
-
-/**
- * Ensures the Checkdesk theme is enabled.
- */
-function checkdesk_oembed_update_7000() {
-  checkdesk_oembed_install();
-}
-
-/**
  * Remove old entries of type photo to force re-generation
  * Issue #3315
  */

@@ -287,6 +287,8 @@ function checkdesk_preprocess_page(&$variables) {
   if (arg(0) == 'embed' && arg(1) != '') {
     $variables['theme_hook_suggestions'][] = 'page__embed';
 
+    unset($variables['page']['content']['user_alert_user_alert']);
+
     // add call to action (cta) cd embed footer
     $variables['cd_embed_footer'] = array(
       '#type' => 'link',
@@ -605,7 +607,7 @@ function checkdesk_preprocess_node(&$variables) {
         '@user' => url('user/' . $variables['uid']),
         '!user' => $node->name,
     ));
-    $variables['created_at'] = t('<time datetime="!isodatetime" class="timeago">!interval ago</time>', array(
+    $variables['created_at'] = t('<time datetime="!isodatetime" class="timeago">!datetime</time>', array(
         '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
         '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
         '!interval' => format_interval((time() - $variables['created']), 1),
@@ -619,7 +621,7 @@ function checkdesk_preprocess_node(&$variables) {
       }
     }
   }
-
+  
   if ($variables['type'] == 'discussion') {
     // get authors
     $variables['story_authors'] = _checkdesk_story_authors($variables['node']);

@@ -102,6 +102,7 @@ function checkdesk_photos_feature_user_default_permissions() {
   $permissions['view files'] = array(
     'name' => 'view files',
     'roles' => array(
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'file_entity',

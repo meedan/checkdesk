@@ -1764,13 +1764,12 @@ print t(\'No content available\');
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['label'] = 'By story';
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['operator'] = 'field_stories_target_id_op';
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['identifier'] = 'field_stories_target_id';
-  $handler->display->display_options['filters']['field_stories_target_id']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
-    4 => 0,
     5 => 0,
+    4 => 0,
   );
 
   /* Display: Autorefresh */
