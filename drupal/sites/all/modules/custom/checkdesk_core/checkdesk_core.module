@@ -2540,6 +2540,21 @@ function checkdesk_core_query_features_menu_link_alter($query) {
 }
 
 /**
+ * Implements hook_query_TAG_alter() for entityreference.
+ */
+function checkdesk_core_query_entityreference_alter($query) {
+  if (!empty($query->alterMetaData['field']) && $query->alterMetaData['field']['field_name'] === 'field_stories') {
+    $story = menu_get_object();
+    $limit = 50;
+    $nids = db_query("SELECT nid FROM {node} WHERE type='discussion' ORDER BY created DESC LIMIT $limit")->fetchCol();
+    if ($story && $story->type == 'discussion') {
+      $nids[] = $story->nid;
+    }
+    $query->condition('nid', $nids, 'IN');
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter() for `flag_confirm`.
  */
 function checkdesk_core_form_flag_confirm_alter(&$form, $form_state, $form_id) {
@@ -2979,25 +2994,6 @@ function _checkdesk_comment_form_submit($form, &$form_state) {
   $commands[] = ajax_command_invoke(NULL, 'footnoteCallback', array($nid, $output));
 
   return array('#type' => 'ajax', '#commands' => $commands);
-}
-
-/**
- * Implements hook_search_preprocess().
- */
-function checkdesk_core_search_preprocess($text) {
-  // Reject overly long 2 byte sequences, as well as characters above U+10000
-  $text = preg_replace('/[\x00-\x08\x10\x0B\x0C\x0E-\x19\x7F]'.
-    '|[\x00-\x7F][\x80-\xBF]+'.
-    '|([\xC0\xC1]|[\xF0-\xFF])[\x80-\xBF]*'.
-    '|[\xC2-\xDF]((?![\x80-\xBF])|[\x80-\xBF]{2,})'.
-    '|[\xE0-\xEF](([\x80-\xBF](?![\x80-\xBF]))|(?![\x80-\xBF]{2})|[\x80-\xBF]{3,})/S',
-    '', $text);
-
-  // Reject overly long 3 byte sequences and UTF-16 surrogates
-  $text = preg_replace('/\xE0[\x80-\x9F][\x80-\xBF]'.
-    '|\xED[\xA0-\xBF][\x80-\xBF]/S', '', $text);
-
-  return $text;
 }
 
 /**
@@ -3521,15 +3517,10 @@ function _set_user_avatar_bg($account, $classes = array(), $link = TRUE, $image_
  */
 function _checkdesk_render_footnotes($node) {
   $node_view = node_view($node);
-  $view = views_get_view('activity_report');
-  $view->set_arguments(array($node->nid));
-  $view->get_total_rows = TRUE;
-  $view_output = $view->preview('block');
-  $total_rows = $view->total_rows;
-  $view->destroy();
-  if ($total_rows) {
-    $media_activity_report_count = $total_rows;
-    $media_activity_report = $view_output;
+  $activity_report = _checkdesk_load_activity_report($node->nid);
+  if ($activity_report['total_rows']) {
+    $media_activity_report_count = $activity_report['total_rows'];
+    $media_activity_report = $activity_report['view_output'];
   }
   $html = '<div id="report-activity-node-' . $node->nid . '" class="item-nested-content-wrapper open">';
   $html .= '<div class="activity-item-controls item-controls">';
@@ -4110,4 +4101,26 @@ function _checkdesk_most_popular_stories($data = FALSE) {
   }
   $result = $query->execute()->fetchAll();
   return $result ? theme('checkdesk_core_most_popular_stories', array('stories' => $result)) : NULL;
+}
+
+/**
+ * Load report activities based on issue #4287
+ */
+function _checkdesk_load_activity_report($nid) {
+  $view = views_get_view('activity_report');
+  $view->set_arguments(array($nid));
+  $view->get_total_rows = TRUE;
+  $view->display['default']->display_options['pager']['options']['items_per_page'] = variable_get('checkdesk_comments_first_limit', 20);
+  $view_output = $view->preview('block');
+  $view->destroy();
+  $total_rows = $view->total_rows;
+  if ($total_rows <= variable_get('checkdesk_comments_all_limit', 30)) {
+    $view->display['default']->display_options['pager']['options']['items_per_page'] = variable_get('checkdesk_comments_all_limit', 30);
+    $view_output = $view->preview('block');
+    $view->destroy();
+  }
+  return array(
+      'view_output' => $view_output,
+      'total_rows' => $total_rows,
+  );
 }

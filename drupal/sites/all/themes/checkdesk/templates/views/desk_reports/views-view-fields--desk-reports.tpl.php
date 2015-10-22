@@ -5,7 +5,7 @@ if (isset($fields['field_rating']->content)) {
 }
 // Use google getFavicon service http://getfavicon.appspot.com/
 $favicon = NULL;
-if (isset($fields['source_url'])) {
+if (isset($fields['source_url']->raw)) {
   $favicon_url = _meedan_oembed_fetch_favicon($fields['source_url']->raw);
   $favicon = theme('image', array('path' => $favicon_url));
 }

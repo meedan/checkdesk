@@ -209,7 +209,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_update_draft_story" : "checkdesk_update_draft_story" } },
             "!user_url" : [ "site:current-user:url" ],
             "!username" : [ "site:current-user:name" ],
-            "!story_url" : [ "node:url" ]
+            "!story_url" : [ "node:url" ],
+            "!story" : [ "node:title" ]
           }
         },
         { "schedule" : {
@@ -241,7 +242,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_update_story" : "checkdesk_update_story" } },
             "!user_url" : [ "site:current-user:url" ],
             "!username" : [ "site:current-user:name" ],
-            "!story_url" : [ "node:url" ]
+            "!story_url" : [ "node:url" ],
+            "!story" : [ "node:title" ]
           }
         },
         { "schedule" : {
@@ -579,7 +581,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_add_story" : "checkdesk_add_story" } },
             "!user_url" : [ "site:current-user:url" ],
             "!username" : [ "site:current-user:name" ],
-            "!story_url" : [ "node:url" ]
+            "!story_url" : [ "node:url" ],
+            "!story" : [ "node:title" ]
           }
         },
         { "schedule" : {
@@ -1060,7 +1063,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "uid" : [ "site:current-user:uid" ],
             "uid_target" : [ "node:author:uid" ],
             "message_id" : { "value" : { "checkdesk_publish_own_story_revision" : "checkdesk_publish_own_story_revision" } },
-            "!story_url" : [ "node:url" ]
+            "!story_url" : [ "node:url" ],
+            "!story" : [ "node:title" ]
           }
         },
         { "schedule" : {

@@ -1,0 +1,315 @@
+<?php
+
+
+/**
+ *
+ * implementation of hook_menu
+ *
+ * @return array
+ */
+function utf8mb4_converter_menu() {
+  $items = [];
+  $items["admin/config/system/utf8mb4"] = array(
+    'title' => t('Database tables'),
+    'description' => t('Convert database tables from utf8 to utf8mb4.'),
+    'page callback' => 'utf8mb4_converter_view',
+    'access arguments' => [ "administer software updates" ],
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items["admin/config/system/utf8mb4/convert"] = array(
+    'title' => t('Database tables'),
+    'description' => t('Convert database tables from utf8 to utf8mb4.'),
+    'page callback' => 'utf8mb4_converter_convert_all_tables',
+    'access arguments' => [ "administer software updates" ],
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items["admin/config/system/utf8mb4/%"] = array(
+    'title' => t('Database tables'),
+    'description' => t('Convert database tables from utf8 to utf8mb4.'),
+    'page callback' => 'utf8mb4_converter_convert_table',
+    'page arguments' => [4],
+    'access arguments' => [ "administer software updates" ],
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+
+/**
+ * @return string
+ * @throws \Exception
+ */
+function utf8mb4_converter_view() {
+  $path = drupal_get_path("module", "utf8mb4_converter");
+  drupal_add_css("{$path}/utf8mb4_converter.css");
+  drupal_add_js("{$path}/utf8mb4_converter.js");
+  $result = db_query("show tables")->fetchCol();
+  $toTheme = [];
+  foreach ($result as $tablename) {
+    if (substr($tablename, 0, 1) != "_") {
+      $toTheme[] = utf8mb4_converter_create_display_row($tablename);
+    }
+  }
+  return theme("table", [
+    "headers" => [],
+    "rows" => $toTheme,
+    'attributes' => ['id' => 'utf8mb4-converter-column-list']
+  ]);
+}
+
+/**
+ * @param $table_name
+ * @return array
+ * @throws \Exception
+ */
+function utf8mb4_converter_create_column_table($table_name) {
+  $columns = utf8mb4_converter_get_column_iterator($table_name, true);
+  $headers = FALSE;
+  $column_table = [];
+  $has_unconverted = FALSE;
+
+  foreach ($columns as $column_name => $column_def) {
+    $classes = [];
+    if (!is_array($headers)) {
+      $headers = array_keys((array) $column_def);
+      $headers[] = "max length of values";
+      $column_table[] = [
+        "data" => $headers,
+        "class" => ['header'],
+        "no_striping" => TRUE
+      ];
+    }
+    $max = utf8mb4_converter_get_longest_field_length($table_name, $column_name);
+    $column_def->max_length_of_values = ($max)? $max:"no data";
+    if (intval($max) >= 191
+      && $column_def->COLLATION_NAME == "utf8_general_ci"
+      && $column_def->DATA_TYPE == "varchar"
+      && in_array($column_def->COLUMN_KEY, ["PRI", "UNI"])) {
+      $classes[] = "dont-truncate";
+    }
+    if ($column_def->COLLATION_NAME == "utf8_general_ci") {
+      $classes[] = "unconverted";
+      $column_table[] = [
+        'data' => array_values((array) $column_def),
+        'class' => $classes,
+      ];
+      $has_unconverted = true;
+    }
+    else {
+      $column_table[] = [
+        'data' => array_values((array) $column_def),
+        'class' => $classes
+      ];
+    }
+  }
+
+  return $db_table[] = [
+    "data" => [
+      "data" => [
+        "data" =>
+          theme("table", [
+            "rows" => $column_table,
+            "headers" => $headers,
+            "class" => ['unconverted']
+          ]),
+        "colspan" => 2,
+        "id" => "{$table_name}-column-list"
+      ],
+    ],
+    "data-has-unconverted" => ($has_unconverted)? "TRUE": "FALSE",
+  ];
+}
+
+/**
+ * @param $tablename
+ * @return array
+ * @throws \Exception
+ */
+function utf8mb4_converter_create_display_row($tablename) {
+  $db_table = [];
+  $db_table[] = [
+    "data" => [
+      [
+        'data' => "<h3><bold>" . $tablename . "</bold></h3>",
+        'class' => 'tablename'
+      ]
+    ],
+    "class" => ['tablename'],
+    'no_striping' => TRUE
+  ];
+  $db_table[] = utf8mb4_converter_create_column_table($tablename);
+  $button_attributes = [
+    "data-table" => $tablename
+  ];
+  $classes = ["utf8mb4-converter-database-table"];
+  if ($db_table[1]['data-has-unconverted'] === "FALSE") {
+    $button_attributes['disabled'] = "true";
+  } else {
+    $classes[] = "utf8mb4-converter-has-unconverted";
+  }
+  $db_table[0]['data'][] = [
+    "data" => '<button ' . drupal_attributes($button_attributes) . '>convert table</button>',
+    "class" => ['convert-button']
+  ];
+  return [
+    "data" => [
+      theme("table", [
+        "rows" => $db_table,
+        "headers" => [],
+        "attributes" => [
+          "id" => $tablename . "-display-table",
+          "classes" => $classes
+        ]
+      ])
+    ],
+    "no_striping" => TRUE
+  ];
+}
+
+function utf8mb4_converter_convert_all_tables() {
+  $batch = [
+    'title' => t('Converting tables to utf8mb4...'),
+    'init_message' => t('Conversion is starting...'),
+    'progress_message' => t('Converted @current out of @total'),
+    'finished' => 'utf8mb4_converter_convert_table_finished'
+  ];
+  foreach (db_query("show tables")->fetchCol() as $table) {
+    $batch['operations'][] = [
+      'utf8mb4_converter_convert_table_batch', [$table]
+    ];
+  }
+  batch_set($batch);
+  batch_process('admin/config/system/utf8mb4');
+}
+
+function utf8mb4_converter_convert_table_batch($table, &$context) {
+  $schema = utf8mb4_converter_get_column_iterator($table);
+  foreach ($schema as $column_name => $column_def){
+    try {
+      $results[] = utf8mb4_converter_fix_column($column_def, $table);
+    } catch(Exception $e) {
+      drupal_set_message($table . ': ' . $e->getMessage(), 'error');
+      watchdog_exception('utf8mb4_converter', $e);
+    }
+  }
+  try {
+    utf8mb4_converter_fix_table($table);
+  } catch(Exception $e) {
+    drupal_set_message($table . ': ' . $e->getMessage(), 'error');
+    watchdog_exception('utf8mb4_converter', $e);
+  }
+  $context['results'][] = $table;
+  $context['message'] = t('Now processing %table', ['%table' => $table]);
+}
+
+function utf8mb4_converter_convert_table_finished($success, $results, $operations) {
+  drupal_set_message(t('@count tables processed.', ['@count' => count($results)]));
+}
+
+/**
+ * @param $tablename
+ */
+function utf8mb4_converter_convert_table($tablename) {
+  $schema = utf8mb4_converter_get_column_iterator($tablename);
+  foreach ($schema as $column_name => $column_def){
+    try {
+      $results[] = utf8mb4_converter_fix_column($column_def, $tablename);
+    } catch(Exception $e) {
+      drupal_set_message($tablename . ': ' . $e->getMessage(), 'error');
+      watchdog_exception('utf8mb4_converter', $e);
+    }
+  }
+  try {
+    utf8mb4_converter_fix_table($tablename);
+  } catch(Exception $e) {
+    drupal_set_message($tablename . ': ' . $e->getMessage(), 'error');
+    watchdog_exception('utf8mb4_converter', $e);
+  }
+  $table = utf8mb4_converter_create_column_table($tablename);
+  echo $table['data']['data']['data'];
+  exit();
+}
+
+/**
+ * @param $tablename
+ * @return DatabaseStatement object
+ */
+function utf8mb4_converter_get_table_columns($tablename){
+  return db_query("show FULL COLUMNS from {" . $tablename . "}")->fetchAllAssoc('Field');
+}
+
+/**
+ * @param $tablename
+ * @param $columnname
+ * @return DatabaseStatement object
+ */
+function utf8mb4_converter_get_longest_field_length($tablename, $columnname) {
+  return db_query("select length({".$columnname."}) as ".$columnname."_length from ".$tablename." order by length({".$columnname."}) desc limit 1")->fetchField();
+}
+
+/**
+ * @param string $table
+ * @return DatabaseStatment object
+ */
+function utf8mb4_converter_fix_table($table) {
+  $sql = "ALTER TABLE `{$table}` CONVERT to CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
+  $sql .= " REPAIR TABLE `{$table}`;";
+  $sql .= " OPTIMIZE TABLE `{$table}`;";
+  return db_query($sql);
+}
+
+/**
+ * @param string $column
+ * @param string $table
+ * @return DatabaseStatment object
+ */
+function utf8mb4_converter_fix_column( $column_def, $table ) {
+  // only resize columns that are a key
+
+
+  if (in_array(trim($column_def->COLUMN_KEY), ["PRI", "UNI"]) && intval($column_def->LENGTH) >= 192) {
+    $column_def->LENGTH = 191;
+  }
+
+
+  switch($column_def->DATA_TYPE) {
+    case "varchar":
+      $coltype = "varchar({$column_def->LENGTH})";
+      break;
+
+    CASE "char":
+      $coltype = "char({$column_def->LENGTH})";
+      break;
+
+    default:
+      $coltype = $column_def->DATA_TYPE;
+  }
+
+  $sql = "ALTER TABLE {$table} CHANGE {$column_def->COLUMN_NAME} ".
+    "{$column_def->COLUMN_NAME} {$coltype} CHARACTER SET utf8mb4 "
+    ."COLLATE utf8mb4_unicode_ci";
+
+  return db_query($sql);
+}
+
+/**
+ * @param string $table
+ * @param boolean $all
+ * @return \ArrayIterator
+ */
+function utf8mb4_converter_get_column_iterator($table, $all = false) {
+  global $databases;
+  $sql = "select COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH AS LENGTH,"
+    . " COLUMN_KEY, COLLATION_NAME from information_schema.columns where `TABLE_SCHEMA` = '"
+    . $databases['default']['default']['database'] . "' and table_name = '{"
+    . $table . "}' ";
+  if ($all === false) {
+    $sql .= " and collation_name is not null and collation_name not like 'utf8mb4_%'";
+  }
+  $cols = db_query($sql);
+  if (!empty($cols)) {
+    return new ArrayIterator(@$cols->fetchAllAssoc("COLUMN_NAME"));
+  } else {
+    return new ArrayIterator();
+  }
+}

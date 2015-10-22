@@ -427,17 +427,9 @@ function checkdesk_core_update_7046() {
 }
 
 /**
- * Manually upgrade {file_managed.uri} to utf8mb4.
- */
-function checkdesk_core_update_7047() {
-  db_query("ALTER TABLE {file_managed} DROP KEY uri");
-  db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8mb4_bin");
-  db_query("CREATE UNIQUE INDEX uri ON {file_managed} (uri(191))");
-  db_query("ALTER TABLE {file_managed} ENGINE=innodb");
-
-/**
  * Update checkdesck_core weight
  */
+function checkdesk_core_update_7047() {
   db_update('system')
           ->fields(array(
               'weight' => 99,
@@ -503,4 +495,52 @@ function checkdesk_core_update_7050(&$sandbox) {
 function checkdesk_core_update_7051() {
   $vocabulary = taxonomy_vocabulary_machine_name_load('sections');
   db_query('UPDATE {taxonomy_term_data} SET language = :language WHERE vid = :vid', array(':language' => LANGUAGE_NONE, ':vid' => $vocabulary->vid));
+}
+
+/**
+ * Add story title to story's heartbeat activities.
+ */
+function checkdesk_core_update_7052() {
+  $result = db_query('
+    SELECT uaid, variables, ha.nid, n.title
+    FROM {heartbeat_activity} ha
+    INNER JOIN {node} n ON n.nid = ha.nid
+    WHERE message_id IN (:message_id)
+    ', array(
+          ':message_id' => array('checkdesk_add_story', 'checkdesk_update_story', 'checkdesk_publish_own_story_revision', 'checkdesk_update_draft_story'),
+      )
+  );
+  foreach ($result as $row) {
+    $variables = heartbeat_decode_message_variables($row->variables);
+    if (!array_key_exists('!story', $variables)) {
+      $variables['!story'] = $row->title;
+      db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
+          , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
+    }
+  }
+}
+
+/**
+ * Enable photos feature
+ */
+function checkdesk_core_update_7053() {
+  module_enable(array('checkdesk_photos_feature'));
+}
+
+/**
+ * Index field_stories_target_id field
+ */
+function checkdesk_core_update_7054() {
+  db_query('ALTER TABLE {field_data_field_stories} ADD INDEX (field_stories_target_id)');
+  db_query('ALTER TABLE {field_revision_field_stories} ADD INDEX (field_stories_target_id)');
+}
+
+/**
+ * Manually upgrade {file_managed.uri} to utf8mb4.
+ */
+function checkdesk_core_update_7055() {
+  db_query("ALTER TABLE {file_managed} DROP KEY uri");
+  db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8mb4_bin");
+  db_query("CREATE UNIQUE INDEX uri ON {file_managed} (uri(191))");
+  db_query("ALTER TABLE {file_managed} ENGINE=innodb");
 }

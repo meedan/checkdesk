@@ -33,7 +33,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'load_more';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '1';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
@@ -1764,13 +1764,12 @@ print t(\'No content available\');
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['label'] = 'By story';
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['operator'] = 'field_stories_target_id_op';
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['identifier'] = 'field_stories_target_id';
-  $handler->display->display_options['filters']['field_stories_target_id']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
-    4 => 0,
     5 => 0,
+    4 => 0,
   );
 
   /* Display: Autorefresh */

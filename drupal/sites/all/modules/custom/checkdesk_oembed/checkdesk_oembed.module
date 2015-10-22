@@ -5,17 +5,6 @@
 define('CHECKDESK_OEMBED_VERSION', '1.0');
 
 /**
- * Implements hook_custom_theme().
- *
- * Switches to the 'checkdesk_embed' theme when on the embed page.
- */
-function checkdesk_oembed_custom_theme() {
-  if (arg(0) == 'embed') {
-    return 'checkdesk_embed';
-  }
-}
-
-/**
  * Implements hook_menu().
  */
 function checkdesk_oembed_menu() {
@@ -99,18 +88,6 @@ function checkdesk_oembed_url($nid, $attributes) {
     'language' => (object) array('language' => FALSE)
   );
   return url('oembed/endpoint', $options);
-}
-
-/**
- * Implements hook_meedan_oembed_embed_alter().
- */
-function checkdesk_oembed_meedan_oembed_embed_alter($embed) {
-  // Check embed title against 4 bytes charachters
-  if (isset($embed->title)) {
-    $embed->title = preg_replace_callback('/./u', function (array $match) {
-      return strlen($match[0]) >= 4 ? 'X' : $match[0];
-    }, $embed->title);
-  }
 }
 
 /**
