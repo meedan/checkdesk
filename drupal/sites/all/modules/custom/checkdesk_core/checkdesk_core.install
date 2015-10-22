@@ -427,17 +427,9 @@ function checkdesk_core_update_7046() {
 }
 
 /**
- * Manually upgrade {file_managed.uri} to utf8mb4.
- */
-function checkdesk_core_update_7047() {
-  db_query("ALTER TABLE {file_managed} DROP KEY uri");
-  db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8mb4_bin");
-  db_query("CREATE UNIQUE INDEX uri ON {file_managed} (uri(191))");
-  db_query("ALTER TABLE {file_managed} ENGINE=innodb");
-
-/**
  * Update checkdesck_core weight
  */
+function checkdesk_core_update_7047() {
   db_update('system')
           ->fields(array(
               'weight' => 99,
@@ -508,8 +500,6 @@ function checkdesk_core_update_7051() {
 /**
  * Add story title to story's heartbeat activities.
  */
-
-
 function checkdesk_core_update_7052() {
   $result = db_query('
     SELECT uaid, variables, ha.nid, n.title
@@ -533,7 +523,6 @@ function checkdesk_core_update_7052() {
 /**
  * Enable photos feature
  */
-
 function checkdesk_core_update_7053() {
   module_enable(array('checkdesk_photos_feature'));
 }
@@ -545,5 +534,16 @@ function checkdesk_core_update_7053() {
 function checkdesk_core_update_7054() {
   db_query('ALTER TABLE {field_data_field_stories} ADD INDEX (field_stories_target_id)');
   db_query('ALTER TABLE {field_revision_field_stories} ADD INDEX (field_stories_target_id)');
+}
+
+
+/**
+ * Manually upgrade {file_managed.uri} to utf8mb4.
+ */
+function checkdesk_core_update_7055() {
+  db_query("ALTER TABLE {file_managed} DROP KEY uri");
+  db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8mb4_bin");
+  db_query("CREATE UNIQUE INDEX uri ON {file_managed} (uri(191))");
+  db_query("ALTER TABLE {file_managed} ENGINE=innodb");
 }
 
