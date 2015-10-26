@@ -33,6 +33,7 @@ function theme_views_autorefresh($variables) {
   $interval = $variables['interval'];
   $ping = $variables['ping'];
   $incremental = $variables['incremental'];
+  $nodejs = $variables['nodejs'];
   $view = $variables['view'];
 
   if (empty($view)) $view = views_get_current_view();
@@ -52,6 +53,7 @@ function theme_views_autorefresh($variables) {
     'interval' => $interval,
     'ping' => $ping,
     'incremental' => $incremental,
+    'useNodejs' => $nodejs,
     'timestamp' => __views_autorefresh_get_timestamp($view),
   ))), 'setting');
   $query = drupal_get_query_parameters($_REQUEST, array_merge(array('q', 'pass'), array_keys($_COOKIE)));
@@ -60,6 +62,10 @@ function theme_views_autorefresh($variables) {
   // Signal modules to add their own plugins.
   module_invoke_all('views_autorefresh_plugins', $view);
 
+  // Check for nodejs and create view channel
+  if ($nodejs && module_exists('nodejs')) {
+    nodejs_send_content_channel_token('views_autorefresh_' . $view->name);
+  }
   return '<div class="auto-refresh">' . $link . '</div>';
 }
 
@@ -132,3 +138,16 @@ function views_autorefresh_form_views_ui_add_item_form_alter(&$form, $form_state
   }
 }
 
+/**
+ * Refreshes a view through Nodejs
+ */
+function views_autorefresh_nodejs_refresh($views) {
+  foreach ($views as $view_name) {
+    $view_update = (object) array(
+                'channel' => 'views_autorefresh_' . $view_name,
+                'callback' => 'viewsAutoRefresh',
+                'view_id' => $view_name,
+    );
+    nodejs_send_content_channel_message($view_update);
+  }
+}

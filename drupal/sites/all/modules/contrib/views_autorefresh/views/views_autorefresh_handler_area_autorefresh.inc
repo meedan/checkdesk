@@ -20,6 +20,7 @@ class views_autorefresh_handler_area_autorefresh extends views_handler_area {
   function option_definition() {
     $options = parent::option_definition();
     $options['interval'] = array('default' => '');
+    $options['nodejs'] = array('default' => FALSE, 'bool' => TRUE);
     $options['incremental'] = array('default' => FALSE, 'bool' => TRUE);
     $options['display'] = array('default' => '');
 
@@ -52,6 +53,13 @@ class views_autorefresh_handler_area_autorefresh extends views_handler_area {
       '#field_suffix' => 'milliseconds',
       '#required' => TRUE,
     );
+    if (module_exists('nodejs')) {
+      $form['nodejs'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Use Nodejs to refresh the view instead of interval pings'),
+        '#default_value' => $this->options['nodejs'],
+      );
+    }
     $form['incremental'] = array(
       '#type' => 'checkbox',
       '#title' => t('Use a secondary view display to incrementally insert new items only'),
@@ -193,6 +201,7 @@ class views_autorefresh_handler_area_autorefresh extends views_handler_area {
   function render($empty = FALSE) {
     $args = array();
     $args['view'] = $this->view;
+    $args['nodejs'] = isset($this->options['nodejs']) ? $this->options['nodejs'] : FALSE;
     $args['interval'] = $this->options['interval'];
     if ($this->options['ping']) {
       $args['ping'] = array(
