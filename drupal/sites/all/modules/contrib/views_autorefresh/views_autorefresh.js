@@ -68,13 +68,8 @@ Drupal.behaviors.views_autorefresh = {
                 Drupal.settings.views_autorefresh[settings.view_name].ajax = new Drupal.ajax(view, this, element_settings);
 
                 // Activate refresh timer.
-                if (!Drupal.settings.views_autorefresh.useNodejs) { // Only if Nodejs is  not enabled
-                  clearTimeout(Drupal.settings.views_autorefresh[settings.view_name].timer);
-                  Drupal.views_autorefresh.timer(settings.view_name, anchor, target);
-                } else { // otherwise prepare to use nodejs
-                  Drupal.settings.views_autorefresh[settings.view_name].anchor = anchor;
-                  Drupal.settings.views_autorefresh[settings.view_name].target = target;
-                }
+                clearTimeout(Drupal.settings.views_autorefresh[settings.view_name].timer);
+                Drupal.views_autorefresh.timer(settings.view_name, anchor, target);
               }); // .each function () {
         }); // $view.filter().each
       });
@@ -85,12 +80,8 @@ Drupal.behaviors.views_autorefresh = {
 Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
   Drupal.settings.views_autorefresh[view_name].timer = setTimeout(function() {
     clearTimeout(Drupal.settings.views_autorefresh[view_name].timer);
-    Drupal.views_autorefresh.refresh(view_name, anchor, target)
-  }, Drupal.settings.views_autorefresh[view_name].interval);
-}
 
-Drupal.views_autorefresh.refresh = function(view_name, anchor, target) {
-  // Turn off "new" items class.
+    // Turn off "new" items class.
     $('.views-autorefresh-new', target).removeClass('views-autorefresh-new');
 
     // Handle ping path.
@@ -122,10 +113,10 @@ Drupal.views_autorefresh.refresh = function(view_name, anchor, target) {
         data: pingData,
         success: function(response) {
           if (response.pong && parseInt(response.pong) > 0) {
-            $(target).trigger('autorefresh_ping', parseInt(response.pong));
+            $(target).trigger('autorefresh.ping', parseInt(response.pong));
             $(anchor).trigger('click');
           }
-          else if (!Drupal.settings.views_autorefresh.useNodejs) {
+          else {
             Drupal.views_autorefresh.timer(view_name, anchor, target);
           }
         },
@@ -136,10 +127,11 @@ Drupal.views_autorefresh.refresh = function(view_name, anchor, target) {
     else {
       $(anchor).trigger('click');
     }
+  }, Drupal.settings.views_autorefresh[view_name].interval);
 }
 
 Drupal.ajax.prototype.commands.viewsAutoRefreshTriggerUpdate = function (ajax, response, status) {
-  $(response.selector).trigger('autorefresh_update', response.timestamp);
+  $(response.selector).trigger('autorefresh.update', response.timestamp);
 }
 
 // http://stackoverflow.com/questions/1394020/jquery-each-backwards
@@ -211,28 +203,13 @@ Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, res
       $view.trigger('autorefresh.incremental', $source.size());
     }
 
-    if (!Drupal.settings.views_autorefresh.useNodejs) {
-      // Reactivate refresh timer.
-      Drupal.views_autorefresh.timer(response.view_name, $('.auto-refresh a', $view), $view);
-    }
+    // Reactivate refresh timer.
+    Drupal.views_autorefresh.timer(response.view_name, $('.auto-refresh a', $view), $view);
     
     // Attach behaviors
     Drupal.attachBehaviors($view);
   }
 }
-
-// callback for nodejs message
-Drupal.Nodejs.callbacks.viewsAutoRefresh = {
-  callback: function (message) {
-    console.log("Let's referesh the view " + message['view_id']);
-    var viewName = message['view_id']
-    Drupal.views_autorefresh.refresh(
-            viewName,
-            Drupal.settings.views_autorefresh[viewName].anchor,
-            Drupal.settings.views_autorefresh[viewName].target
-                    );
-  }
-};
 
 // END jQuery
 })(jQuery);
