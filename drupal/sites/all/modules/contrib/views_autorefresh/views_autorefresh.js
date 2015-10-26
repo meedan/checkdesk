@@ -68,7 +68,7 @@ Drupal.behaviors.views_autorefresh = {
                 Drupal.settings.views_autorefresh[settings.view_name].ajax = new Drupal.ajax(view, this, element_settings);
 
                 // Activate refresh timer.
-                if (!Drupal.settings.views_autorefresh[viewName].useNodejs) { // Only if Nodejs is  not enabled
+                if (!Drupal.settings.views_autorefresh[settings.view_name].useNodejs) { // Only if Nodejs is  not enabled
                 clearTimeout(Drupal.settings.views_autorefresh[settings.view_name].timer);
                 Drupal.views_autorefresh.timer(settings.view_name, anchor, target);
                 } else { // otherwise prepare to use nodejs
@@ -125,7 +125,7 @@ Drupal.views_autorefresh.refresh = function(view_name, anchor, target) {
             $(target).trigger('autorefresh.ping', parseInt(response.pong));
             $(anchor).trigger('click');
           }
-          else if (!Drupal.settings.views_autorefresh[viewName].useNodejs) {
+          else if (!Drupal.settings.views_autorefresh[view_name].useNodejs) {
             Drupal.views_autorefresh.timer(view_name, anchor, target);
           }
         },
@@ -211,7 +211,7 @@ Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, res
       $view.trigger('autorefresh.incremental', $source.size());
     }
 
-    if (!Drupal.settings.views_autorefresh[viewName].useNodejs) {
+    if (!Drupal.settings.views_autorefresh[response.view_name].useNodejs) {
     // Reactivate refresh timer.
     Drupal.views_autorefresh.timer(response.view_name, $('.auto-refresh a', $view), $view);
     }
@@ -224,7 +224,6 @@ Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, res
 // callback for nodejs message
 Drupal.Nodejs.callbacks.viewsAutoRefresh = {
   callback: function (message) {
-    console.log("Let's referesh the view " + message['view_id']);
     var viewName = message['view_id']
     Drupal.views_autorefresh.refresh(
             viewName,
