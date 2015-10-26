@@ -1599,6 +1599,29 @@ print t(\'No content available\');
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Autorefresh */
+  $handler->display->display_options['header']['autorefresh']['id'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['table'] = 'views';
+  $handler->display->display_options['header']['autorefresh']['field'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['interval'] = '5000';
+  $handler->display->display_options['header']['autorefresh']['incremental'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['display'] = 'page_1';
+  $handler->display->display_options['header']['autorefresh']['ping'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['ping_base_path'] = 'sites/all/modules/custom/checkdesk_core/autorefresh/liveblog.php';
+  $handler->display->display_options['header']['autorefresh']['ping_arguments'] = '$story = isset($_GET[\'story\']) ? $_GET[\'story\'] : 0;
+return array(\'type\'=>\'media\',\'field\'=>\'created\',\'story\'=>$story);';
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['label'] = 'Reports stats';
+  $handler->display->display_options['header']['area']['empty'] = TRUE;
+  $handler->display->display_options['header']['area']['content'] = '<?php $view = views_get_current_view(); ?>
+<div class="filters-summary">
+  <p><?php print format_plural($view->total_rows, \'<span>1</span> result. You can drag and drop it.\', \'<span>@count</span> results. Drag and drop the best ones.\'); ?></p>
+</div>';
+  $handler->display->display_options['header']['area']['format'] = 'php_code';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
@@ -1764,12 +1787,13 @@ print t(\'No content available\');
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['label'] = 'By story';
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['operator'] = 'field_stories_target_id_op';
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['identifier'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
-    5 => 0,
     4 => 0,
+    5 => 0,
   );
 
   /* Display: Autorefresh */
@@ -1794,7 +1818,7 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_link']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link']['type'] = 'oembed_thumbnail';
+  $handler->display->display_options['fields']['field_link']['type'] = 'meedan_oembed_thumbnail';
   $handler->display->display_options['fields']['field_link']['settings'] = array(
     'imagestyle' => 'report_thumbnail',
   );
@@ -1817,20 +1841,6 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Media */
-  $handler->display->display_options['fields']['field_link_1']['id'] = 'field_link_1';
-  $handler->display->display_options['fields']['field_link_1']['table'] = 'field_data_field_link';
-  $handler->display->display_options['fields']['field_link_1']['field'] = 'field_link';
-  $handler->display->display_options['fields']['field_link_1']['label'] = '';
-  $handler->display->display_options['fields']['field_link_1']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_link_1']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_link_1']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_link_1']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link_1']['type'] = 'oembed_default';
-  $handler->display->display_options['fields']['field_link_1']['settings'] = array(
-    'maxwidth' => '270',
-    'maxheight' => '',
-  );
   /* Field: Media sources: Source name */
   $handler->display->display_options['fields']['source']['id'] = 'source';
   $handler->display->display_options['fields']['source']['table'] = 'meedan_sources';
@@ -1850,6 +1860,38 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['created']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'g:ia - d M Y';
+  /* Field: Content: Media */
+  $handler->display->display_options['fields']['field_link_1']['id'] = 'field_link_1';
+  $handler->display->display_options['fields']['field_link_1']['table'] = 'field_data_field_link';
+  $handler->display->display_options['fields']['field_link_1']['field'] = 'field_link';
+  $handler->display->display_options['fields']['field_link_1']['label'] = '';
+  $handler->display->display_options['fields']['field_link_1']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_link_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_link_1']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_link_1']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link_1']['type'] = 'oembed_default';
+  $handler->display->display_options['fields']['field_link_1']['settings'] = array(
+    'maxwidth' => '270',
+    'maxheight' => '',
+  );
+  /* Field: Media sources: Source URL */
+  $handler->display->display_options['fields']['source_url']['id'] = 'source_url';
+  $handler->display->display_options['fields']['source_url']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['source_url']['field'] = 'source_url';
+  $handler->display->display_options['fields']['source_url']['relationship'] = 'ms_id';
+  $handler->display->display_options['fields']['source_url']['label'] = '';
+  $handler->display->display_options['fields']['source_url']['element_type'] = '0';
+  $handler->display->display_options['fields']['source_url']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['source_url']['element_default_classes'] = FALSE;
+  /* Field: Media sources: Source URL */
+  $handler->display->display_options['fields']['source_url_1']['id'] = 'source_url_1';
+  $handler->display->display_options['fields']['source_url_1']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['source_url_1']['field'] = 'source_url';
+  $handler->display->display_options['fields']['source_url_1']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['source_url_1']['label'] = '';
+  $handler->display->display_options['fields']['source_url_1']['element_type'] = '0';
+  $handler->display->display_options['fields']['source_url_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['source_url_1']['element_default_classes'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Post date (with operator) */
   $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
@@ -1993,6 +2035,11 @@ print t(\'No content available\');
     t('Block'),
     t('<span class="report-stream-filter-label">{key:[current-page:query:title_op]}</span>&nbsp;<span class="report-stream-filter-val">"[current-page:query:title]"</span>'),
     t('<span class="report-stream-filter-label">{key:[current-page:query:source_op]}</span>&nbsp;<span class="report-stream-filter-val">"[current-page:query:source]"</span>'),
+    t('Reports stats'),
+    t('<?php $view = views_get_current_view(); ?>
+<div class="filters-summary">
+  <p><?php print format_plural($view->total_rows, \'<span>1</span> result. You can drag and drop it.\', \'<span>@count</span> results. Drag and drop the best ones.\'); ?></p>
+</div>'),
     t('By keyword'),
     t('By status'),
     t('By source'),
@@ -2173,19 +2220,16 @@ print t(\'No content available\');
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = 'Notifications list query';
   $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['label'] = 'Auto Refresh';
-  $handler->display->display_options['header']['area']['empty'] = TRUE;
-  $handler->display->display_options['header']['area']['content'] = '<?php
-global $user;
-$interval = 5000;
-$path = drupal_get_path(\'module\', \'checkdesk_notifications\') . \'/ping.php?user=\' . $user->uid;
-print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_field\' => TRUE, \'incremental\' => FALSE, \'ping\' => array(\'ping_base_path\' =>  $path)));
-?>';
-  $handler->display->display_options['header']['area']['format'] = 'php_code';
+  /* Header: Global: Autorefresh */
+  $handler->display->display_options['header']['autorefresh']['id'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['table'] = 'views';
+  $handler->display->display_options['header']['autorefresh']['field'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['interval'] = '5000';
+  $handler->display->display_options['header']['autorefresh']['display'] = 'page';
+  $handler->display->display_options['header']['autorefresh']['ping'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['ping_base_path'] = 'sites/all/modules/custom/checkdesk_notifications/ping.php';
+  $handler->display->display_options['header']['autorefresh']['ping_arguments'] = 'global $user;
+return array(\'user\'=>$user->uid);';
   $handler->display->display_options['defaults']['footer'] = FALSE;
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
@@ -2217,13 +2261,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('Block'),
     t('Notifications'),
     t('more'),
-    t('Auto Refresh'),
-    t('<?php
-global $user;
-$interval = 5000;
-$path = drupal_get_path(\'module\', \'checkdesk_notifications\') . \'/ping.php?user=\' . $user->uid;
-print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_field\' => TRUE, \'incremental\' => FALSE, \'ping\' => array(\'ping_base_path\' =>  $path)));
-?>'),
     t(' '),
   );
   $export['my_notifications'] = $view;
