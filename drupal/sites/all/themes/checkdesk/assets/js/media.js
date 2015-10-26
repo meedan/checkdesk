@@ -11,6 +11,8 @@
       $('.page-media').find('.button-yes').addClass('btn btn-default');
       // On the media browser / photo library change submit button text to select
       $('.page-media-browser').find('.button-yes').text(Drupal.t('Select'));
+      // Change Submit to Add image on format or embedding ... 
+      $('.page-media-format-form').find('.fake-ok').text(Drupal.t('Add Image'));
     }
   };
 
