@@ -539,3 +539,12 @@ function checkdesk_core_update_7054() {
   db_query('ALTER TABLE {field_data_field_stories} ADD INDEX (field_stories_target_id)');
   db_query('ALTER TABLE {field_revision_field_stories} ADD INDEX (field_stories_target_id)');
 }
+
+/**
+ * Disable and uninstall reactor
+ */
+function checkdesk_core_update_7055() {
+  $module_list = array('reactor');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+}
