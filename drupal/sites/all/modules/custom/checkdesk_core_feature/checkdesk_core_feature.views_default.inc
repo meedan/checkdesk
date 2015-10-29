@@ -1794,7 +1794,7 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_link']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link']['type'] = 'oembed_thumbnail';
+  $handler->display->display_options['fields']['field_link']['type'] = 'meedan_oembed_thumbnail';
   $handler->display->display_options['fields']['field_link']['settings'] = array(
     'imagestyle' => 'report_thumbnail',
   );
@@ -1817,20 +1817,6 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Media */
-  $handler->display->display_options['fields']['field_link_1']['id'] = 'field_link_1';
-  $handler->display->display_options['fields']['field_link_1']['table'] = 'field_data_field_link';
-  $handler->display->display_options['fields']['field_link_1']['field'] = 'field_link';
-  $handler->display->display_options['fields']['field_link_1']['label'] = '';
-  $handler->display->display_options['fields']['field_link_1']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_link_1']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_link_1']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_link_1']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link_1']['type'] = 'oembed_default';
-  $handler->display->display_options['fields']['field_link_1']['settings'] = array(
-    'maxwidth' => '270',
-    'maxheight' => '',
-  );
   /* Field: Media sources: Source name */
   $handler->display->display_options['fields']['source']['id'] = 'source';
   $handler->display->display_options['fields']['source']['table'] = 'meedan_sources';
@@ -1850,6 +1836,22 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['created']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'g:ia - d M Y';
+  /* Field: Media sources: Source URL */
+  $handler->display->display_options['fields']['source_url']['id'] = 'source_url';
+  $handler->display->display_options['fields']['source_url']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['source_url']['field'] = 'source_url';
+  $handler->display->display_options['fields']['source_url']['relationship'] = 'ms_id';
+  $handler->display->display_options['fields']['source_url']['label'] = '';
+  $handler->display->display_options['fields']['source_url']['element_type'] = '0';
+  $handler->display->display_options['fields']['source_url']['element_label_colon'] = FALSE;
+  /* Field: Media sources: Source URL */
+  $handler->display->display_options['fields']['source_url_1']['id'] = 'source_url_1';
+  $handler->display->display_options['fields']['source_url_1']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['source_url_1']['field'] = 'source_url';
+  $handler->display->display_options['fields']['source_url_1']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['source_url_1']['label'] = '';
+  $handler->display->display_options['fields']['source_url_1']['element_type'] = '0';
+  $handler->display->display_options['fields']['source_url_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Post date (with operator) */
   $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
@@ -2417,6 +2419,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'load_more';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '15';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
+  $handler->display->display_options['pager']['options']['load_all'] = 0;
 
   /* Display: Auto-refresh */
   $handler = $view->new_display('page', 'Auto-refresh', 'page_1');
@@ -2454,6 +2464,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('Published'),
     t('All'),
     t('Block'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Load more'),
     t('Auto-refresh'),
   );
   $export['updates_for_stories'] = $view;
