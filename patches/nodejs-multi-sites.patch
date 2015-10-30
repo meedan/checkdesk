@@ -23,7 +23,7 @@ index a9a42d7..53b8f0e 100644
    Drupal.Nodejs.socket.emit('authenticate', authMessage);
  };
 diff --git a/drupal/sites/all/modules/contrib/nodejs/nodejs.module b/drupal/sites/all/modules/contrib/nodejs/nodejs.module
-index 153e5ab..c143ef2 100644
+index 153e5ab..fec7a0a 100644
 --- a/drupal/sites/all/modules/contrib/nodejs/nodejs.module
 +++ b/drupal/sites/all/modules/contrib/nodejs/nodejs.module
 @@ -38,6 +38,7 @@ function nodejs_send_content_channel_token($channel, $notify_on_disconnect = FAL
@@ -43,7 +43,24 @@ index 153e5ab..c143ef2 100644
  
        $node_response->token = $message->token;
        return $node_response;
-@@ -830,6 +831,7 @@ class Nodejs {
+@@ -784,7 +785,7 @@ class Nodejs {
+   public static function initConfig() {
+     if (!isset(self::$config)) {
+       self::$config = nodejs_get_config();
+-      self::$headers = array('NodejsServiceKey' => self::$config['serviceKey']);
++      self::$headers = array('NodejsServiceKey' => self::$config['serviceKey'], 'hostName' => $_SERVER['HTTP_HOST']);
+       self::$baseUrl = nodejs_get_url(self::$config);
+     }
+   }
+@@ -807,6 +808,7 @@ class Nodejs {
+     self::initConfig();
+     drupal_alter('nodejs_message', $message);
+     $message->clientSocketId = nodejs_get_client_socket_id();
++    $message->hostName = $_SERVER['HTTP_HOST'];
+     $options = array(
+       'method' => 'POST',
+       'data' => drupal_json_encode($message),
+@@ -830,6 +832,7 @@ class Nodejs {
    public static function sendContentTokenMessage($message) {
      self::initConfig();
      $message->clientSocketId = nodejs_get_client_socket_id();
@@ -51,7 +68,7 @@ index 153e5ab..c143ef2 100644
      drupal_alter('nodejs_content_channel_message', $message);
      $options = array(
        'method' => 'POST',
-@@ -842,6 +844,7 @@ class Nodejs {
+@@ -842,6 +845,7 @@ class Nodejs {
  
    public static function sendContentToken($message) {
      self::initConfig();
@@ -59,7 +76,7 @@ index 153e5ab..c143ef2 100644
      $options = array(
        'method' => 'POST',
        'data' => drupal_json_encode($message),
-@@ -852,6 +855,7 @@ class Nodejs {
+@@ -852,6 +856,7 @@ class Nodejs {
  
    public static function getContentTokenUsers($message) {
      self::initConfig();
@@ -68,7 +85,7 @@ index 153e5ab..c143ef2 100644
        'method' => 'POST',
        'data' => drupal_json_encode($message),
 diff --git a/drupal/sites/all/modules/contrib/nodejs/server.js b/drupal/sites/all/modules/contrib/nodejs/server.js
-index 472b473..b9fd2c9 100644
+index 472b473..4445454 100644
 --- a/drupal/sites/all/modules/contrib/nodejs/server.js
 +++ b/drupal/sites/all/modules/contrib/nodejs/server.js
 @@ -146,9 +146,9 @@ var clientIsInChannel = function (socket, channel) {
@@ -84,7 +101,17 @@ index 472b473..b9fd2c9 100644
  }
  
  var getAuthHeader = function() {
-@@ -168,7 +168,7 @@ var sendMessageToBackend = function (message, callback) {
+@@ -162,13 +162,17 @@ var getAuthHeader = function() {
+  * Send a message to the backend.
+  */
+ var sendMessageToBackend = function (message, callback) {
++  if (false && typeof message.hostName == 'undefined') {
++    console.log('Invalid host name.')
++    return;
++  }
+   var requestBody = querystring.stringify({
+     messageJson: JSON.stringify(message),
+     serviceKey: settings.serviceKey
    });
  
    var options = {
@@ -93,3 +120,59 @@ index 472b473..b9fd2c9 100644
      body: requestBody,
      headers: {
        'Content-Length': Buffer.byteLength(requestBody),
+@@ -514,6 +518,7 @@ var logoutUser = function (request, response) {
+     // Destroy any socket connections associated with this authToken.
+     for (var clientId in sockets) {
+       if (sockets[clientId].authToken == authToken) {
++        sockets[clientId].hostName = request.header('hostName', '');
+         cleanupSocket(sockets[clientId]);
+       }
+     }
+@@ -935,17 +940,18 @@ var setUserPresenceList = function (uid, uids) {
+  */
+ var cleanupSocket = function (socket) {
+   if (settings.debug) {
+-    console.log("Cleaning up after socket id", socket.id, 'uid', socket.uid);
++    console.log("Cleaning up after socket id", socket.id, 'uid', socket.uid, 'hostName', socket.hostName);
+   }
+   for (var channel in channels) {
+     delete channels[channel].sessionIds[socket.id];
+   }
+   var uid = socket.uid;
++  var hostName = socket.hostname;
+   if (uid != 0) {
+     if (presenceTimeoutIds[uid]) {
+       clearTimeout(presenceTimeoutIds[uid]);
+     }
+-    presenceTimeoutIds[uid] = setTimeout(checkOnlineStatus, 2000, uid);
++    presenceTimeoutIds[uid] = setTimeout(checkOnlineStatus, 2000, uid, hostName);
+   }
+ 
+   for (var tokenChannel in tokenChannels) {
+@@ -1003,22 +1009,22 @@ var checkTokenChannelStatus = function (tokenChannel, socket) {
+ /**
+  * Check for any open sockets for uid.
+  */
+-var checkOnlineStatus = function (uid) {
++var checkOnlineStatus = function (uid, hostName) {
+   if (getNodejsSessionIdsFromUid(uid).length == 0) {
+     if (settings.debug) {
+       console.log("Sending offline notification for", uid);
+     }
+-    setUserOffline(uid);
++    setUserOffline(uid, hostName);
+   }
+ }
+ 
+ /**
+  * Sends offline notification to sockets, the backend and cleans up our list.
+  */
+-var setUserOffline = function (uid) {
++var setUserOffline = function (uid, host) {
+   sendPresenceChangeNotification(uid, 'offline');
+   delete onlineUsers[uid];
+-  sendMessageToBackend({uid: uid, messageType: 'userOffline'}, function (response) { });
++  sendMessageToBackend({uid: uid, messageType: 'userOffline', hostName: host}, function (response) { });
+ }
+ 
+ /**
