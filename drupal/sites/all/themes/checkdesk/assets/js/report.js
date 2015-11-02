@@ -4,9 +4,9 @@
   // NOTE: This code is intentionally NOT inside a Drupal behavior
   $(function () {
     // On initial page load, check to see if a modal should and can be restored.
-    var hash  = window.location.hash.replace('#', ''),
-        parts = hash ? hash.split('-') : null,
-        $link;
+    var hash = window.location.hash.replace('#', ''),
+            parts = hash ? hash.split('-') : null,
+            $link;
 
     if (parts && parts[0] === 'report' && !isNaN(parseInt(parts[1], 10))) {
       $link = $('#' + hash + ' .report-detail-link a');
@@ -20,16 +20,16 @@
   Drupal.behaviors.reports = {
     attach: function (context, settings) {
       // Remove duplicates added incrementally by views_autorefresh after loading more content with views_load_more
-      $('.view-desk-reports').unbind('views_load_more.new_content').bind('views_load_more.new_content', function(event, content) {
-        $(content).find('.report-row-container').each(function() {
+      $('.view-desk-reports').unbind('views_load_more.new_content').bind('views_load_more.new_content', function (event, content) {
+        $(content).find('.report-row-container').each(function () {
           $('.view-desk-reports #' + $(this).attr('id')).eq(0).parents('.views-row').remove();
         });
       });
 
       // add class when end of fact-checking log is reached
       // and also when there is no pager
-      $('.report-activity .view').bind('scroll', function() {
-        if(($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) && $(this).children('.item-list').is(':empty')) {
+      $('.report-activity .view').bind('scroll', function () {
+        if (($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) && $(this).children('.item-list').is(':empty')) {
           $(this).parents('.report-activity').addClass('end');
         } else if (($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) && $(this).children('.item-list').length == 0) {
           $(this).parents('.report-activity').addClass('end');
@@ -39,34 +39,34 @@
         }
       });
 
-      $('a.twitter').click(function(event) {
+      $('a.twitter').click(function (event) {
         event.preventDefault();
         // set URL
         var loc = $(this).attr('href'),
-            // set title
-            title  = $(this).attr('title');
+                // set title
+                title = $(this).attr('title');
         // open a window
-        window.open('http://twitter.com/share?url=' + loc + '&text=' + title, 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+        window.open('http://twitter.com/share?url=' + loc + '&text=' + title, 'twitterwindow', 'height=450, width=550, top=' + ($(window).height() / 2 - 225) + ', left=' + $(window).width() / 2 + ', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
       });
 
-      $('a.facebook').click(function(event) {
+      $('a.facebook').click(function (event) {
         event.preventDefault();
         // set URL
         var loc = $(this).attr('href'),
-            // set title
-            title  = $(this).attr('title');
+                // set title
+                title = $(this).attr('title');
         // open a window
-        window.open('https://www.facebook.com/sharer.php?u=' + loc + '&t=' + title, 'facebookwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+        window.open('https://www.facebook.com/sharer.php?u=' + loc + '&t=' + title, 'facebookwindow', 'height=450, width=550, top=' + ($(window).height() / 2 - 225) + ', left=' + $(window).width() / 2 + ', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
       });
 
-      $('a.google').click(function(event) {
+      $('a.google').click(function (event) {
         event.preventDefault();
         // set URL
         var loc = $(this).attr('href'),
-            // set title
-            title  = $(this).attr('title');
+                // set title
+                title = $(this).attr('title');
         // open a window
-        window.open('https://plus.google.com/share?url=' + loc + '&t=' + title, 'googlewindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+        window.open('https://plus.google.com/share?url=' + loc + '&t=' + title, 'googlewindow', 'height=450, width=550, top=' + ($(window).height() / 2 - 225) + ', left=' + $(window).width() / 2 + ', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
       });
     }
   };
@@ -74,20 +74,20 @@
   // filters for reports inside sidebar
   Drupal.behaviors.reportFilters = {
     attach: function (context, settings) {
-      $('.panel-toggle').unbind('click').click(function(event) {
+      $('.panel-toggle').unbind('click').click(function (event) {
         var target = $(this),
-            element = target.parent().attr('id');
-        if ($('#'+ element + ' .panel-content').is(':visible')) {
-          $('#'+ element + ' .panel-content').fadeOut('fast');
-          $('#'+ element).removeClass('open');
+                element = target.parent().attr('id');
+        if ($('#' + element + ' .panel-content').is(':visible')) {
+          $('#' + element + ' .panel-content').fadeOut('fast');
+          $('#' + element).removeClass('open');
         } else {
-          $('#'+ element + ' .panel-content').fadeIn('fast');
-          $('#'+ element).addClass('open');
+          $('#' + element + ' .panel-content').fadeIn('fast');
+          $('#' + element).addClass('open');
         }
       });
 
       // hide when clicked outside
-      $(document).mouseup(function(event){
+      $(document).mouseup(function (event) {
         var container = $('.panel-content');
         if (container.has(event.target).length === 0) {
           container.hide();
@@ -95,7 +95,7 @@
       });
 
       // Incoming reports sidebar
-      $(window).resize(function() {
+      $(window).resize(function () {
         if ($('.view-desk-reports .view-content').length) {
           // top position of sidebar
           var top = parseInt($('#sidebar-first').css('top'), 10);
@@ -109,7 +109,7 @@
         }
       });
       $(window).trigger('resize');
-      $('.view-desk-reports').unbind('autorefresh.incremental').bind('autorefresh.incremental', function(event, count) {
+      $('.view-desk-reports').unbind('autorefresh.incremental').bind('autorefresh.incremental', function (event, count) {
         if (count > 0) {
           var $counter = $('.view-desk-reports .filters-summary p');
           var value = parseInt($counter.find('span').html(), 10) + count;
@@ -119,7 +119,7 @@
       });
 
       // close panel
-      $('#close').click(function(event) {
+      $('#close').click(function (event) {
         $('.panel-content').hide();
       });
 
@@ -129,25 +129,24 @@
   // On the report log, group activities that were triggered by the same actor
   // It's hard to do it on the backend because of pagination
   Drupal.behaviors.groupReportActivities = {
-
-    group: function(content) {
+    group: function (content) {
       var $previous = null;
       var $comment = null;
       var $status = null;
       var $delete_footnote = null;
-      content.find('.activity-content:not(activity-grouped)').each(function() {
+      content.find('.activity-content:not(activity-grouped)').each(function () {
         // set comment
-        if($(this).hasClass('new_comment_report')) {
+        if ($(this).hasClass('new_comment_report')) {
           $comment = $(this);
         }
         // set status
-        if($(this).hasClass('status_report')) {
+        if ($(this).hasClass('status_report')) {
           $status = $(this);
         }
 
         // group if actor and timestamps are the same
         if ($status !== null && $comment !== null && $comment.hasClass('new_comment_report') && $status.hasClass('status_report') &&
-            $comment.find('.actor').text() === $status.find('.actor').text() && $comment.find('.timestamp').attr('datetime') === $status.find('.timestamp').attr('datetime')) {
+                $comment.find('.actor').text() === $status.find('.actor').text() && $comment.find('.timestamp').attr('datetime') === $status.find('.timestamp').attr('datetime')) {
           $comment.find('.actor').html('');
           $comment.find('.timestamp').html('');
           $comment.find('.report-verification-footnote').parent().parent().addClass('grouped-item');
@@ -163,19 +162,18 @@
         }
       });
     },
-
-    attach: function(context, settings) {
+    attach: function (context, settings) {
 
       // Group activities on page load
       Drupal.behaviors.groupReportActivities.group($('.view-activity-report', context));
 
       // Group activities when new content is loaded
-      $('.view-activity-report', context).unbind('views_load_more.new_content').bind('views_load_more.new_content', function(event, content) {
+      $('.view-activity-report', context).unbind('views_load_more.new_content').bind('views_load_more.new_content', function (event, content) {
         Drupal.behaviors.groupReportActivities.group($('.view-activity-report', context));
       });
 
       // Display the "Edit status" as a popover
-      $('.report-activity-edit-status:not(.popover)', context).each(function() {
+      $('.report-activity-edit-status:not(.popover)', context).each(function () {
 
         // Create the popover for each radios group
         var $pop = $(this);
@@ -187,19 +185,19 @@
         $pop.addClass('popover');
 
         // Each status inside the popover
-        $pop.find('label.option').each(function() {
+        $pop.find('label.option').each(function () {
           var name = $(this).prev('input').attr('value').toLowerCase().trim().replace(/\s+/, '-');
           $(this).attr('rel', name);
           $(this).addClass(name);
           $(this).parent().addClass(name);
 
           // A status is clicked
-          $(this).click(function() {
+          $(this).click(function () {
             var rating = $(this).text(),
-                rel = $(this).attr('rel'),
-                $link = $(this).parents('.comment-form').find('.edit-status'),
-                $pop = $(this).parents('.comment-form').find('.popover'),
-                $current = $(this).parents('.comment-form').find('.current-status');
+                    rel = $(this).attr('rel'),
+                    $link = $(this).parents('.comment-form').find('.edit-status'),
+                    $pop = $(this).parents('.comment-form').find('.popover'),
+                    $current = $(this).parents('.comment-form').find('.current-status');
             $current.html(rating);
             $current.attr('class', 'current-status');
             $current.addClass(rel);
@@ -213,7 +211,7 @@
         });
 
         // 'Edit Status' link is clicked
-        $link.click(function(event) {
+        $link.click(function (event) {
           $(this).toggleClass('active');
           $(this).parents('.comment-form').find('.popover').toggle();
           event.stopPropagation();
@@ -222,7 +220,7 @@
       });
 
       // Close all "edit status" popovers
-      $('html').click(function() {
+      $('html').click(function () {
         $('.comment-form').find('.edit-status').removeClass('active');
         $('.comment-form').find('.popover').hide();
       });
@@ -230,13 +228,27 @@
   };
 
   Drupal.behaviors.footnotes = {
-    attach: function(context, settings) {
+    attach: function (context, settings) {
       $('textarea[class*=expanding]', context).filter(":visible").expanding();
+      
+      // try to fix ajax forms with views load more
+      $(".view").ajaxComplete(function (event, XMLHttpRequest, ajaxOptions) {
+        var response = XMLHttpRequest.responseText;
+        var result = response.search(/"status": false/i);
+        if (result == -1) {
+          $("form.comment-form").each(function () {
+            $(this).attr("action", window.location.pathname);
+          });
+        }
+        else {
+          //console.log("failure binding on ajax complete");
+        }
+      });
     }
   }
 
   // This callback is invoked when a new footnote is added
-  $.fn.footnoteCallback = function(nid, output) {
+  $.fn.footnoteCallback = function (nid, output) {
     var $form = $('#node-' + nid + ' .open section#comment-form');
     $form.hide();
     $form.appendTo($('html'));
@@ -249,7 +261,7 @@
     $form.find('textarea[class*=expanding]').expanding();
     // Scroll to new footnote
     $('html, body').animate({
-        scrollTop: $('.open#report-activity-node-' + nid).offset().top - 150
+      scrollTop: $('.open#report-activity-node-' + nid).offset().top - 150
     }, 'slow');
     Drupal.attachBehaviors($('#node-' + nid));
   };
