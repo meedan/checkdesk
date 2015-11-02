@@ -85,7 +85,7 @@ index 153e5ab..fec7a0a 100644
        'method' => 'POST',
        'data' => drupal_json_encode($message),
 diff --git a/drupal/sites/all/modules/contrib/nodejs/server.js b/drupal/sites/all/modules/contrib/nodejs/server.js
-index 472b473..4445454 100644
+index 472b473..2660910 100644
 --- a/drupal/sites/all/modules/contrib/nodejs/server.js
 +++ b/drupal/sites/all/modules/contrib/nodejs/server.js
 @@ -146,9 +146,9 @@ var clientIsInChannel = function (socket, channel) {
@@ -120,7 +120,16 @@ index 472b473..4445454 100644
      body: requestBody,
      headers: {
        'Content-Length': Buffer.byteLength(requestBody),
-@@ -514,6 +518,7 @@ var logoutUser = function (request, response) {
+@@ -203,6 +207,8 @@ var authenticateClient = function (client, message) {
+     setupClientConnection(client.id, authenticatedClients[message.authToken], message.contentTokens);
+   }
+   else {
++    // get host name
++    message.hostName = getHostName(client.handshake.headers.origin);
+     message.messageType = 'authenticate';
+     message.clientId = client.id;
+     sendMessageToBackend(message, authenticateClientCallback);
+@@ -514,6 +520,7 @@ var logoutUser = function (request, response) {
      // Destroy any socket connections associated with this authToken.
      for (var clientId in sockets) {
        if (sockets[clientId].authToken == authToken) {
@@ -128,19 +137,21 @@ index 472b473..4445454 100644
          cleanupSocket(sockets[clientId]);
        }
      }
-@@ -935,17 +940,18 @@ var setUserPresenceList = function (uid, uids) {
+@@ -934,8 +941,12 @@ var setUserPresenceList = function (uid, uids) {
+  * Cleanup after a socket has disconnected.
   */
  var cleanupSocket = function (socket) {
++  var hostName = socket.hostname;
++  if (typeof hostName == 'undefined') {
++    hostName = getHostName(socket.handshake.headers.origin);
++  }
    if (settings.debug) {
 -    console.log("Cleaning up after socket id", socket.id, 'uid', socket.uid);
-+    console.log("Cleaning up after socket id", socket.id, 'uid', socket.uid, 'hostName', socket.hostName);
++    console.log("Cleaning up after socket id", socket.id, 'uid', socket.uid, 'hostName', hostName);
    }
    for (var channel in channels) {
      delete channels[channel].sessionIds[socket.id];
-   }
-   var uid = socket.uid;
-+  var hostName = socket.hostname;
-   if (uid != 0) {
+@@ -945,7 +956,7 @@ var cleanupSocket = function (socket) {
      if (presenceTimeoutIds[uid]) {
        clearTimeout(presenceTimeoutIds[uid]);
      }
@@ -149,7 +160,7 @@ index 472b473..4445454 100644
    }
  
    for (var tokenChannel in tokenChannels) {
-@@ -1003,22 +1009,22 @@ var checkTokenChannelStatus = function (tokenChannel, socket) {
+@@ -1003,22 +1014,22 @@ var checkTokenChannelStatus = function (tokenChannel, socket) {
  /**
   * Check for any open sockets for uid.
   */
@@ -176,3 +187,21 @@ index 472b473..4445454 100644
  }
  
  /**
+@@ -1095,6 +1106,17 @@ var setupClientConnection = function (sessionId, authData, contentTokens) {
+   }
+ };
+ 
++var getHostName = function (url) {
++  var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
++  if (match != null && match.length > 2 &&
++      typeof match[2] === 'string' && match[2].length > 0) {
++    return match[2];
++  }
++  else {
++    return null;
++  }
++}
++
+ var app = express();
+ app.all(settings.baseAuthPath + '*', checkServiceKeyCallback);
+ app.post(settings.baseAuthPath + settings.publishUrl, publishMessage);

@@ -20,6 +20,9 @@ Drupal.behaviors.nodejs = {
 Drupal.Nodejs.runCallbacks = function (message) {
   // It's possible that this message originated from an ajax request from the
   // client associated with this socket.
+  if (message.hostName != Drupal.settings.nodejs.hostName) {
+    return;
+  }
   if (message.clientSocketId == Drupal.Nodejs.socket.id) {
     return;
   }
@@ -124,7 +127,8 @@ Drupal.Nodejs.checkConnection = function () {
 Drupal.Nodejs.sendAuthMessage = function () {
   var authMessage = {
     authToken: Drupal.settings.nodejs.authToken,
-    contentTokens: Drupal.settings.nodejs.contentTokens
+    contentTokens: Drupal.settings.nodejs.contentTokens,
+    hostName: Drupal.settings.nodejs.hostName
   };
   Drupal.Nodejs.socket.emit('authenticate', authMessage);
 };

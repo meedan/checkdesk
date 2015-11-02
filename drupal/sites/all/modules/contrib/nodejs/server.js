@@ -146,9 +146,9 @@ var clientIsInChannel = function (socket, channel) {
 /**
  * Returns the backend url.
  */
-var getBackendUrl = function () {
-  return settings.backend.scheme + '://' + settings.backend.host + ':' +
-         settings.backend.port + settings.backend.basePath + settings.backend.messagePath;
+var getBackendUrl = function (hostName) {
+  return settings.backend[hostName].scheme + '://' + settings.backend[hostName].host + ':' +
+         settings.backend[hostName].port + settings.backend[hostName].basePath + settings.backend[hostName].messagePath;
 }
 
 var getAuthHeader = function() {
@@ -162,13 +162,17 @@ var getAuthHeader = function() {
  * Send a message to the backend.
  */
 var sendMessageToBackend = function (message, callback) {
+  if (false && typeof message.hostName == 'undefined') {
+    console.log('Invalid host name.')
+    return;
+  }
   var requestBody = querystring.stringify({
     messageJson: JSON.stringify(message),
     serviceKey: settings.serviceKey
   });
 
   var options = {
-    uri: getBackendUrl(),
+    uri: getBackendUrl(message.hostName),
     body: requestBody,
     headers: {
       'Content-Length': Buffer.byteLength(requestBody),
@@ -203,6 +207,8 @@ var authenticateClient = function (client, message) {
     setupClientConnection(client.id, authenticatedClients[message.authToken], message.contentTokens);
   }
   else {
+    // get host name
+    message.hostName = getHostName(client.handshake.headers.origin);
     message.messageType = 'authenticate';
     message.clientId = client.id;
     sendMessageToBackend(message, authenticateClientCallback);
@@ -514,6 +520,7 @@ var logoutUser = function (request, response) {
     // Destroy any socket connections associated with this authToken.
     for (var clientId in sockets) {
       if (sockets[clientId].authToken == authToken) {
+        sockets[clientId].hostName = request.header('hostName', '');
         cleanupSocket(sockets[clientId]);
       }
     }
@@ -934,8 +941,12 @@ var setUserPresenceList = function (uid, uids) {
  * Cleanup after a socket has disconnected.
  */
 var cleanupSocket = function (socket) {
+  var hostName = socket.hostName;
+  if (typeof hostName == 'undefined') {
+    hostName = getHostName(socket.handshake.headers.origin);
+  }
   if (settings.debug) {
-    console.log("Cleaning up after socket id", socket.id, 'uid', socket.uid);
+    console.log("Cleaning up after socket id", socket.id, 'uid', socket.uid, 'hostName', hostName);
   }
   for (var channel in channels) {
     delete channels[channel].sessionIds[socket.id];
@@ -945,7 +956,7 @@ var cleanupSocket = function (socket) {
     if (presenceTimeoutIds[uid]) {
       clearTimeout(presenceTimeoutIds[uid]);
     }
-    presenceTimeoutIds[uid] = setTimeout(checkOnlineStatus, 2000, uid);
+    presenceTimeoutIds[uid] = setTimeout(checkOnlineStatus, 2000, uid, hostName);
   }
 
   for (var tokenChannel in tokenChannels) {
@@ -1003,22 +1014,22 @@ var checkTokenChannelStatus = function (tokenChannel, socket) {
 /**
  * Check for any open sockets for uid.
  */
-var checkOnlineStatus = function (uid) {
+var checkOnlineStatus = function (uid, hostName) {
   if (getNodejsSessionIdsFromUid(uid).length == 0) {
     if (settings.debug) {
       console.log("Sending offline notification for", uid);
     }
-    setUserOffline(uid);
+    setUserOffline(uid, hostName);
   }
 }
 
 /**
  * Sends offline notification to sockets, the backend and cleans up our list.
  */
-var setUserOffline = function (uid) {
+var setUserOffline = function (uid, host) {
   sendPresenceChangeNotification(uid, 'offline');
   delete onlineUsers[uid];
-  sendMessageToBackend({uid: uid, messageType: 'userOffline'}, function (response) { });
+  sendMessageToBackend({uid: uid, messageType: 'userOffline', hostName: host}, function (response) { });
 }
 
 /**
@@ -1094,6 +1105,17 @@ var setupClientConnection = function (sessionId, authData, contentTokens) {
     console.log('setupClientConnection', onlineUsers);
   }
 };
+
+var getHostName = function (url) {
+  var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+  if (match != null && match.length > 2 &&
+      typeof match[2] === 'string' && match[2].length > 0) {
+    return match[2];
+  }
+  else {
+    return null;
+  }
+}
 
 var app = express();
 app.all(settings.baseAuthPath + '*', checkServiceKeyCallback);

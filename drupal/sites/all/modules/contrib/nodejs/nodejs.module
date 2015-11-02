@@ -38,6 +38,7 @@ function nodejs_send_content_channel_token($channel, $notify_on_disconnect = FAL
     'token' => nodejs_generate_content_token(),
     'channel' => $channel,
     'notifyOnDisconnect' => $notify_on_disconnect,
+    'hostName' => $_SERVER['HTTP_HOST'],
   );
 
   // Http request went ok, process Node.js server response.
@@ -46,7 +47,7 @@ function nodejs_send_content_channel_token($channel, $notify_on_disconnect = FAL
       // We always set this in drupal.settings, even though Ajax requests will not
       // see it. It's a bit ugly, but it means that setting the tokens for full
       // page requests will just work.
-      drupal_add_js(array('nodejs' => array('contentTokens' => array($channel => $message->token))), array('type' => 'setting'));
+      drupal_add_js(array('nodejs' => array('hostName' => $message->hostName, 'contentTokens' => array($channel => $message->token))), array('type' => 'setting'));
 
       $node_response->token = $message->token;
       return $node_response;
@@ -784,7 +785,7 @@ class Nodejs {
   public static function initConfig() {
     if (!isset(self::$config)) {
       self::$config = nodejs_get_config();
-      self::$headers = array('NodejsServiceKey' => self::$config['serviceKey']);
+      self::$headers = array('NodejsServiceKey' => self::$config['serviceKey'], 'hostName' => $_SERVER['HTTP_HOST']);
       self::$baseUrl = nodejs_get_url(self::$config);
     }
   }
@@ -807,6 +808,7 @@ class Nodejs {
     self::initConfig();
     drupal_alter('nodejs_message', $message);
     $message->clientSocketId = nodejs_get_client_socket_id();
+    $message->hostName = $_SERVER['HTTP_HOST'];
     $options = array(
       'method' => 'POST',
       'data' => drupal_json_encode($message),
@@ -830,6 +832,7 @@ class Nodejs {
   public static function sendContentTokenMessage($message) {
     self::initConfig();
     $message->clientSocketId = nodejs_get_client_socket_id();
+    $message->hostName = $_SERVER['HTTP_HOST'];
     drupal_alter('nodejs_content_channel_message', $message);
     $options = array(
       'method' => 'POST',
@@ -842,6 +845,7 @@ class Nodejs {
 
   public static function sendContentToken($message) {
     self::initConfig();
+    $message->hostName = $_SERVER['HTTP_HOST'];
     $options = array(
       'method' => 'POST',
       'data' => drupal_json_encode($message),
@@ -852,6 +856,7 @@ class Nodejs {
 
   public static function getContentTokenUsers($message) {
     self::initConfig();
+    $message->hostName = $_SERVER['HTTP_HOST'];
     $options = array(
       'method' => 'POST',
       'data' => drupal_json_encode($message),
