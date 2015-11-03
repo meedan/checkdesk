@@ -35,6 +35,9 @@ sequence_of_sequence:
   sq2:
     - id: 7
       description: 'Sequence of sequence - Description 2'
+bc_sequence:
+  - 'BC sequence item 1'
+  - 'BC sequence item 2'
 
 # tests for variables.schema.yml
 test_variable:
@@ -55,3 +58,7 @@ complex_variable:
   key1:
     key2: 'text'
   value: 'Complex variable test'
+
+# tests for plural source strings
+plural_string: "1 place\x03@count places"
+plural_string_with_context: "1 comment\x03@count comments"

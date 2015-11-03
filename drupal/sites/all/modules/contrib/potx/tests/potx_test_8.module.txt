@@ -2,7 +2,9 @@
 
 /**
  * @file
- *   File used purely to test the parser in potx.
+ *   File used purely to test the parser in potx. This is file has a .txt
+ *   extension so that it does not fail linting tests run by continuous
+ *   integration.
  */
 
 /**
@@ -13,8 +15,18 @@
  * )
  */
 function potx_test_8_example() {
+  // Tested with long format array style.
   $a = new TranslationWrapper('TranslationWrapper string');
   $b = new TranslationWrapper('TranslationWrapper string with context', array(), array('context' => 'With context'));
+
+  // Test with short format array styles mixed with other tokens.
+  $a = new TranslatableMarkup('TranslatableMarkup string');
+  $c = new TranslatableMarkup('TranslatableMarkup string without context', []);
+  $d = new TranslatableMarkup('TranslatableMarkup string with long array context', [], array('context' => 'With context']));
+  $d = new TranslatableMarkup('TranslatableMarkup string with short array context', [], ['context' => 'With context']);
+  $e = new TranslatableMarkup('TranslatableMarkup string with long array followed by short array context', array(), ['context' => 'With context']);
+  $f = new TranslatableMarkup('TranslatableMarkup string with complicated tokens', array([], 2, potx_test_8_sample(), array(), [[]]), ['context' => 'With context']);
+  $g = new TranslatableMarkup('TranslatableMarkup string with complicated option tokens', [], ['foo' => potx_test_8_sample([4]), 'bar' => [12, 14, []], 'context' => 'With context', 'eek' => 'ook']);
 
   $a->debug('Debug message');
   $b->info('Info message');
@@ -74,6 +86,9 @@ class PotxTestD8 {
 
     \Drupal::translation()->formatPlural($count, '1 translation->formatPlural test string in context', '@count translation->formatPlural test strings in context', array(), array('context' => 'Test context'));
     \Drupal::translation()->formatPlural($count, '1 translation->formatPlural test string', '@count translation->formatPlural test strings');
+
+    $a = new PluralTranslatableMarkup($count, '1 PluralTranslatableMarkup test string', '@count PluralTranslatableMarkup test strings');
+    $b = new PluralTranslatableMarkup($count, '1 PluralTranslatableMarkup test string with context', '@count PluralTranslatableMarkup test strings with context', array(), array('context' => 'Test context'));
   }
 }
 
@@ -89,3 +104,8 @@ function potx_test_inline_templates() {
   $render_array['#template'] = 'Here is {% trans %}Another test translatable string inside an inline template{% endtrans %}';
   $render_array["#template"] = 'Here is {% trans %}A translatable string inside an inline template, with double-quoted "#template" key{% endtrans %}';
 }
+
+/**
+ * Test that potx ignores translation keywords in non-translation situations, without causing notices.
+ */
+class TestWrapper extends TranslatableMarkup {}

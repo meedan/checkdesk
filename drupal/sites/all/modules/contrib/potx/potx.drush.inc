@@ -32,6 +32,7 @@ function potx_drush_command() {
       'potx --files=sites/all/modules/example/example.module' => 'Extract translatable strings from example.module and write to single output file.',
       'potx single --api=8 --folder=projects/drupal/8' => 'Extract strings from folder projects/drupal/8 using API version 8.',
     ),
+    'bootstrap' => DRUSH_BOOTSTRAP_NONE,
   );
   return $items;
 }
@@ -66,6 +67,7 @@ function potx_drush_help($section) {
 function potx_drush_extract($mode = NULL) {
   // Include library.
   include_once __DIR__ . '/potx.inc';
+  include_once __DIR__ . '/potx.local.inc';
 
   $files = array();
   $build_mode = POTX_BUILD_SINGLE;
@@ -86,10 +88,12 @@ function potx_drush_extract($mode = NULL) {
     $api_option = POTX_API_CURRENT;
   }
 
+  potx_local_init($folder_option);
+
   if (!empty($modules_option)) {
     $modules = explode(',', $modules_option);
     foreach ($modules as $module) {
-      $files = array_merge($files, _potx_explore_dir(drupal_get_path('module', $module), '*', $api_option, TRUE));
+      $files = array_merge($files, _potx_explore_dir(drupal_get_path('module', $module) . '/', '*', $api_option, TRUE));
     }
   }
   elseif (!empty($files_option)) {
@@ -100,7 +104,7 @@ function potx_drush_extract($mode = NULL) {
   }
   else {
     // No file list provided so autodiscover files in current directory.
-    $files = _potx_explore_dir(drush_cwd(), '*', $api_option, TRUE);
+    $files = _potx_explore_dir(drush_cwd() . '/', '*', $api_option, TRUE);
   }
 
   foreach ($files as $file) {

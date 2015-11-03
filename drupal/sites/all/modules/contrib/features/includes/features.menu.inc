@@ -103,7 +103,6 @@ function menu_custom_features_export_render($module, $data) {
     $code[] = features_translatables_export($translatables, '  ');
   }
 
-  $code[] = '';
   $code[] = '  return $menus;';
   $code = implode("\n", $code);
   return array('menu_default_menu_custom' => $code);
@@ -248,10 +247,7 @@ function menu_links_features_export_render($module, $data, $export = NULL) {
        unset($link['plid']);
        unset($link['mlid']);
 
-      // Sort the link keys to avoid confusing the diff algorithm.
-      ksort($link);
-
-      $code[] = "  // Exported menu link: {$new_identifier}";
+      $code[] = "  // Exported menu link: {$new_identifier}.";
       $code[] = "  \$menu_links['{$new_identifier}'] = ". features_var_export($link, '  ') .";";
       $translatables[] = $link['link_title'];
     }
@@ -319,6 +315,7 @@ function menu_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
     foreach ($unordered as $link) {
       $identifier = menu_links_features_identifier($link);
       $ordered[$identifier] = 0;
+      $all_links[$identifier] = $link;
     }
     asort($ordered);
   }
@@ -423,7 +420,7 @@ function features_menu_link_load($identifier) {
  * Returns a lowercase clean string with only letters, numbers and dashes
  */
 function features_clean_title($str) {
-  return strtolower(preg_replace_callback('/(\p{Z})|([^\w-])|(_)/u', create_function(
+  return strtolower(preg_replace_callback('/(\s)|([^a-zA-Z\-0-9])/i', create_function(
           '$matches',
           'return $matches[1]?"-":"";'
       ), $str));
