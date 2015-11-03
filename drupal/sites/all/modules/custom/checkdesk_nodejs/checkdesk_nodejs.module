@@ -11,7 +11,7 @@
  * @todo filter which heartbeat activity to refresh the view for
  */
 function checkdesk_nodejs_heartbeat_activity_insert($heartbeatActivity) {
-    views_autorefresh_nodejs_refresh(array('my_notifications'));
+    views_autorefresh_nodejs_refresh(array('my_notifications-block'));
     // Define report channels 
     $channels = array();
     $channels['full'] = 'report-activity-'. $heartbeatActivity->nid;
@@ -84,19 +84,9 @@ function _checkdesk_nodejs_handle_node($node) {
   $views_to_update = array();
   switch ($node->type) {
     case 'media':
-      $views_to_update[] = 'liveblog';
-      $views_to_update[] = 'desk_reports';
-      break;
-
-    case 'discussion':
-      $views_to_update[] = 'liveblog';
-      break;
-
-    case 'post':
-      $views_to_update[] = 'liveblog';
+      $views_to_update[] = 'desk_reports-block';
       break;
   }
-
   views_autorefresh_nodejs_refresh($views_to_update);
 }
 
