@@ -23,18 +23,18 @@ Drupal.behaviors.AJAX = {
   attach: function (context, settings) {
     // Load all Ajax behaviors specified in the settings.
     for (var base in settings.ajax) {
-      if (!$('#' + base + '.ajax-processed').length) {
+      if ($('[id="' + base + '"]:not(.ajax-processed)').length) {
         var element_settings = settings.ajax[base];
 
         if (typeof element_settings.selector == 'undefined') {
-          element_settings.selector = '#' + base;
+          element_settings.selector = '[id="' + base + '"]:not(.ajax-processed)';
         }
         $(element_settings.selector).each(function () {
           element_settings.element = this;
           Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
         });
 
-        $('#' + base).addClass('ajax-processed');
+        $('[id="' + base + '"]').addClass('ajax-processed');
       }
     }
 
