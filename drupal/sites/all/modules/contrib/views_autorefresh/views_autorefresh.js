@@ -235,7 +235,6 @@ Drupal.Nodejs = Drupal.Nodejs || { callbacks: {} };
 // Callback for nodejs message.
 Drupal.Nodejs.callbacks.viewsAutoRefresh = {
   callback: function (message) {
-    console.log('Trigger views-autorefresh: ', message);
     var view_name = message['view_name'];
     Drupal.views_autorefresh.refresh(
       view_name,

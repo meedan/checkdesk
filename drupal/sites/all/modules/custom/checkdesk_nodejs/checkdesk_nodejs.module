@@ -10,28 +10,32 @@
  * Refresh notifications when new heartbeat activity inserted
  * @todo filter which heartbeat activity to refresh the view for
  */
-function checkdesk_nodejs_heartbeat_activity_insert($heartbeatActivity) {
+function checkdesk_nodejs_heartbeat_activity_save($heartbeatActivity) {
     views_autorefresh_nodejs_refresh(array('my_notifications-block'));
-    // Define report channels 
-    $channels = array();
-    $channels['full'] = 'report-activity-'. $heartbeatActivity->nid;
-    if ($heartbeatActivity->nid_target) {
-        // update story collaboration channel
-        $channels['checkdesk_collaborate'] = 'story-collaborate-'. $heartbeatActivity->nid_target;
-    }
-    foreach ($channels as $k => $channel) {
-        $commands = array();
-        $fun_name = '_checkdesk_nodejs_handle_report_activity_'. $k;
-        if (function_exists($fun_name)) {
-            $commands = $fun_name($heartbeatActivity->message_id, $heartbeatActivity->nid);
-            if (count($commands)) {
-                $message = (object) array(
-                    'channel' => $channel,
-                    'commands' => $commands,
-                    'callback' => 'reportReactor',
+    $node = node_load($heartbeatActivity->nid);
+    if ($node->type == 'media') {
+        // Define report channels
+        $channels = array();
+        $channels['full'] = 'report-activity-' . $heartbeatActivity->nid;
+        if ($heartbeatActivity->nid_target) {
+            // update story collaboration channel
+            $channels['checkdesk_collaborate'] = 'story-collaborate-' . $heartbeatActivity->nid_target;
+        }
+        foreach ($channels as $k => $channel) {
+            $commands = array();
+            $fun_name = '_checkdesk_nodejs_handle_report_activity_' . $k;
+            if (function_exists($fun_name)) {
+                $commands = $fun_name($heartbeatActivity->message_id, $heartbeatActivity->nid);
+                if (count($commands)) {
+                    $message = (object)array(
+                        'channel' => $channel,
+                        'commands' => $commands,
+                        'callback' => 'reportReactor',
+                        'message_id' => $heartbeatActivity->message_id,
                     );
-                // Send the message to the channel we created
-                 nodejs_send_content_channel_message($message);
+                    // Send the message to the channel we created
+                    nodejs_send_content_channel_message($message);
+                }
             }
         }
     }
@@ -61,13 +65,9 @@ function checkdesk_nodejs_node_view($node, $view_mode, $langcode) {
  * Reacts to a node insert/update/delete
  */
 function checkdesk_nodejs_node_postsave($node) {
-  $views_to_update = array();
-  switch ($node->type) {
-    case 'media':
-      $views_to_update[] = 'desk_reports-block';
-      break;
+  if ($node->type == 'media') {
+      views_autorefresh_nodejs_refresh(array('desk_reports-block'));
   }
-  views_autorefresh_nodejs_refresh($views_to_update);
 }
 
 /**
@@ -95,15 +95,20 @@ function _checkdesk_nodejs_handle_report_activity($activity, $nid) {
         case 'checkdesk_fact_checking_on':
         case 'checkdesk_fact_checking_set':
             $node = node_load($nid);
+            if ($activity == 'checkdesk_fact_checking_set') {
+                $node->field_rating[LANGUAGE_NONE][0]['tid'] = 4;
+            }
+            $report_status = _checkdesk_report_status($node);
+            $commands[] = ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
             $node_view = node_view($node);
             $node_view['comments'] = comment_node_page_additions($node);
             // update activity stream
             $report_activity = theme(
-                'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view)
+                'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view, 'view_mode' => 'full')
             );
             $commands[] = ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
             break;
-        case 'checkdesk_comment_on_report':
+        //case 'checkdesk_comment_on_report':
         case 'new_comment_report':
             $node = node_load($nid);
             $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
