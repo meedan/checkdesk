@@ -1232,6 +1232,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         }
       ],
       "DO" : [
+        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "2" } },
         { "heartbeat_activity_checkdesk_fact_checking_on" : {
             "nid" : [ "flagged-node:nid" ],
             "uid" : [ "flagging-user:uid" ],
@@ -1249,7 +1250,6 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_flagging_user" : [ "flagging-user" ]
           }
         },
-        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "2" } },
         { "php_eval" : { "code" : "$flagged_node-\\u003Eskip_status_change_notification = TRUE;" } }
       ]
     }
