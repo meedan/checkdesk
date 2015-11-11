@@ -230,20 +230,6 @@
   Drupal.behaviors.footnotes = {
     attach: function (context, settings) {
       $('textarea[class*=expanding]', context).filter(":visible").expanding();
-      
-      // try to fix ajax forms with views load more
-      $(".view").ajaxComplete(function (event, XMLHttpRequest, ajaxOptions) {
-        var response = XMLHttpRequest.responseText;
-        var result = response.search(/"status": false/i);
-        if (result == -1) {
-          $("form.comment-form").each(function () {
-            $(this).attr("action", window.location.pathname);
-          });
-        }
-        else {
-          //console.log("failure binding on ajax complete");
-        }
-      });
     }
   }
 
