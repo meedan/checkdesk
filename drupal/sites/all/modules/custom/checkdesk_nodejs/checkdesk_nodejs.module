@@ -71,8 +71,29 @@ function checkdesk_nodejs_node_postsave($node) {
     views_autorefresh_nodejs_refresh(array('desk_reports-block'));
   }
   elseif ($node->type == 'post') {
-    views_autorefresh_nodejs_refresh(array('updates_for_stories-block'));
+    views_autorefresh_nodejs_refresh(array('updates_for_stories-block'), $node);
   }
+}
+
+/**
+ * Implements hook_views_autorefresh_nodejs_channel_alter().
+ */
+function checkdesk_nodejs_views_autorefresh_nodejs_channel_alter(&$channel, $view) {
+    if ($channel == 'views_autorefresh_updates_for_stories-block') {
+        $node = menu_get_object();
+        if ($node && $node->type == 'discussion') {
+            $channel .= '-' . $node->nid;
+        }
+    }
+}
+
+/**
+ * Implements hook_views_autorefresh_nodejs_message_alter().
+ */
+function checkdesk_nodejs_views_autorefresh_nodejs_message_alter(&$message, $context) {
+    if ($message->view_name == 'updates_for_stories-block' && is_object($context) && isset($context->field_desk[LANGUAGE_NONE][0]['target_id'])) {
+        $message->channel .= '-' . $context->field_desk[LANGUAGE_NONE][0]['target_id'];
+    }
 }
 
 /**
