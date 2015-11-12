@@ -6,12 +6,13 @@
  */
 
 /**
- * Implements hook_heartbeat_activity_insert()
+ * Implements hook_heartbeat_activity_save()
  * Refresh notifications when new heartbeat activity inserted
- * @todo filter which heartbeat activity to refresh the view for
  */
 function checkdesk_nodejs_heartbeat_activity_save($heartbeatActivity) {
-    views_autorefresh_nodejs_refresh(array('my_notifications-block'));
+    if (in_array($heartbeatActivity->message_id, _checkdesk_nodejs_notification_activities())) {
+        views_autorefresh_nodejs_refresh(array('my_notifications-block'));
+    }
     $node = node_load($heartbeatActivity->nid);
     if ($node->type == 'media') {
         // Define report channels
@@ -39,6 +40,7 @@ function checkdesk_nodejs_heartbeat_activity_save($heartbeatActivity) {
             }
         }
     }
+
 }
 
 /**
@@ -66,10 +68,40 @@ function checkdesk_nodejs_node_view($node, $view_mode, $langcode) {
  */
 function checkdesk_nodejs_node_postsave($node) {
   if ($node->type == 'media') {
-      views_autorefresh_nodejs_refresh(array('desk_reports-block'));
+    views_autorefresh_nodejs_refresh(array('desk_reports-block'));
+  }
+  elseif ($node->type == 'post') {
+    views_autorefresh_nodejs_refresh(array('updates_for_stories-block'));
   }
 }
 
+/**
+ * Helper function to load notification activities.
+ */
+function _checkdesk_nodejs_notification_activities() {
+    return array(
+        'checkdesk_flag_report',
+        'checkdesk_comment_on_report',
+        'checkdesk_comment_on_update',
+        'checkdesk_new_user',
+        'checkdesk_fact_checking_on_by_citizen',
+        'checkdesk_new_update_on_story_i_commented_on_update',
+        'checkdesk_add_story',
+        'checkdesk_update_story',
+        'new_report',
+        'checkdesk_report_published_in_update',
+        'checkdesk_comment_on_report',
+        'checkdesk_publish_own_story_revision',
+        'checkdesk_reply_to_comment',
+        'checkdesk_fact_checking_on',
+        'checkdesk_fact_checking_set',
+        'checkdesk_fact_status_changed_for_commenter',
+        'checkdesk_report_suggested_to_story',
+        'status_report',
+        'checkdesk_update_draft_story',
+    );
+
+}
 /**
  * Custom function to render activity for full view mode.
  */
