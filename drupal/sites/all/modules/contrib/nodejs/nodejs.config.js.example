@@ -79,11 +79,20 @@ settings = {
   resource: '/socket.io',
   serviceKey: '',
   backend: {
-    port: 80,
-    host: 'drupalhost',
-    scheme: 'http',
-    basePath: '',
-    messagePath: '/nodejs/message'
+    'drupalhost1' : {
+      port: 80,
+      host: 'drupalhost',
+      scheme: 'http',
+      basePath: '',
+      messagePath: '/nodejs/message'
+    },
+    'drupalhost2' : {
+      port: 80,
+      host: 'drupalhost2',
+      scheme: 'http',
+      basePath: '',
+      messagePath: '/nodejs/message'
+    },
   },
   debug: false,
   sslKeyPath: '',
