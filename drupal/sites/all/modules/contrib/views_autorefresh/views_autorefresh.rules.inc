@@ -23,6 +23,12 @@ function views_autorefresh_rules_action_info() {
         'description' => t('Select one or more views that should refreshed.'),
         'options list' => 'views_autorefresh_get_nodejs_views',
       ),
+      'context' => array(
+        'type' => '*',
+        'label' => t('Context'),
+        'description' => t('Additional data that can be passed to the message hook (optional).'),
+        'optional' => TRUE,
+      ),
     ),
     'base' => 'views_autorefresh_rules_process',
   );
@@ -33,8 +39,8 @@ function views_autorefresh_rules_action_info() {
 /**
  * Action: Process and send message to nodejs.
  */
-function views_autorefresh_rules_process($views) {
-  views_autorefresh_nodejs_refresh($views);
+function views_autorefresh_rules_process($views, $context) {
+  views_autorefresh_nodejs_refresh($views, $context);
 }
 
 /**

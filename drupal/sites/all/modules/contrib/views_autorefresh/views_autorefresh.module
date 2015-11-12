@@ -58,7 +58,9 @@ function theme_views_autorefresh($variables) {
 
   // Check for nodejs and create view channel.
   if (!empty($nodejs) && module_exists('nodejs')) {
-    nodejs_send_content_channel_token('views_autorefresh_' . $view->name . '-' . $view->current_display);
+    $channel = 'views_autorefresh_' . $view->name . '-' . $view->current_display;
+    drupal_alter('views_autorefresh_nodejs_channel', $channel, $view);
+    nodejs_send_content_channel_token($channel);
   }
 
   // Return link to autorefresh.
@@ -176,13 +178,14 @@ function views_autorefresh_form_views_ui_add_item_form_alter(&$form, $form_state
 /**
  * Refreshes a view through nodejs.
  */
-function views_autorefresh_nodejs_refresh($views) {
+function views_autorefresh_nodejs_refresh($views, $context) {
   foreach ($views as $view_name) {
-    $view_update = (object) array(
+    $message = (object) array(
       'channel' => 'views_autorefresh_' . $view_name,
       'callback' => 'viewsAutoRefresh',
       'view_name' => $view_name,
     );
-    nodejs_send_content_channel_message($view_update);
+    drupal_alter('views_autorefresh_nodejs_message', $message, $context);
+    nodejs_send_content_channel_message($message);
   }
 }
