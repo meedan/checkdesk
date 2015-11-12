@@ -162,7 +162,7 @@ var getAuthHeader = function() {
  * Send a message to the backend.
  */
 var sendMessageToBackend = function (message, callback) {
-  if (false && typeof message.hostName == 'undefined') {
+  if (typeof message.hostName == 'undefined') {
     console.log('Invalid host name.')
     return;
   }

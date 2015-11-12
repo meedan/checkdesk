@@ -6,22 +6,12 @@ index a9a42d7..53b8f0e 100644
  Drupal.Nodejs.runCallbacks = function (message) {
    // It's possible that this message originated from an ajax request from the
    // client associated with this socket.
-+  if (message.hostName != Drupal.settings.nodejs.hostName) {
++  if (Drupal.settings.nodejs.hostNames.indexOf(message.hostName) == -1) {
 +    return;
 +  }
    if (message.clientSocketId == Drupal.Nodejs.socket.id) {
      return;
    }
-@@ -124,7 +127,8 @@ Drupal.Nodejs.checkConnection = function () {
- Drupal.Nodejs.sendAuthMessage = function () {
-   var authMessage = {
-     authToken: Drupal.settings.nodejs.authToken,
--    contentTokens: Drupal.settings.nodejs.contentTokens
-+    contentTokens: Drupal.settings.nodejs.contentTokens,
-+    hostName: Drupal.settings.nodejs.hostName
-   };
-   Drupal.Nodejs.socket.emit('authenticate', authMessage);
- };
 diff --git a/drupal/sites/all/modules/contrib/nodejs/nodejs.module b/drupal/sites/all/modules/contrib/nodejs/nodejs.module
 index 153e5ab..fec7a0a 100644
 --- a/drupal/sites/all/modules/contrib/nodejs/nodejs.module
@@ -39,7 +29,7 @@ index 153e5ab..fec7a0a 100644
        // see it. It's a bit ugly, but it means that setting the tokens for full
        // page requests will just work.
 -      drupal_add_js(array('nodejs' => array('contentTokens' => array($channel => $message->token))), array('type' => 'setting'));
-+      drupal_add_js(array('nodejs' => array('hostName' => $message->hostName, 'contentTokens' => array($channel => $message->token))), array('type' => 'setting'));
++      drupal_add_js(array('nodejs' => array('hostNames' => variable_get('hostnames', array($message->hostName)), 'contentTokens' => array($channel => $message->token))), array('type' => 'setting'));
  
        $node_response->token = $message->token;
        return $node_response;
@@ -105,7 +95,7 @@ index 472b473..2660910 100644
   * Send a message to the backend.
   */
  var sendMessageToBackend = function (message, callback) {
-+  if (false && typeof message.hostName == 'undefined') {
++  if (typeof message.hostName == 'undefined') {
 +    console.log('Invalid host name.')
 +    return;
 +  }

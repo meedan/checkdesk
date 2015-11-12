@@ -47,7 +47,7 @@ function nodejs_send_content_channel_token($channel, $notify_on_disconnect = FAL
       // We always set this in drupal.settings, even though Ajax requests will not
       // see it. It's a bit ugly, but it means that setting the tokens for full
       // page requests will just work.
-      drupal_add_js(array('nodejs' => array('hostName' => $message->hostName, 'contentTokens' => array($channel => $message->token))), array('type' => 'setting'));
+      drupal_add_js(array('nodejs' => array('hostNames' => variable_get('hostnames', array($message->hostName)), 'contentTokens' => array($channel => $message->token))), array('type' => 'setting'));
 
       $node_response->token = $message->token;
       return $node_response;
