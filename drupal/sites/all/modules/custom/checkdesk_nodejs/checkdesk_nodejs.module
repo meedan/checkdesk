@@ -12,6 +12,7 @@
 function checkdesk_nodejs_heartbeat_activity_save($heartbeatActivity) {
     if (in_array($heartbeatActivity->message_id, _checkdesk_nodejs_notification_activities())) {
         views_autorefresh_nodejs_refresh(array('my_notifications-block'));
+        views_autorefresh_nodejs_refresh(array('story_collaboration-page'), $heartbeatActivity);
     }
     $node = node_load($heartbeatActivity->nid);
     if ($node->type == 'media') {
@@ -68,7 +69,7 @@ function checkdesk_nodejs_node_view($node, $view_mode, $langcode) {
  */
 function checkdesk_nodejs_node_postsave($node) {
   if ($node->type == 'media') {
-    views_autorefresh_nodejs_refresh(array('desk_reports-block'));
+    views_autorefresh_nodejs_refresh(array('desk_reports-block'), $node);
   }
   elseif ($node->type == 'post') {
     views_autorefresh_nodejs_refresh(array('updates_for_stories-block'), $node);
@@ -85,6 +86,23 @@ function checkdesk_nodejs_views_autorefresh_nodejs_channel_alter(&$channel, $vie
             $channel .= '-' . $node->nid;
         }
     }
+    elseif ($channel == 'views_autorefresh_desk_reports-block') {
+        $story_nid = 0;
+        $node = menu_get_object();
+        if ($node) {
+            $story_nid = ($node->type == 'discussion') ? $node->nid : $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+        }
+        elseif (isset($_GET['story'])) {
+            $story_nid = $_GET['story'];
+        }
+        $channel .= '-' . $story_nid;
+    }
+    elseif ($channel == 'views_autorefresh_story_collaboration-page') {
+        $node = menu_get_object();
+        if ($node && $node->type == 'discussion') {
+            $channel .= '-' . $node->nid;
+        }
+    }
 }
 
 /**
@@ -93,6 +111,13 @@ function checkdesk_nodejs_views_autorefresh_nodejs_channel_alter(&$channel, $vie
 function checkdesk_nodejs_views_autorefresh_nodejs_message_alter(&$message, $context) {
     if ($message->view_name == 'updates_for_stories-block' && is_object($context) && isset($context->field_desk[LANGUAGE_NONE][0]['target_id'])) {
         $message->channel .= '-' . $context->field_desk[LANGUAGE_NONE][0]['target_id'];
+    }
+    elseif ($message->view_name == 'desk_reports-block' && is_object($context)) {
+        $story_nid = isset($context->field_stories[LANGUAGE_NONE][0]['target_id']) ? $context->field_stories[LANGUAGE_NONE][0]['target_id'] : 0;
+        $message->channel .= '-' . $story_nid;
+    }
+    elseif ($message->view_name == 'story_collaboration-page' && is_object($context) && !empty($context->nid_target)) {
+        $message->channel .= '-' . $context->nid_target;
     }
 }
 
