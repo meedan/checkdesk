@@ -171,11 +171,8 @@ function _checkdesk_nodejs_handle_report_activity($activity, $nid) {
             $commands[] = ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
             break;
         case 'checkdesk_fact_checking_on':
-        case 'checkdesk_fact_checking_set':
+        case 'checkdesk_fact_checking_off':
             $node = node_load($nid);
-            if ($activity == 'checkdesk_fact_checking_set') {
-                $node->field_rating[LANGUAGE_NONE][0]['tid'] = 4;
-            }
             $report_status = _checkdesk_report_status($node);
             $commands[] = ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
             $node_view = node_view($node);
