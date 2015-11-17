@@ -104,7 +104,8 @@ function twitter_signin_redirect() {
 
   // Specify a callback_url when generating our token that will match the
   // current domain.
-  $callback_url =  url('twitter/oauth', array('absolute' => TRUE));
+  $oauth_callback = variable_get('twitter_oauth_callback_url', TWITTER_OAUTH_CALLBACK_URL);
+  $callback_url =  url($oauth_callback, array('absolute' => TRUE));
   $params = array('oauth_callback' => $callback_url);
   $token = $twitter->get_request_token($params);
 
@@ -219,7 +220,7 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
         }
 
         // Reload the user's account object.
-        $account = user_login($account->uid);
+        $account = user_load($account->uid);
 
         $args = array(
           '!password' => $password,
@@ -248,7 +249,7 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
   // If there was a problem, return to the login screen.
   if (!$success) {
     $_SESSION['twitter']['values'] = $response;
-    drupal_goto('user/register');
+    drupal_goto('user/login');
   }
 
   // The visitor successfully logged in.

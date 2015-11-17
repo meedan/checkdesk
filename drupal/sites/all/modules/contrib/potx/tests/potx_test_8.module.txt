@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * @file
+ *   File used purely to test the parser in potx. This is file has a .txt
+ *   extension so that it does not fail linting tests run by continuous
+ *   integration.
+ */
+
+/**
+ * @TestAnnotation(
+ *   id = "test_annotation",
+ *   test_label = @Translation("Good translation annotation"),
+ *   test_label_context = @Translation("Translation in good context", context="Translation test")
+ * )
+ */
+function potx_test_8_example() {
+  // Tested with long format array style.
+  $a = new TranslationWrapper('TranslationWrapper string');
+  $b = new TranslationWrapper('TranslationWrapper string with context', array(), array('context' => 'With context'));
+
+  // Test with short format array styles mixed with other tokens.
+  $a = new TranslatableMarkup('TranslatableMarkup string');
+  $c = new TranslatableMarkup('TranslatableMarkup string without context', []);
+  $d = new TranslatableMarkup('TranslatableMarkup string with long array context', [], array('context' => 'With context']));
+  $d = new TranslatableMarkup('TranslatableMarkup string with short array context', [], ['context' => 'With context']);
+  $e = new TranslatableMarkup('TranslatableMarkup string with long array followed by short array context', array(), ['context' => 'With context']);
+  $f = new TranslatableMarkup('TranslatableMarkup string with complicated tokens', array([], 2, potx_test_8_sample(), array(), [[]]), ['context' => 'With context']);
+  $g = new TranslatableMarkup('TranslatableMarkup string with complicated option tokens', [], ['foo' => potx_test_8_sample([4]), 'bar' => [12, 14, []], 'context' => 'With context', 'eek' => 'ook']);
+
+  $a->debug('Debug message');
+  $b->info('Info message');
+  $c->notice('Notice message');
+  $d->warning('Warning message');
+  $e->error('Error message');
+  $f->critical('Critical message');
+  $g->alert('Alert message');
+  $h->emergency('Emergency message');
+  $i->log(1, 'Log message');
+  $j->log('false positive');
+  $k->log($boo, 'Log message 2');
+  $l->log($another_false_positive);
+  $m->log(potx_test_8_sample(), 'Log message 3');
+  $n->log();
+}
+
+/**
+ * Let's see if we catch errors in @Translation() annotation.
+ *
+ * @TestAnnotation2(
+ *   test_1 = @Translation("Bad translation annotation),
+ *   test_2 = @Translation("Another good translation annotation"),
+ *   test_3 = @Translation Even worse,
+ *   test_4 = @Translation("Final good translation annotation"),
+ * )
+ */
+function potx_test_8_sample() {
+}
+
+/**
+ * Empty annotations are not allowed either.
+ *
+ * @TestAnnotation3(
+ *   test = @Translation("")
+ * )
+ */
+function potx_test_8_empty() {
+}
+
+/**
+ * Test parsing Drupal 8 $this->t and formatPlural function calls.
+ */
+class PotxTestD8 {
+  function test_func() {
+    // In the real world, we'd also need to define "function t", and inject
+    // the translation service. please refer to https://drupal.org/node/2079611
+    // for an example.
+    $test_translation = $this->t('Using t inside D8 classes ($this->t)');
+  }
+
+  function testFormatPlural() {
+    $this->formatPlural($count, '1 formatPlural test string', '@count formatPlural test strings');
+    $this->formatPlural($count, '1 formatPlural test string in context', '@count formatPlural test strings in context', array(), array('context' => 'Test context'));
+    $this->formatPlural($count);
+    $this->formatPlural();
+
+    \Drupal::translation()->formatPlural($count, '1 translation->formatPlural test string in context', '@count translation->formatPlural test strings in context', array(), array('context' => 'Test context'));
+    \Drupal::translation()->formatPlural($count, '1 translation->formatPlural test string', '@count translation->formatPlural test strings');
+
+    $a = new PluralTranslatableMarkup($count, '1 PluralTranslatableMarkup test string', '@count PluralTranslatableMarkup test strings');
+    $b = new PluralTranslatableMarkup($count, '1 PluralTranslatableMarkup test string with context', '@count PluralTranslatableMarkup test strings with context', array(), array('context' => 'Test context'));
+  }
+}
+
+/**
+ * Test parsing inline templates inside PHP files in Drupal 8.
+ */
+function potx_test_inline_templates() {
+  $render_array = array(
+    '#type' => 'inline_template',
+    '#template' => "Here is a {% trans 'Test translatable string inside an inline template' %}."
+  );
+
+  $render_array['#template'] = 'Here is {% trans %}Another test translatable string inside an inline template{% endtrans %}';
+  $render_array["#template"] = 'Here is {% trans %}A translatable string inside an inline template, with double-quoted "#template" key{% endtrans %}';
+}
+
+/**
+ * Test that potx ignores translation keywords in non-translation situations, without causing notices.
+ */
+class TestWrapper extends TranslatableMarkup {}

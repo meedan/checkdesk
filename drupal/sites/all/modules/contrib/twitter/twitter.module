@@ -335,7 +335,7 @@ function _twitter_filter_tip_embed_tweet($filter, $format, $long = FALSE) {
 function _twitter_filter_username($text, $filter = NULL) {
   $prefix = '@';
   $destination = variable_get('twitter_host', TWITTER_HOST) . '/';
-  return _twitter_filter_text($text, $prefix, $destination, 'twitter-timeline-atreply');
+  return _twitter_filter_text($text, $prefix, $destination, 'twitter-atreply');
 }
 
 /**
@@ -352,7 +352,7 @@ function _twitter_filter_username($text, $filter = NULL) {
 function _twitter_filter_hashtag($text, $filter = NULL) {
   $prefix = '#';
   $destination = variable_get('twitter_search', TWITTER_SEARCH) . '/search?q=%23';
-  return _twitter_filter_text($text, $prefix, $destination, 'twitter-timeline-hashtag');
+  return _twitter_filter_text($text, $prefix, $destination, 'twitter-hashtag');
 }
 
 /**
