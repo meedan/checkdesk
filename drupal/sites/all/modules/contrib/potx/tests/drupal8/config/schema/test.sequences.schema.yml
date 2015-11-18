@@ -2,20 +2,24 @@ simple_sequence:
   type: sequence
   label: 'Test sequence'
   sequence:
-    - type: text
-      label: 'Test string in sequence'
+    type: text
+    label: 'Test string in sequence'
 typed_sequence:
   type: sequence
   sequence:
-    - type: simple_mapping
+    type: simple_mapping
 sequence_of_sequence:
   type: sequence
   sequence:
-    - type: sequence
-      sequence:
-        - type: mapping
-          mapping:
-            id:
-              type: integer
-            description:
-              type: text
+    type: sequence
+    sequence:
+      type: mapping
+      mapping:
+        id:
+          type: integer
+        description:
+          type: text
+bc_sequence:
+  type: sequence
+  sequence:
+    - type: label

@@ -49,7 +49,6 @@ function metatag_mobile_metatag_info() {
     'label' => t('Viewport'),
     'description' => t('Used by most contemporary browsers to control the display for mobile browsers. Please read a guide on responsive web design for details of what values to use.'),
     'weight' => ++$weight,
-    'multiple' => TRUE,
   ) + $tag_info_defaults;
 
   $info['tags']['cleartype'] = array(

@@ -1006,18 +1006,18 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
       'entity_type' => $entity_type,
       'view_mode' => $view_mode,
     );
+
     // Ensure we actually pass a language object rather than language code.
     $languages = language_list();
     if (isset($languages[$langcode])) {
       $options['language'] = $languages[$langcode];
     }
 
-    // Reload the entity object from cache as it may have been altered.
+    // Include token replacement data. Don't reload the entity object as doing
+    // so would conflict with content editorial workflows.
     if (!empty($entity_id)) {
       $token_type = token_get_entity_mapping('entity', $entity_type);
-      $entities = entity_load($entity_type, array($entity_id));
-      $options['token data'][$token_type] = $entities[$entity_id];
-      $options['entity'] = $entities[$entity_id];
+      $options['token data'][$token_type] = $entity;
     }
 
     // Render the metatags and save to the cache.
@@ -2114,6 +2114,9 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
   // Only proceed if this view is a full page and has a valid path, don't
   // process block or other Views display objects.
   if ($display->display_plugin == 'page' && !empty($display->display_options['path'])) {
+    // Try to work out what entity type this is.
+    $entity_type = '';
+
     // All paths must have a placeholder.
     $placeholder_pos = strpos($display->display_options['path'], '%');
     if ($placeholder_pos !== FALSE) {
@@ -2121,9 +2124,6 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
       if (!empty($view->args) && is_numeric($view->args[0])) {
         // The first argument should be an entity ID.
         $id = $view->args[0];
-
-        // Try to work out what entity type this is.
-        $entity_type = '';
 
         // Taxonomy terms are the most commonly used item, so check that first.
         if ($display->display_options['path'] == 'taxonomy/term/%' || $display->display_options['path'] == 'taxonomy/term/%/%') {
@@ -2137,81 +2137,37 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
         elseif ($display->display_options['path'] == 'user/%') {
           $entity_type = 'user';
         }
-        // Check for other types of entities.
-        else {
-          $entity_type = metatag_check_if_current_path_is_entity($id);
-        }
+      }
+    }
 
-        // If an entity type was identified, try loading the entity.
-        if (!empty($entity_type)) {
-          // Try loading the requested entity.
-          $entities = entity_load($entity_type, array($id));
-          if (!empty($entities)) {
-            $entity = array_pop($entities);
-
-            // Trigger our hook_entity_view().
-            metatag_entity_view($entity, $entity_type, 'full', NULL, TRUE);
+    // Check for other types of entities.
+    if (empty($entity_type)) {
+      // Trigger hook_metatag_views_post_render_get_entity().
+      $hook = 'metatag_views_post_render_get_entity';
+      foreach (module_implements($hook) as $module) {
+        $function = $module . '_' . $hook;
+        if (function_exists($function)) {
+          $entity_type = call_user_func($function, $view);
+          // If an entity type was identified, stop checking.
+          if (!empty($entity_type)) {
+            break;
           }
         }
       }
     }
-  }
-}
 
-/**
- * Check if the current path belongs to an entity type.
- *
- * @param int $id
- *   The id of the entity for the current page, as taken from the URL via an
- *   intermediary, e.g. a Views page argument.
- *
- * @return bool
- */
-function metatag_check_if_current_path_is_entity($id) {
-  $entity_type_found = FALSE;
+    // If an entity type was identified, try loading the entity.
+    if (!empty($entity_type)) {
+      // Try loading the requested entity.
+      $entities = entity_load($entity_type, array($id));
+      if (!empty($entities)) {
+        $entity = array_pop($entities);
 
-  // Get the current system path.
-  $current_path = current_path();
-
-  // Loop over each entity type, create a "mock" entity object and then
-  // try generating its URL from the "uri callback" that each entity
-  // type is supposed to have; once a matching URI path is identified,
-  // proceed trying to load the entity and its meta tags.
-  foreach (entity_get_info() as $entity_type => $entity_info) {
-    // Only bother looking for entities with a callback for generating
-    // the entity's URI.
-    if (isset($entity_info['uri callback'])) {
-      $uri_callback = $entity_info['uri callback'];
-      // Only proceed if the URI callback function exists.
-      if (function_exists($uri_callback)) {
-        // Work out what attribute in the entity's class should be the
-        // primary ID, this will be used by the URI callback to generate
-        // a URI path.
-        $key = $entity_info['entity keys']['id'];
-
-        // Create a temporary object so we can try to fake out the URI
-        // callback. This uses the MetatagEntityMock class (see below)
-        // which provides a method that some entities require in order
-        // for the URI callback to work.
-        $temp_entity = new MetatagEntityMock();
-        $temp_entity->$key = $id;
-
-        // Try calling the URI callback function, throwing away any
-        // error messages as they won't be relevant.
-        $uri = @$uri_callback($temp_entity);
-
-        // If this temporary entity's path is the same as the current
-        // path, this is the entity type to use.
-        if (!empty($uri) && !empty($uri['path']) && $current_path == $uri['path']) {
-          $entity_type_found = $entity_type;
-          // No need to continue checking other entity types.
-          break;
-        }
+        // Trigger our hook_entity_view().
+        metatag_entity_view($entity, $entity_type, 'full', NULL, TRUE);
       }
     }
   }
-
-  return $entity_type_found;
 }
 
 /**

@@ -48,7 +48,7 @@ function metatag_facebook_metatag_info() {
   // If the FB_Social module is installed already, disable the app_id field.
   if (module_exists('fb_social')) {
     $info['tags']['fb:app_id']['form']['#disabled'] = TRUE;
-    $info['tags']['fb:app_id']['form']['#description'] = t('The FB_Social module will automatically output this meta tag, go to the <a href="!fb_social">FB_Social settings page</a> to customize it.', array('!fb_social' => url('admin/config/user-interface/fb_social')));
+    $info['tags']['fb:app_id']['form']['#description'] = t('The FB_Social module will automatically output this meta tag, go to the <a href="!fb_social">FB_Social settings page</a> to customize it.', array('!fb_social' => url('admin/structure/fbsocial')));
   }
 
   return $info;

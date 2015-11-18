@@ -1,30 +1,30 @@
-'*.info.yml':
-  - name
-  - description
-  - package
-  - regions
-'*.routing.yml':
-  - _title:
-      context: _title_context
-'*.links.task.yml':
-  - title:
-      context: title_context
-'*.links.action.yml':
-  - title:
-      context: title_context
-'*.links.contextual.yml':
-  - title:
-      context: title_context
-'*.links.menu.yml':
-  - title:
-      context: title_context
-  - description
-'*.breakpoints.yml':
-  - label
-  - group
-'*.permissions.yml':
-  - title
-  - description
-  - %top-level-key
-'config/schema/*.yml':
-  - label
+translation_patterns:
+  - matches: '*.info.yml'
+    translatable_keys:
+      - name
+      - description
+      - package
+      - regions
+  - matches: '*.routing.yml'
+    translatable_keys:
+      - key: _title
+        context: _title_context
+  - matches: '*.links.*.yml'
+    translatable_keys:
+      - key: title
+        context: title_context
+  - matches: '*.links.menu.yml'
+    translatable_keys:
+      - description
+  - matches: '*.breakpoints.yml'
+    translatable_keys:
+      - label
+      - group
+  - matches: '*.permissions.yml'
+    top_level_translatables: true
+    translatable_keys:
+      - title
+      - description
+  - matches: 'config/schema/*.yml'
+    translatable_keys:
+      - label

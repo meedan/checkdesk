@@ -17,6 +17,13 @@
     var targetList = response.targetList || '';
     var effect = ajax.getEffect(response);
     var pager_selector = response.options.pager_selector ? response.options.pager_selector : '.pager-load-more';
+    
+    // Deal with ajax forms loaded earlier
+    for (var base in Drupal.settings.ajax) {
+      if ($('#' + base + '.ajax-processed').length) {
+        $('#' + base).attr('id',base + '--old');
+      }
+    }
 
     // We don't know what response.data contains: it might be a string of text
     // without HTML, so don't rely on jQuery correctly iterpreting

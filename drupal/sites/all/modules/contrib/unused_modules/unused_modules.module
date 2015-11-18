@@ -381,7 +381,7 @@ function _unused_modules_add_info_file_information(&$modules = array()) {
         $error_message = "No .info file found for module '" . $module->name . "'";
         throw new Exception($error_message);
       }
-      $info_file = explode(PHP_EOL, file_get_contents($module->info_file));
+      $info_file = file($module->info_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
       // Traverse all lines in .info and look for the line that starts
       // with "project". When found, add the project name to the module object.

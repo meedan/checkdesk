@@ -2419,6 +2419,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'load_more';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '15';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
+  $handler->display->display_options['pager']['options']['load_all'] = 0;
 
   /* Display: Auto-refresh */
   $handler = $view->new_display('page', 'Auto-refresh', 'page_1');
@@ -2456,6 +2464,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('Published'),
     t('All'),
     t('Block'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Load more'),
     t('Auto-refresh'),
   );
   $export['updates_for_stories'] = $view;
