@@ -1,5 +1,35 @@
+diff --git a/drupal/sites/all/modules/contrib/nodejs/nodejs.config.js.example b/drupal/sites/all/modules/contrib/nodejs/nodejs.config.js.example
+index 7ba268f..bfab778 100644
+--- a/drupal/sites/all/modules/contrib/nodejs/nodejs.config.js.example
++++ b/drupal/sites/all/modules/contrib/nodejs/nodejs.config.js.example
+@@ -79,11 +79,20 @@ settings = {
+   resource: '/socket.io',
+   serviceKey: '',
+   backend: {
+-    port: 80,
+-    host: 'drupalhost',
+-    scheme: 'http',
+-    basePath: '',
+-    messagePath: '/nodejs/message'
++    'drupalhost1' : {
++      port: 80,
++      host: 'drupalhost',
++      scheme: 'http',
++      basePath: '',
++      messagePath: '/nodejs/message'
++    },
++    'drupalhost2' : {
++      port: 80,
++      host: 'drupalhost2',
++      scheme: 'http',
++      basePath: '',
++      messagePath: '/nodejs/message'
++    },
+   },
+   debug: false,
+   sslKeyPath: '',
 diff --git a/drupal/sites/all/modules/contrib/nodejs/nodejs.js b/drupal/sites/all/modules/contrib/nodejs/nodejs.js
-index a9a42d7..53b8f0e 100644
+index a9a42d7..01624db 100644
 --- a/drupal/sites/all/modules/contrib/nodejs/nodejs.js
 +++ b/drupal/sites/all/modules/contrib/nodejs/nodejs.js
 @@ -20,6 +20,9 @@ Drupal.behaviors.nodejs = {
@@ -13,7 +43,7 @@ index a9a42d7..53b8f0e 100644
      return;
    }
 diff --git a/drupal/sites/all/modules/contrib/nodejs/nodejs.module b/drupal/sites/all/modules/contrib/nodejs/nodejs.module
-index 153e5ab..fec7a0a 100644
+index 153e5ab..a0098b0 100644
 --- a/drupal/sites/all/modules/contrib/nodejs/nodejs.module
 +++ b/drupal/sites/all/modules/contrib/nodejs/nodejs.module
 @@ -38,6 +38,7 @@ function nodejs_send_content_channel_token($channel, $notify_on_disconnect = FAL
@@ -75,10 +105,10 @@ index 153e5ab..fec7a0a 100644
        'method' => 'POST',
        'data' => drupal_json_encode($message),
 diff --git a/drupal/sites/all/modules/contrib/nodejs/server.js b/drupal/sites/all/modules/contrib/nodejs/server.js
-index 472b473..2660910 100644
+index 472b473..a4cf0f4 100644
 --- a/drupal/sites/all/modules/contrib/nodejs/server.js
 +++ b/drupal/sites/all/modules/contrib/nodejs/server.js
-@@ -146,9 +146,9 @@ var clientIsInChannel = function (socket, channel) {
+@@ -146,14 +146,14 @@ var clientIsInChannel = function (socket, channel) {
  /**
   * Returns the backend url.
   */
@@ -90,7 +120,15 @@ index 472b473..2660910 100644
 +         settings.backend[hostName].port + settings.backend[hostName].basePath + settings.backend[hostName].messagePath;
  }
  
- var getAuthHeader = function() {
+-var getAuthHeader = function() {
+-  if (settings.backend.httpAuth.length > 0) {
+-    return 'Basic ' + new Buffer(settings.backend.httpAuth).toString('base64');
++var getAuthHeader = function(hostName) {
++  if (settings.backend[hostName].httpAuth.length > 0) {
++    return 'Basic ' + new Buffer(settings.backend[hostName].httpAuth).toString('base64');
+   }
+   return false;
+ }
 @@ -162,13 +162,17 @@ var getAuthHeader = function() {
   * Send a message to the backend.
   */
@@ -110,6 +148,21 @@ index 472b473..2660910 100644
      body: requestBody,
      headers: {
        'Content-Length': Buffer.byteLength(requestBody),
+@@ -176,11 +180,11 @@ var sendMessageToBackend = function (message, callback) {
+     }
+   }
+ 
+-  if (settings.backend.scheme == 'https') {
+-     options.strictSSL = settings.backend.strictSSL;
++  if (settings.backend[message.hostName].scheme == 'https') {
++     options.strictSSL = settings.backend[message.hostName].strictSSL;
+   }
+ 
+-  var httpAuthHeader = getAuthHeader();
++  var httpAuthHeader = getAuthHeader(message.hostName);
+   if (httpAuthHeader !== false) {
+     options.headers.Authorization = httpAuthHeader;
+   }
 @@ -203,6 +207,8 @@ var authenticateClient = function (client, message) {
      setupClientConnection(client.id, authenticatedClients[message.authToken], message.contentTokens);
    }
@@ -131,7 +184,7 @@ index 472b473..2660910 100644
   * Cleanup after a socket has disconnected.
   */
  var cleanupSocket = function (socket) {
-+  var hostName = socket.hostname;
++  var hostName = socket.hostName;
 +  if (typeof hostName == 'undefined') {
 +    hostName = getHostName(socket.handshake.headers.origin);
 +  }
