@@ -27,6 +27,27 @@ function checkdesk_advaggr_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'advagg_bundler_active';
+  $strongarm->value = 0;
+  $export['advagg_bundler_active'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'advagg_bundler_max_css';
+  $strongarm->value = 4;
+  $export['advagg_bundler_max_css'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'advagg_bundler_max_js';
+  $strongarm->value = 4;
+  $export['advagg_bundler_max_js'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'advagg_cache_level';
   $strongarm->value = '1';
   $export['advagg_cache_level'] = $strongarm;
@@ -65,6 +86,27 @@ function checkdesk_advaggr_feature_strongarm() {
   $strongarm->name = 'advagg_cron_frequency';
   $strongarm->value = '86400';
   $export['advagg_cron_frequency'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'advagg_css_compressor';
+  $strongarm->value = '0';
+  $export['advagg_css_compressor'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'advagg_css_compress_inline';
+  $strongarm->value = '0';
+  $export['advagg_css_compress_inline'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'advagg_css_compress_inline_if_not_cacheable';
+  $strongarm->value = 0;
+  $export['advagg_css_compress_inline_if_not_cacheable'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -111,6 +153,13 @@ function checkdesk_advaggr_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'advagg_global_counter';
+  $strongarm->value = 1;
+  $export['advagg_global_counter'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'advagg_gzip';
   $strongarm->value = 1;
   $export['advagg_gzip'] = $strongarm;
@@ -119,14 +168,14 @@ function checkdesk_advaggr_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'advagg_ie_css_selector_limiter';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['advagg_ie_css_selector_limiter'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'advagg_ie_css_selector_limiter_value';
-  $strongarm->value = 4095;
+  $strongarm->value = '4095';
   $export['advagg_ie_css_selector_limiter_value'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -210,7 +259,7 @@ function checkdesk_advaggr_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'advagg_mod_css_defer_js_code';
-  $strongarm->value = '0';
+  $strongarm->value = '2';
   $export['advagg_mod_css_defer_js_code'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -315,7 +364,7 @@ function checkdesk_advaggr_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'advagg_mod_js_async_in_header';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['advagg_mod_js_async_in_header'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -336,21 +385,21 @@ function checkdesk_advaggr_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'advagg_mod_js_defer_inline_alter';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['advagg_mod_js_defer_inline_alter'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'advagg_mod_js_footer';
-  $strongarm->value = '0';
+  $strongarm->value = '3';
   $export['advagg_mod_js_footer'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'advagg_mod_js_footer_inline_alter';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['advagg_mod_js_footer_inline_alter'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -385,7 +434,7 @@ function checkdesk_advaggr_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'advagg_mod_js_remove_unused';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['advagg_mod_js_remove_unused'] = $strongarm;
 
   $strongarm = new stdClass();
