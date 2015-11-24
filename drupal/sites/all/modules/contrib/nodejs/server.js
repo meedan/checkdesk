@@ -151,9 +151,9 @@ var getBackendUrl = function (hostName) {
          settings.backend[hostName].port + settings.backend[hostName].basePath + settings.backend[hostName].messagePath;
 }
 
-var getAuthHeader = function() {
-  if (settings.backend.httpAuth.length > 0) {
-    return 'Basic ' + new Buffer(settings.backend.httpAuth).toString('base64');
+var getAuthHeader = function(hostName) {
+  if (settings.backend[hostName].httpAuth.length > 0) {
+    return 'Basic ' + new Buffer(settings.backend[hostName].httpAuth).toString('base64');
   }
   return false;
 }
@@ -180,11 +180,11 @@ var sendMessageToBackend = function (message, callback) {
     }
   }
 
-  if (settings.backend.scheme == 'https') {
-     options.strictSSL = settings.backend.strictSSL;
+  if (settings.backend[message.hostName].scheme == 'https') {
+     options.strictSSL = settings.backend[message.hostName].strictSSL;
   }
 
-  var httpAuthHeader = getAuthHeader();
+  var httpAuthHeader = getAuthHeader(message.hostName);
   if (httpAuthHeader !== false) {
     options.headers.Authorization = httpAuthHeader;
   }
