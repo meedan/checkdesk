@@ -199,7 +199,10 @@ function checkdesk_core_feature_default_rules_configuration() {
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "revisioning", "heartbeat_rules", "rules", "rules_scheduler" ],
-      "ON" : { "node_update--discussion" : { "bundle" : "discussion" } },
+      "ON" : {
+        "node_update--discussion" : { "bundle" : "discussion" },
+        "node_insert--discussion" : { "bundle" : "discussion" }
+      },
       "IF" : [ { "revisioning_node_has_pending" : { "node" : [ "node" ] } } ],
       "DO" : [
         { "heartbeat_activity_checkdesk_update_draft_story" : {
@@ -228,11 +231,18 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "revisioning", "heartbeat_rules", "rules_scheduler" ],
+      "REQUIRES" : [
+        "rules",
+        "revisioning",
+        "checkdesk_notifications",
+        "heartbeat_rules",
+        "rules_scheduler"
+      ],
       "ON" : { "node_update--discussion" : { "bundle" : "discussion" } },
       "IF" : [
         { "node_is_published" : { "node" : [ "node" ] } },
-        { "NOT revisioning_node_has_pending" : { "node" : [ "node" ] } }
+        { "NOT revisioning_node_has_pending" : { "node" : [ "node" ] } },
+        { "NOT checkdesk_notifications_first_publish" : { "node" : [ "node" ] } }
       ],
       "DO" : [
         { "heartbeat_activity_checkdesk_update_story" : {
@@ -571,8 +581,22 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "heartbeat_rules", "rules", "rules_scheduler", "checkdesk_core" ],
-      "ON" : { "node_insert--discussion" : { "bundle" : "discussion" } },
+      "REQUIRES" : [
+        "revisioning",
+        "checkdesk_notifications",
+        "heartbeat_rules",
+        "rules",
+        "rules_scheduler",
+        "checkdesk_core"
+      ],
+      "ON" : {
+        "node_insert--discussion" : { "bundle" : "discussion" },
+        "node_update--discussion" : { "bundle" : "discussion" }
+      },
+      "IF" : [
+        { "NOT revisioning_node_has_pending" : { "node" : [ "node" ] } },
+        { "checkdesk_notifications_first_publish" : { "node" : [ "node" ] } }
+      ],
       "DO" : [
         { "heartbeat_activity_checkdesk_add_story" : {
             "nid" : [ "node:nid" ],

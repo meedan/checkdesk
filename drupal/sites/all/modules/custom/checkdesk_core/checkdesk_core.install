@@ -539,3 +539,11 @@ function checkdesk_core_update_7054() {
   db_query('ALTER TABLE {field_data_field_stories} ADD INDEX (field_stories_target_id)');
   db_query('ALTER TABLE {field_revision_field_stories} ADD INDEX (field_stories_target_id)');
 }
+
+/**
+ * Enable advanced aggregate feature
+ */
+
+function checkdesk_core_update_7055() {
+  module_enable(array('checkdesk_advaggr_feature'));
+}
