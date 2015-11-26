@@ -11,7 +11,7 @@
  */
 function checkdesk_nodejs_heartbeat_activity_save($heartbeatActivity) {
     if (in_array($heartbeatActivity->message_id, _checkdesk_nodejs_notification_activities())) {
-        views_autorefresh_nodejs_refresh(array('my_notifications-block'), NULL);
+        views_autorefresh_nodejs_refresh(array('my_notifications-block', 'my_notifications-page'), NULL);
         views_autorefresh_nodejs_refresh(array('story_collaboration-page'), $heartbeatActivity);
     }
     $node = node_load($heartbeatActivity->nid);
