@@ -11,7 +11,7 @@
  */
 function checkdesk_nodejs_heartbeat_activity_save($heartbeatActivity) {
     if (in_array($heartbeatActivity->message_id, _checkdesk_nodejs_notification_activities())) {
-        views_autorefresh_nodejs_refresh(array('my_notifications-block'));
+        views_autorefresh_nodejs_refresh(array('my_notifications-block'), NULL);
         views_autorefresh_nodejs_refresh(array('story_collaboration-page'), $heartbeatActivity);
     }
     $node = node_load($heartbeatActivity->nid);
@@ -27,7 +27,8 @@ function checkdesk_nodejs_heartbeat_activity_save($heartbeatActivity) {
             $commands = array();
             $fun_name = '_checkdesk_nodejs_handle_report_activity_' . $k;
             if (function_exists($fun_name)) {
-                $commands = $fun_name($heartbeatActivity->message_id, $heartbeatActivity->nid);
+                $options = array('view_mode' => $k);
+                $commands = $fun_name($heartbeatActivity->message_id, $heartbeatActivity->nid, $options);
                 if (count($commands)) {
                     $message = (object)array(
                         'channel' => $channel,
@@ -151,18 +152,18 @@ function _checkdesk_nodejs_notification_activities() {
 /**
  * Custom function to render activity for full view mode.
  */
-function _checkdesk_nodejs_handle_report_activity_full($activity, $nid) {
-    return _checkdesk_nodejs_handle_report_activity($activity, $nid);
+function _checkdesk_nodejs_handle_report_activity_full($activity, $nid, $options) {
+    return _checkdesk_nodejs_handle_report_activity($activity, $nid, $options);
 }
 
 /**
  * Custom function to render activity for checkdesk_collaborate mode.
  */
-function _checkdesk_nodejs_handle_report_activity_checkdesk_collaborate($activity, $nid) {
-    return _checkdesk_nodejs_handle_report_activity($activity, $nid);
+function _checkdesk_nodejs_handle_report_activity_checkdesk_collaborate($activity, $nid, $options) {
+    return _checkdesk_nodejs_handle_report_activity($activity, $nid, $options);
 }
 
-function _checkdesk_nodejs_handle_report_activity($activity, $nid) {
+function _checkdesk_nodejs_handle_report_activity($activity, $nid, $options) {
     $commands = array();
     switch ($activity) {
         case 'status_report':
@@ -178,8 +179,9 @@ function _checkdesk_nodejs_handle_report_activity($activity, $nid) {
             $node_view = node_view($node);
             $node_view['comments'] = comment_node_page_additions($node);
             // update activity stream
+            $view_mode = isset($options['view_mode']) ? $options['view_mode'] : 'full';
             $report_activity = theme(
-                'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view, 'view_mode' => 'full')
+                'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view, 'view_mode' => $view_mode)
             );
             $commands[] = ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
             break;
