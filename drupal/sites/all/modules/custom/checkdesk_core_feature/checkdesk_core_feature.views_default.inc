@@ -2184,6 +2184,17 @@ print t(\'No content available\');
   $handler->display->display_options['row_plugin'] = 'heartbeat_activity';
   $handler->display->display_options['row_options']['links'] = 1;
   $handler->display->display_options['row_options']['comments'] = 0;
+  /* Header: Global: Autorefresh */
+  $handler->display->display_options['header']['autorefresh']['id'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['table'] = 'views';
+  $handler->display->display_options['header']['autorefresh']['field'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['interval'] = '5000';
+  $handler->display->display_options['header']['autorefresh']['nodejs'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['display'] = 'page';
+  $handler->display->display_options['header']['autorefresh']['ping'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['ping_base_path'] = 'sites/all/modules/custom/checkdesk_notifications/ping.php';
+  $handler->display->display_options['header']['autorefresh']['ping_arguments'] = 'global $user;
+return array(\'user\'=>$user->uid);';
   /* Field: Heartbeat activity: Activity message */
   $handler->display->display_options['fields']['message']['id'] = 'message';
   $handler->display->display_options['fields']['message']['table'] = 'heartbeat_activity';
@@ -2220,18 +2231,6 @@ print t(\'No content available\');
   $handler->display->display_options['defaults']['query'] = FALSE;
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = 'Notifications list query';
-  $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: Autorefresh */
-  $handler->display->display_options['header']['autorefresh']['id'] = 'autorefresh';
-  $handler->display->display_options['header']['autorefresh']['table'] = 'views';
-  $handler->display->display_options['header']['autorefresh']['field'] = 'autorefresh';
-  $handler->display->display_options['header']['autorefresh']['interval'] = '5000';
-  $handler->display->display_options['header']['autorefresh']['nodejs'] = TRUE;
-  $handler->display->display_options['header']['autorefresh']['display'] = 'page';
-  $handler->display->display_options['header']['autorefresh']['ping'] = TRUE;
-  $handler->display->display_options['header']['autorefresh']['ping_base_path'] = 'sites/all/modules/custom/checkdesk_notifications/ping.php';
-  $handler->display->display_options['header']['autorefresh']['ping_arguments'] = 'global $user;
-return array(\'user\'=>$user->uid);';
   $handler->display->display_options['defaults']['footer'] = FALSE;
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
