@@ -2684,7 +2684,7 @@ function checkdesk_core_node_insert($node) {
         ->execute();
     }
     //link report to created update
-    if (isset($node->body)) {
+    if (!empty($node->body)) {
       $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
       checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
     }
@@ -2728,7 +2728,9 @@ function checkdesk_core_node_update($node) {
   if ($node->type === 'post' && isset($node->body)) {
     $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     //link report to update
-    checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
+    if (!empty($node->body)) {
+      checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
+    }
   }
 }
 
