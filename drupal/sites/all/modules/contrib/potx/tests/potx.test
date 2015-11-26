@@ -20,7 +20,9 @@ class PotxTestCase extends DrupalWebTestCase {
     parent::setUp('locale', 'potx');
 
     // Add potx.inc which we test for its functionality.
-    include_once(drupal_get_path('module', 'potx') .'/potx.inc');
+    include_once(__DIR__ . '/../potx.inc');
+    include_once(__DIR__ . '/../potx.local.inc');
+    potx_local_init();
     // Store empty error message for reuse in multiple cases.
     $this->empty_error = t('Empty string attempted to be localized. Please do not leave test code for localization in your source.');
   }
@@ -30,7 +32,7 @@ class PotxTestCase extends DrupalWebTestCase {
    */
   public function testDrupal5() {
     // Parse and build the Drupal 5 module file.
-    $filename = drupal_get_path('module', 'potx') .'/tests/potx_test_5.module';
+    $filename = __DIR__ . '/potx_test_5.module';
     $this->parseFile($filename, POTX_API_5);
 
     // Assert strings found in module source code.
@@ -82,7 +84,7 @@ class PotxTestCase extends DrupalWebTestCase {
    */
   public function testDrupal6() {
     // Parse and build the Drupal 6 module file.
-    $filename = drupal_get_path('module', 'potx') .'/tests/potx_test_6.module';
+    $filename = __DIR__ . '/potx_test_6.module';
     $this->parseFile($filename, POTX_API_6);
 
     // Assert strings found in module source code.
@@ -134,7 +136,7 @@ class PotxTestCase extends DrupalWebTestCase {
    */
   public function testDrupal7() {
     // Parse and build the Drupal 7 module file.
-    $filename = drupal_get_path('module', 'potx') .'/tests/potx_test_7.module';
+    $filename = __DIR__ . '/potx_test_7.module';
     $this->parseFile($filename, POTX_API_7);
 
     // Assert strings found in module source code.
@@ -183,7 +185,7 @@ class PotxTestCase extends DrupalWebTestCase {
   }
 
   public function testDrupal8LanguageManager() {
-    $filename = drupal_get_path('module', 'potx') .'/tests/LanguageManager.php';
+    $filename = __DIR__ . '/LanguageManager.php';
     $this->parseFile($filename, POTX_API_8);
 
     $this->assertMsgID('Test English language');
@@ -193,7 +195,7 @@ class PotxTestCase extends DrupalWebTestCase {
    * Test parsing of Drupal 8 Twig templates.
    */
   public function testDrupal8Twig() {
-    $filename = drupal_get_path('module', 'potx') .'/tests/potx_test_8.html.twig';
+    $filename = __DIR__ . '/potx_test_8.html.twig';
     $this->parseFile($filename, POTX_API_8);
 
     $this->assertMsgID('This is a translated string.');
@@ -233,7 +235,7 @@ class PotxTestCase extends DrupalWebTestCase {
    */
   public function testDrupal8() {
     // Parse and build the Drupal 8 module file.
-    $filename = drupal_get_path('module', 'potx') .'/tests/potx_test_8.module';
+    $filename = __DIR__ . '/potx_test_8.module.txt';
     $this->parseFile($filename, POTX_API_8);
 
     // Test parsing $this->t calls in D8 code
@@ -259,8 +261,19 @@ class PotxTestCase extends DrupalWebTestCase {
     $this->assertPluralID('1 translation->formatPlural test string', '@count translation->formatPlural test strings');
     $this->assertPluralIDContext('1 translation->formatPlural test string in context', '@count translation->formatPlural test strings in context', 'Test context');
 
+    $this->assertPluralID('1 PluralTranslatableMarkup test string', '@count PluralTranslatableMarkup test strings');
+    $this->assertPluralIDContext('1 PluralTranslatableMarkup test string with context', '@count PluralTranslatableMarkup test strings with context', 'Test context');
+
     $this->assertMsgID('TranslationWrapper string');
     $this->assertMsgIDContext('TranslationWrapper string with context', 'With context');
+
+    $this->assertMsgID('TranslatableMarkup string');
+    $this->assertMsgID('TranslatableMarkup string without context');
+    $this->assertMsgIDContext('TranslatableMarkup string with long array context', 'With context');
+    $this->assertMsgIDContext('TranslatableMarkup string with short array context', 'With context');
+    $this->assertMsgIDContext('TranslatableMarkup string with long array followed by short array context', 'With context');
+    $this->assertMsgIDContext('TranslatableMarkup string with complicated tokens', 'With context');
+    $this->assertMsgIDContext('TranslatableMarkup string with complicated option tokens', 'With context');
 
     $this->assertMsgID('Test translatable string inside an inline template');
     $this->assertMsgID('Another test translatable string inside an inline template');
@@ -283,7 +296,7 @@ class PotxTestCase extends DrupalWebTestCase {
    * Test parsing of Drupal 8 .info.yml files.
    */
   public function testDrupal8InfoYml() {
-    $filename = drupal_get_path('module', 'potx') .'/tests/potx_test_8.info.yml';
+    $filename = __DIR__ . '/potx_test_8.info.yml';
     $this->parseFile($filename, POTX_API_8);
 
     // Look for name, description and package name extracted.
@@ -296,7 +309,7 @@ class PotxTestCase extends DrupalWebTestCase {
    * Test parsing of Drupal 8 .routing.yml files.
    */
   public function testDrupal8RoutingYml() {
-    $filename = drupal_get_path('module', 'potx'). '/tests/potx_test_8.routing.yml';
+    $filename = __DIR__ . '/potx_test_8.routing.yml';
     $this->parseFile($filename, POTX_API_8);
 
     // Look for all title can be extracted
@@ -310,9 +323,9 @@ class PotxTestCase extends DrupalWebTestCase {
    */
   public function testDrupal8LocalContextualYml() {
     $filenames = array(
-      drupal_get_path('module', 'potx'). '/tests/potx_test_8.links.task.yml',
-      drupal_get_path('module', 'potx'). '/tests/potx_test_8.links.action.yml',
-      drupal_get_path('module', 'potx'). '/tests/potx_test_8.links.contextual.yml'
+      __DIR__ . '/potx_test_8.links.task.yml',
+      __DIR__ . '/potx_test_8.links.action.yml',
+      __DIR__ . '/potx_test_8.links.contextual.yml'
     );
 
     $this->parseFile($filenames[0], POTX_API_8);
@@ -335,7 +348,7 @@ class PotxTestCase extends DrupalWebTestCase {
    * Test parsing of Drupal 8 menu link files.
    */
   public function testDrupal8MenuLinksYml() {
-    $this->parseFile(drupal_get_path('module', 'potx'). '/tests/potx_test_8.links.menu.yml', POTX_API_8);
+    $this->parseFile(__DIR__ . '/potx_test_8.links.menu.yml', POTX_API_8);
     $this->assertMsgID('Test menu link title');
     $this->assertMsgID('Test menu link description.');
     $this->assertMsgIDContext('Test menu link title with context', 'Menu item context');
@@ -345,17 +358,30 @@ class PotxTestCase extends DrupalWebTestCase {
    * Test parsing of custom yaml files.
    */
   public function testDrupal8CustomYml() {
-    _potx_init_yaml_translation_patterns(drupal_get_path('module', 'potx') . '/tests/potx_test_8/');
-    $this->parseFile(drupal_get_path('module', 'potx') . '/tests/potx_test_8/potx_test_8.test.yml', POTX_API_8);
+    $files = _potx_explore_dir(__DIR__ . '/potx_test_8/', '*', POTX_API_8);
+    _potx_init_yaml_translation_patterns();
+    $this->parseFile($files[0], POTX_API_8);
     $this->assertMsgID('Test custom yaml translatable');
     $this->assertMsgIDContext('Test custom yaml translatable with context', 'Yaml translatable context');
+
+    // Test that translation patterns for a module won't be used for extracting
+    // translatable strings for another module.
+    potx_finish_processing('_potx_save_string', POTX_API_8);
+    $files = _potx_explore_dir(__DIR__ . '/potx_test_yml/', '*', POTX_API_8);
+    $this->parseFile(__DIR__ . '/potx_test_yml/potx_test_8.test2.yml', POTX_API_8);
+    $this->assertNoMsgID('Not translatable string');
+    $this->assertMsgID('Translatable string');
+    $this->assertMsgIDContext('Test custom yaml translatable field with context', 'Yaml translatable context');
+    // Test that custom translation patterns are extracted from subfolders.
+    $this->parseFile(__DIR__ . '/potx_test_yml/test_folder/potx_test_8.test3.yml', POTX_API_8);
+    $this->assertMsgID('Translatable string inside directory');
   }
 
   /**
    * Test parsing of Drupal 8 .breakpoints.yml files.
    */
   public function testDrupal8BreakpointsYml() {
-    $filename = drupal_get_path('module', 'potx'). '/tests/potx_test_8.breakpoints.yml';
+    $filename = __DIR__ . '/potx_test_8.breakpoints.yml';
     $this->parseFile($filename, POTX_API_8);
     $this->assertMsgID('Mobile');
     $this->assertMsgID('Standard');
@@ -366,10 +392,11 @@ class PotxTestCase extends DrupalWebTestCase {
    * Test parsing of Drupal 8 permissions files.
    */
   public function testDrupal8PermissionsYml() {
-    $this->parseFile(drupal_get_path('module', 'potx'). '/tests/potx_test_8.permissions.yml', POTX_API_8);
+    $this->parseFile(__DIR__ . '/potx_test_8.permissions.yml', POTX_API_8);
     $this->assertMsgID('Title potx_test_8_a');
     $this->assertMsgID('Description: potx_test_8_a');
     $this->assertMsgID('Title potx_test_8_b');
+    $this->assertNoMsgID('some_callback');
   }
 
   /**
@@ -379,7 +406,8 @@ class PotxTestCase extends DrupalWebTestCase {
 
     global $_potx_store, $_potx_strings, $_potx_install;
     $_potx_store = $_potx_strings = $_potx_install = array();
-    $test_d8_path = drupal_get_path('module', 'potx') . '/tests/drupal8';
+    $test_d8_path = __DIR__ . '/drupal8';
+
     $files = _potx_explore_dir($test_d8_path, '*', POTX_API_8, TRUE);
 
     foreach ($files as $file) {
@@ -426,6 +454,8 @@ class PotxTestCase extends DrupalWebTestCase {
     $this->assertMsgID('Typed sequence - Item 2 code');
     $this->assertMsgID('Sequence of sequence - Description 1');
     $this->assertMsgID('Sequence of sequence - Description 2');
+    $this->assertMsgID('BC sequence item 1');
+    $this->assertMsgID('BC sequence item 2');
     $this->assertMsgID('Basic variable (text)');
     $this->assertMsgID('Parent variable (text)');
     $this->assertMsgID('Key variable (text)');
@@ -441,13 +471,16 @@ class PotxTestCase extends DrupalWebTestCase {
     $this->assertNoMsgID('Basic variable (custom)');
     $this->assertNoMsgID('Parent variable (custom)');
     $this->assertNoMsgID('Key variable (custom)');
+
+    $this->assertPluralID('1 place', '@count places');
+    $this->assertPluralID('1 comment', '@count comments', 'Test context');
   }
 
   /**
    * Test parsing Drupal 8 validation constraint messages.
    */
   public function testDrupal8ConstraintMessages() {
-    $filename = drupal_get_path('module', 'potx') .'/tests/TestConstraint.php';
+    $filename = __DIR__ . '/TestConstraint.php';
     $this->parseFile($filename, POTX_API_8);
 
     $this->assertMsgID('Test message');
@@ -461,7 +494,7 @@ class PotxTestCase extends DrupalWebTestCase {
    */
   public function testDrupalInfo() {
     // Parse and build the Drupal 6 module file.
-    $filename = drupal_get_path('module', 'potx') .'/tests/potx_test_6.info';
+    $filename = __DIR__ . '/potx_test_6.info';
     $this->parseFile($filename, POTX_API_6);
 
     // Look for name, description and package name extracted.
@@ -475,7 +508,7 @@ class PotxTestCase extends DrupalWebTestCase {
    */
   public function testDrupalJS() {
     // Parse and build the Drupal JS file (from above Drupal 5).
-    $filename = drupal_get_path('module', 'potx') .'/tests/potx_test.js';
+    $filename = __DIR__ . '/potx_test.js';
     $this->parseFile($filename, POTX_API_6);
 
     // Assert strings found in JS source code.

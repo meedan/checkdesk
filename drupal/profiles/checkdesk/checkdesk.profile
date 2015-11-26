@@ -158,8 +158,8 @@ function cd_configuration_form_submit($form, &$form_state) {
     i18n_variable_set('checkdesk_site_owner', $values['checkdesk_site_owner_ar'], 'ar');
   }
   variable_set('checkdesk_site_owner_url', $values['checkdesk_site_owner_url']);
-  //enable core feature
-  module_enable(array('checkdesk_core_feature'));
+  //enable our features.
+  module_enable(array('checkdesk_core_feature', 'checkdesk_photos_feature'));
   if ($form_state['values']['enable_multilingual'][1]) {
     module_enable(array('checkdesk_multilingual_feature'));
   }
