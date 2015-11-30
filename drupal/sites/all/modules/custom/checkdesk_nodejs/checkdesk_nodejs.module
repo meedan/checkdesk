@@ -164,6 +164,7 @@ function _checkdesk_nodejs_handle_report_activity_checkdesk_collaborate($activit
 }
 
 function _checkdesk_nodejs_handle_report_activity($activity, $nid, $options) {
+
     $commands = array();
     switch ($activity) {
         case 'status_report':
@@ -198,16 +199,29 @@ function _checkdesk_nodejs_handle_report_activity($activity, $nid, $options) {
                     $count = theme(
                         'checkdesk_core_report_activity_count', array('count' => $activity_report['total_rows'], 'nid' => $node->nid)
                     );
-                    $activity = theme(
+                    $activity_output = theme(
                         'checkdesk_core_report_activity_stream', array('activity' => $activity_report['view_output'], 'nid' => $node->nid)
                     );
                     // Update media count
-                    $commands[] = ajax_command_insert('.media-activity-count-node-' . $node->nid, $count, 'replaceWith');
+                    $commands[] = reactor_ajax_command_insert('.media-activity-count-node-' . $node->nid, $count, 'replaceWith');
                     // Update media activity
-                    $commands[] = ajax_command_insert('.media-activity-node-' . $node->nid, $activity, 'replaceWith');
+                    $commands[] = reactor_ajax_command_insert('.media-activity-node-' . $node->nid, $activity_output, 'replaceWith');
                 }
             }
             break;
     }
     return $commands;
+}
+
+/**
+ * Send an AJAX insert command.
+ */
+function reactor_ajax_command_insert($selector, $html, $method, $settings = NULL) {
+    return array(
+        'command' => 'reactorInsert',
+        'method' => $method,
+        'selector' => $selector,
+        'data' => $html,
+        'settings' => $settings,
+    );
 }
