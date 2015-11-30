@@ -1445,6 +1445,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
 
     $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
     $form['field_tags_tid']['#options']['All'] = '– ' . t('Any tag') . ' –';
+    unset($form['field_tags_tid']['#description']);
 
     // Hide/show media reports based on type filter.
     if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] !== 'report')) {
@@ -1457,6 +1458,8 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     if (isset($_GET['type']) && $_GET['type'] === 'report') {
       // Change -Any- status label
       $form['field_rating_tid']['#options']['All'] = '– ' . t('Any status') . ' –';
+      
+      unset($form['field_rating_tid']['#description']);
       $form['media_flags'] = array(
         '#type' => 'select',
         '#title' => t('Flags'),
