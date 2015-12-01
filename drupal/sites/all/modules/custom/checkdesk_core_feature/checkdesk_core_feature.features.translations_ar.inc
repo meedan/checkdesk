@@ -2690,7 +2690,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Add a report',
     'context' => '',
     'location' => '/ar/story-collaboration/35',
-    'translation' => 'أضف تقرير',
+    'translation' => 'أضف تقريراً',
     'plid' => 0,
     'plural' => 0,
   );
@@ -9489,6 +9489,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('By keyword', array(), array('context' => ''));
+  $translations['ar:default']['bc9e270b7b1a09eeac794d32b3d9dc8f'] = array(
+    'source' => 'Display name',
+    'context' => '',
+    'location' => '/ar/user/1/edit',
+    'translation' => 'اسمك الصحفي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Display name', array(), array('context' => ''));
   $translations['ar:default']['bca00e69c9fceca60bd307c9a6aba07c'] = array(
     'source' => 'Is new',
     'context' => '',
@@ -11247,7 +11256,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Create report',
     'context' => '',
     'location' => '/ar/story/1953',
-    'translation' => 'انشئ تقرير',
+    'translation' => 'انشئ تقريرا',
     'plid' => 0,
     'plural' => 0,
   );
@@ -13568,7 +13577,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Submit report',
     'context' => 'item:0bc3af5d-28a8-c864-bd93-f17d8bea2366:title',
     'location' => 'menu:item:0bc3af5d-28a8-c864-bd93-f17d8bea2366:title',
-    'translation' => 'أضف تقرير',
+    'translation' => 'أضف تقريراً',
     'plid' => 0,
     'plural' => 0,
   );
@@ -13631,7 +13640,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Submit report',
     'context' => 'item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
     'location' => 'menu:item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
-    'translation' => 'أضف تقرير',
+    'translation' => 'أضف تقريراً',
     'plid' => 0,
     'plural' => 0,
   );
