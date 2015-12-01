@@ -170,13 +170,13 @@ function _checkdesk_nodejs_handle_report_activity($activity, $nid, $options) {
         case 'status_report':
             $node = node_load($nid);
             $report_status = _checkdesk_report_status($node);
-            $commands[] = ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
+            $commands[] = reactor_ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
             break;
         case 'checkdesk_fact_checking_on':
         case 'checkdesk_fact_checking_off':
             $node = node_load($nid);
             $report_status = _checkdesk_report_status($node);
-            $commands[] = ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
+            $commands[] = reactor_ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
             $node_view = node_view($node);
             $node_view['comments'] = comment_node_page_additions($node);
             // update activity stream
@@ -184,7 +184,7 @@ function _checkdesk_nodejs_handle_report_activity($activity, $nid, $options) {
             $report_activity = theme(
                 'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view, 'view_mode' => $view_mode)
             );
-            $commands[] = ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
+            $commands[] = reactor_ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
             break;
         //case 'checkdesk_comment_on_report':
         case 'new_comment_report':
