@@ -1,7 +1,6 @@
 name = Checkdesk Advaggr Feature
 core = 7.x
 package = Checkdesk
-dependencies[] = advagg_font
 dependencies[] = advagg_js_compress
 dependencies[] = advagg_mod
 dependencies[] = ctools
@@ -24,9 +23,6 @@ features[variable][] = advagg_css_compress_inline_if_not_cacheable
 features[variable][] = advagg_css_compressor
 features[variable][] = advagg_css_fix_type
 features[variable][] = advagg_enabled
-features[variable][] = advagg_font_cookie
-features[variable][] = advagg_font_fontfaceobserver
-features[variable][] = advagg_font_no_fout
 features[variable][] = advagg_force_https_path
 features[variable][] = advagg_global_counter
 features[variable][] = advagg_gzip

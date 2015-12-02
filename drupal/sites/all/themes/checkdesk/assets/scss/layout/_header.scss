@@ -144,6 +144,7 @@ ul#user-menu li {
     position: relative;
   }
   list-style: none;
+  margin: 0 10px;
 }
 
 @include cd-responsive('min-width: #{$width-tablet}') {

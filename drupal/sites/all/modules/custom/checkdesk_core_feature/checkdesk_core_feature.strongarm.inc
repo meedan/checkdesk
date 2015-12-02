@@ -1739,7 +1739,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_email_verification';
-  $strongarm->value = 0;
+  $strongarm->value = FALSE;
   $export['user_email_verification'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -1862,7 +1862,7 @@ Thank you for registering at [site:name]. Your application for an account is cur
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_mail_register_pending_approval_notify';
-  $strongarm->value = 0;
+  $strongarm->value = TRUE;
   $export['user_mail_register_pending_approval_notify'] = $strongarm;
 
   $strongarm = new stdClass();
