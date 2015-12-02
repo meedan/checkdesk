@@ -547,3 +547,11 @@ function checkdesk_core_update_7054() {
 function checkdesk_core_update_7055() {
   module_enable(array('checkdesk_advaggr_feature'));
 }
+
+/**
+ * Disable Advanced Aggragation Font module
+ */
+
+function checkdesk_core_update_7056() {
+  module_disable(array('advagg_font'));
+}
