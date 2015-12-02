@@ -2304,7 +2304,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Create an account',
     'context' => '',
     'location' => '/ar/user/register',
-    'translation' => 'أنشئ حسابا جديدا',
+    'translation' => 'انشئ حسابا جديدا',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2609,7 +2609,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create another story',
     'context' => '',
     'location' => '/ar/system/ajax',
-    'translation' => 'أنشئ قصة آخرى',
+    'translation' => 'انشئ قصة آخرى',
     'plid' => 0,
     'plural' => 0,
   );
