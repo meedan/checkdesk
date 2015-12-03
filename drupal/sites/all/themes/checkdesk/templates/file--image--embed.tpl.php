@@ -67,11 +67,22 @@
  *
  * @ingroup themeable
  */
+
+  // render responsive image with alt, title
+  $inline_image = _checkdesk_generate_inline_image($file);
+
 ?>
+
 <figure class="element element-image">
-  <?php print render($content['file']); ?>
+  <?php print $inline_image; ?>
+  <?php if (!empty($content['field_media_caption'][0]['#markup']) || !empty($content['field_media_credits'])): ?>
   <figcaption>
-    <div class="caption"><?php print render($content['field_media_caption']) ?></div>
-    <div class="credits"><?php print render($content['field_media_credits']) ?></div>
+    <?php if (!empty($content['field_media_caption'][0]['#markup'])): ?>
+      <?php print render($content['field_media_caption']) ?>
+    <?php endif; ?>
+    <?php if (!empty($content['field_media_credits'])): ?>
+      <?php print render($content['field_media_credits']) ?>
+    <?php endif; ?>
   </figcaption>
+  <?php  endif; ?>
 </figure>

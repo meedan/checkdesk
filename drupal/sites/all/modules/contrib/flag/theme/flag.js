@@ -81,12 +81,7 @@ Drupal.flagLink = function(context) {
 
         // Find all the link wrappers on the page for this flag, but exclude
         // the triggering element because Flag's own javascript updates it.
-        if (typeof data.link != 'undefined') {
-          var $wrappers = $('.flag-wrapper.flag-' + data.flagName.flagNameToCSS() + '-' + data.contentId).not(data.link);
-        }
-        else {
-          var $wrappers = $('.flag-wrapper.flag-' + data.flagName.flagNameToCSS() + '-' + data.contentId);
-        }
+        var $wrappers = $('.flag-wrapper.flag-' + data.flagName.flagNameToCSS() + '-' + data.contentId).not(data.link);
         var $newLink = $(data.newLink);
 
         // Hide message, because we want the message to be shown on the triggering element alone.

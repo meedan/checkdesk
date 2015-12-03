@@ -175,6 +175,9 @@ class twitter_views_handler_field_formatted_tweet extends views_handler_field {
     return theme('twitter_status', array(
       'status' => $status,
       'author' => $author,
+      'reply' => t('Reply'),
+      'retweet' => t('Retweet'),
+      'favorite' => t('Favorite'),
     ));
   }
 }

@@ -29,6 +29,8 @@ test.settings:
       type: typed_sequence
     sequence_of_sequence:
       type: sequence_of_sequence
+    bc_sequence:
+      type: bc_sequence
     test_variable:
       type: basic_variable
     parent_variable_test:
@@ -39,3 +41,7 @@ test.settings:
       type: key_variable
     complex_variable:
       type: complex_variable
+    plural_string:
+      type: plural_string
+    plural_string_with_context:
+      type: plural_string_with_context

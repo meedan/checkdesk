@@ -142,5 +142,11 @@ DirectoryIndex index.php index.html index.htm
   </IfModule>
 </IfModule>
 
+# Add headers to all responses.
+<IfModule mod_headers.c>
+  # Disable content sniffing, since it's an attack vector.
+  Header always set X-Content-Type-Options nosniff
+</IfModule>
+
 Header set Access-Control-Allow-Origin "*"
 Header set Access-Control-Allow-Headers "x-requested-with, Content-Type, origin, authorization, accept, client-security-token, x-checkdesk-uuid, x-checkdesk-token"

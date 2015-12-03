@@ -6,46 +6,6 @@
  */
 
 /**
- * Implements hook_permission().
- */
-function media_wysiwyg_view_mode_permission() {
-  return array(
-    'administer media wysiwyg view mode' => array(
-      'title' => t('Administer Media WYSIWYG View Mode'),
-    ),
-  );
-}
-
-/**
- * Implements hook_menu().
- */
-function media_wysiwyg_view_mode_menu() {
-  $items['admin/config/media/wysiwyg-view-mode'] = array(
-    'title' => 'Media WYSIWYG View Mode',
-    'description' => 'Configure view mode settings for files embedded into and displayed inside of the WYSIWYG editor.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('media_wysiwyg_view_mode_configuration_form'),
-    'access arguments' => array('administer media wysiwyg view mode'),
-    'file' => 'media_wysiwyg_view_mode.admin.inc',
-  );
-
-  return $items;
-}
-
-/**
- * Implements hook_help().
- */
-function media_wysiwyg_view_mode_help($path, $arg) {
-  switch ($path) {
-    case 'admin/config/media/wysiwyg-view-mode':
-      $output = '';
-      $output .= '<p>' . t('Configure view modes for files displayed inside of the WYSIWYG editor.') . '</p>';
-      $output .= '<p>' . t('View modes can be configured per file type. Only enabled view modes are selectable.') . '</p>';
-      return $output;
-  }
-}
-
-/**
  * Implements hook_entity_info_alter().
  */
 function media_wysiwyg_view_mode_entity_info_alter(&$entity_info) {
@@ -58,12 +18,11 @@ function media_wysiwyg_view_mode_entity_info_alter(&$entity_info) {
 }
 
 /**
- * Implements hook_media_wysiwyg_wysiwyg_allowed_view_modes_alter().
+ * Implements hook_media_wysiwyg_allowed_view_modes_alter().
  */
-function media_wysiwyg_view_mode_media_wysiwyg_wysiwyg_allowed_view_modes_alter(&$view_modes, &$file) {
-  if (variable_get("media_wysiwyg_view_mode_{$file->type}_wysiwyg_restricted_view_modes_status", FALSE) == TRUE) {
+function media_wysiwyg_view_mode_media_wysiwyg_allowed_view_modes_alter(&$view_modes, &$file) {
+  if (variable_get("media_wysiwyg_view_mode_{$file->type}_wysiwyg_restricted_view_modes_status")) {
     $restricted_view_modes = variable_get("media_wysiwyg_view_mode_{$file->type}_wysiwyg_restricted_view_modes", array());
-
     foreach ($restricted_view_modes as $restricted_view_mode) {
       if (array_key_exists($restricted_view_mode, $view_modes)) {
         unset($view_modes[$restricted_view_mode]);
@@ -73,80 +32,39 @@ function media_wysiwyg_view_mode_media_wysiwyg_wysiwyg_allowed_view_modes_alter(
 }
 
 /**
- * Implements hook_media_wysiwyg_token_to_markup_alter().
+ * Implements hook_entity_view_mode_alter().
  */
-function media_wysiwyg_view_mode_media_wysiwyg_token_to_markup_alter(&$element, $tag_info, $settings) {
-  if (!empty($settings['wysiwyg'])) {
-    $file = $tag_info['file'];
-
-    if (variable_get("media_wysiwyg_view_mode_{$file->type}_file_wysiwyg_view_mode_status", FALSE) == TRUE) {
-      $element = media_wysiwyg_get_file_without_label($file, variable_get("media_wysiwyg_view_mode_{$file->type}_file_wysiwyg_view_mode", 'wysiwyg'), $settings);
-    }
-    else {
-      $element = media_wysiwyg_get_file_without_label($file, $tag_info['view_mode'], $settings);
+function media_wysiwyg_view_mode_entity_view_mode_alter(&$view_mode, $context) {
+  if ($context['entity_type'] == 'file' && !empty($context['entity']->override['wysiwyg'])) {
+    if (variable_get("media_wysiwyg_view_mode_{$context['entity']->type}_file_wysiwyg_view_mode_status")) {
+      $view_mode = variable_get("media_wysiwyg_view_mode_{$context['entity']->type}_file_wysiwyg_view_mode", 'wysiwyg');
     }
   }
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
-function media_wysiwyg_view_mode_form_alter(&$form, $form_state, $form_id)  {
-  switch ($form_id)  {
-    case 'media_wysiwyg_format_form':
-      $file = $form_state['file'];
-
-      // Check to see if a view mode ("format") has already been specified for
-      //  this media item. First, check for a standard form-submitted value.
-      if (!empty($form_state['values']['format'])) {
-        $view_mode = $form_state['values']['format'];
-      }
-      // Second, check the request for a JSON-encoded value.
-      elseif (isset($_GET['fields'])) {
-        $query_fields = drupal_json_decode($_GET['fields']);
-        if (isset($query_fields['format'])) {
-          $view_mode = $query_fields['format'];
-        }
-      }
-      // If we were unable to determine a view mode, or we found a view mode
-      //  that does not exist in the list of format options presented on this
-      //  form, use the default view mode.
-      if (!isset($view_mode) || !array_key_exists($view_mode, $form['options']['format']['#options'])) {
-        $view_mode = variable_get('media_wysiwyg_wysiwyg_default_view_mode', 'full');
-      }
-
-      $form['preview'] = file_view_file($file, $view_mode);
-      $form['preview']['#prefix'] = '<div id="preview">';
-      $form['preview']['#suffix'] = '</div>';
-
-      if (!isset($form['options']['format']['#default_value'])) {
-        $form['options']['format']['#default_value'] = $view_mode;
-      }
-      $form['options']['format']['#ajax'] = array(
-        'callback' => 'media_format_form_preview',
-        'wrapper' => 'preview',
-      );
-
-      $view_modes = media_wysiwyg_get_wysiwyg_allowed_view_modes($file);
-      $formats = $options = array();
-      foreach ($view_modes as $view_mode => $view_mode_info) {
-        //@TODO: Display more verbose information about which formatter and what it does.
-        $options[$view_mode] = $view_mode_info['label'];
-
-        if (variable_get("media_wysiwyg_view_mode_{$file->type}_file_wysiwyg_view_mode_status", FALSE) == TRUE) {
-          $element = media_wysiwyg_get_file_without_label($file, variable_get("media_wysiwyg_view_mode_{$file->type}_file_wysiwyg_view_mode", 'wysiwyg'), array('wysiwyg' => TRUE));
-        }
-        else {
-          $element = media_wysiwyg_get_file_without_label($file, $view_mode, array('wysiwyg' => TRUE));
-        }
-
-        // Make a pretty name out of this.
-        $formats[$view_mode] = drupal_render($element);
-      }
-
-      $form['#formats'] = $formats;
-      break;
+function media_wysiwyg_view_mode_form_media_wysiwyg_format_form_alter(&$form, $form_state) {
+  // Find the current selected view mode.
+  if (!empty($form_state['values']['format'])) {
+    $view_mode = $form_state['values']['format'];
   }
+  else {
+    $view_mode = $form['options']['format']['#default_value'];
+  }
+
+  // Display an actual preview instead of media_get_thumbnail_preview().
+  // @todo Should this code be merged up to media_wysiwyg_format_form?
+  $form['preview']['#prefix'] = '<div id="preview">';
+  $form['preview']['#suffix'] = '</div>';
+  $form['preview']['#markup'] = $form_state['storage']['view_mode_previews'][$view_mode];
+
+  // Change the preview when the user changes the format.
+  $form['options']['format']['#ajax'] = array(
+    'callback' => 'media_wysiwyg_view_mode_form_media_wysiwyg_format_form_preview',
+    'wrapper' => 'preview',
+  );
 }
 
 /**
@@ -160,6 +78,67 @@ function media_wysiwyg_view_mode_form_alter(&$form, $form_state, $form_id)  {
  * @return array
  *   The preview form item.
  */
-function media_format_form_preview($form, $form_state) {
+function media_wysiwyg_view_mode_form_media_wysiwyg_format_form_preview($form, $form_state) {
   return $form['preview'];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function media_wysiwyg_view_mode_form_file_entity_file_type_form_alter(&$form, $form_state) {
+  $type = $form_state['build_info']['args'][0];
+  $view_mode_options = media_wysiwyg_get_file_type_view_mode_options($type->type);
+
+  $form['media_wysiwyg_view_mode'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Media WYSIWYG View Modes'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+  );
+
+  $form['media_wysiwyg_view_mode']["media_wysiwyg_view_mode_{$type->type}_wysiwyg_restricted_view_modes_status"] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Restrict allowed view modes when embedding with the WYSIWYG', array('%type' => $type->label)),
+    '#default_value' => variable_get("media_wysiwyg_view_mode_{$type->type}_wysiwyg_restricted_view_modes_status", FALSE),
+  );
+  $form['media_wysiwyg_view_mode']["media_wysiwyg_view_mode_{$type->type}_wysiwyg_restricted_view_modes"] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Select which view modes <em>cannot</em> be selected'),
+    '#options' => $view_mode_options,
+    '#default_value' => variable_get("media_wysiwyg_view_mode_{$type->type}_wysiwyg_restricted_view_modes", array()),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="media_wysiwyg_view_mode[media_wysiwyg_view_mode_' . $type->type . '_wysiwyg_restricted_view_modes_status]"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+  $form['media_wysiwyg_view_mode']["media_wysiwyg_view_mode_{$type->type}_file_wysiwyg_view_mode_status"] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use a specific view mode when the file is previewed in the WYSIWYG'),
+    '#default_value' => variable_get("media_wysiwyg_view_mode_{$type->type}_file_wysiwyg_view_mode_status", 0),
+  );
+  $form['media_wysiwyg_view_mode']["media_wysiwyg_view_mode_{$type->type}_file_wysiwyg_view_mode"] = array(
+    '#type' => 'select',
+    '#title' => t('View mode to always use in the WYSIWYG'),
+    '#options' => $view_mode_options,
+    '#default_value' => variable_get("media_wysiwyg_view_mode_{$type->type}_file_wysiwyg_view_mode", 'wysiwyg'),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="media_wysiwyg_view_mode[media_wysiwyg_view_mode_' . $type->type . '_file_wysiwyg_view_mode_status]"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+
+  $form['#submit'][] = 'media_wysiwyg_view_mode_form_file_entity_file_type_form_submit';
+}
+
+function media_wysiwyg_view_mode_form_file_entity_file_type_form_submit($form, $form_state) {
+  $values = $form_state['values']['media_wysiwyg_view_mode'];
+  foreach ($values as $key => $value) {
+    if (is_array($value)) {
+      $value = array_filter($value);
+    }
+    variable_set($key, $value);
+  }
 }

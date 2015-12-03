@@ -52,3 +52,17 @@ function media_wysiwyg_update_7201() {
 function media_wysiwyg_update_7202() {
   variable_set('media_wysiwyg_default_render', 'field_attach');
 }
+
+/**
+ * Move integration with the stand-alone CKEditor module into the Media CKEditor module.
+ */
+function media_wysiwyg_update_7203() {
+  $output = '';
+
+  if (module_exists('ckeditor')) {
+    $output .= t('CKEditor integration has been moved to the Media CKEditor module.');
+    $output .= t('If you are using the stand-alone CKEditor module in combination with the CKEditor plugin provided by Media WYSIWYG then you must download and enable the <a href="@url">Media CKEditor</a> module.', array('@url' => 'https://www.drupal.org/project/media_ckeditor'));
+  }
+
+  return $output;
+}

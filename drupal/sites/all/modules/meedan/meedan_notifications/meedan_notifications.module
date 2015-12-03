@@ -385,8 +385,14 @@ function meedan_notifications_mail($key, &$message, $params) {
       $url = parse_url($t_arg);
       if ($url && $url['scheme'] . '://' . $url['host'] == $base_root) {
         $path = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $url['path']);
-        if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) $path = preg_replace('/^[^\/]+\//', '', $path);
-        $t_args[$t_placeholder] = url($path, array('language' => $languages[$account->language], 'absolute' => TRUE, 'alias' => TRUE));
+        if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) {
+          $path = preg_replace('/^[^\/]+\//', '', $path);
+        }
+        $url_options = array('language' => $languages[$account->language], 'absolute' => TRUE, 'alias' => TRUE);
+        if (isset($url['fragment'])) {
+          $url_options['fragment'] = $url['fragment'];
+        }
+        $t_args[$t_placeholder] = url($path, $url_options);
       }
     }
     else {

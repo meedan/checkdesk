@@ -50,7 +50,7 @@ function checkdesk_photos_feature_file_default_displays() {
   $file_display->weight = 0;
   $file_display->status = TRUE;
   $file_display->settings = array(
-    'image_style' => '',
+    'image_style' => 'large',
     'image_link' => '',
   );
   $export['image__embed__file_field_image'] = $file_display;

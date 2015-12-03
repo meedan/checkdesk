@@ -83,6 +83,27 @@ function checkdesk_photos_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'file_entity_alt';
+  $strongarm->value = '';
+  $export['file_entity_alt'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'file_entity_default_allowed_extensions';
+  $strongarm->value = 'jpg jpeg gif png';
+  $export['file_entity_default_allowed_extensions'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'file_entity_title';
+  $strongarm->value = '[file:name]';
+  $export['file_entity_title'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'media_backgroundcolor';
   $strongarm->value = '#000000';
   $export['media_backgroundcolor'] = $strongarm;
@@ -93,6 +114,13 @@ function checkdesk_photos_feature_strongarm() {
   $strongarm->name = 'media_dialogclass';
   $strongarm->value = 'media-wrapper';
   $export['media_dialogclass'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'media_dialog_theme';
+  $strongarm->value = 'checkdesk';
+  $export['media_dialog_theme'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -147,14 +175,14 @@ function checkdesk_photos_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'media_resizable';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['media_resizable'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'media_width';
-  $strongarm->value = '670';
+  $strongarm->value = '400';
   $export['media_width'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -219,7 +247,7 @@ function checkdesk_photos_feature_strongarm() {
   $strongarm->name = 'media_wysiwyg_wysiwyg_browser_plugins';
   $strongarm->value = array(
     0 => 'upload',
-    1 => 'media_default--media_browser_1',
+    1 => 'checkdesk_media_browser--photo_browser',
   );
   $export['media_wysiwyg_wysiwyg_browser_plugins'] = $strongarm;
 

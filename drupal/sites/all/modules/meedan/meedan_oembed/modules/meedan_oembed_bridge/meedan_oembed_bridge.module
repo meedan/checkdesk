@@ -20,7 +20,7 @@ function meedan_oembed_bridge_handler($provider, $url) {
     $url = substr($url, 0, strlen($url) - 5);
   }
   $placeholder_id = 'bridge-embed-placeholder-' . implode('-', explode('/', preg_replace('/^.*\/medias\/embed\/([^.?]+)(\.|$|\?).*/', '\1', $url)));
-  $html = '<blockquote id="' . $placeholder_id . '" class="bridge-embed-placeholder"></blockquote>' .
+  $html = '<blockquote id="' . urldecode($placeholder_id) . '" class="bridge-embed-placeholder"></blockquote>' .
           '<script type="text/javascript" src="' . $url . '.js"></script>';
   $embed = new stdClass();
   $embed->html = $html;

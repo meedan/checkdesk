@@ -126,16 +126,6 @@ function media_wysiwyg_pre_render_text_format($element) {
   // Add filter handling.
   $element['#attached']['js'][] = drupal_get_path('module', 'media_wysiwyg') . '/js/media_wysiwyg.filter.js';
 
-  // Add CKEditor-specific JS.
-  if (module_exists('ckeditor')) {
-    $element['#attached']['js'][] = array(
-      'data' => drupal_get_path('module', 'media_wysiwyg') . '/wysiwyg_plugins/media_ckeditor/library.js',
-      'type' => 'file',
-      'scope' => 'footer',
-      'weight' => -20,
-    );
-  }
-
   return $element;
 }
 
@@ -368,4 +358,65 @@ function media_wysiwyg_filter_fields_with_text_filtering($entity_type, $entity) 
   }
 
   return $fields_with_text_filtering;
+}
+
+/**
+ * Return a list of view modes allowed for a file type.
+ *
+ * @param string $file_type
+ *   A file type machine name.
+ *
+ * @return array
+ *   An array of view modes that can be used on the file type.
+ */
+function media_wysiwyg_get_file_type_view_mode_options($file_type) {
+  $enabled_view_modes = &drupal_static(__FUNCTION__, array());
+
+  // @todo Add more caching for this.
+  if (!isset($enabled_view_modes[$file_type])) {
+    $enabled_view_modes[$file_type] = array();
+
+    // Add the default view mode by default.
+    $enabled_view_modes[$file_type]['default'] = t('Default');
+
+    $entity_info = entity_get_info('file');
+    $view_mode_settings = field_view_mode_settings('file', $file_type);
+    foreach ($entity_info['view modes'] as $view_mode => $view_mode_info) {
+      // Do not show view modes that don't have their own settings and will
+      // only fall back to the default view mode.
+      if (empty($view_mode_settings[$view_mode]['custom_settings'])) {
+        continue;
+      }
+
+      // Don't present the user with an option to choose a view mode in which
+      // the file is hidden.
+      $extra_fields = field_extra_fields_get_display('file', $file_type, $view_mode);
+      if (empty($extra_fields['file']['visible'])) {
+        continue;
+      }
+
+      // Add the view mode to the list of enabled view modes.
+      $enabled_view_modes[$file_type][$view_mode] = $view_mode_info['label'];
+    }
+  }
+
+  return $enabled_view_modes[$file_type];
+}
+
+/**
+ * Return a list of view modes allowed for a file embedded in the WYSIWYG.
+ *
+ * @param object $file
+ *   A file entity.
+ *
+ * @return array
+ *   An array of view modes that can be used on the file when embedded in the
+ *   WYSIWYG.
+ */
+function media_wysiwyg_get_file_view_mode_options($file) {
+  $view_modes = media_wysiwyg_get_file_type_view_mode_options($file->type);
+  drupal_alter('media_wysiwyg_allowed_view_modes', $view_modes, $file);
+  // Invoke the deprecated/misspelled alter hook as well.
+  drupal_alter('media_wysiwyg_wysiwyg_allowed_view_modes', $view_modes, $file);
+  return $view_modes;
 }

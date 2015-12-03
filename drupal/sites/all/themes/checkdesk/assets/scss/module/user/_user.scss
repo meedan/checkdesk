@@ -9,6 +9,15 @@
 .profile .avatar {
   margin-top: 20px;
 	margin-bottom: 20px;
+}
+
+.profile .thumb-60 {
+	border: 2px solid $firefly20;
+	@include cd-avatar('inline', 60px, 0);
+  @include border-radius(50%);
+}
+
+.profile .thumb-180 {
 	border: 6px solid $firefly20;
 	@include cd-avatar('inline', 180px, 0);
   @include border-radius(50%);
@@ -20,8 +29,15 @@
 
 .user-roles {
 	color: $firefly40;
+	margin-top: 10px;
+	font-size: 15px;
 	.role {
-		margin: 0 10px;
+		display: inline-block;
+	  padding: 4px 8px;
+	  margin: 0 5px;
+	  color: $firefly40;
+	  background-color: rgba($firefly, 0.05);
+	  border-radius: 4px;
 	}
 }
 

@@ -26,6 +26,8 @@
 	if(isset($latest_story->file_managed_field_data_field_lead_image_uri)) {
 		$lead_image_path = image_style_url('item_image_large', $latest_story->file_managed_field_data_field_lead_image_uri);
 	}
+    $term = taxonomy_term_load($fields['tid']->raw);
+    $i18n_term = i18n_taxonomy_term_name($term);
 ?>
 
 <div class="cd-item cd-item-section tone-section-item">
@@ -33,10 +35,10 @@
         <div class="cd-item-content">
             <div class="cd-item-header">
                 <h2 class="cd-item-title cd-item-section-title">
-                    <?php print $fields['name']->raw; ?>
+                    <?php print $i18n_term; ?>
                 </h2>
             </div>
         </div>
-        <?php print l($fields['name']->raw, 'taxonomy/term/' . $fields['tid']->raw, array('attributes' => array('class' => array('u-faux-block-link-overlay')))); ?>
+        <?php print l($i18n_term, 'taxonomy/term/' . $fields['tid']->raw, array('attributes' => array('class' => array('u-faux-block-link-overlay')))); ?>
     </div>
 </div>

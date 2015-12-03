@@ -8,11 +8,11 @@
 /**
  * Defines base class for media_wysiwyg_view_mode test cases.
  */
-class MediaWYSIWYGViewModeTestHelper extends MediaWYSIWYGTestHelper {
+abstract class MediaWYSIWYGViewModeTestHelper extends MediaWYSIWYGTestHelper {
   function setUp() {
-    parent::setUp('media_wysiwyg_view_mode');
+    parent::setUp(array('media_wysiwyg_view_mode'));
 
-    $web_user = $this->drupalCreateUser(array('administer media wysiwyg view mode', 'view files', 'use media wysiwyg'));
+    $web_user = $this->drupalCreateUser(array('view files', 'use media wysiwyg', 'administer file types'));
     $this->drupalLogin($web_user);
   }
 }
@@ -29,18 +29,10 @@ class FormatFormViewModesTest extends MediaWYSIWYGViewModeTestHelper {
     );
   }
 
-  function setUp() {
-    parent::setUp();
-  }
-
   /**
    * Configure format form view mode restrictions and ensure that they are followed.
    */
   function testAllowedFormatFormViewModes() {
-    // Load the Media WYSIWYG View Mode administration page.
-    $this->drupalGet('admin/config/media/wysiwyg-view-mode');
-    $this->assertResponse(200, t('The privileged user can access the Media WYSIWYG View Mode administration page.'));
-
     // Create an image file to test with.
     $files = $this->drupalGetTestFiles('image');
     $files[0]->status = FILE_STATUS_PERMANENT;
@@ -51,12 +43,11 @@ class FormatFormViewModesTest extends MediaWYSIWYGViewModeTestHelper {
     $this->drupalGet('media/' . $fid . '/format-form');
     $this->assertOptionSelected('edit-format', 'default');
 
-    // Restrict the use of the default view mode.
-    variable_set('media_wysiwyg_view_mode_image_wysiwyg_restricted_view_modes_status', TRUE);
-    $restricted_view_modes = array(
-      'default' => 'default',
+    $edit = array(
+      'media_wysiwyg_view_mode[media_wysiwyg_view_mode_image_wysiwyg_restricted_view_modes_status]' => TRUE,
+      'media_wysiwyg_view_mode[media_wysiwyg_view_mode_image_wysiwyg_restricted_view_modes][default]' => TRUE,
     );
-    variable_set('media_wysiwyg_view_mode_image_wysiwyg_restricted_view_modes', $restricted_view_modes);
+    $this->drupalPost('admin/structure/file-types/manage/image/edit', $edit, 'Save');
 
     // The teaser view mode should now be selected by default.
     $this->drupalGet('media/' . $fid . '/format-form');

@@ -8,7 +8,7 @@
 /**
  * Defines base class for media test cases.
  */
-class MediaWYSIWYGTestHelper extends DrupalWebTestCase {
+abstract class MediaWYSIWYGTestHelper extends DrupalWebTestCase {
 
   /**
    * Enable media and file entity modules for testing.

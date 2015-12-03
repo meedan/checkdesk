@@ -96,13 +96,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'discussion' => 'discussion',
   );
-  /* Filter criterion: Content: Language */
-  $handler->display->display_options['filters']['language']['id'] = 'language';
-  $handler->display->display_options['filters']['language']['table'] = 'node';
-  $handler->display->display_options['filters']['language']['field'] = 'language';
-  $handler->display->display_options['filters']['language']['value'] = array(
-    '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
-  );
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
@@ -240,13 +233,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'discussion' => 'discussion',
   );
-  /* Filter criterion: Content: Language */
-  $handler->display->display_options['filters']['language']['id'] = 'language';
-  $handler->display->display_options['filters']['language']['table'] = 'node';
-  $handler->display->display_options['filters']['language']['field'] = 'language';
-  $handler->display->display_options['filters']['language']['value'] = array(
-    '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
-  );
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
@@ -376,14 +362,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
     'discussion' => 'discussion',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Language */
-  $handler->display->display_options['filters']['language']['id'] = 'language';
-  $handler->display->display_options['filters']['language']['table'] = 'node';
-  $handler->display->display_options['filters']['language']['field'] = 'language';
-  $handler->display->display_options['filters']['language']['value'] = array(
-    '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
-  );
-  $handler->display->display_options['filters']['language']['group'] = 1;
   /* Filter criterion: Content: Author uid */
   $handler->display->display_options['filters']['uid']['id'] = 'uid';
   $handler->display->display_options['filters']['uid']['table'] = 'node';
@@ -679,13 +657,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'discussion' => 'discussion',
   );
-  /* Filter criterion: Content: Language */
-  $handler->display->display_options['filters']['language']['id'] = 'language';
-  $handler->display->display_options['filters']['language']['table'] = 'node';
-  $handler->display->display_options['filters']['language']['field'] = 'language';
-  $handler->display->display_options['filters']['language']['value'] = array(
-    '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
-  );
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
@@ -796,13 +767,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'discussion' => 'discussion',
-  );
-  /* Filter criterion: Content: Language */
-  $handler->display->display_options['filters']['language']['id'] = 'language';
-  $handler->display->display_options['filters']['language']['table'] = 'node';
-  $handler->display->display_options['filters']['language']['field'] = 'language';
-  $handler->display->display_options['filters']['language']['value'] = array(
-    '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
   );
 
   /* Display: Block */
@@ -1418,13 +1382,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'discussion' => 'discussion',
   );
-  /* Filter criterion: Content: Language */
-  $handler->display->display_options['filters']['language']['id'] = 'language';
-  $handler->display->display_options['filters']['language']['table'] = 'node';
-  $handler->display->display_options['filters']['language']['field'] = 'language';
-  $handler->display->display_options['filters']['language']['value'] = array(
-    '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
-  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
@@ -1646,14 +1603,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
     'discussion' => 'discussion',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Language */
-  $handler->display->display_options['filters']['language']['id'] = 'language';
-  $handler->display->display_options['filters']['language']['table'] = 'node';
-  $handler->display->display_options['filters']['language']['field'] = 'language';
-  $handler->display->display_options['filters']['language']['value'] = array(
-    '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
-  );
-  $handler->display->display_options['filters']['language']['group'] = 1;
   /* Filter criterion: Content: Author uid */
   $handler->display->display_options['filters']['uid']['id'] = 'uid';
   $handler->display->display_options['filters']['uid']['table'] = 'node';

@@ -25,7 +25,6 @@ function checkdesk_photos_feature_user_default_permissions() {
   $permissions['create files'] = array(
     'name' => 'create files',
     'roles' => array(
-      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'file_entity',
@@ -73,9 +72,7 @@ function checkdesk_photos_feature_user_default_permissions() {
   // Exported permission: 'edit own image files'.
   $permissions['edit own image files'] = array(
     'name' => 'edit own image files',
-    'roles' => array(
-      'citizen journalist' => 'citizen journalist',
-    ),
+    'roles' => array(),
     'module' => 'file_entity',
   );
 
@@ -88,6 +85,17 @@ function checkdesk_photos_feature_user_default_permissions() {
       'journalist' => 'journalist',
     ),
     'module' => 'media_wysiwyg',
+  );
+
+  // Exported permission: 'use text format captions'.
+  $permissions['use text format captions'] = array(
+    'name' => 'use text format captions',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'filter',
   );
 
   // Exported permission: 'view files'.

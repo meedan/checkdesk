@@ -1,16 +1,13 @@
 <?php
 /**
- * Delete ALT and TITLE fields from image file type
+ * Implements hook_install();
  */
-function checkdesk_media_update_7001() {
+function checkdesk_media_install() {
+  // Delete ALT and TITLE fields from image file type
   field_delete_field('field_file_image_alt_text');
   field_delete_field('field_file_image_title_text');
-}
-
-/**
- * Disable unused file types
- */
-function checkdesk_media_update_7002() {
+  
+  // Disable unused file types
   file_type_disable('video');
   file_type_disable('audio');
   file_type_disable('document');

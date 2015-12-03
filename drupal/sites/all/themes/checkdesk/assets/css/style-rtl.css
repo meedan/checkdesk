@@ -1,7 +1,7 @@
 @charset "UTF-8";
-@import url(http://fonts.googleapis.com/earlyaccess/notonaskharabic.css);
-@import url(https://fonts.googleapis.com/earlyaccess/notokufiarabic.css.css);
-@import url(https://fonts.googleapis.com/css?family=Lato:400,400italic,700|Merriweather:400,400italic,700);
+@import url(//fonts.googleapis.com/earlyaccess/notonaskharabic.css);
+@import url(//fonts.googleapis.com/earlyaccess/notokufiarabic.css);
+@import url(//fonts.googleapis.com/css?family=Lato:400,400italic,700|Merriweather:400,400italic,700);
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -173,10 +173,6 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f0e5";
 }
 
-#footer-inner .icon-comments-o:before {
-  content: "\f0e6";
-}
-
 ul#user-menu .icon-bell-o:before {
   content: "\f0a2";
 }
@@ -203,6 +199,10 @@ ul#user-menu .icon-bell-o:before {
 
 .icon-youtube-play:before {
   content: "\f16a";
+}
+
+.elsewhere ul li a span.icon-instagram:before {
+  content: "\f16d";
 }
 
 .elsewhere ul li a span.icon-tumblr:before {
@@ -2093,7 +2093,7 @@ div.ctools-modal-content .modal-content {
   display: none;
 }
 
-html {
+html:not(.embed) {
   height: 100%;
   background-color: #fbfaf9;
 }
@@ -2170,7 +2170,7 @@ body:not(.most-popular-component) .story {
   margin-left: auto;
 }
 
-body.node-type-media .report {
+body.node-type-media:not(.page-embed) .report {
   max-width: 530px;
   margin-right: auto;
   margin-left: auto;
@@ -2575,6 +2575,7 @@ ul#user-menu .icon-bell-o:before {
 
 ul#user-menu li {
   list-style: none;
+  margin: 0 10px;
 }
 @media only screen and (min-width: 740px) {
   ul#user-menu li {
@@ -3232,6 +3233,20 @@ svg.logo-icon {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.elsewhere ul li a span.icon-instagram:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .elsewhere ul li a span.icon-youtube:before {
   font-family: "FontAwesome";
   display: inline-block;
@@ -3868,23 +3883,6 @@ body.sidebar-second aside#sidebar-second {
 #footer-inner ul li .ajax-progress-throbber {
   display: none;
 }
-#footer-inner .icon-comments-o:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: white;
-  font-size: 21.5px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-#footer-inner .icon-comments-o:before {
-  margin: 0;
-}
 
 #partner-header {
   text-align: center;
@@ -4085,7 +4083,6 @@ span.content-labels:after {
 }
 
 .media-holder .media-status {
-  display: block;
   margin-top: 30px;
 }
 .media-holder .media-status .status-name {
@@ -5638,6 +5635,20 @@ body.cke_editable figure.element.cke_widget_element {
   margin-right: auto;
   margin-left: auto;
 }
+.story .story-body figure.element figcaption,
+.update .update-body figure.element figcaption,
+body.cke_editable figure.element figcaption {
+  border: 0 none;
+  color: #9fa6ac;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 5px;
+}
+.story .story-body figure.element a,
+.update .update-body figure.element a,
+body.cke_editable figure.element a {
+  word-wrap: break-word;
+}
 .story .story-body > ul, .story .story-body > ol,
 .update .update-body > ul,
 .update .update-body > ol,
@@ -6200,7 +6211,6 @@ body.cke_editable blockquote:after {
 .item .item-nested-content > div {
   position: relative;
   margin-top: 20px;
-  max-height: 300px;
   overflow: auto;
   padding-left: 20px;
   /* Track */
@@ -6227,10 +6237,10 @@ body.cke_editable blockquote:after {
 .item .item-nested-content > div::-webkit-scrollbar-thumb:window-inactive {
   background: #cfd3d5;
 }
-.node-type-media .item .item-nested-content {
+.node-type-media:not(.page-embed) .item .item-nested-content {
   display: block;
 }
-.node-type-media .item .item-nested-content > div {
+.node-type-media:not(.page-embed) .item .item-nested-content > div {
   overflow: visible;
   max-height: none;
 }
@@ -6679,6 +6689,13 @@ body.cke_editable blockquote:after {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
+.cd-linkslist.cd-linkslist-sections {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+}
 @media only screen and (min-width: 740px) {
   .cd-linkslist .cd-slice-item {
     -webkit-box-flex: 0;
@@ -6848,6 +6865,10 @@ body.cke_editable blockquote:after {
 }
 .cd-item-meta .icon-comment-o:before, .cd-item-meta .icon-comment-o:after {
   margin: 0;
+}
+
+.cd-item-meta .cd-item-count {
+  display: none;
 }
 
 .cd-item-meta .cd-item-count a {
@@ -9004,6 +9025,32 @@ ul.pager {
 .profile .avatar {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.profile .thumb-60 {
+  border: 2px solid #cfd3d5;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #fff;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.profile .thumb-180 {
   border: 6px solid #cfd3d5;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -9032,9 +9079,16 @@ ul.pager {
 
 .user-roles {
   color: #9fa6ac;
+  margin-top: 10px;
+  font-size: 15px;
 }
 .user-roles .role {
-  margin: 0 10px;
+  display: inline-block;
+  padding: 4px 8px;
+  margin: 0 5px;
+  color: #9fa6ac;
+  background-color: rgba(16, 33, 47, 0.05);
+  border-radius: 4px;
 }
 
 .user-bio {
@@ -9945,6 +9999,94 @@ ul.secondary a.active {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+/*
+ * jQuery UI Dialog 1.8.7
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Dialog#theming
+ */
+.ui-dialog {
+  position: absolute;
+  padding: .2em;
+  width: 300px;
+  overflow: hidden;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  padding: .5em 1em .3em;
+  position: relative;
+}
+
+.ui-dialog .ui-dialog-title {
+  float: right;
+  margin-top: .1em;
+  margin-left: 16px;
+  margin-bottom: .2em;
+  margin-right: 0;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+  position: absolute;
+  left: .3em;
+  top: 50%;
+  width: 19px;
+  margin: -10px 0 0 0;
+  padding: 1px;
+  height: 18px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span {
+  display: block;
+  margin: 1px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
+  padding: 0;
+}
+
+.ui-dialog .ui-dialog-content {
+  position: relative;
+  border: 0;
+  padding: .5em 1em;
+  background: none;
+  overflow: auto;
+  zoom: 1;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+  text-align: right;
+  border-width: 1px 0 0 0;
+  background-image: none;
+  margin: .5em 0 0 0;
+  padding: .3em 1em .5em .4em;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+  float: left;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+  margin-top: .5em;
+  margin-left: .4em;
+  margin-bottom: .5em;
+  margin-right: 0;
+  cursor: pointer;
+}
+
+.ui-dialog .ui-resizable-se {
+  width: 14px;
+  height: 14px;
+  left: 3px;
+  bottom: 3px;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+  cursor: move;
 }
 
 #comments {
