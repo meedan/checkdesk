@@ -497,6 +497,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -812,6 +813,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -1191,6 +1193,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
