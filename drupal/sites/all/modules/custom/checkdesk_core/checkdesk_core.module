@@ -1198,6 +1198,18 @@ function checkdesk_core_node_presave($node) {
       $target_authors[] = $row['target_id'];
     }
   }
+  // Set createed timestamp to first published revision timestamp
+  if ($node->status == NODE_PUBLISHED) {
+    $query = db_select('node_revision', 'r');
+    $query->condition('nid', $node->nid);
+    $query->condition('status', 1);
+    $query->fields('r', array('nid'));
+    $query->range(0, 1);
+    $result = $query->execute();
+    if ($result->rowCount() == 0) {
+      $node->created = $node->changed;
+    };
+  }
 }
 
 /**
@@ -1445,6 +1457,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
 
     $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
     $form['field_tags_tid']['#options']['All'] = '– ' . t('Any tag') . ' –';
+    unset($form['field_tags_tid']['#description']);
 
     // Hide/show media reports based on type filter.
     if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] !== 'report')) {
@@ -1457,6 +1470,8 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     if (isset($_GET['type']) && $_GET['type'] === 'report') {
       // Change -Any- status label
       $form['field_rating_tid']['#options']['All'] = '– ' . t('Any status') . ' –';
+      
+      unset($form['field_rating_tid']['#description']);
       $form['media_flags'] = array(
         '#type' => 'select',
         '#title' => t('Flags'),
@@ -2537,6 +2552,21 @@ function checkdesk_core_ife_form_ids() {
  */
 function checkdesk_core_query_features_menu_link_alter($query) {
   $query->fields('menu_links', array('uuid', 'language', 'customized'));
+}
+
+/**
+ * Implements hook_query_TAG_alter() for entityreference.
+ */
+function checkdesk_core_query_entityreference_alter($query) {
+  if (!empty($query->alterMetaData['field']) && $query->alterMetaData['field']['field_name'] === 'field_stories') {
+    $story = menu_get_object();
+    $limit = 50;
+    $nids = db_query("SELECT nid FROM {node} WHERE type='discussion' ORDER BY created DESC LIMIT $limit")->fetchCol();
+    if ($story && $story->type == 'discussion') {
+      $nids[] = $story->nid;
+    }
+    $query->condition('nid', $nids, 'IN');
+  }
 }
 
 /**

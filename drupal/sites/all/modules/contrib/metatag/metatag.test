@@ -52,10 +52,33 @@ class MetatagTestHelper extends DrupalWebTestCase {
    * @return object
    *   A user object.
    */
-  function createAdminUser($extra_permissions) {
+  function createAdminUser($extra_permissions = array()) {
     // Basic permissions for the module.
     $permissions = array(
       'administer meta tags',
+      'edit meta tags',
+    );
+
+    // Reset the static variable used to identify permissions, otherwise it's
+    // possible the permissions check in drupalCreateUser will fail.
+    $this->checkPermissions(array(), TRUE);
+    cache_clear_all();
+
+    return $this->drupalCreateUser(array_merge($permissions, $extra_permissions));
+  }
+
+  /**
+   * Create a normal user for the tests.
+   *
+   * @param array $extra_permissions
+   *   An array of permission strings to be added to the user.
+   *
+   * @return object
+   *   A user object.
+   */
+  function createUser($extra_permissions) {
+    // Basic permissions for the module.
+    $permissions = array(
       'edit meta tags',
     );
 
@@ -316,7 +339,7 @@ class MetatagNodeUITest extends MetatagTestHelper {
 
     // Submit the form with some values.
     $this->drupalPost(NULL, array(
-      'metatags[und][dcterms.title][value]' => '[node:title]',
+      'metatags[und][dcterms.subject][value]' => '[node:title]',
       'metatags[und][dcterms.creator][value]' => '[node:author]',
       'metatags[und][dcterms.date][value]' => '[node:created:custom:Y-m-d\TH:iP]',
       'metatags[und][dcterms.format][value]' => 'text/html',
@@ -339,7 +362,7 @@ class MetatagNodeUITest extends MetatagTestHelper {
 
     // Verify that it's possible to submit values to the form.
     $this->drupalPost(NULL, array(
-      'metatags[und][dcterms.title][value]' => '[node:title] ponies',
+      'metatags[und][dcterms.subject][value]' => '[node:title] ponies',
       'title' => 'Who likes magic',
     ), t('Save'));
 
@@ -361,7 +384,7 @@ class MetatagNodeUITest extends MetatagTestHelper {
       // Only the non-default values are stored.
       $expected = array(
         'und' => array(
-          'dcterms.title' => array(
+          'dcterms.subject' => array(
             'value' => '[node:title] ponies',
           ),
         ),
@@ -375,7 +398,7 @@ class MetatagNodeUITest extends MetatagTestHelper {
     }
 
     // Verify the title is using the custom default for this content type.
-    $xpath = $this->xpath("//meta[@name='dcterms.title']");
+    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
     $this->assertEqual(count($xpath), 1);
     $this->assertEqual($xpath[0]['content'], "Who likes magic ponies");
   }
@@ -465,7 +488,7 @@ class MetatagTermUITest extends MetatagTestHelper {
 
     // Submit the form with some values.
     $this->drupalPost(NULL, array(
-      'metatags[und][dcterms.title][value]' => '[term:name]',
+      'metatags[und][dcterms.subject][value]' => '[term:name]',
       'metatags[und][dcterms.format][value]' => 'text/html',
       'metatags[und][dcterms.identifier][value]' => '[current-page:url:absolute]',
     ), t('Save'));
@@ -487,7 +510,7 @@ class MetatagTermUITest extends MetatagTestHelper {
 
     // Verify that it's possible to submit values to the form.
     $this->drupalPost(NULL, array(
-      'metatags[und][dcterms.title][value]' => '[term:name] ponies',
+      'metatags[und][dcterms.subject][value]' => '[term:name] ponies',
       'name' => $term_name,
       'path[alias]' => $term_path,
     ), t('Save'));
@@ -528,7 +551,7 @@ class MetatagTermUITest extends MetatagTestHelper {
       // Only the non-default values are stored.
       $expected = array(
         'und' => array(
-          'dcterms.title' => array(
+          'dcterms.subject' => array(
             'value' => '[term:name] ponies',
           ),
         ),
@@ -542,9 +565,105 @@ class MetatagTermUITest extends MetatagTestHelper {
     }
 
     // Verify the title is using the custom default for this vocabulary.
-    $xpath = $this->xpath("//meta[@name='dcterms.title']");
+    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
     $this->assertEqual(count($xpath), 1);
     $this->assertEqual($xpath[0]['content'], "Who likes magic ponies");
+  }
+}
+
+
+class MetatagUserUITest extends MetatagTestHelper {
+  /**
+   * Admin user.
+   *
+   * @var \StdClass
+   */
+  protected $adminUser;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Metatag UI tests for users',
+      'description' => 'Test Metatag edit functionality for users.',
+      'group' => 'Metatag',
+    );
+  }
+
+  /**
+   * Tests filtering of values using metatag_filter_values_from_defaults().
+   */
+  public function testMetatagFilterValuesFromDefaults() {
+    // Create an admin user and log them in.
+    $this->adminUser = $this->createAdminUser();
+    $this->drupalLogin($this->adminUser);
+
+    // Assign default values for the new vocabulary.
+
+    // Load the page for overriding the User configuration.
+    $this->drupalGet('admin/config/search/metatags/config/user');
+
+    // Verify the page loaded correct.
+    $this->assertResponse(200);
+    // @todo Update this to extract the H1 tag.
+    $this->assertText(strip_tags('User'));
+
+    // Submit the form with some values.
+    $this->drupalPost(NULL, array(
+      'metatags[und][dcterms.subject][value]' => '[user:name]',
+    ), t('Save'));
+
+    // Verify the page loaded correct.
+    $this->assertText(strip_tags(t('The meta tag defaults for @label have been saved.', array('@label' => 'User'))));
+
+    // Load the user's edit form.
+    $this->drupalGet('user/' . $this->adminUser->uid . '/edit');
+
+    // Verify the page loaded and didn't give a 404 error.
+    $this->assertResponse(200);
+
+    // Verify the page loaded correctly.
+    // @todo Update this to extract the H1 tag.
+    // $this->assertText(strip_tags(t('Create @name', array('@name' => $vocabulary->name))));
+
+    // Verify that it's possible to submit values to the form.
+    $this->drupalPost(NULL, array(
+      'metatags[und][dcterms.subject][value]' => '[user:name] ponies',
+    ), t('Save'));
+
+    // Verify that the node saved correctly.
+    $t_args = array('%name' => $this->adminUser->name);
+
+    // This doesn't work for some reason, it seems the HTML is stripped off
+    // during output so the %name's standard Drupal wrappers don't match.
+    // $this->assertText(t('The changes have been saved.'));
+    // .. so this has to be done instead.
+    $this->assertText(strip_tags(t('The changes have been saved.')));
+
+    // Manually load the admin account.
+    $account = user_load($this->adminUser->uid);
+
+    // Only the non-default values are stored.
+    $expected = array(
+      'und' => array(
+        'dcterms.subject' => array(
+          'value' => '[user:name] ponies',
+        ),
+      ),
+    );
+    $this->assertEqual($expected, $account->metatags);
+
+    // Load the user's profile page.
+    $this->drupalGet('user/' . $this->adminUser->uid);
+
+    // Verify the page loaded and didn't give a 404 error.
+    $this->assertResponse(200);
+
+    // Verify the title is using the custom default for this vocabulary.
+    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
+    $this->assertEqual(count($xpath), 1);
+    $this->assertEqual($xpath[0]['content'], $this->adminUser->name . " ponies");
   }
 }
 

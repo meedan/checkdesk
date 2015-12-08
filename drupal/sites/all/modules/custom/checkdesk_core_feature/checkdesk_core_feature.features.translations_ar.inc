@@ -2304,7 +2304,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Create an account',
     'context' => '',
     'location' => '/ar/user/register',
-    'translation' => 'أنشئ حسابا جديدا',
+    'translation' => 'انشئ حسابا جديدا',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2609,7 +2609,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create another story',
     'context' => '',
     'location' => '/ar/system/ajax',
-    'translation' => 'أنشئ قصة آخرى',
+    'translation' => 'انشئ قصة آخرى',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2690,7 +2690,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Add a report',
     'context' => '',
     'location' => '/ar/story-collaboration/35',
-    'translation' => 'أضف تقرير',
+    'translation' => 'أضف تقريراً',
     'plid' => 0,
     'plural' => 0,
   );
@@ -9489,6 +9489,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('By keyword', array(), array('context' => ''));
+  $translations['ar:default']['bc9e270b7b1a09eeac794d32b3d9dc8f'] = array(
+    'source' => 'Display name',
+    'context' => '',
+    'location' => '/ar/user/1/edit',
+    'translation' => 'اسمك الصحفي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Display name', array(), array('context' => ''));
   $translations['ar:default']['bca00e69c9fceca60bd307c9a6aba07c'] = array(
     'source' => 'Is new',
     'context' => '',
@@ -11247,7 +11256,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Create report',
     'context' => '',
     'location' => '/ar/story/1953',
-    'translation' => 'انشئ تقرير',
+    'translation' => 'انشئ تقريرا',
     'plid' => 0,
     'plural' => 0,
   );
@@ -11473,6 +11482,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('The description associated with a taxonomy term.', array(), array('context' => ''));
+  $translations['ar:default']['df07ef1676ae8973b0141f8e0b1d31c2'] = array(
+    'source' => 'Media browser',
+    'context' => '',
+    'location' => 'sites/all/modules/contrib/media/js/media.popups.js',
+    'translation' => 'متصفح الميديا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Media browser', array(), array('context' => ''));
   $translations['ar:default']['df430c1374f6394e4da8223343b7d006'] = array(
     'source' => 'Most popular',
     'context' => '',
@@ -13559,7 +13577,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Submit report',
     'context' => 'item:0bc3af5d-28a8-c864-bd93-f17d8bea2366:title',
     'location' => 'menu:item:0bc3af5d-28a8-c864-bd93-f17d8bea2366:title',
-    'translation' => 'أضف تقرير',
+    'translation' => 'أضف تقريراً',
     'plid' => 0,
     'plural' => 0,
   );
@@ -13591,6 +13609,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Draft  stories', array(), array('context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title'));
+  $translations['ar:menu']['b48b9a053ce15999a9da52bbe0a59d88'] = array(
+    'source' => 'Sign in',
+    'context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title',
+    'location' => 'menu:item:9a684326-a352-d454-517b-878bb9468e91:title',
+    'translation' => 'تسجيل الدخول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sign in', array(), array('context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title'));
   $translations['ar:menu']['ccad5ea8329325c1f37b39e288708bcc'] = array(
     'source' => 'Update story',
     'context' => 'item::title',
@@ -13613,7 +13640,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Submit report',
     'context' => 'item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
     'location' => 'menu:item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
-    'translation' => 'أضف تقرير',
+    'translation' => 'أضف تقريراً',
     'plid' => 0,
     'plural' => 0,
   );

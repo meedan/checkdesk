@@ -1,3 +1,18 @@
+Metatag 7.x-1.7, 2015-07-24
+---------------------------
+#2537738 by deepak_zyxware: Incorrect path to fb_social settings page.
+#2535178 by DamienMcKenna: 'multiple' option on Viewport causes problems with
+  the meta tag's intended values.
+#2524460 by DamienMcKenna, adriancotter, gbirch, jrb: Remove custom wrangling
+  for Views-based custom entity displays, added new hook to allow other modules
+  to customize as needed (hook_metatag_views_post_render_get_entity).
+#2199533 by Adrian Richardson, DamienMcKenna, mairi: Don't reload entities when
+  processing tokens, it causes problems with content workflows.
+#2513892 by DamienMcKenna: Tests for user objects.
+#1658970 by DamienMcKenna, stefan.r, subhojit777, HyperGlide, jenlampton: Drush
+  script to convert data from the Page Title module.
+
+
 Metatag 7.x-1.6, 2015-06-30
 ---------------------------
 #2503089 by DamienMcKenna: Added support for the "any" favicon, used for SVG

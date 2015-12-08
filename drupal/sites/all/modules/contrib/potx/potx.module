@@ -61,7 +61,7 @@ function potx_reviews() {
 function potx_coder_review(&$coder_args, $review, $rule, $lines, &$results) {
 
   // Include potx API.
-  include_once drupal_get_path('module', 'potx') .'/potx.inc';
+  include_once __DIR__ . '/potx.inc';
 
   // Request collection of error messages internally in a structured format.
   potx_status('set', POTX_STATUS_STRUCTURED);
@@ -74,7 +74,7 @@ function potx_coder_review(&$coder_args, $review, $rule, $lines, &$results) {
   // Grab the errors and empty the error list.
   $errors = potx_status('get', TRUE);
 
-  $severity_name = _coder_severity_name($coder_args, $review, $rule);
+  $severity_name = _coder_review_severity_name($coder_args, $review, $rule);
   foreach ($errors as $error) {
     // Errors contain the message, file name (which we did not use here), in
     // most cases the line number and in some cases a code excerpt for the
@@ -93,6 +93,6 @@ function potx_coder_review(&$coder_args, $review, $rule, $lines, &$results) {
       $line = $coder_args['#all_lines'][$lineno];
     }
     $rule['#warning'] = htmlspecialchars_decode($message, ENT_QUOTES) . (!empty($docs_url) ? (' <a href="'. $docs_url .'">'. t('Read the documentation') .'</a>.') : '');
-    _coder_error($results, $rule, $severity_name, $lineno, $line);
+    _coder_review_error($results, $rule, $severity_name, $lineno, $line);
   }
 }

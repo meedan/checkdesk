@@ -15,7 +15,7 @@ function reactor_node_view($node, $view_mode, $langcode) {
       reactor_activate(array(
         'context' => 'report_activity',
         'node' => $nids,
-        //'view_mode' => $view_mode,
+        'view_mode' => $view_mode,
         'langcode' => $langcode,
         'destination' => 'node/'. $node->nid . '/collaboration',
       ));
@@ -25,7 +25,7 @@ function reactor_node_view($node, $view_mode, $langcode) {
     reactor_activate(array(
         'context' => 'report_status',
         'node' => array($node->nid),
-        //'view_mode' => $view_mode,
+        'view_mode' => $view_mode,
         'langcode' => $langcode,
         'destination' => 'node/' . $node->nid,
     ));

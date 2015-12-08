@@ -262,6 +262,8 @@ function twitter_post_form($account = NULL) {
 function twitter_post_field_extra_fields() {
   $types = variable_get('twitter_post_types', array());
 
+  $extra = array();
+
   foreach ($types as $type) {
     $extra['node'][$type] = array(
       'form' => array(

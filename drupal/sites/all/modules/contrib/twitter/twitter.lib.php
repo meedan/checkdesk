@@ -48,7 +48,7 @@ class Twitter {
     $oauth_callback = variable_get('twitter_oauth_callback_url', TWITTER_OAUTH_CALLBACK_URL);
     $url = variable_get('twitter_api', TWITTER_API) . '/oauth/request_token';
     try {
-      $params += array('oauth_callback' => url($oauth_callback, array('absolute' => TRUE)));
+      $params = array_merge($params, array('oauth_callback' => url($oauth_callback, array('absolute' => TRUE))));
       $response = $this->auth_request($url, $params);
     }
     catch (TwitterException $e) {

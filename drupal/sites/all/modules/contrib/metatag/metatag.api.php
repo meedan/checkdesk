@@ -337,3 +337,24 @@ function hook_metatag_entity_type_is_supported_alter(&$suitable, $entity_type, $
     $suitable = TRUE;
   }
 }
+
+/**
+ * Identify the entity type provided by a specific view.
+ *
+ * When a view is used to display a page it can be difficult to identify what
+ * entity type is being managed. Use this hook to inform Metatag what type of
+ * entity is being displayed.
+ *
+ * @param object $view
+ *   The view object being displayed.
+ *
+ * @return string|NULL
+ *   Should return a string indicating an entity type that will be paired with
+ *   the views' first argument ($view->args[0]) to load that entity.
+ */
+function hook_metatag_views_post_render_get_entity($view) {
+  $display = $view->display[$view->current_display];
+  if ($display->display_options['path'] == 'coolpage/%') {
+    return 'my_entity';
+  }
+}
