@@ -1,0 +1,60 @@
+<?php
+
+
+/**
+ * Implements hook_menu().
+ */
+function test_react_menu() {
+    $items = array();
+    $items['react-page'] = array(
+        'title' => '',
+        'page callback' => '_checkdesk_react_page',
+        'access arguments' => array('access content'),
+    );
+    return $items;
+}
+
+function _checkdesk_react_page() {
+    return 'I am here';
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function test_react_block_info() {
+    // react recent nodes block
+    $blocks['react_reports'] = array(
+        'info' => t('ReactJS Reports'),
+        'cache' => DRUPAL_NO_CACHE
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function test_react_block_view($delta) {
+
+    libraries_load('react');
+    drupal_add_js(drupal_get_path('module', 'test_react') . "/build/react_reports.js");
+
+    $block = array();
+
+    switch ($delta) {
+        case 'react_reports':
+            $block['subject'] = t('Reports');
+            $block['content'] = _test_react_reports_content();
+            break;
+
+    }
+    return $block;
+}
+
+function _test_react_reports_content() {
+
+    $output = "<div id='react-reports'></div>";
+
+    return $output;
+
+}

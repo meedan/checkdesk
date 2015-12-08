@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Drupal module for React library integration
+ *
+ * Usage of the library:
+ *   libraries_load('react');  will load the minified react.min.js and react-dom.min.js
+ *   libraries_load('react', 'source');  will load the un-minified variant.
+ *
+ */
+
+define('REACT_VENDOR_URL', 'https://facebook.github.io/react/');
+define('REACT_DOWNLOAD_URL', 'https://facebook.github.io/react/downloads/react-0.14.0.zip');
+
+/**
+ * Implements hook_libraries_info().
+ *
+ * @see hook_libraries_info()
+ */
+function react_libraries_info() {
+
+  $libraries['react'] = array(
+    'name' => 'react',
+    'vendor url' => REACT_VENDOR_URL,
+    'download url' => REACT_DOWNLOAD_URL,
+    'path' => 'build',
+    // The version is in the line 2 of the file. It looks like this currently:
+    // * React v0.14.0
+    'version arguments' => array(
+      'file' => 'build/react.min.js',
+      'pattern' => '@React v([\d\.]+)@',
+      'lines' => 3,
+      'cols' => 30,
+    ),
+    'files' => array(  // By default, load the minified version
+      'js' => array(
+        'react.min.js',
+        'react-dom.min.js',
+      ),
+    ),
+    'variants' => array(
+      'source' => array(
+        'files' => array(
+          'js' => array(
+            'react.js',
+            'react-dom.js',
+          ),
+        ),
+      ),
+    ),
+  );
+
+  // Replace react.js  with react-with-addons.js (if the admin setting has been enabled)
+  if (variable_get('react_with_addons', FALSE)) {
+    $libraries['react']['files']['js'][0] = 'react-with-addons.min.js';
+    $libraries['react']['variants']['source']['files']['js'][0] = 'react-with-addons.js';
+  }
+
+  return $libraries;
+}
+
+/**
+ * Implements hook_menu().
+ *
+ * @see hook_menu()
+ */
+function react_menu() {
+
+  $items['admin/config/development/react'] = array(
+    'title' => 'React Library',
+    'description' => 'Configuration for React Library',
+    'access arguments' => array('administer site configuration'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('react_admin_settings'),
+    'file' => 'react.admin.inc',
+  );
+
+  return $items;
+}
