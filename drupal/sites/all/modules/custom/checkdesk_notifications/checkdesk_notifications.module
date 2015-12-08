@@ -1,5 +1,7 @@
 <?php
 
+module_load_include('inc', 'checkdesk_notifications', 'checkdesk_notifications.rules');
+
 /**
  * Implements hook_heartbeat_activity_view().
  * Change some data on heartbeat activity display 

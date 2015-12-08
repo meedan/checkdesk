@@ -536,11 +536,26 @@ function checkdesk_core_update_7054() {
   db_query('ALTER TABLE {field_revision_field_stories} ADD INDEX (field_stories_target_id)');
 }
 
+/**
+ * Enable advanced aggregate feature
+ */
+
+function checkdesk_core_update_7055() {
+  module_enable(array('checkdesk_advaggr_feature'));
+}
+
+/**
+ * Disable Advanced Aggragation Font module
+ */
+
+function checkdesk_core_update_7056() {
+  module_disable(array('advagg_font'));
+}
 
 /**
  * Manually upgrade {file_managed.uri} to utf8mb4.
  */
-function checkdesk_core_update_7055() {
+function checkdesk_core_update_7057() {
   db_query("ALTER TABLE {file_managed} DROP KEY uri");
   db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8mb4_bin");
   db_query("CREATE UNIQUE INDEX uri ON {file_managed} (uri(191))");

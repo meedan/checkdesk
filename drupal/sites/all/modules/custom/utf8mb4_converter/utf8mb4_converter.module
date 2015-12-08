@@ -183,6 +183,12 @@ function utf8mb4_converter_convert_all_tables() {
 }
 
 function utf8mb4_converter_convert_table_batch($table, &$context) {
+  try {
+    utf8mb4_converter_fix_table($table);
+  } catch(Exception $e) {
+    drupal_set_message($table . ': ' . $e->getMessage(), 'error');
+    watchdog_exception('utf8mb4_converter', $e);
+  }
   $schema = utf8mb4_converter_get_column_iterator($table);
   foreach ($schema as $column_name => $column_def){
     try {
@@ -191,12 +197,6 @@ function utf8mb4_converter_convert_table_batch($table, &$context) {
       drupal_set_message($table . ': ' . $e->getMessage(), 'error');
       watchdog_exception('utf8mb4_converter', $e);
     }
-  }
-  try {
-    utf8mb4_converter_fix_table($table);
-  } catch(Exception $e) {
-    drupal_set_message($table . ': ' . $e->getMessage(), 'error');
-    watchdog_exception('utf8mb4_converter', $e);
   }
   $context['results'][] = $table;
   $context['message'] = t('Now processing %table', ['%table' => $table]);
@@ -210,6 +210,12 @@ function utf8mb4_converter_convert_table_finished($success, $results, $operation
  * @param $tablename
  */
 function utf8mb4_converter_convert_table($tablename) {
+  try {
+    utf8mb4_converter_fix_table($tablename);
+  } catch(Exception $e) {
+    drupal_set_message($tablename . ': ' . $e->getMessage(), 'error');
+    watchdog_exception('utf8mb4_converter', $e);
+  }
   $schema = utf8mb4_converter_get_column_iterator($tablename);
   foreach ($schema as $column_name => $column_def){
     try {
@@ -218,12 +224,6 @@ function utf8mb4_converter_convert_table($tablename) {
       drupal_set_message($tablename . ': ' . $e->getMessage(), 'error');
       watchdog_exception('utf8mb4_converter', $e);
     }
-  }
-  try {
-    utf8mb4_converter_fix_table($tablename);
-  } catch(Exception $e) {
-    drupal_set_message($tablename . ': ' . $e->getMessage(), 'error');
-    watchdog_exception('utf8mb4_converter', $e);
   }
   $table = utf8mb4_converter_create_column_table($tablename);
   echo $table['data']['data']['data'];
@@ -252,7 +252,7 @@ function utf8mb4_converter_get_longest_field_length($tablename, $columnname) {
  * @return DatabaseStatment object
  */
 function utf8mb4_converter_fix_table($table) {
-  $sql = "ALTER TABLE `{$table}` CONVERT to CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
+  $sql = "ALTER TABLE `{$table}` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ROW_FORMAT=DYNAMIC;";
   $sql .= " REPAIR TABLE `{$table}`;";
   $sql .= " OPTIMIZE TABLE `{$table}`;";
   return db_query($sql);

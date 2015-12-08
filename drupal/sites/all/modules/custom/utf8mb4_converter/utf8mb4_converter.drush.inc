@@ -12,21 +12,26 @@ function utf8mb4_converter_drush_command() {
 
 function drush_utf8mb4_converter_utf8mb4_convert() {
   foreach (db_query("show tables")->fetchCol() as $table) {
+    $table_ok = TRUE;
+    try {
+      utf8mb4_converter_fix_table($table);
+    } catch(Exception $e) {
+      $table_ok = FALSE;
+      drush_log($table . ': ' . $e->getMessage(), 'warning');
+      watchdog_exception('utf8mb4_converter', $e);
+    }
     $schema = utf8mb4_converter_get_column_iterator($table);
     foreach ($schema as $column_name => $column_def){
       try {
         $results[] = utf8mb4_converter_fix_column($column_def, $table);
       } catch(Exception $e) {
+        $table_ok = FALSE;
         drush_log($table . ': ' . $e->getMessage(), 'warning');
         watchdog_exception('utf8mb4_converter', $e);
       }
     }
-    try {
-      utf8mb4_converter_fix_table($table);
+    if ($table_ok) {
       drush_log($table, 'ok');
-    } catch(Exception $e) {
-      drush_log($table . ': ' . $e->getMessage(), 'warning');
-      watchdog_exception('utf8mb4_converter', $e);
     }
   }
 }
