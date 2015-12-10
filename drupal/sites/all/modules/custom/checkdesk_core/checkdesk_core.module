@@ -3271,11 +3271,6 @@ function _checkdesk_purge_varnish($paths) {
         else {
           $urls = array(base_path());
         }
-        //log urls and host name
-        if (variable_get('checkdesk_enable_debug', FALSE)) {
-          $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $hostname, '!urls' => theme('item_list', array('items' => $urls))));
-          watchdog('checkdesk-varnish-urls', $message, array(), WATCHDOG_DEBUG);
-        }
         varnish_purge_paths($hostname, $urls);
         //adding sleep for 2 seconds
         sleep(2);
