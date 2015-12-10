@@ -3272,8 +3272,10 @@ function _checkdesk_purge_varnish($paths) {
           $urls = array(base_path());
         }
         //log urls and host name
-        $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $hostname, '!urls' => theme('item_list', array('items' => $urls))));
-        //watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
+        if (variable_get('checkdesk_enable_debug', FALSE)) {
+          $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $hostname, '!urls' => theme('item_list', array('items' => $urls))));
+          watchdog('checkdesk-varnish-urls', $message, array(), WATCHDOG_DEBUG);
+        }
         checkdesk_varnish_expire_cache($urls, $hostname);
         //adding sleep for 2 seconds
         sleep(2);
@@ -3288,6 +3290,9 @@ function _checkdesk_purge_varnish($paths) {
 function checkdesk_varnish_expire_cache($paths, $host) {
   $purge = implode('$|^', $paths);
   $purge = '^'. $purge .'$';
+  if (variable_get('checkdesk_enable_debug', FALSE)) {
+    watchdog('checkdesk-varnish-purge', $purge, array(), WATCHDOG_DEBUG);
+  }
   varnish_purge($host, $purge);
 }
 
