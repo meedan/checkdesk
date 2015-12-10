@@ -3257,6 +3257,8 @@ function _checkdesk_purge_varnish($paths) {
       }
       foreach ($hostnames as $hostname) {
         $urls = array();
+        //add front page
+        $paths[] = '<front>';
         if (!$purge_all) {
           foreach ($paths as $path) {
             foreach($languages as $key => $value) {
@@ -3265,8 +3267,6 @@ function _checkdesk_purge_varnish($paths) {
               ));
             }
           }
-          //add front page
-          $urls[] = url('<front>', array());
         }
         else {
           $urls = array(base_path());
