@@ -844,7 +844,7 @@ function checkdesk_preprocess_node(&$variables) {
       );
 
       // Lazy load classes as well (for dynamic-loaded content, like tweets, for example)
-      $field_link_rendered = preg_replace('/<(blockquote)([^>]*)class=/i', '<\1\2data-lazy-load-class=', $field_link_rendered);
+      //$field_link_rendered = preg_replace('/<(blockquote)([^>]*)class=/i', '<\1\2data-lazy-load-class=', $field_link_rendered);
       $variables['field_link_lazy_load'] = $field_link_rendered;
     }
   }
