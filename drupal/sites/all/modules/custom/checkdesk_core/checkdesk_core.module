@@ -3271,24 +3271,12 @@ function _checkdesk_purge_varnish($paths) {
         else {
           $urls = array(base_path());
         }
-        //log urls and host name
-        $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $hostname, '!urls' => theme('item_list', array('items' => $urls))));
-        //watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
-        checkdesk_varnish_expire_cache($urls, $hostname);
+        varnish_purge_paths($hostname, $urls);
         //adding sleep for 2 seconds
         sleep(2);
       }
     }
   }
-}
-
-/**
- * Clone varnish_expire_cache().
- */
-function checkdesk_varnish_expire_cache($paths, $host) {
-  $purge = implode('$|^', $paths);
-  $purge = '^'. $purge .'$';
-  varnish_purge($host, $purge);
 }
 
 /**
