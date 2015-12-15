@@ -18,5 +18,6 @@
     </head>
     <body class="<?php print $classes; ?>" id="main-body">
         <?php print $page; ?>
+        <?php print $page_bottom; ?>
     </body>
 </html>
