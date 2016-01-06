@@ -2416,11 +2416,11 @@ return array(\'user\'=>$user->uid);';
   $handler->display->display_options['fields']['status']['field'] = 'status';
   $handler->display->display_options['fields']['status']['type'] = 'boolean';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Sort criterion: Content: Updated date */
-  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
-  $handler->display->display_options['sorts']['changed']['table'] = 'node';
-  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
-  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   /* Contextual filter: Content: Story (field_desk) */
   $handler->display->display_options['arguments']['field_desk_target_id']['id'] = 'field_desk_target_id';
   $handler->display->display_options['arguments']['field_desk_target_id']['table'] = 'field_data_field_desk';
@@ -2447,7 +2447,7 @@ return array(\'user\'=>$user->uid);';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
-  $handler->display->display_options['pager']['options']['load_all'] = 0;
+  $handler->display->display_options['pager']['options']['load_all'] = 1;
 
   /* Display: Auto-refresh */
   $handler = $view->new_display('page', 'Auto-refresh', 'page_1');

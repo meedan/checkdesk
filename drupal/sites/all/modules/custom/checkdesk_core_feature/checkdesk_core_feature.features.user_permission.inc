@@ -497,6 +497,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -812,6 +813,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -1147,6 +1149,8 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view field_bio',
     'roles' => array(
       'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
       'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
@@ -1191,6 +1195,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );

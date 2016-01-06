@@ -125,27 +125,6 @@ function checkdesk_advaggr_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'advagg_font_cookie';
-  $strongarm->value = 1;
-  $export['advagg_font_cookie'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'advagg_font_fontfaceobserver';
-  $strongarm->value = '6';
-  $export['advagg_font_fontfaceobserver'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'advagg_font_no_fout';
-  $strongarm->value = 1;
-  $export['advagg_font_no_fout'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'advagg_force_https_path';
   $strongarm->value = 0;
   $export['advagg_force_https_path'] = $strongarm;
