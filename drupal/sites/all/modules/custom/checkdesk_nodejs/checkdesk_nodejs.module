@@ -133,23 +133,21 @@ function _checkdesk_nodejs_notification_activities() {
     return array(
         'checkdesk_flag_report',
         'checkdesk_comment_on_report',
-        'checkdesk_comment_on_update',
         'checkdesk_new_user',
         'checkdesk_fact_checking_on_by_citizen',
-        'checkdesk_new_update_on_story_i_commented_on_update',
         'checkdesk_add_story',
         'checkdesk_update_story',
         'new_report',
         'checkdesk_report_published_in_update',
         'checkdesk_comment_on_report',
         'checkdesk_publish_own_story_revision',
-        'checkdesk_reply_to_comment',
         'checkdesk_fact_checking_on',
         'checkdesk_fact_checking_set',
         'checkdesk_fact_status_changed_for_commenter',
         'checkdesk_report_suggested_to_story',
         'status_report',
         'checkdesk_update_draft_story',
+        'checkdesk_follow_story',
     );
 
 }
