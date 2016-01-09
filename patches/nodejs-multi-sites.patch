@@ -1,0 +1,250 @@
+diff --git a/drupal/sites/all/modules/contrib/nodejs/nodejs.config.js.example b/drupal/sites/all/modules/contrib/nodejs/nodejs.config.js.example
+index 7ba268f..bfab778 100644
+--- a/drupal/sites/all/modules/contrib/nodejs/nodejs.config.js.example
++++ b/drupal/sites/all/modules/contrib/nodejs/nodejs.config.js.example
+@@ -79,11 +79,20 @@ settings = {
+   resource: '/socket.io',
+   serviceKey: '',
+   backend: {
+-    port: 80,
+-    host: 'drupalhost',
+-    scheme: 'http',
+-    basePath: '',
+-    messagePath: '/nodejs/message'
++    'drupalhost1' : {
++      port: 80,
++      host: 'drupalhost',
++      scheme: 'http',
++      basePath: '',
++      messagePath: '/nodejs/message'
++    },
++    'drupalhost2' : {
++      port: 80,
++      host: 'drupalhost2',
++      scheme: 'http',
++      basePath: '',
++      messagePath: '/nodejs/message'
++    },
+   },
+   debug: false,
+   sslKeyPath: '',
+diff --git a/drupal/sites/all/modules/contrib/nodejs/nodejs.js b/drupal/sites/all/modules/contrib/nodejs/nodejs.js
+index a9a42d7..01624db 100644
+--- a/drupal/sites/all/modules/contrib/nodejs/nodejs.js
++++ b/drupal/sites/all/modules/contrib/nodejs/nodejs.js
+@@ -20,6 +20,9 @@ Drupal.behaviors.nodejs = {
+ Drupal.Nodejs.runCallbacks = function (message) {
+   // It's possible that this message originated from an ajax request from the
+   // client associated with this socket.
++  if (Drupal.settings.nodejs.hostNames.indexOf(message.hostName) == -1) {
++    return;
++  }
+   if (message.clientSocketId == Drupal.Nodejs.socket.id) {
+     return;
+   }
+diff --git a/drupal/sites/all/modules/contrib/nodejs/nodejs.module b/drupal/sites/all/modules/contrib/nodejs/nodejs.module
+index 153e5ab..a0098b0 100644
+--- a/drupal/sites/all/modules/contrib/nodejs/nodejs.module
++++ b/drupal/sites/all/modules/contrib/nodejs/nodejs.module
+@@ -38,6 +38,7 @@ function nodejs_send_content_channel_token($channel, $notify_on_disconnect = FAL
+     'token' => nodejs_generate_content_token(),
+     'channel' => $channel,
+     'notifyOnDisconnect' => $notify_on_disconnect,
++    'hostName' => $_SERVER['HTTP_HOST'],
+   );
+ 
+   // Http request went ok, process Node.js server response.
+@@ -46,7 +47,7 @@ function nodejs_send_content_channel_token($channel, $notify_on_disconnect = FAL
+       // We always set this in drupal.settings, even though Ajax requests will not
+       // see it. It's a bit ugly, but it means that setting the tokens for full
+       // page requests will just work.
+-      drupal_add_js(array('nodejs' => array('contentTokens' => array($channel => $message->token))), array('type' => 'setting'));
++      drupal_add_js(array('nodejs' => array('hostNames' => variable_get('hostnames', array($message->hostName)), 'contentTokens' => array($channel => $message->token))), array('type' => 'setting'));
+ 
+       $node_response->token = $message->token;
+       return $node_response;
+@@ -784,7 +785,7 @@ class Nodejs {
+   public static function initConfig() {
+     if (!isset(self::$config)) {
+       self::$config = nodejs_get_config();
+-      self::$headers = array('NodejsServiceKey' => self::$config['serviceKey']);
++      self::$headers = array('NodejsServiceKey' => self::$config['serviceKey'], 'hostName' => $_SERVER['HTTP_HOST']);
+       self::$baseUrl = nodejs_get_url(self::$config);
+     }
+   }
+@@ -807,6 +808,7 @@ class Nodejs {
+     self::initConfig();
+     drupal_alter('nodejs_message', $message);
+     $message->clientSocketId = nodejs_get_client_socket_id();
++    $message->hostName = $_SERVER['HTTP_HOST'];
+     $options = array(
+       'method' => 'POST',
+       'data' => drupal_json_encode($message),
+@@ -830,6 +832,7 @@ class Nodejs {
+   public static function sendContentTokenMessage($message) {
+     self::initConfig();
+     $message->clientSocketId = nodejs_get_client_socket_id();
++    $message->hostName = $_SERVER['HTTP_HOST'];
+     drupal_alter('nodejs_content_channel_message', $message);
+     $options = array(
+       'method' => 'POST',
+@@ -842,6 +845,7 @@ class Nodejs {
+ 
+   public static function sendContentToken($message) {
+     self::initConfig();
++    $message->hostName = $_SERVER['HTTP_HOST'];
+     $options = array(
+       'method' => 'POST',
+       'data' => drupal_json_encode($message),
+@@ -852,6 +856,7 @@ class Nodejs {
+ 
+   public static function getContentTokenUsers($message) {
+     self::initConfig();
++    $message->hostName = $_SERVER['HTTP_HOST'];
+     $options = array(
+       'method' => 'POST',
+       'data' => drupal_json_encode($message),
+diff --git a/drupal/sites/all/modules/contrib/nodejs/server.js b/drupal/sites/all/modules/contrib/nodejs/server.js
+index 472b473..a4cf0f4 100644
+--- a/drupal/sites/all/modules/contrib/nodejs/server.js
++++ b/drupal/sites/all/modules/contrib/nodejs/server.js
+@@ -146,14 +146,14 @@ var clientIsInChannel = function (socket, channel) {
+ /**
+  * Returns the backend url.
+  */
+-var getBackendUrl = function () {
+-  return settings.backend.scheme + '://' + settings.backend.host + ':' +
+-         settings.backend.port + settings.backend.basePath + settings.backend.messagePath;
++var getBackendUrl = function (hostName) {
++  return settings.backend[hostName].scheme + '://' + settings.backend[hostName].host + ':' +
++         settings.backend[hostName].port + settings.backend[hostName].basePath + settings.backend[hostName].messagePath;
+ }
+ 
+-var getAuthHeader = function() {
+-  if (settings.backend.httpAuth.length > 0) {
+-    return 'Basic ' + new Buffer(settings.backend.httpAuth).toString('base64');
++var getAuthHeader = function(hostName) {
++  if (settings.backend[hostName].httpAuth.length > 0) {
++    return 'Basic ' + new Buffer(settings.backend[hostName].httpAuth).toString('base64');
+   }
+   return false;
+ }
+@@ -162,13 +162,17 @@ var getAuthHeader = function() {
+  * Send a message to the backend.
+  */
+ var sendMessageToBackend = function (message, callback) {
++  if (typeof message.hostName == 'undefined') {
++    console.log('Invalid host name.')
++    return;
++  }
+   var requestBody = querystring.stringify({
+     messageJson: JSON.stringify(message),
+     serviceKey: settings.serviceKey
+   });
+ 
+   var options = {
+-    uri: getBackendUrl(),
++    uri: getBackendUrl(message.hostName),
+     body: requestBody,
+     headers: {
+       'Content-Length': Buffer.byteLength(requestBody),
+@@ -176,11 +180,11 @@ var sendMessageToBackend = function (message, callback) {
+     }
+   }
+ 
+-  if (settings.backend.scheme == 'https') {
+-     options.strictSSL = settings.backend.strictSSL;
++  if (settings.backend[message.hostName].scheme == 'https') {
++     options.strictSSL = settings.backend[message.hostName].strictSSL;
+   }
+ 
+-  var httpAuthHeader = getAuthHeader();
++  var httpAuthHeader = getAuthHeader(message.hostName);
+   if (httpAuthHeader !== false) {
+     options.headers.Authorization = httpAuthHeader;
+   }
+@@ -203,6 +207,8 @@ var authenticateClient = function (client, message) {
+     setupClientConnection(client.id, authenticatedClients[message.authToken], message.contentTokens);
+   }
+   else {
++    // get host name
++    message.hostName = getHostName(client.handshake.headers.origin);
+     message.messageType = 'authenticate';
+     message.clientId = client.id;
+     sendMessageToBackend(message, authenticateClientCallback);
+@@ -514,6 +520,7 @@ var logoutUser = function (request, response) {
+     // Destroy any socket connections associated with this authToken.
+     for (var clientId in sockets) {
+       if (sockets[clientId].authToken == authToken) {
++        sockets[clientId].hostName = request.header('hostName', '');
+         cleanupSocket(sockets[clientId]);
+       }
+     }
+@@ -934,8 +941,12 @@ var setUserPresenceList = function (uid, uids) {
+  * Cleanup after a socket has disconnected.
+  */
+ var cleanupSocket = function (socket) {
++  var hostName = socket.hostName;
++  if (typeof hostName == 'undefined') {
++    hostName = getHostName(socket.handshake.headers.origin);
++  }
+   if (settings.debug) {
+-    console.log("Cleaning up after socket id", socket.id, 'uid', socket.uid);
++    console.log("Cleaning up after socket id", socket.id, 'uid', socket.uid, 'hostName', hostName);
+   }
+   for (var channel in channels) {
+     delete channels[channel].sessionIds[socket.id];
+@@ -945,7 +956,7 @@ var cleanupSocket = function (socket) {
+     if (presenceTimeoutIds[uid]) {
+       clearTimeout(presenceTimeoutIds[uid]);
+     }
+-    presenceTimeoutIds[uid] = setTimeout(checkOnlineStatus, 2000, uid);
++    presenceTimeoutIds[uid] = setTimeout(checkOnlineStatus, 2000, uid, hostName);
+   }
+ 
+   for (var tokenChannel in tokenChannels) {
+@@ -1003,22 +1014,22 @@ var checkTokenChannelStatus = function (tokenChannel, socket) {
+ /**
+  * Check for any open sockets for uid.
+  */
+-var checkOnlineStatus = function (uid) {
++var checkOnlineStatus = function (uid, hostName) {
+   if (getNodejsSessionIdsFromUid(uid).length == 0) {
+     if (settings.debug) {
+       console.log("Sending offline notification for", uid);
+     }
+-    setUserOffline(uid);
++    setUserOffline(uid, hostName);
+   }
+ }
+ 
+ /**
+  * Sends offline notification to sockets, the backend and cleans up our list.
+  */
+-var setUserOffline = function (uid) {
++var setUserOffline = function (uid, host) {
+   sendPresenceChangeNotification(uid, 'offline');
+   delete onlineUsers[uid];
+-  sendMessageToBackend({uid: uid, messageType: 'userOffline'}, function (response) { });
++  sendMessageToBackend({uid: uid, messageType: 'userOffline', hostName: host}, function (response) { });
+ }
+ 
+ /**
+@@ -1095,6 +1106,17 @@ var setupClientConnection = function (sessionId, authData, contentTokens) {
+   }
+ };
+ 
++var getHostName = function (url) {
++  var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
++  if (match != null && match.length > 2 &&
++      typeof match[2] === 'string' && match[2].length > 0) {
++    return match[2];
++  }
++  else {
++    return null;
++  }
++}
++
+ var app = express();
+ app.all(settings.baseAuthPath + '*', checkServiceKeyCallback);
+ app.post(settings.baseAuthPath + settings.publishUrl, publishMessage);

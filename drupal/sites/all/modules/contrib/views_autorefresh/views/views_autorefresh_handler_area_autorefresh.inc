@@ -20,6 +20,7 @@ class views_autorefresh_handler_area_autorefresh extends views_handler_area {
   function option_definition() {
     $options = parent::option_definition();
     $options['interval'] = array('default' => '');
+    $options['nodejs'] = array('default' => FALSE, 'bool' => TRUE);
     $options['incremental'] = array('default' => FALSE, 'bool' => TRUE);
     $options['display'] = array('default' => '');
 
@@ -45,12 +46,28 @@ class views_autorefresh_handler_area_autorefresh extends views_handler_area {
   }
 
   function options_form(&$form, &$form_state) {
+    if (module_exists('nodejs')) {
+      $form['nodejs'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Use Node.js to refresh the view instead of interval pings'),
+        '#default_value' => $this->options['nodejs'],
+      );
+    }
+    else {
+      $form['nodejs'] = array(
+        '#type' => 'value',
+        '#value' => FALSE,
+      );
+    }
     $form['interval'] = array(
       '#type' => 'textfield',
       '#title' => t('Interval to check for new items'),
       '#default_value' => $this->options['interval'],
       '#field_suffix' => 'milliseconds',
       '#required' => TRUE,
+      '#dependency' => array(
+        'edit-options-nodejs' => array(0),
+      ),
     );
     $form['incremental'] = array(
       '#type' => 'checkbox',
@@ -60,7 +77,7 @@ class views_autorefresh_handler_area_autorefresh extends views_handler_area {
     $options = array();
     foreach ($this->view->display as $display) {
       if ($display->display_plugin == 'page') {
-        # TODO: check secondary display arguments.
+        // TODO: check secondary display arguments.
         $options[$display->id] = $display->display_title;
       }
     }
@@ -193,6 +210,7 @@ class views_autorefresh_handler_area_autorefresh extends views_handler_area {
   function render($empty = FALSE) {
     $args = array();
     $args['view'] = $this->view;
+    $args['nodejs'] = !empty($this->options['nodejs']);
     $args['interval'] = $this->options['interval'];
     if ($this->options['ping']) {
       $args['ping'] = array(
@@ -200,7 +218,7 @@ class views_autorefresh_handler_area_autorefresh extends views_handler_area {
         'ping_args' => $this->eval_ping_arguments($this->options['ping_arguments']),
       );
     }
-    if  ($this->options['incremental']) {
+    if ($this->options['incremental']) {
       $display = $this->view->display[$this->options['display']];
 
       $args['incremental'] = array(
@@ -247,4 +265,3 @@ class views_autorefresh_handler_area_autorefresh extends views_handler_area {
     return $args;
   }
 }
-

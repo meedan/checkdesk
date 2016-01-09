@@ -1149,6 +1149,8 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view field_bio',
     'roles' => array(
       'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
       'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),

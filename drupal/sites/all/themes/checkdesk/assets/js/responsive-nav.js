@@ -5,6 +5,7 @@
 	// frontpage swap header logos and hide header on page scroll
   Drupal.behaviors.responsiveNav = {
     attach: function(context) {
+      if($('.nav-collapse').length) {
       var nav = responsiveNav(".nav-collapse", { // Selector
         animate: false, // Boolean: Use CSS3 transitions, true or false
         transition: 284, // Integer: Speed of the transition, in milliseconds
@@ -45,6 +46,7 @@
           $('.metabar').removeClass('header-up');
         },
       });
+    }
 
       // Run code on entry and exit from media queries
       // see: https://github.com/sparkbox/mediaCheck
@@ -67,7 +69,7 @@
           $('#main').css('top', '');
           $('.metabar').css('position', '');
           // close responsive nav
-          nav.close();
+          if (typeof nav != 'undefined') {nav.close();}
         }
       });
 

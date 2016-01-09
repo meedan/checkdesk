@@ -539,7 +539,6 @@ function checkdesk_core_update_7054() {
 /**
  * Enable advanced aggregate feature
  */
-
 function checkdesk_core_update_7055() {
   module_enable(array('checkdesk_advaggr_feature'));
 }
@@ -552,13 +551,21 @@ function checkdesk_core_update_7056() {
   module_disable(array('advagg_font'));
 }
 
+/** 
+ * Disable and uninstall reactor
+ */
+function checkdesk_core_update_7057() {
+  $module_list = array('reactor');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+}
+
 /**
  * Manually upgrade {file_managed.uri} to utf8mb4.
  */
-function checkdesk_core_update_7057() {
+function checkdesk_core_update_7058() {
   db_query("ALTER TABLE {file_managed} DROP KEY uri");
   db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8mb4_bin");
   db_query("CREATE UNIQUE INDEX uri ON {file_managed} (uri(191))");
   db_query("ALTER TABLE {file_managed} ENGINE=innodb");
 }
-

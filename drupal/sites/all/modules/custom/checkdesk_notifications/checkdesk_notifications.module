@@ -12,7 +12,7 @@ function checkdesk_notifications_heartbeat_activity_view(HeartbeatActivity $hear
   $actor = user_load($heartbeatActivity->actor->uid);
   $avatar = ($actor && $actor->picture && !empty($actor->picture->uri) ? theme('image_style', array('style_name' => 'notifications_avatar', 'path' => $actor->picture->uri, 'attributes' => array('class' => 'avatar'))) : '');
   $heartbeatActivity->content['avatar'] = array(
-    '#markup' => $avatar,
+      '#markup' => $avatar,
   );
 }
 
@@ -45,8 +45,8 @@ function checkdesk_notifications_load_js() {
   drupal_add_js(libraries_get_path('soundmanager2') . '/script/soundmanager2-nodebug-jsmin.js');
   global $user;
   drupal_add_js(array('alert_new_notifications' => array(
-    'play_sound' => checkdesk_notifications__get_sound($user->uid),
-  )), 'setting');
+          'play_sound' => checkdesk_notifications__get_sound($user->uid),
+      )), 'setting');
 }
 
 /**
@@ -74,8 +74,8 @@ function checkdesk_notifications_image_default_styles() {
  */
 function checkdesk_notifications_views_api() {
   return array(
-    'api' => 3,
-    'path' => drupal_get_path('module', 'checkdesk_notifications'),
+      'api' => 3,
+      'path' => drupal_get_path('module', 'checkdesk_notifications'),
   );
 }
 
@@ -89,52 +89,52 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
   foreach (array('site' => t('On site: '), 'email' => t('By e-mail: ')) as $context => $label) {
     if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles) || $user->uid == 0) {
       $events[$context . '_report_flagged'] = array(
-        'label' => $label . t('Report flagged'),
-        'token type' => 'node',
+          'label' => $label . t('Report flagged'),
+          'token type' => 'node',
       );
       /*
-      $events[$context . '_report_suggested'] = array(
+        $events[$context . '_report_suggested'] = array(
         'label' => $label . t('Report suggested to story'),
         'token type' => 'node',
-      );
+        );
        */
       $events[$context . '_comment_on_update'] = array(
-        'label' => $label . t('Comment on update'),
-        'token type' => 'node',
+          'label' => $label . t('Comment on update'),
+          'token type' => 'node',
       );
       $events[$context . '_new_user'] = array(
-        'label' => $label . t('New user'),
-        'token type' => 'node',
+          'label' => $label . t('New user'),
+          'token type' => 'node',
       );
       $events[$context . '_fact_checking_set_by_citizen'] = array(
-        'label' => $label . t('Fact-checking set on a report by citizen journalist'),
-        'token type' => 'node',
+          'label' => $label . t('Fact-checking set on a report by citizen journalist'),
+          'token type' => 'node',
       );
       $events[$context . '_new_update'] = array(
-        'label' => $label . t('New update'),
-        'token type' => 'node',
+          'label' => $label . t('New update'),
+          'token type' => 'node',
       );
       $events[$context . '_new_story'] = array(
-        'label' => $label . t('New story created'),
-        'token type' => 'node',
+          'label' => $label . t('New story created'),
+          'token type' => 'node',
       );
       $events[$context . '_update_story'] = array(
-        'label' => $label . t('Existing story updated'),
-        'token type' => 'node',
+          'label' => $label . t('Existing story updated'),
+          'token type' => 'node',
       );
       $events[$context . '_new_report'] = array(
-        'label' => $label . t('New report created'),
-        'token type' => 'node',
+          'label' => $label . t('New report created'),
+          'token type' => 'node',
       );
     }
     if (!in_array('journalist', $user->roles) || in_array('administrator', $user->roles) || $user->uid == 0) {
       $events[$context . '_update_on_story_i_commented_on_update'] = array(
-        'label' => $label . t('New update on a story I commented on an update before'),
-        'token type' => 'node',
+          'label' => $label . t('New update on a story I commented on an update before'),
+          'token type' => 'node',
       );
       $events[$context . '_report_published_in_update'] = array(
-        'label' => $label . t('Report I submitted is published in an update'),
-        'token type' => 'node',
+          'label' => $label . t('Report I submitted is published in an update'),
+          'token type' => 'node',
       );
       $events[$context . '_publish_own_story_revision'] = array(
         'label' => $label . t('Own revision to story is published'),
@@ -142,36 +142,36 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
       );
     }
     $events[$context . '_comment_on_report'] = array(
-      'label' => $label . t('Comment on report'),
-      'token type' => 'node',
+        'label' => $label . t('Comment on report'),
+        'token type' => 'node',
     );
     $events[$context . '_reply_to_comment'] = array(
-      'label' => $label . t('Replies to my comments'),
-      'token type' => 'node',
+        'label' => $label . t('Replies to my comments'),
+        'token type' => 'node',
     );
     $events[$context . '_fact_checking_on'] = array(
-      'label' => $label . t('Fact-checking turned on on a report I submitted'),
-      'token type' => 'node',
+        'label' => $label . t('Fact-checking turned on on a report I submitted'),
+        'token type' => 'node',
     );
     $events[$context . '_fact_checking_set'] = array(
-      'label' => $label . t('Fact-checking set on a report I submitted'),
-      'token type' => 'node',
+        'label' => $label . t('Fact-checking set on a report I submitted'),
+        'token type' => 'node',
     );
     $events[$context . '_fact_status_changed_for_commenter'] = array(
-      'label' => $label . t('Fact-checking set on a report I added footnote to'),
-      'token type' => 'node',
+        'label' => $label . t('Fact-checking set on a report I added footnote to'),
+        'token type' => 'node',
     );
     $events[$context . '_update_on_story_i_followed'] = array(
-      'label' => $label . t('New update on a story I followed'),
-      'token type' => 'node',
+        'label' => $label . t('New update on a story I followed'),
+        'token type' => 'node',
     );
     $events[$context . '_report_on_story_i_followed'] = array(
-      'label' => $label . t('New report on a story I followed'),
-      'token type' => 'node',
+        'label' => $label . t('New report on a story I followed'),
+        'token type' => 'node',
     );
     $events[$context . '_report_status_on_story_i_followed'] = array(
-      'label' => $label . t('Change report status on a story I followed'),
-      'token type' => 'node',
+        'label' => $label . t('Change report status on a story I followed'),
+        'token type' => 'node',
     );
     $events[$context . '_update_draft_story'] = array(
       'label' => $label . t('Existing draft story updated'),
@@ -199,8 +199,8 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     // Add relationships to query
     global $user;
     $events = array_keys(checkdesk_notifications_get_events());
-    $subscriptions = isset($user->data['meedan_notifications']) ? 
-      $user->data['meedan_notifications'] : array();
+    $subscriptions = isset($user->data['meedan_notifications']) ?
+            $user->data['meedan_notifications'] : array();
     $subscriptions += array_combine($events, $events);
     $params = meedan_notifications_placeholders_for_views($user);
     unset($params[':nids']);
@@ -221,9 +221,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_flag_report'");
       }
       /*
-      if ($subscriptions['site_report_suggested']) {
+        if ($subscriptions['site_report_suggested']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_suggested_to_story'");
-      }
+        }
        */
       if ($subscriptions['site_comment_on_report']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report'");
@@ -238,8 +238,7 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on_by_citizen'");
       }
       if ($subscriptions['site_new_update']) {
-          $query->add_where_expression(1,
-            "heartbeat_activity.message_id = 'checkdesk_new_update_on_story_i_commented_on_update'");
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_update_on_story_i_commented_on_update'");
       }
       if ($subscriptions['site_new_story']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_add_story'");
@@ -269,7 +268,6 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     }
 
     // Activities for any user
-
     // Collect followed stories by current user.
     $is_follower = FALSE;
     $followed_stories = _checkdesk_followed_stories();
@@ -302,7 +300,7 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_suggested_to_story'
       AND ( $followed_stories_condition )");
     }
-    if ($subscriptions['site_report_status_on_story_i_followed']&& $is_follower) {
+    if ($subscriptions['site_report_status_on_story_i_followed'] && $is_follower) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'status_report'
       AND ( $followed_stories_condition )");
     }
@@ -321,7 +319,7 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     // Remove duplicates
     $query->add_field('heartbeat_activity', 'uaid', 'uaid', array('function' => 'groupby'));
     $query->add_groupby('heartbeat_activity.uaid');
-  } 
+  }
 }
 
 /**
@@ -359,7 +357,7 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
       $uids = db_query("SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.nid = $object->nid")->fetchCol();
       break;
     case 'email_update_on_story_i_commented_on_update':
-      $uids = db_query("SELECT DISTINCT(c.uid) FROM {field_data_field_desk} f INNER JOIN {comment} c ON c.nid = f.entity_id LEFT JOIN {users_roles} ur ON ur.uid = c.uid WHERE f.entity_type = 'node' AND f.bundle = 'post' AND f.field_desk_target_id = $object->nid AND ur.rid = $citizen_role_id")->fetchCol(); 
+      $uids = db_query("SELECT DISTINCT(c.uid) FROM {field_data_field_desk} f INNER JOIN {comment} c ON c.nid = f.entity_id LEFT JOIN {users_roles} ur ON ur.uid = c.uid WHERE f.entity_type = 'node' AND f.bundle = 'post' AND f.field_desk_target_id = $object->nid AND ur.rid = $citizen_role_id")->fetchCol();
       break;
     case 'email_report_published_in_update':
       $uids = db_query("SELECT n.uid FROM {node} n LEFT JOIN {users_roles} ur ON ur.uid = n.uid WHERE n.nid = $object->nid AND ur.rid = $citizen_role_id")->fetchCol();
@@ -384,8 +382,8 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
 }
 
 /**
-  * Process variables for heartbeat-activity.tpl.php.
-  */
+ * Process variables for heartbeat-activity.tpl.php.
+ */
 function checkdesk_notifications_preprocess_heartbeat_activity(&$variables) {
   $variables['classes_array'][] = 'activity-content';
 }
@@ -406,7 +404,6 @@ function checkdesk_notifications_theme_heartbeat_time_ago($variables) {
       $time_info .= '<span class="heartbeat-time-ago">';
       $time_info .= $message_date;
       $time_info .= '</span>';
-
     }
   }
 
@@ -438,15 +435,15 @@ function _checkdesk_followed_stories($uid = 0) {
  */
 function checkdesk_notifications__get_sound($uid) {
   $account = user_load($uid);
-  return isset($account->data['checkdesk_notifications_sound']) ? 
-    $account->data['checkdesk_notifications_sound'] : TRUE;
+  return isset($account->data['checkdesk_notifications_sound']) ?
+          $account->data['checkdesk_notifications_sound'] : TRUE;
 }
 
 function checkdesk_notifications_form_meedan_notifications_user_page_alter(&$form, &$form_state) {
   $form['checkdesk_notifications_sound'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Play notification sound'),
-    '#default_value' => checkdesk_notifications__get_sound($form['account_uid']['#value']),
+      '#type' => 'checkbox',
+      '#title' => t('Play notification sound'),
+      '#default_value' => checkdesk_notifications__get_sound($form['account_uid']['#value']),
   );
   $form['#submit'][] = 'checkdesk_notifications_form_meedan_notifications_user_page_submit';
   return $form;
@@ -455,6 +452,6 @@ function checkdesk_notifications_form_meedan_notifications_user_page_alter(&$for
 function checkdesk_notifications_form_meedan_notifications_user_page_submit($form, &$form_state) {
   $account = user_load($form_state['values']['account_uid']);
   user_save($account, array('data' => array(
-    'checkdesk_notifications_sound' => $form_state['values']['checkdesk_notifications_sound']
+          'checkdesk_notifications_sound' => $form_state['values']['checkdesk_notifications_sound']
   )));
 }

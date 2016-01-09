@@ -2699,7 +2699,7 @@ function checkdesk_core_node_insert($node) {
         ->execute();
     }
     //link report to created update
-    if (isset($node->body)) {
+    if (!empty($node->body)) {
       $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
       checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
     }
@@ -2743,7 +2743,9 @@ function checkdesk_core_node_update($node) {
   if ($node->type === 'post' && isset($node->body)) {
     $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     //link report to update
-    checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
+    if (!empty($node->body)) {
+      checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
+    }
   }
 }
 
@@ -3238,6 +3240,8 @@ function _checkdesk_purge_varnish($paths) {
       }
       foreach ($hostnames as $hostname) {
         $urls = array();
+        //add front page
+        $paths[] = '<front>';
         if (!$purge_all) {
           foreach ($paths as $path) {
             foreach($languages as $key => $value) {
@@ -3246,30 +3250,16 @@ function _checkdesk_purge_varnish($paths) {
               ));
             }
           }
-          //add front page
-          $urls[] = url('<front>', array());
         }
         else {
           $urls = array(base_path());
         }
-        //log urls and host name
-        $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $hostname, '!urls' => theme('item_list', array('items' => $urls))));
-        //watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
-        checkdesk_varnish_expire_cache($urls, $hostname);
+        varnish_purge_paths($hostname, $urls);
         //adding sleep for 2 seconds
         sleep(2);
       }
     }
   }
-}
-
-/**
- * Clone varnish_expire_cache().
- */
-function checkdesk_varnish_expire_cache($paths, $host) {
-  $purge = implode('$|^', $paths);
-  $purge = '^'. $purge .'$';
-  varnish_purge($host, $purge);
 }
 
 /**
