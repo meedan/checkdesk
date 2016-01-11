@@ -575,7 +575,7 @@ return _checkdesk_core_auto_title($node);
           'weight' => '6',
         ),
         'metatags' => array(
-          'weight' => '7',
+          'weight' => '9',
         ),
       ),
       'display' => array(

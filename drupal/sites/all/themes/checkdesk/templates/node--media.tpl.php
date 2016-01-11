@@ -12,6 +12,8 @@
           </div>
         </section>
       <?php endif; ?>
+      <?php print render($content['field_metadata']); ?>
+
     </div>
   </article>
 
@@ -21,7 +23,6 @@
       <?php print render($content['field_tags']); ?>
     <?php endif ?>
   </aside>
-
   <?php if (isset($modal_class_hack)): ?>
     <?php print $modal_class_hack; ?>
   <?php endif; ?>
