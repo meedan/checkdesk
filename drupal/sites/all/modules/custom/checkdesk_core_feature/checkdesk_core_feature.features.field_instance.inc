@@ -1613,6 +1613,53 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'taxonomy_term-media_rating-field_status_icon'.
+  $field_instances['taxonomy_term-media_rating-field_status_icon'] = array(
+    'bundle' => 'media_rating',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'exclude_cv' => 0,
+    'field_name' => 'field_status_icon',
+    'label' => 'status icon',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'exclude_cv' => FALSE,
+      'file_directory' => 'status_icons',
+      'file_extensions' => 'png gif jpg jpeg',
+      'image_field_caption' => 0,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_bio'.
   $field_instances['user-user-field_bio'] = array(
     'bundle' => 'user',
@@ -1695,6 +1742,7 @@ function checkdesk_core_feature_field_default_field_instances() {
   t('Tags');
   t('Upload some file to be attached to content.');
   t('metadata');
+  t('status icon');
 
   return $field_instances;
 }

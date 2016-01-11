@@ -3769,21 +3769,23 @@ function _checkdesk_report_status($report) {
       $report->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
       taxonomy_term_load($report->field_rating[LANGUAGE_NONE][0]['tid']);
   $status_name = $term->name;
-
   $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
-  if ($status_name == 'Verified') {
-    $icon_class = 'icon-check-circle';
+  // Set status icon
+  if (isset($term->field_status_icon[LANGUAGE_NONE][0]['uri'])) {
+    $icon = '<span><img src="'. image_style_url('status_icon', $term->field_status_icon[LANGUAGE_NONE][0]['uri']) .'"></span>';
   }
-  elseif ($status_name == 'In Progress') {
-    $icon_class = 'icon-random';
+  else {
+    if ($status_name == 'Verified') {
+      $icon_class = 'icon-check-circle';
+    } elseif ($status_name == 'In Progress') {
+      $icon_class = 'icon-random';
+    } elseif ($status_name == 'Undetermined') {
+      $icon_class = 'icon-question-circle';
+    } elseif ($status_name == 'False') {
+      $icon_class = 'icon-times-circle';
+    }
+    $icon = empty($icon_class) ? '' : '<span class="' . $icon_class . '"></span> ';
   }
-  elseif ($status_name == 'Undetermined') {
-    $icon_class = 'icon-question-circle';
-  }
-  elseif ($status_name == 'False') {
-    $icon_class = 'icon-times-circle';
-  }
-  $icon = empty($icon_class) ? '' : '<span class="'. $icon_class .'"></span> ';
   $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   if($status_name != 'In Progress') {
     $partner = i18n_variable_get('checkdesk_site_owner', $language->language) ?

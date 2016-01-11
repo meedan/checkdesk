@@ -601,6 +601,21 @@ function checkdesk_core_feature_image_default_styles() {
     'label' => 'report_thumbnail',
   );
 
+  // Exported image style: status_icon.
+  $styles['status_icon'] = array(
+    'label' => 'status icon',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_resize',
+        'data' => array(
+          'width' => 16,
+          'height' => 16,
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
   return $styles;
 }
 
