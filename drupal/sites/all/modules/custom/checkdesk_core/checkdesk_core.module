@@ -3764,28 +3764,13 @@ function _checkdesk_story_get_collaborators($nid, $options = array()) {
 function _checkdesk_report_status($report) {
   global $language;
   $report_status = array();
-  $icon_class = '';
+
   $term = isset($report->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
       $report->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
       taxonomy_term_load($report->field_rating[LANGUAGE_NONE][0]['tid']);
   $status_name = $term->name;
   $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
-  // Set status icon
-  if (isset($term->field_status_icon[LANGUAGE_NONE][0]['uri'])) {
-    $icon = '<span><img src="'. image_style_url('status_icon', $term->field_status_icon[LANGUAGE_NONE][0]['uri']) .'"></span>';
-  }
-  else {
-    if ($status_name == 'Verified') {
-      $icon_class = 'icon-check-circle';
-    } elseif ($status_name == 'In Progress') {
-      $icon_class = 'icon-random';
-    } elseif ($status_name == 'Undetermined') {
-      $icon_class = 'icon-question-circle';
-    } elseif ($status_name == 'False') {
-      $icon_class = 'icon-times-circle';
-    }
-    $icon = empty($icon_class) ? '' : '<span class="' . $icon_class . '"></span> ';
-  }
+  $icon = _checkdesk_report_status_icon($term);
   $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   if($status_name != 'In Progress') {
     $partner = i18n_variable_get('checkdesk_site_owner', $language->language) ?
@@ -3803,6 +3788,31 @@ function _checkdesk_report_status($report) {
   return $report_status;
 }
 
+/**
+ * @param $report
+ * @return string
+ */
+function _checkdesk_report_status_icon($term) {
+  $icon_class = '';
+  $status_name = $term->name;
+  // Set status icon
+  if (isset($term->field_status_icon[LANGUAGE_NONE][0]['uri'])) {
+    $icon = '<span><img src="'. image_style_url('status_icon', $term->field_status_icon[LANGUAGE_NONE][0]['uri']) .'"></span>';
+  }
+  else {
+    if ($status_name == 'Verified') {
+      $icon_class = 'icon-check-circle';
+    } elseif ($status_name == 'In Progress') {
+      $icon_class = 'icon-random';
+    } elseif ($status_name == 'Undetermined') {
+      $icon_class = 'icon-question-circle';
+    } elseif ($status_name == 'False') {
+      $icon_class = 'icon-times-circle';
+    }
+    $icon = empty($icon_class) ? '' : '<span class="' . $icon_class . '"></span> ';
+  }
+  return $icon;
+}
 /**
  * Add header for search page
  * i.e - sort filter + basic filters for each content type.

@@ -284,31 +284,17 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
 
   // set variables for status report 
   if ($message->message_id == 'status_report') {
-
     // set icons
     if ($status = $message->variables['!status']) {
+      $status_term = taxonomy_get_term_by_name($status, 'media_rating');
       $status_class_name = strtolower(str_replace(' ', '-', $status));
-      if ($status == 'Verified') {
-        $icon = '<span class="icon-check-circle"></span>';
-      }
-      if ($status == 'False') {
-        $icon = '<span class="icon-times-circle"></span>'; 
-      }
-      if ($status == 'Undetermined') {
-        $icon = '<span class="icon-question-circle"></span>'; 
-      }
-      if ($status == 'In Progress') {
-        // $icon = '<span class="icon-stack">';
-        // $icon .= '<span class="icon-circle icon-stack-base"></span>';
-        $icon = '<span class="icon-random"></span>'; 
-        // $icon .= '</span>';
-      }
+      $icon = _checkdesk_report_status_icon(reset($status_term));
     }
 
     // set actor / editor / user
     $actor = l($message->variables['!editor'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
     $title = t('changed status to ');
-    if (isset($icon)) {
+    if (!empty($icon)) {
       $title .= '<span class="media-status"><span class="icon">' . $icon . '</span>';
     }
     $title .= ' <span class="status-name ' . $status_class_name . '">' . strtolower($message->variables['!status']) . '</span></span>';
