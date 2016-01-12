@@ -1041,7 +1041,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['header']['autorefresh']['table'] = 'views';
   $handler->display->display_options['header']['autorefresh']['field'] = 'autorefresh';
   $handler->display->display_options['header']['autorefresh']['interval'] = '5000';
-  $handler->display->display_options['header']['autorefresh']['nodejs'] = TRUE;
   $handler->display->display_options['header']['autorefresh']['incremental'] = TRUE;
   $handler->display->display_options['header']['autorefresh']['display'] = 'page_1';
   $handler->display->display_options['header']['autorefresh']['ping'] = TRUE;
