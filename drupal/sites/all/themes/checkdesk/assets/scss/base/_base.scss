@@ -84,3 +84,7 @@ body.node-type-media:not(.page-embed) .report {
   margin-#{$omega}: auto;
 }
 
+// remove body toolbar padding for embedded reports
+body.page-embed {
+  padding-top: 0 !important;
+}
