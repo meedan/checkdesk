@@ -574,7 +574,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'delete any discussion content',
     'roles' => array(
       'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -584,7 +583,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'delete any media content',
     'roles' => array(
       'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -603,7 +601,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'delete any post content',
     'roles' => array(
       'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -640,8 +637,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'delete own discussion content',
     'roles' => array(
       'administrator' => 'administrator',
-      'citizen journalist' => 'citizen journalist',
-      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -651,7 +646,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'delete own media content',
     'roles' => array(
       'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -670,7 +664,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'delete own post content',
     'roles' => array(
       'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
