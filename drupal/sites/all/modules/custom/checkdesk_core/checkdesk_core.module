@@ -1875,7 +1875,6 @@ function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, 
     $form_state['ctools comment alter'] = FALSE;
 
     $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add footnote');
-
     $form['field_rating'][LANGUAGE_NONE]['#default_value'] = $term->name;
 
     $form['field_rating'][LANGUAGE_NONE]['#prefix'] = '<div class="report-activity-edit-status"><span class="current-status ' . preg_replace('/\s+/', '-', trim(strtolower($term->name))) . '">' . t($term->name) . '</span>';
@@ -1888,7 +1887,8 @@ function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, 
     foreach ($form['field_rating'][LANGUAGE_NONE]['#options'] as $tid => $name) {
       if ($tid !== '_none') {
         $term = taxonomy_term_load($tid);
-        $options[$term->name] = t($term->name);
+        $icon = _checkdesk_report_status_icon($term);
+        $options[$term->name] = $icon . t($term->name);
       }
     }
     $form['field_rating'][LANGUAGE_NONE]['#options'] = array_reverse($options);
