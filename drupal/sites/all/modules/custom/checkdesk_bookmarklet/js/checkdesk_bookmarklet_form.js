@@ -8,7 +8,7 @@
     var $input = $('#edit-field-link-und-0-url'),
         $preview = $('#meedan_bookmarklet_preview'),
         $preview_content = $('#meedan_bookmarklet_preview_content'),
-        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, .form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating'),
+        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, .form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating, #edit-field-metadata'),
         url = $input.val().trim();
 
     $input.addClass('meedan-bookmarklet-loading');
@@ -104,7 +104,7 @@
         }
         else {
           done.attr('disabled', 'disabled');
-          $('#edit-body, #edit-graphic-content, #edit-submit, .form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating').hide();
+          $('#edit-body, #edit-graphic-content, #edit-submit, .form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating, #edit-field-metadata').hide();
           $('#meedan_bookmarklet_preview_content').html('');
           $('#checkdesk_report_duplicate').html('').hide();
         }
