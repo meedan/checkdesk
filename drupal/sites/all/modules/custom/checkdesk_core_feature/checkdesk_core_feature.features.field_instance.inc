@@ -999,7 +999,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     'entity_type' => 'node',
     'exclude_cv' => 0,
     'field_name' => 'field_metadata',
-    'label' => 'metadata',
+    'label' => 'Metadata',
     'required' => 0,
     'settings' => array(
       'exclude_cv' => FALSE,
@@ -1017,8 +1017,8 @@ function checkdesk_core_feature_field_default_field_instances() {
           ),
           'select' => array(
             'allowed_values' => array(
-              1 => 'creation date',
-              2 => 'geotag',
+              1 => 'Creation date',
+              2 => 'Geotag',
             ),
           ),
         ),
@@ -1736,12 +1736,12 @@ function checkdesk_core_feature_field_default_field_instances() {
   t('Fact-checking status');
   t('Lead image');
   t('Media');
+  t('Metadata');
   t('Reason');
   t('Section');
   t('Story');
   t('Tags');
   t('Upload some file to be attached to content.');
-  t('metadata');
   t('status icon');
 
   return $field_instances;
