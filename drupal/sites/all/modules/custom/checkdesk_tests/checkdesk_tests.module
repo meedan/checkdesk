@@ -222,35 +222,44 @@ function _checkdesk_tests_new($form, $form_state) {
     '#suffix' => '</div>',
   );
 
+  if (!isset($form_state['storage'])) {
+    $count = isset($form_state['input']['checkdesk_tests_steps']) ? count($form_state['input']['checkdesk_tests_steps']) : 0;
+    $form_state['storage'] = array('steps' => $count);
+  }
+
   // Remove blank steps
-  foreach ($form_state['input']['checkdesk_tests_steps'] as $id => $input) {
-    if (empty($input['type']) && empty($input['step'])) {
-      unset($form_state['input']['checkdesk_tests_steps'][$id]);
-      $form_state['storage']['steps']--;
+  if (isset($form_state['input']) && isset($form_state['input']['checkdesk_tests_steps'])) {
+    foreach ($form_state['input']['checkdesk_tests_steps'] as $id => $input) {
+      if (empty($input['type']) && empty($input['step'])) {
+        unset($form_state['input']['checkdesk_tests_steps'][$id]);
+        $form_state['storage']['steps']--;
+      }
     }
   }
-  
-  $form_state['storage']['steps']++;
 
-  if ($form_state['storage']['steps']) {
-    for ($i = 0; $i < $form_state['storage']['steps']; $i++) {
-      $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'][$i] = array(
-        '#type' => 'fieldset',
-        '#collapsible' => FALSE, 
-        '#collapsed' => FALSE,
-        '#tree' => TRUE,
-      );
+  if (isset($form_state['storage']) && isset($form_state['storage']['steps'])) {
+    $form_state['storage']['steps']++;
 
-      $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'][$i]['type'] = array(
-        '#type' => 'select',
-        '#options' => array('' => '', 'And' => 'And', 'Given' => 'Given', 'When' => 'When', 'Then' => 'Then'),
-        '#default_value' => '',
-      );
-      
-      $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'][$i]['step'] = array(
-        '#type' => 'textfield',
-        '#autocomplete_path' => 'checkdesk-tests/autocomplete',
-      );
+    if ($form_state['storage']['steps']) {
+      for ($i = 0; $i < $form_state['storage']['steps']; $i++) {
+        $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'][$i] = array(
+          '#type' => 'fieldset',
+          '#collapsible' => FALSE, 
+          '#collapsed' => FALSE,
+          '#tree' => TRUE,
+        );
+
+        $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'][$i]['type'] = array(
+          '#type' => 'select',
+          '#options' => array('' => '', 'And' => 'And', 'Given' => 'Given', 'When' => 'When', 'Then' => 'Then'),
+          '#default_value' => '',
+        );
+        
+        $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'][$i]['step'] = array(
+          '#type' => 'textfield',
+          '#autocomplete_path' => 'checkdesk-tests/autocomplete',
+        );
+      }
     }
   }
 
@@ -308,8 +317,10 @@ function _checkdesk_tests_generate_scenario($form_state) {
   }
   $title = $form_state['values']['checkdesk_tests_title'];
   $scenario .= "\nScenario: $title\n";
+
+  $steps_count = count($form_state['values']['checkdesk_tests_steps']);
   
-  for ($i = 0; $i < $form_state['storage']['steps']; $i++) {
+  for ($i = 0; $i < $steps_count; $i++) {
     $type = $form_state['values']['checkdesk_tests_steps'][$i]['type'];
     $step = $form_state['values']['checkdesk_tests_steps'][$i]['step'];
 

@@ -553,12 +553,12 @@ function checkdesk_core_update_7056() {
 
 /** 
  * Disable and uninstall reactor
- */
 function checkdesk_core_update_7057() {
   $module_list = array('reactor');
   module_disable($module_list);
   drupal_uninstall_modules($module_list, FALSE);
 }
+ */
 
 /**
  * Manually upgrade {file_managed.uri} to utf8mb4.
