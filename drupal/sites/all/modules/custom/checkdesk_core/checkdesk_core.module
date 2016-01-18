@@ -191,6 +191,13 @@ function checkdesk_core_menu() {
     'file' => 'checkdesk.frontpage.inc',
     'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
   );
+  $items['reports-export'] = array(
+    'title' => 'Export reports as CSV',
+    'page callback' => '_checkdesk_reports_export',
+    'access arguments' => array('access content'),
+    'file' => 'checkdesk.reports.export.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_core') . '/includes',
+  );
   return $items;
 }
 
