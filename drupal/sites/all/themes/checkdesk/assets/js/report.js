@@ -193,7 +193,7 @@
 
           // A status is clicked
           $(this).click(function () {
-            var rating = $(this).text(),
+            var rating = $(this).html(),
                     rel = $(this).attr('rel'),
                     $link = $(this).parents('.comment-form').find('.edit-status'),
                     $pop = $(this).parents('.comment-form').find('.popover'),
