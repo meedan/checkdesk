@@ -1019,6 +1019,7 @@ function checkdesk_core_feature_field_default_field_instances() {
             'allowed_values' => array(
               1 => 'Creation date',
               2 => 'Geotag',
+              3 => 'Human rights issue',
             ),
           ),
         ),

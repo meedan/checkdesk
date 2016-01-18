@@ -3692,6 +3692,14 @@ function _checkdesk_story_links($nid) {
         'class' => array('compose-update'),
       );
     }
+
+    if (in_array('journalist', $user->roles) || $user->uid == 1) {
+      $items[] = array(
+          'data' => l(t('Export reports'), 'reports-export/'. $nid),
+          'class' => array('export-reports'),
+      );
+    }
+
     $output .= theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-collaborate-links')));
   }
 
