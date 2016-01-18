@@ -4,6 +4,12 @@
       <section class="media-holder item-content-wrapper<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
         <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
       </section>
+
+      <?php if(isset($content['field_metadata'])) : ?>
+          <div class="report-metadata">
+            <?php print render($content['field_metadata']); ?>
+          </div>
+      <?php endif; ?>
       <?php print $report_activity; ?>
       <?php if (!empty($published_stories)) : ?>
         <section class="report-detail">
@@ -12,7 +18,6 @@
           </div>
         </section>
       <?php endif; ?>
-      <?php print render($content['field_metadata']); ?>
 
     </div>
   </article>

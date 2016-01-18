@@ -597,7 +597,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '8',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -627,7 +627,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '7',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -657,7 +657,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '9',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -687,7 +687,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '6',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -717,7 +717,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '4',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -747,7 +747,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '5',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(

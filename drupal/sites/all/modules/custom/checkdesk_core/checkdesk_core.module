@@ -3812,7 +3812,7 @@ function _checkdesk_report_status_icon($term) {
   $status_name = $term->name;
   // Set status icon
   if (isset($term->field_status_icon[LANGUAGE_NONE][0]['uri'])) {
-    $icon = '<span><img src="'. image_style_url('status_icon', $term->field_status_icon[LANGUAGE_NONE][0]['uri']) .'"></span>';
+    $icon = '<span class="checkdesk-status-icon"><img src="'. image_style_url('status_icon', $term->field_status_icon[LANGUAGE_NONE][0]['uri']) .'"></span>';
   }
   else {
     if ($status_name == 'Verified') {

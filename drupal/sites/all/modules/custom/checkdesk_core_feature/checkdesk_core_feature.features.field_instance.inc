@@ -886,7 +886,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'module' => 'meedan_oembed',
         'settings' => array(),
         'type' => 'meedan_full_mode',
-        'weight' => 3,
+        'weight' => 2,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -979,9 +979,24 @@ function checkdesk_core_feature_field_default_field_instances() {
       ),
       'meedan_oembed' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'module' => 'double_field',
+        'settings' => array(
+          'first' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => ':&nbsp;',
+          ),
+          'second' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => '',
+          ),
+          'style' => 'inline',
+        ),
+        'type' => 'double_field_unformatted_list',
+        'weight' => 3,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1083,7 +1098,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 1,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1156,7 +1171,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 11,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1223,7 +1238,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 10,
       ),
       'search_index' => array(
         'label' => 'hidden',
