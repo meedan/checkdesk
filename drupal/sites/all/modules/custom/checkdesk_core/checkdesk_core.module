@@ -724,6 +724,12 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $embed_title .= ($node->type == 'media') ? 'report' : 'story';
       $embed_data = array('nid' => $node->nid, 'title' => $embed_title);
     }
+
+    if ($node->type == 'discussion') {
+      $embed_title = 'Export to CSV';
+      $embed_data = array('nid' => $node->nid, 'title' => $embed_title, 'user' => $user);
+    }
+
     $share_links = checkdesk_core_share_links($url, $node->title, $node->type, $embed_data);
     foreach ($share_links as $id => $link) {
       $links[$id] = $link;
@@ -766,10 +772,26 @@ function checkdesk_core_share_links($url, $title, $type, $embed = array()) {
     'link_type' => 'link',
     'cd_group' => 'checkdesk-share',
   );
+
+
+  // Export option
+  if (isset($embed['nid']) && ($type == 'discussion')) {
+    if (in_array('journalist', $embed['user']->roles) || $embed['user']->uid == 1) {
+      $links['checkdesk-export'] = array(
+        'title' => t('Export to CSV'),
+        'href' => 'reports-export/'. $embed['nid'],
+        'attributes' => array('title' => $title, 'class' => array('export')),
+        'link_type' => 'link',
+        'cd_group' => 'checkdesk-share',
+      );
+    }
+  }
+
+
   // show embed if nid has a value
-  if (isset($embed['nid'])) {
+  if (isset($embed['nid']) && ($type == 'media')) {
     if (!isset($embed['title'])) {
-      $embed['title'] = 'Embed this story';
+      $embed['title'] = 'Embed this report';
     }
     $links['checkdesk-share-embed'] = array(
       'html' => TRUE,
@@ -3690,13 +3712,6 @@ function _checkdesk_story_links($nid) {
       $items[] = array(
         'data' => l(t('Compose update'), 'node/add/post', array('query' => array('story' => $nid))),
         'class' => array('compose-update'),
-      );
-    }
-
-    if (in_array('journalist', $user->roles) || $user->uid == 1) {
-      $items[] = array(
-          'data' => l(t('Export reports'), 'reports-export/'. $nid),
-          'class' => array('export-reports'),
       );
     }
 
