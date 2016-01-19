@@ -1188,7 +1188,7 @@ function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_s
  * Implements hook_node_presave()
  */
 function checkdesk_core_node_presave($node) {
-  if ($node->type == 'discussion') {
+  if ($node->type == 'discussion' && isset($node->field_additional_authors)) {
     //Eliminate duplicates in multiple authors section (Ticket #3763)
     $target_authors = array();
     foreach ($node->field_additional_authors[LANGUAGE_NONE] as $k => $row) {
@@ -1198,7 +1198,7 @@ function checkdesk_core_node_presave($node) {
       $target_authors[] = $row['target_id'];
     }
   }
-  // Set createed timestamp to first published revision timestamp
+  // Set created timestamp to first published revision timestamp
   if ($node->status == NODE_PUBLISHED && isset($node->nid)) {
     $query = db_select('node_revision', 'r');
     $query->condition('nid', $node->nid);
