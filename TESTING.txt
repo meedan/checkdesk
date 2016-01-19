@@ -29,7 +29,8 @@ Behavior-Driven Development. If not, check the references on section 5 of this d
        and visiting admin/config/development/checkdesk_tests. You don't need to configure a base URL on this case.
   1.6  You can run the tests using PhantomJS instead of Selenium. In order to do that, just run PhantomJS on port
        8643, this way: `phantomjs --webdriver=8643 --cookies-file=/tmp/cookies.txt`. In that case, you should put
-       the path `http://localhost:8643/wd/hub` as the `wd_host` in `behat.yml`.
+       the path `http://localhost:8643/wd/hub` as the `wd_host` in `behat.yml`. It didn't work with PhantomJS 2.0,
+       but it does work with PhantomJS 1.9.8.
 
 2. Adding new tests
 
