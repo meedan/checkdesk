@@ -4,7 +4,7 @@ default:
       # base_url: http://localhost
       goutte: ~
       selenium2:
-        wd_host: 'http://localhost:4444/wd/hub'
+        wd_host: 'http://localhost:8643/wd/hub'
 
     Drupal\DrupalExtension\Extension:
       blackbox: ~

@@ -1994,8 +1994,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium btn btn-default');
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-sigin-back-link">' . $back_link . '</div>';
     $form['#validate'][] = '_modify_drupal_message';
-    $form['actions']['submit']['#attributes']['onclick'] =
-      'javascript: this.value=Drupal.t("loading...");this.attr("disabled", "disabled");';
+    $form['#attributes']['onsubmit'] = 'var button = jQuery(".form-submit"); button.val(Drupal.t("loading...")); button.attr("disabled", "disabled")';
   }
 
   if ($form_id == '_checkdesk_core_report_suggest') {

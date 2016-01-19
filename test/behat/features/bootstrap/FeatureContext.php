@@ -296,6 +296,7 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
       // If a logout link is found, we are logged in. While not perfect, this is
       // how Drupal SimpleTests currently work as well.
       $element = $session->getPage();
+      
       return $element->findLink($this->getDrupalText('log_out'));
     }
 //
