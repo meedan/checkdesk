@@ -25,8 +25,13 @@ Behavior-Driven Development. If not, check the references on section 5 of this d
   1.4  If you are going to run tests from the command line, you will need to configure the base URL. You can do it by
        editing test/behat/behat.yml (check for a commented line) or by exporting an environment variable:
        `export MINK_EXTENSION_PARAMS='base_url=http://localhost'`
-  1.5  Alternatively, you can run the tests from the Drupal administrative UI by enabling the module checkdesk_tests
-       and visiting admin/config/development/checkdesk_tests. You don't need to configure a base URL on this case.
+  1.5  Alternatively, you can run the tests from the Drupal administrative UI by enabling the module behat_ui
+       and visiting admin/config/development/behat_ui. You don't need to configure a base URL on this case.
+  1.6  You can run the tests using PhantomJS instead of Selenium. In order to do that, just run PhantomJS on port
+       8643, this way: `phantomjs --webdriver=8643 --cookies-file=/tmp/cookies.txt`. In that case, you should put
+       the path `http://localhost:8643/wd/hub` as the `wd_host` in `behat.yml`. It didn't work with PhantomJS 2.0,
+       but it does work with PhantomJS 1.9.8.
+  1.7  You can also run the tests using Drush: `drush --uri=<base_url> behat-ui` or `drush --uri=<base_url> bui`
 
 2. Adding new tests
 

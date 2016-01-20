@@ -7,6 +7,7 @@ use Behat\Behat\Context\ClosuredContextInterface,
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
+use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 
 //
 // Require 3rd-party libraries here:
@@ -40,6 +41,29 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
       $password = variable_get('checkdesk_tests_http_password', '');
       if (!empty($username) && !empty($password)) {
         $this->getSession()->getDriver()->setBasicAuth($username, $password);
+      }
+    }
+
+    /**
+     * Call this function before nodes are created.
+     *
+     * @beforeNodeCreate
+     */
+    public function alterNodeObject($event) {
+      $node = $event->getEntity();
+      if ($node->type === 'discussion') {
+        $node->field_lead_image[LANGUAGE_NONE] = array();
+      }
+    }
+
+    /**
+     * Take screenshot when step fails.
+     *
+     * @AfterStep @javascript
+     */
+    public function takeScreenshotAfterFailedStep($event) {
+      if (4 === $event->getResult()) {
+        $this->takeScreenshot();
       }
     }
 
@@ -133,7 +157,11 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
         'language' => 'en',
         'status' => 1,
         'uid' => 1,
+        'promote' => 0,
+        'sticky' => NODE_NOT_STICKY,
       );
+      $story->field_additional_authors[LANGUAGE_NONE] = array();
+      $story->field_lead_image[LANGUAGE_NONE] = array();
       node_save($story);
 
       foreach ($updates->getHash() as $update) {
@@ -141,7 +169,11 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
         $update->type = 'post';
         $update->language = 'en';
         $update->status = 1;
+        $update->promote = 0;
+        $update->sticky = NODE_NOT_STICKY;
         $update->field_desk[LANGUAGE_NONE][0]['target_id'] = $story->nid;
+        $update->field_additional_authors[LANGUAGE_NONE] = array();
+
         node_save($update); // This does not work with entity reference fields: $this->getDriver()->createNode($update);
         $this->nodes_to_be_removed[] = $update;
       }
@@ -174,6 +206,7 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
         'uid' => 1,
         'comment' => 2,
         'promote' => 1,
+        'sticky' => NODE_NOT_STICKY,
       );
       $report->field_link[LANGUAGE_NONE][0]['url'] = $url;
 
@@ -199,6 +232,7 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
         'uid' => 1,
         'comment' => 2,
         'promote' => 1,
+        'sticky' => NODE_NOT_STICKY,
       );
       $report->field_link[LANGUAGE_NONE][0]['url'] = $url;
 
@@ -258,11 +292,24 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
       $driver = $this->getSession()->getDriver();
       // Only makes sense on HTML formatting and using the testing module
       $base64 = base64_encode($driver->getScreenshot());
-      echo '<p>
-              <img src="data:image/png;base64,' . $base64 . '" id="checkdesk-tests-screenshot" style="width: 100%;" />
+      echo '<p style="text-align: center;">
+              <img src="data:image/png;base64,' . $base64 . '" id="checkdesk-tests-screenshot" style="max-width: 100%; border: 1px solid #000;" />
             <p>';
     }
 
+    /**
+     * Determine if the a user is already logged in.
+     */
+    public function loggedIn() {
+      $session = $this->getSession();
+      $session->visit($this->locatePath('/user'));
+
+      // If a logout link is found, we are logged in. While not perfect, this is
+      // how Drupal SimpleTests currently work as well.
+      $element = $session->getPage();
+      
+      return $element->findLink($this->getDrupalText('log_out'));
+    }
 //
 // Place your definition and hook methods here:
 //
