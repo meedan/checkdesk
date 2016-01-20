@@ -79,8 +79,8 @@ else if (document.selection) {
   // Display available steps on a modal window
 
   $(window).load(function() {
-    $('#checkdesk-tests-steps-link').click(function() {
-      $('#checkdesk-tests-steps').modal();
+    $('#behat-ui-steps-link').click(function() {
+      $('#behat-ui-steps').modal();
       return false;
     });
   });
@@ -131,7 +131,7 @@ else if (document.selection) {
   Drupal.behaviors.enrichStepFields = {
     attach: function(context, settings) {
 
-      $('#checkdesk-tests-new-steps .form-text:not(.form-rich-processed)', context).each(function() {
+      $('#behat-ui-new-steps .form-text:not(.form-rich-processed)', context).each(function() {
         
         var id       = $(this).attr('id') + '-rich',
             $rich    = $('<div id="' + id + '" contenteditable="true" class="form-rich step-no-param" />'),
@@ -174,7 +174,7 @@ else if (document.selection) {
       });
 
       // Make autocomplete work
-      var $autocomplete = $('#checkdesk-tests-new-steps #autocomplete', context);
+      var $autocomplete = $('#behat-ui-new-steps #autocomplete', context);
 
       $autocomplete.find('li').live('click', function() {
 

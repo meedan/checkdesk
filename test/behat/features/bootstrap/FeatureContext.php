@@ -57,6 +57,17 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
     }
 
     /**
+     * Take screenshot when step fails.
+     *
+     * @AfterStep @javascript
+     */
+    public function takeScreenshotAfterFailedStep($event) {
+      if (4 === $event->getResult()) {
+        $this->takeScreenshot();
+      }
+    }
+
+    /**
      * @Given /^I enter the report URL "([^"]*)" and wait$/
      */
     public function iEnterTheReportUrlAndWait($url)
@@ -281,8 +292,8 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
       $driver = $this->getSession()->getDriver();
       // Only makes sense on HTML formatting and using the testing module
       $base64 = base64_encode($driver->getScreenshot());
-      echo '<p>
-              <img src="data:image/png;base64,' . $base64 . '" id="checkdesk-tests-screenshot" style="width: 100%;" />
+      echo '<p style="text-align: center;">
+              <img src="data:image/png;base64,' . $base64 . '" id="checkdesk-tests-screenshot" style="max-width: 100%; border: 1px solid #000;" />
             <p>';
     }
 
