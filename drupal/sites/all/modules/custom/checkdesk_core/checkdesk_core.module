@@ -1188,7 +1188,7 @@ function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_s
  * Implements hook_node_presave()
  */
 function checkdesk_core_node_presave($node) {
-  if ($node->type == 'discussion') {
+  if ($node->type == 'discussion' && isset($node->field_additional_authors)) {
     //Eliminate duplicates in multiple authors section (Ticket #3763)
     $target_authors = array();
     foreach ($node->field_additional_authors[LANGUAGE_NONE] as $k => $row) {
@@ -1198,8 +1198,8 @@ function checkdesk_core_node_presave($node) {
       $target_authors[] = $row['target_id'];
     }
   }
-  // Set createed timestamp to first published revision timestamp
-  if ($node->status == NODE_PUBLISHED) {
+  // Set created timestamp to first published revision timestamp
+  if ($node->status == NODE_PUBLISHED && isset($node->nid)) {
     $query = db_select('node_revision', 'r');
     $query->condition('nid', $node->nid);
     $query->condition('status', 1);
@@ -1994,8 +1994,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $back_link = ctools_modal_text_button(t('Back'), 'checkdesk/nojs/sign_in_up', t('Back'),  'ctools-modal-modal-popup-medium btn btn-default');
     $form['actions']['submit']['#suffix'] = '<div class="back-link user-sigin-back-link">' . $back_link . '</div>';
     $form['#validate'][] = '_modify_drupal_message';
-    $form['actions']['submit']['#attributes']['onclick'] =
-      'javascript: this.value=Drupal.t("loading...");this.attr("disabled", "disabled");';
+    $form['#attributes']['onsubmit'] = 'var button = jQuery(".form-submit"); button.val(Drupal.t("loading...")); button.attr("disabled", "disabled")';
   }
 
   if ($form_id == '_checkdesk_core_report_suggest') {
@@ -2699,7 +2698,7 @@ function checkdesk_core_node_insert($node) {
         ->execute();
     }
     //link report to created update
-    if (isset($node->body)) {
+    if (!empty($node->body)) {
       $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
       checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
     }
@@ -2743,7 +2742,9 @@ function checkdesk_core_node_update($node) {
   if ($node->type === 'post' && isset($node->body)) {
     $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     //link report to update
-    checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
+    if (!empty($node->body)) {
+      checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
+    }
   }
 }
 

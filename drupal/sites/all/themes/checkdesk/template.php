@@ -1554,7 +1554,7 @@ function checkdesk_preprocess_user_profile(&$vars) {
 
 function checkdesk_get_timezone() {
   // set timezone as Cairo, Egypt
-  $site_timezone = array();
+  $site_timezone = array('city' => '', 'country' => '');
   $timezone = date_default_timezone();
   if ($timezone) {
     $timezone_array = explode('/', $timezone);

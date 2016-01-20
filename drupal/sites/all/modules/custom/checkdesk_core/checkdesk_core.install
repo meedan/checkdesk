@@ -543,7 +543,6 @@ function checkdesk_core_update_7054() {
 /**
  * Enable advanced aggregate feature
  */
-
 function checkdesk_core_update_7055() {
   module_enable(array('checkdesk_advaggr_feature'));
 }
@@ -555,3 +554,13 @@ function checkdesk_core_update_7055() {
 function checkdesk_core_update_7056() {
   module_disable(array('advagg_font'));
 }
+
+/** 
+ * Disable and uninstall reactor
+function checkdesk_core_update_7057() {
+  $module_list = array('reactor');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+}
+ */
+

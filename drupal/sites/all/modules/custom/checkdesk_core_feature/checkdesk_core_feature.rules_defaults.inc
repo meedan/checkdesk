@@ -467,7 +467,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "flag" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "flag" ],
       "ON" : { "flag_unflagged_factcheck_journalist" : [] },
       "IF" : [
         { "node_is_of_type" : {
@@ -477,7 +477,17 @@ function checkdesk_core_feature_default_rules_configuration() {
         }
       ],
       "DO" : [
-        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "4" } }
+        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "4" } },
+        { "heartbeat_activity_checkdesk_fact_checking_off" : {
+            "nid" : [ "flagged-node:nid" ],
+            "uid" : [ "flagging-user:uid" ],
+            "nid_target" : "\\u003C?php\\r\\nif (isset($flagged_node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027])) {\\r\\n     echo $flagged_node-\\u003Efield_stories[LANGUAGE_NONE][0][\\u0027target_id\\u0027];\\r\\n}\\r\\nelse {\\r\\n    echo 0;\\r\\n}\\r\\n?\\u003E",
+            "message_id" : { "value" : { "checkdesk_fact_checking_off" : "checkdesk_fact_checking_off" } },
+            "!user_url" : [ "flagging-user:url" ],
+            "!username" : [ "flagging-user:name" ],
+            "!report_url" : [ "flagged-node:url" ]
+          }
+        }
       ]
     }
   }');
@@ -1256,6 +1266,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         }
       ],
       "DO" : [
+        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "2" } },
         { "heartbeat_activity_checkdesk_fact_checking_on" : {
             "nid" : [ "flagged-node:nid" ],
             "uid" : [ "flagging-user:uid" ],
@@ -1273,7 +1284,6 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_flagging_user" : [ "flagging-user" ]
           }
         },
-        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "2" } },
         { "php_eval" : { "code" : "$flagged_node-\\u003Eskip_status_change_notification = TRUE;" } }
       ]
     }
