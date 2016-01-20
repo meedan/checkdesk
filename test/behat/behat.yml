@@ -4,7 +4,7 @@ default:
       # base_url: http://localhost
       goutte: ~
       selenium2:
-        wd_host: 'http://localhost:4444/wd/hub'
+        wd_host: 'http://localhost:8643/wd/hub'
 
     Drupal\DrupalExtension\Extension:
       blackbox: ~
@@ -17,7 +17,7 @@ default:
         log_out: 'Logout'
         log_in: 'Sign in'
         password_field: 'Password'
-        username_field: 'E-mail'
+        username_field: 'Email address or username'
       selectors:
         success_message_selector: '.messages.status'
 
