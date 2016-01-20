@@ -114,6 +114,12 @@
   .status-name {
     font-weight: 700;
   }
+  // user uploaded icon for status
+  .checkdesk-status-icon {
+    margin-#{$alpha}: 0;
+    margin-#{$omega}: 7.5px;
+    img { margin-top: -4px }
+  }
 
   .verified {
     color: $verified;

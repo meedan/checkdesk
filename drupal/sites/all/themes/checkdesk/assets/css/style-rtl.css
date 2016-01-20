@@ -4083,6 +4083,13 @@ span.content-labels:after {
 .media-holder .media-status .status-name {
   font-weight: 700;
 }
+.media-holder .media-status .checkdesk-status-icon {
+  margin-right: 0;
+  margin-left: 7.5px;
+}
+.media-holder .media-status .checkdesk-status-icon img {
+  margin-top: -4px;
+}
 .media-holder .media-status .verified {
   color: #399664;
 }
@@ -4348,9 +4355,13 @@ label.option .checkdesk-status-icon {
 }
 .current-status .checkdesk-status-icon img,
 label.option .checkdesk-status-icon img {
-  margin-top: -5px;
+  margin-top: -4px;
 }
 
+.current-status,
+input[type="radio"]:checked + label {
+  color: #3e4c57;
+}
 .current-status.verified,
 input[type="radio"]:checked + label.verified {
   color: #008c00;
@@ -4369,9 +4380,14 @@ input[type="radio"]:checked + label.undetermined {
 }
 .current-status.not-applicable,
 input[type="radio"]:checked + label.not-applicable {
-  color: #6f7a82 !important;
+  color: #3e4c57;
 }
 
+.current-status span:before, .current-status span:after,
+input[type="radio"]:checked + label span:before,
+input[type="radio"]:checked + label span:after {
+  color: #3e4c57;
+}
 .current-status.verified span:before, .current-status.verified span:after,
 input[type="radio"]:checked + label.verified span:before,
 input[type="radio"]:checked + label.verified span:after {
@@ -4395,7 +4411,7 @@ input[type="radio"]:checked + label.undetermined span:after {
 .current-status.not-applicable span:before, .current-status.not-applicable span:after,
 input[type="radio"]:checked + label.not-applicable span:before,
 input[type="radio"]:checked + label.not-applicable span:after {
-  color: #6f7a82 !important;
+  color: #3e4c57;
 }
 
 .report-activity-edit-status {
@@ -7585,6 +7601,13 @@ Full item with 75% width media.
 }
 .activity-item .media-status .status-name {
   font-weight: 700;
+}
+.activity-item .media-status .checkdesk-status-icon {
+  margin-right: 0;
+  margin-left: 7.5px;
+}
+.activity-item .media-status .checkdesk-status-icon img {
+  margin-top: -4px;
 }
 .activity-item .media-status .verified {
   color: #399664;

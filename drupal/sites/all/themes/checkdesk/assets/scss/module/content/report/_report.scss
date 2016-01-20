@@ -80,13 +80,16 @@ label.option {
 		display: inline-block;
 		line-height: inherit;
 		img {
-			margin-top: -5px;
+			margin-top: -4px;
 		}
 	}
 }
 
+// Highlight selection
+// for selected item highlight text color
 .current-status,
 input[type="radio"]:checked + label {
+	color: $firefly80;
 	&.verified {
 	color: rgba(0, 140, 0, 1);
   }
@@ -100,12 +103,18 @@ input[type="radio"]:checked + label {
 		color: $orange; 
 	}
   &.not-applicable {
-		color: $firefly60 !important;
+		color: $firefly80;
   }
 }
 
+// for selected item highlight icon color
 .current-status,
 input[type="radio"]:checked + label {
+	span {
+		&:before, &:after {
+			color: $firefly80;
+		}
+	}
 	&.verified {
 		span {
 			&:before, &:after {
@@ -137,7 +146,7 @@ input[type="radio"]:checked + label {
   &.not-applicable {
   	span {
 			&:before, &:after {
-				color: $firefly60 !important;
+				color: $firefly80;
 			}
 		}
   }
