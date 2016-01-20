@@ -68,11 +68,14 @@ label.option {
 		&:before, &:after {
 			font-size: $base-font-size;	
 			color: $firefly40;
+			margin-#{$alpha}: 0;
+			margin-#{$omega}: 7.5px;
 		}
 	}
 	// space and align custom icons
 	.checkdesk-status-icon {
-		margin: 0 7.5px;
+		margin-#{$alpha}: 0;
+		margin-#{$omega}: 7.5px;
 		vertical-align: baseline;
 		display: inline-block;
 		line-height: inherit;
@@ -237,20 +240,20 @@ input[type="radio"]:checked + label {
 
 		.form-radios {
 		  display: flex;
-		  flex-direction: column;
-		  justify-content: center;
+		  flex-wrap: wrap;
+		  // Dropdown title + description
+		  margin-top: 65px;
 
 		  .form-type-radio {
 			  display: flex;
-			  justify-content: center;
-			  padding: 0;
+			  flex-basis: 43.9%;
+
+			  &:nth-child(odd) {
+			  	border-#{$omega}: 1px solid $firefly5
+			  }
 
 			  &:not(:last-child) { 
 			  	border-bottom: 1px dotted $firefly5;
-			  }
-
-			  &:first-child {
-			  	padding-top: 15px;
 			  }
 
 			}

@@ -4335,10 +4335,13 @@ label.option span:before,
 label.option span:after {
   font-size: 18px;
   color: #9fa6ac;
+  margin-right: 0;
+  margin-left: 7.5px;
 }
 .current-status .checkdesk-status-icon,
 label.option .checkdesk-status-icon {
-  margin: 0 7.5px;
+  margin-right: 0;
+  margin-left: 7.5px;
   vertical-align: baseline;
   display: inline-block;
   line-height: inherit;
@@ -4488,19 +4491,18 @@ input[type="radio"]:checked + label.not-applicable span:after {
 }
 .report-activity-edit-status.popover .form-radios {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 65px;
 }
 .report-activity-edit-status.popover .form-radios .form-type-radio {
   display: flex;
-  justify-content: center;
-  padding: 0;
+  flex-basis: 43.9%;
+}
+.report-activity-edit-status.popover .form-radios .form-type-radio:nth-child(odd) {
+  border-left: 1px solid #f3f4f4;
 }
 .report-activity-edit-status.popover .form-radios .form-type-radio:not(:last-child) {
   border-bottom: 1px dotted #f3f4f4;
-}
-.report-activity-edit-status.popover .form-radios .form-type-radio:first-child {
-  padding-top: 15px;
 }
 .report-activity-edit-status.popover .form-radios .form-radio {
   display: none;
