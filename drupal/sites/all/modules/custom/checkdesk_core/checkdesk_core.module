@@ -37,6 +37,10 @@ function checkdesk_core_permission() {
       'title' => t('Edit published content'),
       'description' => t('User can edit published content.'),
     ),
+    'export reports' => array(
+      'title' => t('Export reports'),
+      'description' => t('User can export reports.'),
+    ),
   );
 }
 
@@ -776,7 +780,7 @@ function checkdesk_core_share_links($url, $title, $type, $embed = array()) {
 
   // Export option
   if (isset($embed['nid']) && ($type == 'discussion')) {
-    if (in_array('journalist', $embed['user']->roles) || $embed['user']->uid == 1) {
+    if (user_access('export reports')) {
       $links['checkdesk-export'] = array(
         'title' => t('Export to CSV'),
         'href' => 'reports-export/'. $embed['nid'],
