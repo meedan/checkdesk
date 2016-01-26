@@ -12,7 +12,8 @@ if (file_exists("../../../../../{$server_name}/settings.php")) {
 // Connect to the database
 global $databases;
 $p = $databases['default']['default'];
-$mysql = new PDO('mysql:host=' . $p['host'] . ';dbname=' . $p['database'], $p['username'], @$p['password']);
+$port = $p['port'] ? $p['port'] : 3306; 
+$mysql = new PDO('mysql:host=' . $p['host'] . ';port=' . $port . ';dbname=' . $p['database'], $p['username'], @$p['password']);
 $mysql->exec('SET NAMES utf8mb4 COLLATE utf8mb4_general_ci');
 
 $timestamp = intval($_REQUEST['timestamp']);
