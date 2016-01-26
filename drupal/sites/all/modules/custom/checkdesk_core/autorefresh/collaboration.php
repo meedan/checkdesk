@@ -14,7 +14,7 @@ if (file_exists("../../../../../{$server_name}/settings.php")) {
 global $databases;
 $p = $databases['default']['default'];
 $mysql = new PDO('mysql:host=' . $p['host'] . ';dbname=' . $p['database'], $p['username'], @$p['password']);
-$mysql->exec('SET NAMES utf8');
+$mysql->exec('SET NAMES utf8mb4');
 
 $timestamp = intval($_REQUEST['timestamp']);
 
