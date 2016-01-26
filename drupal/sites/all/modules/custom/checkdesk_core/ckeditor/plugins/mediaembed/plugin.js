@@ -73,7 +73,7 @@ CKEDITOR.plugins.add('mediaembed',
                             parser.href = el.attributes.src;
 
                             // TODO Allow white-listed script sources or some other way to validate scripts.
-                            var match = parser.hostname.match(/\.(twitter.com)$/i);
+                            var match = parser.hostname.match(/(^|\.)(twitter.com|speakbridge.io)$/i);
                             return match && match.length > 0;
                           },
                           attributes: '*'
