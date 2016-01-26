@@ -38,6 +38,9 @@
         var $item = $('.form-type-bef-link a[class="active"]', this);
         $(this).scrollTop($(this).scrollTop() + $item.position().top);
       });
+      
+      // prevent ajax handling of content types filter to force filters form reload
+      $('.form-item-type .bef-select-as-links').find('a').unbind('click');
     }
   };
 
