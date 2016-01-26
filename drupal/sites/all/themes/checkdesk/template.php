@@ -847,6 +847,10 @@ function checkdesk_preprocess_node(&$variables) {
       //$field_link_rendered = preg_replace('/<(blockquote)([^>]*)class=/i', '<\1\2data-lazy-load-class=', $field_link_rendered);
       $variables['field_link_lazy_load'] = $field_link_rendered;
     }
+    // Add metadata fields
+    //$metadata_group_info = field_group_info_groups('node', 'media');
+    //$variables['metadata_fields'] = $metadata_group_info['form']['group_metadata']->children;
+    $variables['metadata_fields'] = array();
   }
 }
 

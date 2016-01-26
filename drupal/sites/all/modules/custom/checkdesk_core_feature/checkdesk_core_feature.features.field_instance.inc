@@ -937,125 +937,6 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-media-field_metadata'.
-  $field_instances['node-media-field_metadata'] = array(
-    'bundle' => 'media',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'checkdesk_collaborate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'checkdesk_search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'default' => array(
-        'label' => 'above',
-        'module' => 'double_field',
-        'settings' => array(
-          'first' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => ':&nbsp;',
-          ),
-          'second' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => '',
-          ),
-          'style' => 'inline',
-        ),
-        'type' => 'double_field_unformatted_list',
-        'weight' => 6,
-      ),
-      'meedan_oembed' => array(
-        'label' => 'above',
-        'module' => 'double_field',
-        'settings' => array(
-          'first' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => ':&nbsp;',
-          ),
-          'second' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => '',
-          ),
-          'style' => 'inline',
-        ),
-        'type' => 'double_field_unformatted_list',
-        'weight' => 3,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'exclude_cv' => 0,
-    'field_name' => 'field_metadata',
-    'label' => 'Metadata',
-    'required' => 0,
-    'settings' => array(
-      'exclude_cv' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'double_field',
-      'settings' => array(
-        'first' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'select' => array(
-            'allowed_values' => array(
-              1 => 'Creation date',
-              2 => 'Geotag',
-              3 => 'Human rights issue',
-            ),
-          ),
-        ),
-        'inline' => 1,
-        'second' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textfield' => array(
-            'placeholder' => '',
-            'size' => 10,
-          ),
-        ),
-      ),
-      'type' => 'select_&_textfield',
-      'weight' => 8,
-    ),
-  );
-
   // Exported field_instance: 'node-media-field_rating'.
   $field_instances['node-media-field_rating'] = array(
     'bundle' => 'media',
@@ -1752,7 +1633,6 @@ function checkdesk_core_feature_field_default_field_instances() {
   t('Fact-checking status');
   t('Lead image');
   t('Media');
-  t('Metadata');
   t('Reason');
   t('Section');
   t('Story');

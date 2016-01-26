@@ -235,39 +235,6 @@ function checkdesk_core_feature_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_metadata'.
-  $field_bases['field_metadata'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_metadata',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'double_field',
-    'settings' => array(
-      'first' => array(
-        'maxlength' => 255,
-        'precision' => 10,
-        'scale' => 2,
-        'size' => 'normal',
-        'type' => 'int',
-      ),
-      'second' => array(
-        'maxlength' => 255,
-        'precision' => 10,
-        'scale' => 2,
-        'size' => 'normal',
-        'type' => 'varchar',
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'double_field',
-  );
-
   // Exported field_base: 'field_rating'.
   $field_bases['field_rating'] = array(
     'active' => 1,
