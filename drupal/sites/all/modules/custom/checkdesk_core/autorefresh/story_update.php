@@ -13,7 +13,7 @@ if (file_exists("../../../../../{$server_name}/settings.php")) {
 global $databases;
 $p = $databases['default']['default'];
 $mysql = new PDO('mysql:host=' . $p['host'] . ';dbname=' . $p['database'], $p['username'], @$p['password']);
-$mysql->exec('SET NAMES utf8mb4');
+$mysql->exec('SET NAMES utf8mb4 COLLATE utf8mb4_general_ci');
 
 $timestamp = intval($_REQUEST['timestamp']);
 $sql = "SELECT COUNT(*)
