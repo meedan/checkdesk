@@ -945,14 +945,23 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       '#theme' => 'checkdesk_core_report_source',
       '#report' => $node,
     );
+    /*
     // Appeand fields to metadata group.
-    $metadata_group_info = field_group_info_groups('node', 'media');
-    foreach ($metadata_group_info['form']['group_metadata']->children as $field) {
+    $metadata_fields = _checkdesk_metadata_group_fields();
+    foreach ($metadata_fields as $field) {
       $node->content['#group_children'][$field] = 'group_metadata';
     }
-
+    */
   }
 
+}
+
+/**
+ * Helper function to return metadata group fields.
+ */
+function _checkdesk_metadata_group_fields() {
+  $metadata_group_info = field_group_info_groups('node', 'media');
+  return $metadata_group_info['form']['group_metadata']->children;
 }
 
 function _checkdesk_core_render_activity_type($node, $heartbeat_row) {

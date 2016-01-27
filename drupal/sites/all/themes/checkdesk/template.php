@@ -32,6 +32,12 @@ function checkdesk_theme() {
 
 function checkdesk_preprocess_field(&$variables, $hook) {
   $element = $variables['element'];
+  // Add a custom tpl for metadata fields
+  $metadata_fields = _checkdesk_metadata_group_fields();
+  if (in_array($element['#field_name'], $metadata_fields)) {
+    $variables['theme_hook_suggestions'][] = 'field__metadata_media_fields';
+  }
+
   if ($element['#field_name'] == 'field_link') {
     $embed = $element['#object']->embed;
     $node = $element['#object'];
@@ -848,9 +854,7 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['field_link_lazy_load'] = $field_link_rendered;
     }
     // Add metadata fields
-    //$metadata_group_info = field_group_info_groups('node', 'media');
-    //$variables['metadata_fields'] = $metadata_group_info['form']['group_metadata']->children;
-    $variables['metadata_fields'] = array();
+    $variables['metadata_fields'] = _checkdesk_metadata_group_fields();
   }
 }
 
@@ -1722,28 +1726,4 @@ function _checkdesk_story_authors($node) {
     $story_authors = l($node->name, 'user/'. $node->uid, array('attributes' => array('class' => array('contributor'))));
   }
   return $story_authors;
-}
-
-
-/**
- * Return view output with container markup
- * @param $title
- * @param $view_output
- * @return html output
- */
-function _checkdesk_container_markup($title, $view_output) { 
-  $output = '';
-  $output .= '<section class="cd-container">';
-  $output .= '<div class="cd-container-inner">';
-  if (!empty($title)) {
-    $output .= '<div class="cd-container-header">';
-    $output .= '<h2 class="cd-container-header-title">' . $title . '</h2>';
-    $output .= '</div>';
-  }
-  $output .= '<div class="cd-container-body">';
-  $output .= $view_output;
-  $output .= '</div>';
-  $output .= '</section>';
-
-  return $output;
 }

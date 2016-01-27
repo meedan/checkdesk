@@ -4,14 +4,9 @@
       <section class="media-holder item-content-wrapper<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
         <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
       </section>
-      <div class="report-group-metadata">
-        <?php print render($content['group_metadata']); ?>
-      </div>
 
-      <!-- Alternative solution for metadata fields -->
       <?php if (count($metadata_fields)) : ?>
       <div class="report-group-metadata">
-        <h3><?php print t('Metadata'); ?></h3>
         <?php foreach ($metadata_fields as $metafield) : ?>
           <?php if (isset($content[$metafield])) : ?>
             <div class="report-metadata">
