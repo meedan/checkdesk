@@ -94,9 +94,9 @@ function _checkdesk_fetch_report_metadata($manually_fields, $nid) {
   foreach ($manually_fields as $field_name) {
     $field_items = field_get_items('node', $node, $field_name);
     $field = field_view_value('node', $node, $field_name, $field_items[0]);
-    $value = drupal_render($field);
+    $value = render($field);
     if (!empty($value)) {
-      $metadata[$field_name] = $value;
+      $metadata[$field_name] = strip_tags($value);
     }
   }
   return $metadata;
