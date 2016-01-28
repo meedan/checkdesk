@@ -207,7 +207,7 @@ function checkdesk_core_preprocess_checkdesk_core_metadata_fields(&$variables) {
   $fields = _checkdesk_metadata_group_fields();
   $metadata_fields = array();
   foreach ($fields as $field) {
-    $metadata_fields[] = field_view_field('node', $node, $field);
+    $metadata_fields[] = field_view_field('node', $node, $field, 'full');
   }
   $variables['metadata_fields'] = $metadata_fields;
 }
