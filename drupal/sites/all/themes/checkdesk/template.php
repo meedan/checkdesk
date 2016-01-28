@@ -1725,3 +1725,28 @@ function _checkdesk_story_authors($node) {
   }
   return $story_authors;
 }
+
+/**
+ * Returns HTML for a date_select 'date' label.
+ */
+function checkdesk_date_part_label_date($variables) {
+  $label = 'Date';
+  $metadata_fields =_checkdesk_metadata_group_fields();
+  if (in_array($variables['element']['#field']['field_name'], $metadata_fields)) {
+    $label = $variables['element']['#date_title'] .' - Date';
+  }
+  return t($label, array(), array('context' => 'datetime'));
+}
+
+/**
+ * Returns HTML for a date_select 'time' label.
+ */
+function checkdesk_date_part_label_time($variables) {
+  $label = 'Time';
+  $metadata_fields =_checkdesk_metadata_group_fields();
+  if (in_array($variables['element']['#field']['field_name'], $metadata_fields)) {
+    $label = $variables['element']['#date_title'] .' - Time';
+  }
+  return t($label, array(), array('context' => 'datetime'));
+}
+
