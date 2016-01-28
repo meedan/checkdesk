@@ -945,13 +945,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       '#theme' => 'checkdesk_core_report_source',
       '#report' => $node,
     );
-    /*
-    // Appeand fields to metadata group.
-    $metadata_fields = _checkdesk_metadata_group_fields();
-    foreach ($metadata_fields as $field) {
-      $node->content['#group_children'][$field] = 'group_metadata';
-    }
-    */
+    $node->content['metadata_fields'] = theme('checkdesk_core_metadata_fields', array('node' => $node));
   }
 
 }
@@ -1729,6 +1723,13 @@ function checkdesk_core_theme() {
       'template' => 'checkdesk_most_popular_stories',
       'variables' => array(
         'stories' => NULL,
+      ),
+   ) + $base;
+
+  $themes['checkdesk_core_metadata_fields'] = array(
+      'template' => 'checkdesk_metadata_fields',
+      'variables' => array(
+        'node' => NULL,
       ),
    ) + $base;
 

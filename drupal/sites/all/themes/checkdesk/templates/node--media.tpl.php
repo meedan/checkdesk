@@ -5,17 +5,7 @@
         <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
       </section>
 
-      <?php if (count($metadata_fields)) : ?>
-      <div class="report-group-metadata">
-        <?php foreach ($metadata_fields as $metafield) : ?>
-          <?php if (isset($content[$metafield])) : ?>
-            <div class="report-metadata">
-              <?php print render($content[$metafield]); ?>
-            </div>
-          <?php endif; ?>
-        <?php endforeach; ?>
-      </div>
-      <?php endif; ?>
+      <?php print $content['metadata_fields']; ?>
 
       <?php print $report_activity; ?>
       <?php if (!empty($published_stories)) : ?>

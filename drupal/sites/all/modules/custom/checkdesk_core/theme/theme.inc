@@ -198,3 +198,16 @@ function checkdesk_core_preprocess_checkdesk_core_most_popular_stories(&$variabl
         $story->url = url('node/'. $story->nid, array('absolute' => TRUE));
     }
 }
+
+/**
+ * Template preprocessor for `checkdesk_core_metadata_fields`.
+ */
+function checkdesk_core_preprocess_checkdesk_core_metadata_fields(&$variables) {
+  $node = $variables['node'];
+  $fields = _checkdesk_metadata_group_fields();
+  $metadata_fields = array();
+  foreach ($fields as $field) {
+    $metadata_fields[] = field_view_field('node', $node, $field);
+  }
+  $variables['metadata_fields'] = $metadata_fields;
+}
