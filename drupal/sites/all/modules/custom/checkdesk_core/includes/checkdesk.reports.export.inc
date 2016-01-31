@@ -7,7 +7,7 @@
 function _checkdesk_reports_export() {
   // Load reports
   $all_stories = TRUE;
-  $file_name = 'reports.csv';
+  $file_name = date('Ymd', time()). '-reports';
   $query = db_select('node', 'n');
   $query->addExpression('FROM_UNIXTIME(created)', 'created');
   $query->addField('fl', 'field_link_url');
@@ -21,9 +21,10 @@ function _checkdesk_reports_export() {
   if (arg(1) !== null && is_numeric(arg(1))) {
     // Load reports for specific story
     $all_stories = FALSE;
-    $file_name = 'story_reports.csv';
+    $file_name .= '-' . arg(1);
     $query->join('field_data_field_stories', 'fs', 'n.nid = fs.entity_id AND field_stories_target_id = :story', array(':story' => arg(1)));
   }
+  $file_name .= '.csv';
   $reports = $query->execute()->fetchAllAssoc('nid');
   // Get max footnotes count to set header
   $query = db_select('node', 'n');
@@ -93,7 +94,7 @@ function _checkdesk_fetch_report_metadata($manually_fields, $nid) {
   $node = node_load($nid);
   foreach ($manually_fields as $field_name) {
     $field_items = field_get_items('node', $node, $field_name);
-    $field = field_view_value('node', $node, $field_name, $field_items[0]);
+    $field = field_view_value('node', $node, $field_name, $field_items[0], 'checkdesk_export');
     $value = render($field);
     if (!empty($value)) {
       $metadata[$field_name] = strip_tags($value);
