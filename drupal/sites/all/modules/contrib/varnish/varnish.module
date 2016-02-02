@@ -356,8 +356,6 @@ function _varnish_terminal_run($commands) {
  * Send command to varnish.
  */
 function _varnish_execute_command($client, $command) {
-  watchdog('varnish-client', $client);
-  watchdog('varnish-comment', $command);
   // Send command and get response.
   $result = socket_write($client, "$command\n");
   $status = _varnish_read_socket($client);
