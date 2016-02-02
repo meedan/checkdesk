@@ -564,3 +564,11 @@ function checkdesk_core_update_7057() {
 }
  */
 
+/** 
+ * Disable and uninstall email_registration
+*/
+function checkdesk_core_update_7058() {
+  $module_list = array('email_registration');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+}
