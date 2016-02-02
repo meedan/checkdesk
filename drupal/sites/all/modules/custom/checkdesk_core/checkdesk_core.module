@@ -1954,6 +1954,32 @@ function checkdesk_core_form_revisioning_revisions_summary_alter(&$form, $form_s
 }
 
 /**
+ * Form element validation handler for the user login form.
+ *
+ * Allows users to authenticate by email, which is our preferred method.
+ */
+function checkdesk_core_user_login_validate($form, &$form_state) {
+  $name = NULL;
+  if (isset($form_state['values']['name'])) {
+    // Try to load the username matching the email, if any exists.
+    $name = db_select('users')
+    ->fields('users', array('name'))
+    ->condition('mail', db_like($form_state['values']['name']), 'LIKE')
+    ->execute()
+    ->fetchField();
+  }
+  // If the value is set, and a valid email, and a match was found, use it.
+  if (!empty($name)) {
+    // Keep the email value in form state for further use/validation.
+    $form_state['values']['email'] = $form_state['values']['name'];
+
+    // If the name matches an e-mail, assume that it's the desired name and
+    // set the username in the form values.
+    $form_state['values']['name'] = $name;
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
@@ -1976,8 +2002,16 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     //alter submit to purge all varnish caches
     $form['#submit'][] = 'checkdesk_core_site_information_submit';
   }
+  
+  if ($form_id == 'user_profile_form' || $form_id == 'user_register_form') {
+    $form['account']['name']['#title'] = t('Display name');
+  }
 
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
+    
+    // validate name using our email login function
+    $form['name']['#element_validate'][] = 'checkdesk_core_user_login_validate';
+    
     unset($form['name']['#description'], $form['pass']['#description'], $form['links'], $form['twitter_signin']);
     $form['#prefix'] = '<div class="user-login-wrapper modal-dialog-signin modal-dialog-signin-email">';
     $form['#suffix'] = '</div>';
@@ -1985,7 +2019,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       '#markup' => '<div class="branding"></div><div class="modal-dialog-description">' . t('Sign in with your email address or username') . '</div>',
       '#weight' => -99,
     );
-    $form['name']['#title'] = t('Email address or username');
+    $form['name']['#title'] = t('Email address or display name');
     $form['actions']['submit']['#value'] = t('Sign in');
     // Add forgot link and a wrapper around forgot pass and remember me
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
