@@ -114,21 +114,9 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$varia
   $activity = $variables['heartbeat_activity'];
   $icon_class = '';
   $status_name = $activity->variables['!status'];
-  $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
-  if ($status_name == 'Verified') {
-    $icon_class = 'icon-check-circle';
-  }
-  elseif ($status_name == 'In Progress') {
-    $icon_class = 'icon-random';
-  }
-  elseif ($status_name == 'Undetermined') {
-    $icon_class = 'icon-question-circle';
-  }
-  elseif ($status_name == 'False') {
-    $icon_class = 'icon-times-circle';
-  }
-  $icon = empty($icon_class) ? '' : '<span class="'. $icon_class .'"></span> ';
-
+  $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));
+  $status_term = taxonomy_get_term_by_name($status_name, 'media_rating');
+  $icon = _checkdesk_report_status_icon(reset($status_term));
   $variables['activity_status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   
   if($status_name != 'In Progress') {
@@ -209,4 +197,17 @@ function checkdesk_core_preprocess_checkdesk_core_most_popular_stories(&$variabl
         }
         $story->url = url('node/'. $story->nid, array('absolute' => TRUE));
     }
+}
+
+/**
+ * Template preprocessor for `checkdesk_core_metadata_fields`.
+ */
+function checkdesk_core_preprocess_checkdesk_core_metadata_fields(&$variables) {
+  $node = $variables['node'];
+  $fields = _checkdesk_metadata_group_fields();
+  $metadata_fields = array();
+  foreach ($fields as $field) {
+    $metadata_fields[] = field_view_field('node', $node, $field, 'full');
+  }
+  $variables['metadata_fields'] = $metadata_fields;
 }

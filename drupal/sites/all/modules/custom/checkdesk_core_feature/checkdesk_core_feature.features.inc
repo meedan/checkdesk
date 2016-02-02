@@ -11,6 +11,9 @@ function checkdesk_core_feature_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "context" && $api == "context") {
     return array("version" => "3");
   }
+  if ($module == "field_group" && $api == "field_group") {
+    return array("version" => "1");
+  }
   if ($module == "heartbeat" && $api == "heartbeat") {
     return array("version" => "1");
   }
@@ -599,6 +602,21 @@ function checkdesk_core_feature_image_default_styles() {
       ),
     ),
     'label' => 'report_thumbnail',
+  );
+
+  // Exported image style: status_icon.
+  $styles['status_icon'] = array(
+    'label' => 'status icon',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_resize',
+        'data' => array(
+          'width' => 16,
+          'height' => 16,
+        ),
+        'weight' => 2,
+      ),
+    ),
   );
 
   return $styles;
