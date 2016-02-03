@@ -3197,6 +3197,32 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     );
   }
 
+  // Add CSS file for date popup field when module is enabled
+  if (module_exists('date_popup')) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/datepicker.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9992',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
+  // Add CSS file for geolocation google maps field when module is enabled
+  if (module_exists('geolocation_googlemaps')) {
+    drupal_add_css(
+      drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/geolocation_googlemaps.css',
+      array(
+        'scope' => 'footer',
+        'group' => CSS_THEME,
+        'weight' => '9993',
+        'every_page' => FALSE,
+      )
+    );
+  }
+
   // Redirect user to collaboration page.
   $form['actions']['submit']['#submit'][] = '_redirect_report';
   if (in_array('journalist', $user->roles)) {

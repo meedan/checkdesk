@@ -1,6 +1,6 @@
 <?php if (count($metadata_fields)) : ?>
 
-    <div id="report-metadata-<?php print $node->nid; ?>" class="report-metadata report-metadata-node-<?php print $node->nid; ?> ">
+    <div id="report-metadata-<?php print $node->nid; ?>" class="media-metadata media-metadata-node-<?php print $node->nid; ?> ">
 
         <?php foreach ($metadata_fields as $field): ?>
             <?php if (isset($field)) : ?>

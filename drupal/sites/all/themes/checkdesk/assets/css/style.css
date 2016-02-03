@@ -4273,6 +4273,16 @@ span.content-labels:after {
   width: 100%;
 }
 
+.media-metadata {
+  padding: 0 6px 8px;
+  background-color: #fff;
+}
+@media only screen and (min-width: 740px) {
+  .media-metadata {
+    padding: 0 20px 15px 20px;
+  }
+}
+
 section#comment-form {
   clear: both;
   *zoom: 1;
