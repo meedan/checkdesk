@@ -36,10 +36,13 @@ function checkdesk_preprocess_field(&$variables, $hook) {
   $metadata_fields = _checkdesk_metadata_group_fields();
   if (in_array($element['#field_name'], $metadata_fields)) {
     $variables['theme_hook_suggestions'][] = 'field__metadata_media_fields';
-  }
-  // Add theme suggestion for field of type geolocation
-  if ($variables['element']['#field_type'] == 'geolocation_latlng') {
-    $variables['theme_hook_suggestions'][] = 'field__geolocation_latlng';
+    if ($variables['element']['#field_type'] == 'geolocation_latlng' && $variables['element']['#view_mode'] == 'full') {
+      $geo_map_link = array();
+      foreach ($variables['element']['#items'] as $key => $location) {
+        $geo_map_link[] = l($location['lat'] . ',' . $location['lng'], 'https://www.google.com/maps/?q=' . $location['lat'] . ',' . $location['lng']);
+      }
+      $variables['element']['#geo_map_link'] = $geo_map_link;
+    }
   }
 
   if ($element['#field_name'] == 'field_link') {
@@ -1108,18 +1111,6 @@ function checkdesk_field__field_rating(&$variables) {
   }
   return $output;
 }
-
-/**
- * Field: Display geolocation as lat,lng linked to Gmaps
- */
-function checkdesk_field__geolocation_latlng(&$variables) {
-  $output = '';
-  foreach ($variables['element']['#items'] as $key => $location) {
-    $output = '<b>' . $variables['label'] . ':</b> ' . l($location['lat'] . ',' . $location['lng'], 'https://www.google.com/maps/?q=' . $location['lat'] . ',' . $location['lng']);
-  }
-  return $output;
-}
- 
 
 /**
  * Field: Tags
