@@ -250,8 +250,11 @@ span.content-labels {
 
 .media-metadata {
 	padding: 0 6px 8px;
-	background-color: #fff;
 	@include cd-responsive('min-width: #{$width-tablet}') {
 		padding: 0 20px 15px 20px;
 	}
+	font-size: 14px;
+	color: $firefly40;
+	background-color: #fff;
+
 } 
