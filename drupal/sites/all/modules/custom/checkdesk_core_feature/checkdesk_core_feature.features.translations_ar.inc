@@ -620,6 +620,15 @@ function checkdesk_core_feature_translations_ar_defaults() {
     'plural' => 0,
   );
   $translatables[] = t('Uses reports added by !users', array(), array('context' => ''));
+  $translations['ar:default']['0bee82e2011afaf527af083433a17c35'] = array(
+    'source' => 'My Location',
+    'context' => '',
+    'location' => 'sites/all/modules/contrib/geolocation/modules/geolocation_googlemaps/geolocation_googlemaps_widget.js',
+    'translation' => 'موقعي الحالي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('My Location', array(), array('context' => ''));
   $translations['ar:default']['0c44eee1298157ea76fa8600aaa6dc85'] = array(
     'source' => 'Shows result summary, for example the items per page.',
     'context' => '',
@@ -1495,6 +1504,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Sign In with Twitter', array(), array('context' => ''));
+  $translations['ar:default']['1e6cf70467eb6caca927135e8947aebe'] = array(
+    'source' => 'Latitude/Longitude',
+    'context' => '',
+    'location' => '/ar/node/347/edit',
+    'translation' => 'خط عرض / خط طول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Latitude/Longitude', array(), array('context' => ''));
   $translations['ar:default']['1eb0cc534cd16bdd458c37100e844868'] = array(
     'source' => 'Comments allowed',
     'context' => '',
@@ -1688,6 +1706,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Published changes on', array(), array('context' => ''));
+  $translations['ar:default']['20e468d4ab028872b4a23f2a938596a8'] = array(
+    'source' => 'Get location',
+    'context' => '',
+    'location' => '/ar/node/347/edit',
+    'translation' => 'حدد الموقع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Get location', array(), array('context' => ''));
   $translations['ar:default']['2182a74bab7188d959e795d9301e87ff'] = array(
     'source' => 'Markdown',
     'context' => '',
@@ -2821,6 +2848,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('User role', array(), array('context' => ''));
+  $translations['ar:default']['3b0eb7469ba9c95f3a05c4cef1f6aac4'] = array(
+    'source' => 'Latitude',
+    'context' => '',
+    'location' => '/ar/search?type=report&field_tags_tid=25&sort_bef_combine=created%20ASC&status=1&field_rating_tid=3&media_flags=All&report_story=68',
+    'translation' => 'خط العرض',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Latitude', array(), array('context' => ''));
   $translations['ar:default']['3b4a7c287763d99a180f2e57f9d27b48'] = array(
     'source' => 'The name of the application that posted the Twitter message.',
     'context' => '',
@@ -4521,6 +4557,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Message text', array(), array('context' => ''));
+  $translations['ar:default']['5b8ed30bd025dff945972987f7ab17c6'] = array(
+    'source' => ', or use your browser geolocation system by clicking this link',
+    'context' => '',
+    'location' => 'sites/all/modules/contrib/geolocation/modules/geolocation_googlemaps/geolocation_googlemaps_widget.js',
+    'translation' => ' وكذلك إختيار موقع على الخريطة أو إستخدام المتصفح لتحديد موقعك الحالي ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t(', or use your browser geolocation system by clicking this link', array(), array('context' => ''));
   $translations['ar:default']['5bb1581957111fc7938efa74d236b8b5'] = array(
     'source' => 'Media sources of the node',
     'context' => '',
@@ -7768,6 +7813,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Heartbeat activity username', array(), array('context' => ''));
+  $translations['ar:default']['9b4dabc50f0b8ccba1c8981831abdad8'] = array(
+    'source' => 'Longitude',
+    'context' => '',
+    'location' => '/ar/search?type=report&field_tags_tid=25&sort_bef_combine=created%20ASC&status=1&field_rating_tid=3&media_flags=All&report_story=68',
+    'translation' => 'خط الطول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Longitude', array(), array('context' => ''));
   $translations['ar:default']['9bebc34a2552fbf70fa3a8d9e7d972b5'] = array(
     'source' => 'The universally unique ID of the @type.',
     'context' => '',
@@ -10324,6 +10378,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('@group (historical data)', array(), array('context' => ''));
+  $translations['ar:default']['cad3242d69e6b7fc91039dc3aefd6a0b'] = array(
+    'source' => 'Enter an address / location / Google map URL in the textfield or you can also click on the map to set a marker',
+    'context' => '',
+    'location' => '/ar/node/347/edit',
+    'translation' => 'يمكنك إدخال عنوان أو احداثيات أو رابط Google Maps',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Enter an address / location / Google map URL in the textfield or you can also click on the map to set a marker', array(), array('context' => ''));
   $translations['ar:default']['cba11c1f002216777f82e149e6fe5c12'] = array(
     'source' => 'Email address or username',
     'context' => '',
@@ -10423,6 +10486,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('The number of new comments on the node.', array(), array('context' => ''));
+  $translations['ar:default']['ce21470ab49d1d1976bc3dc72438c183'] = array(
+    'source' => 'Metadata',
+    'context' => '',
+    'location' => '/ar/node/923/edit',
+    'translation' => 'بيانات تعريف',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Metadata', array(), array('context' => ''));
   $translations['ar:default']['ce6103890e53a115b49c178f5f6bfe89'] = array(
     'source' => 'Get the actual content from a content revision.',
     'context' => '',
@@ -11338,6 +11410,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Drafts', array(), array('context' => ''));
+  $translations['ar:default']['db3c97094bfb54a86a1d030686de538c'] = array(
+    'source' => 'Latitude:',
+    'context' => '',
+    'location' => '/ar/node/347/edit',
+    'translation' => 'خط العرض :',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Latitude:', array(), array('context' => ''));
   $translations['ar:default']['db5eb84117d06047c97c9a0191b5fffe'] = array(
     'source' => 'Support',
     'context' => '',
@@ -12013,6 +12094,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('!screen_name sorry, I can only understand a single link to import.', array(), array('context' => ''));
+  $translations['ar:default']['e9ffdc633c321ea37f0d0b009af9af5a'] = array(
+    'source' => 'Longitude:',
+    'context' => '',
+    'location' => '/ar/node/347/edit',
+    'translation' => 'خط الطول :',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Longitude:', array(), array('context' => ''));
   $translations['ar:default']['ea2337393dd487ccd50084e2506638b8'] = array(
     'source' => '<a class="actor" href="!user_url">!username</a> added a new <a href="!story_url">story</a>',
     'context' => '',

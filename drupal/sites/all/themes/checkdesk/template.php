@@ -32,6 +32,19 @@ function checkdesk_theme() {
 
 function checkdesk_preprocess_field(&$variables, $hook) {
   $element = $variables['element'];
+  // Add a custom tpl for metadata fields
+  $metadata_fields = _checkdesk_metadata_group_fields();
+  if (in_array($element['#field_name'], $metadata_fields)) {
+    $variables['theme_hook_suggestions'][] = 'field__metadata_media_fields';
+    if ($variables['element']['#field_type'] == 'geolocation_latlng' && $variables['element']['#view_mode'] == 'full') {
+      $geo_map_link = array();
+      foreach ($variables['element']['#items'] as $key => $location) {
+        $geo_map_link[] = l($location['lat'] . ',' . $location['lng'], 'https://www.google.com/maps/?q=' . $location['lat'] . ',' . $location['lng']);
+      }
+      $variables['element']['#geo_map_link'] = $geo_map_link;
+    }
+  }
+
   if ($element['#field_name'] == 'field_link') {
     $embed = $element['#object']->embed;
     $node = $element['#object'];
@@ -1099,7 +1112,6 @@ function checkdesk_field__field_rating(&$variables) {
   return $output;
 }
 
-
 /**
  * Field: Tags
  */
@@ -1720,26 +1732,27 @@ function _checkdesk_story_authors($node) {
   return $story_authors;
 }
 
+/**
+ * Returns HTML for a date_select 'date' label.
+ */
+function checkdesk_date_part_label_date($variables) {
+  $label = 'Date';
+  $metadata_fields =_checkdesk_metadata_group_fields();
+  if (in_array($variables['element']['#field']['field_name'], $metadata_fields)) {
+    $label = $variables['element']['#date_title'] .' - Date';
+  }
+  return t($label, array(), array('context' => 'datetime'));
+}
 
 /**
- * Return view output with container markup
- * @param $title
- * @param $view_output
- * @return html output
+ * Returns HTML for a date_select 'time' label.
  */
-function _checkdesk_container_markup($title, $view_output) { 
-  $output = '';
-  $output .= '<section class="cd-container">';
-  $output .= '<div class="cd-container-inner">';
-  if (!empty($title)) {
-    $output .= '<div class="cd-container-header">';
-    $output .= '<h2 class="cd-container-header-title">' . $title . '</h2>';
-    $output .= '</div>';
+function checkdesk_date_part_label_time($variables) {
+  $label = 'Time';
+  $metadata_fields =_checkdesk_metadata_group_fields();
+  if (in_array($variables['element']['#field']['field_name'], $metadata_fields)) {
+    $label = $variables['element']['#date_title'] .' - Time';
   }
-  $output .= '<div class="cd-container-body">';
-  $output .= $view_output;
-  $output .= '</div>';
-  $output .= '</section>';
-
-  return $output;
+  return t($label, array(), array('context' => 'datetime'));
 }
+

@@ -4,6 +4,9 @@
       <section class="media-holder item-content-wrapper<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
         <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
       </section>
+
+      <?php print $content['metadata_fields']; ?>
+
       <?php print $report_activity; ?>
       <?php if (!empty($published_stories)) : ?>
         <section class="report-detail">
@@ -12,6 +15,7 @@
           </div>
         </section>
       <?php endif; ?>
+
     </div>
   </article>
 
@@ -21,7 +25,6 @@
       <?php print render($content['field_tags']); ?>
     <?php endif ?>
   </aside>
-
   <?php if (isset($modal_class_hack)): ?>
     <?php print $modal_class_hack; ?>
   <?php endif; ?>

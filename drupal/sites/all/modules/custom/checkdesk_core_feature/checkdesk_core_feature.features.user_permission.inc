@@ -883,6 +883,16 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
+  // Exported permission: 'export reports'.
+  $permissions['export reports'] = array(
+    'name' => 'export reports',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'checkdesk_core',
+  );
+
   // Exported permission: 'manage features'.
   $permissions['manage features'] = array(
     'name' => 'manage features',

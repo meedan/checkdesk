@@ -10,7 +10,7 @@
 function checkdesk_core_feature_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'comment-comment_node_media-comment_body'
+  // Exported field_instance: 'comment-comment_node_media-comment_body'.
   $field_instances['comment-comment_node_media-comment_body'] = array(
     'bundle' => 'comment_node_media',
     'default_value' => NULL,
@@ -80,7 +80,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_media-field_rating'
+  // Exported field_instance: 'comment-comment_node_media-field_rating'.
   $field_instances['comment-comment_node_media-field_rating'] = array(
     'bundle' => 'comment_node_media',
     'default_value' => NULL,
@@ -115,7 +115,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'flagging-factcheck-field_reason'
+  // Exported field_instance: 'flagging-factcheck-field_reason'.
   $field_instances['flagging-factcheck-field_reason'] = array(
     'bundle' => 'factcheck',
     'default_value' => NULL,
@@ -180,7 +180,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'flagging-graphic-field_reason'
+  // Exported field_instance: 'flagging-graphic-field_reason'.
   $field_instances['flagging-graphic-field_reason'] = array(
     'bundle' => 'graphic',
     'default_value' => NULL,
@@ -245,7 +245,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'flagging-spam-field_reason'
+  // Exported field_instance: 'flagging-spam-field_reason'.
   $field_instances['flagging-spam-field_reason'] = array(
     'bundle' => 'spam',
     'default_value' => NULL,
@@ -310,7 +310,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-discussion-body'
+  // Exported field_instance: 'node-discussion-body'.
   $field_instances['node-discussion-body'] = array(
     'bundle' => 'discussion',
     'default_value' => NULL,
@@ -426,7 +426,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-discussion-field_additional_authors'
+  // Exported field_instance: 'node-discussion-field_additional_authors'.
   $field_instances['node-discussion-field_additional_authors'] = array(
     'bundle' => 'discussion',
     'default_value' => NULL,
@@ -496,7 +496,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-discussion-field_lead_image'
+  // Exported field_instance: 'node-discussion-field_lead_image'.
   $field_instances['node-discussion-field_lead_image'] = array(
     'bundle' => 'discussion',
     'deleted' => 0,
@@ -587,7 +587,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-discussion-field_section'
+  // Exported field_instance: 'node-discussion-field_section'.
   $field_instances['node-discussion-field_section'] = array(
     'bundle' => 'discussion',
     'default_value' => NULL,
@@ -652,7 +652,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-discussion-field_tags'
+  // Exported field_instance: 'node-discussion-field_tags'.
   $field_instances['node-discussion-field_tags'] = array(
     'bundle' => 'discussion',
     'default_value' => NULL,
@@ -725,7 +725,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-media-body'
+  // Exported field_instance: 'node-media-body'.
   $field_instances['node-media-body'] = array(
     'bundle' => 'media',
     'default_value' => NULL,
@@ -842,7 +842,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-media-field_link'
+  // Exported field_instance: 'node-media-field_link'.
   $field_instances['node-media-field_link'] = array(
     'bundle' => 'media',
     'default_value' => NULL,
@@ -886,7 +886,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'module' => 'meedan_oembed',
         'settings' => array(),
         'type' => 'meedan_full_mode',
-        'weight' => 3,
+        'weight' => 2,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -937,7 +937,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-media-field_rating'
+  // Exported field_instance: 'node-media-field_rating'.
   $field_instances['node-media-field_rating'] = array(
     'bundle' => 'media',
     'default_value' => array(
@@ -979,7 +979,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 1,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1011,7 +1011,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-media-field_stories'
+  // Exported field_instance: 'node-media-field_stories'.
   $field_instances['node-media-field_stories'] = array(
     'bundle' => 'media',
     'default_value' => NULL,
@@ -1052,7 +1052,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 11,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1088,7 +1088,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-media-field_tags'
+  // Exported field_instance: 'node-media-field_tags'.
   $field_instances['node-media-field_tags'] = array(
     'bundle' => 'media',
     'default_value' => NULL,
@@ -1119,7 +1119,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 10,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1159,7 +1159,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-page-body'
+  // Exported field_instance: 'node-page-body'.
   $field_instances['node-page-body'] = array(
     'bundle' => 'page',
     'default_value' => NULL,
@@ -1259,7 +1259,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-page-field_file'
+  // Exported field_instance: 'node-page-field_file'.
   $field_instances['node-page-field_file'] = array(
     'bundle' => 'page',
     'deleted' => 0,
@@ -1326,7 +1326,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-post-body'
+  // Exported field_instance: 'node-post-body'.
   $field_instances['node-post-body'] = array(
     'bundle' => 'post',
     'default_value' => NULL,
@@ -1439,7 +1439,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-post-field_desk'
+  // Exported field_instance: 'node-post-field_desk'.
   $field_instances['node-post-field_desk'] = array(
     'bundle' => 'post',
     'default_value' => NULL,
@@ -1510,7 +1510,54 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_bio'
+  // Exported field_instance: 'taxonomy_term-media_rating-field_status_icon'.
+  $field_instances['taxonomy_term-media_rating-field_status_icon'] = array(
+    'bundle' => 'media_rating',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'exclude_cv' => 0,
+    'field_name' => 'field_status_icon',
+    'label' => 'status icon',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'exclude_cv' => FALSE,
+      'file_directory' => 'status_icons',
+      'file_extensions' => 'png gif jpg jpeg',
+      'image_field_caption' => 0,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_bio'.
   $field_instances['user-user-field_bio'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -1591,6 +1638,7 @@ function checkdesk_core_feature_field_default_field_instances() {
   t('Story');
   t('Tags');
   t('Upload some file to be attached to content.');
+  t('status icon');
 
   return $field_instances;
 }

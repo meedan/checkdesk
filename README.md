@@ -58,7 +58,7 @@ Checkdesk installation is similar to a [standard Drupal installation](https://dr
        |---html                                      # HTML tests
 
 # Compiling SASS
-The Checkdesk theme uses [SASS](http://sass-lang.com/). Although the repo contains the pre-compiled CSS files, you will need to setup a working SASS development environment if you wish to modify the theme. Install [Ruby](https://www.ruby-lang.org) then type the following in a console from the Checkdesk root folder:
+The Checkdesk theme uses [SASS](http://sass-lang.com/). Although the repo contains the pre-compiled CSS files, you will need to setup a working SASS development environment if you wish to modify the theme. Install [Ruby 1.9.3+ (but not 2.x)](https://www.ruby-lang.org) then type the following in a console from the Checkdesk root folder:
     
     > gem install bundler
     > bundle install

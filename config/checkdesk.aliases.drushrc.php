@@ -20,6 +20,9 @@ $aliases['prod'] = array(
 //    '@prod.globalvoices'
 $aliases['qa'] = array(
   'site-list' => array('@qa.meedan'),
+  'site-list' => array('@qa.bellingcat'),
+  'site-list' => array('@qa.almanassa'),
+  'site-list' => array('@qa.globalvoices'),
 );
 
 // prod aliases
@@ -87,8 +90,8 @@ $aliases['prod.almanassa'] = array (
 
 // qa aliases
 $aliases['qa-alias'] = array (
-  'remote-host' => 'qa.checkdesk.org',
-  'ssh-options' => '-p 43896',
+  'remote-host' => 'otta.meedan.net',
+  'ssh-options' => '-p 4229',
   'path-aliases' =>
   array (
     '%drush' => '/usr/share/php/drush',
@@ -98,7 +101,25 @@ $aliases['qa-alias'] = array (
 $aliases['qa.meedan'] = array (
   'parent' => '@qa-alias',
   'uri' => 'qa.checkdesk.org',
-  'root' => '/var/www/checkdesk.qa/current/drupal',
+  'root' => '/var/www/checkdesk/current/drupal',
+);
+
+$aliases['qa.bellingcat'] = array (
+  'parent' => '@qa-alias',
+  'uri' => 'bellingcat.qa.checkdesk.org',
+  'root' => '/var/www/checkdesk/current/drupal',
+);
+
+$aliases['qa.almanassa'] = array (
+  'parent' => '@qa-alias',
+  'uri' => 'almanassa.qa.checkdesk.org',
+  'root' => '/var/www/checkdesk/current/drupal',
+);
+
+$aliases['qa.globalvoices'] = array (
+  'parent' => '@qa-alias',
+  'uri' => 'gv.qa.checkdesk.org',
+  'root' => '/var/www/checkdesk/current/drupal',
 );
 
 // dev template
