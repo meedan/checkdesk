@@ -10378,6 +10378,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('@group (historical data)', array(), array('context' => ''));
+  $translations['ar:default']['cad3242d69e6b7fc91039dc3aefd6a0b'] = array(
+    'source' => 'Enter an address / location / Google map URL in the textfield or you can also click on the map to set a marker',
+    'context' => '',
+    'location' => '/ar/node/347/edit',
+    'translation' => 'يمكنك إدخال عنوان أو احداثيات أو رابط Google Maps',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Enter an address / location / Google map URL in the textfield or you can also click on the map to set a marker', array(), array('context' => ''));
   $translations['ar:default']['cba11c1f002216777f82e149e6fe5c12'] = array(
     'source' => 'Email address or username',
     'context' => '',
