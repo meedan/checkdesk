@@ -10423,6 +10423,15 @@ Go to !story_url to compose a new update to the story using that report.', array
     'plural' => 0,
   );
   $translatables[] = t('The number of new comments on the node.', array(), array('context' => ''));
+  $translations['ar:default']['ce21470ab49d1d1976bc3dc72438c183'] = array(
+    'source' => 'Metadata',
+    'context' => '',
+    'location' => '/ar/node/923/edit',
+    'translation' => 'بيانات تعريف',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Metadata', array(), array('context' => ''));
   $translations['ar:default']['ce6103890e53a115b49c178f5f6bfe89'] = array(
     'source' => 'Get the actual content from a content revision.',
     'context' => '',
