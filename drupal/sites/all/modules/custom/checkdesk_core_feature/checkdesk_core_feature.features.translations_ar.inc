@@ -1504,6 +1504,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Sign In with Twitter', array(), array('context' => ''));
+  $translations['ar:default']['1e6cf70467eb6caca927135e8947aebe'] = array(
+    'source' => 'Latitude/Longitude',
+    'context' => '',
+    'location' => '/ar/node/347/edit',
+    'translation' => 'خط عرض / خط طول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Latitude/Longitude', array(), array('context' => ''));
   $translations['ar:default']['1eb0cc534cd16bdd458c37100e844868'] = array(
     'source' => 'Comments allowed',
     'context' => '',
@@ -2839,6 +2848,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('User role', array(), array('context' => ''));
+  $translations['ar:default']['3b0eb7469ba9c95f3a05c4cef1f6aac4'] = array(
+    'source' => 'Latitude',
+    'context' => '',
+    'location' => '/ar/search?type=report&field_tags_tid=25&sort_bef_combine=created%20ASC&status=1&field_rating_tid=3&media_flags=All&report_story=68',
+    'translation' => 'خط العرض',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Latitude', array(), array('context' => ''));
   $translations['ar:default']['3b4a7c287763d99a180f2e57f9d27b48'] = array(
     'source' => 'The name of the application that posted the Twitter message.',
     'context' => '',
@@ -4543,7 +4561,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => ', or use your browser geolocation system by clicking this link',
     'context' => '',
     'location' => 'sites/all/modules/contrib/geolocation/modules/geolocation_googlemaps/geolocation_googlemaps_widget.js',
-    'translation' => 'وكذلك إختيار موقع على الخريطة أو إستخدام المتصفح لتحديد موقعك الحالي',
+    'translation' => ' وكذلك إختيار موقع على الخريطة أو إستخدام المتصفح لتحديد موقعك الحالي ',
     'plid' => 0,
     'plural' => 0,
   );
@@ -7795,6 +7813,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Heartbeat activity username', array(), array('context' => ''));
+  $translations['ar:default']['9b4dabc50f0b8ccba1c8981831abdad8'] = array(
+    'source' => 'Longitude',
+    'context' => '',
+    'location' => '/ar/search?type=report&field_tags_tid=25&sort_bef_combine=created%20ASC&status=1&field_rating_tid=3&media_flags=All&report_story=68',
+    'translation' => 'خط الطول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Longitude', array(), array('context' => ''));
   $translations['ar:default']['9bebc34a2552fbf70fa3a8d9e7d972b5'] = array(
     'source' => 'The universally unique ID of the @type.',
     'context' => '',
@@ -11374,6 +11401,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Drafts', array(), array('context' => ''));
+  $translations['ar:default']['db3c97094bfb54a86a1d030686de538c'] = array(
+    'source' => 'Latitude:',
+    'context' => '',
+    'location' => '/ar/node/347/edit',
+    'translation' => 'خط العرض :',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Latitude:', array(), array('context' => ''));
   $translations['ar:default']['db5eb84117d06047c97c9a0191b5fffe'] = array(
     'source' => 'Support',
     'context' => '',
@@ -12049,6 +12085,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('!screen_name sorry, I can only understand a single link to import.', array(), array('context' => ''));
+  $translations['ar:default']['e9ffdc633c321ea37f0d0b009af9af5a'] = array(
+    'source' => 'Longitude:',
+    'context' => '',
+    'location' => '/ar/node/347/edit',
+    'translation' => 'خط الطول :',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Longitude:', array(), array('context' => ''));
   $translations['ar:default']['ea2337393dd487ccd50084e2506638b8'] = array(
     'source' => '<a class="actor" href="!user_url">!username</a> added a new <a href="!story_url">story</a>',
     'context' => '',
