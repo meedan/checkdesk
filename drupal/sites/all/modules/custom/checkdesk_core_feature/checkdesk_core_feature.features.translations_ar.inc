@@ -4539,6 +4539,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Message text', array(), array('context' => ''));
+  $translations['ar:default']['5b8ed30bd025dff945972987f7ab17c6'] = array(
+    'source' => ', or use your browser geolocation system by clicking this link',
+    'context' => '',
+    'location' => 'sites/all/modules/contrib/geolocation/modules/geolocation_googlemaps/geolocation_googlemaps_widget.js',
+    'translation' => 'وكذلك إختيار موقع على الخريطة أو إستخدام المتصفح لتحديد موقعك الحالي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t(', or use your browser geolocation system by clicking this link', array(), array('context' => ''));
   $translations['ar:default']['5bb1581957111fc7938efa74d236b8b5'] = array(
     'source' => 'Media sources of the node',
     'context' => '',
