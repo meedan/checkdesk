@@ -1,9 +1,6 @@
 #ui-datepicker-div {
-  font-size: 100%;
-  font-family: Verdana, sans-serif;
-  background: #eee;
-  border-right: 2px #666 solid;
-  border-bottom: 2px #666 solid;
+  background: #fafbfb;
+  border: 1px #e7e8ea solid;
   z-index: 9999;
 }
 
@@ -11,7 +8,10 @@
 ----------------------------------*/
 .ui-datepicker {
   width: 17em;
-  padding: .2em .2em 0;
+  padding-top: .2em;
+  padding-left: .2em;
+  padding-right: .2em;
+  padding-bottom: 0;
 }
 
 .ui-datepicker .ui-datepicker-header {
@@ -117,9 +117,15 @@
 
 .ui-datepicker .ui-datepicker-buttonpane button {
   float: right;
-  margin: .5em .2em .4em;
+  margin-top: .5em;
+  margin-left: .2em;
+  margin-right: .2em;
+  margin-bottom: .4em;
   cursor: pointer;
-  padding: .2em .6em .3em .6em;
+  padding-top: .2em;
+  padding-right: .6em;
+  padding-bottom: .3em;
+  padding-left: .6em;
   width: auto;
   overflow: visible;
 }
