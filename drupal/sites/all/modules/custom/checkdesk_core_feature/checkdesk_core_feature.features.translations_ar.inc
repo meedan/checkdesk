@@ -620,6 +620,15 @@ function checkdesk_core_feature_translations_ar_defaults() {
     'plural' => 0,
   );
   $translatables[] = t('Uses reports added by !users', array(), array('context' => ''));
+  $translations['ar:default']['0bee82e2011afaf527af083433a17c35'] = array(
+    'source' => 'My Location',
+    'context' => '',
+    'location' => 'sites/all/modules/contrib/geolocation/modules/geolocation_googlemaps/geolocation_googlemaps_widget.js',
+    'translation' => 'موقعي الحالي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('My Location', array(), array('context' => ''));
   $translations['ar:default']['0c44eee1298157ea76fa8600aaa6dc85'] = array(
     'source' => 'Shows result summary, for example the items per page.',
     'context' => '',
@@ -1688,6 +1697,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Published changes on', array(), array('context' => ''));
+  $translations['ar:default']['20e468d4ab028872b4a23f2a938596a8'] = array(
+    'source' => 'Get location',
+    'context' => '',
+    'location' => '/ar/node/347/edit',
+    'translation' => 'حدد الموقع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Get location', array(), array('context' => ''));
   $translations['ar:default']['2182a74bab7188d959e795d9301e87ff'] = array(
     'source' => 'Markdown',
     'context' => '',
