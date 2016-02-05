@@ -3403,14 +3403,14 @@ function _checkdesk_purge_varnish($paths) {
         if (!$purge_all) {
           foreach ($paths as $path) {
             foreach($languages as $key => $value) {
-              $urls[] = url($path, array(
+              $urls[] = ltrim(url($path, array(
                 'language' => $languages[$key],
-              ));
+              )), '/');
             }
           }
         }
         else {
-          $urls = array(base_path());
+          $urls = array(ltrim(base_path(), '/'));
         }
         varnish_purge_paths($hostname, $urls);
         //adding sleep for 2 seconds
