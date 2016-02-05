@@ -3228,6 +3228,22 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
 
   // Add CSS file for geolocation google maps field when module is enabled
   if (module_exists('geolocation_googlemaps')) {
+    
+    // Adjust classes for the buttons inside google maps widget
+
+    $form['field_location']['und'][0]['address']['geocode']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-get-location">' . $form['field_location']['und'][0]['address']['geocode']['#prefix'];
+    $form['field_location']['und'][0]['address']['geocode']['#suffix'] = $form['field_location']['und'][0]['address']['geocode']['#suffix'] . '</div>';
+
+
+    $form['field_location']['und'][0]['googlemap']['#prefix'] = '<div class="geolocation-selection-wrapper">' . $form['field_location']['und'][0]['googlemap']['#prefix'];
+
+    $form['field_location']['und'][0]['latitem']['#prefix'] = '<div class="geolocation-values-wrapper"><div class="geolocation-selection">' . $form['field_location']['und'][0]['latitem']['#prefix'];
+    $form['field_location']['und'][0]['lngitem']['#suffix'] = $form['field_location']['und'][0]['lngitem']['#suffix'] . '</div>';
+
+    $form['field_location']['und'][0]['remove']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-selection-remove-button">' . $form['field_location']['und'][0]['remove']['#prefix'];
+    $form['field_location']['und'][0]['remove']['#suffix'] = $form['field_location']['und'][0]['remove']['#suffix'] . '</div></div></div>';
+
+    // add geolocation google maps css file
     drupal_add_css(
       drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/geolocation_googlemaps.css',
       array(

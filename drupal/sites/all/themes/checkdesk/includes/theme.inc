@@ -176,6 +176,13 @@ function checkdesk_css_alter(&$css) {
   global $language;
   if ($language->direction == LANGUAGE_RTL) {
     unset($css['sites/all/themes/checkdesk/assets/css/style.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/autocomplete.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/jquery_ui_tabs.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/jquery_ui_dialog.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/components/chosen.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/components/media.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/datepicker.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/geolocation_googlemaps.css']);
   }
   // keep css for some modules
   $keep_css = array(
