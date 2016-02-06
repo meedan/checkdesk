@@ -24,7 +24,6 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
   // Custom report form for bookmarklet
   if ($form_id == variable_get('meedan_bookmarklet_content_type', 'page') . '_node_form') {
     global $user;
-    $form['actions']['draft']['#access'] = FALSE;
     if (!empty($GLOBALS['meedan_bookmarklet_page_template'])) {
       // Just show explanation about the bookmarklet
       $form['help'] = array(
