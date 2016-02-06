@@ -1,0 +1,437 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function checkdesk_reports_menu() {
+    $items = array();
+    $items['node/%checkdesk_report/checkdesk/suggest'] = array(
+        'title' => 'Add report to story',
+        'title callback' => '_checkdesk_core_report_suggest_title',
+        'title arguments' => array(1),
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('_checkdesk_core_report_suggest', 1),
+        'access callback' => '_checkdesk_core_report_can_suggest',
+        'access arguments' => array(1),
+        'file' => 'checkdesk.report_suggest.inc',
+        'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
+    );
+    $items['node/%checkdesk_report/checkdesk/modal/suggest/%ctools_js'] = array(
+        'title' => 'Add report to story',
+        'title callback' => '_checkdesk_core_report_suggest_title',
+        'title arguments' => array(1),
+        'page callback' => '_checkdesk_core_report_suggest_modal',
+        'page arguments' => array(1, 5),
+        'access callback' => '_checkdesk_core_report_can_suggest',
+        'access arguments' => array(1),
+        'type' => MENU_CALLBACK,
+        'file' => 'checkdesk.report_suggest.inc',
+        'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
+    );
+    $items['node/flag/confirm/%/%flag/%/%ctools_js'] = array(
+        'title' => 'Confirm',
+        'page callback' => '_checkdesk_core_flags_confirm_modal',
+        'page arguments' => array(3, 4, 5, 6),
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    $items['checkdesk/reports'] = array(
+        'title' => 'Reports',
+        'page callback' => '_checkdesk_goto_search',
+        'page arguments' => array('reports'),
+        'access arguments' => array('access content'),
+    );
+    $items['reports-export'] = array(
+        'title' => 'Export reports as CSV',
+        'page callback' => '_checkdesk_reports_export',
+        'access arguments' => array('access content'),
+        'file' => 'checkdesk.reports.export.inc',
+        'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
+    );
+    return $items;
+}
+
+/**
+ * Load function for reports.
+ */
+function checkdesk_report_load($nid) {
+    $report = node_load($nid);
+    if ($report && $report->type === 'media') {
+        return $report;
+    }
+    return FALSE;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function checkdesk_reports_permission() {
+    return array(
+        'add report to story' => array(
+            'title' => t('Add report to story'),
+            'description' => t('User can add a report to a story. Otherwise, only allowed to suggest the addition.'),
+        ),
+        'change report status' => array(
+            'title' => t('Change report status'),
+            'description' => t('User can change report status.'),
+        ),
+        'export reports' => array(
+            'title' => t('Export reports'),
+            'description' => t('User can export reports.'),
+        ),
+    );
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
+    global $user;
+    // Adjust edit node form
+    $form['#attributes']['class'][] = 'cd-report-duplicates';
+    $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
+    $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
+
+    if (isset($form['nid']['#value'])) {
+        $node = $form['#node'];
+        drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
+    }
+    //set default story if exist.
+    elseif (isset($_GET['ref_nid'])) {
+        $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
+    }
+    //set default url if exist.
+    if (isset($_GET['url'])) {
+        $form['field_link'][LANGUAGE_NONE][0]['#default_value']['url'] = $_GET['url'];
+    }
+
+    $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);
+    $form['field_stories'][LANGUAGE_NONE]['#options'] = $options;
+    // Handle HTML entities
+    foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
+        $option = decode_entities($option);
+    }
+
+    if($form['field_stories']) {
+        _checkdesk_add_chosen_components();
+    }
+
+    // Add CSS file for autocomplete field
+    if($form['field_tags']) {
+        drupal_add_css(
+            drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/autocomplete.css',
+            array(
+                'scope' => 'footer',
+                'group' => CSS_THEME,
+                'weight' => '9991',
+                'every_page' => FALSE,
+            )
+        );
+    }
+
+    // Add CSS file for date popup field when module is enabled
+    if (module_exists('date_popup')) {
+        drupal_add_css(
+            drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/datepicker.css',
+            array(
+                'scope' => 'footer',
+                'group' => CSS_THEME,
+                'weight' => '9992',
+                'every_page' => FALSE,
+            )
+        );
+    }
+
+    // Add CSS file for geolocation google maps field when module is enabled
+    if (module_exists('geolocation_googlemaps')) {
+        drupal_add_css(
+            drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/geolocation_googlemaps.css',
+            array(
+                'scope' => 'footer',
+                'group' => CSS_THEME,
+                'weight' => '9993',
+                'every_page' => FALSE,
+            )
+        );
+    }
+
+    // Redirect user to collaboration page.
+    $form['actions']['submit']['#submit'][] = '_redirect_report';
+    if (in_array('journalist', $user->roles)) {
+        // Hide comment settings
+        $form['comment_settings']['#access'] = FALSE;
+    }
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function checkdesk_reports_node_view($node, $view_mode, $langcode) {
+
+    // Add decorations to report nodes.
+    if ($node->type == 'media') {
+        $node->content['report_source'] = array(
+            '#theme' => 'checkdesk_core_report_source',
+            '#report' => $node,
+        );
+    }
+
+    if ($view_mode == 'full') {
+        $node->content['metadata_fields'] = theme('checkdesk_core_metadata_fields', array('node' => $node));
+    }
+    elseif ($view_mode == 'checkdesk_collaborate' || $view_mode == 'checkdesk_search') {
+        if ($node->type == 'media') {
+            $node->content['comments'] = comment_node_page_additions($node);
+            $heartbeat_row = isset($node->heartbeat_row) ? $node->heartbeat_row : '';
+            if ($heartbeat_row) {
+                $heartbeat_row = $node->heartbeat_row;
+                // Load activity status with verification footnote
+                if ($heartbeat_row->heartbeat_activity_message_id == 'status_report') {
+                    $heartbeat_activity = heartbeat_activity_load($heartbeat_row->uaid);
+                    $node->content['report_activity_status'] = array(
+                        '#theme' => 'checkdesk_core_report_activity_status',
+                        '#heartbeat_activity' => $heartbeat_activity,
+                    );
+                }
+                // Load verification footnote
+                if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_comment_on_report') {
+                    $heartbeat_activity = heartbeat_activity_load($heartbeat_row->uaid);
+                    $footnote = comment_load($heartbeat_activity->cid);
+                    $node->content['report_verification_footnote'] = isset($footnote->comment_body[LANGUAGE_NONE][0]['value']) ? $footnote->comment_body[LANGUAGE_NONE][0]['value'] : '';
+                }
+            }
+            $node->content['field_link'] = _checkdesk_core_render_activity_type($node, $heartbeat_row);
+        }
+    }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function checkdesk_reports_theme() {
+    $themes = array();
+    $base = array(
+        'file' => 'theme.inc',
+        'path' => drupal_get_path('module', 'checkdesk_reports') . '/theme',
+    );
+    $themes['checkdesk_core_report_source'] = array(
+            'template' => 'report_source',
+            'variables' => array(
+                'report' => NULL,
+            ),
+        ) + $base;
+
+    $themes['checkdesk_core_update_reports'] = array(
+            'template' => 'update_reports',
+            'variables' => array(
+                'reports' => NULL,
+            ),
+        ) + $base;
+
+    $themes['checkdesk_core_report_activity'] = array(
+            'template' => 'report_activity',
+            'variables' => array(
+                'node' => NULL,
+                'content' => NULL,
+                'view_mode' => NULL,
+            ),
+        ) + $base;
+
+    $themes['checkdesk_core_report_activity_status'] = array(
+            'template' => 'report_activity_status',
+            'variables' => array(
+                'heartbeat_activity' => NULL,
+            ),
+        ) + $base;
+
+    $themes['checkdesk_core_report_activity_count'] = array(
+            'template' => 'report_activity_count',
+            'variables' => array(
+                'count' => NULL,
+                'nid' => NULL,
+                'link_count' => NULL,
+            ),
+        ) + $base;
+
+    $themes['checkdesk_core_report_activity_stream'] = array(
+            'template' => 'report_activity_stream',
+            'variables' => array(
+                'activity' => NULL,
+                'nid' => NULL,
+            ),
+        ) + $base;
+    $themes['checkdesk_core_metadata_fields'] = array(
+            'template' => 'checkdesk_metadata_fields',
+            'variables' => array(
+                'node' => NULL,
+            ),
+        ) + $base;
+
+    return $themes;
+}
+
+define('RATING_NOT_APPLICABLE', 'Not Applicable');
+define('RATING_UNDETERNINED', 'Undetermined');
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `comment_node_media_form`.
+ */
+function checkdesk_reports_form_comment_node_media_form_alter(&$form, $form_state, $form_id) {
+    $term = isset($form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
+        $form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
+        taxonomy_term_load($form['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
+    if (in_array($term->name, array(RATING_NOT_APPLICABLE, RATING_UNDETERNINED))) {
+        $form['#access'] = FALSE;
+    }
+    else {
+        // Adjust node comments form
+        $nid = $form['#node']->nid;
+        $form['author']['homepage'] = NULL;
+        $form['author']['mail'] = NULL;
+        $form['actions']['submit']['#attributes']['class'] = array('btn');
+        $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['rows'] = 1;
+        $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['class'] = array('expanding');
+        $form['actions']['submit']['#value'] = t('Add footnote');
+        $form['actions']['submit']['#ajax'] = array(
+            'callback' => '_checkdesk_comment_form_submit',
+            'wrapper' => 'node-' . $nid,
+            'method' => 'replace',
+            'effect' => 'fade',
+        );
+        $form_state['ctools comment alter'] = FALSE;
+
+        $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add footnote');
+        $form['field_rating'][LANGUAGE_NONE]['#default_value'] = $term->name;
+
+        $form['field_rating'][LANGUAGE_NONE]['#prefix'] = '<div class="report-activity-edit-status"><span class="current-status ' . preg_replace('/\s+/', '-', trim(strtolower($term->name))) . '">' . t($term->name) . '</span>';
+        $form['field_rating'][LANGUAGE_NONE]['#suffix'] = '</div>';
+        $form['field_rating'][LANGUAGE_NONE]['#title'] = t('Edit Status');
+        $form['field_rating'][LANGUAGE_NONE]['#description'] = t('Pick the appropriate verification status');
+
+        // Options
+        $options = array();
+        foreach ($form['field_rating'][LANGUAGE_NONE]['#options'] as $tid => $name) {
+            if ($tid !== '_none') {
+                $term = taxonomy_term_load($tid);
+                $icon = _checkdesk_report_status_icon($term);
+                $options[$term->name] = $icon . t($term->name);
+            }
+        }
+        $form['field_rating'][LANGUAGE_NONE]['#options'] = array_reverse($options);
+        $form['#validate'] = array('_checkdesk_core_comment_form_validate');
+    }
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function checkdesk_reports_node_delete($node) {
+  if ($node->type == 'media') {
+        db_delete('checkdesk_reports_updates')
+            ->condition('report_nid', $node->nid)
+            ->execute();
+  }
+}
+
+/**
+ * Redirect user to collaboration page.
+ */
+function _redirect_report($form, &$form_state) {
+    $values = $form_state['values'];
+    if (!empty($values['field_stories'][LANGUAGE_NONE][0]['target_id'])) {
+        $form_state['redirect'] = 'node/' . $values['field_stories'][LANGUAGE_NONE][0]['target_id'] . '/collaboration';
+    }
+}
+
+/**
+ * Get status of a report
+ */
+function _checkdesk_report_status($report) {
+    global $language;
+    $report_status = array();
+
+    $term = isset($report->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
+        $report->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
+        taxonomy_term_load($report->field_rating[LANGUAGE_NONE][0]['tid']);
+    $status_name = $term->name;
+    $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
+    $icon = _checkdesk_report_status_icon($term);
+    $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
+    if($status_name != 'In Progress') {
+        $partner = i18n_variable_get('checkdesk_site_owner', $language->language) ?
+            i18n_variable_get('checkdesk_site_owner', $language->language) : i18n_variable_get('checkdesk_site_owner', 'en');
+        $status_by = t('by <span class="checkdesk-status-partner">@partner</span>',
+            array('@partner' => $partner));
+    }
+    // display status with an icon and "x by partner"
+    if(isset($status_name) && isset($icon) && isset($status_by)) {
+        $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
+    } else { // display status with an icon only
+        $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
+    }
+    $report_status['status'] = '<span class="media-status-report-'. $report->nid .'">' . $report_status['status'] .'</span>';
+    return $report_status;
+}
+
+/**
+ * @param $report
+ * @return string
+ */
+function _checkdesk_report_status_icon($term) {
+    $icon_class = '';
+    $status_name = $term->name;
+    // Set status icon
+    if (isset($term->field_status_icon[LANGUAGE_NONE][0]['uri'])) {
+        $icon = '<span class="checkdesk-status-icon"><img src="'. image_style_url('status_icon', $term->field_status_icon[LANGUAGE_NONE][0]['uri']) .'"></span>';
+    }
+    else {
+        if ($status_name == 'Verified') {
+            $icon_class = 'icon-check-circle';
+        } elseif ($status_name == 'In Progress') {
+            $icon_class = 'icon-random';
+        } elseif ($status_name == 'Undetermined') {
+            $icon_class = 'icon-question-circle';
+        } elseif ($status_name == 'False') {
+            $icon_class = 'icon-times-circle';
+        }
+        $icon = empty($icon_class) ? '' : '<span class="' . $icon_class . '"></span> ';
+    }
+    return $icon;
+}
+
+/**
+ * Load report activities based on issue #4287
+ */
+function _checkdesk_load_activity_report($nid) {
+    $view = views_get_view('activity_report');
+    $view->set_arguments(array($nid));
+    $view->get_total_rows = TRUE;
+    $view->display['default']->display_options['pager']['options']['items_per_page'] = variable_get('checkdesk_comments_first_limit', 20);
+    $view_output = $view->preview('block');
+    $view->destroy();
+    $total_rows = $view->total_rows;
+    if ($total_rows <= variable_get('checkdesk_comments_all_limit', 30)) {
+        $view->display['default']->display_options['pager']['options']['items_per_page'] = variable_get('checkdesk_comments_all_limit', 30);
+        $view_output = $view->preview('block');
+        $view->destroy();
+    }
+    return array(
+        'view_output' => $view_output,
+        'total_rows' => $total_rows,
+    );
+}
+
+/**
+ * Access function for
+ */
+function _checkdesk_core_report_can_suggest($report) {
+    global $user;
+    return user_access('add report to story');
+}
+
+/**
+ * Helper function to return metadata group fields.
+ */
+function _checkdesk_metadata_group_fields() {
+    return variable_get('checkdesk_metadata_fields', array());
+}
