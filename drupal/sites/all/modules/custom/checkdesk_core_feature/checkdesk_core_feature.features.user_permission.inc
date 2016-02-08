@@ -166,7 +166,7 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'journalist' => 'journalist',
     ),
-    'module' => 'checkdesk_core',
+    'module' => 'checkdesk_reports',
   );
 
   // Exported permission: 'add twitter accounts'.
@@ -468,7 +468,7 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'journalist' => 'journalist',
     ),
-    'module' => 'checkdesk_core',
+    'module' => 'checkdesk_reports',
   );
 
   // Exported permission: 'create article content'.
@@ -890,7 +890,7 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'journalist' => 'journalist',
     ),
-    'module' => 'checkdesk_core',
+    'module' => 'checkdesk_reports',
   );
 
   // Exported permission: 'manage features'.

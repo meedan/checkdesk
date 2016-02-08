@@ -572,3 +572,13 @@ function checkdesk_core_update_7058() {
   module_disable($module_list);
   drupal_uninstall_modules($module_list, FALSE);
 }
+
+/**
+ * Disable and uninstall bookmarklet modules
+ */
+function checkdesk_core_update_7059() {
+  $module_list = array('checkdesk_bookmarklet', 'meedan_bookmarklet');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+}
+

@@ -324,6 +324,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'checkdesk_search' => array(
         'label' => 'above',
         'module' => 'text',
@@ -439,6 +445,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 4,
       ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'checkdesk_search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -511,6 +523,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 1,
+      ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'checkdesk_search' => array(
         'label' => 'above',
@@ -601,6 +619,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'i18n_taxonomy_term_reference_link',
         'weight' => 3,
       ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'checkdesk_search' => array(
         'label' => 'hidden',
         'module' => 'i18n_taxonomy',
@@ -665,6 +689,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'settings' => array(),
         'type' => 'i18n_taxonomy_term_reference_link',
         'weight' => 2,
+      ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'checkdesk_search' => array(
         'label' => 'hidden',
@@ -737,6 +767,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'checkdesk_search' => array(
@@ -856,6 +892,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'meedan_inline_thumbnail',
         'weight' => 0,
       ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'checkdesk_search' => array(
         'label' => 'above',
         'module' => 'oembedthumbnail',
@@ -955,6 +997,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 0,
       ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'checkdesk_search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1025,6 +1073,12 @@ function checkdesk_core_feature_field_default_field_instances() {
           'link' => 1,
         ),
         'type' => 'entityreference_label',
+        'weight' => 0,
+      ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'checkdesk_search' => array(
@@ -1101,6 +1155,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'checkdesk_search' => array(
         'label' => 'hidden',
         'module' => 'taxonomy',
@@ -1167,6 +1227,12 @@ function checkdesk_core_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'checkdesk_collaborate' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'checkdesk_export' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1271,6 +1337,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'checkdesk_search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1338,6 +1410,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'checkdesk_search' => array(
@@ -1447,6 +1525,12 @@ function checkdesk_core_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'checkdesk_collaborate' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'checkdesk_export' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',

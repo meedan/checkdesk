@@ -219,8 +219,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'field_file' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -272,113 +271,18 @@ function checkdesk_core_feature_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 22:45:20 +0200',
-);
-  $nodes[] = array(
-  'uid' => 0,
-  'title' => 'Install bookmarklet',
-  'log' => '',
-  'status' => 1,
-  'comment' => 1,
-  'promote' => 0,
-  'sticky' => 0,
-  'vuuid' => 'dbc22e67-cc5a-acf4-a504-6c5e9b04fb6b',
-  'type' => 'page',
-  'language' => 'en',
-  'created' => 1362429920,
-  'tnid' => 1,
-  'translate' => 0,
-  'uuid' => '1244c020-f663-b564-b94c-2cf29b12afa4',
-  'revision_uid' => 0,
-  'body' => array(
-    'und' => array(
-      0 => array(
-        'value' => '<div class="info-page" id="info-page-install-bookmarklet">
-	<div class="install-bookmarklet-col">
-		<div id="install-bookmarklet-button">
-			<a class="cta" href="<?php print meedan_bookmarklet_get_code(); ?>">
-				<span>Send to <?php print variable_get(\'site_name\', \'this site\'); ?></span>
-			</a>
-			<div class="description">Drag this button to your bookmarks bar.</div>
-		</div>
-	</div>
-	<div class="install-bookmarklet-col">
-		<h2>Install Bookmarklet</h2>
-		<p>The browser bookmarklet allows you to send us reports from any page.</p>
-		<p>Once you install it, you can click it, preview how the report will appear, and send it to one of our stories.</p>
-		<p>To install the bookmarklet, drag the button into your browser&#39;s bookmarks toolbar.</p>
-	</div>
-</div>
-<script type="text/javascript">
-jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
-</script>',
-        'summary' => '',
-        'format' => 'php_code',
-      ),
-    ),
-  ),
-  'field_file' => array(),
-  'rdf_mapping' => array(
-    'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
-    ),
-    'title' => array(
-      'predicates' => array(
-        0 => 'dc:title',
-      ),
-    ),
-    'created' => array(
-      'predicates' => array(
-        0 => 'dc:date',
-        1 => 'dc:created',
-      ),
-      'datatype' => 'xsd:dateTime',
-      'callback' => 'date_iso8601',
-    ),
-    'changed' => array(
-      'predicates' => array(
-        0 => 'dc:modified',
-      ),
-      'datatype' => 'xsd:dateTime',
-      'callback' => 'date_iso8601',
-    ),
-    'body' => array(
-      'predicates' => array(
-        0 => 'content:encoded',
-      ),
-    ),
-    'uid' => array(
-      'predicates' => array(
-        0 => 'sioc:has_creator',
-      ),
-      'type' => 'rel',
-    ),
-    'name' => array(
-      'predicates' => array(
-        0 => 'foaf:name',
-      ),
-    ),
-    'comment_count' => array(
-      'predicates' => array(
-        0 => 'sioc:num_replies',
-      ),
-      'datatype' => 'xsd:integer',
-    ),
-    'last_activity' => array(
-      'predicates' => array(
-        0 => 'sioc:last_activity_date',
-      ),
-      'datatype' => 'xsd:dateTime',
-      'callback' => 'date_iso8601',
-    ),
-  ),
-  'name' => '',
-  'picture' => 0,
-  'data' => NULL,
+  'num_revisions' => 1,
+  'current_revision_id' => 1,
+  'is_current' => TRUE,
+  'is_pending' => FALSE,
+  'revision_moderation' => FALSE,
   'date' => '2013-03-04 22:45:20 +0200',
 );
   $nodes[] = array(
@@ -616,8 +520,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'field_file' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -669,9 +572,18 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
+  'num_revisions' => 1,
+  'current_revision_id' => 3,
+  'is_current' => TRUE,
+  'is_pending' => FALSE,
+  'revision_moderation' => FALSE,
   'date' => '2013-03-04 22:45:20 +0200',
 );
   $nodes[] = array(
@@ -736,8 +648,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'field_file' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -789,9 +700,18 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
+  'num_revisions' => 1,
+  'current_revision_id' => 4,
+  'is_current' => TRUE,
+  'is_pending' => FALSE,
+  'revision_moderation' => FALSE,
   'date' => '2013-03-04 22:45:20 +0200',
 );
   $nodes[] = array(
@@ -845,8 +765,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'field_file' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -898,113 +817,18 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 22:45:20 +0200',
-);
-  $nodes[] = array(
-  'uid' => 0,
-  'title' => 'تنصيب إضافة المتصفح',
-  'log' => '',
-  'status' => 1,
-  'comment' => 1,
-  'promote' => 0,
-  'sticky' => 0,
-  'vuuid' => '310a0c27-0d6b-3344-4d3b-6ce3884081f4',
-  'type' => 'page',
-  'language' => 'ar',
-  'created' => 1362429920,
-  'tnid' => 1,
-  'translate' => 0,
-  'uuid' => 'b9dfa9a5-9654-8894-d51b-027bff47c7f1',
-  'revision_uid' => 0,
-  'body' => array(
-    'und' => array(
-      0 => array(
-        'value' => '<div class="info-page" id="info-page-install-bookmarklet">
-	<div class="install-bookmarklet-col">
-		<div id="install-bookmarklet-button">
-			<a class="cta" href="<?php print meedan_bookmarklet_get_code(); ?>">
-				أضف تقرير إلى <?php print variable_get(\'site_name\', \'this site\'); ?>
-			</a>
-			<div class="description">إسحب هذا الزر إلى شريط الروابط.</div>
-		</div>
-	</div>
-	<div class="install-bookmarklet-col">
-		<h2>تنصيب إضافة المتصفح</h2>
-		<p>زر إضافة المتصفح يمكنك من إضافة تقارير من أي صفحة.</p>
-		<p>بعد التنصيب، انقر الزر وعاين تقريرك الجديد قبل إرساله إلى أحد الأخبار.</p>
-		<p>للتنصيب، إسحب الزر إلى شريط الروابط لدى المتصفح.</p>
-	</div>
-</div>
-<script type="text/javascript">
-jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
-</script>',
-        'summary' => '',
-        'format' => 'php_code',
-      ),
-    ),
-  ),
-  'field_file' => array(),
-  'rdf_mapping' => array(
-    'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
-    ),
-    'title' => array(
-      'predicates' => array(
-        0 => 'dc:title',
-      ),
-    ),
-    'created' => array(
-      'predicates' => array(
-        0 => 'dc:date',
-        1 => 'dc:created',
-      ),
-      'datatype' => 'xsd:dateTime',
-      'callback' => 'date_iso8601',
-    ),
-    'changed' => array(
-      'predicates' => array(
-        0 => 'dc:modified',
-      ),
-      'datatype' => 'xsd:dateTime',
-      'callback' => 'date_iso8601',
-    ),
-    'body' => array(
-      'predicates' => array(
-        0 => 'content:encoded',
-      ),
-    ),
-    'uid' => array(
-      'predicates' => array(
-        0 => 'sioc:has_creator',
-      ),
-      'type' => 'rel',
-    ),
-    'name' => array(
-      'predicates' => array(
-        0 => 'foaf:name',
-      ),
-    ),
-    'comment_count' => array(
-      'predicates' => array(
-        0 => 'sioc:num_replies',
-      ),
-      'datatype' => 'xsd:integer',
-    ),
-    'last_activity' => array(
-      'predicates' => array(
-        0 => 'sioc:last_activity_date',
-      ),
-      'datatype' => 'xsd:dateTime',
-      'callback' => 'date_iso8601',
-    ),
-  ),
-  'name' => '',
-  'picture' => 0,
-  'data' => NULL,
+  'num_revisions' => 1,
+  'current_revision_id' => 5,
+  'is_current' => TRUE,
+  'is_pending' => FALSE,
+  'revision_moderation' => FALSE,
   'date' => '2013-03-04 22:45:20 +0200',
 );
   $nodes[] = array(
@@ -1069,8 +893,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'field_file' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -1122,9 +945,18 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
+  'num_revisions' => 1,
+  'current_revision_id' => 7,
+  'is_current' => TRUE,
+  'is_pending' => FALSE,
+  'revision_moderation' => FALSE,
   'date' => '2013-03-04 22:45:20 +0200',
 );
   $nodes[] = array(
@@ -1155,8 +987,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'field_file' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -1208,9 +1039,18 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
+  'num_revisions' => 1,
+  'current_revision_id' => 8,
+  'is_current' => TRUE,
+  'is_pending' => FALSE,
+  'revision_moderation' => FALSE,
   'date' => '2013-03-04 22:45:20 +0200',
 );
   return $nodes;

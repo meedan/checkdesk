@@ -33,6 +33,5 @@ function checkdesk_core_feature_menu_default_menu_custom() {
   t('Links that are common to all users and appear usually at the right.');
   t('Menu with links for static information pages.');
 
-
   return $menus;
 }
