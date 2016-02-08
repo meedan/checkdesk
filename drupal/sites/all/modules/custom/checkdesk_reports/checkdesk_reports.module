@@ -281,6 +281,28 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
 
     // Add CSS file for geolocation google maps field when module is enabled
     if (module_exists('geolocation_googlemaps')) {
+        // get field name of type geolocation_latlng
+        $metadata_fields = _checkdesk_metadata_group_fields();
+        foreach ($metadata_fields as $metadata_field_name) {
+            $metadata_field = field_info_field($metadata_field_name);
+            if($metadata_field['type'] == 'geolocation_latlng') {
+                $field_location_name = $metadata_field['field_name'];
+                break;
+            }
+        }
+
+        // Adjust classes for the buttons inside google maps field widget
+        $form[$field_location_name]['und'][0]['address']['geocode']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-get-location">' . $form[$field_location_name]['und'][0]['address']['geocode']['#prefix'];
+        $form[$field_location_name]['und'][0]['address']['geocode']['#suffix'] = $form[$field_location_name]['und'][0]['address']['geocode']['#suffix'] . '</div>';
+
+
+        $form[$field_location_name]['und'][0]['googlemap']['#prefix'] = '<div class="geolocation-selection-wrapper">' . $form[$field_location_name]['und'][0]['googlemap']['#prefix'];
+
+        $form[$field_location_name]['und'][0]['latitem']['#prefix'] = '<div class="geolocation-values-wrapper"><div class="geolocation-selection">' . $form[$field_location_name]['und'][0]['latitem']['#prefix'];
+        $form[$field_location_name]['und'][0]['lngitem']['#suffix'] = $form[$field_location_name]['und'][0]['lngitem']['#suffix'] . '</div>';
+
+        $form[$field_location_name]['und'][0]['remove']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-selection-remove-button">' . $form[$field_location_name]['und'][0]['remove']['#prefix'];
+        $form[$field_location_name]['und'][0]['remove']['#suffix'] = $form[$field_location_name]['und'][0]['remove']['#suffix'] . '</div></div></div>';
         drupal_add_css(
             drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/geolocation_googlemaps.css',
             array(
