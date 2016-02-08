@@ -9,8 +9,8 @@
 .ui-datepicker {
   width: 17em;
   padding-top: .2em;
-  padding-left: .2em;
   padding-right: .2em;
+  padding-left: .2em;
   padding-bottom: 0;
 }
 
@@ -31,26 +31,26 @@
 }
 
 .ui-datepicker .ui-datepicker-prev {
-  left: 2px;
-}
-
-.ui-datepicker .ui-datepicker-next {
   right: 2px;
 }
 
+.ui-datepicker .ui-datepicker-next {
+  left: 2px;
+}
+
 .ui-datepicker .ui-datepicker-prev-hover {
-  left: 1px;
+  right: 1px;
 }
 
 .ui-datepicker .ui-datepicker-next-hover {
-  right: 1px;
+  left: 1px;
 }
 
 .ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
   display: block;
   position: absolute;
-  left: 50%;
-  margin-left: -8px;
+  right: 50%;
+  margin-right: -8px;
   top: 50%;
   margin-top: -8px;
 }
@@ -62,7 +62,7 @@
 }
 
 .ui-datepicker .ui-datepicker-title select {
-  float: left;
+  float: right;
   font-size: 1em;
   margin: 1px 0;
 }
@@ -77,7 +77,7 @@
 }
 
 .ui-datepicker .ui-datepicker-title select.ui-datepicker-year {
-  float: right;
+  float: left;
 }
 
 .ui-datepicker table {
@@ -102,7 +102,7 @@
 .ui-datepicker td span, .ui-datepicker td a {
   display: block;
   padding: .2em;
-  text-align: right;
+  text-align: left;
   text-decoration: none;
 }
 
@@ -110,28 +110,28 @@
   background-image: none;
   margin: .7em 0 0 0;
   padding: 0 .2em;
-  border-left: 0;
   border-right: 0;
+  border-left: 0;
   border-bottom: 0;
 }
 
 .ui-datepicker .ui-datepicker-buttonpane button {
-  float: right;
+  float: left;
   margin-top: .5em;
-  margin-left: .2em;
   margin-right: .2em;
+  margin-left: .2em;
   margin-bottom: .4em;
   cursor: pointer;
   padding-top: .2em;
-  padding-right: .6em;
-  padding-bottom: .3em;
   padding-left: .6em;
+  padding-bottom: .3em;
+  padding-right: .6em;
   width: auto;
   overflow: visible;
 }
 
 .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
-  float: left;
+  float: right;
 }
 
 /* with multiple calendars */
@@ -140,7 +140,7 @@
 }
 
 .ui-datepicker-multi .ui-datepicker-group {
-  float: left;
+  float: right;
 }
 
 .ui-datepicker-multi .ui-datepicker-group table {
@@ -161,15 +161,15 @@
 }
 
 .ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header {
-  border-left-width: 0;
+  border-right-width: 0;
 }
 
 .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
-  border-left-width: 0;
+  border-right-width: 0;
 }
 
 .ui-datepicker-multi .ui-datepicker-buttonpane {
-  clear: left;
+  clear: right;
 }
 
 .ui-datepicker-row-break {

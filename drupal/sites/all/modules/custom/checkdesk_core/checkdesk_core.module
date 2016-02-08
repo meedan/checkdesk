@@ -2947,7 +2947,6 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
   $context['language'] = LANGUAGE_NONE;
 }
 
-
 /**
  * Add cc and js for chosen lib.
  */
@@ -3078,14 +3077,14 @@ function _checkdesk_purge_varnish($paths) {
         if (!$purge_all) {
           foreach ($paths as $path) {
             foreach($languages as $key => $value) {
-              $urls[] = ltrim(url($path, array(
+              $urls[] = url($path, array(
                 'language' => $languages[$key],
-              )), '/');
+              ));
             }
           }
         }
         else {
-          $urls = array(ltrim(base_path(), '/'));
+          $urls = array(base_path());
         }
         varnish_purge_paths($hostname, $urls);
         //adding sleep for 2 seconds
