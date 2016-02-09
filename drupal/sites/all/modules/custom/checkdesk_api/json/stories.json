@@ -1,0 +1,32 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "/api/v1/",
+  "resourcePath": "stories",
+  "apis": [
+    {
+      "path": "stories",
+      "operations": [
+        {
+          "summary": "List stories",
+          "notes": "List stories that the user has access to",
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": { "type": "stories", "data": [{ "id": "<ID>", "title": "<Title>" }] },
+              "message": "List of story objects with at least id and title"
+            },
+            {
+              "code": 401,
+              "responseModel": { "type": "error", "data": { "message": "Access denied" } },
+              "message": "Access denied"
+            }
+          ],
+          "nickname": "Api::V1::Stories#index",
+          "method": "get"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
