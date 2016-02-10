@@ -273,7 +273,7 @@ class ReportActivityReactor extends Reactor {
           $node_view['comments'] = comment_node_page_additions($node);
           // update activity stream
           $report_activity = theme(
-            'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view)
+            'checkdesk_reports_report_activity', array('node' => $node, 'content' => $node_view)
           );
           $commands[] = reactor_ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
         }
@@ -378,10 +378,10 @@ function _reactor_render_activity($node) {
     $activity_report = _checkdesk_load_activity_report($node->nid);
     if ($activity_report['total_rows']) {
       $count = theme(
-        'checkdesk_core_report_activity_count', array('count' => $activity_report['total_rows'], 'nid' => $node->nid)
+        'checkdesk_reports_report_activity_count', array('count' => $activity_report['total_rows'], 'nid' => $node->nid)
       );
       $activity =  theme(
-        'checkdesk_core_report_activity_stream', array('activity' => $activity_report['view_output'], 'nid' => $node->nid)
+        'checkdesk_reports_report_activity_stream', array('activity' => $activity_report['view_output'], 'nid' => $node->nid)
       );
     }
   }

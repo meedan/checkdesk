@@ -836,7 +836,7 @@ function checkdesk_preprocess_node(&$variables) {
       }
     }
     $variables['report_activity'] = theme(
-      'checkdesk_core_report_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
+      'checkdesk_reports_report_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
     );
 
     // Inject lazy-loading.

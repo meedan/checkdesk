@@ -3,7 +3,7 @@
 /**
  * Title callback for `_checkdesk_core_report_suggest`.
  */
-function _checkdesk_core_report_suggest_title($report) {
+function _checkdesk_reports_suggest_title($report) {
   return user_access('add report to story') ?
     t('Add Report "!title" to Story', array(
         '!title' => views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title))
@@ -14,10 +14,10 @@ function _checkdesk_core_report_suggest_title($report) {
 }
 
 /**
- * Form function for `_checkdesk_core_report_suggest`.
+ * Form function for `_checkdesk_reports_suggest_report`.
  * Allow user to choose from all stories not already associated with this report.
  */
-function _checkdesk_core_report_suggest($form, $form_state, $report = NULL) {
+function _checkdesk_reports_suggest_report($form, $form_state, $report = NULL) {
   if (empty($report)) {
     $report = $form_state['report'];
   }
@@ -41,9 +41,9 @@ function _checkdesk_core_report_suggest($form, $form_state, $report = NULL) {
 }
 
 /**
- * Submit function for `_checkdesk_core_report_suggest`.
+ * Submit function for `_checkdesk_reports_suggest_report`.
  */
-function _checkdesk_core_report_suggest_submit($form, &$form_state) {
+function _checkdesk_reports_suggest_report_submit($form, &$form_state) {
   // Add the story to the report.
   $report = $form['#report'];
   if (module_exists('checkdesk_duplicates')) {
@@ -66,9 +66,9 @@ function _checkdesk_core_report_suggest_submit($form, &$form_state) {
 
 
 /**
- * Modal function for `_checkdesk_core_report_suggest`.
+ * Modal function for `_checkdesk_reports_suggest_report`.
  */
-function _checkdesk_core_report_suggest_modal($report, $js) {
+function _checkdesk_reports_suggest_report_modal($report, $js) {
   if (!$js) {
     drupal_goto('node/' . $report->nid . '/checkdesk/suggest');
     return;
@@ -78,11 +78,11 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
 
   $form_state = array(
     'ajax' => TRUE,
-    'title' => _checkdesk_core_report_suggest_title($report),
+    'title' => _checkdesk_reports_suggest_title($report),
     'report' => $report,
   );
 
-  $commands = ctools_modal_form_wrapper('_checkdesk_core_report_suggest', $form_state);
+  $commands = ctools_modal_form_wrapper('_checkdesk_reports_suggest_report', $form_state);
 
   if (!empty($form_state['executed'])) {
     // Add the responder javascript, required by ctools
