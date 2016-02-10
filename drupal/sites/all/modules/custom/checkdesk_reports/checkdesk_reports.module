@@ -351,9 +351,25 @@ function checkdesk_reports_node_view($node, $view_mode, $langcode) {
                     $node->content['report_verification_footnote'] = isset($footnote->comment_body[LANGUAGE_NONE][0]['value']) ? $footnote->comment_body[LANGUAGE_NONE][0]['value'] : '';
                 }
             }
-            $node->content['field_link'] = _checkdesk_core_render_activity_type($node, $heartbeat_row);
+            $node->content['field_link'] = _checkdesk_reports_render_activity_type($node, $heartbeat_row);
         }
     }
+}
+
+function _checkdesk_reports_render_activity_type($node, $heartbeat_row) {
+    // TODO: get this mapping from admin interface.
+    // for now will use mapping array with key = activity type and value = formatter name.
+    $mapping = array(
+        'checkdesk_report_suggested_to_story' => 'meedan_inline_full_mode',
+    );
+
+    if ($heartbeat_row && isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
+        $output = field_view_field('node', $node, 'field_link', array('type' => $mapping[$heartbeat_row->heartbeat_activity_message_id]));
+    }
+    else {
+        $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
+    }
+    return $output;
 }
 
 define('RATING_NOT_APPLICABLE', 'Not Applicable');
@@ -406,6 +422,64 @@ function checkdesk_reports_form_comment_node_media_form_alter(&$form, $form_stat
         $form['field_rating'][LANGUAGE_NONE]['#options'] = array_reverse($options);
         $form['#validate'] = array('_checkdesk_core_comment_form_validate');
     }
+}
+
+/**
+ * Submit comment via ajax.
+ */
+function _checkdesk_comment_form_submit($form, &$form_state) {
+    global $user;
+
+    drupal_get_messages();
+
+    $nid = $form['#node']->nid;
+    $node = node_load($nid);
+
+    $commands = array();
+    // Change report status
+    if (user_access('change report status')) {
+        $node->field_rating[LANGUAGE_NONE][0]['tid'] = $form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid'];
+        node_save($node);
+        // Update report status on report display
+        $report_status = _checkdesk_report_status($node);
+        $commands[] = ajax_command_replace('.media-status-report-' . $node->nid, $report_status['status']);
+    }
+    //$node_view = node_view($node);
+    // $node_view['comments'] = comment_node_page_additions($node);
+    //$output = drupal_render($node_view);
+    //TODO use theme function instead of writing HTML
+    $output = _checkdesk_render_footnotes($node);
+    $commands[] = ajax_command_invoke(NULL, 'footnoteCallback', array($nid, $output));
+
+    return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Render footnote HTML for footnote ajax submit
+ * @param object $node
+ * @return HTML
+ */
+function _checkdesk_render_footnotes($node) {
+    $node_view = node_view($node);
+    $activity_report = _checkdesk_load_activity_report($node->nid);
+    if ($activity_report['total_rows']) {
+        $media_activity_report_count = $activity_report['total_rows'];
+        $media_activity_report = $activity_report['view_output'];
+    }
+    $html = '<div id="report-activity-node-' . $node->nid . '" class="item-nested-content-wrapper open">';
+    $html .= '<div class="activity-item-controls item-controls">';
+    $html .= '    <div class="meta">';
+    $html .= $media_activity_report_count . ' '. t('verification footnotes');
+    $html .= '</div>';
+    $html .= '<div class="actions" role="toolbar">';
+    $html .= render($node_view['links']);
+    $html .= '</div>';
+    $html .= '</div>';
+    $html .= ' <div class="activity nested item-nested-content open" style="display: block;">';
+    $html .= $media_activity_report;
+    $html .= '  </div>';
+    $html .= '  </div>';
+    return $html;
 }
 
 /*
