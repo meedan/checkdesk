@@ -46,7 +46,7 @@ function _checkdesk_reports_suggest_report($form, $form_state, $report = NULL) {
 function _checkdesk_reports_suggest_report_submit($form, &$form_state) {
   // Add the story to the report.
   $report = $form['#report'];
-  if (module_exists('checkdesk_duplicates')) {
+  if (module_exists('checkdesk_reports_duplicates')) {
     // Clone existing report ticket #3660
     $report = _checkdesk_duplicate_share_report($report, $form_state['values']['story']);
   }

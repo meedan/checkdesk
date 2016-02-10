@@ -13,8 +13,8 @@
 
     $input.addClass('meedan-bookmarklet-loading');
     var report_id = 0;
-    if (typeof Drupal.settings.checkdesk_duplicates !== 'undefined') {
-        report_id = Drupal.settings.checkdesk_duplicates.report_nid;
+    if (typeof Drupal.settings.checkdesk_reports_duplicates !== 'undefined') {
+        report_id = Drupal.settings.checkdesk_reports_duplicates.report_nid;
     }
     var story_id = jQuery('#edit-field-stories-und').val();
     $.ajax({

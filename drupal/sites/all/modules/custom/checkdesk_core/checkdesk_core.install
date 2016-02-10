@@ -582,3 +582,14 @@ function checkdesk_core_update_7059() {
   drupal_uninstall_modules($module_list, FALSE);
 }
 
+/**
+ * Disable and uninstall checkdesk_duplicates module
+ */
+function checkdesk_core_update_7060() {
+  $module_list = array('checkdesk_duplicates');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+}
+
+
+

@@ -50,7 +50,7 @@ function _checkdesk_reports_media_preview($path) {
 
             // Add duplicate reports id exists
             $response['duplicates'] = FALSE;
-            if (module_exists('checkdesk_duplicates')) {
+            if (module_exists('checkdesk_reports_duplicates')) {
                 // hide duplicate reports messages in node edit form
                 if ($_GET['report_id']) {
                     $report = node_load($_GET['report_id']);
