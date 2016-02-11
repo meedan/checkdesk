@@ -191,6 +191,17 @@ div.autocomplete-deluxe-multiple {
   cursor: text;
 }
 
+input[type="text"].autocomplete-deluxe-form {
+  border: 0 none;
+  box-shadow: none;
+}
+
+input[type="text"]:focus.autocomplete-deluxe-form {
+  border: 0 none;
+  box-shadow: none;
+  outline: 0;
+}
+
 input.autocomplete-deluxe-form.autocomplete-deluxe-multiple {
   border: 3px none;
   width: 25px;
@@ -258,4 +269,7 @@ div.autocomplete-deluxe-throbber {
 .autocomplete-deluxe-highlight-char {
   color: #2155b4;
   font-weight: bold;
+}
+.ui-menu .ui-menu-item a.ui-state-hover .autocomplete-deluxe-highlight-char {
+  color: #fff;
 }
