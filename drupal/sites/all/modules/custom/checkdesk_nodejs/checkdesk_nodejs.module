@@ -196,7 +196,7 @@ function _checkdesk_nodejs_handle_report_activity($activity, $nid, $options) {
                 taxonomy_term_load($node->field_rating[LANGUAGE_NONE][0]['tid']);
             $status_name = $term->name;
             if ($status_name !== 'Not Applicable') {
-                $activity_report = _checkdesk_load_activity_report($node->nid);
+                $activity_report = checkdesk_reports_load_activity($node->nid);
                 if ($activity_report['total_rows']) {
                     $count = theme(
                         'checkdesk_reports_report_activity_count', array('count' => $activity_report['total_rows'], 'nid' => $node->nid)

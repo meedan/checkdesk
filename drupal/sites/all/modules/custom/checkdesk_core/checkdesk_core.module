@@ -571,15 +571,15 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     // Set direction for Updates
     if ($node->type == 'post') {
       $links['dropdown-direction'] = $layout['alpha'];
-    } 
+    }
     // unset direction for story/discussion
     elseif ($node->type == 'discussion') {
       $links['dropdown-direction'] = '';
-    } 
+    }
     else {
       $links['dropdown-direction'] = $layout['omega'];
     }
-    
+
     $embed_data = array();
     if ($node->type == 'media') {
       $embed_title = 'Embed this ';
@@ -1315,7 +1315,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     if (isset($_GET['type']) && $_GET['type'] === 'report') {
       // Change -Any- status label
       $form['field_rating_tid']['#options']['All'] = '– ' . t('Any status') . ' –';
-      
+
       unset($form['field_rating_tid']['#description']);
       $form['media_flags'] = array(
         '#type' => 'select',
@@ -1356,7 +1356,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         '#bef_enable_fastlivefilter' => 1,
         '#fastlivefilte_placeholder' => t('Search for story'),
       );
-      
+
       // Hide tag filter for updates
       $form['#info']['filter-field_tags_tid']['label'] = NULL;
       $form['field_tags_tid']['#type'] = 'hidden';
@@ -1474,7 +1474,7 @@ function checkdesk_core_theme() {
         'resend' => NULL,
       ),
     ) + $base;
-  
+
   $themes['checkdesk_core_most_popular_stories'] = array(
       'template' => 'checkdesk_most_popular_stories',
       'variables' => array(
@@ -1686,7 +1686,7 @@ function checkdesk_core_form_revisioning_revisions_summary_alter(&$form, $form_s
         elseif ($form['status'][$k]['#value'] && $k <= $node->vid) {
            $text = t('Published changes on');
         }
-        $base_url = "node/$nid/revisions/{$revision->vid}";  
+        $base_url = "node/$nid/revisions/{$revision->vid}";
           $first_cell = t('!text !date !username ',
             array(
             '!date' => l(format_date($revision->timestamp, 'short'), "$base_url/view"),
@@ -1750,16 +1750,16 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     //alter submit to purge all varnish caches
     $form['#submit'][] = 'checkdesk_core_site_information_submit';
   }
-  
+
   if ($form_id == 'user_profile_form' || $form_id == 'user_register_form') {
     $form['account']['name']['#title'] = t('Display name');
   }
 
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
-    
+
     // validate name using our email login function
     $form['name']['#element_validate'][] = 'checkdesk_core_user_login_validate';
-    
+
     unset($form['name']['#description'], $form['pass']['#description'], $form['links'], $form['twitter_signin']);
     $form['#prefix'] = '<div class="user-login-wrapper modal-dialog-signin modal-dialog-signin-email">';
     $form['#suffix'] = '</div>';
@@ -1879,7 +1879,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       }
     }
   }
-  
+
   if ($form_id == 'twitter_oauth_callback_form') {
     $form['#validate'][] = '_checkdesk_twitter_oauth_callback_form_validate';
   }
@@ -2767,16 +2767,6 @@ function _checkdesk_validation_ajax_unique_field() {
   return drupal_json_output(array('result' => !(bool)$exists));
 }
 
-function _checkdesk_core_comment_form_validate($form, &$form_state) {
-
-  // Get tid from name
-  if (isset($form_state['values']['field_rating'])) {
-    $tids = array_keys(taxonomy_get_term_by_name($form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid']));
-    $form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid'] = $tids[0];
-  }
-
-}
-
 /**
  * Implements hook_search_preprocess().
  */
@@ -3491,7 +3481,7 @@ function _checkdesk_search_header() {
             'attributes' => array('class' => ($selected == 'published') ? array('selected') : array()),
             'query' => array('type' => $_GET['type'], 'status' => 1),
             ));
-      break;   
+      break;
     }
   }
   return theme('checkdesk_core_render_search_header', array('links' => $links));

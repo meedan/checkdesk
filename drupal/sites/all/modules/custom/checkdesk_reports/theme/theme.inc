@@ -63,7 +63,7 @@ function checkdesk_reports_preprocess_checkdesk_reports_report_activity_status(&
   $status_term = taxonomy_get_term_by_name($status_name, 'media_rating');
   $icon = _checkdesk_report_status_icon(reset($status_term));
   $variables['activity_status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
-  
+
   if($status_name != 'In Progress') {
     $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
   }
@@ -99,7 +99,7 @@ function checkdesk_reports_preprocess_checkdesk_reports_report_activity(&$variab
   $total_rows = '';
   $variables['show_activity'] = ($variables['view_mode'] == 'checkdesk_search') ? FALSE : TRUE;
   if ($status_name !== 'Not Applicable') {
-    $activity_report = _checkdesk_load_activity_report($variables['nid']);
+    $activity_report = checkdesk_reports_load_activity($variables['nid']);
     $total_rows = $activity_report['total_rows'];
     if ($variables['show_activity']) {
       if ($total_rows) {
@@ -137,7 +137,7 @@ function checkdesk_reports_preprocess_checkdesk_reports_report_activity(&$variab
  */
 function checkdesk_reports_preprocess_checkdesk_reports_metadata_fields(&$variables) {
   $node = $variables['node'];
-  $fields = _checkdesk_metadata_group_fields();
+  $fields = checkdesk_reports_metadata_fields();
   $metadata_fields = array();
   foreach ($fields as $field) {
     $metadata_fields[] = field_view_field('node', $node, $field, 'full');
