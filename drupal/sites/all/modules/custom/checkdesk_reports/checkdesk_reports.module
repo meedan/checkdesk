@@ -510,6 +510,35 @@ function checkdesk_reports_node_delete($node) {
 }
 
 /**
+ * Implements hook_field_formatter_info().
+ */
+function checkdesk_reports_field_formatter_info() {
+  return array(
+    'geolocation_latlng' => array(
+      'label' => t('Latitude, longitude text-based formatter'),
+      'field types' => array('geolocation_latlng'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function checkdesk_reports_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+
+    case 'geolocation_latlng':
+      foreach ($items as $delta => $item) {
+        $element[$delta]['#markup'] = '<p>' . t('@lat, @lng', array('@lat' => $item['lat'], '@lng' => $item['lng'])) . '</p>';
+      }
+      break;
+  }
+  return $element;
+}
+
+/**
  * Redirect user to collaboration page.
  */
 function _redirect_report($form, &$form_state) {
