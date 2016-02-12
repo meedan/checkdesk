@@ -1,14 +1,14 @@
 <?php
 
-function checkdesk_duplicates_enable() {
+function checkdesk_reports_duplicates_enable() {
   if (db_table_exists('field_data_field_link')) {
-      checkdesk_duplicates_update_7001($sandbox);
+      checkdesk_reports_duplicates_update_7001($sandbox);
   }
 }
 /**
  * Normalize existing URLs
  */
-function checkdesk_duplicates_update_7001(&$sandbox) {
+function checkdesk_reports_duplicates_update_7001(&$sandbox) {
   if(!isset($sandbox['progress'])){
     $sandbox['progress'] = 0;
     $sandbox['last_id'] = 0;
@@ -42,7 +42,7 @@ function checkdesk_duplicates_update_7001(&$sandbox) {
 /**
  * Trim existing URLs
  */
-function checkdesk_duplicates_update_7002() {
+function checkdesk_reports_duplicates_update_7002() {
   db_query('UPDATE {field_data_field_link} set field_link_url = trim(field_link_url)');
   // Trim URLs with encoding space '%20'
   db_query('UPDATE {field_data_field_link} set field_link_url = REPLACE (field_link_url, :space, :replace)
