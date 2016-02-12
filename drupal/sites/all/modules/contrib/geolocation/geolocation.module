@@ -147,6 +147,9 @@ function geolocation_field_presave($entity_type, $entity, $field, $instance, $la
     $item['lat_sin'] = sin(deg2rad($item['lat']));
     $item['lat_cos'] = cos(deg2rad($item['lat']));
     $item['lng_rad'] = deg2rad($item['lng']);
+    if (module_exists('geolocation_googlemaps')) {
+      $item['address'] = $item['address']['field'];
+    }
     $items[$delta] = $item;
   }
 }
