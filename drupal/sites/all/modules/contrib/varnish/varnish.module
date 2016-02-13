@@ -334,7 +334,11 @@ function _varnish_terminal_run($commands) {
       if ($status['code'] == 107) {
         $secret = variable_get('varnish_control_key', '');
         $challenge = substr($status['msg'], 0, 32);
-        $pack = $challenge . "\x0A" . $secret . "\x0A" . $challenge . "\x0A";
+        // http://mantis.meedan.net/view.php?id=4498
+        // this has one two many new lines in it as per the spec :
+        // https://www.varnish-cache.org/trac/wiki/CLI  see "The authenticator is calculated by..." 
+        // $pack = $challenge . "\x0A" . $secret . "\x0A" . $challenge . "\x0A";
+        $pack = $challenge . "\x0A" . $secret .  $challenge . "\x0A";
         $key = hash('sha256', $pack);
         socket_write($client, "auth $key\n");
         $status = _varnish_read_socket($client);
