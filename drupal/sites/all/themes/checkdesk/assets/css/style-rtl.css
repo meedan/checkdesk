@@ -49,10 +49,6 @@
   content: "\f021";
 }
 
-.story .story-collaborate-links li.submit-report a:before {
-  content: "\f02e";
-}
-
 .media--video .title a:before, .icon-video-camera:before {
   content: "\f03d";
 }
@@ -61,7 +57,7 @@
   content: "\f03e";
 }
 
-.story .story-collaborate-links li.compose-update a:before, .story .open .compose-update-header a:before {
+.story .open .compose-update-header a:before {
   content: "\f040";
 }
 
@@ -5297,39 +5293,10 @@ body.page-node-collaboration .story .story-collaboration-header-wrapper {
 
 .story .story-collaborate-links li {
   display: inline;
-  margin-left: 30px;
-  font-size: 18px;
+  margin-left: 15px;
 }
 .story .story-collaborate-links li:last-child {
   margin-left: 0;
-}
-.story .story-collaborate-links li.submit-report a:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 18px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.story .story-collaborate-links li.compose-update a:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 18px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .story .collaboration-report-tooltip {

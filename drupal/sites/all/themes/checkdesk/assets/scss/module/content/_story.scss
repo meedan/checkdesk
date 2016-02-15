@@ -188,16 +188,10 @@
 .story .story-collaborate-links {
   li {
     display: inline;
-    margin-#{$omega}: 30px;
-    font-size: 18px;
+    margin-#{$omega}: $gutter-width;
+    // font-size: 18px;
     &:last-child {
       margin-#{$omega}: 0;
-    }
-    &.submit-report a {
-      @include icon("bookmark", 18px);
-    }
-    &.compose-update a {
-      @include icon("pencil", 18px);
     }
   }
 }
