@@ -815,13 +815,6 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   $form['body'][LANGUAGE_NONE][0]['#title'] = t('Text');
   $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Write text and drag reports here to compose the update');
 
-  // Are we showing the post form on the desk page?
-  if (($node = menu_get_object()) && $node->type == 'discussion') {
-    // Hard-code desk reference to current desk.
-    $form['field_desk'][LANGUAGE_NONE]['#default_value'] = $node->nid;
-    $form['field_desk']['#access'] = false;
-  }
-
   // Make the body field a drop target for reports.
   $form['body']['#prefix'] = '<div class="droppable">';
   $form['body']['#suffix'] = '</div>';
@@ -2354,12 +2347,15 @@ function checkdesk_core_query_features_menu_link_alter($query) {
  * Implements hook_query_TAG_alter() for entityreference.
  */
 function checkdesk_core_query_entityreference_alter($query) {
-  if (!empty($query->alterMetaData['field']) && $query->alterMetaData['field']['field_name'] === 'field_stories') {
+  if (!empty($query->alterMetaData['field']) && ($query->alterMetaData['field']['field_name'] === 'field_stories' || $query->alterMetaData['field']['field_name'] === 'field_desk')) {
     $story = menu_get_object();
     $limit = 50;
     $nids = db_query("SELECT nid FROM {node} WHERE type='discussion' ORDER BY created DESC LIMIT $limit")->fetchCol();
     if ($story && $story->type == 'discussion') {
       $nids[] = $story->nid;
+    }
+    if (isset($_GET['story']) && is_numeric($_GET['story'])) {
+      $nids[] = $_GET['story'];
     }
     $query->condition('nid', $nids, 'IN');
   }
@@ -3107,7 +3103,7 @@ function _checkdesk_story_tabs($nid) {
 }
 
 /**
- * Return story nid to filler incomming rports view.
+ * Return story nid to filler incomming reports view.
  */
 function checkdesk_core__get_desk_reports_args() {
   $story_nid = 'all';
