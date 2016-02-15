@@ -462,6 +462,26 @@ function checkdesk_reports_feature_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_notify_subscribed_users_reply_to_comment'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_reply_to_comment" : {
+      "LABEL" : "Notify subscribed users: reply to comment",
+      "PLUGIN" : "action set",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "USES VARIABLES" : { "comment" : { "label" : "Comment", "type" : "comment" } },
+      "ACTION SET" : [
+        { "notify_subscribers" : {
+            "object" : [ "comment" ],
+            "event" : "email_reply_to_comment",
+            "subject" : "Comment reply",
+            "message" : "Hello !recipient_name,\\r\\n\\r\\n!author has replied to your comment:\\r\\n\\r\\n!body\\r\\n\\r\\n\\u003Ca href=\\u0022!url\\u0022\\u003EClick here\\u003C\\/a\\u003E OR reply to this email to respond. This was an auto-generated email from !site.",
+            "actor" : [ "comment:author" ],
+            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!body\\u0027 =\\u003E $comment-\\u003Ecomment_body[LANGUAGE_NONE][0][\\u0027value\\u0027], \\u0027!author\\u0027 =\\u003E user_load($comment-\\u003Euid)-\\u003Ename, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $comment-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027)); \\r\\n?\\u003E"
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_notify_subscribed_users_report_published'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_report_published" : {
       "LABEL" : "Notify subscribed users: report published",
       "PLUGIN" : "action set",
@@ -566,6 +586,38 @@ function checkdesk_reports_feature_default_rules_configuration() {
                 }
               }
             ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_replies_to_a_comment'] = entity_import('rules_config', '{ "rules_replies_to_a_comment" : {
+      "LABEL" : "Replies to a comment",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "comment" ],
+      "ON" : { "comment_insert" : [] },
+      "IF" : [
+        { "entity_is_of_type" : { "entity" : [ "comment:parent" ], "type" : "comment" } }
+      ],
+      "DO" : [
+        { "heartbeat_activity_checkdesk_reply_to_comment" : {
+            "nid" : [ "comment:parent:cid" ],
+            "uid" : [ "comment:author:uid" ],
+            "nid_target" : "0",
+            "uid_target" : "0",
+            "cid" : [ "comment:cid" ],
+            "message_id" : { "value" : { "checkdesk_reply_to_comment" : "checkdesk_reply_to_comment" } },
+            "!user_url" : [ "comment:author:url" ],
+            "!username" : [ "comment:author:name" ],
+            "!comment_url" : [ "comment:parent:url" ]
+          }
+        },
+        { "schedule" : {
+            "component" : "rules_notify_subscribed_users_reply_to_comment",
+            "date" : "now",
+            "param_comment" : [ "comment" ]
           }
         }
       ]
