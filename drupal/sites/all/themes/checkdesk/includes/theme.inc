@@ -292,7 +292,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   // set variables for status report 
   if ($message->message_id == 'status_report') {
     // set icons
-    if ($status = $message->variables['!status']) {
+    if ($status = $message->variables['!status_org']) {
       $status_term = taxonomy_get_term_by_name($status, 'media_rating');
       $status_class_name = strtolower(str_replace(' ', '-', $status));
       $icon = _checkdesk_report_status_icon(reset($status_term));
