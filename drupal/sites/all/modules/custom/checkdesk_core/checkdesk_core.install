@@ -583,12 +583,19 @@ function checkdesk_core_update_7059() {
 }
 
 /**
- * Disable and uninstall checkdesk_duplicates module
+ * Disable checkdesk_duplicates module
  */
 function checkdesk_core_update_7060() {
   $module_list = array('checkdesk_duplicates');
   module_disable($module_list);
-  drupal_uninstall_modules($module_list, FALSE);
+}
+
+/**
+ * Disable meedan_reports module
+ */
+function checkdesk_core_update_7061() {
+  $module_list = array('meedan_reports');
+  module_disable($module_list);
 }
 
 
