@@ -598,5 +598,12 @@ function checkdesk_core_update_7061() {
   module_disable($module_list);
 }
 
+/**
+ * Enable checkdesk reports feature
+ */
+function checkdesk_core_update_7062() {
+  module_enable(array('checkdesk_reports_feature'));
+}
+
 
 
