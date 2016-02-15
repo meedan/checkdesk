@@ -159,16 +159,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'twitter',
   );
 
-  // Exported permission: 'add report to story'.
-  $permissions['add report to story'] = array(
-    'name' => 'add report to story',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'checkdesk_reports',
-  );
-
   // Exported permission: 'add twitter accounts'.
   $permissions['add twitter accounts'] = array(
     'name' => 'add twitter accounts',
@@ -461,16 +451,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'change report status'.
-  $permissions['change report status'] = array(
-    'name' => 'change report status',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'checkdesk_reports',
-  );
-
   // Exported permission: 'create article content'.
   $permissions['create article content'] = array(
     'name' => 'create article content',
@@ -510,17 +490,6 @@ function checkdesk_core_feature_user_default_permissions() {
       'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'create media content'.
-  $permissions['create media content'] = array(
-    'name' => 'create media content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'citizen journalist' => 'citizen journalist',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'node',
   );
 
   // Exported permission: 'create page content'.
@@ -578,16 +547,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete any media content'.
-  $permissions['delete any media content'] = array(
-    'name' => 'delete any media content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete any page content'.
   $permissions['delete any page content'] = array(
     'name' => 'delete any page content',
@@ -639,16 +598,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'delete own discussion content',
     'roles' => array(
       'administrator' => 'administrator',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete own media content'.
-  $permissions['delete own media content'] = array(
-    'name' => 'delete own media content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -711,16 +660,6 @@ function checkdesk_core_feature_user_default_permissions() {
   // Exported permission: 'edit any discussion content'.
   $permissions['edit any discussion content'] = array(
     'name' => 'edit any discussion content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit any media content'.
-  $permissions['edit any media content'] = array(
-    'name' => 'edit any media content',
     'roles' => array(
       'administrator' => 'administrator',
       'journalist' => 'journalist',
@@ -825,17 +764,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit own media content'.
-  $permissions['edit own media content'] = array(
-    'name' => 'edit own media content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'citizen journalist' => 'citizen journalist',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'edit own page content'.
   $permissions['edit own page content'] = array(
     'name' => 'edit own page content',
@@ -881,16 +809,6 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'taxonomy',
-  );
-
-  // Exported permission: 'export reports'.
-  $permissions['export reports'] = array(
-    'name' => 'export reports',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'checkdesk_reports',
   );
 
   // Exported permission: 'manage features'.
