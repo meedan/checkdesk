@@ -580,6 +580,7 @@ function checkdesk_core_update_7059() {
   $module_list = array('checkdesk_bookmarklet', 'meedan_bookmarklet');
   module_disable($module_list);
   drupal_uninstall_modules($module_list, FALSE);
+  module_enable(array('checkdesk_reports'));
 }
 
 /**
@@ -588,6 +589,7 @@ function checkdesk_core_update_7059() {
 function checkdesk_core_update_7060() {
   $module_list = array('checkdesk_duplicates');
   module_disable($module_list);
+  module_enable(array('checkdesk_reports_duplicates'));
 }
 
 /**
@@ -604,6 +606,3 @@ function checkdesk_core_update_7061() {
 function checkdesk_core_update_7062() {
   module_enable(array('checkdesk_reports_feature'));
 }
-
-
-

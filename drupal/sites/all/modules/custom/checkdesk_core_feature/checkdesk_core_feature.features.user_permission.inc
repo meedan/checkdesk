@@ -482,16 +482,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'create field_rating'.
-  $permissions['create field_rating'] = array(
-    'name' => 'create field_rating',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'create page content'.
   $permissions['create page content'] = array(
     'name' => 'create page content',
@@ -630,15 +620,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete terms in media_rating'.
-  $permissions['delete terms in media_rating'] = array(
-    'name' => 'delete terms in media_rating',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'taxonomy',
-  );
-
   // Exported permission: 'delete terms in tags'.
   $permissions['delete terms in tags'] = array(
     'name' => 'delete terms in tags',
@@ -695,16 +676,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit field_rating'.
-  $permissions['edit field_rating'] = array(
-    'name' => 'edit field_rating',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit meta tags'.
   $permissions['edit meta tags'] = array(
     'name' => 'edit meta tags',
@@ -754,16 +725,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit own field_rating'.
-  $permissions['edit own field_rating'] = array(
-    'name' => 'edit own field_rating',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit own page content'.
   $permissions['edit own page content'] = array(
     'name' => 'edit own page content',
@@ -791,15 +752,6 @@ function checkdesk_core_feature_user_default_permissions() {
       'journalist' => 'journalist',
     ),
     'module' => 'checkdesk_core',
-  );
-
-  // Exported permission: 'edit terms in media_rating'.
-  $permissions['edit terms in media_rating'] = array(
-    'name' => 'edit terms in media_rating',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'taxonomy',
   );
 
   // Exported permission: 'edit terms in tags'.
@@ -1082,16 +1034,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'view field_rating'.
-  $permissions['view field_rating'] = array(
-    'name' => 'view field_rating',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'view heartbeat messages'.
   $permissions['view heartbeat messages'] = array(
     'name' => 'view heartbeat messages',
@@ -1120,16 +1062,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'citizen journalist' => 'citizen journalist',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'view own field_rating'.
-  $permissions['view own field_rating'] = array(
-    'name' => 'view own field_rating',
-    'roles' => array(
-      'administrator' => 'administrator',
       'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
