@@ -171,27 +171,35 @@
 
 .story .story-collaboration-header-wrapper {
   position: relative;
-  display: table;
-  width: 100%;
-  table-layout: fixed;
+  @include flexbox;
+  @include align-items(flex-end);
   body.page-node-collaboration & { 
     border-bottom: 1px solid rgba($firefly, 0.1);
   }
   padding-bottom: 15px;
-  & > div, & > ul {
-    display: table-cell;
-    width: 100%;
-    vertical-align: bottom;
+
+  .story-collaborate-links,
+  .story-collaborators-wrapper {
+    @include flex(1 1 auto);
   }
 }
 
 .story .story-collaborate-links {
+  @include flexbox;
   li {
-    display: inline;
+    list-style: none;
     margin-#{$omega}: $gutter-width;
-    // font-size: 18px;
     &:last-child {
       margin-#{$omega}: 0;
+    }
+  }
+}
+
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  .story .story-collaborate-links {
+    @include flex-direction(column);
+    li:not(:last-child) {
+      margin-bottom: 10px;
     }
   }
 }
