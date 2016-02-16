@@ -30,6 +30,16 @@ function checkdesk_reports_feature_user_default_permissions() {
     'module' => 'checkdesk_reports',
   );
 
+  // Exported permission: 'create field_rating'.
+  $permissions['create field_rating'] = array(
+    'name' => 'create field_rating',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'create media content'.
   $permissions['create media content'] = array(
     'name' => 'create media content',
@@ -61,6 +71,15 @@ function checkdesk_reports_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'delete terms in media_rating'.
+  $permissions['delete terms in media_rating'] = array(
+    'name' => 'delete terms in media_rating',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'taxonomy',
+  );
+
   // Exported permission: 'edit any media content'.
   $permissions['edit any media content'] = array(
     'name' => 'edit any media content',
@@ -69,6 +88,26 @@ function checkdesk_reports_feature_user_default_permissions() {
       'journalist' => 'journalist',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'edit field_rating'.
+  $permissions['edit field_rating'] = array(
+    'name' => 'edit field_rating',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_rating'.
+  $permissions['edit own field_rating'] = array(
+    'name' => 'edit own field_rating',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'field_permissions',
   );
 
   // Exported permission: 'edit own media content'.
@@ -82,6 +121,15 @@ function checkdesk_reports_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit terms in media_rating'.
+  $permissions['edit terms in media_rating'] = array(
+    'name' => 'edit terms in media_rating',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'taxonomy',
+  );
+
   // Exported permission: 'export reports'.
   $permissions['export reports'] = array(
     'name' => 'export reports',
@@ -90,6 +138,26 @@ function checkdesk_reports_feature_user_default_permissions() {
       'journalist' => 'journalist',
     ),
     'module' => 'checkdesk_reports',
+  );
+
+  // Exported permission: 'view field_rating'.
+  $permissions['view field_rating'] = array(
+    'name' => 'view field_rating',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_rating'.
+  $permissions['view own field_rating'] = array(
+    'name' => 'view own field_rating',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'field_permissions',
   );
 
   return $permissions;
