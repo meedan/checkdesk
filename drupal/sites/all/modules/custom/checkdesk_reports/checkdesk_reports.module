@@ -322,17 +322,16 @@ function checkdesk_reports_node_view($node, $view_mode, $langcode) {
 
     // Add decorations to report nodes.
     if ($node->type == 'media') {
+
         $node->content['report_source'] = array(
             '#theme' => 'checkdesk_core_report_source',
             '#report' => $node,
         );
-    }
 
-    if ($view_mode == 'full') {
-        $node->content['metadata_fields'] = theme('checkdesk_reports_metadata_fields', array('node' => $node));
-    }
-    elseif ($view_mode == 'checkdesk_collaborate' || $view_mode == 'checkdesk_search') {
-        if ($node->type == 'media') {
+        if ($view_mode == 'full') {
+            $node->content['metadata_fields'] = theme('checkdesk_reports_metadata_fields', array('node' => $node));
+        }
+        elseif ($view_mode == 'checkdesk_collaborate' || $view_mode == 'checkdesk_search') {
             $node->content['comments'] = comment_node_page_additions($node);
             $heartbeat_row = isset($node->heartbeat_row) ? $node->heartbeat_row : '';
             if ($heartbeat_row) {
@@ -353,6 +352,7 @@ function checkdesk_reports_node_view($node, $view_mode, $langcode) {
                 }
             }
             $node->content['field_link'] = _checkdesk_reports_render_activity_type($node, $heartbeat_row);
+
         }
     }
 }
