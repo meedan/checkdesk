@@ -35,6 +35,17 @@
           }
 
           $controls.show();
+
+          // Fix geolocation Google maps grey area bug.
+          try {
+            $.each(Drupal.settings.geolocation.defaults, function(i) {
+              google.maps.event.trigger(Drupal.geolocation.maps[i], "resize");
+            });
+          }
+          catch (e) {
+            // no maps, nothing to do.
+          }
+
           $('#checkdesk_report_duplicate').hide();
           if (data.duplicates.duplicate) {
               $('#checkdesk_report_duplicate').show().html(data.duplicates.msg);
