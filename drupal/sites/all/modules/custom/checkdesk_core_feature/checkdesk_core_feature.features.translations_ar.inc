@@ -2650,6 +2650,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Create another story', array(), array('context' => ''));
+  $translations['ar:default']['3629d01920a945712d30867ceba48ef3'] = array(
+    'source' => 'Export to CSV',
+    'context' => '',
+    'location' => '/ar/story/1264/collaboration',
+    'translation' => 'تصدير CSV',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Export to CSV', array(), array('context' => ''));
   $translations['ar:default']['362c7d20562a8d2d4c8453e35c68698b'] = array(
     'source' => 'Last Post',
     'context' => '',
