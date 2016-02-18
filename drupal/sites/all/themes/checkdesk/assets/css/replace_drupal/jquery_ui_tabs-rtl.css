@@ -1,22 +1,22 @@
 @charset "UTF-8";
 @font-face {
-  font-family: 'Droid Arabic Naskh';
+  font-family: 'Noto Naskh Arabic';
   font-style: normal;
   font-weight: 400;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
-  src: local("Droid Arabic Naskh Regular"), local("Droid-Arabic-Naskh-Regular"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Droid Arabic Naskh';
+  font-family: 'Noto Naskh Arabic';
   font-style: normal;
   font-weight: 700;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
-  src: local("Droid Arabic Naskh Bold"), local("Droid-Arabic-Naskh-Bold"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Droid Arabic Naskh';
+  font-family: 'Noto Naskh Arabic';
   src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
   src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
   font-style: normal;
@@ -25,7 +25,41 @@
 }
 
 @font-face {
-  font-family: 'Droid Arabic Naskh';
+  font-family: 'Noto Naskh Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
+  src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
+  src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
   src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
   src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
   font-style: normal;
@@ -61,8 +95,8 @@
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
-  src: local("Droid Arabic Naskh Regular"), local("Droid-Arabic-Naskh-Regular"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: local("Noto Naskh Arabic Regular"), local("Droid-Arabic-Naskh-Regular"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
   unicode-range: U+0600 – U+06FF;
 }
 
@@ -70,8 +104,8 @@
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
-  src: local("Droid Arabic Naskh Bold"), local("Droid-Arabic-Naskh-Bold"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: local("Noto Naskh Arabic Bold"), local("Droid-Arabic-Naskh-Bold"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
   unicode-range: U+0600 – U+06FF;
 }
 
@@ -103,8 +137,8 @@
   font-family: 'Merriweather';
   font-style: normal;
   font-weight: 400;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
-  src: local("Droid Arabic Naskh Regular"), local("Droid-Arabic-Naskh-Regular"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: local("Noto Naskh Arabic Regular"), local("Droid-Arabic-Naskh-Regular"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
   unicode-range: U+0600 – U+06FF;
 }
 
@@ -112,29 +146,29 @@
   font-family: 'Merriweather';
   font-style: normal;
   font-weight: 700;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
-  src: local("Droid Arabic Naskh Bold"), local("Droid-Arabic-Naskh-Bold"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: local("Noto Naskh Arabic Bold"), local("Droid-Arabic-Naskh-Bold"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
   unicode-range: U+0600 – U+06FF;
 }
 
 @font-face {
-  font-family: 'Droid Arabic Naskh';
+  font-family: 'Noto Naskh Arabic';
   font-style: normal;
   font-weight: 400;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
-  src: local("Droid Arabic Naskh Regular"), local("Droid-Arabic-Naskh-Regular"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Droid Arabic Naskh';
+  font-family: 'Noto Naskh Arabic';
   font-style: normal;
   font-weight: 700;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
-  src: local("Droid Arabic Naskh Bold"), local("Droid-Arabic-Naskh-Bold"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Droid Arabic Naskh';
+  font-family: 'Noto Naskh Arabic';
   src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
   src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
   font-style: normal;
@@ -143,7 +177,41 @@
 }
 
 @font-face {
-  font-family: 'Droid Arabic Naskh';
+  font-family: 'Noto Naskh Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
+  src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
+  src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
   src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
   src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
   font-style: normal;
@@ -179,8 +247,8 @@
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
-  src: local("Droid Arabic Naskh Regular"), local("Droid-Arabic-Naskh-Regular"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: local("Noto Naskh Arabic Regular"), local("Droid-Arabic-Naskh-Regular"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
   unicode-range: U+0600 – U+06FF;
 }
 
@@ -188,8 +256,8 @@
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
-  src: local("Droid Arabic Naskh Bold"), local("Droid-Arabic-Naskh-Bold"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: local("Noto Naskh Arabic Bold"), local("Droid-Arabic-Naskh-Bold"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
   unicode-range: U+0600 – U+06FF;
 }
 
@@ -221,8 +289,8 @@
   font-family: 'Merriweather';
   font-style: normal;
   font-weight: 400;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
-  src: local("Droid Arabic Naskh Regular"), local("Droid-Arabic-Naskh-Regular"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: local("Noto Naskh Arabic Regular"), local("Droid-Arabic-Naskh-Regular"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
   unicode-range: U+0600 – U+06FF;
 }
 
@@ -230,8 +298,8 @@
   font-family: 'Merriweather';
   font-style: normal;
   font-weight: 700;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
-  src: local("Droid Arabic Naskh Bold"), local("Droid-Arabic-Naskh-Bold"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: local("Noto Naskh Arabic Bold"), local("Droid-Arabic-Naskh-Bold"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
   unicode-range: U+0600 – U+06FF;
 }
 
