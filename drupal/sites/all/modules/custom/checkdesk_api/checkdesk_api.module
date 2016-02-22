@@ -50,3 +50,29 @@ function checkdesk_api_theme($existing, $type, $theme, $path) {
     ),
  );
 }
+
+/**
+ * Implements hook_services_resources().
+ */
+function checkdesk_api_services_resources() {
+  $resources = array();
+  $resources['stories'] = array(
+      'operations' => array(
+          'index' => array(
+              'help' => t('List all stories api/stories'),
+              'file' => array(
+                  'type' => 'inc',
+                  'module' => 'checkdesk_api',
+                  'name' => 'resources/stories_resource',
+              ),
+              'callback' => '_stories_resource_index',
+              'access callback' => '_checkdesk_api_access',
+          ),
+      ),
+  );
+  return $resources;
+}
+
+function _checkdesk_api_access() {
+    return TRUE;
+}
