@@ -502,18 +502,22 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     }
     $links['checkdesk-flag'] = array(
       'title' => '',
-      'href' => '#',
+      'href' => '',
+      'fragment' => ' ',
       'attributes' => array('class' => 'dropdown-toggle ' . ($flagged ? 'flagged' : 'unflagged'), 'data-toggle' => 'dropdown'),
       'html' => TRUE,
       'cd_group' => 'checkdesk-flag',
+      'external' => TRUE,
     );
 
     $links['checkdesk-ellipsis'] = array(
       'title' => '',
-      'href' => '#',
+      'href' => '',
+      'fragment' => ' ',
       'attributes' => array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'),
       'html' => TRUE,
       'cd_group' => 'checkdesk-ellipsis',
+      'external' => TRUE,
     );
   }
 
@@ -608,10 +612,12 @@ function checkdesk_core_share_links($url, $title, $type, $embed = array()) {
   // parent share link with title
   $links['checkdesk-share'] = array(
     'title' => ($type == 'media') ? '' : '<span class="label">' . t('Share') . '</span>',
-    'href' => '#',
+    'href' => '',
+    'fragment'=> ' ',
     'attributes' => array('title' => $title, 'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'),
     'html' => TRUE,
     'cd_group' => 'checkdesk-share',
+    'external' => TRUE,
   );
   $links['checkdesk-share-facebook'] = array(
     'title' => t('Share on Facebook'),
@@ -2532,6 +2538,7 @@ function checkdesk_core_node_insert($node) {
  */
 function checkdesk_core_node_update($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'update');
+  checkdesk_facebook_scrape(url('node/' . $node->nid, array('absolute' => TRUE)));
   if ($node->type === 'post' && isset($node->body)) {
     $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     //link report to update
@@ -2966,6 +2973,24 @@ function _checkdesk_purge_varnish($paths) {
       }
     }
   }
+}
+
+/**
+ * Scrape Facebook version of a URL
+ * Async POST to Facebook URL scraper
+ */
+function checkdesk_facebook_scrape($url) {
+  $post_string = 'id=' . urlencode($url) . '&scrape=true';
+  $host = "ssl://graph.facebook.com";
+  $fp = fsockopen($host, 443, $errno, $errstr, 30);
+  $out = "POST / HTTP/1.1\r\n";
+  $out .= "Host: " . $host . "\r\n";
+  $out .= "Content-Type: application/x-www-form-urlencoded\r\n";
+  $out .= "Content-Length: " . strlen($post_string) . "\r\n";
+  $out .= "Connection: Close\r\n\r\n";
+  $out .= $post_string;
+  $result = fwrite($fp, $out);
+  fclose($fp);
 }
 
 /**
