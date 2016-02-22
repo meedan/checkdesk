@@ -2538,6 +2538,7 @@ function checkdesk_core_node_insert($node) {
  */
 function checkdesk_core_node_update($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'update');
+  checkdesk_facebook_scrape(url('node/' . $node->nid, array('absolute' => TRUE)));
   if ($node->type === 'post' && isset($node->body)) {
     $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     //link report to update
@@ -2972,6 +2973,24 @@ function _checkdesk_purge_varnish($paths) {
       }
     }
   }
+}
+
+/**
+ * Scrape Facebook version of a URL
+ * Async POST to Facebook URL scraper
+ */
+function checkdesk_facebook_scrape($url) {
+  $post_string = 'id=' . urlencode($url) . '&scrape=true';
+  $host = "ssl://graph.facebook.com";
+  $fp = fsockopen($host, 443, $errno, $errstr, 30);
+  $out = "POST / HTTP/1.1\r\n";
+  $out .= "Host: " . $host . "\r\n";
+  $out .= "Content-Type: application/x-www-form-urlencoded\r\n";
+  $out .= "Content-Length: " . strlen($post_string) . "\r\n";
+  $out .= "Connection: Close\r\n\r\n";
+  $out .= $post_string;
+  $result = fwrite($fp, $out);
+  fclose($fp);
 }
 
 /**
