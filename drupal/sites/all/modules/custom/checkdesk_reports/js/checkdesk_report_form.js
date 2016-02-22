@@ -13,8 +13,8 @@
 
     $input.addClass('meedan-bookmarklet-loading');
     var report_id = 0;
-    if (typeof Drupal.settings.checkdesk_duplicates !== 'undefined') {
-        report_id = Drupal.settings.checkdesk_duplicates.report_nid;
+    if (typeof Drupal.settings.checkdesk_reports_duplicates !== 'undefined') {
+        report_id = Drupal.settings.checkdesk_reports_duplicates.report_nid;
     }
     var story_id = jQuery('#edit-field-stories-und').val();
     $.ajax({
@@ -35,6 +35,17 @@
           }
 
           $controls.show();
+
+          // Fix geolocation Google maps grey area bug.
+          try {
+            $.each(Drupal.settings.geolocation.defaults, function(i) {
+              google.maps.event.trigger(Drupal.geolocation.maps[i], "resize");
+            });
+          }
+          catch (e) {
+            // no maps, nothing to do.
+          }
+
           $('#checkdesk_report_duplicate').hide();
           if (data.duplicates.duplicate) {
               $('#checkdesk_report_duplicate').show().html(data.duplicates.msg);

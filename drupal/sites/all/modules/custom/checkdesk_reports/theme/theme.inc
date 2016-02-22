@@ -51,9 +51,9 @@ function checkdesk_reports_preprocess_checkdesk_core_update_reports(&$variables)
  }
 
 /**
- * Template preprocessor for `checkdesk_core_report_activity_status`.
+ * Template preprocessor for `checkdesk_reports_report_activity_status`.
  */
-function checkdesk_reports_preprocess_checkdesk_core_report_activity_status(&$variables) {
+function checkdesk_reports_preprocess_checkdesk_reports_report_activity_status(&$variables) {
   global $language;
 
   $activity = $variables['heartbeat_activity'];
@@ -63,7 +63,7 @@ function checkdesk_reports_preprocess_checkdesk_core_report_activity_status(&$va
   $status_term = taxonomy_get_term_by_name($status_name, 'media_rating');
   $icon = _checkdesk_report_status_icon(reset($status_term));
   $variables['activity_status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
-  
+
   if($status_name != 'In Progress') {
     $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
   }
@@ -84,9 +84,9 @@ function checkdesk_reports_preprocess_checkdesk_core_report_activity_status(&$va
 }
 
 /**
- * Template preprocessor for `checkdesk_core_report_activity`.
+ * Template preprocessor for `checkdesk_reports_report_activity`.
  */
-function checkdesk_reports_preprocess_checkdesk_core_report_activity(&$variables) {
+function checkdesk_reports_preprocess_checkdesk_reports_report_activity(&$variables) {
   global $language;
   $node = $variables['node'];
   $variables['nid'] = $node->nid;
@@ -99,12 +99,12 @@ function checkdesk_reports_preprocess_checkdesk_core_report_activity(&$variables
   $total_rows = '';
   $variables['show_activity'] = ($variables['view_mode'] == 'checkdesk_search') ? FALSE : TRUE;
   if ($status_name !== 'Not Applicable') {
-    $activity_report = _checkdesk_load_activity_report($variables['nid']);
+    $activity_report = checkdesk_reports_load_activity($variables['nid']);
     $total_rows = $activity_report['total_rows'];
     if ($variables['show_activity']) {
       if ($total_rows) {
         $variables['media_activity_report'] = theme(
-          'checkdesk_core_report_activity_stream', array('activity' => $activity_report['view_output'], 'nid' => $variables['nid'])
+          'checkdesk_reports_report_activity_stream', array('activity' => $activity_report['view_output'], 'nid' => $variables['nid'])
         );
         $variables['status_class'] = strtolower(str_replace(' ', '-', $status_name));
 
@@ -121,23 +121,23 @@ function checkdesk_reports_preprocess_checkdesk_core_report_activity(&$variables
   }
   if ($variables['show_activity'] || empty($total_rows)) {
     $variables['media_activity_report_count'] = theme(
-      'checkdesk_core_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'])
+      'checkdesk_reports_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'])
     );
   }
   else {
     $variables['media_activity_report_count'] = theme(
-      'checkdesk_core_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'], 'link_count' => TRUE)
+      'checkdesk_reports_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'], 'link_count' => TRUE)
     );
   }
 
 }
 
 /**
- * Template preprocessor for `checkdesk_core_metadata_fields`.
+ * Template preprocessor for `checkdesk_reports_metadata_fields`.
  */
-function checkdesk_reports_preprocess_checkdesk_core_metadata_fields(&$variables) {
+function checkdesk_reports_preprocess_checkdesk_reports_metadata_fields(&$variables) {
   $node = $variables['node'];
-  $fields = _checkdesk_metadata_group_fields();
+  $fields = checkdesk_reports_metadata_fields();
   $metadata_fields = array();
   foreach ($fields as $field) {
     $metadata_fields[] = field_view_field('node', $node, $field, 'full');

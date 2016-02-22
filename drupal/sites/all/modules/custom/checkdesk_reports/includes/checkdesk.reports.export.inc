@@ -2,7 +2,7 @@
 
 
 /**
- * 
+ *
  */
 function _checkdesk_reports_export() {
   // Load reports
@@ -94,11 +94,11 @@ function _checkdesk_fetch_report_metadata($manually_fields, $nid) {
   $node = node_load($nid);
   foreach ($manually_fields as $field_name) {
     $field_items = field_get_items('node', $node, $field_name);
-    $field = field_view_value('node', $node, $field_name, $field_items[0], 'checkdesk_export');
-    $value = render($field);
-    if (!empty($value)) {
-      $metadata[$field_name] = strip_tags($value);
-    }
+    if (empty($field_items)) continue;
+    $field_view = field_view_value('node', $node, $field_name, $field_items[0], 'checkdesk_export');
+    $output = render($field_view);
+    if (empty($output)) continue;
+    $metadata[$field_name] = strip_tags($output);
   }
   return $metadata;
 }

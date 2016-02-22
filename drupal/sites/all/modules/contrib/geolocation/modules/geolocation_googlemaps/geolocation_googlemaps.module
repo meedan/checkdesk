@@ -10,6 +10,10 @@
  */
 function geolocation_googlemaps_field_formatter_info() {
   return array(
+    'geolocation_googlemaps_address' => array(
+      'label' => t('Reversed geocoded address formatter'),
+      'field types' => array('geolocation_latlng'),
+    ),
     'geolocation_googlemaps_static' => array(
       'label' => t('Static Google Map'),
       'field types' => array('geolocation_latlng', 'geofield'),
@@ -75,6 +79,10 @@ function geolocation_googlemaps_field_formatter_settings_form($field, $instance,
 
   // Image format is used only for static maps.
   switch ($type) {
+    case 'geolocation_googlemaps_address':
+      $element = array();
+      break;
+
     case 'geolocation_googlemaps_static':
       $element['map_imageformat'] = array(
         '#type' => 'select',
@@ -162,8 +170,14 @@ function geolocation_googlemaps_field_formatter_settings_summary($field, $instan
   $type = $display['type'];
   $settings = $display['settings'];
 
-  $summary = t("<strong>Map:</strong> !mapwidth by !mapheight", array('!mapwidth' => $settings['map_width'], '!mapheight' => $settings['map_height']));
+  if (!empty($settings)) {
+    $summary = t("<strong>Map:</strong> !mapwidth by !mapheight", array('!mapwidth' => $settings['map_width'], '!mapheight' => $settings['map_height']));
+  }
   switch ($type) {
+    case 'geolocation_googlemaps_address':
+      return NULL;
+      break;
+
     case 'geolocation_googlemaps_static':
       $summary .= ' (' . $settings['map_imageformat'] . ')';
       $summary .= '<br />';
@@ -190,30 +204,33 @@ function geolocation_googlemaps_field_formatter_settings_summary($field, $instan
  * Implements hook_field_formatter_view().
  */
 function geolocation_googlemaps_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
-  $settings = $display['settings'];
-  $settings['api_key'] = variable_get('geolocation_googlemaps_api_key', '');
-
   $element = array();
   $lat_key = 'lat';
 
-  if (strpos($settings['map_height'], 'px')) {
-    $height = strtok($settings['map_height'], 'p');
-  }
-  elseif (strpos($settings['map_height'], '%')) {
-    $height = strtok($settings['map_height'], '%');
-  }
-  elseif (!strpos($settings['map_height'], '%') || !strpos($settings['map_height'], 'px')) {
-    $height = $settings['map_height'];
-  }
+  $settings = $display['settings'];
 
-  if (strpos($settings['map_width'], 'px')) {
-    $width = strtok($settings['map_width'], 'p');
-  }
-  elseif (strpos($settings['map_width'], '%')) {
-    $width = strtok($settings['map_width'], '%');
-  }
-  elseif (!strpos($settings['map_width'], '%') || !strpos($settings['map_width'], 'px')) {
-    $width = $settings['map_width'];
+  if (!empty($settings)) {
+    $settings['api_key'] = variable_get('geolocation_googlemaps_api_key', '');
+
+    if (strpos($settings['map_height'], 'px')) {
+      $height = strtok($settings['map_height'], 'p');
+    }
+    elseif (strpos($settings['map_height'], '%')) {
+      $height = strtok($settings['map_height'], '%');
+    }
+    elseif (!strpos($settings['map_height'], '%') || !strpos($settings['map_height'], 'px')) {
+      $height = $settings['map_height'];
+    }
+
+    if (strpos($settings['map_width'], 'px')) {
+      $width = strtok($settings['map_width'], 'p');
+    }
+    elseif (strpos($settings['map_width'], '%')) {
+      $width = strtok($settings['map_width'], '%');
+    }
+    elseif (!strpos($settings['map_width'], '%') || !strpos($settings['map_width'], 'px')) {
+      $width = $settings['map_width'];
+    }
   }
 
   // To make this widget compatible with geofiled we need to rename the keys for
@@ -221,6 +238,11 @@ function geolocation_googlemaps_field_formatter_view($entity_type, $entity, $fie
   $lng_key = ($field['type'] == 'geofield') ? 'lon' : 'lng';
 
   switch ($display['type']) {
+    case 'geolocation_googlemaps_address':
+      foreach ($items as $delta => $item) {
+        $element[$delta]['#markup'] = '<p>' . check_plain($item['address']) . '</p>';
+      }
+      break;
 
     case 'geolocation_googlemaps_static':
       foreach ($items as $delta => $item) {
@@ -585,5 +607,24 @@ function geolocation_googlemaps_attach_google_js(&$element) {
       'type' => 'external',
     );
     $js_added_already = TRUE;
+  }
+}
+
+/**
+ * Implements hook_field_schema_alter().
+ *
+ * Add reverse geocoded address to the geolocation field.
+ *
+ * @link https://www.drupal.org/node/691932#comment-8797725
+ */
+function geolocation_googlemaps_field_schema_alter(&$schema, $field) {
+  if ($field['type'] == 'geolocation_latlng') {
+    // Add an additional column of data.
+    $schema['columns']['address'] = array(
+      'description' => "Reverse geocoded address",
+      'type' => 'varchar',
+      'length' => 128,
+      'not null' => FALSE,
+    );
   }
 }

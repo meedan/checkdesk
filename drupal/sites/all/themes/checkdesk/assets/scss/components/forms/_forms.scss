@@ -173,6 +173,9 @@
   select:focus, input[type="file"]:focus, input[type="radio"]:focus, input[type="checkbox"]:focus {
     @include ctb-tab-focus();
   }
+
+  // Make jquery widget fonts inherit 
+  .ui-widget { font-family: inherit; }
 }
 
 @mixin cd-form-styles-except-layout {

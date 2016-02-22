@@ -172,10 +172,6 @@ $omega: opposite-position($from-direction);
 // Tags
 @import "module/tag-list";
 
-// Checkdesk bookmarklet stuff
-@import "components/bookmarklet/bookmarklet";
-@import "components/bookmarklet/install_bookmarklet";
-
 // Checkdesk Pagination
 @import "components/pagination";
 
@@ -187,9 +183,6 @@ $omega: opposite-position($from-direction);
 
 // Form: password strength section
 @import "components/forms/form_password";
-
-// Forms autocomplete and jquery ui
-@import "replace_drupal/jquery.ui.autocomplete";
 
 // Drupal styles
 // Drupal itself should not emit *any* CSS.

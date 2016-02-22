@@ -7,8 +7,8 @@ function reactor_node_view($node, $view_mode, $langcode) {
   global $user;
   if ($user->uid && $node->type == 'discussion' && $view_mode == 'checkdesk_collaborate') {
     //Get published reports
-    $nids = db_query('SELECT entity_id 
-                      FROM {field_data_field_stories} 
+    $nids = db_query('SELECT entity_id
+                      FROM {field_data_field_stories}
                       WHERE field_stories_target_id = :nid
                       ', array(':nid' => $node->nid))->fetchCol();
     if (count($nids)) {
@@ -247,8 +247,8 @@ class ReportActivityReactor extends Reactor {
   // Handle fact-checking as a start of reactor module.
   public function signature($context) {
     $timestamp = db_query('
-                    SELECT MAX(timestamp) 
-                    FROM {heartbeat_activity} 
+                    SELECT MAX(timestamp)
+                    FROM {heartbeat_activity}
                     WHERE message_id IN (:message_id) AND nid IN (:nid)
                     ', array(':message_id' => array('checkdesk_fact_checking_on', 'checkdesk_fact_checking_set', 'checkdesk_comment_on_report', 'new_comment_report'),
                     ':nid' => $context['node'])
@@ -273,7 +273,7 @@ class ReportActivityReactor extends Reactor {
           $node_view['comments'] = comment_node_page_additions($node);
           // update activity stream
           $report_activity = theme(
-            'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view)
+            'checkdesk_reports_report_activity', array('node' => $node, 'content' => $node_view)
           );
           $commands[] = reactor_ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
         }
@@ -375,13 +375,13 @@ function _reactor_render_activity($node) {
   $status_name = $term->name;
   $activity = $count = '';
   if ($status_name !== 'Not Applicable') {
-    $activity_report = _checkdesk_load_activity_report($node->nid);
+    $activity_report = checkdesk_reports_load_activity($node->nid);
     if ($activity_report['total_rows']) {
       $count = theme(
-        'checkdesk_core_report_activity_count', array('count' => $activity_report['total_rows'], 'nid' => $node->nid)
+        'checkdesk_reports_report_activity_count', array('count' => $activity_report['total_rows'], 'nid' => $node->nid)
       );
       $activity =  theme(
-        'checkdesk_core_report_activity_stream', array('activity' => $activity_report['view_output'], 'nid' => $node->nid)
+        'checkdesk_reports_report_activity_stream', array('activity' => $activity_report['view_output'], 'nid' => $node->nid)
       );
     }
   }

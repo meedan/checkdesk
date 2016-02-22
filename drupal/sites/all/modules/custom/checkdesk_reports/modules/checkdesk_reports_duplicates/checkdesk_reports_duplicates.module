@@ -3,7 +3,7 @@
 /**
  * Implements hook_menu().
  */
-function checkdesk_duplicates_menu() {
+function checkdesk_reports_duplicates_menu() {
   $items = array();
   $items['checkdesk/duplicate-report-story'] = array(
     'page callback' => '_checkdesk_duplicate_report_story',
@@ -16,13 +16,13 @@ function checkdesk_duplicates_menu() {
 /**
  * Implements hook_theme().
  */
-function checkdesk_duplicates_theme() {
+function checkdesk_reports_duplicates_theme() {
   $themes = array();
   $base = array(
     'file' => 'theme.inc',
-    'path' => drupal_get_path('module', 'checkdesk_duplicates') . '/theme',
+    'path' => drupal_get_path('module', 'checkdesk_reports_duplicates') . '/theme',
   );
-  $themes['checkdesk_duplicates_reports'] = array(
+  $themes['checkdesk_reports_duplicates'] = array(
       'template' => 'duplicates_reports',
       'variables' => array(
         'reports' => NULL,
@@ -35,7 +35,7 @@ function checkdesk_duplicates_theme() {
 /**
  * Implements hook_node_presave()
  */
-function checkdesk_duplicates_node_presave($node) {
+function checkdesk_reports_duplicates_node_presave($node) {
   // Normalize URL before save media node
   if ($node->type == 'media') {
     $node->field_link[LANGUAGE_NONE][0]['url'] = _checkdesk_normalize_url($node->field_link[LANGUAGE_NONE][0]['url']);
@@ -46,23 +46,23 @@ function checkdesk_duplicates_node_presave($node) {
  *
  * Implements hook_form_ID_alter().
  */
-function checkdesk_duplicates_form_media_node_form_alter(&$form, &$form_state) {
+function checkdesk_reports_duplicates_form_media_node_form_alter(&$form, &$form_state) {
   $form['report_duplicate'] = array(
     '#markup' => '<div id="checkdesk_report_duplicate" style="display: none;"></div>',
     '#weight' => -1                                                                                                                                                                                               ,
   );
   $form['field_stories']['#prefix'] = '<div id="checkdesk_report_story_duplicate" style="display: none;"></div>';
-  $setting = array('checkdesk_duplicates' => array('report_nid' => empty($form['nid']['#value']) ? 0 : $form['nid']['#value']));
+  $setting = array('checkdesk_reports_duplicates' => array('report_nid' => empty($form['nid']['#value']) ? 0 : $form['nid']['#value']));
   drupal_add_js($setting, 'setting');
   // Validate duplicate report
-  $form['#validate'][] = '_checkdesk_duplicates_form_validate';
-  $form['#attached']['js'][] = drupal_get_path('module', 'checkdesk_duplicates') . '/js/checkdesk_duplicates_form.js';
+  $form['#validate'][] = '_checkdesk_reports_duplicates_form_validate';
+  $form['#attached']['js'][] = drupal_get_path('module', 'checkdesk_reports_duplicates') . '/js/checkdesk_reports_duplicates_form.js';
 }
 
 /**
  * Validate report against selected story
  */
-function _checkdesk_duplicates_form_validate($form, &$form_state) {
+function _checkdesk_reports_duplicates_form_validate($form, &$form_state) {
   $story_id = isset($form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id']) ?
     $form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'] : 0;
   $report_id = isset($form_state['values']['nid']) ? $form_state['values']['nid'] : 0;
@@ -117,7 +117,7 @@ function _checkdesk_duplicate_report_story_exists($url, $report_id, $story_id) {
  * @return mixed
  */
 function _checkdesk_normalize_url($url) {
-  require_once(dirname(__FILE__) . '/../../../../../' . libraries_get_path('url-normalizer') . '/src/URL/Normalizer.php');
+  require_once(dirname(__FILE__) . '/../../../../../../../' . libraries_get_path('url-normalizer') . '/src/URL/Normalizer.php');
   // $url = _checkdesk_unshorten_url($url);
   // trim URL.
   $url = trim($url);
@@ -225,7 +225,7 @@ function _checkdesk_detect_report_duplicate($url, $report_id, $story_id) {
         'created_at' => $created_at,
       );
     }
-    $output['msg'] = theme('checkdesk_duplicates_reports', array(
+    $output['msg'] = theme('checkdesk_reports_duplicates', array(
       'reports' => $duplicate_reports, 'duplicate_report_nid' => $duplicate_report_nid));
   }
   return $output;

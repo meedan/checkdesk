@@ -49,10 +49,6 @@
   content: "\f021";
 }
 
-.story .story-collaborate-links li.submit-report a:before {
-  content: "\f02e";
-}
-
 .media--video .title a:before, .icon-video-camera:before {
   content: "\f03d";
 }
@@ -61,7 +57,7 @@
   content: "\f03e";
 }
 
-.story .story-collaborate-links li.compose-update a:before, .story .open .compose-update-header a:before {
+.story .open .compose-update-header a:before {
   content: "\f040";
 }
 
@@ -5281,57 +5277,59 @@ div.sensitive-hide {
 
 .story .story-collaboration-header-wrapper {
   position: relative;
-  display: table;
-  width: 100%;
-  table-layout: fixed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  -webkit-align-items: flex-end;
+  -moz-align-items: flex-end;
+  align-items: flex-end;
   padding-bottom: 15px;
 }
 body.page-node-collaboration .story .story-collaboration-header-wrapper {
   border-bottom: 1px solid rgba(16, 33, 47, 0.1);
 }
-.story .story-collaboration-header-wrapper > div, .story .story-collaboration-header-wrapper > ul {
-  display: table-cell;
-  width: 100%;
-  vertical-align: bottom;
+.story .story-collaboration-header-wrapper .story-collaborate-links,
+.story .story-collaboration-header-wrapper .story-collaborators-wrapper {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -moz-box-flex: 1;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
+.story .story-collaborate-links {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
 .story .story-collaborate-links li {
-  display: inline;
-  margin-left: 30px;
-  font-size: 18px;
+  list-style: none;
+  margin-left: 15px;
 }
 .story .story-collaborate-links li:last-child {
   margin-left: 0;
 }
-.story .story-collaborate-links li.submit-report a:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 18px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.story .story-collaborate-links li.compose-update a:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 18px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
+@media (min-width: 1px) and (max-width: 740px) {
+  .story .story-collaborate-links {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .story .story-collaborate-links li:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
 .story .collaboration-report-tooltip {
   right: 20px;
   top: 55px;
@@ -7821,6 +7819,10 @@ select[multiple], select[size] {
   height: auto;
 }
 
+.ui-widget {
+  font-family: inherit;
+}
+
 form {
   font-family: "Noto Naskh Arabic", "Merriweather", Georgia, "Times New Roman", Times, serif;
 }
@@ -8502,451 +8504,6 @@ table th[class*="span"],
   white-space: nowrap;
 }
 
-#nav-media-form {
-  width: 366px;
-  overflow-y: scroll;
-  z-index: 900;
-}
-#nav-media-form iframe {
-  width: 100%;
-}
-
-.meedan-bookmarklet-internal #meedan_bookmarklet_preview,
-.meedan-bookmarklet-internal #edit-body,
-.meedan-bookmarklet-internal #edit-graphic-content,
-.meedan-bookmarklet-internal #edit-actions #edit-submit,
-.meedan-bookmarklet-internal #edit-title {
-  display: none;
-}
-
-#meedan_bookmarklet_html {
-  height: auto;
-  background: #fff;
-}
-
-#meedan_bookmarklet {
-  font-size: 15px;
-  overflow: hidden;
-  position: relative;
-  padding: 0 !important;
-  margin: 5px 15px !important;
-}
-#meedan_bookmarklet form {
-  margin: 0;
-  padding: 0;
-}
-#meedan_bookmarklet .form-item {
-  margin: 0;
-  padding: 0;
-  float: right;
-  clear: both;
-}
-#meedan_bookmarklet .form-item .description {
-  width: 335px;
-}
-#meedan_bookmarklet .fb-message .description {
-  display: none;
-}
-#meedan_bookmarklet .field-type-link-field {
-  clear: both;
-}
-#meedan_bookmarklet .field-type-link-field label {
-  display: none;
-}
-#meedan_bookmarklet .field-edit-link {
-  display: none;
-}
-#meedan_bookmarklet .link-field-url input[type=text],
-#meedan_bookmarklet .link-field-url input[type=password],
-#meedan_bookmarklet .link-field-url textarea {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-}
-#meedan_bookmarklet .link-field-url input[type=text] {
-  padding-left: 25px;
-}
-#meedan_bookmarklet textarea {
-  height: 60px;
-  padding: 5px;
-}
-#meedan_bookmarklet .form-actions {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  float: right;
-  width: auto;
-  border-top: 0;
-}
-#meedan_bookmarklet .footer {
-  float: right;
-  clear: both;
-  margin-top: 15px;
-}
-#meedan_bookmarklet #edit-body {
-  float: right;
-  clear: both;
-  margin-top: 0;
-}
-#meedan_bookmarklet #edit-graphic-content {
-  float: left;
-  margin: 0;
-  margin-top: 15px;
-  width: auto;
-}
-#meedan_bookmarklet #edit-graphic-content > .form-type-checkbox {
-  width: 100%;
-}
-#meedan_bookmarklet #edit-graphic-content .form-item label:hover,
-#meedan_bookmarklet #edit-graphic-content .form-item input[type="checkbox"]:hover {
-  color: #2e77fc;
-}
-#meedan_bookmarklet #user-login label,
-#meedan_bookmarklet #user-login input[type=text],
-#meedan_bookmarklet #user-login input[type=password],
-#meedan_bookmarklet #user-login a {
-  clear: both;
-}
-#meedan_bookmarklet #user-login ul {
-  margin: 0;
-}
-#meedan_bookmarklet #user-login li {
-  list-style: none;
-  display: block;
-  margin: 0;
-}
-#meedan_bookmarklet #user-login .messages.error {
-  position: static;
-  font-size: modular-scale(0)-modular-scale(-3);
-  margin-bottom: 8px;
-}
-#meedan_bookmarklet #user-login .social-signin-wrapper {
-  margin-top: 12px;
-}
-#meedan_bookmarklet #user-login .social-signin-wrapper .item-list li a {
-  padding: 8px 15px;
-}
-#meedan_bookmarklet #user-login .or {
-  margin: 0 0;
-}
-#meedan_bookmarklet #user-login .user-links {
-  clear: both;
-  font-size: modular-scale(0)-modular-scale(-3);
-  padding-left: 15px;
-}
-#meedan_bookmarklet #user-login .form-item-remember-me {
-  clear: none;
-}
-#meedan_bookmarklet #user-login .form-item-remember-me label {
-  font-size: modular-scale(0)-modular-scale(-3);
-}
-#meedan_bookmarklet #user-login .user-new-account-link .register {
-  text-align: left;
-  font-size: modular-scale(0)-modular-scale(-3);
-}
-#meedan_bookmarklet #user-login input[type=text],
-#meedan_bookmarklet #user-login input[type=password] {
-  padding-left: 0;
-}
-#meedan_bookmarklet #user-login .form-actions {
-  margin-top: 12px;
-}
-#meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all, #meedan_bookmarklet #absolute-messages-messages {
-  display: none !important;
-}
-#meedan_bookmarklet .messages.error {
-  clear: both;
-  background: transparent;
-  padding: 0;
-  border: 0;
-  color: #a00;
-}
-#meedan_bookmarklet #meedan_bookmarklet_messages {
-  padding: 0;
-  margin: 24px 0 0 0;
-  clear: both;
-  text-align: center;
-}
-#meedan_bookmarklet #meedan_bookmarklet_messages li {
-  display: block;
-  list-style: none;
-  width: 100%;
-  text-align: center;
-  font-size: 15px;
-  margin-top: 15px;
-}
-#meedan_bookmarklet #meedan_bookmarklet_messages a {
-  text-decoration: underline;
-}
-#meedan_bookmarklet #meedan_bookmarklet_messages .meedan-bookmarklet-success {
-  display: block;
-  color: #fff;
-  padding: 15px;
-  background-color: rgba(0, 140, 0, 0.8);
-}
-#meedan_bookmarklet h2 {
-  margin: 0;
-  padding: 0;
-  color: #6f7a82;
-  font-size: 18px;
-  float: right;
-  line-height: 24px;
-}
-#meedan_bookmarklet #meedan_bookmarklet_help {
-  line-height: 1.2;
-}
-#meedan_bookmarklet #meedan_bookmarklet_help span {
-  display: block;
-  float: right;
-  width: 30px;
-  text-indent: -5000em;
-  background: transparent url(../imgs/icons/bookmarklet-help.png) center center no-repeat;
-  cursor: help;
-}
-#meedan_bookmarklet #meedan_bookmarklet_help span p {
-  display: none;
-}
-#meedan_bookmarklet #meedan_bookmarklet_help span:hover p {
-  display: block;
-  width: 240px;
-  height: auto;
-  background: white;
-  border: 1px solid #eeeeee;
-  font-size: 15px;
-  line-height: 1.2;
-  color: #777777;
-  text-indent: 0;
-  padding: 15px;
-  position: absolute;
-  left: 1px;
-}
-#meedan_bookmarklet .meedan-bookmarklet-loading {
-  background: white url(../imgs/icons/bookmarklet-loading.gif) left center no-repeat;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview {
-  clear: both;
-  color: #6f7a82;
-  margin: 15px 0;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_content img {
-  width: auto;
-  clear: both;
-}
-#meedan_bookmarklet .bookmarklet-preview {
-  width: 100%;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_content,
-#meedan_bookmarklet #meedan_bookmarklet_preview_gc {
-  height: auto;
-  width: 100%;
-  max-height: 345px;
-  display: inline-block;
-  overflow: hidden;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_gc {
-  background: #9fa6ac;
-  color: #6f7a82;
-  padding-top: 85px;
-  height: 345px;
-  max-height: 145px;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_gc span, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a {
-  text-align: center;
-  display: block;
-  width: 100%;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_gc span {
-  font-size: 15px;
-  margin-bottom: 5px;
-}
-#meedan_bookmarklet #meedan_bookmarklet_preview_gc a, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:visited, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:link, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:hover {
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-}
-#meedan_bookmarklet .fb-status-preview {
-  background: #b7bcc0;
-  padding: 15px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-}
-#meedan_bookmarklet .fb-status-preview .author {
-  float: right;
-  clear: both;
-}
-
-#meedan_bookmarklet_close {
-  position: absolute;
-  left: 0;
-  top: -2px;
-  z-index: 2;
-}
-
-#media-node-form .meedan-bookmarklet-loading {
-  background: white url(../imgs/icons/bookmarklet-loading.gif) left center no-repeat;
-}
-#media-node-form #meedan_bookmarklet_preview {
-  clear: both;
-  color: #6f7a82;
-  margin: 15px 0;
-}
-#media-node-form #meedan_bookmarklet_preview_content img {
-  width: auto;
-  clear: both;
-}
-#media-node-form .bookmarklet-preview {
-  width: 100%;
-}
-#media-node-form #meedan_bookmarklet_preview_content,
-#media-node-form #meedan_bookmarklet_preview_gc {
-  height: auto;
-  width: 100%;
-  max-height: 345px;
-  display: inline-block;
-  overflow: hidden;
-}
-#media-node-form #meedan_bookmarklet_preview_gc {
-  background: #9fa6ac;
-  color: #6f7a82;
-  padding-top: 85px;
-  height: 345px;
-  max-height: 145px;
-}
-#media-node-form #meedan_bookmarklet_preview_gc span, #media-node-form #meedan_bookmarklet_preview_gc a {
-  text-align: center;
-  display: block;
-  width: 100%;
-}
-#media-node-form #meedan_bookmarklet_preview_gc span {
-  font-size: 15px;
-  margin-bottom: 5px;
-}
-#media-node-form #meedan_bookmarklet_preview_gc a, #media-node-form #meedan_bookmarklet_preview_gc a:visited, #media-node-form #meedan_bookmarklet_preview_gc a:link, #media-node-form #meedan_bookmarklet_preview_gc a:hover {
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-}
-#media-node-form .fb-status-preview {
-  background: #b7bcc0;
-  padding: 15px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-}
-#media-node-form .fb-status-preview .author {
-  float: right;
-  clear: both;
-}
-#media-node-form #meedan_bookmarklet_preview_content {
-  max-height: none;
-}
-
-#modalContent.modal-install-bookmarklet {
-  z-index: 950;
-}
-#modalContent.modal-install-bookmarklet .ctools-modal-content .modal-content {
-  overflow: visible;
-}
-#modalContent.modal-install-bookmarklet .modal {
-  width: 700px;
-  height: 350px;
-}
-#modalContent.modal-install-bookmarklet .modal .modal-body {
-  overflow: visible;
-}
-#modalContent.modal-install-bookmarklet .modal-header {
-  border-bottom: 0;
-}
-#modalContent.modal-install-bookmarklet .modal-header .modal-title {
-  display: none;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col {
-  float: right;
-  margin-top: -24px;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button {
-  position: relative;
-  text-align: center;
-  margin-top: -12px;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button:before {
-  pointer-events: none;
-  content: "";
-  position: absolute;
-  top: -35px;
-  bottom: 0;
-  right: -60px;
-  width: 66px;
-  height: 84px;
-  background: transparent url(../imgs/icons/bookmarklet-drag-ltr.png) no-repeat;
-  overflow: visible;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button a {
-  padding: 10px;
-  display: block;
-  background: #2e77fc;
-  font-size: 15px;
-  color: #fff;
-  text-decoration: none;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  overflow: visible;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button .description {
-  margin: 0;
-  padding: 0;
-  margin: 12px auto;
-  font-size: modular-scale(0)-modular-scale(-3);
-  font-weight: normal;
-  line-height: 1.3;
-  color: #777777;
-  width: 80%;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col ul {
-  margin: 0;
-  padding: 0;
-  margin: 0;
-  padding: 0;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col ul li {
-  list-style: none;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col a, #modalContent.modal-install-bookmarklet .install-bookmarklet-col p {
-  font-size: 15px;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col p {
-  color: #555555;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col h2 {
-  margin: 0;
-  padding: 0;
-  font-weight: normal;
-  font-size: 20px;
-  color: #555555;
-  width: 90%;
-}
-#modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:first-child {
-  float: right;
-  margin-left: 15px;
-  padding-right: 15px;
-  clear: both;
-  width: 250px;
-}
-#modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:last-child {
-  float: left;
-  width: 300px;
-}
-
 ul.pager {
   margin-top: 1em;
   float: right;
@@ -9382,70 +8939,6 @@ div.password-suggestions ul {
 .confirm-parent:after,
 .password-parent:after {
   clear: both;
-}
-
-/*
- * jQuery UI Autocomplete 1.8.7
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Autocomplete#theming
- */
-.ui-autocomplete {
-  position: absolute;
-  cursor: default;
-}
-
-/* workarounds */
-* html .ui-autocomplete {
-  width: 1px;
-}
-
-/* without this, the menu expands to 100% in IE6 */
-/*
- * jQuery UI Menu 1.8.7
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Menu#theming
- */
-.ui-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: block;
-  float: right;
-}
-
-.ui-menu .ui-menu {
-  margin-top: -3px;
-}
-
-.ui-menu .ui-menu-item {
-  margin: 0;
-  padding: 0;
-  zoom: 1;
-  float: right;
-  clear: right;
-  width: 100%;
-}
-
-.ui-menu .ui-menu-item a {
-  text-decoration: none;
-  display: block;
-  padding: .2em .4em;
-  line-height: 1.5;
-  zoom: 1;
-}
-
-.ui-menu .ui-menu-item a.ui-state-hover,
-.ui-menu .ui-menu-item a.ui-state-active {
-  font-weight: normal;
-  margin: -1px;
 }
 
 /**

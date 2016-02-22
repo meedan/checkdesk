@@ -114,7 +114,7 @@ function checkdesk_bot__generate_response($tweet) {
   }
 
   // Detect duplicate links.
-  if (module_exists('checkdesk_duplicates') && ($duplicates = _checkdesk_duplicate_reports($report_url))) {
+  if (module_exists('checkdesk_reports_duplicates') && ($duplicates = _checkdesk_duplicate_reports($report_url))) {
     return t(
       '!screen_name this link already exists: !url',
       array(

@@ -72,6 +72,8 @@
         Drupal.geolocation.setMapMarker(results[0].geometry.location, i);
         Drupal.geolocation.codeLatLng(results[0].geometry.location, i, 'textinput');
         Drupal.geolocation.setZoom(i, results[0].geometry.location_type);
+        // Set the address field to the reversed geocoded value returned by Google.
+        $('#geolocation-address-' + i + ' input').val(results[0].formatted_address);
       }
       else {
         alert(Drupal.t('Geocode was not successful for the following reason: ') + status);

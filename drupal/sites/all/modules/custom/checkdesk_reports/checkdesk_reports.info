@@ -2,3 +2,7 @@ name = Checkdesk Reports
 description = Customizations for Checkdesk Reports.
 package = Checkdesk
 core = 7.x
+
+; Tests
+files[] = tests/checkdesk_reports_load.test
+files[] = tests/checkdesk_reports_permissions.test

@@ -33,7 +33,7 @@ function checkdesk_theme() {
 function checkdesk_preprocess_field(&$variables, $hook) {
   $element = $variables['element'];
   // Add a custom tpl for metadata fields
-  $metadata_fields = _checkdesk_metadata_group_fields();
+  $metadata_fields = checkdesk_reports_metadata_fields();
   if (in_array($element['#field_name'], $metadata_fields)) {
     $variables['theme_hook_suggestions'][] = 'field__metadata_media_fields';
     if ($variables['element']['#field_type'] == 'geolocation_latlng' && $variables['element']['#view_mode'] == 'full') {
@@ -312,7 +312,7 @@ function checkdesk_preprocess_page(&$variables) {
         'html' => TRUE,
       )
     );
-    // add css for 
+    // add css for
     drupal_add_css(
       drupal_get_path('theme', 'checkdesk') . '/assets/css/module/cd_embed.css',
       array(
@@ -634,7 +634,7 @@ function checkdesk_preprocess_node(&$variables) {
       }
     }
   }
-  
+
   if ($variables['type'] == 'discussion') {
     // get authors
     $variables['story_authors'] = _checkdesk_story_authors($variables['node']);
@@ -836,7 +836,7 @@ function checkdesk_preprocess_node(&$variables) {
       }
     }
     $variables['report_activity'] = theme(
-      'checkdesk_core_report_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
+      'checkdesk_reports_report_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
     );
 
     // Inject lazy-loading.
@@ -1159,7 +1159,7 @@ function checkdesk_field__field_tags(&$variables) {
  */
 function checkdesk_field__field_lead_image(&$variables) {
   // generate img tag with srcset
-  $image_field_caption = isset($variables['element']['#items'][0]['image_field_caption']['value']) ? 
+  $image_field_caption = isset($variables['element']['#items'][0]['image_field_caption']['value']) ?
           $variables['element']['#items'][0]['image_field_caption']['value'] : NULL;
   $output = _checkdesk_generate_lead_image_directed($variables['element']['#items'][0]['uri'], $image_field_caption);
   return $output;
@@ -1211,7 +1211,7 @@ function _checkdesk_generate_lead_image($image) {
     $lead_image_small_path = image_style_url('item_image_small', $image);
     // set small, med and large images in srcset
     $output .= '<img';
-    $output .= ' srcset="' . $lead_image_large_path . ' 700w, ' . $lead_image_med_path . ' 520w, ' . $lead_image_small_path . ' 220w"'; 
+    $output .= ' srcset="' . $lead_image_large_path . ' 700w, ' . $lead_image_med_path . ' 520w, ' . $lead_image_small_path . ' 220w"';
     $output .= ' sizes="(min-width: 980px) 700px, (min-width: 740px) 520px, 100%"';
     $output .= ' src="' . $lead_image_small_path . '"';
     $output .= ' class="feature-image"';
@@ -1237,7 +1237,7 @@ function _checkdesk_generate_lead_image_thumbnail($image) {
     $lead_image_list_small_path = image_style_url('item_image_list_small', $image);
     // set small, med and large images in srcset
     $output .= '<img';
-    $output .= ' srcset="' . $lead_image_small_path . ' 220w, ' . $lead_image_list_path . ' 160w, ' . $lead_image_list_small_path . ' 120w"'; 
+    $output .= ' srcset="' . $lead_image_small_path . ' 220w, ' . $lead_image_list_path . ' 160w, ' . $lead_image_list_small_path . ' 120w"';
     $output .= ' sizes="(min-width: 980px) 220px, (min-width: 740px) 160px, 120px"';
     $output .= ' src="' . $lead_image_list_path . '"';
     $output .= ' class="feature-image"';
@@ -1251,7 +1251,7 @@ function _checkdesk_generate_lead_image_thumbnail($image) {
  * for inline images with no cropping with alt, title
  * @param image_file
  *   Full file object.
- * 
+ *
  */
 function _checkdesk_generate_inline_image($image_file) {
   $output = '';
@@ -1264,7 +1264,7 @@ function _checkdesk_generate_inline_image($image_file) {
     $image_small_path = image_style_url('inline_image_small', $image);
     // set small, med and large images in srcset
     $output .= '<img';
-    $output .= ' srcset="' . $image_large_path . ' 660w, ' . $image_med_path . ' 605w, ' . $image_small_path . ' 445w"'; 
+    $output .= ' srcset="' . $image_large_path . ' 660w, ' . $image_med_path . ' 605w, ' . $image_small_path . ' 445w"';
     $output .= ' sizes="(min-width: 660px) 620px, (min-width: 480px) 605px, 445px"';
     $output .= ' src="' . $image_small_path . '"';
     $output .= ' class="inline-image"';
@@ -1272,7 +1272,7 @@ function _checkdesk_generate_inline_image($image_file) {
       $output .= ' alt="' . $image_file->alt .  '"';
     }
     if(!empty($image_file->title)) {
-      $output .= ' title="' . $image_file->title .  '"';  
+      $output .= ' title="' . $image_file->title .  '"';
     }
     $output .= '/>';
   }
@@ -1437,7 +1437,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     // Get embed type
     $vars['media_type_class'] = checkdesk_oembed_embed_class_type($report_nid);
   }
-  
+
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
     $vars['update_id'] = $vars['fields']['nid']->raw;
@@ -1448,11 +1448,11 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       $vars['update'] = $vars['fields']['rendered_entity_1']->content;
     }
   }
-  
+
   if ($vars['view']->name === 'more_stories' || $vars['view']->name === 'sections') {
     $vars['stories'] = isset($vars['view']->result[$vars['view']->row_index]->stories) ? $vars['view']->result[$vars['view']->row_index]->stories : '';
   }
-  
+
   if ($vars['view']->tag == 'stories_container' || in_array($vars['view']->name, array('story_section', 'featured_story'))) {
     $vars['show_section'] = TRUE;
     if (isset($vars['view']->args[0]) && is_numeric($vars['view']->args[0])) {
@@ -1499,7 +1499,7 @@ function checkdesk_preprocess_user_profile(&$vars) {
     // Use large avatar if the image is larger than 180px
     if ($avatar_image_size[0] > 180) {
       $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-180'), FALSE, 'medium');
-    } 
+    }
     // Use small style if the image is small
     else {
       $vars['user_avatar'] = _set_user_avatar_bg($vars['elements']['#account'], array('avatar', 'thumb-60'), FALSE);
@@ -1633,7 +1633,7 @@ function checkdesk_checkdesk_core_render_links($variables) {
     $href = isset($link_type['href']) ? $link_type['href'] : '#';
     $output .= l($list_title, $href, $link_type);
     if ($options['direction']) {
-      $output .= '<ul class="dropdown-menu pull-' . $options['direction'] . '">';  
+      $output .= '<ul class="dropdown-menu pull-' . $options['direction'] . '">';
     } else {
       $output .= '<ul class="dropdown-menu">';
     }
@@ -1737,7 +1737,7 @@ function _checkdesk_story_authors($node) {
  */
 function checkdesk_date_part_label_date($variables) {
   $label = 'Date';
-  $metadata_fields =_checkdesk_metadata_group_fields();
+  $metadata_fields = checkdesk_reports_metadata_fields();
   if (in_array($variables['element']['#field']['field_name'], $metadata_fields)) {
     $label = $variables['element']['#date_title'] .' - Date';
   }
@@ -1749,7 +1749,7 @@ function checkdesk_date_part_label_date($variables) {
  */
 function checkdesk_date_part_label_time($variables) {
   $label = 'Time';
-  $metadata_fields =_checkdesk_metadata_group_fields();
+  $metadata_fields = checkdesk_reports_metadata_fields();
   if (in_array($variables['element']['#field']['field_name'], $metadata_fields)) {
     $label = $variables['element']['#date_title'] .' - Time';
   }

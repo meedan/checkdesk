@@ -7,22 +7,22 @@ function checkdesk_reports_menu() {
     $items = array();
     $items['node/%checkdesk_report/checkdesk/suggest'] = array(
         'title' => 'Add report to story',
-        'title callback' => '_checkdesk_core_report_suggest_title',
+        'title callback' => '_checkdesk_reports_suggest_title',
         'title arguments' => array(1),
         'page callback' => 'drupal_get_form',
-        'page arguments' => array('_checkdesk_core_report_suggest', 1),
-        'access callback' => '_checkdesk_core_report_can_suggest',
+        'page arguments' => array('_checkdesk_reports_suggest_report', 1),
+        'access callback' => '_checkdesk_reports_can_suggest',
         'access arguments' => array(1),
         'file' => 'checkdesk.report_suggest.inc',
         'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
     );
     $items['node/%checkdesk_report/checkdesk/modal/suggest/%ctools_js'] = array(
         'title' => 'Add report to story',
-        'title callback' => '_checkdesk_core_report_suggest_title',
+        'title callback' => '_checkdesk_reports_suggest_title',
         'title arguments' => array(1),
-        'page callback' => '_checkdesk_core_report_suggest_modal',
+        'page callback' => '_checkdesk_reports_suggest_report_modal',
         'page arguments' => array(1, 5),
-        'access callback' => '_checkdesk_core_report_can_suggest',
+        'access callback' => '_checkdesk_reports_can_suggest',
         'access arguments' => array(1),
         'type' => MENU_CALLBACK,
         'file' => 'checkdesk.report_suggest.inc',
@@ -34,6 +34,8 @@ function checkdesk_reports_menu() {
         'page arguments' => array(3, 4, 5, 6),
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
+        'file' => 'checkdesk.report_flag.inc',
+        'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
     );
     $items['checkdesk/reports'] = array(
         'title' => 'Reports',
@@ -44,20 +46,24 @@ function checkdesk_reports_menu() {
     $items['reports-export'] = array(
         'title' => 'Export reports as CSV',
         'page callback' => '_checkdesk_reports_export',
-        'access arguments' => array('access content'),
+        'access arguments' => array('export reports'),
         'file' => 'checkdesk.reports.export.inc',
         'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
     );
     $items['checkdesk/media-preview'] = array(
-        'page callback' => '_checkdesk_bookmarklet_media_preview_callback',
+        'page callback' => '_checkdesk_reports_media_preview_callback',
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
+        'file' => 'checkdesk.media_preview.inc',
+        'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
     );
     $items['checkdesk/media-widget/%'] = array(
         'page callback' => '_checkdesk_media_widget_callback',
         'page arguments' => array(2),
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
+        'file' => 'checkdesk.media_preview.inc',
+        'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
     );
     return $items;
 }
@@ -71,94 +77,6 @@ function checkdesk_report_load($nid) {
         return $report;
     }
     return FALSE;
-}
-
-/*
- * Menu callback for checkdesk/media-preview.
- */
-function _checkdesk_bookmarklet_media_preview_callback() {
-    $path = (isset($_GET['url']) ? $_GET['url'] : FALSE);
-    drupal_json_output(_checkdesk_bookmarklet_media_preview($path));
-}
-
-/*
- * Function to show media preview.
- */
-function _checkdesk_bookmarklet_media_preview($path) {
-    $response = array('preview' => '');
-
-    if (!$path) {
-        return array(
-            'error' => array(
-                'message' => t('Preview not available.'),
-            ),
-        );
-    }
-
-    $oembed = meedan_oembed_data($path, array(), TRUE);
-    if ($oembed) {
-        if (isset($oembed->error) && $oembed->error) {
-            $response['error'] = array();
-
-            if (isset($oembed->error_message) && $oembed->error_message) {
-                $response['error']['message'] = check_plain($oembed->error_message);
-            }
-            else {
-                $response['error']['message'] = check_plain(t('There was a problem parsing this report. You can create the report now (but it will remain unpublished) and try to parse it later, or give up and try to submit it again later.'));
-            }
-        }
-        else {
-            if (isset($oembed->html)) {
-                $response['preview'] = $oembed->html;
-            }
-            else if (isset($oembed->thumbnail_url)) {
-                $response['preview'] = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));
-            }
-            if (isset($oembed->description)) {
-                $response['description'] = $oembed->description;
-            }
-            if (isset($oembed->title)) {
-                $response['title'] = $oembed->title;
-            }
-
-            // Add duplicate reports id exists
-            $response['duplicates'] = FALSE;
-            if (module_exists('checkdesk_duplicates')) {
-                // hide duplicate reports messages in node edit form
-                if ($_GET['report_id']) {
-                    $report = node_load($_GET['report_id']);
-                    if ($report->field_link[LANGUAGE_NONE][0]['url'] != $path) {
-                        $duplicates = _checkdesk_detect_report_duplicate($path, $_GET['report_id'], $_GET['story_id']);
-                        $response['duplicates'] = $duplicates;
-                    }
-                }
-                else {
-                    $duplicates = _checkdesk_detect_report_duplicate($path, $_GET['report_id'], $_GET['story_id']);
-                    $response['duplicates'] = $duplicates;
-                }
-            }
-        }
-    }
-    return $response;
-}
-
-/**
- *
- */
-function _checkdesk_media_widget_callback($nid) {
-    $node = node_load($nid);
-    $render = field_view_field('node', $node, 'field_link',
-        array(
-            'type' => 'meedan_oembed_thumbnail',
-            'settings' => array('imagestyle' => 'report_thumbnail'),
-        )
-    );
-    $media_ref = checkdesk_core_droppable_reference($node);
-    $response = array(
-        'preview' => render($render),
-        'media_ref' => $media_ref,
-    );
-    drupal_json_output($response);
 }
 
 /**
@@ -211,7 +129,7 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     $form['body'][LANGUAGE_NONE][0]['#resizable'] = FALSE;
 
     // Load JavaScript for the form
-    $form['#after_build'] = array('_checkdesk_bookmarklet_load_javascript_for_bookmarklet_form');
+    $form['#after_build'] = array('_checkdesk_reports_load_javascript_for_report_form');
     // Two buttons: submit and cancel
     $form['actions']['submit']['#value'] = t('Submit');
     $form['actions']['draft']['#access'] = FALSE;
@@ -221,7 +139,6 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
         foreach (variable_get('meedan_bookmarklet_hidden_fields', array('title', 'field_rating')) as $field) {
             $form[$field]['#access'] = FALSE;
         }
-
         //hide description and graphic content
         $form['#attached']['js'][] = array(
             'data' => 'jQuery(function() { jQuery("#edit-body, #edit-graphic-content, #edit-field-stories, #edit-field-tags, #checkdesk-group-metadata").hide();});',
@@ -282,7 +199,8 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     // Add CSS file for geolocation google maps field when module is enabled
     if (module_exists('geolocation_googlemaps')) {
         // get field name of type geolocation_latlng
-        $metadata_fields = _checkdesk_metadata_group_fields();
+        $field_location_name = '';
+        $metadata_fields = checkdesk_reports_metadata_fields();
         foreach ($metadata_fields as $metadata_field_name) {
             $metadata_field = field_info_field($metadata_field_name);
             if($metadata_field['type'] == 'geolocation_latlng') {
@@ -290,32 +208,32 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
                 break;
             }
         }
+        if (!empty($field_location_name)) {
+            // Adjust classes for the buttons inside google maps field widget
+            $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-get-location">' . $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#prefix'];
+            $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#suffix'] = $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#suffix'] . '</div>';
 
-        // Adjust classes for the buttons inside google maps field widget
-        $form[$field_location_name]['und'][0]['address']['geocode']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-get-location">' . $form[$field_location_name]['und'][0]['address']['geocode']['#prefix'];
-        $form[$field_location_name]['und'][0]['address']['geocode']['#suffix'] = $form[$field_location_name]['und'][0]['address']['geocode']['#suffix'] . '</div>';
+            $form[$field_location_name][LANGUAGE_NONE][0]['googlemap']['#prefix'] = '<div class="geolocation-selection-wrapper">' . $form[$field_location_name][LANGUAGE_NONE][0]['googlemap']['#prefix'];
 
+            $form[$field_location_name][LANGUAGE_NONE][0]['latitem']['#prefix'] = '<div class="geolocation-values-wrapper"><div class="geolocation-selection">' . $form[$field_location_name][LANGUAGE_NONE][0]['latitem']['#prefix'];
+            $form[$field_location_name][LANGUAGE_NONE][0]['lngitem']['#suffix'] = $form[$field_location_name][LANGUAGE_NONE][0]['lngitem']['#suffix'] . '</div>';
 
-        $form[$field_location_name]['und'][0]['googlemap']['#prefix'] = '<div class="geolocation-selection-wrapper">' . $form[$field_location_name]['und'][0]['googlemap']['#prefix'];
-
-        $form[$field_location_name]['und'][0]['latitem']['#prefix'] = '<div class="geolocation-values-wrapper"><div class="geolocation-selection">' . $form[$field_location_name]['und'][0]['latitem']['#prefix'];
-        $form[$field_location_name]['und'][0]['lngitem']['#suffix'] = $form[$field_location_name]['und'][0]['lngitem']['#suffix'] . '</div>';
-
-        $form[$field_location_name]['und'][0]['remove']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-selection-remove-button">' . $form[$field_location_name]['und'][0]['remove']['#prefix'];
-        $form[$field_location_name]['und'][0]['remove']['#suffix'] = $form[$field_location_name]['und'][0]['remove']['#suffix'] . '</div></div></div>';
-        drupal_add_css(
-            drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/geolocation_googlemaps.css',
-            array(
-                'scope' => 'footer',
-                'group' => CSS_THEME,
-                'weight' => '9993',
-                'every_page' => FALSE,
-            )
-        );
+            $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-selection-remove-button">' . $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#prefix'];
+            $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#suffix'] = $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#suffix'] . '</div></div></div>';
+            drupal_add_css(
+                drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/geolocation_googlemaps.css',
+                array(
+                    'scope' => 'footer',
+                    'group' => CSS_THEME,
+                    'weight' => '9993',
+                    'every_page' => FALSE,
+                )
+            );
+        }
     }
 
     // Redirect user to collaboration page.
-    $form['actions']['submit']['#submit'][] = '_redirect_report';
+    $form['actions']['submit']['#submit'][] = '_checkdesk_reports_redirect';
     if (in_array('journalist', $user->roles)) {
         // Hide comment settings
         $form['comment_settings']['#access'] = FALSE;
@@ -325,53 +243,11 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
 /*
  * Load JavaScript file for bookmarklet form
  */
-function _checkdesk_bookmarklet_load_javascript_for_bookmarklet_form($form, &$form_state) {
+function _checkdesk_reports_load_javascript_for_report_form($form, &$form_state) {
     //add placeholder to link field
     $form['field_link'][LANGUAGE_NONE][0]['url']['#attributes']['placeholder'] = t('Add a link');
     drupal_add_js(drupal_get_path('module', 'checkdesk_reports') . '/js/checkdesk_report_form.js');
     return $form;
-}
-
-/**
- * Implements hook_node_view().
- */
-function checkdesk_reports_node_view($node, $view_mode, $langcode) {
-
-    // Add decorations to report nodes.
-    if ($node->type == 'media') {
-        $node->content['report_source'] = array(
-            '#theme' => 'checkdesk_core_report_source',
-            '#report' => $node,
-        );
-    }
-
-    if ($view_mode == 'full') {
-        $node->content['metadata_fields'] = theme('checkdesk_core_metadata_fields', array('node' => $node));
-    }
-    elseif ($view_mode == 'checkdesk_collaborate' || $view_mode == 'checkdesk_search') {
-        if ($node->type == 'media') {
-            $node->content['comments'] = comment_node_page_additions($node);
-            $heartbeat_row = isset($node->heartbeat_row) ? $node->heartbeat_row : '';
-            if ($heartbeat_row) {
-                $heartbeat_row = $node->heartbeat_row;
-                // Load activity status with verification footnote
-                if ($heartbeat_row->heartbeat_activity_message_id == 'status_report') {
-                    $heartbeat_activity = heartbeat_activity_load($heartbeat_row->uaid);
-                    $node->content['report_activity_status'] = array(
-                        '#theme' => 'checkdesk_core_report_activity_status',
-                        '#heartbeat_activity' => $heartbeat_activity,
-                    );
-                }
-                // Load verification footnote
-                if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_comment_on_report') {
-                    $heartbeat_activity = heartbeat_activity_load($heartbeat_row->uaid);
-                    $footnote = comment_load($heartbeat_activity->cid);
-                    $node->content['report_verification_footnote'] = isset($footnote->comment_body[LANGUAGE_NONE][0]['value']) ? $footnote->comment_body[LANGUAGE_NONE][0]['value'] : '';
-                }
-            }
-            $node->content['field_link'] = _checkdesk_core_render_activity_type($node, $heartbeat_row);
-        }
-    }
 }
 
 /**
@@ -397,7 +273,7 @@ function checkdesk_reports_theme() {
             ),
         ) + $base;
 
-    $themes['checkdesk_core_report_activity'] = array(
+    $themes['checkdesk_reports_report_activity'] = array(
             'template' => 'report_activity',
             'variables' => array(
                 'node' => NULL,
@@ -406,14 +282,14 @@ function checkdesk_reports_theme() {
             ),
         ) + $base;
 
-    $themes['checkdesk_core_report_activity_status'] = array(
+    $themes['checkdesk_reports_report_activity_status'] = array(
             'template' => 'report_activity_status',
             'variables' => array(
                 'heartbeat_activity' => NULL,
             ),
         ) + $base;
 
-    $themes['checkdesk_core_report_activity_count'] = array(
+    $themes['checkdesk_reports_report_activity_count'] = array(
             'template' => 'report_activity_count',
             'variables' => array(
                 'count' => NULL,
@@ -422,14 +298,14 @@ function checkdesk_reports_theme() {
             ),
         ) + $base;
 
-    $themes['checkdesk_core_report_activity_stream'] = array(
+    $themes['checkdesk_reports_report_activity_stream'] = array(
             'template' => 'report_activity_stream',
             'variables' => array(
                 'activity' => NULL,
                 'nid' => NULL,
             ),
         ) + $base;
-    $themes['checkdesk_core_metadata_fields'] = array(
+    $themes['checkdesk_reports_metadata_fields'] = array(
             'template' => 'checkdesk_metadata_fields',
             'variables' => array(
                 'node' => NULL,
@@ -439,8 +315,66 @@ function checkdesk_reports_theme() {
     return $themes;
 }
 
+/**
+ * Implements hook_node_view().
+ */
+function checkdesk_reports_node_view($node, $view_mode, $langcode) {
+
+    // Add decorations to report nodes.
+    if ($node->type == 'media') {
+
+        $node->content['report_source'] = array(
+            '#theme' => 'checkdesk_core_report_source',
+            '#report' => $node,
+        );
+
+        if ($view_mode == 'full') {
+            $node->content['metadata_fields'] = theme('checkdesk_reports_metadata_fields', array('node' => $node));
+        }
+        elseif ($view_mode == 'checkdesk_collaborate' || $view_mode == 'checkdesk_search') {
+            $node->content['comments'] = comment_node_page_additions($node);
+            $heartbeat_row = isset($node->heartbeat_row) ? $node->heartbeat_row : '';
+            if ($heartbeat_row) {
+                $heartbeat_row = $node->heartbeat_row;
+                // Load activity status with verification footnote
+                if ($heartbeat_row->heartbeat_activity_message_id == 'status_report') {
+                    $heartbeat_activity = heartbeat_activity_load($heartbeat_row->uaid);
+                    $node->content['report_activity_status'] = array(
+                        '#theme' => 'checkdesk_reports_report_activity_status',
+                        '#heartbeat_activity' => $heartbeat_activity,
+                    );
+                }
+                // Load verification footnote
+                if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_comment_on_report') {
+                    $heartbeat_activity = heartbeat_activity_load($heartbeat_row->uaid);
+                    $footnote = comment_load($heartbeat_activity->cid);
+                    $node->content['report_verification_footnote'] = isset($footnote->comment_body[LANGUAGE_NONE][0]['value']) ? $footnote->comment_body[LANGUAGE_NONE][0]['value'] : '';
+                }
+            }
+            $node->content['field_link'] = _checkdesk_reports_render_activity_type($node, $heartbeat_row);
+
+        }
+    }
+}
+
+function _checkdesk_reports_render_activity_type($node, $heartbeat_row) {
+    // TODO: get this mapping from admin interface.
+    // for now will use mapping array with key = activity type and value = formatter name.
+    $mapping = array(
+        'checkdesk_report_suggested_to_story' => 'meedan_inline_full_mode',
+    );
+
+    if ($heartbeat_row && isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
+        $output = field_view_field('node', $node, 'field_link', array('type' => $mapping[$heartbeat_row->heartbeat_activity_message_id]));
+    }
+    else {
+        $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
+    }
+    return $output;
+}
+
 define('RATING_NOT_APPLICABLE', 'Not Applicable');
-define('RATING_UNDETERNINED', 'Undetermined');
+define('RATING_UNDETERMINED', 'Undetermined');
 
 /**
  * Implements hook_form_FORM_ID_alter() for `comment_node_media_form`.
@@ -449,7 +383,7 @@ function checkdesk_reports_form_comment_node_media_form_alter(&$form, $form_stat
     $term = isset($form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
         $form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
         taxonomy_term_load($form['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
-    if (in_array($term->name, array(RATING_NOT_APPLICABLE, RATING_UNDETERNINED))) {
+    if (in_array($term->name, array(RATING_NOT_APPLICABLE, RATING_UNDETERMINED))) {
         $form['#access'] = FALSE;
     }
     else {
@@ -462,7 +396,7 @@ function checkdesk_reports_form_comment_node_media_form_alter(&$form, $form_stat
         $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['class'] = array('expanding');
         $form['actions']['submit']['#value'] = t('Add footnote');
         $form['actions']['submit']['#ajax'] = array(
-            'callback' => '_checkdesk_comment_form_submit',
+            'callback' => '_checkdesk_reports_comment_form_submit',
             'wrapper' => 'node-' . $nid,
             'method' => 'replace',
             'effect' => 'fade',
@@ -487,8 +421,76 @@ function checkdesk_reports_form_comment_node_media_form_alter(&$form, $form_stat
             }
         }
         $form['field_rating'][LANGUAGE_NONE]['#options'] = array_reverse($options);
-        $form['#validate'] = array('_checkdesk_core_comment_form_validate');
+        $form['#validate'] = array('_checkdesk_reports_comment_form_validate');
     }
+}
+
+/**
+ * Validate comment via ajax.
+ */
+function _checkdesk_reports_comment_form_validate($form, &$form_state) {
+
+  // Get tid from name
+  if (isset($form_state['values']['field_rating'])) {
+    $tids = array_keys(taxonomy_get_term_by_name($form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid']));
+    $form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid'] = $tids[0];
+  }
+
+}
+
+/**
+ * Submit comment via ajax.
+ */
+function _checkdesk_reports_comment_form_submit($form, &$form_state) {
+    global $user;
+
+    drupal_get_messages();
+
+    $nid = $form['#node']->nid;
+    $node = node_load($nid);
+
+    $commands = array();
+    // Change report status
+    if (user_access('change report status')) {
+        $node->field_rating[LANGUAGE_NONE][0]['tid'] = $form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid'];
+        node_save($node);
+        // Update report status on report display
+        $report_status = _checkdesk_report_status($node);
+        $commands[] = ajax_command_replace('.media-status-report-' . $node->nid, $report_status['status']);
+    }
+    //TODO use theme function instead of writing HTML
+    $output = _checkdesk_reports_render_footnotes($node);
+    $commands[] = ajax_command_invoke(NULL, 'footnoteCallback', array($nid, $output));
+
+    return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Render footnote HTML for footnote ajax submit
+ * @param object $node
+ * @return HTML
+ */
+function _checkdesk_reports_render_footnotes($node) {
+    $node_view = node_view($node);
+    $activity_report = checkdesk_reports_load_activity($node->nid);
+    if ($activity_report['total_rows']) {
+        $media_activity_report_count = $activity_report['total_rows'];
+        $media_activity_report = $activity_report['view_output'];
+    }
+    $html = '<div id="report-activity-node-' . $node->nid . '" class="item-nested-content-wrapper open">';
+    $html .= '<div class="activity-item-controls item-controls">';
+    $html .= '    <div class="meta">';
+    $html .= $media_activity_report_count . ' '. t('verification footnotes');
+    $html .= '</div>';
+    $html .= '<div class="actions" role="toolbar">';
+    $html .= render($node_view['links']);
+    $html .= '</div>';
+    $html .= '</div>';
+    $html .= ' <div class="activity nested item-nested-content open" style="display: block;">';
+    $html .= $media_activity_report;
+    $html .= '  </div>';
+    $html .= '  </div>';
+    return $html;
 }
 
 /*
@@ -519,9 +521,38 @@ function checkdesk_reports_node_delete($node) {
 }
 
 /**
+ * Implements hook_field_formatter_info().
+ */
+function checkdesk_reports_field_formatter_info() {
+  return array(
+    'geolocation_latlng' => array(
+      'label' => t('Latitude, longitude text-based formatter'),
+      'field types' => array('geolocation_latlng'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function checkdesk_reports_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+
+    case 'geolocation_latlng':
+      foreach ($items as $delta => $item) {
+        $element[$delta]['#markup'] = '<p>' . t('@lat, @lng', array('@lat' => $item['lat'], '@lng' => $item['lng'])) . '</p>';
+      }
+      break;
+  }
+  return $element;
+}
+
+/**
  * Redirect user to collaboration page.
  */
-function _redirect_report($form, &$form_state) {
+function _checkdesk_reports_redirect($form, &$form_state) {
     $values = $form_state['values'];
     if (!empty($values['field_stories'][LANGUAGE_NONE][0]['target_id'])) {
         $form_state['redirect'] = 'node/' . $values['field_stories'][LANGUAGE_NONE][0]['target_id'] . '/collaboration';
@@ -587,7 +618,7 @@ function _checkdesk_report_status_icon($term) {
 /**
  * Load report activities based on issue #4287
  */
-function _checkdesk_load_activity_report($nid) {
+function checkdesk_reports_load_activity($nid) {
     $view = views_get_view('activity_report');
     $view->set_arguments(array($nid));
     $view->get_total_rows = TRUE;
@@ -609,7 +640,7 @@ function _checkdesk_load_activity_report($nid) {
 /**
  * Access function for
  */
-function _checkdesk_core_report_can_suggest($report) {
+function _checkdesk_reports_can_suggest($report) {
     global $user;
     return user_access('add report to story');
 }
@@ -617,6 +648,6 @@ function _checkdesk_core_report_can_suggest($report) {
 /**
  * Helper function to return metadata group fields.
  */
-function _checkdesk_metadata_group_fields() {
+function checkdesk_reports_metadata_fields() {
     return variable_get('checkdesk_metadata_fields', array());
 }
