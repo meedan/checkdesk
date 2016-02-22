@@ -55,21 +55,65 @@ function checkdesk_api_theme($existing, $type, $theme, $path) {
  * Implements hook_services_resources().
  */
 function checkdesk_api_services_resources() {
-  $resources = array();
-  $resources['stories'] = array(
-      'operations' => array(
-          'index' => array(
-              'help' => t('List all stories api/stories'),
-              'file' => array(
-                  'type' => 'inc',
-                  'module' => 'checkdesk_api',
-                  'name' => 'resources/stories_resource',
-              ),
-              'callback' => '_stories_resource_index',
-              'access callback' => '_checkdesk_api_access',
-          ),
-      ),
-  );
+    $resources = array();
+    $resources['stories'] = array(
+        'operations' => array(
+            'index' => array(
+                'help' => t('List all stories api/stories'),
+                'file' => array(
+                    'type' => 'inc',
+                    'module' => 'checkdesk_api',
+                    'name' => 'resources/stories_resource',
+                ),
+                'callback' => '_stories_resource_index',
+                'access callback' => '_checkdesk_api_access',
+            ),
+        ),
+    );
+    $resources['report'] = array(
+        'operations' => array(
+            'retrieve' => array(
+                'help' => 'Retrieve a report',
+                'file' => array(
+                    'type' => 'inc',
+                    'module' => 'checkdesk_api',
+                    'name' => 'resources/report_resource',
+                ),
+                'callback' => '_report_resource_retrieve',
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'optional' => FALSE,
+                        'source' => array('path' => 0),
+                        'type' => 'int',
+                        'description' => 'The id of the report to retrieve',
+                    ),
+                ),
+                'access callback' => 'user_access',
+                'access arguments' => array('access content'),
+            ),
+            'create' => array(
+                'help' => 'Create a report',
+                'file' => array(
+                    'type' => 'inc',
+                    'module' => 'checkdesk_api',
+                    'name' => 'resources/report_resource',
+                ),
+                'callback' => '_node_resource_create',
+                'args' => array(
+                    array(
+                        'name' => 'report',
+                        'optional' => FALSE,
+                        'source' => 'data',
+                        'description' => 'The report data to create',
+                        'type' => 'array',
+                    ),
+                ),
+                'access callback' => 'node_access',
+                'access arguments' => array('create', 'media'),
+            ),
+        ),
+    );
   return $resources;
 }
 
