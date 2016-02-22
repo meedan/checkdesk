@@ -1,0 +1,80 @@
+<?php
+
+class CheckdeskReportsLoadTestCase extends DrupalWebTestCase {
+
+  // A user with permission to create media content.
+  protected $web_user;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Checkdesk reports load',
+      'description' => 'Test that checkdesk_report_load works properly.',
+      'group' => 'Checkdesk Reports',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp('checkdesk_reports');
+    //$this->setup = TRUE;
+    //$this->authenticate();
+  }
+
+  protected function authenticate() {
+    $web_user = $this->drupalCreateUser(array('create page content'));
+    $web_user->roles[] = 'authenticated user';
+    user_save($web_user);
+    $this->checkdeskLogin($web_user);
+    $this->web_user = $web_user;
+  }
+
+  // Our own implementation of drupalLogin()
+  // We need this because we have different labels for the sign in and logout links
+  // @see https://api.drupal.org/api/drupal/modules!simpletest!drupal_web_test_case.php/function/DrupalWebTestCase%3A%3AdrupalLogin/7
+  protected function checkdeskLogin(stdClass $account) {
+    if ($this->loggedInUser) {
+      $this->drupalLogout();
+    }
+
+    $edit = array(
+        'name' => $account->name,
+        'pass' => $account->pass_raw
+    );
+    $this->drupalPost('user', $edit, t('Sign in'));
+
+    // If a "log out" link appears on the page, it is almost certainly because
+    // the login was successful.
+    $pass = $this->assertLink(t('Logout'), 0, t('User %name successfully logged in.', array('%name' => $account->name)), t('User login'));
+
+    if ($pass) {
+      $this->loggedInUser = $account;
+    }
+  }
+
+  public function testCheckdeskNonReportLoad() {
+    $edit = array(
+        'uid' => 1,//$this->web_user->uid,
+        'type' => 'page',
+        'title' => $this->randomName(8),
+    );
+    node_save((object) $edit);
+    $node = $this->drupalGetNodeByTitle($edit['title']);
+    $result =  checkdesk_report_load($node->nid);
+    $this->assertFalse($result, t('Call report load with non report'));
+  }
+
+  public function testCheckdeskReportLoad() {
+    $url = 'https://www.youtube.com/watch?v=p4gxvk4D0HI';
+    $edit = array(
+        'uid' => 1,//$this->web_user->uid,
+        'type' => 'media',
+        'title' => $this->randomName(8),
+        'field_link' => array(LANGUAGE_NONE => array(array('url' => $url))),
+        'promote' => 0,
+        'sticky' => 0,
+    );
+
+    node_save((object) $edit);
+    $node = $this->drupalGetNodeByTitle($edit['title']);
+    $this->assertNotNull($node, 'Call report load with report.');
+  }
+}

@@ -1,0 +1,19 @@
+<?php
+
+class CheckdeskReportsPermissionsTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Checkdesk reports permissions',
+      'description' => 'Test that checkdesk reports permissions work properly.',
+      'group' => 'Checkdesk Reports',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp('checkdesk_reports');
+  }
+
+
+
+}
