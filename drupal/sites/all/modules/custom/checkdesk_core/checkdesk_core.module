@@ -2982,17 +2982,19 @@ function _checkdesk_purge_varnish($paths) {
 function checkdesk_facebook_scrape($url) {
   $fboauth_id = variable_get('fboauth_id', NULL);
   $fboauth_secret = variable_get('fboauth_secret', NULL);
-  $post_string = 'id=' . urlencode($url) . '&scrape=true&access_token=' . $fboauth_id . '|' . $fboauth_secret;
-  $host = "ssl://graph.facebook.com";
-  $fp = fsockopen($host, 443, $errno, $errstr, 30);
-  $out = "POST / HTTP/1.1\r\n";
-  $out .= "Host: " . $host . "\r\n";
-  $out .= "Content-Type: application/x-www-form-urlencoded\r\n";
-  $out .= "Content-Length: " . strlen($post_string) . "\r\n";
-  $out .= "Connection: Close\r\n\r\n";
-  $out .= $post_string;
-  $result = fwrite($fp, $out);
-  fclose($fp);
+  $host = 'https://graph.facebook.com';
+  $ch = curl_init($host);
+  $fields = array(
+      'id' => $url,
+      'scrape' => 'true',
+      'access_token' => $fboauth_id . '|' . $fboauth_secret,
+  );
+  curl_setopt($ch, CURLOPT_POST, 1);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  $response = curl_exec($ch);
+  curl_close($ch);
 }
 
 /**
