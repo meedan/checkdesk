@@ -2354,11 +2354,9 @@ function checkdesk_core_query_features_menu_link_alter($query) {
  */
 function checkdesk_core_query_entityreference_alter($query) {
   if (!empty($query->alterMetaData['field']) && ($query->alterMetaData['field']['field_name'] === 'field_stories' || $query->alterMetaData['field']['field_name'] === 'field_desk')) {
-    $story = menu_get_object();
-    $limit = 50;
-    $nids = db_query("SELECT nid FROM {node} WHERE type='discussion' ORDER BY created DESC LIMIT $limit")->fetchCol();
-    if ($story && $story->type == 'discussion') {
-      $nids[] = $story->nid;
+    $nids = db_query_range("SELECT nid FROM {node} WHERE type='discussion' ORDER BY created DESC", 0, 50)->fetchCol();
+    if (isset($_GET['ref_nid']) && is_numeric($_GET['ref_nid'])) {
+      $nids[] = $_GET['ref_nid'];
     }
     if (isset($_GET['story']) && is_numeric($_GET['story'])) {
       $nids[] = $_GET['story'];
