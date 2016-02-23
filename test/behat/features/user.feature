@@ -94,11 +94,19 @@ Scenario: Checking the Homepage
 @api
 Scenario: Sign in 
   Given users:
-  |name    | pass      |
-  |noha121| 123456  |
+  | name    | pass   |
+  | noha121 | 123456 |
   And I am not logged in
   And I am on "/user"
   When I fill in "Email address or display name" with "noha121"
   And I fill in "Password" with "123456"
   And I press "Sign in"
   Then I should see "noha121" in the "#user-menu" element
+
+@api @javascript
+Scenario: Checking the Arabic Homepage
+  Given I am logged in as a user with the "citizen journalist" role
+  And I am on the homepage
+  And I visit "/ar"
+  Then I should see the heading "قصص جديدة و محدثة"
+  And I should see the heading "الأكثر انتشارا"
