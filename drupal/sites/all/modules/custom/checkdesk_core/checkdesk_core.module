@@ -2980,7 +2980,9 @@ function _checkdesk_purge_varnish($paths) {
  * Async POST to Facebook URL scraper
  */
 function checkdesk_facebook_scrape($url) {
-  $post_string = 'id=' . urlencode($url) . '&scrape=true';
+  $fboauth_id = variable_get('fboauth_id', NULL);
+  $fboauth_secret = variable_get('fboauth_secret', NULL);
+  $post_string = 'id=' . urlencode($url) . '&scrape=true&access_token=' . $fboauth_id . '|' . $fboauth_secret;
   $host = "ssl://graph.facebook.com";
   $fp = fsockopen($host, 443, $errno, $errstr, 30);
   $out = "POST / HTTP/1.1\r\n";
