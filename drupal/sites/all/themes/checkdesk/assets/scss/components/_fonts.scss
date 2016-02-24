@@ -46,6 +46,30 @@
   unicode-range: U+0000 – U+007F;
 }
 
+// Noto Naskh Arabic UI
+@font-face {
+  font-family: 'Noto Naskh Arabic UI';
+  font-style: normal;
+  font-weight: 400;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf') format('truetype');
+}
+
+// Noto Naskh Arabic UI Bold
+@font-face {
+  font-family: 'Noto Naskh Arabic UI';
+  font-style: normal;
+  font-weight: 700;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf') format('truetype');
+}
+
 
 // Noto Kufi Arabic
 @font-face {
@@ -140,11 +164,10 @@
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
-  src:  url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot');
-  src:  local('Noto Naskh Arabic Regular'), local('Droid-Arabic-Naskh-Regular'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff') format('woff'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf') format('truetype');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf') format('truetype');
   unicode-range: U+0600 – U+06FF;
 }
 // Render Arabic text in Noto Naskh Arabic Bold within Lato Bold
@@ -152,11 +175,10 @@
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
-  src:  url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot');
-  src:  local('Noto Naskh Arabic Bold'), local('Droid-Arabic-Naskh-Bold'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff') format('woff'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf') format('truetype');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf') format('truetype');
   unicode-range: U+0600 – U+06FF;
 }
 
@@ -202,11 +224,10 @@
   font-family: 'Merriweather';
   font-style: normal;
   font-weight: 400;
-  src:  url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot');
-  src:  local('Noto Naskh Arabic Regular'), local('Droid-Arabic-Naskh-Regular'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff') format('woff'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf') format('truetype');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf') format('truetype');
   unicode-range: U+0600 – U+06FF;
 }
 // Render Arabic text in Noto Naskh Arabic Bold within Merriweather Bold
@@ -214,12 +235,11 @@
   font-family: 'Merriweather';
   font-style: normal;
   font-weight: 700;
-  src:  url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot');
-  src:  local('Noto Naskh Arabic Bold'), local('Droid-Arabic-Naskh-Bold'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2') format('woff2'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff') format('woff'),
-        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf') format('truetype');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf') format('truetype');
   unicode-range: U+0600 – U+06FF;
 }
 
@@ -233,7 +253,7 @@ $ar-serif-font-stack: 'Noto Naskh Arabic', serif;
 $en-body-font-stack: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $en-header-font-stack: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
 
-$ar-header-font-stack: 'Noto Kufi Arabic', serif;
+$ar-header-font-stack: 'Noto Kufi Arabic', sans-serif;
 $ar-body-font-stack: 'Noto Naskh Arabic', serif;
 $ar-font-stack: 'Noto Naskh Arabic', serif;
 
