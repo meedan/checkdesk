@@ -90,6 +90,9 @@ function checkdesk_reports_preprocess_checkdesk_reports_report_activity(&$variab
   global $language;
   $node = $variables['node'];
   $variables['nid'] = $node->nid;
+  if (empty($variables['view_mode'])) {
+    $variables['view_mode'] = 'full';
+  }
   $variables['collapsed'] = ($variables['view_mode'] == 'full') ? 'open' : '';
   //Add activity report with status
   $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
