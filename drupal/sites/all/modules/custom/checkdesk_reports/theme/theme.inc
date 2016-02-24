@@ -119,6 +119,11 @@ function checkdesk_reports_preprocess_checkdesk_reports_report_activity(&$variab
       }
     }
   }
+  else {
+    $variables['media_activity_report_not_applicable'] = theme(
+        'checkdesk_reports_report_activity_stream', array('activity' => NULL, 'nid' => $variables['nid'])
+    );
+  }
   if ($variables['show_activity'] || empty($total_rows)) {
     $variables['media_activity_report_count'] = theme(
       'checkdesk_reports_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'])

@@ -2671,24 +2671,14 @@ function checkdesk_core_flag_javascript_info_alter(&$info) {
   if ($info['flagName'] != 'follow_story') {
     $nid = $info['contentId'];
     $node = node_load($nid);
-    $element = node_view($node);
-    $element['comments'] = comment_node_page_additions($node);
-    $output = drupal_render($element);
-
-    $js = drupal_add_js(NULL, NULL);
-    $settings = '';
-    if (isset($js['settings'])) {
-      $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
-        drupal_json_encode(call_user_func_array('array_merge_recursive', $js['settings']['data'])) .
-        ');</script>';
-    }
-    // Add the settings to the form
-    $output .= $settings;
-
+    $node_view = node_view($node);
+    $node_view['comments'] = comment_node_page_additions($node);
+    // update activity stream
+    $report_activity = theme(
+        'checkdesk_reports_report_activity', array('node' => $node, 'content' => $node_view)
+    );
     $commands = array();
-    $commands[] = ajax_command_invoke('.default-view-node-' . $nid, 'replaceWith', array($output));
-    $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
-
+    $commands[] = reactor_ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
     $info['commands'] = $commands;
   }
 }
