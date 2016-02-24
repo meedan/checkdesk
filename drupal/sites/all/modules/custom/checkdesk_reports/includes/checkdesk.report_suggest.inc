@@ -21,13 +21,13 @@ function _checkdesk_reports_suggest_report($form, $form_state, $report = NULL) {
   if (empty($report)) {
     $report = $form_state['report'];
   }
-  $stories = db_query("
-    SELECT nid, concat(substring(title, 1, 48), '...') as title
-    FROM {node}
-    WHERE type='discussion'
-    ORDER BY created DESC
-    LIMIT 10
-    ")->fetchAllKeyed();
+  $query = db_select('node', 'n');
+  $query->addField('n', 'nid');
+  $query->addExpression("CONCAT(substring(title, 1, 48), '...')", 'ttle');
+  $query->condition('type', 'discussion');
+  $query->orderBy('created', 'DESC');
+  $query->range(0, 10);
+  $stories = $query->execute()->fetchAllKeyed();
   $form['story'] = array(
     '#type' => 'select',
     '#options' => $stories,

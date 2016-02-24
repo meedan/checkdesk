@@ -502,18 +502,22 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     }
     $links['checkdesk-flag'] = array(
       'title' => '',
-      'href' => '#',
+      'href' => '',
+      'fragment' => ' ',
       'attributes' => array('class' => 'dropdown-toggle ' . ($flagged ? 'flagged' : 'unflagged'), 'data-toggle' => 'dropdown'),
       'html' => TRUE,
       'cd_group' => 'checkdesk-flag',
+      'external' => TRUE,
     );
 
     $links['checkdesk-ellipsis'] = array(
       'title' => '',
-      'href' => '#',
+      'href' => '',
+      'fragment' => ' ',
       'attributes' => array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'),
       'html' => TRUE,
       'cd_group' => 'checkdesk-ellipsis',
+      'external' => TRUE,
     );
   }
 
@@ -608,10 +612,12 @@ function checkdesk_core_share_links($url, $title, $type, $embed = array()) {
   // parent share link with title
   $links['checkdesk-share'] = array(
     'title' => ($type == 'media') ? '' : '<span class="label">' . t('Share') . '</span>',
-    'href' => '#',
+    'href' => '',
+    'fragment'=> ' ',
     'attributes' => array('title' => $title, 'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'),
     'html' => TRUE,
     'cd_group' => 'checkdesk-share',
+    'external' => TRUE,
   );
   $links['checkdesk-share-facebook'] = array(
     'title' => t('Share on Facebook'),
@@ -2348,11 +2354,9 @@ function checkdesk_core_query_features_menu_link_alter($query) {
  */
 function checkdesk_core_query_entityreference_alter($query) {
   if (!empty($query->alterMetaData['field']) && ($query->alterMetaData['field']['field_name'] === 'field_stories' || $query->alterMetaData['field']['field_name'] === 'field_desk')) {
-    $story = menu_get_object();
-    $limit = 50;
-    $nids = db_query("SELECT nid FROM {node} WHERE type='discussion' ORDER BY created DESC LIMIT $limit")->fetchCol();
-    if ($story && $story->type == 'discussion') {
-      $nids[] = $story->nid;
+    $nids = db_query_range("SELECT nid FROM {node} WHERE type='discussion' ORDER BY created DESC", 0, 50)->fetchCol();
+    if (isset($_GET['ref_nid']) && is_numeric($_GET['ref_nid'])) {
+      $nids[] = $_GET['ref_nid'];
     }
     if (isset($_GET['story']) && is_numeric($_GET['story'])) {
       $nids[] = $_GET['story'];
@@ -2532,6 +2536,7 @@ function checkdesk_core_node_insert($node) {
  */
 function checkdesk_core_node_update($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'update');
+  checkdesk_facebook_scrape(url('node/' . $node->nid, array('absolute' => TRUE)));
   if ($node->type === 'post' && isset($node->body)) {
     $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     //link report to update
@@ -2966,6 +2971,28 @@ function _checkdesk_purge_varnish($paths) {
       }
     }
   }
+}
+
+/**
+ * Scrape Facebook version of a URL
+ * Async POST to Facebook URL scraper
+ */
+function checkdesk_facebook_scrape($url) {
+  $fboauth_id = variable_get('fboauth_id', NULL);
+  $fboauth_secret = variable_get('fboauth_secret', NULL);
+  $host = 'https://graph.facebook.com';
+  $ch = curl_init($host);
+  $fields = array(
+      'id' => $url,
+      'scrape' => 'true',
+      'access_token' => $fboauth_id . '|' . $fboauth_secret,
+  );
+  curl_setopt($ch, CURLOPT_POST, 1);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  $response = curl_exec($ch);
+  curl_close($ch);
 }
 
 /**
