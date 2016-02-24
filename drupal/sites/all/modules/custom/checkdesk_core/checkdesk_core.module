@@ -2369,7 +2369,9 @@ function checkdesk_core_query_entityreference_alter($query) {
       $target_story = node_load(arg(1));
       if ($target_story && in_array($target_story->type, array('post', 'media'))) {
         $field_name = ($target_story->type == 'media') ? 'field_stories' : 'field_desk';
-        $nids[] = $target_story->{$field_name}[LANGUAGE_NONE][0]['target_id'];
+        if (isset($target_story->{$field_name}[LANGUAGE_NONE][0]['target_id'])) {
+          $nids[] = $target_story->{$field_name}[LANGUAGE_NONE][0]['target_id'];
+        }
       }
     }
     $query->condition('nid', $nids, 'IN');

@@ -158,7 +158,9 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     else {
         $node = $form['#node'];
         drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
-        $default_story = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
+        if (isset($node->field_stories[LANGUAGE_NONE][0]['target_id'])) {
+            $default_story = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
+        }
     }
 
     if ($default_story && isset($form['field_stories'][LANGUAGE_NONE]['#options'][$default_story])) {
