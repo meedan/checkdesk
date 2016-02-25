@@ -2374,9 +2374,6 @@ function checkdesk_core_query_entityreference_alter($query) {
         }
       }
     }
-    if (isset($_GET['story']) && is_numeric($_GET['story'])) {
-      $nids[] = $_GET['story'];
-    }
     $query->condition('nid', $nids, 'IN');
   }
 }
