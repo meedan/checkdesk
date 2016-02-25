@@ -1,0 +1,374 @@
+<?php
+
+/**
+ * Implementation of hook_menu()
+ */
+function checkdesk_analytics_menu() {
+  $items = array();
+  $items['admin/reports/reports'] = array(
+    'title' => t('Checkdesk analytics'),
+    'description' => t('Checkdesk analytics for reviewing how the site is performing'),
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    //'position' => 'left',
+    'weight' => -60,
+    'file' => 'system.admin.inc', 
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $reports = _checkdesk_analytics_get_info();
+  foreach ($reports as $path => $value) {
+    $items['admin/reports/reports/'.$path] = array(
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('checkdesk_analytics_statistics_filter_form', 3),
+      'title' => $value['title'],
+      'description' => $value['description'],
+      'access arguments' => array('administer site configuration'),
+    );
+  }
+  return $items;
+}
+
+/**
+ * Collect meedan reports info.
+ */
+function _checkdesk_analytics_get_info() {
+  $reports = array();
+  //invoke all module to get new reports
+  $reports = module_invoke_all('checkdesk_analytics_info');
+  return $reports;
+}
+
+/**
+ * Implements of hook_checkdesk_analytics_info().
+ * new report must added as $key => $value
+ * $key should be one word(can split by _ )
+ * Cached must be cleared to add new reports
+ */
+function checkdesk_analytics_checkdesk_analytics_info() {
+  return  array (
+    'user_registered' => array(
+      'title' => t('Registered Users'),
+      'description' => t('Number of users who register to use Checkdesk in any given month.'),
+    ),
+    'reports_count' => array(
+      'title' => t('Citizen Reports'),
+      'description' => t('The total number of reports submitted in any given month.'),
+    ),
+    'different_sources' => array(
+      'title' => t('Number of different sources'),
+      'description' => t('Source frequency of reports in any given month.'),
+    ),
+    'most_active_users' => array(
+      'title' => t('Most Active Users'),
+      'description' => t('Number of reports submitted by the most active user in any given month.'),
+    ),
+    'active_users' => array(
+      'title' => t('Active Users'),
+      'description' => t('The number of users who have submitted a report in any given month'),
+    ),
+  );
+}
+
+/**
+ * Build statistics filter form.
+ */
+function checkdesk_analytics_statistics_filter_form($form, &$form_state, $type) {
+  $query = db_select('node', 'n');
+  $query->addExpression('FROM_UNIXTIME(created, \'%Y\')', 'year');
+  $query->distinct();
+  $result = $query->execute()->fetchAllKeyed(0, 0);
+  $years = array('' => t('All')) + $result;
+  $year_val = '';
+  if (isset($_SESSION['report_year'])) {
+    $year_val = $_SESSION['report_year'];
+    unset($_SESSION['report_year']);
+  }
+  else {
+    $year_val = date('Y');
+  }
+  $form['year_val'] = array(
+    '#type' => 'hidden',
+    '#value' => $year_val,
+  );
+  //get report description
+  $reports = _checkdesk_analytics_get_info();
+  $form['description'] = array(
+    '#markup' => $reports[$type]['description'],
+    '#weight' => -110,
+  );
+  $form['year'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#suffix' => '</div>',
+    '#title' => t('Select year'),
+    '#type' => 'select',
+    '#options' => $years,
+    '#weight' => -100,
+    '#default_value' => $year_val,
+  );
+  $form['submit'] = array(
+    '#value' => t('Search'),
+    '#type' => 'submit',
+    '#weight' => -90,
+    '#submit' => array('checkdesk_analytics_statistics_filter_form_submit'),
+  );
+  $form['export']  = array(
+    '#value' => t('Export CSV'),
+    '#type' => 'submit',
+    '#submit' => array('_checkdesk_analytics_export_to_csv'),
+  );
+  $form['#stat_type'] = $type;
+  return $form;
+}
+
+/**
+ * Implementation of hook_theme
+ */
+function checkdesk_analytics_theme() {
+  return array(
+    'checkdesk_analytics_statistics_filter_form' => array(
+      'render element' => 'form',
+    ),
+  );
+}
+
+function checkdesk_analytics_statistics_filter_form_submit($form, $form_state) {
+  $_SESSION['report_year'] = $form_state['values']['year'];
+}
+
+/**
+ * Statistics theme form.
+ */
+function theme_checkdesk_analytics_statistics_filter_form($form) {
+  drupal_add_js(libraries_get_path('amstockchart') . '/amcharts/amstock.js');
+  drupal_add_js(drupal_get_path('module', 'checkdesk_analytics') . '/js/checkdesk_analytics.js');
+  drupal_add_js(drupal_get_path('module', 'checkdesk_analytics') . '/js/jquery.ui.tabs.js');
+  drupal_add_css(drupal_get_path('module', 'checkdesk_analytics') .'/css/jquery-ui-1.7.3.custom.css');
+  $year_val = isset($form['form']['year_val']['#value']) ? $form['form']['year_val']['#value'] : '';
+  $render_report = _checkdesk_analytics_data($form['form']['#stat_type'], $year_val);
+  $output = '';
+  $output .= drupal_render_children($form['form']); 
+  drupal_set_title($render_report['title']);
+  $header = array('Date', 'Count');
+  $row = array();
+  $row_json = array();
+  $results = $render_report['results'];
+  $total = 0;
+  foreach ($results as $result) {
+    if ($form['form']['#stat_type'] == "most_active_users" || $form['form']['#stat_type'] == 'different_sources') {
+      $row[] = array(str_replace("\n","<br>", $result->info), $result ->count);
+    }
+    else {
+      $row[] = array($result->date, $result->count);
+    }
+    $info = isset($result->info) ? $result->info.'<br>#'.$result->count : $result->count;
+    $row_json[] = array('Date' => $result->date, 'Count' => (int) $result->count, 'Info' => $info);
+    $total += $result->count;
+  }
+  //dispaly date on most recent order
+  $row = array_reverse($row, TRUE);
+  $row[] = array('' , t('Total @total', array('@total' => $total)));
+  $output .= '<div id="tabs">';
+  $output .= '
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+      <li><a href="#chartView">Chart View</a></li>
+      <li><a href="#tableView">Table View</a></li>
+      </ul>';
+  $output .= '<div id="chartView"><div id="chartContainer" style="width: 740px; height: 390px;"></div></div>';
+  $output .= '<div id="tableView">'. theme('table', array('header' => $header, 'rows' => $row)) .'</div>';
+  $json_obj = drupal_json_encode($row_json);
+  drupal_add_js('
+    jQuery(function() {
+      add_chart_view('.$json_obj.', "'. $render_report['title'] .'");
+    })', 'inline');
+
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * Submit handler for export CSV.
+ */
+function _checkdesk_analytics_export_to_csv($form, $form_state) {
+  $render_report = _checkdesk_analytics_data($form['#stat_type'], $form_state['values']['year']);
+  $filename = str_replace(' ', '_', strtolower($render_report['title'])) .'.csv';
+  drupal_add_http_header('Content-Type', 'text/csv');
+  drupal_add_http_header('Content-Disposition', 'attachment; filename=' . $filename);
+  $results = $render_report['results'];
+  print  "Date,Count\r\n";
+  foreach ($results as $row) {
+    if ($form['#stat_type'] == "most_active_users" || $form['#stat_type'] == 'different_sources') {
+      $values[0] = '"' . str_replace('"', '""', decode_entities(strip_tags($row->info))) . '"'; 
+    }
+    else {
+      $values[0] = '"' . str_replace('"', '""', decode_entities(strip_tags($row->date))) . '"'; 
+    }
+    $values[1] = '"' . str_replace('"', '""', decode_entities(strip_tags($row->count))) . '"'; 
+
+    print implode(',', $values) ."\r\n";
+    unset($values);
+  }
+  exit();
+}
+
+function _checkdesk_analytics_data($type, $year = '') {
+  $output = array();
+  //invoke all meedan_repotrs_query to get report info.
+  $output = module_invoke_all('checkdesk_analytics_query', $type, $year);
+  $query = $output['query'];
+  //allow other modules to alter query
+  foreach (module_implements('checkdesk_analytics_query_alter') as $module) {
+    $function = $module . '_checkdesk_analytics_query_alter';
+    $function($query, $type);
+  }   
+  $results = $query->execute()->fetchAll();
+  return array(
+    'results' => $results, 
+    'title' => $output['title'],
+  );
+}
+
+/**
+ * Implements of hook_checkdesk_analytics_query().
+ * @param $type, $year
+ * return an ass. array with title and query keys
+ * $query must be a query object of db_select
+ */
+function checkdesk_analytics_checkdesk_analytics_query($type, $year) {
+  switch ($type) {
+  case 'user_registered':
+    $query = db_select('users', 'u');
+    $query->addExpression('FROM_UNIXTIME(created, \'%M %Y\')', 'date');
+    $query->addExpression('COUNT(uid)', 'count');
+    $query->condition('u.uid', 1, '<>');
+    $query->condition('u.status', 0, '<>');
+    if ($year) {
+      $query->where('FROM_UNIXTIME(u.created, \'%Y\') = :year', array(':year' => $year));
+    }
+    $query->groupBy('FROM_UNIXTIME(created, \'%M %Y\')');
+    $query->orderBy('FROM_UNIXTIME(created, \'%Y-%m\')', 'ASC');
+    $query->orderBy('count', 'DESC');
+    $title = t('Registered users'); 
+    break;
+  case 'reports_count' :
+    $query = db_select('node', 'n');
+    $query->addExpression('FROM_UNIXTIME(created, \'%M %Y\')', 'date');
+    $query->addExpression('COUNT(uid)', 'count');
+    $query->condition('n.type', 'media');
+    $query->condition('n.status', 1);
+    if ($year) {
+      $query->where('FROM_UNIXTIME(n.created, \'%Y\') = :year', array(':year' => $year));
+    }
+    $query->groupBy('FROM_UNIXTIME(created, \'%M %Y\')');
+    $query->orderBy('FROM_UNIXTIME(created, \'%Y-%m\')', 'ASC');
+    $query->orderBy('count', 'DESC');
+    $title = t('Citizen reports');
+    break;
+  case 'different_sources' :
+    $query = db_select('meedan_sources', 'ms');
+    $query->addExpression('CONCAT_WS( \'\n\', CONCAT_WS( \' \', ms.source, CONCAT( \'[\', ms_parent.source, \']\' ) ) , FROM_UNIXTIME( created, \'%M %Y\'))', 'info');
+    $query->addExpression('FROM_UNIXTIME(created, \'%M %Y\')', 'date');
+    $query->addExpression('COUNT(ms.source)', 'count');
+    $query->leftJoin('meedan_sources', 'ms_parent', 'ms.parent = ms_parent.ms_id');
+    $query->innerJoin('meedan_sources_media', 'msm', 'msm.ms_id = ms.ms_id');
+    $query->innerJoin('node', 'n', 'n.nid = msm.nid');
+    if ($year) {
+      $query->where('FROM_UNIXTIME(n.created, \'%Y\') = :year', array(':year' => $year));
+    }
+    $query->groupBy('FROM_UNIXTIME(n.created, \'%m %Y\')');
+    $query->groupBy('ms.source');
+    $query->orderBy('FROM_UNIXTIME(n.created, \'%Y-%m\')', 'ASC');
+    $query->orderBy('n.created', 'DESC');
+    $title = t('Different sources');
+    break;
+  case 'most_active_users' :
+    $query = db_select('node', 'n');
+    $query->addExpression('CONCAT_WS(\'\n\', name, FROM_UNIXTIME( n.created, \'%M %Y\' ))', 'info');
+    $query->addExpression('FROM_UNIXTIME(n.created, \'%M %Y\')', 'date');
+    $query->addExpression('COUNT(*)', 'count');
+    $query->innerJoin('users', 'u', 'u.uid = n.uid');
+    $query->groupBy('FROM_UNIXTIME(n.created, \'%M %Y\')');
+    $query->groupBy('n.uid');
+    $query->orderBy('FROM_UNIXTIME(n.created, \'%Y-%m\')', 'ASC');
+    $query->orderBy('count', 'DESC');
+    $title = t('Most active users as measured by number of reports submitted');
+    break;
+  case 'active_users':
+    $query = db_select('node', 'n');
+    $query->addExpression('FROM_UNIXTIME(created, \'%M %Y\')', 'date');
+    $query->addExpression('COUNT(*)', 'count');
+    $query->condition('n.uid', 0, '<>');
+    if ($year) {
+      $query->where('FROM_UNIXTIME(n.created, \'%Y\') = :year', array(':year' => $year));
+    }
+    $query->groupBy('FROM_UNIXTIME(n.created, \'%M %Y\')');
+    $query->orderBy('n.created');
+    $title = t('Numbers of users submitting reports');
+    break;
+  }
+  return array(
+    'query' => $query,
+    'title' => $title,
+  );
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function checkdesk_analytics_action_info() {
+  return array(
+    'checkdesk_analytics_assign_new_story' => array(
+      'type' => 'node',
+      'label' => t('Assign to new story'),
+      'configurable' => TRUE,
+      'behavior' => array('changes_property'),
+      'triggers' => array(
+        'node_presave',
+        'node_insert',
+        'node_update',
+      ),
+    ),
+  );
+}
+
+/**
+ * Configuration form for create new story.
+ */
+function checkdesk_analytics_assign_new_story_form($context) {
+  $form['story_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Story title'),
+    '#maxlength' => '60',
+    '#required' => TRUE,
+  );
+  $form['story_desc'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description'),
+  );
+ return $form;
+}
+
+/**
+ * Submit handler for assign report to new story action configuration.
+ */
+function checkdesk_analytics_assign_new_story_submit($form, &$form_state) {
+  return array(
+    'story_title' => $form_state['values']['story_title'],
+    'story_desc' => $form_state['values']['story_desc'],
+  );
+}
+
+function checkdesk_analytics_assign_new_story($node, $context) {
+  global $language, $user;
+  //create stories
+  $snode = new stdClass(); 
+  $snode->type = 'discussion';
+  $snode->title = $context['story_title'];
+  $snode->language = $language->language; 
+  $snode->uid = $user->uid;
+  node_object_prepare($snode); 
+  $snode->body[LANGUAGE_NONE][0]['value'] = $context['story_desc'];
+  $snode->body[LANGUAGE_NONE][0]['summary'] = '';
+  $snode->body[LANGUAGE_NONE][0]['format'] = 'filtered_html'; 
+  node_save($snode); 
+  $node->field_stories[LANGUAGE_NONE][0]['target_id'] = $snode->nid;
+}

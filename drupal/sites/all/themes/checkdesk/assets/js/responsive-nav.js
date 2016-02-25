@@ -89,6 +89,8 @@
         },
         exit: function() {
          $('.content-filter .filters-toggle').addClass('element-hidden');
+         // Show filters
+          $('.content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').show();
         }
       });
 

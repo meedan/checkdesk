@@ -528,5 +528,8 @@ define('MEEDAN_ENVIRONMENT', ($is_dev ? 'DEV' : ($is_test ? 'TEST' : 'LIVE')));
 // force HTTPS on an SSL enabled server.
 $conf['https'] = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off');
 
+// Fix Varnish auth calc issue #4498 in conjunction with patch https://www.drupal.org/node/1492670
+$conf['varnish_control_key_appendnewline'] = FALSE;
+
 // Include the local configuration file.
 require 'settings.local.php';

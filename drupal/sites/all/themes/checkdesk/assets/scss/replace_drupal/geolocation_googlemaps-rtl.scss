@@ -1,0 +1,12 @@
+// 0.
+// ensure we have the original variables loaded
+@import "global";
+// 1.
+// re-configuration of default variables for this RTL stylesheet
+$from-direction: right;
+// 2.
+// Now we reload header user styles with this updated configuration
+@import "geolocation_googlemaps";
+
+// 3.
+// Remember to unset the non RTL css in theme.inc's checkdesk_css_alter function

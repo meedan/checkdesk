@@ -48,6 +48,6 @@
 <?php if ($after_flagging): ?>
   <?php 
   	// set message
-  	drupal_set_message($message_text, 'warning');
+  	//drupal_set_message($message_text, 'warning');
   ?>
 <?php endif; ?>

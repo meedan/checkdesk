@@ -73,16 +73,3 @@ $omega: opposite-position($from-direction);
 .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header { border-#{$alpha}-width:0; }
 .ui-datepicker-multi .ui-datepicker-buttonpane { clear:$alpha; }
 .ui-datepicker-row-break { clear:both; width:100%; }
-
-/* RTL support */
-.ui-datepicker-rtl { direction: rtl; }
-.ui-datepicker-rtl .ui-datepicker-prev { #{$omega}: 2px; #{$alpha}: auto; }
-.ui-datepicker-rtl .ui-datepicker-next { #{$alpha}: 2px; #{$omega}: auto; }
-.ui-datepicker-rtl .ui-datepicker-prev:hover { #{$omega}: 1px; #{$alpha}: auto; }
-.ui-datepicker-rtl .ui-datepicker-next:hover { #{$alpha}: 1px; #{$omega}: auto; }
-.ui-datepicker-rtl .ui-datepicker-buttonpane { clear:right; }
-.ui-datepicker-rtl .ui-datepicker-buttonpane button { float: $alpha; }
-.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current { float:$omega; }
-.ui-datepicker-rtl .ui-datepicker-group { float:$omega; }
-.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header { border-#{$omega}-width:0; border-#{$alpha}-width:1px; }
-.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header { border-#{$omega}-width:0; border-#{$alpha}-width:1px; }

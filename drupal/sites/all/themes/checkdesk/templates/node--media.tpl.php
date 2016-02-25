@@ -5,8 +5,9 @@
         <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
       </section>
 
-      <?php print $content['metadata_fields']; ?>
-
+      <?php if (isset($content['metadata_fields'])) : ?>
+        <?php print $content['metadata_fields']; ?>
+      <?php endif; ?>
       <?php print $report_activity; ?>
       <?php if (!empty($published_stories)) : ?>
         <section class="report-detail">

@@ -176,6 +176,13 @@ function checkdesk_css_alter(&$css) {
   global $language;
   if ($language->direction == LANGUAGE_RTL) {
     unset($css['sites/all/themes/checkdesk/assets/css/style.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/autocomplete.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/jquery_ui_tabs.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/jquery_ui_dialog.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/components/chosen.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/components/media.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/datepicker.css']);
+    unset($css['sites/all/themes/checkdesk/assets/css/replace_drupal/geolocation_googlemaps.css']);
   }
   // keep css for some modules
   $keep_css = array(
@@ -285,7 +292,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   // set variables for status report 
   if ($message->message_id == 'status_report') {
     // set icons
-    if ($status = $message->variables['!status']) {
+    if ($status = $message->variables['!status_org']) {
       $status_term = taxonomy_get_term_by_name($status, 'media_rating');
       $status_class_name = strtolower(str_replace(' ', '-', $status));
       $icon = _checkdesk_report_status_icon(reset($status_term));
