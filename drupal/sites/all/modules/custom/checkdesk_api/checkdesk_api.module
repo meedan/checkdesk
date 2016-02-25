@@ -79,7 +79,7 @@ function checkdesk_api_services_resources() {
                     'module' => 'checkdesk_api',
                     'name' => 'resources/reports_resource',
                 ),
-                'callback' => '_report_resource_retrieve',
+                'callback' => '_reports_resource_retrieve',
                 'args' => array(
                     array(
                         'name' => 'id',
@@ -99,7 +99,7 @@ function checkdesk_api_services_resources() {
                     'module' => 'checkdesk_api',
                     'name' => 'resources/reports_resource',
                 ),
-                'callback' => '_node_resource_create',
+                'callback' => '_reports_resource_create',
                 'args' => array(
                     array(
                         'name' => 'report',
