@@ -13,11 +13,12 @@ $aliases['prod'] = array(
     '@prod.smex',
     '@prod.bellingcat',
     '@prod.globalvoices',
-    '@prod.almanassa',
   ),
 );
-// temporarily remove gv
-//    '@prod.globalvoices'
+
+// remove almanassa from webistrano deployment
+//    '@prod.almanassa',
+
 $aliases['qa'] = array(
   'site-list' => array('@qa.meedan'),
   'site-list' => array('@qa.bellingcat'),
