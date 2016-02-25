@@ -9,12 +9,11 @@
  */
 function _stories_resource_index() {
     $stories = array();
-
-    $result = db_query('SELECT nid, title FROM {node} WHERE type = :type', array(':type' => 'discussion'));
+    $result = db_query('SELECT nid, title FROM {node} WHERE type = :type AND status = :status', array(':type' => 'discussion', ':status' => 1));
     foreach ($result as $story) {
         $stories[] = array(
-            'gid' => $story->nid,
-            'name' => $story->title,
+            'id' => $story->nid,
+            'title' => $story->title,
         );
     }
     return $stories;

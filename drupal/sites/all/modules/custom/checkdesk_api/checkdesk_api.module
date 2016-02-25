@@ -70,14 +70,14 @@ function checkdesk_api_services_resources() {
             ),
         ),
     );
-    $resources['report'] = array(
+    $resources['reports'] = array(
         'operations' => array(
             'retrieve' => array(
                 'help' => 'Retrieve a report',
                 'file' => array(
                     'type' => 'inc',
                     'module' => 'checkdesk_api',
-                    'name' => 'resources/report_resource',
+                    'name' => 'resources/reports_resource',
                 ),
                 'callback' => '_report_resource_retrieve',
                 'args' => array(
@@ -97,7 +97,7 @@ function checkdesk_api_services_resources() {
                 'file' => array(
                     'type' => 'inc',
                     'module' => 'checkdesk_api',
-                    'name' => 'resources/report_resource',
+                    'name' => 'resources/reports_resource',
                 ),
                 'callback' => '_node_resource_create',
                 'args' => array(
@@ -111,6 +111,16 @@ function checkdesk_api_services_resources() {
                 ),
                 'access callback' => 'node_access',
                 'access arguments' => array('create', 'media'),
+            ),
+            'index' => array(
+                'help' => t('List all reports api/reports'),
+                'file' => array(
+                    'type' => 'inc',
+                    'module' => 'checkdesk_api',
+                    'name' => 'resources/reports_resource',
+                ),
+                'callback' => '_reports_resource_index',
+                'access callback' => '_checkdesk_api_access',
             ),
         ),
     );

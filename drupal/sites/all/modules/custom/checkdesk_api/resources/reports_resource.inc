@@ -58,3 +58,27 @@ function _node_resource_create($report) {
         'url' => url('node/'. $node->nid),
     );
 }
+
+/**
+ * Lists all existing reports.
+ *
+ * @return array
+ *   An array with stories data nid and url.
+ */
+function _reports_resource_index() {
+    $reports = array();
+
+    $result = db_query_range('SELECT entity_id, field_link_url
+                        FROM {field_data_field_link} fl
+                        INNER JOIN {node} n ON fl.entity = n.nid
+                        WHERE bundle = :bundle AND n.status = :status
+                        ', array(':bundle' => 'media', ':status' => 1)
+                        , 1, 50);
+    foreach ($result as $report) {
+        $reports[] = array(
+            'id' => $report->nid,
+            'url' => $report->url,
+        );
+    }
+    return $reports;
+}
