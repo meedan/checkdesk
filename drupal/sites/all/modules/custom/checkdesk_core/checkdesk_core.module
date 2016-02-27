@@ -2549,7 +2549,6 @@ function checkdesk_core_node_insert($node) {
  */
 function checkdesk_core_node_update($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'update');
-  checkdesk_facebook_scrape(url('node/' . $node->nid, array('absolute' => TRUE)));
   if ($node->type === 'post' && isset($node->body)) {
     $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     //link report to update
@@ -2991,28 +2990,6 @@ function _checkdesk_purge_varnish($paths) {
       }
     }
   }
-}
-
-/**
- * Scrape Facebook version of a URL
- * Async POST to Facebook URL scraper
- */
-function checkdesk_facebook_scrape($url) {
-  $fboauth_id = variable_get('fboauth_id', NULL);
-  $fboauth_secret = variable_get('fboauth_secret', NULL);
-  $host = 'https://graph.facebook.com';
-  $ch = curl_init($host);
-  $fields = array(
-      'id' => $url,
-      'scrape' => 'true',
-      'access_token' => $fboauth_id . '|' . $fboauth_secret,
-  );
-  curl_setopt($ch, CURLOPT_POST, 1);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-  $response = curl_exec($ch);
-  curl_close($ch);
 }
 
 /**
