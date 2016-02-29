@@ -2354,14 +2354,25 @@ function checkdesk_core_query_features_menu_link_alter($query) {
  */
 function checkdesk_core_query_entityreference_alter($query) {
   if (!empty($query->alterMetaData['field']) && ($query->alterMetaData['field']['field_name'] === 'field_stories' || $query->alterMetaData['field']['field_name'] === 'field_desk')) {
-    $story = menu_get_object();
-    $limit = 50;
-    $nids = db_query("SELECT nid FROM {node} WHERE type='discussion' ORDER BY created DESC LIMIT $limit")->fetchCol();
-    if ($story && $story->type == 'discussion') {
-      $nids[] = $story->nid;
+    $nids = db_query_range("SELECT nid FROM {node} WHERE type='discussion' ORDER BY created DESC", 0, 50)->fetchCol();
+    if ($query->alterMetaData['field']['field_name'] === 'field_stories') {
+      $nids = array_merge($nids, array_keys(_checkdesk_get_stories_by_activity(TRUE)));
+      if (isset($_GET['ref_nid']) && is_numeric($_GET['ref_nid'])) {
+        $nids[] = $_GET['ref_nid'];
+      }
     }
-    if (isset($_GET['story']) && is_numeric($_GET['story'])) {
+    elseif (isset($_GET['story']) && is_numeric($_GET['story'])) {
       $nids[] = $_GET['story'];
+    }
+    // Add story nid (edit form)
+    if (arg(0) == 'node' && is_numeric(arg(1))) {
+      $target_story = node_load(arg(1));
+      if ($target_story && in_array($target_story->type, array('post', 'media'))) {
+        $field_name = ($target_story->type == 'media') ? 'field_stories' : 'field_desk';
+        if (isset($target_story->{$field_name}[LANGUAGE_NONE][0]['target_id'])) {
+          $nids[] = $target_story->{$field_name}[LANGUAGE_NONE][0]['target_id'];
+        }
+      }
     }
     $query->condition('nid', $nids, 'IN');
   }
@@ -2538,7 +2549,6 @@ function checkdesk_core_node_insert($node) {
  */
 function checkdesk_core_node_update($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'update');
-  checkdesk_facebook_scrape(url('node/' . $node->nid, array('absolute' => TRUE)));
   if ($node->type === 'post' && isset($node->body)) {
     $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     //link report to update
@@ -2660,26 +2670,33 @@ function checkdesk_core_ajax_command_attach_behaviors($selector = NULL) {
  */
 function checkdesk_core_flag_javascript_info_alter(&$info) {
   if ($info['flagName'] != 'follow_story') {
+    // TODO user nodejs to update report activities
     $nid = $info['contentId'];
     $node = node_load($nid);
     $element = node_view($node);
     $element['comments'] = comment_node_page_additions($node);
-    $output = drupal_render($element);
-
-    $js = drupal_add_js(NULL, NULL);
-    $settings = '';
-    if (isset($js['settings'])) {
-      $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
-        drupal_json_encode(call_user_func_array('array_merge_recursive', $js['settings']['data'])) .
-        ');</script>';
-    }
-    // Add the settings to the form
-    $output .= $settings;
-
     $commands = array();
-    $commands[] = ajax_command_invoke('.default-view-node-' . $nid, 'replaceWith', array($output));
-    $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
-
+    if ($info['flagName'] == 'factcheck_journalist') {
+      // update activity stream
+      $report_activity = theme(
+          'checkdesk_reports_report_activity', array('node' => $node, 'content' => $element)
+      );
+      $commands[] = ajax_command_invoke('.report-activity-node-' . $node->nid, 'replaceWith', array($report_activity));
+    }
+    else {
+      $output = drupal_render($element);
+      $js = drupal_add_js(NULL, NULL);
+      $settings = '';
+      if (isset($js['settings'])) {
+        $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
+            drupal_json_encode(call_user_func_array('array_merge_recursive', $js['settings']['data'])) .
+            ');</script>';
+      }
+      // Add the settings to the form
+      $output .= $settings;
+      $commands[] = ajax_command_invoke('.default-view-node-' . $nid, 'replaceWith', array($output));
+      $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
+    }
     $info['commands'] = $commands;
   }
 }
@@ -2973,24 +2990,6 @@ function _checkdesk_purge_varnish($paths) {
       }
     }
   }
-}
-
-/**
- * Scrape Facebook version of a URL
- * Async POST to Facebook URL scraper
- */
-function checkdesk_facebook_scrape($url) {
-  $post_string = 'id=' . urlencode($url) . '&scrape=true';
-  $host = "ssl://graph.facebook.com";
-  $fp = fsockopen($host, 443, $errno, $errstr, 30);
-  $out = "POST / HTTP/1.1\r\n";
-  $out .= "Host: " . $host . "\r\n";
-  $out .= "Content-Type: application/x-www-form-urlencoded\r\n";
-  $out .= "Content-Length: " . strlen($post_string) . "\r\n";
-  $out .= "Connection: Close\r\n\r\n";
-  $out .= $post_string;
-  $result = fwrite($fp, $out);
-  fclose($fp);
 }
 
 /**

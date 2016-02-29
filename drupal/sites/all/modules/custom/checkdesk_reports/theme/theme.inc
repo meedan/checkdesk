@@ -90,6 +90,9 @@ function checkdesk_reports_preprocess_checkdesk_reports_report_activity(&$variab
   global $language;
   $node = $variables['node'];
   $variables['nid'] = $node->nid;
+  if (empty($variables['view_mode'])) {
+    $variables['view_mode'] = 'full';
+  }
   $variables['collapsed'] = ($variables['view_mode'] == 'full') ? 'open' : '';
   //Add activity report with status
   $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
@@ -118,6 +121,11 @@ function checkdesk_reports_preprocess_checkdesk_reports_report_activity(&$variab
         $variables['media_activity_footer'] = '<span class="cta">' . t('To help verify this report, please <a href="@login_url">sign in</a>', array('@login_url' => url('user/login'))) . '</span><span class="helper">' . $icon . $link . '</span>';
       }
     }
+  }
+  else {
+    $variables['media_activity_report_not_applicable'] = theme(
+        'checkdesk_reports_report_activity_stream', array('activity' => NULL, 'nid' => $variables['nid'])
+    );
   }
   if ($variables['show_activity'] || empty($total_rows)) {
     $variables['media_activity_report_count'] = theme(

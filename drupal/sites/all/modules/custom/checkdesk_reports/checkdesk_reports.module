@@ -110,6 +110,10 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
     $form['field_link'][LANGUAGE_NONE][0]['#description'] = t('When you submit a report it becomes available for fact-checking and may be included in a blog post by our team.');
     $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
+    // Change field attributes
+    $form['body'][LANGUAGE_NONE][0]['#attributes'] = array('placeholder' => t('Add more info or write a description. What\'s the context? Does this link need to be fact-checked? What evidence do you have?'), 'rows' => 3);
+    // Description textarea should not be resizable
+    $form['body'][LANGUAGE_NONE][0]['#resizable'] = FALSE;
     // Check for graphic content
     $flag = ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) ? 'graphic_journalist' : 'graphic');
     $form['graphic_content'] = array(
@@ -123,10 +127,6 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     // Fields order
     $form['field_link']['#weight'] = -2;
     $form['report_preview']['#weight'] = 0;
-    // Change field attributes
-    $form['body'][LANGUAGE_NONE][0]['#attributes'] = array('placeholder' => t('Add more info or write a description. What\'s the context? Does this link need to be fact-checked? What evidence do you have?'), 'rows' => 3);
-    // Description textarea should not be resizable
-    $form['body'][LANGUAGE_NONE][0]['#resizable'] = FALSE;
 
     // Load JavaScript for the form
     $form['#after_build'] = array('_checkdesk_reports_load_javascript_for_report_form');
@@ -134,6 +134,8 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     $form['actions']['submit']['#value'] = t('Submit');
     $form['actions']['draft']['#access'] = FALSE;
 
+    $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);
+    $default_story = 0;
     if (!isset($form['nid']['#value'])) {
         // Hide fields on form creation
         foreach (variable_get('meedan_bookmarklet_hidden_fields', array('title', 'field_rating')) as $field) {
@@ -144,32 +146,44 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
             'data' => 'jQuery(function() { jQuery("#edit-body, #edit-graphic-content, #edit-field-stories, #edit-field-tags, #checkdesk-group-metadata").hide();});',
             'type' => 'inline',
         );
+        //set default url if exist.
+        if (isset($_GET['url'])) {
+            $form['field_link'][LANGUAGE_NONE][0]['#default_value']['url'] = $_GET['url'];
+        }
+        //set default story if exist.
+        if (isset($_GET['ref_nid']) && is_numeric($_GET['ref_nid']) && $_GET['ref_nid']) {
+            $default_story = $_GET['ref_nid'];
+        }
     }
-
-    if (isset($form['nid']['#value'])) {
+    else {
         $node = $form['#node'];
         drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
-    }
-    //set default story if exist.
-    elseif (isset($_GET['ref_nid'])) {
-        $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
-    }
-    //set default url if exist.
-    if (isset($_GET['url'])) {
-        $form['field_link'][LANGUAGE_NONE][0]['#default_value']['url'] = $_GET['url'];
+        if (isset($node->field_stories[LANGUAGE_NONE][0]['target_id'])) {
+            $default_story = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
+        }
     }
 
-    $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);
+    if ($default_story && isset($form['field_stories'][LANGUAGE_NONE]['#options'][$default_story])) {
+        $options[$default_story] = $form['field_stories'][LANGUAGE_NONE]['#options'][$default_story];
+        $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($default_story);
+    }
+    // Update stories options
     $form['field_stories'][LANGUAGE_NONE]['#options'] = $options;
     // Handle HTML entities
     foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
         $option = decode_entities($option);
     }
 
+    // Redirect user to collaboration page.
+    $form['actions']['submit']['#submit'][] = '_checkdesk_reports_redirect';
+    if (in_array('journalist', $user->roles)) {
+        // Hide comment settings
+        $form['comment_settings']['#access'] = FALSE;
+    }
+
     if($form['field_stories']) {
         _checkdesk_add_chosen_components();
     }
-
     // Add CSS file for autocomplete field
     if($form['field_tags']) {
         drupal_add_css(
@@ -183,61 +197,27 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
         );
     }
 
-    // Add CSS file for date popup field when module is enabled
-    if (module_exists('date_popup')) {
-        drupal_add_css(
-            drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/datepicker.css',
-            array(
-                'scope' => 'footer',
-                'group' => CSS_THEME,
-                'weight' => '9992',
-                'every_page' => FALSE,
-            )
-        );
-    }
-
-    // Add CSS file for geolocation google maps field when module is enabled
-    if (module_exists('geolocation_googlemaps')) {
-        // get field name of type geolocation_latlng
-        $field_location_name = '';
-        $metadata_fields = checkdesk_reports_metadata_fields();
+    // Add extra css for metadata fields
+    $metadata_fields = checkdesk_reports_metadata_fields();
+    if (count($metadata_fields)) {
+        $metadata_fields_adjust = array();
+        // Add css for metadata fields (geolocation and date popup)
         foreach ($metadata_fields as $metadata_field_name) {
             $metadata_field = field_info_field($metadata_field_name);
             if($metadata_field['type'] == 'geolocation_latlng') {
-                $field_location_name = $metadata_field['field_name'];
-                break;
+                $metadata_fields_adjust['geolocation'] = $metadata_field['field_name'];
+                //$field_location_name = $metadata_field['field_name'];
+                //break;
+            }
+            elseif (in_array($metadata_field['type'], array('date', 'datetime', 'datestamp'))) {
+                $metadata_fields_adjust['date'] = $metadata_field['field_name'];
             }
         }
-        if (!empty($field_location_name)) {
-            // Adjust classes for the buttons inside google maps field widget
-            $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-get-location">' . $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#prefix'];
-            $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#suffix'] = $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#suffix'] . '</div>';
-
-            $form[$field_location_name][LANGUAGE_NONE][0]['googlemap']['#prefix'] = '<div class="geolocation-selection-wrapper">' . $form[$field_location_name][LANGUAGE_NONE][0]['googlemap']['#prefix'];
-
-            $form[$field_location_name][LANGUAGE_NONE][0]['latitem']['#prefix'] = '<div class="geolocation-values-wrapper"><div class="geolocation-selection">' . $form[$field_location_name][LANGUAGE_NONE][0]['latitem']['#prefix'];
-            $form[$field_location_name][LANGUAGE_NONE][0]['lngitem']['#suffix'] = $form[$field_location_name][LANGUAGE_NONE][0]['lngitem']['#suffix'] . '</div>';
-
-            $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-selection-remove-button">' . $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#prefix'];
-            $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#suffix'] = $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#suffix'] . '</div></div></div>';
-            drupal_add_css(
-                drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/geolocation_googlemaps.css',
-                array(
-                    'scope' => 'footer',
-                    'group' => CSS_THEME,
-                    'weight' => '9993',
-                    'every_page' => FALSE,
-                )
-            );
+        if (count($metadata_fields_adjust)) {
+            _checkdesk_reports_adjust_metadata_display($metadata_fields_adjust, $form);
         }
     }
 
-    // Redirect user to collaboration page.
-    $form['actions']['submit']['#submit'][] = '_checkdesk_reports_redirect';
-    if (in_array('journalist', $user->roles)) {
-        // Hide comment settings
-        $form['comment_settings']['#access'] = FALSE;
-    }
 }
 
 /*
@@ -248,6 +228,48 @@ function _checkdesk_reports_load_javascript_for_report_form($form, &$form_state)
     $form['field_link'][LANGUAGE_NONE][0]['url']['#attributes']['placeholder'] = t('Add a link');
     drupal_add_js(drupal_get_path('module', 'checkdesk_reports') . '/js/checkdesk_report_form.js');
     return $form;
+}
+
+/**
+ * Add CSS file for geolocation google maps and date_popup
+ */
+function _checkdesk_reports_adjust_metadata_display($fields, &$form) {
+    // Adjust classes for the buttons inside google maps field widget
+    if (isset($fields['geolocation'])) {
+        $field_location_name = $fields['geolocation'];
+        $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-get-location">' . $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#prefix'];
+        $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#suffix'] = $form[$field_location_name][LANGUAGE_NONE][0]['address']['geocode']['#suffix'] . '</div>';
+
+        $form[$field_location_name][LANGUAGE_NONE][0]['googlemap']['#prefix'] = '<div class="geolocation-selection-wrapper">' . $form[$field_location_name][LANGUAGE_NONE][0]['googlemap']['#prefix'];
+
+        $form[$field_location_name][LANGUAGE_NONE][0]['latitem']['#prefix'] = '<div class="geolocation-values-wrapper"><div class="geolocation-selection">' . $form[$field_location_name][LANGUAGE_NONE][0]['latitem']['#prefix'];
+        $form[$field_location_name][LANGUAGE_NONE][0]['lngitem']['#suffix'] = $form[$field_location_name][LANGUAGE_NONE][0]['lngitem']['#suffix'] . '</div>';
+
+        $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#prefix'] = '<div class="btn btn-primary-alt btn-sm geolocation-selection-remove-button">' . $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#prefix'];
+        $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#suffix'] = $form[$field_location_name][LANGUAGE_NONE][0]['remove']['#suffix'] . '</div></div></div>';
+        drupal_add_css(
+            drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/geolocation_googlemaps.css',
+            array(
+                'scope' => 'footer',
+                'group' => CSS_THEME,
+                'weight' => '9993',
+                'every_page' => FALSE,
+            )
+        );
+    }
+
+    // Add CSS file for date popup field when module is enabled
+    if (isset($fields['date'])) {
+        drupal_add_css(
+            drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/datepicker.css',
+            array(
+                'scope' => 'footer',
+                'group' => CSS_THEME,
+                'weight' => '9992',
+                'every_page' => FALSE,
+            )
+        );
+    }
 }
 
 /**
