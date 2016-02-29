@@ -15,8 +15,11 @@ function _reports_resource_retrieve($id) {
         return services_error(t('Report with the provided id (@id) was not found', array('@id' => $id)), 400);
     }
     return array(
-        'title' => $report->title,
-        'url' => url('node/'. $report->nid),
+        'type' => 'reports',
+        'data' => array(
+            'title' => $report->title,
+            'url' => url('node/'. $report->nid),
+        ),
     );
 }
 
@@ -57,8 +60,11 @@ function _reports_resource_create($report) {
     }
     node_save($node);
     return array(
-        'id' => $node->nid,
-        'url' => url('node/'. $node->nid),
+        'type' => 'reports',
+        'data' => array(
+            'id' => $node->nid,
+            'url' => url('node/'. $node->nid),
+        ),
     );
 }
 
@@ -82,5 +88,10 @@ function _reports_resource_index() {
             'url' => $report->field_link_url,
         );
     }
-    return $reports;
+    return array(
+        'type' => 'reports',
+        'data' => array(
+            'reports' => $reports
+        ),
+    );
 }

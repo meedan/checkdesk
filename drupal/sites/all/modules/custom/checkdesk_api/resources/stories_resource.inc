@@ -16,5 +16,10 @@ function _stories_resource_index() {
             'title' => $story->title,
         );
     }
-    return $stories;
+    return array(
+        'type' => 'stories',
+        'data' => array(
+            'reports' => $stories
+        ),
+    );
 }
