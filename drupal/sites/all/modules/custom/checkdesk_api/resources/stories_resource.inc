@@ -18,8 +18,6 @@ function _stories_resource_index() {
     }
     return array(
         'type' => 'stories',
-        'data' => array(
-            'reports' => $stories
-        ),
+        'data' => $stories,
     );
 }

@@ -56,7 +56,7 @@
           "notes": "Retrive a report",
           "parameters": [
             {
-              "paramType": "query",
+              "paramType": "path",
               "name": "id",
               "type": "int",
               "description": "ID of the report to retrive",
@@ -81,7 +81,7 @@
             }
           ],
           "nickname": "Api::V1::Reports#retrive",
-          "method": "PUT"
+          "method": "POST"
         }
       ]
     }

@@ -90,8 +90,6 @@ function _reports_resource_index() {
     }
     return array(
         'type' => 'reports',
-        'data' => array(
-            'reports' => $reports
-        ),
+        'data' => $reports,
     );
 }
