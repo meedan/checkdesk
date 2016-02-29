@@ -127,6 +127,39 @@ function checkdesk_api_services_resources() {
   return $resources;
 }
 
+/**
+ * Implements hook_services_resources_alter().
+ */
+function checkdesk_api_services_resources_alter(&$resources, &$endpoint) {
+    $resources['user']['actions']['login'] = array(
+        'help' => t('Login a user for a new session with (checkdesk/fb/twitter) api/user/login/:provider'),
+        'file' => array(
+            'type' => 'inc',
+            'module' => 'checkdesk_api',
+            'name' => 'resources/user_resource',
+        ),
+        'callback' => '_user_resource_login',
+        'args' => array(
+            array(
+                'name' => 'provider',
+                'optional' => FALSE,
+                'source' => array('path' => '1'),
+                'type' => 'string',
+                'description' => 'The Provider can be "facebook", "twitter" or "checkdesk"',
+            ),
+            array(
+                'name' => 'parameters',
+                'optional' => FALSE,
+                'source' => 'data',
+                'description' => 'The parameters for each login method',
+                'type' => 'array',
+            ),
+        ),
+        'access callback' => '_checkdesk_api_access',
+    );
+    //print_r($resources['user']['actions']['login']);exit;
+}
+
 function _checkdesk_api_access() {
     return TRUE;
 }

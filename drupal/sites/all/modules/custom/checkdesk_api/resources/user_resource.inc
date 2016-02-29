@@ -1,0 +1,92 @@
+<?php
+
+
+function _user_resource_login($provider, $parameters) {
+    global $user;
+    if ($user->uid) {
+        // user is already logged in
+        return services_error(t('Already logged in as @user.', array('@user' => $user->name)), 406);
+    }
+    $fun_callback = '_checkdesk_api_user_login_'.$provider;
+    $fun_callback($parameters, $provider);
+}
+
+/**
+ * Login with CHECKDESK provider
+ * @param $parameters
+ * @param $provider
+ * @return array|mixed
+ * @throws ServicesException
+ */
+function _checkdesk_api_user_login_checkdesk($parameters, $provider) {
+    if (!isset($parameters['username']) || !isset($parameters['password']) ) {
+        return services_error(t('Parameters missing username or password'), 400);
+    }
+    $username = $parameters['username'];
+    $password = $parameters['password'];
+
+    // Check if account is active.
+    if (user_is_blocked($username)) {
+        return services_error(t('The username %name has not been activated or is blocked.', array('%name' => $username)), 403);
+    }
+    $uid = user_authenticate($username, $password);
+    if ($uid) {
+        $user = user_load($uid);
+        if ($user->uid) {
+            user_login_finalize();
+            _checkdesk_api_user_success_login($user, $provider);
+        }
+    }
+    return services_error(t('Wrong username or password.'), 401);
+}
+
+/**
+ * Login with CHECKDESK provider
+ * @param $parameters
+ * @param $provider
+ * @return array|mixed
+ * @throws ServicesException
+ */
+function _checkdesk_api_user_login_facebook($parameters, $provider) {
+    if (!isset($parameters['access_token'])) {
+        return services_error(t('Parameters missing access_token'), 400);
+    }
+    // Include fboauth functions as required.
+    module_load_include('inc', 'fboauth', 'includes/fboauth.fboauth');
+    $access_token = $parameters['access_token'];
+    // Find Drupal user that corresponds with this Facebook user.
+    $fbuser = fboauth_graph_query('me', $access_token);
+    $uid = fboauth_uid_load($fbuser->id);
+    if ($user = user_load($uid)) {
+        if ($user->status) {
+            _checkdesk_api_user_success_login($user, $provider);
+        }
+        else {
+            $message = t('The username %name has not been activated or is blocked.', array('%name' => $user->name));
+        }
+    }
+    else {
+        $message = t('Error: no Drupal account was found for the specified Facebook user');
+    }
+
+    return services_error($message, 401);
+
+}
+
+/**
+ * Implements hook_checkdesk_analytics_info().
+ */
+function _checkdesk_api_user_success_login($user, $provider) {
+    user_login_finalize();
+    return array(
+        'type' => 'user',
+        'data' => array(
+            'provider' => $provider,
+            'uid' => $user->uid,
+            'sessid' => session_id(),
+            'session_name' => session_name(),
+            'token' => drupal_get_token('services'),
+            'user' => $user,
+        ),
+    );
+}
