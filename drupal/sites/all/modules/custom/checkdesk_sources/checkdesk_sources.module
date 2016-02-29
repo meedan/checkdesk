@@ -1,0 +1,140 @@
+<?php
+
+/**
+ * Implements hook_node_info().
+ */
+function checkdesk_sources_node_info() {
+  return array(
+    'source' => array(
+      'name' => t('Source'),
+      'base' => 'node_content',
+      'has_title' => TRUE,
+      'title_label' => t('Source'),
+      'description' => t('A source is a URL that contains reports'),
+      'comment' => array('status' => 2),
+    )
+  );
+}
+
+/**
+ * Implements hook_form().
+ */
+function checkdesk_sources_form($node, $form_state) {
+  return node_content_form($node, $form_state);
+}
+
+/**
+ * Implements hook_node_type_insert().
+ */
+function checkdesk_sources_node_type_insert($content_type) {
+  if ($content_type->type == 'source') { 
+    $body_instance = node_add_body_field($content_type, t('Description about this source'));
+    field_update_instance($body_instance);
+
+    foreach (_checkdesk_sources_installed_fields() as $field) {
+      field_create_field($field);
+    }
+
+    foreach (_checkdesk_sources_installed_instances() as $instance) {
+      $instance['entity_type'] = 'node';
+      $instance['bundle'] = 'source';
+      field_create_instance($instance);
+    }
+  }
+}
+
+function _checkdesk_sources_installed_fields() {
+
+  $fields = array(
+    'source_data' => array(
+      'field_name' => 'source_data',
+      'cardinality' => FIELD_CARDINALITY_UNLIMITED,
+      'type'        => 'double_field',
+    ),
+    'source_url' => array(
+      'field_name'  => 'source_url',
+      'cardinality' => 1,
+      'type'        => 'text',
+    ),
+  );
+  
+  return $fields;
+}
+
+function _checkdesk_sources_installed_instances() {
+  $fields = array(
+    'source_url' => array(
+      'field_name' => 'source_url',
+      'label'      => t('Source URL'),
+      'widget'     => array('type' => 'text_textfield'),
+    ),
+    'source_data' => array(
+      'field_name' => 'source_data',
+      'label' => t('Source Data'),
+      'widget' => array(
+        'type' => 'textfield_&_textfield',
+      ),
+      'display' => array(
+        'default' => array(
+          'type' => 'double_field_unformatted_list',
+        ),
+      ),
+    ),
+  );
+
+  return $fields;
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function checkdesk_sources_menu() {
+  return array(
+    'admin/config/services/checkdesk-sources' => array(
+      'title' => 'Checkdesk Sources',
+      'description' => 'Administer Checkdesk Sources configuration',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('_checkdesk_sources_admin_settings'),
+      'access arguments' => array('administer site configuration'),
+    ),
+  );
+}
+
+function _checkdesk_sources_admin_settings() {
+  $form['checkdesk_sources_pender_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pender API key'),
+    '#description' => t('This key is shared with Pender service in order to communicate securely.'),
+    '#default_value' => variable_get('checkdesk_sources_pender_key'),
+  );
+  $form['checkdesk_sources_pender_host'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pender host'),
+    '#description' => t('Host where Pender is running.'),
+    '#default_value' => variable_get('checkdesk_sources_pender_host'),
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function checkdesk_sources_node_presave($node) {
+  if ($node->type === 'source' && $node->is_new) {
+    $ch = curl_init('PENDER');
+    curl_setopt($ch, CURLOPT_URL, variable_get('checkdesk_sources_pender_host') . '/api/medias?url=' . $node->source_url[LANGUAGE_NONE][0]['value']);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Pender-Token: ' . variable_get('checkdesk_sources_pender_key')));
+    $response = json_decode(curl_exec($ch));
+    curl_close($ch);
+    if ($response->type === 'media') {
+      $i = 0;
+      $node->source_data = array(LANGUAGE_NONE => array());
+      foreach($response->data as $key => $value) {
+        $node->source_data[LANGUAGE_NONE][$i] = array('first' => $key, 'second' => $value);
+        $i++;
+      }
+    }
+  }
+}
