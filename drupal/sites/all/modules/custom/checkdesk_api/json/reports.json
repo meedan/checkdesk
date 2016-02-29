@@ -50,7 +50,35 @@
           ],
           "nickname": "Api::V1::Reports#create",
           "method": "post"
-        },
+        }
+      ]
+    },
+    {
+      "path": "reports",
+      "operations": [
+        {
+          "summary": "Reports list",
+          "notes": "List recent 50 reports",
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": { "type": "reports", "data": [{ "id": "<ID>", "URL": "<URL>" }] },
+              "message": "List of reports objects with at least id and URL"
+            },
+            {
+              "code": 401,
+              "responseModel": { "type": "error", "data": { "message": "Access denied" } },
+              "message": "Access denied"
+            }
+          ],
+          "nickname": "Api::V1::Reports",
+          "method": "GET"
+        }
+      ]
+    },
+    {
+      "path": "reports/{id}",
+      "operations": [
         {
           "summary": "Retrive a report",
           "notes": "Retrive a report",
@@ -81,7 +109,7 @@
             }
           ],
           "nickname": "Api::V1::Reports#retrive",
-          "method": "POST"
+          "method": "GET"
         }
       ]
     }
