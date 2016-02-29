@@ -27,7 +27,7 @@ function checkdesk_api_ui() {
 };
 
 function checkdesk_api_docs_json($doc = 'api') {
-  $docs = array('api', 'reports', 'stories');
+  $docs = array('api', 'reports', 'stories', 'user');
   $contents = '';
   if (in_array($doc, $docs)) {
     $contents = file_get_contents(drupal_get_path('module', 'checkdesk_api') . '/json/' . $doc . '.json');

@@ -1,0 +1,73 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "/api/",
+  "resourcePath": "user",
+  "apis": [
+    {
+      "path": "user/login",
+      "operations": [
+        {
+          "summary": "User login",
+          "notes": "Login a user for a new session with (checkdesk/fb/twitter) api/user/login/:provider",
+          "parameters": [
+            {
+              "paramType": "query",
+              "name": "provider",
+              "type": "string",
+              "description": "The Provider can be facebook, twitter or checkdesk",
+              "required": true
+            },
+            {
+              "paramType": "body",
+              "name": "parameters",
+              "type": "array",
+              "description": "The parameters for each login method",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": {
+                "type": "user",
+                "data": {
+                  "provider": "provider name",
+                  "uid": "<UID>",
+                  "sessid" : "session id",
+                  "session_name" : "session name",
+                  "token" : "token",
+                  "user" : "user object"
+                }
+              },
+              "message": "Success! Returns the report object that was created, with at least link to it on Checkdesk and ID"
+            },
+            {
+              "code": 406,
+              "message": "Already logged in user"
+            },
+            {
+              "code": 400,
+              "message": "Parameters missing (depend on provider)"
+            },
+            {
+              "code": 401,
+              "message": "The username %name has not been activated or is blocked."
+            },
+            {
+              "code": 401,
+              "message": "Error: no Drupal account was found for the specified Facebook user"
+            },
+            {
+              "code": 401,
+              "message": "Wrong username or password."
+            }
+          ],
+          "nickname": "Api::V1::User#login",
+          "method": "post"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
