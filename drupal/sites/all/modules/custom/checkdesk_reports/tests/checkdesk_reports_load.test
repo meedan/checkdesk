@@ -16,7 +16,7 @@ class CheckdeskReportsLoadTestCase extends DrupalWebTestCase {
   public function setUp() {
     parent::setUp('checkdesk_reports');
     // Create and login user.
-    $web_user = $this->drupalCreateUser(array('create page content'));
+    $web_user = $this->drupalCreateUser(array('create page content', 'create media content'));
     $this->drupalLogin($web_user);
   }
 
