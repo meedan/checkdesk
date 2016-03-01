@@ -248,7 +248,7 @@
   unicode-range: U+0600 – U+06FF;
 }
 
-// Define the mix for header fonts
+// Define the mix for header and body fonts with unicode range
 @import "header_fonts";
 @import "body_fonts";
 
@@ -256,14 +256,14 @@
 // Sans and Serif
 $sans-serif-font-stack: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $serif-font-stack: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
-$ar-sans-serif-font-stack: 'Noto Naskh Arabic', serif;
-$ar-serif-font-stack: 'AR Body', serif;
+$ar-sans-serif-font-stack: 'AR Sans', serif;
+$ar-serif-font-stack: 'AR Serif', serif;
 
 $en-body-font-stack: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $en-header-font-stack: 'EN Header', Georgia, 'Times New Roman', Times, serif;
 
 $ar-header-font-stack: 'AR Header', sans-serif;
-$ar-body-font-stack: 'AR Body', serif;
+$ar-body-font-stack: 'AR Serif', serif;
 $ar-font-stack: 'Noto Naskh Arabic', serif;
 
 $mono-font-stack: Monaco, Menlo, Consolas, 'Courier New', monospace !default;
