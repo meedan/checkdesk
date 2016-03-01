@@ -31,16 +31,6 @@ Scenario: Flag Icon - Journalist
   And I remove the created nodes
 
 @api
-Scenario: Flag Icon - Citizen Journalist
-  Given a report from URL "http://meedan.org" flagged as "factcheck_journalist" and with status "In Progress" 
-  And I am logged in as a user with the "citizen journalist" role
-  When I go to the last node
-  Then I should see the link "Flag spam"
-  And I should see the link "Flag graphic content"
-  And I should see the link "Flag for fact-checking"
-  And I remove the created nodes
-
-@api
 Scenario: Flag Icon - Anonymous
   Given a report from URL "http://meedan.org" flagged as "factcheck_journalist" and with status "In Progress" 
   And I am an anonymous user
@@ -205,4 +195,14 @@ Scenario: Flag Graphic Citizen
   And press "Flag graphic content"
   And I click on span ".icon-flag"
   Then I should not see "Flag graphic content"
+  And I remove the created nodes
+
+@api
+Scenario: CJ flagging report
+  Given I am logged in as a user with the "citizen journalist" role
+  And a report from URL "http://meedan.org" flagged as "factcheck_journalist" and with status "In Progress"
+  When I go to the last node
+  Then I should see the link "Flag spam"
+  And I should not see the link "Flag for fact-checking"
+  And I should not see the link "Flag graphic-content"
   And I remove the created nodes

@@ -9,6 +9,9 @@
   text-align: center;
   margin-bottom: 30px;
   figcaption {
+    @if $from-direction == 'right' {
+      font-family: $ar-sans-serif-font-stack; 
+    }
     border: 0 none;
     color: $firefly40;
     font-size: 16px;
