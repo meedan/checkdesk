@@ -13,17 +13,10 @@
           "parameters": [
             {
               "paramType": "body",
-              "name": "url",
-              "type": "string",
-              "description": "URL of the report to be added",
+              "name": "report",
+              "type": "array",
+              "description": "array the include URL and story_id",
               "required": true
-            },
-            {
-              "paramType": "query",
-              "name": "story_id",
-              "type": "integer",
-              "description": "Optional add this report to a story with this ID",
-              "required": false
             }
           ],
           "responseMessages": [
