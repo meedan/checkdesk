@@ -156,6 +156,7 @@
   src:  url('../extensions/bowerbird/fonts/lato-italic-webfont.eot');
   src:  local('Lato Italic'), local('Lato-Italic'),
         url('../extensions/bowerbird/fonts/lato-italic-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/lato-italic-webfont.woff2') format('woff2'),
         url('../extensions/bowerbird/fonts/lato-italic-webfont.woff') format('woff'),
         url('../extensions/bowerbird/fonts/lato-italic-webfont.ttf') format('truetype');
 }
@@ -166,6 +167,7 @@
   font-weight: 400;
   src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot');
   src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2') format('woff2'),
         url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff') format('woff'),
         url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf') format('truetype');
   unicode-range: U+0600 – U+06FF;
@@ -177,6 +179,7 @@
   font-weight: 700;
   src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot');
   src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2') format('woff2'),
         url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff') format('woff'),
         url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf') format('truetype');
   unicode-range: U+0600 – U+06FF;
@@ -214,6 +217,7 @@
   src:  url('../extensions/bowerbird/fonts/merriweather-italic-webfont.eot');
   src:  local('Merriweather Italic'), local('Merriweather-Italic'),
   			url('../extensions/bowerbird/fonts/merriweather-italic-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/merriweather-italic-webfont.woff2') format('woff2'),
         url('../extensions/bowerbird/fonts/merriweather-italic-webfont.woff') format('woff'),
         url('../extensions/bowerbird/fonts/merriweather-italic-webfont.ttf') format('truetype');
   font-style: italic;
@@ -226,6 +230,7 @@
   font-weight: 400;
   src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot');
   src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2') format('woff2'),
         url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff') format('woff'),
         url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf') format('truetype');
   unicode-range: U+0600 – U+06FF;
@@ -243,18 +248,22 @@
   unicode-range: U+0600 – U+06FF;
 }
 
+// Define the mix for header fonts
+@import "header_fonts";
+@import "body_fonts";
+
 
 // Sans and Serif
 $sans-serif-font-stack: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $serif-font-stack: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
 $ar-sans-serif-font-stack: 'Noto Naskh Arabic', serif;
-$ar-serif-font-stack: 'Noto Naskh Arabic', serif;
+$ar-serif-font-stack: 'AR Body', serif;
 
 $en-body-font-stack: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$en-header-font-stack: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
+$en-header-font-stack: 'EN Header', Georgia, 'Times New Roman', Times, serif;
 
-$ar-header-font-stack: 'Noto Kufi Arabic', sans-serif;
-$ar-body-font-stack: 'Noto Naskh Arabic', serif;
+$ar-header-font-stack: 'AR Header', sans-serif;
+$ar-body-font-stack: 'AR Body', serif;
 $ar-font-stack: 'Noto Naskh Arabic', serif;
 
 $mono-font-stack: Monaco, Menlo, Consolas, 'Courier New', monospace !default;

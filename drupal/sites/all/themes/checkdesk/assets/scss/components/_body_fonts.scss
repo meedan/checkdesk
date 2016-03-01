@@ -1,0 +1,48 @@
+// Arabic body text
+// Noto Naskh
+@font-face {
+  font-family: 'AR Body';
+  font-style: normal;
+  font-weight: 400;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'AR Body';
+  font-style: normal;
+  font-weight: 700;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf') format('truetype');
+}
+// Render English text in Merriweather within Noto Naskh Arabic Regular
+@font-face {
+  font-family: 'AR Body';
+  src:  url('../extensions/bowerbird/fonts/merriweather-regular-webfont.eot');
+  src:  local('Merriweather'), local('Merriweather-Regular'),
+        url('../extensions/bowerbird/fonts/merriweather-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/merriweather-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/merriweather-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/merriweather-regular-webfont.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+// Render English text in Merriweather Bold within Noto Naskh Arabic Bold
+@font-face {
+  font-family: 'AR Body';
+  src:  url('../extensions/bowerbird/fonts/merriweather-bold-webfont.eot');
+  src:  local('Merriweather Bold'), local('Merriweather-Bold'),
+        url('../extensions/bowerbird/fonts/merriweather-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/merriweather-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/merriweather-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
