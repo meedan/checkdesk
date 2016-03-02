@@ -253,21 +253,8 @@ function system_requirements($phase) {
     $requirements['settings.php']['title'] = $t('Configuration file');
   }
 
-  // Test the web server identity.
-  if (isset($_SERVER['SERVER_SOFTWARE']) && preg_match("/Apache/i", $_SERVER['SERVER_SOFTWARE'])) {
-    $is_apache = TRUE;
-  }
-  elseif (!isset($_SERVER['SERVER_SOFTWARE'])) {
-    // Skip this in Drush where SERVER_SOFTWARE is not set and .htaccess never used anyway.
-    $is_apache = FALSE;
-  }
-  else {
-    $is_apache = FALSE;
-  }
-
-  // Test the contents of the .htaccess files only for Apache web server.
-  // The .htaccess is never used in other popular web servers, like Nginx.
-  if ($phase == 'runtime' && $is_apache) {
+  // Test the contents of the .htaccess files.
+  if ($phase == 'runtime') {
     // Try to write the .htaccess files first, to prevent false alarms in case
     // (for example) the /tmp directory was wiped.
     file_ensure_htaccess();
