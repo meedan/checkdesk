@@ -16,8 +16,15 @@ function advagg_font_admin_settings_form() {
   drupal_set_title(t('AdvAgg: Async Font Loader'));
   $form = array();
 
-  $package = drupal_http_request('https://cdn.rawgit.com/bramstein/fontfaceobserver/master/package.json');
-  $package = json_decode($package->data);
+  $package = drupal_http_request('https://cdn.rawgit.com/bramstein/fontfaceobserver/master/package.json', array('timeout' => 7));
+  if (!empty($package->data)) {
+    $package = json_decode($package->data);
+  }
+  else {
+    unset($package);
+    $package = new stdClass();
+    $package->version = 0;
+  }
 
   $options = array(
     0 => t('Disabled'),

@@ -19,7 +19,7 @@ define('ADVAGG_MOD_JS_PREPROCESS', FALSE);
 /**
  * Default value to add the defer tag to all script tags.
  */
-define('ADVAGG_MOD_JS_DEFER', FALSE);
+define('ADVAGG_MOD_JS_DEFER', 0);
 
 /**
  * Default value to add use the async script shim for script tags.
@@ -74,7 +74,12 @@ define('ADVAGG_MOD_CSS_ADJUST_SORT_BROWSERS', FALSE);
 /**
  * Default value to use JavaScript to defer CSS loading.
  */
-define('ADVAGG_MOD_CSS_DEFER', FALSE);
+define('ADVAGG_MOD_CSS_DEFER', 0);
+
+/**
+ * Default value to use JavaScript to defer CSS loading in the admin theme.
+ */
+define('ADVAGG_MOD_CSS_DEFER_ADMIN', FALSE);
 
 /**
  * Default value to move CSS into drupal_add_css().
@@ -698,6 +703,13 @@ function advagg_mod_advagg_modify_css_pre_render_alter(&$children, &$elements) {
   if (empty($css_defer)) {
     return;
   }
+
+  // Return early if we're in the admin theme and this setting is disabled.
+  $css_defer_admin = variable_get('advagg_mod_css_defer_admin', ADVAGG_MOD_CSS_DEFER_ADMIN);
+  if (empty($css_defer_admin) && path_is_admin(current_path())) {
+    return;
+  }
+
   $css_defer_js_code = variable_get('advagg_mod_css_defer_js_code', ADVAGG_MOD_CSS_DEFER_JS_CODE);
 
   // Make advagg_mod_loadStyleSheet() available.
