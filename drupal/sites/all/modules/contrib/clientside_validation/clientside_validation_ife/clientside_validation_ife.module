@@ -37,7 +37,7 @@ function clientside_validation_ife_validator($form, $form_state) {
   }
   $js_settings['clientsideValidation']['forms'][$form_id]['serverSideErrors'] = $settings[$form['#form_id']];
   drupal_add_js(drupal_get_path('module', 'clientside_validation_ife') . '/clientside_validation_ife.js');
-  clientside_validation_add_js_settings($settings);
+  clientside_validation_add_js_settings($js_settings);
 }
 
 function clientside_validation_ife_recurse_elements($element, $form_id, &$settings) {

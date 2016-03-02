@@ -32,6 +32,7 @@
                   label.html(
                     label.html()
                       .replace("[value]", $element.val())
+                      .replace("[length]", $element.val().length)
                       .replace("[field-name]", $element.closest(".form-item").find('label').first().text().replace(' *',''))
                   );
                 }
@@ -39,6 +40,36 @@
             };
           }
         }
+      });
+      // Add the ajax field validation handling.
+      $(document).bind('clientsideValidationAddCustomRules', function(event){
+        // Support for server side field validation.
+        jQuery.validator.addMethod("fieldValidationAjax", function(value, element, params) {
+          // Don't execute on every keyup!
+          if (this.settings['name_event'] == 'onkeyup') {
+            // Keep the current state until the next validation is run.
+            return !(typeof this.invalid[element.name] != 'undefined');
+          }
+
+          // Use the built in remote function for validation - does the whole
+          // async handling. Overwrite the data property to send the value and
+          // rules. Don't adjust the value variable to keep the "previous"
+          // handling working.
+          var remote_param = {
+            url: Drupal.settings.basePath + Drupal.settings.pathPrefix + 'js/clientside_validation_field_validation/validate',
+            type: 'post',
+            data: {
+              fieldValidationAjax: {
+                value: value,
+                rules: params,
+              },
+              js_module: 'clientside_validation_field_validation',
+              js_callback: 'validate',
+              js_token: Drupal.settings.js && Drupal.settings.js.tokens && Drupal.settings.js.tokens['clientside_validation_field_validation-validate'] || ''
+            }
+          };
+          return $.validator.methods.remote.call( this, value, element, remote_param);
+        }, jQuery.format('Please fill in a valid value.'));
       });
     }
   };
