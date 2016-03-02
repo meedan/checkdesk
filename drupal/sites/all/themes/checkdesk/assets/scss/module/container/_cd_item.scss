@@ -91,6 +91,7 @@
 }
 
 .cd-item-content {
+  // font: inherit;
   padding-top: 4px;
   padding-#{$alpha}: 8px;
   padding-#{$omega}: 8px;
@@ -118,7 +119,7 @@
 }
 
 .cd-item-title {
-  font: inherit;
+  font-size: inherit;
   line-height: inherit;
   word-wrap: break-word;
   margin-bottom: 0;

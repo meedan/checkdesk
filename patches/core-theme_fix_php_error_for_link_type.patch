@@ -1,8 +1,8 @@
 diff --git a/drupal/includes/theme.inc b/drupal/includes/theme.inc
-index ed34b82..1c57b08 100644
+index ff54d6e..4ea7e9b 100644
 --- a/drupal/includes/theme.inc
 +++ b/drupal/includes/theme.inc
-@@ -1805,8 +1805,10 @@ function theme_links($variables) {
+@@ -1824,8 +1824,10 @@ function theme_links($variables) {
        $output .= '<li' . drupal_attributes(array('class' => $class)) . '>';
  
        if (isset($link['href'])) {
@@ -14,4 +14,4 @@ index ed34b82..1c57b08 100644
 +        }
        }
        elseif (!empty($link['title'])) {
-         // Some links are actually not links, but we wrap these in <span> for adding title and class attributes.
+         // Some links are actually not links, but we wrap these in <span> for

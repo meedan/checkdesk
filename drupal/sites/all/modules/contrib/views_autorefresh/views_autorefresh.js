@@ -20,8 +20,13 @@ Drupal.behaviors.views_autorefresh = {
         ajax_path = ajax_path[0];
       }
       $.each(Drupal.settings.views.ajaxViews, function(i, settings) {
-        var viewDom = '.view-dom-id-' + settings.view_dom_id;
         var view = settings.view_name + '-' + settings.view_display_id;
+        if (!(view in Drupal.settings.views_autorefresh)) {
+          // This view has not got views_autorefresh behavior enabled, so exit
+          // early to avoid potential errors.
+          return;
+        }
+        var viewDom = '.view-dom-id-' + settings.view_dom_id;
         if (!$(viewDom).size()) {
           // Backward compatibility: if 'views-view.tpl.php' is old and doesn't
           // contain the 'view-dom-id-#' class, we fall back to the old way of
