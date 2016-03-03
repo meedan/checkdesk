@@ -38,7 +38,7 @@
       $('span.expandable').expander({
         slicePoint: 120,
         expandPrefix: ' ',
-        expandText: 'Show more&hellip;',
+        expandText: Drupal.t('Show more&hellip;'),
         expandEffect: 'fadeIn',
         expandSpeed: 300,
         moreClass: 'show-more',

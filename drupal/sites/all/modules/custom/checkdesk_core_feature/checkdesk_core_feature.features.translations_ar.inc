@@ -5389,6 +5389,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('!screen_name this link already exists: !url', array(), array('context' => ''));
+  $translations['ar:default']['6aaca9867d78e4e942a3232f6336c1aa'] = array(
+    'source' => 'Show more&hellip;',
+    'context' => '',
+    'location' => 'sites/all/themes/checkdesk/assets/js/master.js',
+    'translation' => 'اعرض المزيد&hellip;',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Show more&hellip;', array(), array('context' => ''));
   $translations['ar:default']['6ac2c69b148a083bb0af8736e08bca09'] = array(
     'source' => 'Queue \'Featured Stories\'',
     'context' => '',
