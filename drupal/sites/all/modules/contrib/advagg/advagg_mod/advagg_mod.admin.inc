@@ -332,6 +332,12 @@ function advagg_mod_admin_settings_form() {
       '@link' => 'http://stackoverflow.com/questions/19374843/css-delivery-optimization-how-to-defer-css-loading',
     )),
   );
+  $form['css']['placement']['expert']['advagg_mod_css_defer_admin'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use JS to load CSS in the admin theme'),
+    '#default_value' => variable_get('advagg_mod_css_defer_admin', ADVAGG_MOD_CSS_DEFER_ADMIN),
+    '#description' => t('This will optimize CSS delivery with JavaScript when viewing the admin theme'),
+  );
   $form['css']['placement']['expert']['advagg_mod_css_defer_js_code'] = array(
     '#type' => 'radios',
     '#title' => t('How to include the JS loading code'),

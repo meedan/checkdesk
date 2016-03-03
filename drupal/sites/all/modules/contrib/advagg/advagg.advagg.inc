@@ -322,7 +322,7 @@ function advagg_advagg_changed_files(array $files, array $types) {
 
       // Skip if the file that was changed is not in this themes directory.
       $theme_path = drupal_get_path('theme', $theme_name);
-      if (strpos($css_file, $theme_path) !== 0) {
+      if ((!empty($theme_path)) && strpos($css_file, $theme_path) !== 0) {
         continue;
       }
       $files_in_theme[] = $css_file;

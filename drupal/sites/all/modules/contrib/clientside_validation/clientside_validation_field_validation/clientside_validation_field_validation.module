@@ -3,6 +3,7 @@
  * @file
  * Add clientside validation support for Field Validation
  */
+
 /**
  * Implements hook_clientside_validation_form_alter().
  */
@@ -11,6 +12,10 @@ function clientside_validation_field_validation_clientside_validation_form_alter
   clientside_validation_field_validation_find_rules($form, $field_rules);
   if (!empty($field_rules)) {
     $form['#attached']['js'][] = drupal_get_path('module', 'clientside_validation_field_validation') . '/clientside_validation_field_validation.js';
+    if (module_exists('js')) {
+      // If JS module is enabled ensure the token for our module is available.
+      js_get_token('clientside_validation_field_validation', 'validate');
+    }
     foreach ($field_rules as $rule) {
       $element = &$form;
       // Field validation 1.x
@@ -129,10 +134,16 @@ function clientside_validation_field_validation_after_build_recurse($form_id, &$
 }
 
 function clientside_validation_field_validation_regular($form_id, $element, $rule, &$js_rules) {
+  if (!empty($rule['disabled'])) {
+    return;
+  }
   if (isset($rule['col']) && $rule['col'] !== '') {
     $parent_last = end($element['#parents']);
     reset($element['#parents']);
-    if (($parent_last !== FALSE) && ($parent_last !== $rule['col'])) {
+    if ($element['#type'] !== 'select' && $parent_last !== FALSE && $parent_last !== $rule['col']) {
+      return;
+    }
+    elseif ($element['#type'] == 'select' && isset($element['#value_key']) && $element['#value_key'] !== $rule['col']) {
       return;
     }
   }
@@ -316,8 +327,228 @@ function clientside_validation_field_validation_regular($form_id, $element, $rul
       break;
     default:
       $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : t('Invalid value for !name', array('!name' => _clientside_validation_set_title($el_title)));
-      $context = array('type' => 'field_validation', 'rule' => $rule, 'message' => $message);
+      $context = array(
+        'type' => 'field_validation',
+        'rule' => $rule,
+        'message' => $message,
+      );
+
+      if (isset($element['#entity_type'])) {
+        // Add an ajax based validation by default - but allow modules to alter
+        // it using hook_clientside_validation_rule_alter().
+        list($entity_id, $revision_id, $bundle) = entity_extract_ids($element['#entity_type'], $element['#entity']);
+        $js_rules[$el_name]['fieldValidationAjax'][$rule['name']] = array(
+          'language' => $element['#language'],
+          'delta' => $element['#delta'],
+          'entity_id' => $entity_id,
+          'revision_id' => $revision_id,
+        );
+        $variables = array(
+          'message' => $message,
+          'error_type' => 'fieldValidationAjax',
+          'element_name' => $el_name,
+        );
+        $js_rules[$el_name]['messages']['fieldValidationAjax'] = theme('clientside_error', $variables);
+      }
+
       drupal_alter('clientside_validation_rule', $js_rules, $element, $context);
       break;
   }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function clientside_validation_field_validation_menu() {
+  $items['js/clientside_validation_field_validation/validate'] = array(
+    'title' => 'Clientside validation ajax callback to run a field_validation',
+    'page callback' => '_clientside_validation_field_validation_ajax',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_js_info().
+ */
+function clientside_validation_field_validation_js_info() {
+  // Build dependency list.
+  ctools_include('plugins');
+  $plugins = ctools_get_plugins('field_validation', 'validator');
+  $module_data = system_rebuild_module_data();
+  $dependencies = array(
+    'field' => 'field',
+    'ctools' => 'ctools',
+    'clientside_validation' => 'clientside_validation',
+  );
+  foreach ($plugins as $plugin) {
+    if (!isset($dependencies[$plugin['module']])) {
+      $dependencies[$plugin['module']] = $plugin['module'];
+      if (isset($module_data[$plugin['module']]->requires)) {
+        $dependencies += array_combine(array_keys($module_data[$plugin['module']]->requires), array_keys($module_data[$plugin['module']]->requires));
+      }
+    }
+  }
+  return array(
+    'validate' => array(
+      'callback function' => '_clientside_validation_field_validation_ajax',
+      'includes' => array('unicode', 'theme', 'path', 'menu'),
+      'dependencies' => $dependencies,
+      'skip init' => TRUE,
+      'delivery callback' => 'drupal_json_output',
+      'bootstrap' => DRUPAL_BOOTSTRAP_PAGE_HEADER,
+    ),
+  );
+}
+
+/**
+ * Validates a field using a field validation rule.
+ */
+function _clientside_validation_field_validation_ajax() {
+  $data = _clientside_validation_field_validation_ajax_get_value();
+  if (isset($data['value']) && isset($data['rules']) && is_array($data['rules'])) {
+    // Fetch the rules to use and ensure the names are save.
+    $rule_names = array_map('check_plain', array_keys($data['rules']));
+    // Use ctools export API to fetch the rules.
+    ctools_include('export');
+    ctools_include('plugins');
+    $rules = ctools_export_load_object('field_validation_rule', 'names', $rule_names);
+
+    $errors = array();
+    $value = filter_xss($data['value']);
+    foreach ($rules as $rule_name => $rule) {
+      if (isset($data['rules'][$rule_name])) {
+        $settings = $data['rules'][$rule_name];
+        _clientside_validation_field_validation($rule, $errors, $value, $settings['entity_id'], $settings['revision_id'], $settings['language'], $settings['delta']);
+      }
+    }
+
+    if (!empty($errors)) {
+      drupal_json_output(implode("\n", $errors));
+      return;
+    }
+  }
+  drupal_json_output(TRUE);
+}
+
+/**
+ * Fetches the data for the validation from the POST data.
+ *
+ * @return array
+ *   The data to validate.
+ */
+function _clientside_validation_field_validation_ajax_get_value($data = NULL) {
+  if (is_null($data)) {
+    $data = $_POST;
+  }
+  if (isset($data['fieldValidationAjax'])) {
+    return $data['fieldValidationAjax'];
+  }
+  foreach ($data as $key => $sub_data) {
+    if (isset($data['fieldValidationAjax'])) {
+      return $data['fieldValidationAjax'];
+    }
+    if (is_array($sub_data)) {
+      if (($return = _clientside_validation_field_validation_ajax_get_value($sub_data)) && !is_null($return)) {
+        return $return;
+      }
+    }
+  }
+  return NULL;
+}
+
+/**
+ * Run validation rule on value.
+ *
+ * Similar to field_validation_field_attach_validate().
+ *
+ * @param object $rule
+ *   The rule to handle.
+ * @param array $errors
+ *   The array to fill with errors.
+ * @param mixed $value
+ *   The value to validate.
+ * @param string $entity_id
+ *   The entity id of the related entity.
+ * @param string $revision_id
+ *   The revision id of the related entity.
+ * @param string $langcode
+ *   The langcode to use.
+ * @param int $delta
+ *   The delta to use.
+ *
+ * @see field_validation_field_attach_validate()
+ */
+function _clientside_validation_field_validation($rule, array &$errors, $value, $entity_id, $revision_id = NULL, $langcode = 'und', $delta = 0) {
+  $plugin = ctools_get_plugins('field_validation', 'validator', $rule->validator);
+  $class = ctools_plugin_get_class($plugin, 'handler');
+  if (empty($class)) {
+    $errors[] = t("Plugin '@validator' doesn't define a validator class.", array('@validator' => $rule->validator));
+    return;
+  }
+  if (!is_subclass_of($rule->validator, 'field_validation_validator')) {
+    $errors[] = t("Plugin '@validator' should extends 'field_validation_validator'.", array('@validator' => $rule->validator));
+    return;
+  }
+
+  $entity_type = $rule->entity_type;
+  $bundle = $rule->bundle;
+  $field_name = $rule->field_name;
+  $entity_info = entity_get_info($entity_type);
+  $field = field_info_field($field_name);
+  $instance = field_info_instance($entity_type, $field_name, $bundle);
+
+  // Build dummy entity to handle.
+  // @TODO Load full entity if entity_id / revision id is available?.
+  $entity = array();
+  if (isset($entity_info['entity keys']['id'])) {
+    $entity[$entity_info['entity keys']['id']] = $entity_id;
+  }
+  if (isset($entity_info['entity keys']['bundle'])) {
+    $entity[$entity_info['entity keys']['bundle']] = $bundle;
+  }
+  if (isset($info['entity keys']['revision'])) {
+    $entity[$entity_info['entity keys']['revision']] = $revision_id;
+  }
+
+  // Build default item for this field.
+  $entity[$field_name][$langcode][$delta] = field_get_default_value($entity_type, $entity, $field, $instance, $langcode);
+  // Now set the value to validate.
+  $entity[$field_name][$langcode][$delta][$rule->col] = $value;
+  $items = $entity[$field_name][$langcode];
+  $item = $entity[$field_name][$langcode][$delta];
+
+  // Ensure the entity is an object.
+  $entity = (object) $entity;
+
+  // Make sure the error is set into the errors array and not into the form.
+  $rule->settings['errors'] = TRUE;
+
+  // Run the validation.
+  $validator_errors = array();
+  $validator = new $class($entity_type, $entity, $field, $instance, $langcode, $items, $delta, $item, $value, $rule, $validator_errors);
+  if ($validator->bypass_validation()) {
+    return;
+  }
+  $validator->validate();
+
+  // Check for errors created by the validation and store it in the errors.
+  if (!empty($validator_errors[$field_name][$langcode][$delta])) {
+    foreach ($validator_errors[$field_name][$langcode][$delta] as $error) {
+      if (!empty($error['message'])) {
+        $errors[] = $error['message'];
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_conditional_fields_conditions_alter().
+ */
+function clientside_validation_field_validation_conditional_fields_conditions_alter(&$conditions) {
+  $conditions['clientside_validation'] = t('Valid');
+  $conditions['!clientside_validation'] = t('Invalid');
+  $conditions['clientside_validated'] = t('Validated');
+  $conditions['!clientside_validated'] = t('Not validated');
 }
