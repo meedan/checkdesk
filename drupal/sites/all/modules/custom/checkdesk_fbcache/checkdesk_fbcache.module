@@ -4,10 +4,20 @@
  */
 function checkdesk_fbcache_node_update($node) {
   $url = url('node/' . $node->nid, array('absolute' => TRUE));
-  if (module_exists('varnish')) {
-    varnish_purge_paths(parse_url($url, PHP_URL_HOST), array(ltrim(parse_url($url, PHP_URL_PATH), '/')));
+  if (!module_exists('varnish')) { // if Varnish does not exist we can scrape the URL now
+    checkdesk_fbcache_scrape($url);
   }
-  checkdesk_fbcache_scrape($url);
+}
+
+/**
+ * Scrape a bulk of URLs on Facebook
+ */
+function checkdesk_fbcache_bulk_scrape($hostname, $paths) {
+  $base_path = base_path();
+  while (!empty($paths)) {
+    $url = "//" . $hostname . $base_path . array_shift($paths);
+    checkdesk_fbcache_scrape($url);
+  }
 }
 
 /**
@@ -20,9 +30,9 @@ function checkdesk_fbcache_scrape($url) {
   $host = 'https://graph.facebook.com';
   $ch = curl_init($host);
   $fields = array(
-      'id' => $url,
-      'scrape' => 'true',
-      'access_token' => $fboauth_id . '|' . $fboauth_secret,
+    'id' => $url,
+    'scrape' => 'true',
+    'access_token' => $fboauth_id . '|' . $fboauth_secret,
   );
   curl_setopt($ch, CURLOPT_POST, 1);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
