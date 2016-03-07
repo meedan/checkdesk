@@ -19,9 +19,16 @@
               "required": true
             },
             {
-              "paramType": "body",
-              "name": "parameters",
-              "type": "array",
+              "paramType": "query",
+              "name": "username",
+              "type": "string",
+              "description": "The parameters for each login method",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "password",
+              "type": "string",
               "description": "The parameters for each login method",
               "required": true
             }

@@ -1,7 +1,7 @@
 <?php
 
 
-function _user_resource_login($provider, $parameters) {
+function _checkdesk_api_user_resource_login($provider, $parameters) {
     global $user;
     if ($user->uid) {
         // user is already logged in

@@ -138,7 +138,7 @@ function checkdesk_api_services_resources_alter(&$resources, &$endpoint) {
             'module' => 'checkdesk_api',
             'name' => 'resources/user_resource',
         ),
-        'callback' => '_user_resource_login',
+        'callback' => '_checkdesk_api_user_resource_login',
         'args' => array(
             array(
                 'name' => 'provider',
