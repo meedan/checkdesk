@@ -345,7 +345,12 @@ function _varnish_terminal_run($commands) {
       if ($status['code'] == 107) {
         $secret = variable_get('varnish_control_key', '');
         $challenge = substr($status['msg'], 0, 32);
-        $pack = $challenge . "\x0A" . $secret . "\x0A" . $challenge . "\x0A";
+        if (variable_get('varnish_control_key_appendnewline',TRUE)) {
+          $pack = $challenge . "\x0A" . $secret . "\x0A" . $challenge . "\x0A";
+        }
+        else {
+          $pack = $challenge . "\x0A". $secret . $challenge . "\x0A";
+        }
         $key = hash('sha256', $pack);
         socket_write($client, "auth $key\n");
         $status = _varnish_read_socket($client);

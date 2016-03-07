@@ -66,6 +66,13 @@ function varnish_admin_settings_form() {
     '#required' => variable_get('varnish_version', 2.1) == '4' ? TRUE : FALSE,
   );
 
+  $form['varnish_control_key_appendnewline'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Append Newline (\n)'),
+    '#default_value' => variable_get('varnish_control_key_appendnewline', TRUE),
+    '#description' => t('Most control keys have an embedded newline at the end. Uncheck this if you know it doesn\'t or if you are reading the file in direct with an fopen.'),
+  );
+
   $form['varnish_socket_timeout'] = array(
     '#type' => 'textfield',
     '#title' => t('Varnish connection timeout (milliseconds)'),
