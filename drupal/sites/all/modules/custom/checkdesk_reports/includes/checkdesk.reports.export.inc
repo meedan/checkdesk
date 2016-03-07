@@ -4,40 +4,13 @@
 /**
  *
  */
-function _checkdesk_reports_export() {
+function _checkdesk_reports_export($story_nid) {
+  // Set filename
+  $file_name = date('Ymd', time()). '-reports-'. $story_nid . '.csv';
   // Load reports
-  $all_stories = TRUE;
-  $file_name = date('Ymd', time()). '-reports';
-  $query = db_select('node', 'n');
-  $query->addExpression('FROM_UNIXTIME(created)', 'created');
-  $query->addField('fl', 'field_link_url');
-  $query->addField('ms', 'source');
-  $query->fields('n', array('nid', 'title'));
-  $query->join('field_data_field_link', 'fl', 'n.nid = fl.entity_id');
-  $query->join('meedan_sources_media', 'msm', 'n.nid = msm.nid');
-  $query->join('meedan_sources', 'ms', 'ms.ms_id = msm.ms_id');
-  $query->condition('n.type', 'media');
-  $query->groupBy('n.nid');
-  if (arg(1) !== null && is_numeric(arg(1))) {
-    // Load reports for specific story
-    $all_stories = FALSE;
-    $file_name .= '-' . arg(1);
-    $query->join('field_data_field_stories', 'fs', 'n.nid = fs.entity_id AND field_stories_target_id = :story', array(':story' => arg(1)));
-  }
-  $file_name .= '.csv';
-  $reports = $query->execute()->fetchAllAssoc('nid');
+  $reports = _checkdesk_reports_load_reports_story($story_nid);
   // Get max footnotes count to set header
-  $query = db_select('node', 'n');
-  $query->join('comment', 'c', 'n.nid = c.nid AND n.type = :type', array(':type' => 'media'));
-  $query->addExpression('COUNT(n.nid)', 'count');
-  if (!$all_stories) {
-    $query->condition('n.nid', array_keys($reports), 'IN');
-  }
-  $query->groupBy('n.nid');
-  $query->orderBy('count', 'DESC');
-  $query->range(0, 1);
-  $max_footnotes = $query->execute()->fetchField();
-
+  $max_footnotes = _checkdesk_reports_get_max_footnotes_count($reports);
   // output the column headings
   // Basic fields
   $header = array(t('URL'), T('Source'), t('Title'), t('Post date'));
@@ -65,7 +38,7 @@ function _checkdesk_reports_export() {
     }
     unset($row['nid']);
     // load footnotes for report
-    $footnotes = db_query('SELECT cid, subject FROM {comment} WHERE nid = :nid', array(':nid' => $nid))->fetchCol(1);
+    $footnotes = _checkdesk_reports_load_footnotes($nid);
     foreach($footnotes as $footnote) {
       $row[] = $footnote;
     }
@@ -87,7 +60,7 @@ function _checkdesk_reports_export() {
 }
 
 /**
- *
+ * Get metadata
  */
 function _checkdesk_fetch_report_metadata($manually_fields, $nid) {
   $metadata = array();
@@ -101,4 +74,49 @@ function _checkdesk_fetch_report_metadata($manually_fields, $nid) {
     $metadata[$field_name] = strip_tags($output);
   }
   return $metadata;
+}
+
+/**
+ * Load reports assigned to specific story.
+ */
+function _checkdesk_reports_load_reports_story($story_nid) {
+  $query = db_select('node', 'n');
+  $query->addExpression('FROM_UNIXTIME(created)', 'created');
+  $query->addField('fl', 'field_link_url');
+  $query->addField('ms', 'source');
+  $query->fields('n', array('nid', 'title'));
+  $query->join('field_data_field_link', 'fl', 'n.nid = fl.entity_id');
+  $query->join('meedan_sources_media', 'msm', 'n.nid = msm.nid');
+  $query->join('meedan_sources', 'ms', 'ms.ms_id = msm.ms_id');
+  $query->condition('n.type', 'media');
+  $query->groupBy('n.nid');
+  if (is_numeric($story_nid)) {
+    // Load reports for specific story
+    $query->join('field_data_field_stories', 'fs', 'n.nid = fs.entity_id AND field_stories_target_id = :story', array(':story' => arg(1)));
+  }
+  return $query->execute()->fetchAllAssoc('nid');
+}
+
+/**
+ * Get max footnotes counts in given reports
+ * @param array $reports
+ */
+function _checkdesk_reports_get_max_footnotes_count($reports) {
+  $query = db_select('node', 'n');
+  $query->join('comment', 'c', 'n.nid = c.nid AND n.type = :type', array(':type' => 'media'));
+  $query->addExpression('COUNT(n.nid)', 'count');
+  $query->condition('n.nid', array_keys($reports), 'IN');
+  $query->groupBy('n.nid');
+  $query->orderBy('count', 'DESC');
+  $query->range(0, 1);
+  return $query->execute()->fetchField();
+}
+
+/**
+ * Load report footnotes
+ * @param int $nid
+ * @return mixed
+ */
+function _checkdesk_reports_load_footnotes($nid) {
+  return db_query('SELECT cid, subject FROM {comment} WHERE nid = :nid', array(':nid' => $nid))->fetchCol(1);
 }

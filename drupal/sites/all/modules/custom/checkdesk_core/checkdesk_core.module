@@ -3301,36 +3301,6 @@ function _checkdesk_active_story($options = array()) {
 }
 
 /**
- * @param bool $show_draft
- * @return array
- *  List of stories sorted by activity.
- */
-function _checkdesk_get_stories_by_activity($show_draft = FALSE) {
-  global $language;
-  $query = db_select('heartbeat_activity', 'ha')->distinct();
-  $query->fields('n', array('nid', 'title'));
-  $query->join('node', 'n', 'n.nid = ha.nid_target');
-  $query->condition('n.type', 'discussion');
-  $query->condition('n.language', $language->language);
-  if ($show_draft) {
-    if (!user_access('access any drafts content')) {
-      global $user;
-      $db_or = db_or();
-      $db_and = db_and();
-      $db_and->condition('n.status', 0);
-      $db_and->condition('n.uid', $user->uid);
-      $db_or->condition('n.status', 1);
-      $db_or->condition($db_and);
-      $query->condition($db_or);
-    }
-  }
-  $query->range(0, 50);
-  $query->orderBy('ha.timestamp', 'DESC');
-  $result = $query->execute()->fetchAllKeyed(0);
-  return $result;
-}
-
-/**
  * Delete update activity when user change story for existing one
  */
 function _checkdesk_delete_heartbeat_activity($node) {
