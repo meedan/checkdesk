@@ -18,7 +18,8 @@ $mysql->exec('SET NAMES utf8');
 
 $timestamp = intval($_REQUEST['timestamp']);
 
-$sql = "SELECT COUNT(*) FROM heartbeat_activity WHERE timestamp > " . $timestamp;
+$activities = '"checkdesk_comment_on_report", "status_report", "checkdesk_new_update_on_story_i_commented_on_update", "checkdesk_report_suggested_to_story"';
+$sql = "SELECT COUNT(*) FROM heartbeat_activity WHERE message_id IN ($activities) AND timestamp > " . $timestamp;
 
 if (!empty($_REQUEST['story_nid'])) {
   $nid = intval($_REQUEST['story_nid']);
