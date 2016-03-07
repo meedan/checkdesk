@@ -12,24 +12,10 @@
           "notes": "Login a user for a new session with (checkdesk/fb/twitter) api/user/login/:provider",
           "parameters": [
             {
-              "paramType": "query",
-              "name": "provider",
-              "type": "string",
-              "description": "The Provider can be facebook, twitter or checkdesk",
-              "required": true
-            },
-            {
-              "paramType": "query",
-              "name": "username",
-              "type": "string",
-              "description": "The parameters for each login method",
-              "required": true
-            },
-            {
-              "paramType": "query",
-              "name": "password",
-              "type": "string",
-              "description": "The parameters for each login method",
+              "paramType": "body",
+              "name": "data",
+              "type": "text",
+              "description": "Example: {\"provider\":\"<facebook|twitter|checkdesk>\",\"username\":\"\",\"password\":\"\"}",
               "required": true
             }
           ],
