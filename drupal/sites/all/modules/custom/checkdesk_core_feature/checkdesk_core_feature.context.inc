@@ -89,11 +89,11 @@ function checkdesk_core_feature_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-desk_reports-block' => array(
+        'views-checkdesk_search-block_1' => array(
           'module' => 'views',
-          'delta' => 'desk_reports-block',
+          'delta' => 'checkdesk_search-block_1',
           'region' => 'sidebar_first',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
       ),
     ),
