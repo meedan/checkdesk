@@ -11,12 +11,35 @@ class CheckdeskReportsPermissionsTestCase extends DrupalWebTestCase {
   }
 
   public function setUp() {
-    parent::setUp('checkdesk_reports');
+    parent::setUp('checkdesk_reports_feature', 'checkdesk_reports');
     // Create and login user.
-    $web_user = $this->drupalCreateUser(array('create page content'));
+    $web_user = $this->drupalCreateUser(array('create media content', 'add report to story'));
     $this->drupalLogin($web_user);
   }
 
-
-
+  public function testCheckdeskReportPermissions() {
+    // Create a report
+    $report_settings = array(
+        'type' => 'media',
+        'title' => $this->randomName(32),
+        'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com/watch?v=0UCGGpQCszQ'))),
+    );
+    $report = $this->drupalCreateNode($report_settings);
+    $stroy_settings = array(
+        'type' => 'discussion',
+        'title' => $this->randomName(32),
+    );
+    $story = $this->drupalCreateNode($stroy_settings);
+    // Verify suggest menu link.
+    $title = truncate_utf8($report->title, 30, FALSE, TRUE);
+    $this->drupalGet("node/$report->nid/checkdesk/suggest");
+    $this->verbose('Generated title : ' . t('Add Report "!title" to Story', array('!title' => $title)));
+    $this->assertTitle(t('Add Report "!title" to Story', array('!title' => $title)), 'User can add a report to a story', 'Report permissions');
+    // Sugggest report to story.
+    $edit = array();
+    $edit['story'] = $story->nid;// story nid
+    $this->drupalPost("node/$report->nid/checkdesk/suggest", $edit, t('Submit'));
+    $new_report = node_load($report->nid);
+    $this->assertEqual($story->nid, $new_report->field_stories[LANGUAGE_NONE][0]['target_id'], t('Succeessfully added a report to story'));
+  }
 }

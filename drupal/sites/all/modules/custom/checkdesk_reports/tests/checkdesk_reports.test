@@ -1,0 +1,185 @@
+<?php
+
+class CheckdeskReportsLoadTestCase extends DrupalWebTestCase {
+
+  // A user with permission to create media content.
+  protected $web_user;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Checkdesk reports load',
+      'description' => 'Test that checkdesk_report_load works properly.',
+      'group' => 'Checkdesk Reports',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp('checkdesk_reports_feature', 'checkdesk_reports');
+    // Create and login user.
+    $web_user = $this->drupalCreateUser(array('create page content', 'create media content'));
+    $this->drupalLogin($web_user);
+  }
+
+  public function testCheckdeskReportLoad() {
+    // Create a node of type page
+    $page_settings = array(
+        'type' => 'page',
+        'title' => $this->randomName(32),
+        'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
+    );
+    $page = $this->drupalCreateNode($page_settings);
+    //$this->verbose('Node created: ' . var_export($page, TRUE));
+    // Create a node of type media
+    $report_settings = array(
+        'type' => 'media',
+        'title' => $this->randomName(32),
+        'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
+    );
+    $report = $this->drupalCreateNode($report_settings);
+
+    // Test loading with non report object
+    $result =  checkdesk_report_load($page->nid);
+    $this->assertFalse($result, t('Call report load with non report object'));
+
+     // Test loading with report object
+    $result =  checkdesk_report_load($report->nid);
+    $this->assertEqual($result->nid, $report->nid,  t('Call report load with report object.'));
+
+    // Test loading with non exist nid (use rand to get random number)
+    $result =  checkdesk_report_load(rand());
+    $this->assertFalse($result, t('Call report load with non exist nid'));
+
+
+  }
+
+}
+
+class CheckdeskReportsPermissionsTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+        'name' => 'Checkdesk reports permissions',
+        'description' => 'Test that checkdesk reports permissions work properly.',
+        'group' => 'Checkdesk Reports',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp('checkdesk_reports_feature', 'checkdesk_reports');
+    // Create and login user.
+    $web_user = $this->drupalCreateUser(array('create media content', 'add report to story'));
+    $this->drupalLogin($web_user);
+  }
+
+  public function testCheckdeskReportPermissions() {
+    // Create a report
+    $report_settings = array(
+        'type' => 'media',
+        'title' => $this->randomName(32),
+        'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com/watch?v=0UCGGpQCszQ'))),
+    );
+    $report = $this->drupalCreateNode($report_settings);
+    $stroy_settings = array(
+        'type' => 'discussion',
+        'title' => $this->randomName(32),
+    );
+    $story = $this->drupalCreateNode($stroy_settings);
+    // Verify suggest menu link.
+    $title = truncate_utf8($report->title, 30, FALSE, TRUE);
+    $this->drupalGet("node/$report->nid/checkdesk/suggest");
+    $this->verbose('Generated title : ' . t('Add Report "!title" to Story', array('!title' => $title)));
+    $this->assertTitle(t('Add Report "!title" to Story', array('!title' => $title)), 'User can add a report to a story', 'Report permissions');
+    // Sugggest report to story.
+    $edit = array();
+    $edit['story'] = $story->nid;// story nid
+    $this->drupalPost("node/$report->nid/checkdesk/suggest", $edit, t('Submit'));
+    $new_report = node_load($report->nid);
+    $this->assertEqual($story->nid, $new_report->field_stories[LANGUAGE_NONE][0]['target_id'], t('Succeessfully added a report to story'));
+  }
+}
+
+class CheckdeskReportsGraphicContentTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+        'name' => 'Checkdesk reports graphic content',
+        'description' => 'Test that checkdesk reports graphic content work properly.',
+        'group' => 'Checkdesk Reports',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp('checkdesk_reports_feature', 'checkdesk_reports');
+    // Create and login user.
+    $web_user = $this->drupalCreateUser(array('create media content'));
+    $this->drupalLogin($web_user);
+  }
+
+  public function testCheckdeskReportGraphicContent() {
+    // Create a report.
+    $edit = array();
+    $langcode = LANGUAGE_NONE;
+    $edit["title"] = $this->randomName(32);
+    $edit["field_link[$langcode][0][url]"] = 'https://www.youtube.com/watch?v=iwMO84pJwMs&list=UUL6xkW90kBI76OuApogUbFQ&feature=share&index=1';
+    $edit['graphic_content'] = TRUE;
+    $this->drupalPost('node/add/media', $edit, t('Submit'));
+    // Check that the post information is displayed.
+    $node = $this->drupalGetNodeByTitle($edit["title"]);
+    $flag = flag_get_flag('graphic_content');
+    $this->assertNotNull($flag, t('Report was flagged as graphic content'));
+    //$this->assertTrue($flag->is_flagged($node->nid), t('Report was flagged as graphic content'));
+
+    // Create a report without graphic content flag.
+    $edit = array();
+    $langcode = LANGUAGE_NONE;
+    $edit["title"] = $this->randomName(32);
+    $edit["field_link[$langcode][0][url]"] = 'https://www.youtube.com/';
+    $this->drupalPost('node/add/media', $edit, t('Submit'));
+    // Check that the post information is displayed.
+    $node = $this->drupalGetNodeByTitle($edit["title"]);
+    $flag = flag_get_flag('graphic_content');
+    //$this->assertFalse($flag->is_flagged($node->nid), t('Report was not flagged as graphic content'));
+  }
+}
+
+class CheckdeskReportsExportTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+        'name' => 'Checkdesk reports export',
+        'description' => 'Test that checkdesk reports export works properly.',
+        'group' => 'Checkdesk Reports',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp('checkdesk_reports_feature', 'checkdesk_reports');
+    module_load_include('inc', 'checkdesk_reports', 'includes/checkdesk.reports.export');
+    // Create and login user.
+    $web_user = $this->drupalCreateUser(array('create media content', 'export reports'));
+    $this->drupalLogin($web_user);
+  }
+
+  public function testCheckdeskReportsExport() {
+    // Create a story
+    $story = $this->drupalCreateNode(array('type' => 'discussion', 'title' => $this->randomName(32)));
+    // Create reports
+    $report_settings = array(
+        'type' => 'media',
+        'title' => $this->randomName(32),
+        //'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com/watch?v=0UCGGpQCszQ'))),
+        'field_stories' => array(LANGUAGE_NONE => array(array('target_id' => $story->nid))),
+    );
+    $report1 = $this->drupalCreateNode($report_settings);
+    $report_settings = array(
+        'type' => 'media',
+        'title' => $this->randomName(32),
+        //'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com'))),
+        'field_stories' => array(LANGUAGE_NONE => array(array('target_id' => $story->nid))),
+    );
+    $report2 = $this->drupalCreateNode($report_settings);
+    $reports = _checkdesk_reports_load_reports_story($story->nid);
+    $this->assertEqual(count($reports), 2, t('Load story reports'), 'Reports export');
+    // TODO add footnotes
+  }
+}
