@@ -2,15 +2,22 @@
   "apiVersion": "1.0",
   "swaggerVersion": "1.2",
   "basePath": "/api/",
-  "resourcePath": "user",
+  "resourcePath": "users",
   "apis": [
     {
-      "path": "user/login",
+      "path": "users/login/{provider}",
       "operations": [
         {
           "summary": "User login",
-          "notes": "Login a user for a new session with (checkdesk/fb/twitter) api/user/login/:provider",
+          "notes": "Login a user for a new session with (checkdesk/fb/twitter) api/users/login/:provider",
           "parameters": [
+            {
+              "paramType": "path",
+              "name": "provider",
+              "type": "string",
+              "description": "Provider name (facebook|twitter|checkdesk)",
+              "required": true
+            },
             {
               "paramType": "query",
               "name": "data",
@@ -56,8 +63,8 @@
               "message": "Wrong username or password."
             }
           ],
-          "nickname": "Api::V1::User#login",
-          "method": "post"
+          "nickname": "Api::V1::Users#login",
+          "method": "POST"
         }
       ]
     }

@@ -17,7 +17,23 @@ function checkdesk_api_feature_default_services_endpoint() {
   $endpoint->server = 'rest_server';
   $endpoint->path = 'api';
   $endpoint->authentication = array();
-  $endpoint->server_settings = array();
+  $endpoint->server_settings = array(
+    'formatters' => array(
+      'json' => TRUE,
+      'bencode' => FALSE,
+      'jsonp' => FALSE,
+      'php' => FALSE,
+      'xml' => FALSE,
+    ),
+    'parsers' => array(
+      'application/json' => TRUE,
+      'application/vnd.php.serialized' => TRUE,
+      'application/x-www-form-urlencoded' => TRUE,
+      'application/xml' => TRUE,
+      'multipart/form-data' => TRUE,
+      'text/xml' => TRUE,
+    ),
+  );
   $endpoint->resources = array(
     'reports' => array(
       'operations' => array(
@@ -39,28 +55,15 @@ function checkdesk_api_feature_default_services_endpoint() {
         ),
       ),
     ),
-    'user' => array(
+    'users' => array(
       'actions' => array(
         'login' => array(
           'enabled' => '1',
-          'settings' => array(
-            'services' => array(
-              'resource_api_version' => '1.0',
-            ),
-          ),
-        ),
-        'logout' => array(
-          'enabled' => '1',
-          'settings' => array(
-            'services' => array(
-              'resource_api_version' => '1.0',
-            ),
-          ),
         ),
       ),
     ),
   );
-  $endpoint->debug = 0;
+  $endpoint->debug = 1;
   $export['checkdesk_api'] = $endpoint;
 
   return $export;
