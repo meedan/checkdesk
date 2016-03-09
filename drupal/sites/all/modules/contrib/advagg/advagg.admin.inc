@@ -47,10 +47,15 @@ function advagg_admin_settings_form($form, $form_state) {
     '#description' => t('If <a href="@link">HTTPRL</a> is installed, advagg will use it to generate aggregates on the fly in a background parallel process.', array('@link' => 'http://drupal.org/project/httprl')),
   );
   $form['global']['advagg_browser_dns_prefetch'] = array(
-    '#type' => 'checkbox',
+    '#type' => 'radios',
     '#title' => t('Use DNS Prefetch for external CSS/JS.'),
     '#default_value' => variable_get('advagg_browser_dns_prefetch', ADVAGG_BROWSER_DNS_PREFETCH),
-    '#description' => t('Start the DNS lookup for external CSS and JavaScript files as soon as possible.'),
+    '#description' => t('Start the DNS lookup for external CSS and JavaScript files as soon as possible. If you have css and/or js files being loaded right after the "charset=utf-8" meta tag, you need to use the "above charset=utf-8" option in order for dns-prefetch to work; Optimizely is an example that would need this other option.'),
+    '#options' => array(
+      0 => t('Disabled'),
+      1 => t('Enabled, below charset=utf-8 (recommended)'),
+      2 => t('Enabled, above charset=utf-8'),
+    ),
   );
 
   $aggressive_cache_conflicts = advagg_aggressive_cache_conflicts();
@@ -392,7 +397,7 @@ function advagg_admin_operations_form($form, $form_state) {
   $form['cron'] = array(
     '#type' => 'fieldset',
     '#title' => t('Cron Maintenance Tasks'),
-    '#description' => t('The following 4 operations are ran on cron but you can run them manually here.'),
+    '#description' => t('The following 6 operations are ran on cron but you can run them manually here.'),
   );
   $form['cron']['smart_file_flush'] = array(
     '#type' => 'fieldset',
@@ -406,6 +411,20 @@ function advagg_admin_operations_form($form, $form_state) {
     '#value' => t('Remove All Stale Files'),
     '#submit' => array('advagg_admin_flush_stale_files_button'),
   );
+
+  $form['cron']['delete_orphaned_aggregates'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#title' => t('Delete orphaned aggregates'),
+    '#description' => t('Scan CSS/JS advagg dir and remove file if there is no associated db record.'),
+  );
+  $form['cron']['delete_orphaned_aggregates']['advagg_delete_orphaned_aggregates'] = array(
+    '#type' => 'submit',
+    '#value' => t('Delete orphaned aggregates'),
+    '#submit' => array('advagg_admin_delete_orphaned_aggregates_button'),
+  );
+
   $form['cron']['remove_missing_files'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
@@ -418,6 +437,7 @@ function advagg_admin_operations_form($form, $form_state) {
     '#value' => t('Clear Missing Files From Database'),
     '#submit' => array('advagg_admin_remove_missing_files_from_db_button'),
   );
+
   $form['cron']['remove_old_aggregates'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
@@ -430,6 +450,7 @@ function advagg_admin_operations_form($form, $form_state) {
     '#value' => t('Delete Unused Aggregates From Database'),
     '#submit' => array('advagg_admin_remove_old_unused_aggregates_button'),
   );
+
   $form['cron']['cleanup_semaphore_table'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
@@ -439,8 +460,21 @@ function advagg_admin_operations_form($form, $form_state) {
   );
   $form['cron']['cleanup_semaphore_table']['advagg_cleanup_semaphore_table'] = array(
     '#type' => 'submit',
-    '#value' => t('Delete Unused Aggregates From Database'),
+    '#value' => t('Delete Orphaned Semaphore Locks'),
     '#submit' => array('advagg_admin_cleanup_semaphore_table_button'),
+  );
+
+  $form['cron']['cleanup_temp_files'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#title' => t('Delete leftover temporary files'),
+    '#description' => t('Delete old temporary files from the filesystem.'),
+  );
+  $form['cron']['cleanup_temp_files']['advagg_remove_temp_files'] = array(
+    '#type' => 'submit',
+    '#value' => t('Delete leftover temporary files'),
+    '#submit' => array('advagg_admin_cleanup_temp_files_button'),
   );
 
   // Hide drastic measures as they should not be done unless you really need it.
@@ -686,7 +720,7 @@ function advagg_admin_info_form($form, $form_state) {
   $form['get_info_about_agg']['tip'] = array(
     '#markup' => '<p>' . t('Takes input like "@css_file" or a full aggregate name like "@advagg_js"', array(
       '@css_file' => $css_file,
-      '@advagg_js' => advagg_install_get_first_advagg_file($js_path[1]),
+      '@advagg_js' => advagg_install_get_first_advagg_file($js_path[1], 'js'),
     )) . '</p>',
   );
   $form['get_info_about_agg']['wrapper'] = array(
@@ -994,6 +1028,22 @@ function advagg_admin_increment_global_counter() {
 }
 
 /**
+ * Scan CSS/JS advagg dir and remove file if there is no associated db record.
+ */
+function advagg_admin_delete_orphaned_aggregates_button() {
+  module_load_include('inc', 'advagg', 'advagg.cache');
+
+  // Remove aggregates that include missing files.
+  $deleted = advagg_delete_orphaned_aggregates();
+  if (empty($deleted[0]) && empty($deleted[1])) {
+    drupal_set_message(t('All files have an associated db record; nothing was deleted.'));
+  }
+  else {
+    drupal_set_message(t('Some files had no associated db record and could be safely deleted from the file system. @raw', array('@raw' => print_r($deleted[1], TRUE))));
+  }
+}
+
+/**
  * Scan for missing files and remove the associated entries in the database.
  */
 function advagg_admin_remove_missing_files_from_db_button() {
@@ -1037,6 +1087,23 @@ function advagg_admin_cleanup_semaphore_table_button() {
     drupal_set_message(t('No orphaned advagg semaphore database table locks discovered. Nothing was deleted.'));
   }
   else {
-    drupal_set_message(t('Some orphaned advagg semaphore database table locks discovered were found. A total of %count database entries were removed.', array('%count' => $count)));
+    drupal_set_message($count, format_plural('1 orphaned advagg semaphore database table lock was found. A total of 1 database entry was removed.', 'Some orphaned advagg semaphore database table locks were found. A total of @count database entries were removed.'));
+  }
+}
+
+
+/**
+ * Delete leftover temp files.
+ */
+function advagg_admin_cleanup_temp_files_button() {
+  module_load_include('inc', 'advagg', 'advagg.cache');
+
+  // Delete orphaned/expired advagg locks from the semaphore database table.
+  $count = advagg_remove_temp_files();
+  if (empty($count)) {
+    drupal_set_message(t('No leftover temp files found. Nothing was deleted.'));
+  }
+  else {
+    drupal_set_message($count, format_plural('1 leftover temp files from advagg was found. A total of 1 temp files was removed.', 'Some leftover temp files from advagg were found. A total of %count temp files were removed.'));
   }
 }

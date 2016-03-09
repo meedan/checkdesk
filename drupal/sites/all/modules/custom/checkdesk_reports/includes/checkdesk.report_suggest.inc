@@ -4,12 +4,13 @@
  * Title callback for `_checkdesk_core_report_suggest`.
  */
 function _checkdesk_reports_suggest_title($report) {
+  $title = truncate_utf8($report->title, 30, FALSE, TRUE);
   return user_access('add report to story') ?
     t('Add Report "!title" to Story', array(
-        '!title' => views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title))
+        '!title' => $title)
     ) :
     t('Suggest Report "!title" to Story', array(
-        '!title' => views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title))
+        '!title' => $title)
     );
 }
 
@@ -21,13 +22,7 @@ function _checkdesk_reports_suggest_report($form, $form_state, $report = NULL) {
   if (empty($report)) {
     $report = $form_state['report'];
   }
-  $query = db_select('node', 'n');
-  $query->addField('n', 'nid');
-  $query->addExpression("CONCAT(substring(title, 1, 48), '...')", 'ttle');
-  $query->condition('type', 'discussion');
-  $query->orderBy('created', 'DESC');
-  $query->range(0, 10);
-  $stories = $query->execute()->fetchAllKeyed();
+  $stories = _checkdesk_get_stories_by_activity(TRUE);
   $form['story'] = array(
     '#type' => 'select',
     '#options' => $stories,
