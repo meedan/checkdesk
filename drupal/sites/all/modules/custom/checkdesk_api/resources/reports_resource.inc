@@ -15,11 +15,8 @@ function _reports_resource_retrieve($id) {
         _checkdesk_api_error(t('Report with the provided id (@id) was not found', array('@id' => $id)), 404);
     }
     return array(
-        'type' => 'reports',
-        'data' => array(
-            'title' => $report->title,
-            'url' => url('node/'. $report->nid),
-        ),
+        'type' => 'report',
+        'data' => _reports_format_report($report),
     );
 }
 
@@ -52,23 +49,27 @@ function _reports_resource_create($report) {
         _checkdesk_api_error($msg, 400);
     }
     // Create a report
-    // TODO use form_submit to validate URL
-    $node = new stdclass() ;
-    $node->type ='media';
+    global $user;
+    $node = new StdClass;
+    $node->type = 'media';
     node_object_prepare($node);
+    $node->status = 1;
+    $node->language = LANGUAGE_NONE;
+    $node->uid = $user->uid;
     $node->field_link[LANGUAGE_NONE][0]['url'] = $report['url'];
     if (isset($report['story_id'])) {
         $node->field_stories[LANGUAGE_NONE][0]['target_id '] = $report['story_id'];
-
     }
-    node_save($node);
-    return array(
-        'type' => 'reports',
-        'data' => array(
-            'id' => $node->nid,
-            'url' => url('node/'. $node->nid),
-        ),
-    );
+
+    if ($node = node_submit($node)) {
+        node_save($node);
+        return array(
+            'type' => 'reports',
+            'data' => $node,
+        );
+    }
+    //TODO: add a clear error msg
+    _checkdesk_api_error(t('Failed to create a new report'), 400);
 }
 
 /**
@@ -79,20 +80,26 @@ function _reports_resource_create($report) {
  */
 function _reports_resource_index() {
     $reports = array();
-    $result = db_query_range('SELECT fl.entity_id, fl.field_link_url
-                        FROM {field_data_field_link} fl
-                        INNER JOIN {node} n ON fl.entity_id = n.nid
-                        WHERE bundle = :bundle AND n.status = :status
-                        ',1, 50, array(':bundle' => 'media', ':status' => 1)
-    );
-    foreach ($result as $report) {
-        $reports[] = array(
-            'id' => $report->entity_id,
-            'url' => $report->field_link_url,
-        );
+    $result = db_query_range('
+                        SELECT n.nid
+                        FROM {node} n
+                        WHERE n.type = :type AND n.status = :status
+                        ',1, 50, array(':type' => 'media', ':status' => 1)
+    )->fetchCol();
+    foreach (node_load_multiple($result) as $report) {
+        $reports[] = _reports_format_report($report);
     }
     return array(
         'type' => 'reports',
         'data' => $reports,
+    );
+}
+
+function _reports_format_report($report) {
+    return array(
+        'title' => $report->title,
+        'url' => url('node/'. $report->nid, array('absolute' => TRUE)),
+        'original_url' => $report->field_link[LANGUAGE_NONE][0]['url'],
+        'uid' => $report->uid,
     );
 }

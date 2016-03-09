@@ -62,8 +62,8 @@
           "responseMessages": [
             {
               "code": 200,
-              "responseModel": { "type": "reports", "data": [{ "id": "<ID>", "URL": "<URL>" }] },
-              "message": "List of reports objects with at least id and URL"
+              "responseModel": { "type": "reports", "data": [{ "title": "<report title>", "URL": "<checkdesk URl>", "original_url" : "Original URL for the report", "uid" : "author uid" }] },
+              "message": "List of reports objects with title, url, origianl_url and uid"
             },
             {
               "code": 401,
@@ -94,8 +94,8 @@
           "responseMessages": [
             {
               "code": 200,
-              "responseModel": { "type": "report", "data": { "link": "<link to the report on Checkdesk>", "nid": "<ID>" } },
-              "message": "Success! Returns the report object that was created, with at least link to it on Checkdesk and ID"
+              "responseModel": { "type": "report", "data": { "title": "<report title>", "URL": "<checkdesk URl>", "original_url" : "Original URL for the report", "uid" : "author uid" } },
+              "message": "Success! Returns the report object that was created, with title, url, origianl_url and uid"
             },
             {
               "code": 404,
