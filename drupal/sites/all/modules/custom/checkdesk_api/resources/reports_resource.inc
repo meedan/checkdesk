@@ -12,7 +12,7 @@
 function _reports_resource_retrieve($id) {
     $report = node_load($id);
     if (!is_object($report) || $report->type !== 'media') {
-        _checkdesk_api_error(t('Report with the provided id (@id) was not found', array('@id' => $id)), 400);
+        _checkdesk_api_error(t('Report with the provided id (@id) was not found', array('@id' => $id)), 404);
     }
     return array(
         'type' => 'reports',
