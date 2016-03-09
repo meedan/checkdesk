@@ -12,7 +12,7 @@
 function _reports_resource_retrieve($id) {
     $report = node_load($id);
     if (!is_object($report) || $report->type !== 'media') {
-        return services_error(t('Report with the provided id (@id) was not found', array('@id' => $id)), 400);
+        _checkdesk_api_error(t('Report with the provided id (@id) was not found', array('@id' => $id)), 400);
     }
     return array(
         'type' => 'reports',
@@ -33,20 +33,23 @@ function _reports_resource_retrieve($id) {
  *   An associative array with two keys "id" and "url"
  */
 function _reports_resource_create($report) {
+    $msg = '';
     if (!isset($report['url'])) {
-        return services_error(t('Parameters missing (URL)'), 400);
+        $msg = t('Parameters missing (URL)');
     }
     if (isset($report['story_id'])) {
         if (is_numeric($report['story_id'])) {
             $story = node_load($report['story_id']);
             if (!is_object($story) || $story->type !== 'discussion') {
-                return services_error(t('Story with the provided id (@id) was not found', array('@id' => $report['story_id'])), 400);
+                $msg = t('Story with the provided id (@id) was not found', array('@id' => $report['story_id']));
             }
         }
         else {
-            return services_error(t('Story id must be a numeric value'), 400);
-
+            $msg = t('Story id must be a numeric value');
         }
+    }
+    if (!empty($msg)) {
+        _checkdesk_api_error($msg, 400);
     }
     // Create a report
     // TODO use form_submit to validate URL

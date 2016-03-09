@@ -162,3 +162,17 @@ function checkdesk_api_services_resources() {
 function _checkdesk_api_access() {
     return TRUE;
 }
+
+/**
+ * @param string $msg
+ * @param int $code
+ */
+function _checkdesk_api_error($msg, $code) {
+    drupal_add_http_header('status', $code);
+    return array(
+        'type' => 'error',
+        'data' => array(
+            'message' => $msg,
+        ),
+    );
+}
