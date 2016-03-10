@@ -86,7 +86,7 @@ function _checkdesk_api_user_success_login($user, $provider) {
             'sessid' => session_id(),
             'session_name' => session_name(),
             'token' => drupal_get_token('services'),
-            'user' => $user,
+            'name' => $user->name,
         ),
     );
 }
