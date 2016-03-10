@@ -1149,7 +1149,15 @@ print _checkdesk_search_header();
   $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
   /* Display: Incoming reports */
-  $handler = $view->new_display('block', 'Incoming reports', 'block_1');
+  $handler = $view->new_display('block', 'Incoming reports', 'incoming_reports');
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['row_class'] = 'item draggable';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'checkdesk_search';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
