@@ -13,9 +13,8 @@ function checkdesk_fbcache_node_update($node) {
  * Scrape a bulk of URLs on Facebook
  */
 function checkdesk_fbcache_bulk_scrape($hostname, $paths) {
-  $base_path = base_path();
   while (!empty($paths)) {
-    $url = "//" . $hostname . $base_path . array_shift($paths);
+    $url = "//" . $hostname . array_shift($paths);
     checkdesk_fbcache_scrape($url);
   }
 }
