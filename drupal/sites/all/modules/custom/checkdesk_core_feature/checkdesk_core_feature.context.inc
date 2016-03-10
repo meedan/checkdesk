@@ -89,11 +89,11 @@ function checkdesk_core_feature_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-checkdesk_search-block_1' => array(
+        'views-7f1214ac048b1b97ff90734cd13cc743' => array(
           'module' => 'views',
-          'delta' => 'checkdesk_search-block_1',
+          'delta' => '7f1214ac048b1b97ff90734cd13cc743',
           'region' => 'sidebar_first',
-          'weight' => '-9',
+          'weight' => '-10',
         ),
       ),
     ),
@@ -125,11 +125,11 @@ function checkdesk_core_feature_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-desk_reports-block' => array(
+        'views-7f1214ac048b1b97ff90734cd13cc743' => array(
           'module' => 'views',
-          'delta' => 'desk_reports-block',
+          'delta' => '7f1214ac048b1b97ff90734cd13cc743',
           'region' => 'sidebar_first',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
       ),
     ),

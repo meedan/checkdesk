@@ -1270,114 +1270,42 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['reset']['#attributes']['onclick'] =
             'javascript: jQuery("#views-exposed-form-desk-reports-block").clearForm();jQuery("#edit-submit-desk-reports").trigger("click");return false;';
   }
-  elseif ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
-    // Add custom field for type
-    $form['type'] = array(
-      '#type' => 'select',
-      '#title' => '',
-      '#options' => array(
-        'All' => t('Everything'),
-        'report' => t('Reports'),
-        'story' => t('Stories'),
-        'update' => t('Updates'),
-      ),
-      '#theme' => 'select_as_links',
-    );
-
-    // This value determines the position of the new element.
-    $insert_index = 2;
-    $element_to_insert = array();
-    $element_to_insert['filter-type'] = array(
-      'value' => 'type',
-    );
-    $form_info_top = array_slice($form['#info'], 0, $insert_index);
-    $form_info_bottom = array_slice($form['#info'], $insert_index);
-    $new_form_info = $form_info_top + $element_to_insert + $form_info_bottom;
-    $form['#info'] = $new_form_info;
-
+  elseif ($form['#id'] == 'views-exposed-form-checkdesk-search-page' || $form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports') {
     // Add required js for fastLiveFilter plugin.
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_search.js');
-
+    // Tag filter
     $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
     $form['field_tags_tid']['#options']['All'] = '– ' . t('Any tag') . ' –';
     unset($form['field_tags_tid']['#description']);
-
-    // Hide/show media reports based on type filter.
-    if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] !== 'report')) {
-      $form['#info']['filter-field_rating_tid']['label'] = NULL;
-      $form['field_rating_tid']['#type'] = 'hidden';
-      unset($form['field_rating_tid']['#theme']);
-    }
-
     // Media filters.
-    if (isset($_GET['type']) && $_GET['type'] === 'report') {
+    if ($form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports' || (isset($_GET['type']) && $_GET['type'] === 'report')) {
       // Change -Any- status label
       $form['field_rating_tid']['#options']['All'] = '– ' . t('Any status') . ' –';
-
       unset($form['field_rating_tid']['#description']);
       $form['media_flags'] = array(
-        '#type' => 'select',
-        '#title' => t('Flags'),
-        '#options' => array(
-          'All' => '– ' . t('Any flag') . ' –',
-          'flagged_gc' => t('Graphic content'),
-          'flagged_spam' => t('Spam'),
-        ),
+          '#type' => 'select',
+          '#title' => t('Flags'),
+          '#options' => array(
+              'All' => '– ' . t('Any flag') . ' –',
+              'flagged_gc' => t('Graphic content'),
+              'flagged_spam' => t('Spam'),
+          ),
         //'#multiple' => TRUE,
-        '#theme' => 'select_as_links',
+          '#theme' => 'select_as_links',
       );
       $stories = db_query(
-        "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
-        array(':type' => 'discussion')
+          "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
+          array(':type' => 'discussion')
       )->fetchAllKeyed();
       $form['report_story'] = array(
-        '#type' => 'select',
-        '#title' => t('Associated stories'),
-        '#options' => array('All' => '– ' . t('Any story') . ' –', 'None' => '– ' . t('Unassigned') . ' –') + $stories,
-        '#theme' => 'select_as_links',
-        '#bef_enable_fastlivefilter' => 1,
-        '#fastlivefilte_placeholder' => t('Search for story'),
+          '#type' => 'select',
+          '#title' => t('Associated stories'),
+          '#options' => array('All' => '– ' . t('Any story') . ' –', 'None' => '– ' . t('Unassigned') . ' –') + $stories,
+          '#theme' => 'select_as_links',
+          '#bef_enable_fastlivefilter' => 1,
+          '#fastlivefilte_placeholder' => t('Search for story'),
       );
-    }
-
-    // Story filter for updates
-    if (isset($_GET['type']) && $_GET['type'] === 'update') {
-      $stories = db_query(
-        "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
-        array(':type' => 'discussion')
-      )->fetchAllKeyed();
-      $form['update_story'] = array(
-        '#type' => 'select',
-        '#title' => t('Associated stories'),
-        '#options' => array('All' => '– ' . t('Any story') . ' –') + $stories,
-        '#theme' => 'select_as_links',
-        '#bef_enable_fastlivefilter' => 1,
-        '#fastlivefilte_placeholder' => t('Search for story'),
-      );
-
-      // Hide tag filter for updates
-      $form['#info']['filter-field_tags_tid']['label'] = NULL;
-      $form['field_tags_tid']['#type'] = 'hidden';
-      unset($form['field_tags_tid']['#theme']);
-    }
-
-    // Hide update choice if user filter by tag.
-    if (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
-      unset($form['type']['#options']['update']);
-    }
-    if (isset($_GET['type']) && $_GET['type'] === 'story') {
-      $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
-    }
-    else {
-      // Hide section filter
-      $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
-      $form['field_section_tid_i18n']['#type'] = 'hidden';
-      unset($form['field_section_tid_i18n']['#theme']);
-      // Hide language filter
-      $form['#info']['filter-language']['label'] = NULL;
-      $form['language']['#type'] = 'hidden';
-      unset($form['language']['#theme']);
     }
     // Add author filter for admin or journalist
     global $user;
@@ -1390,12 +1318,12 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       }
       $users = array('All' => '– ' . t('Any author') . ' –', $user->name => '– ' . t('My content') . ' –') + $users;
       $form['author'] = array(
-        '#type' => 'select',
-        '#title' => t('Authors'),
-        '#options' => $users,
-        '#theme' => 'select_as_links',
-        '#bef_enable_fastlivefilter' => 1,
-        '#fastlivefilte_placeholder' => t('Search for author'),
+          '#type' => 'select',
+          '#title' => t('Authors'),
+          '#options' => $users,
+          '#theme' => 'select_as_links',
+          '#bef_enable_fastlivefilter' => 1,
+          '#fastlivefilte_placeholder' => t('Search for author'),
       );
     }
 
@@ -1404,6 +1332,79 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     // Hide sort and submit button
     $form['sort_bef_combine']['#type'] = 'hidden';
     $form['submit']['#attributes']['class'][] = 'js-hide';
+    
+    if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
+      // Add custom field for type
+      $form['type'] = array(
+          '#type' => 'select',
+          '#title' => '',
+          '#options' => array(
+              'All' => t('Everything'),
+              'report' => t('Reports'),
+              'story' => t('Stories'),
+              'update' => t('Updates'),
+          ),
+          '#theme' => 'select_as_links',
+      );
+
+      // This value determines the position of the new element.
+      $insert_index = 2;
+      $element_to_insert = array();
+      $element_to_insert['filter-type'] = array(
+          'value' => 'type',
+      );
+      $form_info_top = array_slice($form['#info'], 0, $insert_index);
+      $form_info_bottom = array_slice($form['#info'], $insert_index);
+      $new_form_info = $form_info_top + $element_to_insert + $form_info_bottom;
+      $form['#info'] = $new_form_info;
+
+
+      // Hide/show media reports based on type filter.
+      if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] !== 'report')) {
+        $form['#info']['filter-field_rating_tid']['label'] = NULL;
+        $form['field_rating_tid']['#type'] = 'hidden';
+        unset($form['field_rating_tid']['#theme']);
+      }
+
+
+      // Story filter for updates
+      if (isset($_GET['type']) && $_GET['type'] === 'update') {
+        $stories = db_query(
+            "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
+            array(':type' => 'discussion')
+        )->fetchAllKeyed();
+        $form['update_story'] = array(
+            '#type' => 'select',
+            '#title' => t('Associated stories'),
+            '#options' => array('All' => '– ' . t('Any story') . ' –') + $stories,
+            '#theme' => 'select_as_links',
+            '#bef_enable_fastlivefilter' => 1,
+            '#fastlivefilte_placeholder' => t('Search for story'),
+        );
+
+        // Hide tag filter for updates
+        $form['#info']['filter-field_tags_tid']['label'] = NULL;
+        $form['field_tags_tid']['#type'] = 'hidden';
+        unset($form['field_tags_tid']['#theme']);
+      }
+
+      // Hide update choice if user filter by tag.
+      if (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
+        unset($form['type']['#options']['update']);
+      }
+      if (isset($_GET['type']) && $_GET['type'] === 'story') {
+        $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
+      } else {
+        // Hide section filter
+        $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
+        $form['field_section_tid_i18n']['#type'] = 'hidden';
+        unset($form['field_section_tid_i18n']['#theme']);
+        // Hide language filter
+        $form['#info']['filter-language']['label'] = NULL;
+        $form['language']['#type'] = 'hidden';
+        unset($form['language']['#theme']);
+      }
+    }
   }
 }
 
