@@ -1294,6 +1294,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         //'#multiple' => TRUE,
           '#theme' => 'select_as_links',
       );
+      // Associated stories filter
       $stories = db_query(
           "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
           array(':type' => 'discussion')
@@ -1305,6 +1306,30 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
           '#theme' => 'select_as_links',
           '#bef_enable_fastlivefilter' => 1,
           '#fastlivefilte_placeholder' => t('Search for story'),
+      );
+      // Add Publication status filter
+      $form['report_publication'] = array(
+        '#type' => 'select',
+        '#title' => t('Publication status'),
+        '#options' => array(
+          'All' => '– ' . t('All') . ' –',
+          'report_published' => t('Published'),
+          'report_unpublished' => t('Unpublished'),
+        ),
+        '#theme' => 'select_as_links',
+      );
+      // Media source filter
+      $query = db_select('meedan_sources', 'ms');
+      $query->fields('ms', array('ms_id', 'source'));
+      $query->isNull('ms.parent');
+      $sources = $query->execute()->fetchAllKeyed();
+      $form['report_source'] = array(
+        '#type' => 'select',
+        '#title' => t('Sources'),
+        '#options' => array('All' => '– ' . t('Any source') . ' –') + $sources,
+        '#theme' => 'select_as_links',
+        '#bef_enable_fastlivefilter' => 1,
+        '#fastlivefilte_placeholder' => t('Search for source'),
       );
     }
     // Add author filter for admin or journalist
@@ -2050,17 +2075,59 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         }
       }
     }
-    // Add where condition based on flag type for reports.
-    if (isset($_GET['type']) && $_GET['type'] === 'report' && isset($_GET['media_flags'])) {
-      switch($_GET['media_flags']) {
-        case 'flagged_spam':
-          $query->add_where(1,'flagging_node.uid', 1, 'IS NOT NULL');
-          break;
-        case 'flagged_gc':
-          $query->add_where(1,'flagging_node_1.uid', 1, 'IS NOT NULL');
-        break;
+    // Check if we are displaying reports
+    $is_reports = FALSE;
+    if ($view->current_display == 'incoming_reports' || (isset($_GET['type']) && $_GET['type'] === 'report')) {
+      $is_reports = TRUE;
+    }
+    if ($is_reports) {
+      // Add where condition based on flag type for reports.
+      if (isset($_GET['media_flags'])) {
+        switch($_GET['media_flags']) {
+          case 'flagged_spam':
+            $query->add_where(1,'flagging_node.uid', 1, 'IS NOT NULL');
+            break;
+          case 'flagged_gc':
+            $query->add_where(1,'flagging_node_1.uid', 1, 'IS NOT NULL');
+            break;
+        }
+      }
+      // Add associated stories condition.
+      if (isset($_GET['report_story']) && ($_GET['report_story'] === 'None' || is_numeric($_GET['report_story']))) {
+        $join = new views_join();
+        $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
+        $query->add_relationship('fdfs', $join, 'field_data_field_stories');
+        if ($_GET['report_story'] === 'None') {
+          $query->add_where(1,'fdfs.field_stories_target_id', 1, 'IS NULL');
+        }
+        else {
+          $query->add_where(1,'fdfs.field_stories_target_id', intval($_GET['report_story']), '=');
+        }
+      }
+      // Add publication status filter
+      if (isset($_GET['report_publication']) && $_GET['report_publication'] !== 'All') {
+        $join = new views_join();
+        $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
+        $query->add_relationship('fdfs_media', $join, 'field_data_field_stories');
+        if ($_GET['report_publication'] === 'report_unpublished') {
+          $query->add_where(1,'fdfs_media.field_stories_target_id', 1, 'IS NULL');
+        }
+        else {
+          $query->add_where(1,'fdfs_media.field_stories_target_id', 1, 'IS NOT NULL');
+        }
+      }
+      // Add source filter
+      if (isset($_GET['report_source']) && $_GET['report_source'] !== 'All') {
+        $join = new views_join();
+        $join->construct('meedan_sources_media', 'node', 'nid', 'nid');
+        $query->add_relationship('msm', $join, 'meedan_sources_media');
+        $join = new views_join();
+        $join->construct('meedan_sources', 'msm', 'ms_id', 'ms_id');
+        $query->add_relationship('ms', $join, 'meedan_sources');
+        $query->add_where(1,'ms.parent', intval($_GET['report_source']), '=');
       }
     }
+
     // Remove status condition if selected type not equal report.
     if (isset($_GET['type']) && $_GET['type'] !== 'report' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
       $conditions = $query->where[1]['conditions'];
@@ -2085,20 +2152,8 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         }
       }
     }
-    // Add associated stories condition.
-    if (isset($_GET['type']) && $_GET['type'] === 'report' &&
-        isset($_GET['report_story']) && ($_GET['report_story'] === 'None' || is_numeric($_GET['report_story']))
-    ) {
-      $join = new views_join();
-      $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
-      $query->add_relationship('fdfs', $join, 'field_data_field_stories');
-      if ($_GET['report_story'] === 'None') {
-        $query->add_where(1,'fdfs.field_stories_target_id', 1, 'IS NULL');
-      }
-      else {
-        $query->add_where(1,'fdfs.field_stories_target_id', intval($_GET['report_story']), '=');
-      }
-    }
+
+
     if (isset($_GET['type']) && $_GET['type'] === 'update' &&
         isset($_GET['update_story']) && is_numeric($_GET['update_story'])
     ) {
