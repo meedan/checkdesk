@@ -97,6 +97,10 @@ function checkdesk_reports_permission() {
             'title' => t('Export reports'),
             'description' => t('User can export reports.'),
         ),
+        'access graphic journalist flag' => array(
+            'title' => t('Access graphic journalist flag'),
+            'description' => t('User can access graphic journalist flag.'),
+        ),
     );
 }
 
@@ -116,7 +120,7 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     // Description textarea should not be resizable
     $form['body'][LANGUAGE_NONE][0]['#resizable'] = FALSE;
     // Check for graphic content
-    $flag = ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) ? 'graphic_journalist' : 'graphic');
+    $flag = user_access('access graphic journalist flag') ? 'graphic_journalist' : 'graphic';
     $form['graphic_content'] = array(
         '#type' => 'checkboxes',
         '#options' => array($flag => t('Graphic content')),
@@ -159,7 +163,7 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     else {
         $node = $form['#node'];
         drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
-        if (isset($node->field_stories[LANGUAGE_NONE][0]['target_id'])) {
+            if (isset($node->field_stories[LANGUAGE_NONE][0]['target_id'])) {
             $default_story = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
         }
     }
@@ -177,10 +181,9 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
 
     // Redirect user to collaboration page.
     $form['actions']['submit']['#submit'][] = '_checkdesk_reports_redirect';
-    if (in_array('journalist', $user->roles)) {
-        // Hide comment settings
-        $form['comment_settings']['#access'] = FALSE;
-    }
+    // Hide comment settings
+    $form['comment_settings']['#access'] = usesr_access('access additional settings');
+
 
     if($form['field_stories']) {
         _checkdesk_add_chosen_components();
