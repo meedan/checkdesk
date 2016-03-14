@@ -1,0 +1,95 @@
+@charset "UTF-8";
+@import "colors";
+@import "bowerbird/colors";
+// Directional defaults
+@import "global";
+// Aliases for bidirectional stuff
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Variables and Mixins
+@import "variables";
+@import "mixins";
+// Flexbox mixins until we use something like Autoprefixer
+@import "flexbox_mixins";
+
+/**
+ * @file
+ * CSS for Goole Map widget of Geolocation field.
+ */
+
+
+
+.field-widget-geolocation-googlemap {
+  /* Clear floated elements */
+  overflow: hidden;
+}
+
+.geolocation-help {
+  margin: 1em 0;
+}
+
+.geolocation-lat-item,
+.geolocation-lng-item {
+  // float: left;
+  // margin-#{$omega}: 1em;
+}
+.geolocation-lat,
+.geolocation-lng {
+  display: none;
+}
+
+.geolocation-lng-item label,
+.geolocation-lat-item label {
+  display: inline;
+}
+
+.geolocation-lng .form-disabled input.form-text,
+.geolocation-lat .form-disabled input.form-text {
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.geolocation-selection-wrapper {
+  @include flexbox;
+  box-sizing: border-box;
+  border: 1px solid $firefly10;
+  padding: 5px;
+  border-radius: 8px;
+
+  .geolocation-map {
+    @include flex(4);
+  }
+
+  .geolocation-values-wrapper {
+    @include flexbox;
+    @include flex-direction(column);
+    @include flex(1);
+    padding: 10px;
+  }
+
+  .geolocation-selection {
+    @include flex(4);
+    color: $brand-primary;
+  }
+
+  .geolocation-lat-item-value,
+  .geolocation-lng-item-value {
+    display: block;
+  }
+
+  .geolocation-selection-remove-button {
+    width: 80%;
+  }
+
+}
+
+.geolocation-client-location {
+  color: $brand-primary;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}

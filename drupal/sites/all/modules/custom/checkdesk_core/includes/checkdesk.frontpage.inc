@@ -39,3 +39,27 @@ function _checkdesk_front_page() {
     }
     return $output;
 }
+
+
+/**
+ * Return view output with container markup
+ * @param $title
+ * @param $view_output
+ * @return html output
+ */
+function _checkdesk_container_markup($title, $view_output) {
+    $output = '';
+    $output .= '<section class="cd-container">';
+    $output .= '<div class="cd-container-inner">';
+    if (!empty($title)) {
+        $output .= '<div class="cd-container-header">';
+        $output .= '<h2 class="cd-container-header-title">' . $title . '</h2>';
+        $output .= '</div>';
+    }
+    $output .= '<div class="cd-container-body">';
+    $output .= $view_output;
+    $output .= '</div>';
+    $output .= '</section>';
+
+    return $output;
+}

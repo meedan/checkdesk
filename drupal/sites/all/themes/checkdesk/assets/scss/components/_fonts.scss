@@ -1,20 +1,276 @@
+// Arabic font stack
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  font-style: normal;
+  font-weight: 400;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  font-style: normal;
+  font-weight: 700;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf') format('truetype');
+}
+// Render English text in Lato within Noto Naskh Arabic Regular
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  src:  url('../extensions/bowerbird/fonts/lato-regular-webfont.eot');
+  src:  local('Lato Regular'), local('Lato-Regular'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+// Render English text in Lato Bold within Noto Naskh Arabic Bold
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  src:  url('../extensions/bowerbird/fonts/lato-bold-webfont.eot');
+  src:  local('Lato Bold'), local('Lato-Bold'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+// Noto Naskh Arabic UI
+@font-face {
+  font-family: 'Noto Naskh Arabic UI';
+  font-style: normal;
+  font-weight: 400;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf') format('truetype');
+}
+
+// Noto Naskh Arabic UI Bold
+@font-face {
+  font-family: 'Noto Naskh Arabic UI';
+  font-style: normal;
+  font-weight: 700;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf') format('truetype');
+}
+
+
+// Noto Kufi Arabic
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 400;
+  src:  url('../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 700;
+  src:  url('../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.ttf') format('truetype');
+}
+// Render English text in Lato within Noto Kufi Arabic Regular
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src:  url('../extensions/bowerbird/fonts/lato-regular-webfont.eot');
+  src:  local('Lato Regular'), local('Lato-Regular'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+// Render English text in Lato Bold within Noto Kufi Arabic Bold
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src:  url('../extensions/bowerbird/fonts/lato-bold-webfont.eot');
+  src:  local('Lato Bold'), local('Lato-Bold'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+
+// English font stack
+
+// Lato
+// Sans-serif
+// Regular
+@font-face {
+  font-family: 'Lato';
+  src:  url('../extensions/bowerbird/fonts/lato-regular-webfont.eot');
+  src:  local('Lato Regular'), local('Lato-Regular'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/lato-regular-webfont.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+}
+// Bold
+@font-face {
+  font-family: 'Lato';
+  src:  url('../extensions/bowerbird/fonts/lato-bold-webfont.eot');
+  src:  local('Lato Bold'), local('Lato-Bold'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/lato-bold-webfont.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+}
+// Italic
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src:  url('../extensions/bowerbird/fonts/lato-italic-webfont.eot');
+  src:  local('Lato Italic'), local('Lato-Italic'),
+        url('../extensions/bowerbird/fonts/lato-italic-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/lato-italic-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/lato-italic-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/lato-italic-webfont.ttf') format('truetype');
+}
+// Render Arabic text in Noto Naskh Arabic Regular within Lato Regular
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf') format('truetype');
+  unicode-range: U+0600 – U+06FF;
+}
+// Render Arabic text in Noto Naskh Arabic Bold within Lato Bold
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf') format('truetype');
+  unicode-range: U+0600 – U+06FF;
+}
+
+
+// Serif for English
+// Regular
+@font-face {
+  font-family: 'Merriweather';
+  src:  url('../extensions/bowerbird/fonts/merriweather-regular-webfont.eot');
+  src: 	local('Merriweather'), local('Merriweather-Regular'),
+  			url('../extensions/bowerbird/fonts/merriweather-regular-webfont.eot?#iefix') format('embedded-opentype'),
+  			url('../extensions/bowerbird/fonts/merriweather-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/merriweather-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/merriweather-regular-webfont.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+}
+// Bold
+@font-face {
+  font-family: 'Merriweather';
+  src:  url('../extensions/bowerbird/fonts/merriweather-bold-webfont.eot');
+  src:  local('Merriweather Bold'), local('Merriweather-Bold'),
+  			url('../extensions/bowerbird/fonts/merriweather-bold-webfont.eot?#iefix') format('embedded-opentype'),
+  			url('../extensions/bowerbird/fonts/merriweather-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/merriweather-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+}
+// Italic
+@font-face {
+  font-family: 'Merriweather';
+  src:  url('../extensions/bowerbird/fonts/merriweather-italic-webfont.eot');
+  src:  local('Merriweather Italic'), local('Merriweather-Italic'),
+  			url('../extensions/bowerbird/fonts/merriweather-italic-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/merriweather-italic-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/merriweather-italic-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/merriweather-italic-webfont.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 700;
+}
+// Render Arabic text in Noto Naskh Arabic Regular within Merriweather Regular
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf') format('truetype');
+  unicode-range: U+0600 – U+06FF;
+}
+// Render Arabic text in Noto Naskh Arabic Bold within Merriweather Bold
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 700;
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2') format('woff2'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf') format('truetype');
+  unicode-range: U+0600 – U+06FF;
+}
+
+// Define the mix for header and body fonts with unicode range
+@import "header_fonts";
+@import "body_fonts";
+
+
 // Sans and Serif
-$sans-serif-font-stack: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$serif-font-stack: 'Merriweather', Georgia, "Times New Roman", Times, serif;
-$ar-sans-serif-font-stack: 'Noto Naskh Arabic', 'Merriweather', Georgia, "Times New Roman", Times, serif;
-$ar-serif-font-stack: 'Noto Naskh Arabic', 'Merriweather', Georgia, "Times New Roman", Times, serif;
+$sans-serif-font-stack: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$serif-font-stack: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
+$ar-sans-serif-font-stack: 'AR Sans', serif;
+$ar-serif-font-stack: 'AR Serif', serif;
 
-$en-body-font-stack: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$en-header-font-stack: 'Merriweather', Georgia, "Times New Roman", Times, serif;
+$en-body-font-stack: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$en-header-font-stack: 'EN Header', Georgia, 'Times New Roman', Times, serif;
 
-$ar-header-font-stack: "Noto Kufi Arabic", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$ar-body-font-stack: "Noto Naskh Arabic", 'Merriweather', Georgia, "Times New Roman", Times, serif;
-$ar-font-stack: "Noto Naskh Arabic", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$ar-header-font-stack: 'AR Header', sans-serif;
+$ar-body-font-stack: 'AR Serif', serif;
+$ar-font-stack: 'Noto Naskh Arabic', serif;
 
-$mono-font-stack: Monaco, Menlo, Consolas, "Courier New", monospace !default;
+$mono-font-stack: Monaco, Menlo, Consolas, 'Courier New', monospace !default;
 $nav-font-stack: $en-body-font-stack !default;
 
 // Use the "header" and "body" font stacks in most cases.
 // Then override with Arabic font stack in RTL stylesheet.
 $header-font-stack: $en-header-font-stack !default;
 $body-font-stack: $en-body-font-stack !default;
+

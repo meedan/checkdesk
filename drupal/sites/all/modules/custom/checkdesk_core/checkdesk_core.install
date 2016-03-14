@@ -553,19 +553,64 @@ function checkdesk_core_update_7056() {
 
 /** 
  * Disable and uninstall reactor
+ */
 function checkdesk_core_update_7057() {
   $module_list = array('reactor');
   module_disable($module_list);
   drupal_uninstall_modules($module_list, FALSE);
 }
+
+
+/** 
+ * Disable and uninstall email_registration
+*/
+function checkdesk_core_update_7058() {
+  $module_list = array('email_registration');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+}
+
+/**
+ * Disable and uninstall bookmarklet modules
  */
+function checkdesk_core_update_7059() {
+  $module_list = array('checkdesk_bookmarklet', 'meedan_bookmarklet');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+  module_enable(array('checkdesk_reports'));
+}
+
+/**
+ * Disable checkdesk_duplicates module
+ */
+function checkdesk_core_update_7060() {
+  $module_list = array('checkdesk_duplicates');
+  module_disable($module_list);
+  module_enable(array('checkdesk_reports_duplicates'));
+}
+
+/**
+ * Disable meedan_reports module
+ */
+function checkdesk_core_update_7061() {
+  $module_list = array('meedan_reports');
+  module_disable($module_list);
+}
+
+/**
+ * Enable checkdesk reports feature
+ */
+function checkdesk_core_update_7062() {
+  module_enable(array('checkdesk_reports_feature'));
+}
 
 /**
  * Manually upgrade {file_managed.uri} to utf8mb4.
  */
-function checkdesk_core_update_7058() {
+function checkdesk_core_update_7063() {
   db_query("ALTER TABLE {file_managed} DROP KEY uri");
   db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8mb4_bin");
   db_query("CREATE UNIQUE INDEX uri ON {file_managed} (uri(191))");
   db_query("ALTER TABLE {file_managed} ENGINE=innodb");
 }
+ 

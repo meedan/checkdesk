@@ -1,0 +1,803 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
+  src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
+  src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic UI';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic UI';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
+  src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
+  src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
+  src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
+  src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/lato-italic-webfont.eot");
+  src: local("Lato Italic"), local("Lato-Italic"), url("../extensions/bowerbird/fonts/lato-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-italic-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-italic-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-italic-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot");
+  src: local("Merriweather"), local("Merriweather-Regular"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot");
+  src: local("Merriweather Bold"), local("Merriweather-Bold"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url("../extensions/bowerbird/fonts/merriweather-italic-webfont.eot");
+  src: local("Merriweather Italic"), local("Merriweather-Italic"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'AR Header';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Header';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Header';
+  src: url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot");
+  src: local("Merriweather"), local("Merriweather-Regular"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'AR Header';
+  src: url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot");
+  src: local("Merriweather Bold"), local("Merriweather-Bold"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'EN Header';
+  src: url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot");
+  src: local("Merriweather"), local("Merriweather-Regular"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'EN Header';
+  src: url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot");
+  src: local("Merriweather Bold"), local("Merriweather-Bold"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'EN Header';
+  src: url("../extensions/bowerbird/fonts/merriweather-italic-webfont.eot");
+  src: local("Merriweather Italic"), local("Merriweather-Italic"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'EN Header';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'EN Header';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'AR Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Serif';
+  src: url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot");
+  src: local("Merriweather"), local("Merriweather-Regular"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'AR Serif';
+  src: url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot");
+  src: local("Merriweather Bold"), local("Merriweather-Bold"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'AR Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Sans';
+  src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
+  src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'AR Sans';
+  src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
+  src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
+  src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
+  src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic UI';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic UI';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
+  src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
+  src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
+  src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
+  src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/lato-italic-webfont.eot");
+  src: local("Lato Italic"), local("Lato-Italic"), url("../extensions/bowerbird/fonts/lato-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-italic-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-italic-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-italic-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot");
+  src: local("Merriweather"), local("Merriweather-Regular"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot");
+  src: local("Merriweather Bold"), local("Merriweather-Bold"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url("../extensions/bowerbird/fonts/merriweather-italic-webfont.eot");
+  src: local("Merriweather Italic"), local("Merriweather-Italic"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-regular-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabicui-bold-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'AR Header';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Header';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Header';
+  src: url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot");
+  src: local("Merriweather"), local("Merriweather-Regular"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'AR Header';
+  src: url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot");
+  src: local("Merriweather Bold"), local("Merriweather-Bold"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'EN Header';
+  src: url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot");
+  src: local("Merriweather"), local("Merriweather-Regular"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'EN Header';
+  src: url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot");
+  src: local("Merriweather Bold"), local("Merriweather-Bold"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'EN Header';
+  src: url("../extensions/bowerbird/fonts/merriweather-italic-webfont.eot");
+  src: local("Merriweather Italic"), local("Merriweather-Italic"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-italic-webfont.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'EN Header';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-regular-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'EN Header';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notokufiarabic-bold-webfont.ttf") format("truetype");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'AR Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Serif';
+  src: url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot");
+  src: local("Merriweather"), local("Merriweather-Regular"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'AR Serif';
+  src: url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot");
+  src: local("Merriweather Bold"), local("Merriweather-Bold"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'AR Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/notonaskharabic-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'AR Sans';
+  src: url("../extensions/bowerbird/fonts/lato-regular-webfont.eot");
+  src: local("Lato Regular"), local("Lato-Regular"), url("../extensions/bowerbird/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-regular-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'AR Sans';
+  src: url("../extensions/bowerbird/fonts/lato-bold-webfont.eot");
+  src: local("Lato Bold"), local("Lato-Bold"), url("../extensions/bowerbird/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff2") format("woff2"), url("../extensions/bowerbird/fonts/lato-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/lato-bold-webfont.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+0000 – U+007F;
+}
+
+#ui-datepicker-div {
+  background: #fafbfb;
+  border: 1px #e7e8ea solid;
+  z-index: 9999;
+}
+
+/* Datepicker
+----------------------------------*/
+.ui-datepicker {
+  width: 17em;
+  padding-top: .2em;
+  padding-right: .2em;
+  padding-left: .2em;
+  padding-bottom: 0;
+}
+
+.ui-datepicker .ui-datepicker-header {
+  position: relative;
+  padding: .2em 0;
+}
+
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+  position: absolute;
+  top: 2px;
+  width: 1.8em;
+  height: 1.8em;
+}
+
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover {
+  top: 1px;
+}
+
+.ui-datepicker .ui-datepicker-prev {
+  right: 2px;
+}
+
+.ui-datepicker .ui-datepicker-next {
+  left: 2px;
+}
+
+.ui-datepicker .ui-datepicker-prev-hover {
+  right: 1px;
+}
+
+.ui-datepicker .ui-datepicker-next-hover {
+  left: 1px;
+}
+
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+  display: block;
+  position: absolute;
+  right: 50%;
+  margin-right: -8px;
+  top: 50%;
+  margin-top: -8px;
+}
+
+.ui-datepicker .ui-datepicker-title {
+  margin: 0 2.3em;
+  line-height: 1.8em;
+  text-align: center;
+}
+
+.ui-datepicker .ui-datepicker-title select {
+  float: right;
+  font-size: 1em;
+  margin: 1px 0;
+}
+
+.ui-datepicker select.ui-datepicker-month-year {
+  width: 100%;
+}
+
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+  width: 49%;
+}
+
+.ui-datepicker .ui-datepicker-title select.ui-datepicker-year {
+  float: left;
+}
+
+.ui-datepicker table {
+  width: 100%;
+  font-size: .9em;
+  border-collapse: collapse;
+  margin: 0 0 .4em;
+}
+
+.ui-datepicker th {
+  padding: .7em .3em;
+  text-align: center;
+  font-weight: bold;
+  border: 0;
+}
+
+.ui-datepicker td {
+  border: 0;
+  padding: 1px;
+}
+
+.ui-datepicker td span, .ui-datepicker td a {
+  display: block;
+  padding: .2em;
+  text-align: left;
+  text-decoration: none;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane {
+  background-image: none;
+  margin: .7em 0 0 0;
+  padding: 0 .2em;
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button {
+  float: left;
+  margin-top: .5em;
+  margin-right: .2em;
+  margin-left: .2em;
+  margin-bottom: .4em;
+  cursor: pointer;
+  padding-top: .2em;
+  padding-left: .6em;
+  padding-bottom: .3em;
+  padding-right: .6em;
+  width: auto;
+  overflow: visible;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+  float: right;
+}
+
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi {
+  width: auto;
+}
+
+.ui-datepicker-multi .ui-datepicker-group {
+  float: right;
+}
+
+.ui-datepicker-multi .ui-datepicker-group table {
+  width: 95%;
+  margin: 0 auto .4em;
+}
+
+.ui-datepicker-multi-2 .ui-datepicker-group {
+  width: 50%;
+}
+
+.ui-datepicker-multi-3 .ui-datepicker-group {
+  width: 33.3%;
+}
+
+.ui-datepicker-multi-4 .ui-datepicker-group {
+  width: 25%;
+}
+
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header {
+  border-right-width: 0;
+}
+
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+  border-right-width: 0;
+}
+
+.ui-datepicker-multi .ui-datepicker-buttonpane {
+  clear: right;
+}
+
+.ui-datepicker-row-break {
+  clear: both;
+  width: 100%;
+}

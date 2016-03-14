@@ -19,6 +19,7 @@ function checkdesk_core_feature_uuid_features_default_terms() {
     'language' => 'und',
     'i18n_tsid' => 0,
     'vocabulary_machine_name' => 'media_rating',
+    'field_status_icon' => array(),
   );
   $terms[] = array(
     'name' => 'In Progress',
@@ -29,6 +30,7 @@ function checkdesk_core_feature_uuid_features_default_terms() {
     'language' => 'und',
     'i18n_tsid' => 0,
     'vocabulary_machine_name' => 'media_rating',
+    'field_status_icon' => array(),
   );
   $terms[] = array(
     'name' => 'False',
@@ -39,6 +41,7 @@ function checkdesk_core_feature_uuid_features_default_terms() {
     'language' => 'und',
     'i18n_tsid' => 0,
     'vocabulary_machine_name' => 'media_rating',
+    'field_status_icon' => array(),
   );
   $terms[] = array(
     'name' => 'Not Applicable',
@@ -49,6 +52,7 @@ function checkdesk_core_feature_uuid_features_default_terms() {
     'language' => 'und',
     'i18n_tsid' => 0,
     'vocabulary_machine_name' => 'media_rating',
+    'field_status_icon' => array(),
   );
   $terms[] = array(
     'name' => 'Undetermined',
@@ -59,6 +63,7 @@ function checkdesk_core_feature_uuid_features_default_terms() {
     'language' => 'und',
     'i18n_tsid' => 0,
     'vocabulary_machine_name' => 'media_rating',
+    'field_status_icon' => array(),
   );
   return $terms;
 }

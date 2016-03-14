@@ -32,7 +32,7 @@
           return;
         }
         var update = false;
-        jQuery.each(Drupal.settings.clientsideValidation.forms, function (f) {
+        $.each(Drupal.settings.clientsideValidation.forms, function (f) {
           if ($(context).find('#' + f).length || $(context).is('#' + f)) {
             update = true;
           }
@@ -52,7 +52,7 @@
        * @name clientsideValidationInitialized
        * @memberof Drupal.clientsideValidation
        */
-      jQuery.event.trigger('clientsideValidationInitialized');
+      $.event.trigger('clientsideValidationInitialized');
     }
   };
 
@@ -201,29 +201,29 @@
     }
     self.time.start('2. bindForms');
     // unset invalid forms
-    jQuery.each (self.forms, function (f) {
+    $.each (self.forms, function (f) {
       if ($('#' + f).length < 1) {
         delete self.forms[f];
       }
     });
-    jQuery.each (self.forms, function(f) {
+    $.each (self.forms, function(f) {
       var errorel = self.prefix + f + '-errors';
       // Remove any existing validation stuff
       if (self.validators[f]) {
         // Doesn't work :: $('#' + f).rules('remove');
         var form = $('#' + f).get(0);
         if (typeof(form) !== 'undefined') {
-          jQuery.removeData(form, 'validator');
+          $.removeData(form, 'validator');
         }
       }
 
       if('checkboxrules' in self.forms[f]){
         self.time.start('checkboxrules_groups');
         groupkey = "";
-        jQuery.each (self.forms[f].checkboxrules, function(r) {
+        $.each (self.forms[f].checkboxrules, function(r) {
           groupkey = r + '_group';
           self.groups[f][groupkey] = [];
-          jQuery.each(this, function(){
+          $.each(this, function(){
             $(this[2]).find('input[type=checkbox]').each(function(){
               self.groups[f][groupkey].push($(this).attr('name'));
             });
@@ -235,10 +235,10 @@
       if('daterangerules' in self.forms[f]){
         self.time.start('daterangerules');
         groupkey = "";
-        jQuery.each (self.forms[f].daterangerules, function(r) {
+        $.each (self.forms[f].daterangerules, function(r) {
           groupkey = r + '_group';
           self.groups[f][groupkey] = [];
-          jQuery.each(this, function(){
+          $.each(this, function(){
             $('#' + f + ' #' + r + ' :input').not('input[type=image]').each(function(){
               self.groups[f][groupkey].push($(this).attr('name'));
             });
@@ -250,10 +250,10 @@
       if('dateminrules' in self.forms[f]){
         self.time.start('dateminrules');
         groupkey = "";
-        jQuery.each (self.forms[f].dateminrules, function(r) {
+        $.each (self.forms[f].dateminrules, function(r) {
           groupkey = r + '_group';
           self.groups[f][groupkey] = [];
-          jQuery.each(this, function(){
+          $.each(this, function(){
             $('#' + f + ' #' + r + ' :input').not('input[type=image]').each(function(){
               self.groups[f][groupkey].push($(this).attr('name'));
             });
@@ -265,10 +265,10 @@
       if('datemaxrules' in self.forms[f]){
         self.time.start('datemaxrules');
         groupkey = "";
-        jQuery.each (self.forms[f].datemaxrules, function(r) {
+        $.each (self.forms[f].datemaxrules, function(r) {
           groupkey = r + '_group';
           self.groups[f][groupkey] = [];
-          jQuery.each(this, function(){
+          $.each(this, function(){
             $('#' + f + ' #' + r + ' :input').not('input[type=image]').each(function(){
               self.groups[f][groupkey].push($(this).attr('name'));
             });
@@ -288,6 +288,12 @@
           errorElement: self.forms[f].general.errorElement,
           unhighlight: function(element, errorClass, validClass) {
             var tab;
+
+            // If this is a pending element skip handling.
+            if (typeof this.pending[element.name] != 'undefined') {
+              return;
+            }
+
             // Default behavior
             $(element).removeClass(errorClass).addClass(validClass);
 
@@ -309,6 +315,15 @@
                 tab.removeClass(errorClass).addClass(validClass);
               }
             }
+
+            /**
+             * Let other modules know this / which / an element is valid.
+             * @event clientsideValidationValid
+             * @name clientsideValidationValid
+             * @memberof Drupal.clientsideValidation
+             */
+            $(element).trigger('clientsideValidationValid');
+            $.event.trigger('clientsideValidationValid', [element]);
           },
           highlight: function(element, errorClass, validClass) {
             // Default behavior
@@ -323,6 +338,15 @@
             if (tab) {
               tab.addClass(errorClass).removeClass(validClass);
             }
+
+            /**
+             * Let other modules know this / which / an element is invalid.
+             * @event clientsideValidationInvalid
+             * @name clientsideValidationInvalid
+             * @memberof Drupal.clientsideValidation
+             */
+            $(element).trigger('clientsideValidationInvalid');
+            $.event.trigger('clientsideValidationInvalid', [element]);
           },
           invalidHandler: function(form, validator) {
             var tab;
@@ -397,7 +421,7 @@
                * @name clientsideValidationFormHasErrors
                * @memberof Drupal.clientsideValidation
                */
-              jQuery.event.trigger('clientsideValidationFormHasErrors', [form.target]);
+              $.event.trigger('clientsideValidationFormHasErrors', [form.target]);
             }
           }
         };
@@ -534,7 +558,15 @@
             };
             break;
           case 6: // CLIENTSIDE_VALIDATION_TOP_OF_FIRST_FORM
-            if ($('div.messages.error').length) {
+            if ($('div.messages--error').length) {
+              if ($('div.messages--error').attr('id').length) {
+                errorel = $('div.messages--error').attr('id');
+              }
+              else {
+                $('div.messages--error').attr('id', errorel);
+              }
+            }
+            else if ($('div.messages.error').length) {
               if ($('div.messages.error').attr('id').length) {
                 errorel = $('div.messages.error').attr('id');
               }
@@ -714,7 +746,7 @@
     };
     if('checkboxrules' in self.forms[formid]){
       self.time.start('checkboxrules');
-      jQuery.each (self.forms[formid].checkboxrules, function(r) {
+      $.each (self.forms[formid].checkboxrules, function(r) {
         var $checkboxes = $form.find(this.checkboxgroupminmax[2]).find('input[type="checkbox"]');
         if ($checkboxes.length) {
           var identifier = 'require-one-' + this.checkboxgroupminmax[2].substring(1);
@@ -749,10 +781,10 @@
     }
     if('daterangerules' in self.forms[formid]){
       self.time.start('daterangerules');
-      jQuery.each (self.forms[formid].daterangerules, function(r) {
+      $.each (self.forms[formid].daterangerules, function(r) {
         $form.find('#' + r).find('input, select').not('input[type=image]').each(function(){
           // Make sure we are working with the copy of rules object.
-          var rule = jQuery.extend(true, {}, self.forms[formid].daterangerules[r]);
+          var rule = $.extend(true, {}, self.forms[formid].daterangerules[r]);
           if (typeof self.validators[formid].settings.messages[r] === 'undefined') {
             self.validators[formid].settings.messages[r] = {};
           }
@@ -767,10 +799,10 @@
 
     if('dateminrules' in self.forms[formid]){
       self.time.start('dateminrules');
-      jQuery.each (self.forms[formid].dateminrules, function(r) {
+      $.each (self.forms[formid].dateminrules, function(r) {
         $form.find('#' + r).find('input, select').not('input[type=image]').each(function(){
           // Make sure we are working with the copy of rules object.
-          var rule = jQuery.extend(true, {}, self.forms[formid].dateminrules[r]);
+          var rule = $.extend(true, {}, self.forms[formid].dateminrules[r]);
           if (typeof self.validators[formid].settings.messages[r] === 'undefined') {
             self.validators[formid].settings.messages[r] = {};
           }
@@ -785,10 +817,10 @@
 
     if('datemaxrules' in self.forms[formid]){
       self.time.start('datemaxrules');
-      jQuery.each (self.forms[formid].datemaxrules, function(r) {
+      $.each (self.forms[formid].datemaxrules, function(r) {
         $form.find('#' + r).find('input, select').not('input[type=image]').each(function(){
           // Make sure we are working with the copy of rules object.
-          var rule = jQuery.extend(true, {}, self.forms[formid].datemaxrules[r]);
+          var rule = $.extend(true, {}, self.forms[formid].datemaxrules[r]);
           if (typeof self.validators[formid].settings.messages[r] === 'undefined') {
             self.validators[formid].settings.messages[r] = {};
           }
@@ -804,7 +836,7 @@
     if ('rules' in self.forms[formid]) {
       self.time.start('rules');
       // Make sure we are working with the copy of rules object.
-      var rules = jQuery.extend(true, {}, self.forms[formid].rules);
+      var rules = $.extend(true, {}, self.forms[formid].rules);
       // :input can be slow, see http://jsperf.com/input-vs-input/2
       $form.find('input, textarea, select').each(function(idx, elem) {
         var rule = rules[elem.name];
@@ -831,38 +863,38 @@
   Drupal.clientsideValidation.prototype.addExtraRules = function(){
     var self = this;
 
-    jQuery.validator.addMethod("numberDE", function(value, element) {
+    $.validator.addMethod("numberDE", function(value, element) {
       return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:,\d+)?$/.test(value);
     });
 
-    jQuery.validator.addMethod("min_comma", function(value, element, param) {
+    $.validator.addMethod("min_comma", function(value, element, param) {
       var real_val = Number(value.replace(',', '.'));
       return this.optional(element) || real_val >= param;
     });
 
-    jQuery.validator.addMethod("max_comma", function(value, element, param) {
+    $.validator.addMethod("max_comma", function(value, element, param) {
       var real_val = Number(value.replace(',', '.'));
       return this.optional(element) || real_val <= param;
     });
 
-    jQuery.validator.addMethod("range_comma", function(value, element, param) {
+    $.validator.addMethod("range_comma", function(value, element, param) {
       var real_val = Number(value.replace(',', '.'));
       return this.optional(element) || (real_val >= param[0] && real_val <= param[1]);
     });
 
     // Min a and maximum b checkboxes from a group
-    jQuery.validator.addMethod("checkboxgroupminmax", function(value, element, param) {
+    $.validator.addMethod("checkboxgroupminmax", function(value, element, param) {
       var amountChecked = $(param[2]).find('input:checked').length;
       return (amountChecked >= param[0] && amountChecked <= param[1]);
-    }, jQuery.format('Minimum {0}, maximum {1}'));
+    }, $.format('Minimum {0}, maximum {1}'));
 
     // Allow integers, same as digits but including a leading '-'
-    jQuery.validator.addMethod("digits_negative", function(value, element) {
+    $.validator.addMethod("digits_negative", function(value, element) {
       return this.optional(element) || /^-?\d+$/.test(value);
-    }, jQuery.format('Please enter only digits.'));
+    }, $.format('Please enter only digits.'));
 
     // One of the values
-    jQuery.validator.addMethod("oneOf", function(value, element, param) {
+    $.validator.addMethod("oneOf", function(value, element, param) {
       for (var p in param.values) {
         if (param.values[p] === value && param.caseSensitive) {
           return !param.negate;
@@ -872,9 +904,9 @@
         }
       }
       return param.negate;
-    }, jQuery.format(''));
+    }, $.format(''));
 
-    jQuery.validator.addMethod("specificVals", function(value, element, param){
+    $.validator.addMethod("specificVals", function(value, element, param){
       for (var i in value) {
         if(param.indexOf(value[i]) === -1) {
             return false;
@@ -883,7 +915,7 @@
       return true;
     });
 
-    jQuery.validator.addMethod("blacklist", function(value, element, param) {
+    $.validator.addMethod("blacklist", function(value, element, param) {
       if (typeof(value) !== 'object') {
         value = value.split(' ');
       }
@@ -898,7 +930,7 @@
     // Default regular expression support
     var ajaxPCREfn = function(value, element, param) {
       var result = false;
-      jQuery.ajax({
+      $.ajax({
         'url': Drupal.settings.basePath + 'clientside_validation/ajax',
         'type': "POST",
         'data': {
@@ -913,7 +945,7 @@
       });
       if (result.result === false) {
         if (result.message.length) {
-          jQuery.extend(jQuery.validator.messages, {
+          $.extend($.validator.messages, {
             "regexMatchPCRE": result.message
           });
         }
@@ -943,7 +975,7 @@
             if (!(new XRegExp(reg, mod).test(value))) {
               result = false;
               if (param.messages[i].length) {
-                jQuery.extend(jQuery.validator.messages, {
+                $.extend($.validator.messages, {
                   "regexMatchPCRE": param.messages[i]
                 });
               }
@@ -962,16 +994,16 @@
 
     // Decide which one to use
     if (self.data.general.usexregxp) {
-      jQuery.validator.addMethod("regexMatchPCRE", xregexPCREfn, jQuery.format('The value does not match the expected format.'));
+      $.validator.addMethod("regexMatchPCRE", xregexPCREfn, $.format('The value does not match the expected format.'));
     }
     else {
-      jQuery.validator.addMethod("regexMatchPCRE", ajaxPCREfn, jQuery.format('The value does not match the expected format.'));
+      $.validator.addMethod("regexMatchPCRE", ajaxPCREfn, $.format('The value does not match the expected format.'));
     }
 
     // Unique values
-    jQuery.validator.addMethod("notEqualTo", function(value, element, param) {
+    $.validator.addMethod("notEqualTo", function(value, element, param) {
       var ret = true;
-      jQuery.each(param, function (index, selector){
+      $.each(param, function (index, selector){
         var $target = $(selector);
         $target.unbind(".validate-notEqualTo").bind("blur.validate-notEqualTo", function() {
           $(element).valid();
@@ -979,16 +1011,16 @@
         ret = ret && ($target.val() !== value);
       });
       return ret;
-    }, jQuery.format('Please don\'t enter the same value again.'));
+    }, $.format('Please don\'t enter the same value again.'));
 
-    jQuery.validator.addMethod("regexMatch", function(value, element, param) {
+    $.validator.addMethod("regexMatch", function(value, element, param) {
       if (this.optional(element) && value === '') {
         return this.optional(element);
       }
       else {
         var modifier = param.regex[1];
         var valid_modifiers = ['i', 'g', 'm'];
-        if (jQuery.inArray(modifier, valid_modifiers) === -1) {
+        if ($.inArray(modifier, valid_modifiers) === -1) {
           modifier = '';
         }
         var regexp = new RegExp(param.regex[0], modifier);
@@ -998,12 +1030,12 @@
         return param.negate;
       }
 
-    }, jQuery.format('The value does not match the expected format.'));
+    }, $.format('The value does not match the expected format.'));
 
-    jQuery.validator.addMethod("captcha", function (value, element, param) {
+    $.validator.addMethod("captcha", function (value, element, param) {
       var result = false;
       var sid = $(element).closest('.captcha').find('input[name=captcha_sid]').val();
-      jQuery.ajax({
+      $.ajax({
         'url': Drupal.settings.basePath + 'clientside_validation/captcha',
         'type': "POST",
         'data': {
@@ -1018,56 +1050,56 @@
       });
       if (result.result === false) {
         if (typeof result.message !== 'undefined' && result.message.length) {
-          jQuery.extend(jQuery.validator.messages, {
+          $.extend($.validator.messages, {
             "captcha": result.message
           });
         }
       }
       return result.result;
-    }, jQuery.format('Wrong answer.'));
+    }, $.format('Wrong answer.'));
 
-    jQuery.validator.addMethod("rangewords", function(value, element, param) {
-      return this.optional(element) || (param[0] <= jQuery.trim(value).split(/\s+/).length && value.split(/\s+/).length <= param[1]);
-    }, jQuery.format('The value must be between {0} and {1} words long'));
+    $.validator.addMethod("rangewords", function(value, element, param) {
+      return this.optional(element) || (param[0] <= $.trim(value).split(/\s+/).length && value.split(/\s+/).length <= param[1]);
+    }, $.format('The value must be between {0} and {1} words long'));
 
-    jQuery.validator.addMethod("minwords", function(value, element, param) {
-      return this.optional(element) || param <= jQuery.trim(value).split(/\s+/).length;
-    }, jQuery.format('The value must be more than {0} words long'));
+    $.validator.addMethod("minwords", function(value, element, param) {
+      return this.optional(element) || param <= $.trim(value).split(/\s+/).length;
+    }, $.format('The value must be more than {0} words long'));
 
-    jQuery.validator.addMethod("maxwords", function(value, element, param) {
-      return this.optional(element) || jQuery.trim(value).split(/\s+/).length <= param;
-    }, jQuery.format('The value must be fewer than {0} words long'));
+    $.validator.addMethod("maxwords", function(value, element, param) {
+      return this.optional(element) || $.trim(value).split(/\s+/).length <= param;
+    }, $.format('The value must be fewer than {0} words long'));
 
-    jQuery.validator.addMethod("plaintext", function(value, element, param){
+    $.validator.addMethod("plaintext", function(value, element, param){
       var result = param.negate ? (value !== strip_tags(value, param.tags)) : (value === strip_tags(value, param.tags));
       return this.optional(element) || result;
-    }, jQuery.format('The value must be plaintext'));
+    }, $.format('The value must be plaintext'));
 
-    jQuery.validator.addMethod("selectMinlength", function(value, element, param) {
+    $.validator.addMethod("selectMinlength", function(value, element, param) {
       var result = $(element).find('option:selected').length >= param.min;
       if (param.negate) {
         result = !result;
       }
       return this.optional(element) || result;
-    }, jQuery.format('You must select at least {0} values'));
+    }, $.format('You must select at least {0} values'));
 
-    jQuery.validator.addMethod("selectMaxlength", function(value, element, param) {
+    $.validator.addMethod("selectMaxlength", function(value, element, param) {
       var result = $(element).find('option:selected').length <= param.max;
       if (param.negate) {
         result = !result;
       }
       return this.optional(element) || result;
-    }, jQuery.format('You must select a maximum of {0} values'));
+    }, $.format('You must select a maximum of {0} values'));
 
-    jQuery.validator.addMethod("selectRangelength", function(value, element, param) {
+    $.validator.addMethod("selectRangelength", function(value, element, param) {
       var result = ($(element).find('option:selected').length >= param.range[0] && $(element).find('option:selected').length <= param.range[1]);
       if (param.negate) {
         result = !result;
       }
       return this.optional(element) || result;
-    }, jQuery.format('You must select at between {0} and {1} values'));
+    }, $.format('You must select at between {0} and {1} values'));
 
-    jQuery.validator.addMethod("datemin", function(value, element, param) {
+    $.validator.addMethod("datemin", function(value, element, param) {
       //Assume [month], [day], and [year] ??
       var dayelem, monthelem, yearelem, name, $form, element_name;
       $form = $(element).closest('form');
@@ -1116,7 +1148,7 @@
       return true;
     });
 
-    jQuery.validator.addMethod("datemax", function(value, element, param) {
+    $.validator.addMethod("datemax", function(value, element, param) {
       //Assume [month], [day], and [year] ??
       var dayelem, monthelem, yearelem, name, $form, element_name;
       $form = $(element).closest('form');
@@ -1166,7 +1198,7 @@
       return true;
     });
 
-    jQuery.validator.addMethod("daterange", function(value, element, param) {
+    $.validator.addMethod("daterange", function(value, element, param) {
       //Assume [month], [day], and [year] ??
       var dayelem, monthelem, yearelem, name, $form, element_name;
       $form = $(element).closest('form');
@@ -1229,7 +1261,7 @@
       return true;
     });
 
-    jQuery.validator.addMethod("dateFormat", function(value, element, param) {
+    $.validator.addMethod("dateFormat", function(value, element, param) {
       try{
         var parts = value.split(param.splitter);
         var expectedpartscount = 0;
@@ -1300,13 +1332,13 @@
       } catch(e) {
         return this.optional(element) || false;
       }
-    }, jQuery.format('The date is not in a valid format'));
+    }, $.format('The date is not in a valid format'));
 
     // Require one of several
-    jQuery.validator.addMethod("requireOneOf", function(value, element, param) {
+    $.validator.addMethod("requireOneOf", function(value, element, param) {
       var ret = false;
       if (value === "") {
-        jQuery.each(param, function(index, name) {
+        $.each(param, function(index, name) {
           // @TODO: limit to current form
           if (!ret && $("[name='" + name + "']").val().length) {
             ret = true;
@@ -1318,24 +1350,24 @@
         ret = true;
       }
       $(element).blur(function () {
-        jQuery.each(param, function(index, name) {
+        $.each(param, function(index, name) {
           // @TODO: limit to current form
           $("[name='" + name + "']").valid();
         });
       });
       return ret;
-    }, jQuery.format('Please fill in at least one of the fields'));
+    }, $.format('Please fill in at least one of the fields'));
 
     // Support for Drupal urls.
-    jQuery.validator.addMethod("drupalURL", function(value, element) {
+    $.validator.addMethod("drupalURL", function(value, element) {
       var result = false;
       if (this.settings['name_event'] == 'onkeyup') {
         return true;
       }
-      if (jQuery.validator.methods.url.call(this, value, element)) {
+      if ($.validator.methods.url.call(this, value, element)) {
         return true;
       }
-      jQuery.ajax({
+      $.ajax({
         'url': Drupal.settings.basePath + 'clientside_validation/drupalURL',
         'type': "POST",
         'data': {
@@ -1348,13 +1380,13 @@
         }
       });
       return result.result;
-    }, jQuery.format('Please fill in a valid url'));
+    }, $.format('Please fill in a valid url'));
 
     // Support for phone
-    jQuery.validator.addMethod("phone", function(value, element, param) {
+    $.validator.addMethod("phone", function(value, element, param) {
       var country_code = param;
       var result = false;
-      jQuery.ajax({
+      $.ajax({
         'url': Drupal.settings.basePath + 'clientside_validation/phone',
         'type': "POST",
         'data': {
@@ -1369,10 +1401,10 @@
       });
       return this.optional(element) || result.result;
 
-    }, jQuery.format('Please fill in a valid phone number'));
+    }, $.format('Please fill in a valid phone number'));
 
     // EAN code
-    jQuery.validator.addMethod("validEAN", function(value, element) {
+    $.validator.addMethod("validEAN", function(value, element) {
       if (this.optional(element) && value === '') {
         return this.optional(element);
       }
@@ -1406,9 +1438,9 @@
         return rem === parseInt(value.substr(12, 1), 10);
 
       }
-    }, jQuery.format('Not a valid EAN number.'));
+    }, $.format('Not a valid EAN number.'));
 
-    jQuery.validator.addMethod("require_from_group", function(value, element, options) {
+    $.validator.addMethod("require_from_group", function(value, element, options) {
       var $fields = $(options[1], element.form),
         $fieldsFirst = $fields.eq(0),
         validator = $fieldsFirst.data("valid_req_grp") ? $fieldsFirst.data("valid_req_grp") : $.extend({}, this),
@@ -1428,7 +1460,117 @@
         $fields.data("being_validated", false);
       }
       return isValid;
-    }, jQuery.validator.format("Please fill at least {0} of these fields."));
+    }, $.validator.format("Please fill at least {0} of these fields."));
+
+
+    // Enhances the provided "remote" method by adding our own success and
+    // progress handling.
+    $.validator.methods.original_remote = $.validator.methods.remote;
+    $.validator.methods.remote = function(value, element, param) {
+      if ( this.optional(element) ) {
+        return "dependency-mismatch";
+      }
+
+      var previous = this.previousValue(element);
+      if (!this.settings.messages[element.name] ) {
+        this.settings.messages[element.name] = {};
+      }
+      previous.originalMessage = this.settings.messages[element.name].remote;
+      this.settings.messages[element.name].remote = previous.message;
+
+      param = typeof param === "string" && {url:param} || param;
+
+      if ( previous.old === value ) {
+        return previous.valid;
+      }
+
+      previous.old = value;
+      var validator = this;
+      this.startRequest(element);
+      var data = {};
+      data[element.name] = value;
+
+      $.ajax($.extend(true, {
+        url: param,
+        mode: "abort",
+        port: "validate" + element.name,
+        dataType: "json",
+        progress: {
+          type: 'throbber',
+          message: Drupal.t('Please wait...')
+        },
+        data: data,
+        // We provide our own success handling to ensure the pending array is
+        // cleaned before executing showErrors(). That way handling highlight
+        // unhighlight is easier for pending elements (avoid) flickering.
+        // However we still need the original success handler of Drupal.ajax to
+        // do the progress handling.
+        success: function(response) {
+          // Remove element from pending list as we now know what state it has.
+          delete validator.pending[element.name];
+          validator.settings.messages[element.name].remote = previous.originalMessage;
+          var valid = response === true || response === "true";
+          if ( valid ) {
+            var submitted = validator.formSubmitted;
+            // Don't invoke this because this will avoid that the highlight /
+            // unhighlight handlers are called.
+            // validator.prepareElement(element);
+            validator.formSubmitted = submitted;
+            validator.successList.push(element);
+            delete validator.invalid[element.name];
+            validator.showErrors();
+          } else {
+            var errors = {};
+            var message = response || validator.defaultMessage( element, "remote" );
+            errors[element.name] = previous.message = $.isFunction(message) ? message(value) : message;
+            validator.invalid[element.name] = true;
+            validator.showErrors(errors);
+          }
+          previous.valid = valid;
+          validator.stopRequest(element, valid);
+        },
+        beforeSend: function () {
+          // Disable the element that received the change to prevent user interface
+          // interaction while the Ajax request is in progress. ajax.ajaxing prevents
+          // the element from triggering a new request, but does not prevent the user
+          // from changing its value.
+          $(element).addClass('progress-disabled').attr('disabled', true);
+
+          // Insert progressbar or throbber.
+          if (this.progress.type == 'bar') {
+            var progressBar = new Drupal.progressBar('ajax-progress-' + element.id, eval(this.progress.update_callback), this.progress.method, eval(this.progress.error_callback));
+            if (this.progress.message) {
+              progressBar.setProgress(-1, this.progress.message);
+            }
+            if (this.progress.url) {
+              progressBar.startMonitoring(this.progress.url, this.progress.interval || 1500);
+            }
+            this.progress.element = $(progressBar.element).addClass('ajax-progress ajax-progress-bar');
+            this.progress.object = progressBar;
+            $(element).after(this.progress.element);
+          }
+          else if (this.progress.type == 'throbber') {
+            this.progress.element = $('<div class="ajax-progress ajax-progress-throbber"><div class="throbber">&nbsp;</div></div>');
+            if (this.progress.message) {
+              $('.throbber', this.progress.element).after('<div class="message">' + this.progress.message + '</div>');
+            }
+            $(element).after(this.progress.element);
+          }
+        },
+        complete: function() {
+          // Remove the progress element.
+          if (this.progress.element) {
+            $(this.progress.element).remove();
+          }
+          if (this.progress.object) {
+            this.progress.object.stopMonitoring();
+          }
+          $(element).removeClass('progress-disabled').removeAttr('disabled');
+        }
+      }, param));
+      return "pending";
+    };
+
 
     /**
      * Allow other modules to add more rules.
@@ -1436,7 +1578,7 @@
      * @name clientsideValidationAddCustomRules
      * @memberof Drupal.clientsideValidation
      */
-    jQuery.event.trigger('clientsideValidationAddCustomRules');
+    $.event.trigger('clientsideValidationAddCustomRules');
 
 
     /**
@@ -1466,7 +1608,7 @@
             ret = true;
           }
           var id = element.is('form') ? element.attr('id') : element.closest('form').attr('id');
-          if (id && Drupal.myClientsideValidation.validators[id]) {
+          if (id && Drupal.myClientsideValidation.validators[id] && Drupal.myClientsideValidation.validators[id].form) {
             Drupal.myClientsideValidation.validators[id].onsubmit = false;
             ret = ret && Drupal.myClientsideValidation.validators[id].form();
             if (!ret) {
@@ -1479,10 +1621,10 @@
       // Set validation for ctools modal forms
       for (var ajax_el in Drupal.ajax) {
         if (Drupal.ajax.hasOwnProperty(ajax_el) && typeof Drupal.ajax[ajax_el] !== 'undefined') {
-          var $ajax_el = jQuery(Drupal.ajax[ajax_el].element);
+          var $ajax_el = $(Drupal.ajax[ajax_el].element);
           var ajax_form = $ajax_el.is('form') ? $ajax_el.attr('id') : $ajax_el.closest('form').attr('id');
           var change_ajax = true;
-          if (typeof Drupal.myClientsideValidation.forms[ajax_form] !== 'undefined') {
+          if (ajax_form != null && typeof Drupal.myClientsideValidation.forms[ajax_form] !== 'undefined') {
             change_ajax = Boolean(parseInt(Drupal.myClientsideValidation.forms[ajax_form].general.validateBeforeAjax, 10));
           }
           if (!$ajax_el.hasClass('cancel') && change_ajax) {
@@ -1492,4 +1634,33 @@
       }
     }
   };
+
+  /**
+   * Integrate with the states handling.
+   *
+   * Prvides the condtions:
+   *  * clientside_validation: Value is valid.
+   *  * clientside_validated: Value was validated actually.
+   */
+  if (typeof Drupal.states != 'undefined') {
+    Drupal.states.Trigger.states.clientside_validation = function (element) {
+      element
+        .bind('clientsideValidationValid', function () {
+          element.trigger({type: 'state:clientside_validation', value: true});
+          element.trigger({type: 'state:clientside_validated', value: true});
+        })
+        .bind('clientsideValidationInvalid', function () {
+          element.trigger({type: 'state:clientside_validation', value: false});
+          element.trigger({type: 'state:clientside_validated', value: true});
+        })
+        .bind('change keyup', function () {
+          element.trigger({type: 'state:clientside_validated', value: false});
+        });
+
+      Drupal.states.postponed.push($.proxy(function () {
+        element.trigger({type: 'state:clientside_validation', value: true});
+        element.trigger({type: 'state:clientside_validated', value: false});
+      }, window));
+    };
+  }
 })(jQuery);

@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Implementation of hook_install().
+ */
+function checkdesk_reports_install() {
+  checkdesk_reports_update_7001();
+}
+
+/**
+ * Change checkdesk_reports weight
+ */
+function checkdesk_reports_update_7001() {
+  db_update('system')
+    ->fields(array(
+      'weight' => 99,
+    ))
+    ->condition('name', 'checkdesk_reports')
+    ->execute();
+}

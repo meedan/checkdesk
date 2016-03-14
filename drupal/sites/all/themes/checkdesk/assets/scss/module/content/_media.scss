@@ -246,3 +246,23 @@ span.content-labels {
 	}
 
 } // inline-attachment
+
+
+.media-metadata {
+	padding: 0 6px 8px;
+	@include cd-responsive('min-width: #{$width-tablet}') {
+		padding: 0 20px 15px 20px;
+	}
+	font-size: 14px;
+	color: $firefly40;
+	background-color: #fff;
+
+}
+
+#checkdesk-group-metadata {
+	.date-combo {
+		legend {
+			display: none;
+		}
+	}
+}

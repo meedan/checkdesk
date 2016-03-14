@@ -132,9 +132,6 @@ span.autocomplete-deluxe-value-delete {
   border-bottom-right-radius: 0;
 }
 
-input.autocomplete-deluxe-closed {
-}
-
 div.autocomplete-deluxe-multiple {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -156,10 +153,19 @@ div.autocomplete-deluxe-multiple {
   cursor: text;
 }
 
+input[type="text"].autocomplete-deluxe-form {
+  box-shadow: none;
+}
+
+input[type="text"]:focus.autocomplete-deluxe-form {
+  box-shadow: none;
+  outline: 0;
+}
+
 input.autocomplete-deluxe-form.autocomplete-deluxe-multiple {
   border: 3px none;
   width: 25px;
-  margin-left: 5px;
+  margin-#{$alpha}: 5px;
   float: $from-direction;
 }
 
@@ -210,6 +216,7 @@ div.autocomplete-deluxe-throbber {
     color: $red;
   }
 }
+
 .autocomplete-deluxe-item-focus {
   background: none repeat scroll 0 0 #D4D4D4;
 }
@@ -217,4 +224,7 @@ div.autocomplete-deluxe-throbber {
 .autocomplete-deluxe-highlight-char {
   color: $strongBlue;
   font-weight: bold;
+  .ui-menu .ui-menu-item a.ui-state-hover & {
+    color: #fff;
+  }
 }

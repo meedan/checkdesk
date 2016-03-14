@@ -194,6 +194,12 @@ function advagg_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'filesize_processed' => array(
+        'description' => 'The file size in bytes after minification and compression.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
     ),
     'indexes' => array(
       'content_hash' => array('content_hash'),
@@ -553,6 +559,45 @@ function advagg_update_7209(&$sandbox) {
 }
 
 /**
+ * Implements hook_update_N().
+ *
+ * Add filesize_processed field to {advagg_files} table.
+ */
+function advagg_update_7210() {
+  $spec = array(
+    'description' => 'The file size in bytes after minification and compression.',
+    'type' => 'int',
+    'not null' => TRUE,
+    'default' => 0,
+  );
+  db_add_field('advagg_files', 'filesize_processed', $spec);
+  return t('The filesize_processed field has been added to the advagg_files table.');
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Populate the filesize_processed field in the {advagg_files} table.
+ */
+function advagg_update_7211() {
+  module_load_include('inc', 'advagg', 'advagg');
+  $types = array('css', 'js');
+  foreach ($types as $type) {
+    $query = db_select('advagg_files', 'af')
+      ->fields('af')
+      ->condition('filesize_processed', 0)
+      ->condition('filetype', $type)
+      ->execute();
+    $files = array();
+    foreach ($query as $row) {
+      $files[$row->filename] = (array)$row;
+    }
+    advagg_insert_update_files($files, $type);
+  }
+  return t('The filesize_processed field has been populated inside the advagg_files table.');
+}
+
+/**
  * Convert the table to the specified collation.
  *
  * @param string $table_name
@@ -631,7 +676,7 @@ function advagg_install_change_table_collation($table_name, array $fields, $coll
  */
 function advagg_install_delete_empty_file_if_stale($uri) {
   // Set stale file threshold to 60 seconds.
-  if (filesize($uri) == 0 && REQUEST_TIME - filemtime($uri) > 60) {
+  if (filesize($uri) < 3 && REQUEST_TIME - filemtime($uri) > 60) {
     file_unmanaged_delete($uri);
   }
 }
@@ -767,7 +812,7 @@ function advagg_requirements($phase) {
   $config_path = advagg_admin_config_root_path();
 
   // Make sure directories are writable.
-  if (!file_prepare_directory($css_path[0], FILE_CREATE_DIRECTORY)) {
+  if (!file_prepare_directory($css_path[0], FILE_CREATE_DIRECTORY + FILE_MODIFY_PERMISSIONS)) {
     $requirements['advagg_css_path'] = array(
       'title' => $t('Adv CSS/JS Agg - CSS Path'),
       'severity' => REQUIREMENT_ERROR,
@@ -775,12 +820,76 @@ function advagg_requirements($phase) {
       'description' => $t('%path is not setup correctly.', array('%path' => $css_path[0])),
     );
   }
-  if (!file_prepare_directory($js_path[0], FILE_CREATE_DIRECTORY)) {
+  elseif (!is_writeable($css_path[0])) {
+    $requirements['advagg_css_path'] = array(
+      'title' => $t('Adv CSS/JS Agg - CSS Path'),
+      'severity' => REQUIREMENT_ERROR,
+      'value' => $t('CSS directory is not writable.'),
+      'description' => $t('%path is not setup correctly.', array('%path' => $css_path[0])),
+    );
+  }
+  elseif (!is_readable($css_path[0])) {
+    $requirements['advagg_css_path'] = array(
+      'title' => $t('Adv CSS/JS Agg - CSS Path'),
+      'severity' => REQUIREMENT_ERROR,
+      'value' => $t('CSS directory is not readable.'),
+      'description' => $t('%path is not setup correctly.', array('%path' => $css_path[0])),
+    );
+  }
+  elseif (!is_writeable($css_path[1])) {
+    $requirements['advagg_css_path'] = array(
+      'title' => $t('Adv CSS/JS Agg - CSS Path'),
+      'severity' => REQUIREMENT_ERROR,
+      'value' => $t('CSS directory is not writable.'),
+      'description' => $t('%path is not setup correctly.', array('%path' => $css_path[1])),
+    );
+  }
+  elseif (!is_readable($css_path[1])) {
+    $requirements['advagg_css_path'] = array(
+      'title' => $t('Adv CSS/JS Agg - CSS Path'),
+      'severity' => REQUIREMENT_ERROR,
+      'value' => $t('CSS directory is not readable.'),
+      'description' => $t('%path is not setup correctly.', array('%path' => $css_path[1])),
+    );
+  }
+  if (!file_prepare_directory($js_path[0], FILE_CREATE_DIRECTORY + FILE_MODIFY_PERMISSIONS)) {
     $requirements['advagg_js_path'] = array(
       'title' => $t('Adv CSS/JS Agg - JS Path'),
       'severity' => REQUIREMENT_ERROR,
       'value' => $t('JS directory is not created or writable.'),
       'description' => $t('%path is not setup correctly.', array('%path' => $js_path[0])),
+    );
+  }
+  elseif (!is_writeable($js_path[0])) {
+    $requirements['advagg_css_path'] = array(
+      'title' => $t('Adv CSS/JS Agg - JS Path'),
+      'severity' => REQUIREMENT_ERROR,
+      'value' => $t('JS directory is not writable.'),
+      'description' => $t('%path is not setup correctly.', array('%path' => $js_path[0])),
+    );
+  }
+  elseif (!is_readable($js_path[0])) {
+    $requirements['advagg_css_path'] = array(
+      'title' => $t('Adv CSS/JS Agg - JS Path'),
+      'severity' => REQUIREMENT_ERROR,
+      'value' => $t('JS directory is not readable.'),
+      'description' => $t('%path is not setup correctly.', array('%path' => $js_path[0])),
+    );
+  }
+  elseif (!is_writeable($js_path[1])) {
+    $requirements['advagg_css_path'] = array(
+      'title' => $t('Adv CSS/JS Agg - JS Path'),
+      'severity' => REQUIREMENT_ERROR,
+      'value' => $t('JS directory is not writable.'),
+      'description' => $t('%path is not setup correctly.', array('%path' => $js_path[1])),
+    );
+  }
+  elseif (!is_readable($js_path[1])) {
+    $requirements['advagg_css_path'] = array(
+      'title' => $t('Adv CSS/JS Agg - JS Path'),
+      'severity' => REQUIREMENT_ERROR,
+      'value' => $t('JS directory is not readable.'),
+      'description' => $t('%path is not setup correctly.', array('%path' => $js_path[1])),
     );
   }
 
@@ -1080,11 +1189,29 @@ function advagg_install_check_via_http(array &$requirements) {
           && !empty($exclude_paths)
           && strpos($exclude_paths, 'advagg_') === FALSE
         ) {
+          $pos_a = strpos($exclude_paths, '(?:styles)');
+          $pos_b = strpos($exclude_paths, '(?:styles|');
           if ($exclude_paths === '/\/(?:styles)\//') {
-            $description = $t('Change it from <code>/\/(?:styles)\//</code> to <code>/\/(?:styles|advagg_(cs|j)s)\//</code> Current value: %value', array('%value' => $exclude_paths));
+            $description = $t('Change it from <code> %value </code> to <code>/\/(?:styles|advagg_(cs|j)s)\//</code>', array(
+              '%value' => $exclude_paths,
+            ));
+          }
+          elseif ($pos_a !== FALSE) {
+            $description = $t('Change it from <code> %value </code> to <code> %code </code>', array(
+              '%value' => $exclude_paths,
+              '%code' => str_replace('(?:styles)', '(?:styles|advagg_(cs|j)s)', $exclude_paths),
+            ));
+          }
+          elseif ($pos_b !== FALSE) {
+            $description = $t('Change it from <code> %value </code> to <code> %code </code>', array(
+              '%value' => $exclude_paths,
+              '%code' => str_replace('(?:styles|', '(?:styles|advagg_(cs|j)s|', $exclude_paths),
+            ));
           }
           else {
-            $description = $t('Add in <code>advagg_(cs|j)s</code> into the regex. Current value: %value', array('%value' => $exclude_paths));
+            $description = $t('Add in <code>advagg_(cs|j)s</code> into the regex. Current value: %value', array(
+              '%value' => $exclude_paths,
+            ));
           }
           $requirements['advagg_404_fast_' . $type . '_generation'] = array(
             'title' => $t('Adv CSS/JS Agg - Fast 404: HTTP Request'),
@@ -1145,6 +1272,17 @@ function advagg_install_check_via_http(array &$requirements) {
             )),
           );
         }
+        elseif ($request->code == 403) {
+          $requirements['advagg_' . $type . '_server_permissions'] = array(
+            'title' => $t('Adv CSS/JS Agg - Webserver can not access files'),
+            'value' => $t('HTTP requests to advagg for @type files are not getting through.', array('@type' => $type)),
+            'severity' => REQUIREMENT_ERROR,
+            'description' => $t('Your webserver can not access @type advagg files. This is usually a server permissions issue. Raw request info: <pre>@request</pre>', array(
+              '@type' => $type,
+              '@request' => var_export($request, TRUE)
+            )),
+          );
+        }
         else {
           // Menu callback failed.
           $requirements['advagg_' . $type . '_generation'] = array(
@@ -1177,7 +1315,7 @@ function advagg_install_check_via_http(array &$requirements) {
       $file_path = $js_path[1];
     }
     // Get filename.
-    $filename = advagg_install_get_first_advagg_file($file_path);
+    $filename = advagg_install_get_first_advagg_file($file_path, $type);
 
     // Skip if filename is empty.
     if (empty($filename)) {
@@ -1253,7 +1391,17 @@ function advagg_install_chk_urls(array &$requirements, array $urls, array $optio
   // Ensure translations don't break at install time.
   $t = get_t();
 
-  foreach ($urls as $key => $url) {
+  $is_apache = FALSE;
+  if (stripos($_SERVER['SERVER_SOFTWARE'], 'apache') !== FALSE || function_exists('apache_get_modules')) {
+    $is_apache = TRUE;
+    $mod_headers = advagg_install_apache_mod_loaded('mod_headers');
+    $mod_rewrite = advagg_install_apache_mod_loaded('mod_rewrite');
+    $mod_expires = advagg_install_apache_mod_loaded('mod_expires');
+  }
+  list($css_path, $js_path) = advagg_get_root_files_dir();
+
+  foreach ($urls as $url) {
+    $key = pathinfo($url, PATHINFO_EXTENSION);
     // Make sure the URL contains a schema.
     if (strpos($url, 'http') !== 0) {
       if ($GLOBALS['is_https']) {
@@ -1296,16 +1444,13 @@ function advagg_install_chk_urls(array &$requirements, array $urls, array $optio
           );
         }
         else {
-          // If the apache_get_modules function doesn't exist, skip this
-          // entirely.
+          // If not apache skip this.
           $apache_module_missing = FALSE;
-          if (function_exists('apache_get_modules')) {
-            // Get all available Apache modules.
-            $modules = apache_get_modules();
-            if (!in_array('mod_headers', $modules) || !in_array('mod_rewrite', $modules)) {
+          if ($is_apache) {
+            if (!$mod_headers || !$mod_rewrite) {
               $apache_module_missing = TRUE;
 
-              if (!in_array('mod_headers', $modules)) {
+              if (!$mod_headers) {
                 $requirements['advagg_mod_headers' . $key] = array(
                   'title'       => $t('Adv CSS/JS Agg - Apache'),
                   'description' => $t('The Apache module "mod_headers" is not available. Enable <a href="!link">mod_headers</a> for Apache if at all possible. This is causing gzip to fail.', array('!link' => 'http://httpd.apache.org/docs/current/mod/mod_headers.html')),
@@ -1313,7 +1458,7 @@ function advagg_install_chk_urls(array &$requirements, array $urls, array $optio
                   'value'       => $t('Apache module "mod_headers" is not installed.'),
                 );
               }
-              if (!in_array('mod_rewrite', $modules)) {
+              if (!$mod_rewrite) {
                 $requirements['advagg_mod_rewrite' . $key] = array(
                   'title'       => $t('Adv CSS/JS Agg - Apache'),
                   'description' => $t('The Apache module "mod_rewrite" is not available.  You must enable <a href="!link">mod_rewrite</a> for Apache. This is causing gzip to fail.', array('!link' => 'http://httpd.apache.org/docs/current/mod/mod_rewrite.html')),
@@ -1335,6 +1480,17 @@ function advagg_install_chk_urls(array &$requirements, array $urls, array $optio
                   '@message' => isset($request->error) ? $request->error : '',
                   '@url' => 'http://checkgzipcompression.com/?url=' . urlencode($url),
                   '@skipcode' => '$conf[\'advagg_skip_gzip_check\'] = TRUE;',
+                )),
+              );
+            }
+            elseif ($request->code != 200) {
+              $requirements['advagg_' . $type . '_gzip' . $key . $options['version']] = array(
+                'title' => $t('Adv CSS/JS Agg - gzip'),
+                'severity' => REQUIREMENT_WARNING,
+                'value' => $t('Gzip is failing for %type files.', array('%type' => $type)),
+                'description' => $t('The web server is not returning a 200, instead a @code is being returned. Gzip can not be tested. Raw request info: <pre>@request</pre>', array(
+                  '@code' => $request->code,
+                  '@request' => print_r($request, TRUE),
                 )),
               );
             }
@@ -1361,25 +1517,37 @@ function advagg_install_chk_urls(array &$requirements, array $urls, array $optio
     if ($content_type === 'js') {
       $content_type = 'javascript';
     }
+    $filename = '';
+    if ($key === 'css') {
+      $filename = $css_path[1] . '/' . basename($url);
+    }
+    elseif ($key === 'js') {
+      $filename = $js_path[1] . '/' . basename($url);
+    }
+
     if ($request->code == 200) {
-      $modules = array();
       $matches = array();
       // @ignore sniffer_whitespace_openbracketspacing_openingwhitespace
       if ( !empty($request->headers['x-advagg'])
         && preg_match('/Generated file at (\\d+)/is', $request->headers['x-advagg'], $matches)
         && $matches[1] + 30 > REQUEST_TIME
       ) {
-        $requirements['advagg_' . $type . '_loopback_issue' . $key] = array(
-          'title' => $t('Adv CSS/JS Agg - Incorrect readings'),
-          'severity' => REQUIREMENT_WARNING,
-          'value' => $t('The request for a file was served by Drupal instead of the web server (like Apache).', array('%type' => $type)),
-          'description' => $t('It means that AdvAgg can not test for Far-Future headers internally and you will need to use an external tool in order to do so. Warnings given or not given about AdvAgg Expires, Cache-Control, and If-Modified-Since might be incorrect. In the <a href="@readme">readme</a>, under Troubleshooting try the Far-Future recommendations.', array('@readme' => url(drupal_get_path('module', 'advagg') . '/README.txt'))),
-        );
-      }
-
-      if (function_exists('apache_get_modules')) {
-        // Get all available Apache modules.
-        $modules = apache_get_modules();
+        if (!file_exists($filename)) {
+          $requirements['advagg_' . $type . '_file_write_' . $key] = array(
+            'title' => $t('Adv CSS/JS Agg - Can not write to the filesystem'),
+            'severity' => REQUIREMENT_ERROR,
+            'value' => $t('The request for a file was served by Drupal instead of the web server (like Apache).'),
+            'description' => $t('Something is preventing writes to your filesystem from working.'),
+          );
+        }
+        else {
+          $requirements['advagg_' . $type . '_loopback_issue' . $key] = array(
+            'title' => $t('Adv CSS/JS Agg - Incorrect readings'),
+            'severity' => REQUIREMENT_WARNING,
+            'value' => $t('The request for a file was served by Drupal instead of the web server (like Apache).'),
+            'description' => $t('It means that AdvAgg can not test for Far-Future headers internally and you will need to use an external tool in order to do so. Warnings given or not given about AdvAgg Expires, Cache-Control, and If-Modified-Since might be incorrect. In the <a href="@readme">readme</a>, under Troubleshooting try the Far-Future recommendations.', array('@readme' => url(drupal_get_path('module', 'advagg') . '/README.txt'))),
+          );
+        }
       }
 
       if ( $type === 'css'
@@ -1428,7 +1596,7 @@ function advagg_install_chk_urls(array &$requirements, array $urls, array $optio
           && strtotime($request->headers['expires']) < time() + 2628000
         ) {
           // Recommend servers configuration be adjusted.
-          if (function_exists('apache_get_modules') && !in_array('mod_headers', $modules)) {
+          if ($is_apache && !$mod_headers) {
             $apache_module_missing = TRUE;
           }
           else {
@@ -1436,8 +1604,9 @@ function advagg_install_chk_urls(array &$requirements, array $urls, array $optio
               'title' => $t('Adv CSS/JS Agg - Expires'),
               'severity' => REQUIREMENT_WARNING,
               'value' => $t('The expires header being sent by your web server is not at least 1 month in the future.', array('%type' => $type)),
-              'description' => $t('The web servers configuration should be adjusted only for AdvAgg files. Was looking for a second counter over 2,628,000 (1 month), actually got <code>@received</code>. You can turn this warning off if you can not adjust this value (Pantheon) by adding this to your settings.php file: <code>@skipcode</code>', array(
-                '@received' => isset($request->headers['expires']) ? number_format(strtotime($request->headers['expires'])) : 'NULL',
+              'description' => $t('The web servers configuration should be adjusted only for AdvAgg files. Was looking for a second counter over 2,628,000 (1 month), actually got <code>@received</code> (@expires). You can turn this warning off if you can not adjust this value (Pantheon) by adding this to your settings.php file: <code>@skipcode</code>', array(
+                '@received' => isset($request->headers['expires']) ? number_format(strtotime($request->headers['expires']) - REQUEST_TIME) : 'NULL',
+                '@expires' => isset($request->headers['expires']) ? $request->headers['expires'] : 'NULL',
                 '@skipcode' => '$conf[\'advagg_skip_far_future_check\'] = TRUE;',
               )),
             );
@@ -1451,7 +1620,7 @@ function advagg_install_chk_urls(array &$requirements, array $urls, array $optio
           || $matches[1] < 2628000
         ) {
           // Recommend servers configuration be adjusted.
-          if (function_exists('apache_get_modules') && (!in_array('mod_headers', $modules))) {
+          if ($is_apache && !$mod_headers) {
             $apache_module_missing = TRUE;
           }
           else {
@@ -1469,13 +1638,21 @@ function advagg_install_chk_urls(array &$requirements, array $urls, array $optio
       }
 
       // Handle missing apache modules.
-      if ($apache_module_missing && !in_array('mod_headers', $modules)) {
-        $requirements['advagg_mod_headers_far_future' . $key] = array(
+      if ($apache_module_missing && $is_apache && !$mod_headers) {
+        $requirements['advagg_mod_headers_far_future_headers_' . $key] = array(
           'title'       => $t('Adv CSS/JS Agg - Apache'),
           'description' => $t('The Apache module "mod_headers" is not available. Enable <a href="!link">mod_headers</a> for Apache if at all possible. This is causing far-future headers to not be sent correctly.', array('!link' => 'http://httpd.apache.org/docs/current/mod/mod_headers.html')),
           'severity'    => REQUIREMENT_WARNING,
           'value'       => $t('Apache module "mod_headers" is not installed.'),
         );
+        if (!$mod_expires) {
+          $requirements['advagg_mod_headers_far_future_expires_' . $key] = array(
+            'title'       => $t('Adv CSS/JS Agg - Apache'),
+            'description' => $t('The Apache module "mod_expires" is not available. Enable <a href="!link">mod_expires</a> for Apache if at all possible. This is causing far-future headers to not be sent correctly.', array('!link' => 'http://httpd.apache.org/docs/current/mod/mod_expires.html')),
+            'severity'    => REQUIREMENT_WARNING,
+            'value'       => $t('Apache module "mod_headers" is not installed.'),
+          );
+        }
       }
 
       // Test 304.
@@ -1593,11 +1770,13 @@ function advagg_install_chk_urls(array &$requirements, array $urls, array $optio
  *
  * @param string $directory
  *   Path to the advagg css/js dir.
+ * @param string $type
+ *   String: css or js.
  *
  * @return string
  *   Returns aggregate filename or an empty string on failure.
  */
-function advagg_install_get_first_advagg_file($directory) {
+function advagg_install_get_first_advagg_file($directory, $type) {
   module_load_include('inc', 'advagg', 'advagg.missing');
   $filename = '';
 
@@ -1605,7 +1784,8 @@ function advagg_install_get_first_advagg_file($directory) {
   $scanned_directory = @scandir($directory);
   // Bailout here if the advagg directory is empty.
   if (empty($scanned_directory)) {
-    return $filename;
+    // Get a file that will generate from the database.
+    return advagg_install_generate_advagg_filename_from_db($type);
   }
   // Filter list.
   $blacklist = array('..', '.', '.htaccess', 'parts');
@@ -1658,6 +1838,9 @@ function advagg_install_get_first_advagg_file($directory) {
     }
   }
 
+  if (empty($filename)) {
+    return advagg_install_generate_advagg_filename_from_db($type);
+  }
   return $filename;
 }
 
@@ -1690,6 +1873,13 @@ function advagg_install_url_mod(&$url, array &$options, $mod_url = FALSE) {
     return;
   }
 
+  // Check if this is a protocol relative url, if so add a artificial scheme so
+  // that advagg_glue_url() will produce a proper absolute url. That will work
+  // with drupal_http_request().
+  if (!isset($parts['scheme']) && substr($url, 0, 2) == '//') {
+    global $base_url;
+    $parts['scheme'] = @parse_url($base_url, PHP_URL_SCHEME);
+  }
   // Pass along user/pass in the URL.
   $advagg_auth_basic_user = variable_get('advagg_auth_basic_user', ADVAGG_AUTH_BASIC_USER);
   if (module_exists('shield')) {
@@ -1753,4 +1943,72 @@ function advagg_install_url_mod(&$url, array &$options, $mod_url = FALSE) {
     $new_url = advagg_glue_url($parts);
   }
   $url = $new_url;
+}
+
+/**
+ * Given a advagg type this will return the most recent aggregate from the db.
+ *
+ * @param string $type
+ *   String: css or js.
+ *
+ * @return string
+ *   Returns advagg filename or an empty string on failure.
+ */
+function advagg_install_generate_advagg_filename_from_db($type) {
+  // Get the most recently accessed file from the database.
+  $query = db_select('advagg_aggregates_versions', 'aav');
+  $query->join('advagg_aggregates', 'aa', 'aa.aggregate_filenames_hash =
+    aav.aggregate_filenames_hash');
+  $query->join('advagg_files', 'af', 'af.filename_hash = aa.filename_hash AND
+    af.filetype = :type', array(':type' => $type));
+  $query = $query->fields('aav', array('aggregate_filenames_hash', 'aggregate_contents_hash'))
+    ->orderBy('atime', 'DESC')
+    ->range(0, 1);
+  $results = $query->execute();
+  if (empty($results)) {
+    return '';
+  }
+  $hooks_hash = advagg_get_current_hooks_hash();
+  foreach ($results as $row) {
+    return $type . ADVAGG_SPACE . $row->aggregate_filenames_hash . ADVAGG_SPACE . $row->aggregate_contents_hash . ADVAGG_SPACE . $hooks_hash . '.' . $type;
+  }
+}
+
+
+/**
+ * Checks to see if an apache module is enabled.
+ *
+ * @param string $mod
+ *   Name of an apache module.
+ *
+ * @return bool
+ *   TRUE if it exists; FALSE if it does not; NULL if it can not be determined.
+ */
+function advagg_install_apache_mod_loaded($mod) {
+  if (is_callable('apache_get_modules')) {
+    $mods = apache_get_modules();
+    if (in_array($mod, $mods)) {
+      // Return TRUE, module exists.
+      return TRUE;
+    }
+  }
+  elseif (is_callable('phpinfo') && FALSE === strpos(ini_get('disable_functions'), 'phpinfo')) {
+    // Use static so we don't run phpinfo mutiple times.
+    $phpinfo = drupal_static(__FUNCTION__);
+    if (empty($phpinfo)) {
+      // Use phpinfo to get the info if apache_get_modules doesn't exist.
+      ob_start();
+      phpinfo(8);
+      $phpinfo = ob_get_clean();
+    }
+    if (FALSE !== strpos($phpinfo, $mod)) {
+      // Return TRUE, module exists.
+      return TRUE;
+    }
+  }
+  else {
+    // NULL returned, apache_get_modules and phpinfo can not be called.
+    return NULL;
+  }
+  return FALSE;
 }

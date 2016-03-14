@@ -323,6 +323,10 @@ function meedan_oembed_entity_info_alter(&$entity_info) {
         'label' => t('Checkdesk search'),
         'custom settings' => TRUE,
     );
+  $entity_info['node']['view modes']['checkdesk_export'] = array(
+        'label' => t('Checkdesk export'),
+        'custom settings' => TRUE,
+    );
 }
 
 /**

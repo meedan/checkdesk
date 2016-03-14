@@ -261,34 +261,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => '567a9623-1ab2-3fd4-ddf8-ccaffafffa37',
     'weight' => -45,
   );
-  // Exported menu link: menu-information_bookmarklet:content/install-bookmarklet
-  $menu_links['menu-information_bookmarklet:content/install-bookmarklet'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'en',
-    'link_path' => 'content/install-bookmarklet',
-    'link_title' => 'Bookmarklet',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'en',
-    'menu_name' => 'menu-information',
-    'module' => 'menu',
-    'options' => array(
-      'alter' => TRUE,
-      'attributes' => array(
-        'class' => array(
-          0 => 'checkdesk-use-modal',
-        ),
-      ),
-      'identifier' => 'menu-information_bookmarklet:content/install-bookmarklet',
-    ),
-    'router_path' => 'modal/%',
-    'uuid' => 'f8c7469e-2592-4b39-84dd-7bc71c6373ba',
-    'weight' => -46,
-  );
   // Exported menu link: menu-information_fact-checking-statement:content/fact-checking-statement
   $menu_links['menu-information_fact-checking-statement:content/fact-checking-statement'] = array(
     'customized' => 1,
@@ -344,34 +316,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'modal/%',
     'uuid' => '6b224c9f-ab09-421d-a672-0305c98e1fa2',
     'weight' => -48,
-  );
-  // Exported menu link: menu-information_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح
-  $menu_links['menu-information_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 0,
-    'language' => 'ar',
-    'link_path' => 'content/تنصيب-إضافة-المتصفح',
-    'link_title' => 'إضافة المتصفح',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'ar',
-    'menu_name' => 'menu-information',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(
-        'class' => array(
-          0 => 'checkdesk-use-modal',
-        ),
-      ),
-      'alter' => TRUE,
-      'identifier' => 'menu-information_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح',
-    ),
-    'router_path' => 'modal/%',
-    'uuid' => '70468a91-c4d2-4a27-9a1b-c85b7f133967',
-    'weight' => 0,
   );
   // Exported menu link: menu-information_بيان-التحقق-من-صحة-المعلومات:content/بيان-التحقق-من-صحة-المعلومات
   $menu_links['menu-information_بيان-التحقق-من-صحة-المعلومات:content/بيان-التحقق-من-صحة-المعلومات'] = array(
@@ -462,7 +406,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   // Included for use with string extractors like potx.
   t('<user>');
   t('About Checkdesk');
-  t('Bookmarklet');
   t('Fact-checking statement');
   t('Logout');
   t('Manage users');
@@ -472,7 +415,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Settings');
   t('Sign in / Sign up');
   t('Terms of use');
-  t('إضافة المتصفح');
   t('بيان التحقق من صحة المعلومات');
   t('شروط الاستخدام');
   t('عن Checkdesk');

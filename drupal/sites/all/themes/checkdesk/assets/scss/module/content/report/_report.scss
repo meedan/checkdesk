@@ -49,6 +49,7 @@ section#comment-form .form-actions {
 		font-size: $small-font-size;
 		color: $firefly40;
 		cursor: pointer;
+		padding: 0 $gutter-width/2;
 
 		&.active {
 		  color: $firefly60;
@@ -63,26 +64,33 @@ section#comment-form .form-actions {
 
 .current-status,
 label.option {
-	  &.verified {
-		@include icon(check-circle, $base-font-size);
-  }
-	&.in-progress {
-		@include icon(random, $small-font-size);
+	span {
+		&:before, &:after {
+			font-size: $base-font-size;	
+			color: $firefly40;
+			margin-#{$alpha}: 0;
+			margin-#{$omega}: 7.5px;
+		}
 	}
-	&.false {
-		@include icon(times-circle, $base-font-size);
+	// space and align custom icons
+	.checkdesk-status-icon {
+		margin-#{$alpha}: 0;
+		margin-#{$omega}: 7.5px;
+		vertical-align: baseline;
+		display: inline-block;
+		line-height: inherit;
+		img {
+			margin-top: -4px;
+		}
 	}
-	&.undetermined {
-		@include icon(question-circle, $base-font-size);
-	}
-  &.not-applicable {
-		@include icon(ban, $base-font-size);
-  }
 }
 
+// Highlight selection
+// for selected item highlight text color
 .current-status,
 input[type="radio"]:checked + label {
-	  &.verified {
+	color: $firefly80;
+	&.verified {
 	color: rgba(0, 140, 0, 1);
   }
 	&.in-progress {
@@ -95,28 +103,73 @@ input[type="radio"]:checked + label {
 		color: $orange; 
 	}
   &.not-applicable {
-	color: $firefly60 !important;
+		color: $firefly80;
+  }
+}
+
+// for selected item highlight icon color
+.current-status,
+input[type="radio"]:checked + label {
+	span {
+		&:before, &:after {
+			color: $firefly80;
+		}
+	}
+	&.verified {
+		span {
+			&:before, &:after {
+				color: rgba(0, 140, 0, 1);		
+			}
+		}
+  }
+	&.in-progress {
+		span {
+			&:before, &:after {
+				color: rgba(239, 202, 43, 1);
+			}
+		}
+	}
+	&.false {
+		span {
+			&:before, &:after {
+				color: $red;
+			}
+		}
+	}
+	&.undetermined {
+		span {
+			&:before, &:after {
+				color: $orange; 
+			}
+		}
+	}
+  &.not-applicable {
+  	span {
+			&:before, &:after {
+				color: $firefly80;
+			}
+		}
   }
 }
 
 
 .report-activity-edit-status {
-	// position: relative;
+	position: relative;
 	
   &.popover {
   	position: absolute;
 		background: #fff;
 		#{$alpha}: auto;
     @if $from-direction == left {
-      #{$omega}: $gutter-width;
+      #{$omega}: $gutter-width*2;
     }
     @if $from-direction == right {
       #{$omega}: 0;
     }
-		top: auto;
-    bottom: -221px; // -1 * height
+		top: 100px;
+    // bottom: -221px; // -1 * height
 		width: 340px;
-		height: 222px;
+		// height: 222px;
 		border: 1px solid $firefly10;
 		z-index: $z-index-Dropdown;
 		@include box-shadow(0px 2px 5px rgba($firefly, 0.05));
@@ -152,10 +205,6 @@ input[type="radio"]:checked + label {
 		}
 
 		label {
-		  width: 169px;
-		  display: block;
-		  float: $from-direction;
-		  height: 50px;
 		  line-height: 50px;
 		  text-align: center;
 			color: $firefly40;
@@ -199,37 +248,27 @@ input[type="radio"]:checked + label {
 		}
 
 		.form-radios {
-		  position: absolute;
-		  top: 70px;
-		  #{$alpha}: 0;
+		  display: flex;
+		  flex-wrap: wrap;
+		  // Dropdown title + description
+		  margin-top: 65px;
 
 		  .form-type-radio {
-				float: $alpha;
-			  padding-#{$alpha}: 0;
-			  min-height: 0;
+			  display: flex;
+			  flex-basis: 43.9%;
+
+			  &:nth-child(odd) {
+			  	border-#{$omega}: 1px solid $firefly5
+			  }
+
+			  &:not(:last-child) { 
+			  	border-bottom: 1px dotted $firefly5;
+			  }
+
 			}
 
 			.form-radio {
 			  display: none;
-			}
-
-			& > .false, & > .undetermined {
-				& > label {
-					width: 170px;
-				}
-				border-#{$omega}: 1px solid $firefly5;
-				border-bottom: 1px solid $firefly5;
-			}
-
-			& > .verified, & > .in-progress {
-				border-#{$omega}: 0 none;
-				border-bottom: 1px solid $firefly5;
-			}
-
-			// status: not applicable
-			.form-item:last-child label {
-			  width: 340px;
-			  color: $firefly20;
 			}
 
 		}

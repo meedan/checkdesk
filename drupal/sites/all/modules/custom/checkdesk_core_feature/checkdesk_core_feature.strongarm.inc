@@ -575,7 +575,7 @@ return _checkdesk_core_auto_title($node);
           'weight' => '6',
         ),
         'metatags' => array(
-          'weight' => '7',
+          'weight' => '9',
         ),
       ),
       'display' => array(
@@ -597,7 +597,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '8',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -627,7 +627,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '7',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -657,7 +657,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '9',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -687,7 +687,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '6',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -717,7 +717,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '4',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -747,7 +747,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
-            'weight' => '10',
+            'weight' => '5',
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
@@ -1045,82 +1045,6 @@ return _checkdesk_core_auto_title($node);
     'checkdesk_notifications_HTMLMail' => 'HTMLMailSystem',
   );
   $export['mail_system'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_content_type';
-  $strongarm->value = 'media';
-  $export['meedan_bookmarklet_content_type'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_css';
-  $strongarm->value = 'sites/all/modules/custom/checkdesk_bookmarklet/css/checkdesk_bookmarklet.css';
-  $export['meedan_bookmarklet_css'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_hidden_fields';
-  $strongarm->value = array(
-    'title' => 'title',
-    'field_rating' => 'field_rating',
-    'body' => 0,
-    'field_link' => 0,
-    'field_stories' => 0,
-  );
-  $export['meedan_bookmarklet_hidden_fields'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_js';
-  $strongarm->value = 'sites/all/modules/custom/checkdesk_bookmarklet/js/checkdesk_bookmarklet.js';
-  $export['meedan_bookmarklet_js'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_prepopulate_body';
-  $strongarm->value = '';
-  $export['meedan_bookmarklet_prepopulate_body'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_prepopulate_field_link';
-  $strongarm->value = 'url';
-  $export['meedan_bookmarklet_prepopulate_field_link'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_prepopulate_field_rating';
-  $strongarm->value = 'selected';
-  $export['meedan_bookmarklet_prepopulate_field_rating'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_prepopulate_field_stories';
-  $strongarm->value = 'title';
-  $export['meedan_bookmarklet_prepopulate_field_stories'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_prepopulate_title';
-  $strongarm->value = '';
-  $export['meedan_bookmarklet_prepopulate_title'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_title';
-  $strongarm->value = 'Add a link';
-  $export['meedan_bookmarklet_title'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -2110,7 +2034,7 @@ password: Your password
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'varnish_cache_clear';
-  $strongarm->value = '0';
+  $strongarm->value = '1';
   $export['varnish_cache_clear'] = $strongarm;
 
   $strongarm = new stdClass();

@@ -1,0 +1,55 @@
+<?php
+
+class CheckdeskReportsLoadTestCase extends DrupalWebTestCase {
+
+  // A user with permission to create media content.
+  protected $web_user;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Checkdesk reports load',
+      'description' => 'Test that checkdesk_report_load works properly.',
+      'group' => 'Checkdesk Reports',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp('checkdesk_reports');
+    // Create and login user.
+    $web_user = $this->drupalCreateUser(array('create page content', 'create media content'));
+    $this->drupalLogin($web_user);
+  }
+
+  public function testCheckdeskReportLoad() {
+    // Create a node of type page
+    $page_settings = array(
+        'type' => 'page',
+        'title' => $this->randomName(32),
+        'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
+    );
+    $page = $this->drupalCreateNode($page_settings);
+    $this->verbose('Node created: ' . var_export($page, TRUE));
+    // Create a node of type media
+    $report_settings = array(
+        'type' => 'media',
+        'title' => $this->randomName(32),
+        'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
+    );
+    $report = $this->drupalCreateNode($report_settings);
+
+    // Test loading with non report object
+    $result =  checkdesk_report_load($page->nid);
+    $this->assertFalse($result, t('Call report load with non report object'));
+
+     // Test loading with report object
+    $result =  checkdesk_report_load($report->nid);
+    $this->assertEqual($result->nid, $report->nid,  t('Call report load with report object.'));
+
+    // Test loading with non exist nid (use rand to get random number)
+    $result =  checkdesk_report_load(rand());
+    $this->assertFalse($result, t('Call report load with non exist nid'));
+
+
+  }
+
+}
