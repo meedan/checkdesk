@@ -10,6 +10,24 @@
 function checkdesk_core_feature_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: 'access additional settings'.
+  $permissions['access additional settings'] = array(
+    'name' => 'access additional settings',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'checkdesk_core',
+  );
+
+  // Exported permission: 'access administer role'.
+  $permissions['access administer role'] = array(
+    'name' => 'access administer role',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'checkdesk_core',
+  );
+
   // Exported permission: 'access administration pages'.
   $permissions['access administration pages'] = array(
     'name' => 'access administration pages',
@@ -31,6 +49,16 @@ function checkdesk_core_feature_user_default_permissions() {
   // Exported permission: 'access any drafts content'.
   $permissions['access any drafts content'] = array(
     'name' => 'access any drafts content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'checkdesk_core',
+  );
+
+  // Exported permission: 'access author filter'.
+  $permissions['access author filter'] = array(
+    'name' => 'access author filter',
     'roles' => array(
       'administrator' => 'administrator',
       'journalist' => 'journalist',
@@ -761,6 +789,15 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'hide unflag text'.
+  $permissions['hide unflag text'] = array(
+    'name' => 'hide unflag text',
+    'roles' => array(
+      'citizen journalist' => 'citizen journalist',
+    ),
+    'module' => 'checkdesk_core',
   );
 
   // Exported permission: 'manage features'.
