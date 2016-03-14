@@ -3073,12 +3073,9 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
         $paths[] = 'node/'. $object->field_desk[LANGUAGE_NONE][0]['target_id'];
         break;
       case 'media':
-        //get all stories that hold updates contain this report
-        $query = db_select('checkdesk_reports_updates', 'ru');
-        $query->join('field_data_field_desk', 'fd', 'ru.update_nid = fd.entity_id');
-        $query->condition('ru.report_nid', $object->nid);
-        $query->addExpression("CONCAT('node/', fd.field_desk_target_id)", 'story_url');
-        $paths = $query->execute()->fetchCol();
+        if (isset($object->field_stories[LANGUAGE_NONE][0]['target_id'])) {
+          $paths[] = 'node/'. $object->field_stories[LANGUAGE_NONE][0]['target_id'];
+        }
         $paths[] = 'node/'. $object->nid;
         break;
       }
