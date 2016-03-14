@@ -12,7 +12,7 @@
 function _reports_resource_retrieve($id) {
     $report = node_load($id);
     if (!is_object($report) || $report->type !== 'media') {
-        _checkdesk_api_error(t('Report with the provided id (@id) was not found', array('@id' => $id)), 404);
+       return _checkdesk_api_error(t('Report with the provided id (@id) was not found', array('@id' => $id)), 404);
     }
     return array(
         'type' => 'report',
@@ -46,7 +46,7 @@ function _reports_resource_create($report) {
         }
     }
     if (!empty($msg)) {
-        _checkdesk_api_error($msg, 400);
+        return _checkdesk_api_error($msg, 400);
     }
     // Create a report
     global $user;
@@ -69,7 +69,7 @@ function _reports_resource_create($report) {
         );
     }
     //TODO: add a clear error msg
-    _checkdesk_api_error(t('Failed to create a new report'), 400);
+    return _checkdesk_api_error(t('Failed to create a new report'), 400);
 }
 
 /**
@@ -97,6 +97,7 @@ function _reports_resource_index() {
 
 function _reports_format_report($report) {
     return array(
+        'nid' => $report->nid,
         'title' => $report->title,
         'url' => url('node/'. $report->nid, array('absolute' => TRUE)),
         'original_url' => $report->field_link[LANGUAGE_NONE][0]['url'],

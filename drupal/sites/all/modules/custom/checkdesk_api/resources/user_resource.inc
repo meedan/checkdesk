@@ -8,7 +8,7 @@ function _checkdesk_api_user_resource_login($provider, $parameters) {
         return _checkdesk_api_error(t('Already logged in as @user.', array('@user' => $user->name)), 406);
     }
     $fun_callback = '_checkdesk_api_user_login_'.$provider;
-    $fun_callback($parameters, $provider);
+    return $fun_callback($parameters, $provider);
 }
 
 /**
