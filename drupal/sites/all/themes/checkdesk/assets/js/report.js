@@ -19,13 +19,6 @@
 
   Drupal.behaviors.reports = {
     attach: function (context, settings) {
-      // Remove duplicates added incrementally by views_autorefresh after loading more content with views_load_more
-      $('.view-desk-reports').unbind('views_load_more.new_content').bind('views_load_more.new_content', function (event, content) {
-        $(content).find('.report-row-container').each(function () {
-          $('.view-desk-reports #' + $(this).attr('id')).eq(0).parents('.views-row').remove();
-        });
-      });
-
       // add class when end of fact-checking log is reached
       // and also when there is no pager
       $('.report-activity .view').bind('scroll', function () {
@@ -93,30 +86,21 @@
           container.hide();
         }
       });
-
       // Incoming reports sidebar
       $(window).resize(function () {
-        if ($('.view-desk-reports .view-content').length) {
+        if ($('.view-display-id-incoming_reports .view-content').length) {
           // top position of sidebar
           var top = parseInt($('#sidebar-first').css('top'), 10);
           // get height of view pager and header
-          var pagerHeight = $('.view-desk-reports .pager-load-more').not('.pager-load-more-empty').outerHeight(true);
-          var headerHeight = $('.view-desk-reports #incoming-reports-filters').outerHeight(true) + $('.view-desk-reports .view-header').outerHeight(true);
+          var pagerHeight = $('.view-display-id-incoming_reports .pager-load-more').not('.pager-load-more-empty').outerHeight(true);
+          var headerHeight = $('.view-display-id-incoming_reports .content-filter').outerHeight(true) + $('.view-display-id-incoming_reports .view-header').outerHeight(true);
           // minus view pager and filter height out of the top value
           var difference = top + pagerHeight + headerHeight;
           var height = $(window).height() - difference;
-          $('.view-desk-reports .view-content').height(height);
+          $('.view-display-id-incoming_reports .view-content').height(height);
         }
       });
       $(window).trigger('resize');
-      $('.view-desk-reports').unbind('autorefresh.incremental').bind('autorefresh.incremental', function (event, count) {
-        if (count > 0) {
-          var $counter = $('.view-desk-reports .filters-summary p');
-          var value = parseInt($counter.find('span').html(), 10) + count;
-          $counter.html(Drupal.formatPlural(value, '<span>1</span> result. You can drag and drop it.', '<span>@count</span> results. Drag and drop the best ones.'));
-          $(window).trigger('resize');
-        }
-      });
 
       // close panel
       $('#close').click(function (event) {

@@ -1060,7 +1060,7 @@ function checkdesk_core_node_presave($node) {
  * Implements hook_views_pre_render().
  */
 function checkdesk_core_views_pre_render(&$view) {
-  if ($view->name == 'desk_reports' ||($view->name == 'checkdesk_search' && $view->current_display == 'incoming_reports')) {
+  if ($view->name == 'checkdesk_search' && $view->current_display == 'incoming_reports') {
     // Setup drag & drop.
     drupal_add_js(libraries_get_path('insertatcaret') . '/jquery.insertatcaret.js');
 
@@ -1074,7 +1074,7 @@ function checkdesk_core_views_pre_render(&$view) {
 
       $datum->droppable_ref = checkdesk_core_droppable_reference($node);
 
-      $data['report-' . $datum->nid] = $datum;
+      $data['node-' . $datum->nid] = $datum;
     }
 
     // Send view results to client.
@@ -2046,17 +2046,13 @@ function _twitter_signin_get_picture($account, $twitter_account) {
  * @param type $query
  */
 function checkdesk_core_views_query_alter(&$view, &$query) {
-  // On desk reports, show suggested reports first
-  if ($view->name == 'desk_reports') {
-    if (isset($_GET['q']) &&  $_GET['q'] == 'node/add/discussion') {
-      // show reports that are unassigned to any story
-      $join = new views_join();
-      $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
-      $query->add_relationship('f', $join, 'field_data_field_stories');
-      $query->add_where(1,'f.field_stories_target_id', 1, 'IS NULL');
+
+  if ($view->name == 'checkdesk_search') {
+    // Check if we are displaying reports
+    $is_reports = FALSE;
+    if ($view->current_display == 'incoming_reports' || (isset($_GET['type']) && $_GET['type'] === 'report')) {
+      $is_reports = TRUE;
     }
-  }
-  elseif ($view->name == 'checkdesk_search') {
     // Update type condition with right values.
     if (isset($_GET['type']) && $_GET['type'] !== 'All') {
       foreach($query->where[1]['conditions'] as $k => $v) {
@@ -2075,11 +2071,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         }
       }
     }
-    // Check if we are displaying reports
-    $is_reports = FALSE;
-    if ($view->current_display == 'incoming_reports' || (isset($_GET['type']) && $_GET['type'] === 'report')) {
-      $is_reports = TRUE;
-    }
+
     if ($is_reports) {
       // Add where condition based on flag type for reports.
       if (isset($_GET['media_flags'])) {
@@ -2173,6 +2165,9 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     }
     // Fix helper text in case of search by keyword.
     if ($view->current_display === 'attachment_1') {
+      if ($view->old_view[1]->current_display == 'incoming_reports') {
+        $query->where[1]['conditions'][0]['value'] = array('media');
+      }
       if (empty($view->exposed_raw_input['keys'])) {
         $query->having = $query->groupby = array();
       }
