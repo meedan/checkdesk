@@ -38,5 +38,6 @@ function checkdesk_fbcache_scrape($url) {
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   $response = curl_exec($ch);
+  watchdog('fbcache', 'Scraped ' . $url . ' with response ' . $response);
   curl_close($ch);
 }
