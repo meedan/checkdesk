@@ -2991,9 +2991,6 @@ function _checkdesk_purge_varnish($paths) {
         if (!$purge_all) {
           foreach ($paths as $path) {
             foreach($languages as $key => $value) {
-              echo ltrim(url($path, array(
-                'language' => $languages[$key],
-              )),'/') . "\n\r";
               $urls[] = ltrim(url($path, array(
                 'language' => $languages[$key],
               )),'/');
