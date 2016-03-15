@@ -1,0 +1,137 @@
+<?php
+
+class CheckdeskBotTestCase extends DrupalWebTestCase {
+
+  // A user with permission to create media content.
+  protected $web_user;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Checkdesk Bot',
+      'description' => 'Test that checkdesk_bot works properly.',
+      'group' => 'Checkdesk Bot',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp(array('checkdesk_bot', 'checkdesk_reports', 'twitter'));
+
+    // Create and login user.
+    $this->web_user = $this->drupalCreateUser(array('create page content', 'create media content'));
+    $this->drupalLogin($this->web_user);
+    // Fake language informarion.
+    variable_set('language_default', (object)array(
+      'language' => 'en',
+      'direction' => 'ltr',
+    ));
+    // Set the API secret token.
+    variable_set('checkdesk_bot_secret_token', 'test');
+  }
+
+  public function testTweetNoURLNoTwitterUser() {
+    $json = file_get_contents(__DIR__ . '/tweet_no_url.json');
+    $tweet = drupal_json_decode($json);
+    $result = $this->httpRequest('api/v1/bot', 'POST', $this->web_user, $json);
+    $report_url = 'https://twitter.com/' . $tweet['tweet']['user']['screen_name'] . '/status/' . $tweet['tweet']['id_str'];
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'media')
+      ->fieldCondition('field_link', 'url', $report_url, '=');
+    $result = $query->execute();
+    $this->assertNull($result['node'], 'No report was created.');
+  }
+
+  public function testTweetNoURLYesTwitterUser() {
+    $json = file_get_contents(__DIR__ . '/tweet_no_url.json');
+    $tweet = drupal_json_decode($json);
+    $tweet['tweet']['user']['uid'] = $this->web_user->uid;
+    module_load_include('php', 'twitter', 'twitter.lib');
+    module_load_include('inc', 'twitter');
+    $user = new TwitterUser($tweet['tweet']['user']);
+    twitter_account_save($user);
+    $result = $this->httpRequest('api/v1/bot', 'POST', $this->web_user, $json);
+    $report_url = 'https://twitter.com/' . $tweet['tweet']['user']['screen_name'] . '/status/' . $tweet['tweet']['id_str'];
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'media')
+      ->fieldCondition('field_link', 'url', $report_url, '=');
+    $result = $query->execute();
+    $this->assertNotNull($result['node'], 'A report was created.');
+  }
+
+  /**
+   * Helper function to issue a HTTP request with simpletest's cURL.
+   *
+   * @param array $body
+   *   Either the body for POST and PUT or additional URL parameters for GET.
+   */
+  protected function httpRequest($url, $method, $account = NULL, $body = NULL, $format = 'json') {
+    if (isset($account)) {
+      unset($this->curlHandle);
+      $this->drupalLogin($account);
+    }
+    switch ($method) {
+      case 'GET':
+        // Set query if there are addition GET parameters.
+        $options = isset($body) ? array('absolute' => TRUE, 'query' => $body) : array('absolute' => TRUE);
+        $curl_options = array(
+          CURLOPT_HTTPGET => TRUE,
+          CURLOPT_URL => url($url, $options),
+          CURLOPT_NOBODY => FALSE,
+        );
+        break;
+
+      case 'POST':
+        $curl_options = array(
+          CURLOPT_HTTPGET => FALSE,
+          CURLOPT_POST => TRUE,
+          CURLOPT_POSTFIELDS => $body,
+          CURLOPT_URL => url($url, array('absolute' => TRUE)),
+          CURLOPT_NOBODY => FALSE,
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/' . $format,
+            'X-Checky-Signature: ' . checkdesk_bot__generate_signature($body),
+          ),
+        );
+        break;
+
+      case 'PUT':
+        $curl_options = array(
+          CURLOPT_HTTPGET => FALSE,
+          CURLOPT_CUSTOMREQUEST => 'PUT',
+          CURLOPT_POSTFIELDS => $body,
+          CURLOPT_URL => url($url, array('absolute' => TRUE)),
+          CURLOPT_NOBODY => FALSE,
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/' . $format,
+            'X-Checky-Signature: ' . checkdesk_bot__generate_signature($body),
+          ),
+        );
+        break;
+
+      case 'DELETE':
+        $curl_options = array(
+          CURLOPT_HTTPGET => FALSE,
+          CURLOPT_CUSTOMREQUEST => 'DELETE',
+          CURLOPT_URL => url($url, array('absolute' => TRUE)),
+          CURLOPT_NOBODY => FALSE,
+          CURLOPT_HTTPHEADER => array(
+            'X-Checky-Signature: ' . checkdesk_bot__generate_signature($body),
+          ),
+        );
+        break;
+    }
+
+    $response = $this->curlExec($curl_options);
+    $headers = $this->drupalGetHeaders();
+    $headers = implode("\n", $headers);
+
+    $this->verbose($method . ' request to: ' . $url .
+      '<hr />Code: ' . curl_getinfo($this->curlHandle, CURLINFO_HTTP_CODE) .
+      '<hr />Response headers: ' . $headers .
+      '<hr />Response body: ' . $response);
+
+    return $response;
+  }
+
+}

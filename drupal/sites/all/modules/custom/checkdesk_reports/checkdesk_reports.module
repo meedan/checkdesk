@@ -182,7 +182,7 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     // Redirect user to collaboration page.
     $form['actions']['submit']['#submit'][] = '_checkdesk_reports_redirect';
     // Hide comment settings
-    $form['comment_settings']['#access'] = usesr_access('access additional settings');
+    $form['comment_settings']['#access'] = user_access('access additional settings');
 
 
     if($form['field_stories']) {
