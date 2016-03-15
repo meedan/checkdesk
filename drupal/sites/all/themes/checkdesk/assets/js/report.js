@@ -67,25 +67,16 @@
   // filters for reports inside sidebar
   Drupal.behaviors.reportFilters = {
     attach: function (context, settings) {
-      $('.panel-toggle').unbind('click').click(function (event) {
-        var target = $(this),
-                element = target.parent().attr('id');
-        if ($('#' + element + ' .panel-content').is(':visible')) {
-          $('#' + element + ' .panel-content').fadeOut('fast');
-          $('#' + element).removeClass('open');
-        } else {
-          $('#' + element + ' .panel-content').fadeIn('fast');
-          $('#' + element).addClass('open');
-        }
-      });
+      
+      // Hide filters and show filter button on incoming reports sidebar
+      if ($('.view-display-id-incoming_reports').length) {
+        // Show filters toggle button
+          $('.content-filter .filters-toggle').removeClass('element-hidden');
+          // By default collapse all filters
+          $('.content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').hide();
 
-      // hide when clicked outside
-      $(document).mouseup(function (event) {
-        var container = $('.panel-content');
-        if (container.has(event.target).length === 0) {
-          container.hide();
-        }
-      });
+      }
+
       // Incoming reports sidebar
       $(window).resize(function () {
         if ($('.view-display-id-incoming_reports .view-content').length) {

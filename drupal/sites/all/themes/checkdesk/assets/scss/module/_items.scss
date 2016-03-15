@@ -91,6 +91,6 @@
 	}
 }
 
-.items .item {
+.items .item:not(:first-child) {
 	margin-top: 20px;
 }

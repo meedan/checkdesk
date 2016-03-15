@@ -43,14 +43,30 @@
   #sidebar-first.column { 
     border-#{$omega}: 1px solid $firefly10;
     background-color: #fff;
-    .view-desk-reports {
+    .view-checkdesk-search {
       .view-content {
         height: auto; // default height adjusted by jQuery in reports.js
         overflow-y: auto;
+        padding-#{$alpha}: 10px;
+        padding-#{$omega}: 10px;
       }
     }
     @include ctb-load-more-pager; 
   }
+}
+
+#sidebar-first.column {
+  background-color: $thatch5Alt;
+}
+
+#sidebar-first.column .search-reset-filters {
+  float: $omega;
+}
+
+#sidebar-first.column .control-container,
+#sidebar-first.column .view-filters {
+  padding-#{$alpha}: 10px;
+  padding-#{$omega}: 10px;
 }
 
 
@@ -118,4 +134,3 @@ body.sidebar-second aside#sidebar-second {
     }
   }
 }
-
