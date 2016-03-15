@@ -9,3 +9,12 @@ $databases['default']['default'] = array(
   'prefix'   => '',
 );
 
+$databases['test']['default'] = array(
+  'driver'   => 'mysql',
+  'database' => 'checkdesk_tests',
+  'username' => 'checkdesk',
+  'password' => '',
+  'host'     => 'localhost',
+  'prefix'   => '',
+);
+

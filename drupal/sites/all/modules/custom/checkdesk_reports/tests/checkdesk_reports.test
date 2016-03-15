@@ -1,39 +1,34 @@
 <?php
+require_once drupal_get_path('module', 'checkdesk_core') . '/tests/checkdesk_test_case.inc';
 
-class CheckdeskReportsLoadTestCase extends DrupalWebTestCase {
-
-  // A user with permission to create media content.
-  protected $web_user;
+class CheckdeskReportsLoadTestCase extends CheckdeskTestCase {
+  public function setUp() {
+    parent::setUp();
+    $this->authenticate(array('create page content', 'create media content'));
+  }
 
   public static function getInfo() {
     return array(
       'name' => 'Checkdesk reports load',
       'description' => 'Test that checkdesk_report_load works properly.',
-      'group' => 'Checkdesk Reports',
+      'group' => 'Checkdesk',
     );
-  }
-
-  public function setUp() {
-    parent::setUp('checkdesk_reports_feature', 'checkdesk_reports');
-    // Create and login user.
-    $web_user = $this->drupalCreateUser(array('create page content', 'create media content'));
-    $this->drupalLogin($web_user);
   }
 
   public function testCheckdeskReportLoad() {
     // Create a node of type page
     $page_settings = array(
-        'type' => 'page',
-        'title' => $this->randomName(32),
-        'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
+      'type' => 'page',
+      'title' => $this->randomName(32),
+      'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
     );
     $page = $this->drupalCreateNode($page_settings);
     //$this->verbose('Node created: ' . var_export($page, TRUE));
     // Create a node of type media
     $report_settings = array(
-        'type' => 'media',
-        'title' => $this->randomName(32),
-        'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
+      'type' => 'media',
+      'title' => $this->randomName(32),
+      'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
     );
     $report = $this->drupalCreateNode($report_settings);
 
@@ -48,40 +43,34 @@ class CheckdeskReportsLoadTestCase extends DrupalWebTestCase {
     // Test loading with non exist nid (use rand to get random number)
     $result =  checkdesk_report_load(rand());
     $this->assertFalse($result, t('Call report load with non exist nid'));
-
-
   }
-
 }
 
-class CheckdeskReportsPermissionsTestCase extends DrupalWebTestCase {
+class CheckdeskReportsPermissionsTestCase extends CheckdeskTestCase {
+  public function setUp() {
+    parent::setUp();
+    $this->authenticate(array('create media content', 'add report to story'));
+  }
 
   public static function getInfo() {
     return array(
-        'name' => 'Checkdesk reports permissions',
-        'description' => 'Test that checkdesk reports permissions work properly.',
-        'group' => 'Checkdesk Reports',
+      'name' => 'Checkdesk reports permissions',
+      'description' => 'Test that checkdesk reports permissions work properly.',
+      'group' => 'Checkdesk',
     );
-  }
-
-  public function setUp() {
-    parent::setUp('checkdesk_reports_feature', 'checkdesk_reports');
-    // Create and login user.
-    $web_user = $this->drupalCreateUser(array('create media content', 'add report to story'));
-    $this->drupalLogin($web_user);
   }
 
   public function testCheckdeskReportPermissions() {
     // Create a report
     $report_settings = array(
-        'type' => 'media',
-        'title' => $this->randomName(32),
-        'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com/watch?v=0UCGGpQCszQ'))),
+      'type' => 'media',
+      'title' => $this->randomName(32),
+      'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com/watch?v=0UCGGpQCszQ'))),
     );
     $report = $this->drupalCreateNode($report_settings);
     $stroy_settings = array(
-        'type' => 'discussion',
-        'title' => $this->randomName(32),
+      'type' => 'discussion',
+      'title' => $this->randomName(32),
     );
     $story = $this->drupalCreateNode($stroy_settings);
     // Verify suggest menu link.
@@ -89,7 +78,7 @@ class CheckdeskReportsPermissionsTestCase extends DrupalWebTestCase {
     $this->drupalGet("node/$report->nid/checkdesk/suggest");
     $this->verbose('Generated title : ' . t('Add Report "!title" to Story', array('!title' => $title)));
     $this->assertTitle(t('Add Report "!title" to Story', array('!title' => $title)), 'User can add a report to a story', 'Report permissions');
-    // Sugggest report to story.
+    // Sugggest report to story
     $edit = array();
     $edit['story'] = $story->nid;// story nid
     $this->drupalPost("node/$report->nid/checkdesk/suggest", $edit, t('Submit'));
@@ -98,21 +87,18 @@ class CheckdeskReportsPermissionsTestCase extends DrupalWebTestCase {
   }
 }
 
-class CheckdeskReportsGraphicContentTestCase extends DrupalWebTestCase {
+class CheckdeskReportsGraphicContentTestCase extends CheckdeskTestCase {
+  public function setUp() {
+    parent::setUp();
+    $this->authenticate(array('create media content'));
+  }
 
   public static function getInfo() {
     return array(
-        'name' => 'Checkdesk reports graphic content',
-        'description' => 'Test that checkdesk reports graphic content work properly.',
-        'group' => 'Checkdesk Reports',
+      'name' => 'Checkdesk reports graphic content',
+      'description' => 'Test that checkdesk reports graphic content work properly.',
+      'group' => 'Checkdesk',
     );
-  }
-
-  public function setUp() {
-    parent::setUp('checkdesk_reports_feature', 'checkdesk_reports');
-    // Create and login user.
-    $web_user = $this->drupalCreateUser(array('create media content'));
-    $this->drupalLogin($web_user);
   }
 
   public function testCheckdeskReportGraphicContent() {
@@ -142,22 +128,19 @@ class CheckdeskReportsGraphicContentTestCase extends DrupalWebTestCase {
   }
 }
 
-class CheckdeskReportsExportTestCase extends DrupalWebTestCase {
+class CheckdeskReportsExportTestCase extends CheckdeskTestCase {
+  public function setUp() {
+    parent::setUp();
+    module_load_include('inc', 'checkdesk_reports', 'includes/checkdesk.reports.export');
+    $this->authenticate(array('create media content', 'export reports'));
+  }
 
   public static function getInfo() {
     return array(
-        'name' => 'Checkdesk reports export',
-        'description' => 'Test that checkdesk reports export works properly.',
-        'group' => 'Checkdesk Reports',
+      'name' => 'Checkdesk reports export',
+      'description' => 'Test that checkdesk reports export works properly.',
+      'group' => 'Checkdesk',
     );
-  }
-
-  public function setUp() {
-    parent::setUp('checkdesk_reports_feature', 'checkdesk_reports');
-    module_load_include('inc', 'checkdesk_reports', 'includes/checkdesk.reports.export');
-    // Create and login user.
-    $web_user = $this->drupalCreateUser(array('create media content', 'export reports'));
-    $this->drupalLogin($web_user);
   }
 
   public function testCheckdeskReportsExport() {
@@ -165,17 +148,17 @@ class CheckdeskReportsExportTestCase extends DrupalWebTestCase {
     $story = $this->drupalCreateNode(array('type' => 'discussion', 'title' => $this->randomName(32)));
     // Create reports
     $report_settings = array(
-        'type' => 'media',
-        'title' => $this->randomName(32),
-        //'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com/watch?v=0UCGGpQCszQ'))),
-        'field_stories' => array(LANGUAGE_NONE => array(array('target_id' => $story->nid))),
+      'type' => 'media',
+      'title' => $this->randomName(32),
+      //'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com/watch?v=0UCGGpQCszQ'))),
+      'field_stories' => array(LANGUAGE_NONE => array(array('target_id' => $story->nid))),
     );
     $report1 = $this->drupalCreateNode($report_settings);
     $report_settings = array(
-        'type' => 'media',
-        'title' => $this->randomName(32),
-        //'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com'))),
-        'field_stories' => array(LANGUAGE_NONE => array(array('target_id' => $story->nid))),
+      'type' => 'media',
+      'title' => $this->randomName(32),
+      //'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com'))),
+      'field_stories' => array(LANGUAGE_NONE => array(array('target_id' => $story->nid))),
     );
     $report2 = $this->drupalCreateNode($report_settings);
     $reports = _checkdesk_reports_load_reports_story($story->nid);

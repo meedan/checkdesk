@@ -73,4 +73,29 @@ Behavior-Driven Development. If not, check the references on section 5 of this d
 
 # Unit Tests
 
+Unit tests rely on Simpletests, as Drupal.
 
+1. Preparing your environment and running tests
+
+First, you need to setup a testing database. Check `config/settings.local.php.example` for an example. It should be the "test" key of
+the `$databases` array. It is supposed to be a valid, up-to-date Checkdesk database installed using Checkdesk profile and with the
+required modules enabled.
+
+Then you can run the Checkdesk test suite by calling the Bash script from the Drupal root: `CHECKDESK_HOST=http://meedan-checkdesk/ ./scripts/run-checkdesk-tests.sh`. If you don't want to define the CHECKDESK_HOST everytime, just `export` it in your shell.
+
+This command should run all Checkdesk tests and output the results. Ideally, "fails" and "exceptions" should be 0.
+
+If you need to debug or see exactly where the tests fail, pass `--verbose` to the script.
+
+2. Adding new tests
+
+A test file should be in the `tests` directory inside the module that is being tested, with a `.test` extension. Run `find drupal/sites/all/modules/custom -name "*.test"` to see the existing test files.
+
+The test class should inherit from `CheckdeskTestCase`. If you need to change something that should apply to all tests, edit the abstract
+test class directly, in `checkdesk_core` module.
+
+Please add the test to the "Checkdesk" group in the `getInfo()` method, this way it will be called when `run-checkdesk-tests.sh` runs. 
+
+If you need special behavior in the `setUp` or `tearDown` methods, please remember to call `parent::setUp()` in the beginning of your implementation of them.
+
+If you need to authenticate as a user, call the `$this->authenticate()` method passing as parameter an array of permissions that this user should have.
