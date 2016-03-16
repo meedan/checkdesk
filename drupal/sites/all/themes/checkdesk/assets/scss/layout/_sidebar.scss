@@ -55,12 +55,23 @@
   }
 }
 
+// Incoming Reports 
+// search filters 
+// Render search page as in responsive mode in the sidebar
+
 #sidebar-first.column {
   background-color: $thatch5Alt;
 }
 
-#sidebar-first.column .search-reset-filters {
-  float: $omega;
+#sidebar-first.column .view-checkdesk-search {
+  @include flexbox;
+  @include flex-direction(column);
+}
+
+// Filters on the top
+#sidebar-first.column .view-filters {
+  margin-top: 10px;
+  @include order(-1);
 }
 
 #sidebar-first.column .control-container,

@@ -84,7 +84,7 @@
           var top = parseInt($('#sidebar-first').css('top'), 10);
           // get height of view pager and header
           var pagerHeight = $('.view-display-id-incoming_reports .pager-load-more').not('.pager-load-more-empty').outerHeight(true);
-          var headerHeight = $('.view-display-id-incoming_reports .content-filter').outerHeight(true) + $('.view-display-id-incoming_reports .view-header').outerHeight(true);
+          var headerHeight = $('.view-display-id-incoming_reports .view-filters').outerHeight(true) + $('.view-display-id-incoming_reports .control-container').outerHeight(true);
           // minus view pager and filter height out of the top value
           var difference = top + pagerHeight + headerHeight;
           var height = $(window).height() - difference;
