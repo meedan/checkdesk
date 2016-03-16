@@ -884,6 +884,10 @@ function checkdesk_links__node($variables) {
   ctools_add_js('checkdesk_core', 'checkdesk_core');
   if (arg(0) != 'embed' && count($links) > 0) {
     $output = '<div' . drupal_attributes(array('class' => $class)) . '>';
+    // Add drag and drop icon
+    if (isset($links['cd_drag'])) {
+      $output .= $links['cd_drag'];
+    }
     // Add share links
     $options = array('links' => $links, 'direction' => $links['dropdown-direction'],
         'type' => 'checkdesk-share', 'wrapper_class' => 'share-on', 'icon_class' => 'icon-share');

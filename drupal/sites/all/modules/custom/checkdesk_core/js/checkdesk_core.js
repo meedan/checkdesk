@@ -45,13 +45,14 @@
         accept: '.draggable',
         tolerance: 'touch',
         drop: function(event, ui) {
-          $(ui.draggable).hide();
+          //$(ui.draggable).hide();
 
           // Retrieve the Views information from the DOM.
           var data       = $(ui.draggable).data('views'),
               $textarea  = $('textarea', this),
               instance;
 
+          $('#node-'+ data.nid ).hide();
           // Either insert the text into CKEDITOR, if available, else directly
           // into the text editor.
           if (typeof CKEDITOR != 'undefined' && CKEDITOR.instances[$textarea.attr('id')]) {
@@ -98,10 +99,10 @@
                 // Ticket #3404 - changed to check with last part of ref ":report-id]"
               if (-1 !== data.indexOf(":" + nid + "]")) {
                 // report is there: hide in sidebar.
-                $('#report-'+nid).parent().hide();
+                $('#node-'+ nid).parent().hide();
               } else {
                 // report is not there: show in sidebar.
-                $('#report-'+nid).parent().show();
+                $('#node-'+ nid).parent().show();
               }
             })
           })
@@ -111,7 +112,7 @@
       // Attach the Views results to each correspoknding row in the DOM.
       $('.view-display-id-incoming_reports .view-content').children().each(function() {
         var i = $(this).find('.report-row-container').attr('id');
-        $(this).data('views', settings.checkdesk.reports[i]);
+        $(this).find('.cd-drag-'+ i).data('views', settings.checkdesk.reports[i]);
       });
       // Restrict thumbnail width to 220
       $('.view-display-id-incoming_reports .view-content').find('.thumbnail img').width(220);

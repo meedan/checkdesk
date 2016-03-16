@@ -601,6 +601,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $links[$id] = $link;
     }
   }
+
   return $links;
 }
 
@@ -758,6 +759,13 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
 
   // Get node links.
   $links = _checkdesk_core_node_links($node);
+
+  // Add a drag and drop icon
+  if ($node->type == 'media' && $view_mode == 'checkdesk_search' && arg(0) !== 'search') {
+    // Check that reports are in incoming sidebar view
+    $links['cd_drag'] = '<span class="drag-drop"><div class="cd-drag-report cd-drag-node-'. $node->nid  .' draggable">'. t('Drag & Drop') .'</div></span>';
+  }
+
   if (!empty($links)) {
     $node->content['links']['checkdesk'] = array(
       '#theme' => 'links',
