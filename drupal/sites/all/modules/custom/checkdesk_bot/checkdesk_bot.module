@@ -88,15 +88,7 @@ function checkdesk_bot__generate_response($tweet) {
     );
   }
   else { // 1 > count($tweet['entities']['urls'])
-    return t(
-      '!screen_name sorry, I need a link to import.',
-      array(
-        '!screen_name' => '@' . $tweet['user']['screen_name'],
-      ),
-      array(
-        'langcode' => $langcode,
-      )
-    );
+    $report_url = 'https://twitter.com/' . $tweet['user']['screen_name'] . '/status/' . $tweet['id_str'];
   }
 
   // Is the link ours?

@@ -29,6 +29,22 @@ function checkdesk_core_permission() {
       'title' => t('Edit published content'),
       'description' => t('User can edit published content.'),
     ),
+    'access author filter' => array(
+      'title' => t('Access author filter'),
+      'description' => t('User can access author filter (search page).'),
+    ),
+    'hide unflag text' => array(
+      'title' => t('Hide unflag text'),
+      'description' => t('User will not able to see unflag text'),
+    ),
+    'access additional settings' => array(
+      'title' => t('Access additional settings'),
+      'description' => t('User can access additional settings'),
+    ),
+    'access administer role' => array(
+      'title' => t('Access administer role'),
+      'description' => t('User can access administer role'),
+    ),
   );
 }
 
@@ -687,7 +703,7 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
   }
   global $user;
   //do not allow unflag not allowed text to appear to citizen journalist.
-  if (in_array('citizen journalist', $user->roles) && $flag->name == 'factcheck_journalist') {
+  if (user_access('hide unflag text') && $flag->name == 'factcheck_journalist') {
     $flag_factcheck = flag_get_flag('factcheck_journalist');
     if ($flag_factcheck->is_flagged($entity_id)) {
       return FALSE;
@@ -857,9 +873,8 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
     }
   }
 
-  if (!in_array('administrator', array_values($user->roles))) {
-    $form['additional_settings']['#access'] = FALSE;
-  }
+  $form['additional_settings']['#access'] = user_access('access additional settings');
+
 
   // Change title.
   drupal_set_title(t('Compose Update'));
@@ -957,10 +972,9 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
         $form['actions']['submit']['#value'] = $form['#node']->status ? t('Publish changes') : t('Publish');
     }
   }
-  if (in_array('journalist', $user->roles)) {
-    // Hide comment settings
-    $form['comment_settings']['#access'] = FALSE;
-  }
+
+  // Hide comment settings
+  $form['comment_settings']['#access'] = user_access('access additional settings');
 
   // Add CSS file for autocomplete field
   if($form['field_tags']) {
@@ -1383,7 +1397,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     global $user;
     if ($user->uid) {
       $users = array();
-      if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) {
+      if (user_access('access author filter')) {
         $users = db_query('
               SELECT name FROM {users} WHERE status = :status AND uid != :uid ORDER BY name
         ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
@@ -1813,7 +1827,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     global $user;
 
     //Hide administer role so journalist can not give his account a higher role.
-    if (!in_array('administrator', $user->roles) && in_array('journalist', $user->roles)) {
+    if (!user_access('access administer role')) {
       $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
     }
     // Hook on submit to remove misleading message.
@@ -2977,9 +2991,9 @@ function _checkdesk_purge_varnish($paths) {
         if (!$purge_all) {
           foreach ($paths as $path) {
             foreach($languages as $key => $value) {
-              $urls[] = url($path, array(
+              $urls[] = ltrim(url($path, array(
                 'language' => $languages[$key],
-              ));
+              )),'/');
             }
           }
         }
@@ -2989,6 +3003,10 @@ function _checkdesk_purge_varnish($paths) {
         varnish_purge_paths($hostname, $urls);
         //adding sleep for 2 seconds
         sleep(2);
+        watchdog('checkdesk_varnish', 'Purged varnish cache in queue');
+        if (module_exists('checkdesk_fbcache')) {
+          checkdesk_fbcache_bulk_scrape($hostname, $urls);
+        }
       }
     }
   }
@@ -3070,12 +3088,9 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
         $paths[] = 'node/'. $object->field_desk[LANGUAGE_NONE][0]['target_id'];
         break;
       case 'media':
-        //get all stories that hold updates contain this report
-        $query = db_select('checkdesk_reports_updates', 'ru');
-        $query->join('field_data_field_desk', 'fd', 'ru.update_nid = fd.entity_id');
-        $query->condition('ru.report_nid', $object->nid);
-        $query->addExpression("CONCAT('node/', fd.field_desk_target_id)", 'story_url');
-        $paths = $query->execute()->fetchCol();
+        if (isset($object->field_stories[LANGUAGE_NONE][0]['target_id'])) {
+          $paths[] = 'node/'. $object->field_stories[LANGUAGE_NONE][0]['target_id'];
+        }
         $paths[] = 'node/'. $object->nid;
         break;
       }
