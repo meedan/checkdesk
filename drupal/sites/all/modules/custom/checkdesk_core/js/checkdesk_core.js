@@ -99,10 +99,11 @@
                 // Ticket #3404 - changed to check with last part of ref ":report-id]"
               if (-1 !== data.indexOf(":" + nid + "]")) {
                 // report is there: hide in sidebar.
-                $('#node-'+ nid).parent().hide();
+                $('#node-'+ nid).hide();
               } else {
+                console.log('I am here  - show', nid);
                 // report is not there: show in sidebar.
-                $('#node-'+ nid).parent().show();
+                $('#node-'+ nid).show();
               }
             })
           })
