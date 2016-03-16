@@ -1144,6 +1144,7 @@ print _checkdesk_search_header();
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
+    'incoming_reports' => 'incoming_reports',
     'default' => 0,
   );
   $handler->display->display_options['inherit_exposed_filters'] = TRUE;

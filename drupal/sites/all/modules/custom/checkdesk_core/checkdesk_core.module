@@ -1240,37 +1240,13 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
  * Implements hook_form_FORM_ID_alter() for `views_exposed_form`.
  */
 function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
-  if ($form['#id'] == 'views-exposed-form-desk-reports-block') {
-    $title_options = array('contains' => t('Show reports with this keyword'), 'not'=> t('Exclude report with this keyword'));
-    $source_options = array('contains' => t('Show reports from this source'), 'not'=> t('Exclude report from this source'));
-    $form['title_op']['#options'] = $title_options;
-    $form['source_op']['#options'] = $source_options;
-    $form['source_op']['#process'] = $form['title_op']['#process'] = array('form_process_radios');
-    $form['source_op']['#attributes'] = $form['title_op']['#attributes'] = array('class' => array('bef-select-as-radios'));
-    $form['source_op']['#theme'] = $form['title_op']['#theme'] = 'select_as_radios';
-    $form['field_stories_target_id']['#options'] = array_reverse($form['field_stories_target_id']['#options'], TRUE);
-    //Display filter info.
-    if (!empty($_REQUEST['title'])) {
-      $form['title']['#description'] = str_replace(array('{key:contains}', '{key:not}'), array('Showing reports with', 'Excluding reports with'), $form['title']['#description']);
-    }
-    else {
-      $form['title']['#description'] = NULL;
-    }
-    $form['title']['#attributes']['placeholder'] = t('Keyword');
-    if (isset($_REQUEST['source'])) {
-      $form['source']['#description'] = str_replace(array('{key:contains}', '{key:not}'), array('Showing reports from', 'Excluding reports from'), $form['source']['#description']);
-    }
-    else {
-      $form['source']['#description'] = NULL;
-    }
-    $form['source']['#attributes']['placeholder'] = 'YouTube'; // don't translate this as the sources database won't understand the translation.
+  if ($form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports') {
     //Fix reset button
-    $form['#action'] = url($_GET['q']);
-    $form['submit']['#attributes']['onclick'] = 'javascript: jQuery("#edit-submit-desk-reports").trigger("click");return false;';
-    $form['reset']['#attributes']['onclick'] =
-            'javascript: jQuery("#views-exposed-form-desk-reports-block").clearForm();jQuery("#edit-submit-desk-reports").trigger("click");return false;';
+    //$form['#action'] = url($_GET['q']);
+    //$form['reset']['#attributes']['onclick'] =
+    //        'javascript: jQuery("#views-exposed-form-checkdesk-search-incoming-reports").clearForm();jQuery("#edit-submit-checkdesk-search").trigger("click");return false;';
   }
-  elseif ($form['#id'] == 'views-exposed-form-checkdesk-search-page' || $form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports') {
+  if ($form['#id'] == 'views-exposed-form-checkdesk-search-page' || $form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports') {
     // Add required js for fastLiveFilter plugin.
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_search.js');
@@ -2048,9 +2024,9 @@ function _twitter_signin_get_picture($account, $twitter_account) {
 function checkdesk_core_views_query_alter(&$view, &$query) {
 
   if ($view->name == 'checkdesk_search') {
-    // Check if we are displaying reports
+    // Check if we are displaying reports (for incoming reports sidebar)
     $is_reports = FALSE;
-    if ($view->current_display == 'incoming_reports' || (isset($_GET['type']) && $_GET['type'] === 'report')) {
+    if ((isset($view->old_view[1]) && $view->old_view[1]->current_display == 'incoming_reports') || $view->current_display == 'incoming_reports' || (isset($_GET['type']) && $_GET['type'] === 'report')) {
       $is_reports = TRUE;
     }
     // Update type condition with right values.
@@ -2165,7 +2141,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     }
     // Fix helper text in case of search by keyword.
     if ($view->current_display === 'attachment_1') {
-      if ($view->old_view[1]->current_display == 'incoming_reports') {
+      if (isset($view->old_view[1]) && $view->old_view[1]->current_display == 'incoming_reports') {
         $query->where[1]['conditions'][0]['value'] = array('media');
       }
       if (empty($view->exposed_raw_input['keys'])) {
