@@ -31,6 +31,7 @@
     bottom: 0;
     z-index: 1;
     max-width: 360px;
+    min-width: 360px;
     height: 100%;
   }
 
@@ -72,14 +73,20 @@
 #sidebar-first.column .view-filters {
   margin-top: 10px;
   @include order(-1);
+  form {
+    margin-bottom: 0;
+  }
 }
 
 #sidebar-first.column .control-container,
 #sidebar-first.column .view-filters {
-  padding-#{$alpha}: 10px;
-  padding-#{$omega}: 10px;
+  margin-#{$alpha}: 10px;
+  margin-#{$omega}: 10px;
 }
 
+#sidebar-first.column .control-container {
+  padding-top: 10px;
+}
 
 // Page with sidebar second
 // as in search page

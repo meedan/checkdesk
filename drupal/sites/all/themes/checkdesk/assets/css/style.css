@@ -371,6 +371,10 @@
   content: "\f044";
 }
 
+.icon-arrows:before {
+  content: "\f047";
+}
+
 .icon-times-circle:before {
   content: "\f057";
 }
@@ -3591,6 +3595,7 @@ svg.logo-icon {
     bottom: 0;
     z-index: 1;
     max-width: 360px;
+    min-width: 360px;
     height: 100%;
   }
 
@@ -3686,11 +3691,18 @@ svg.logo-icon {
   -ms-flex-order: -1;
   order: -1;
 }
+#sidebar-first.column .view-filters form {
+  margin-bottom: 0;
+}
 
 #sidebar-first.column .control-container,
 #sidebar-first.column .view-filters {
-  padding-left: 10px;
-  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#sidebar-first.column .control-container {
+  padding-top: 10px;
 }
 
 body.sidebar-second #main {
@@ -5979,7 +5991,7 @@ body.cke_editable blockquote:after {
 }
 
 @media only screen and (min-width: 740px) {
-  .page-results {
+  .page-search .page-results {
     float: left;
   }
 }
@@ -5995,7 +6007,7 @@ body.cke_editable blockquote:after {
 }
 
 @media only screen and (min-width: 740px) {
-  .search-reset-filters {
+  .page-search .search-reset-filters {
     float: right;
   }
 }
@@ -7432,6 +7444,21 @@ Full item with 75% width media.
   *margin-right: .3em;
   color: "black";
   font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrows:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 20px;
   font-style: normal;
   font-weight: normal;
   line-height: inherit;
