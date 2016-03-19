@@ -2084,13 +2084,13 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       // Add publication status filter
       if (isset($_GET['report_publication']) && $_GET['report_publication'] !== 'All') {
         $join = new views_join();
-        $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
-        $query->add_relationship('fdfs_media', $join, 'field_data_field_stories');
+        $join->construct('checkdesk_reports_publication', 'node', 'nid', 'report_nid', array(), 'LEFT');
+        $query->add_relationship('cru', $join, 'report_nid');
         if ($_GET['report_publication'] === 'report_unpublished') {
-          $query->add_where(1,'fdfs_media.field_stories_target_id', 1, 'IS NULL');
+          $query->add_where(1,'cru.report_nid', 1, 'IS NULL');
         }
         else {
-          $query->add_where(1,'fdfs_media.field_stories_target_id', 1, 'IS NOT NULL');
+          $query->add_where(1,'cru.report_nid', 1, 'IS NOT NULL');
         }
       }
       // Add source filter
@@ -2545,11 +2545,6 @@ function checkdesk_core_node_insert($node) {
         ->condition('nid', $node->field_desk[LANGUAGE_NONE][0]['target_id'])
         ->execute();
     }
-    //link report to created update
-    if (!empty($node->body)) {
-      $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
-      checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
-    }
   }
   elseif ($node->type == 'discussion') {
     $path = array(
@@ -2557,28 +2552,6 @@ function checkdesk_core_node_insert($node) {
       'alias' => 'story/' . $node->nid . '/collaboration',
     );
     path_save($path);
-    // Link reports to created story
-    if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
-      $matches = $reports = array();
-      preg_match_all('/\[[^:]+:([0-9]+)\]/u', $node->body[LANGUAGE_NONE][0]['value'], $matches);
-      if (count($matches[1])) {
-        foreach ($matches[1] as $key => $nid) {
-          if (is_numeric($nid) && is_object(node_load($nid))) {
-            if (!in_array($nid, $reports)) {
-              $reports[] = $nid;
-              //Link report to story
-              $report = node_load($nid);
-              if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) ||
-                $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $node->nid
-              ) {
-                $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $node->nid;
-                node_save($report);
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 
@@ -2587,13 +2560,6 @@ function checkdesk_core_node_insert($node) {
  */
 function checkdesk_core_node_update($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'update');
-  if ($node->type === 'post' && isset($node->body)) {
-    $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
-    //link report to update
-    if (!empty($node->body)) {
-      checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
-    }
-  }
 }
 
 /**
@@ -2601,16 +2567,6 @@ function checkdesk_core_node_update($node) {
  */
 function checkdesk_core_node_delete($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'delete');
-  if ($node->type === 'post') {
-    db_delete('checkdesk_reports_updates')
-      ->condition('update_nid', $node->nid)
-      ->execute();
-  }
-  elseif ($node->type == 'media') {
-    db_delete('checkdesk_reports_updates')
-      ->condition('report_nid', $node->nid)
-      ->execute();
-  }
 }
 
 /**
@@ -3027,37 +2983,6 @@ function _checkdesk_purge_varnish($paths) {
         sleep(2);
         if (module_exists('checkdesk_fbcache')) {
           checkdesk_fbcache_bulk_scrape($hostname, $urls);
-        }
-      }
-    }
-  }
-}
-
-/**
- *
- */
-function checkdesk_log_reports_updates($op, $text, $update_nid, $story_nid) {
-  //link report to created update
-  if ($op == 'update') {
-    db_delete('checkdesk_reports_updates')
-      ->condition('update_nid', $update_nid)
-      ->execute();
-  }
-  $matches = $reports = array();
-  preg_match_all('/\[[^:]+:([0-9]+)\]/u', $text, $matches);
-  if (count($matches[1])) {
-    foreach ($matches[1] as $key => $nid) {
-      if (is_numeric($nid) && is_object(node_load($nid))) {
-        if(!in_array($nid, $reports)) {
-          $reports[] = $nid;
-          db_insert('checkdesk_reports_updates')->fields(array('report_nid' => $nid, 'update_nid'  => $update_nid))->execute();
-          //Link report to story
-          $report = node_load($nid);
-          if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) ||
-            $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $story_nid) {
-              $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $story_nid;
-              node_save($report);
-            }
         }
       }
     }

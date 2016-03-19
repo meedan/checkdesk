@@ -8,13 +8,79 @@ function checkdesk_reports_install() {
 }
 
 /**
+ * Implements hook_schema().
+ */
+function checkdesk_reports_schema() {
+  $schema['checkdesk_reports_publication'] = array(
+    'description' => 'The base table to associate reports with updates and stories.',
+    'fields' => array(
+      'entity_nid' => array('type' => 'int', 'length' => 10, 'unsigned' => TRUE, 'not null' => TRUE),
+      'report_nid' => array('type' => 'int', 'length' => 10, 'unsigned' => TRUE, 'not null' => TRUE),
+      'bundle' => array('type' => 'varchar', 'length' => 128,'not null' => TRUE, 'default' => ''),
+    ),
+    'primary key' => array('entity_nid', 'report_nid'),
+  );
+  return $schema;
+}
+/**
  * Change checkdesk_reports weight
  */
 function checkdesk_reports_update_7001() {
+  $schema = checkdesk_reports_schema();
+  db_create_table('checkdesk_reports_publication', $schema['checkdesk_reports_publication']);
   db_update('system')
     ->fields(array(
       'weight' => 99,
     ))
     ->condition('name', 'checkdesk_reports')
     ->execute();
+}
+
+/**
+ * Rename checkdesk_reports_updates table
+ * Change update_nid to entity_nid
+ * Add bundle column
+ */
+function checkdesk_reports_update_7002() {
+  db_rename_table('checkdesk_reports_updates', 'checkdesk_reports_publication');
+  $schema = checkdesk_reports_schema();
+  db_change_field('checkdesk_reports_publication', 'update_nid', 'entity_nid', $schema['checkdesk_reports_publication']['fields']['entity_nid']);
+  // add new field
+  db_add_field('checkdesk_reports_publication', 'bundle', $schema['checkdesk_reports_publication']['fields']['bundle']);
+  // change primary keys
+  db_drop_primary_key('checkdesk_reports_publication');
+  db_add_primary_key('checkdesk_reports_publication', array('entity_nid', 'report_nid'));
+  db_query('UPDATE {checkdesk_reports_publication} SET bundle = :bundle', array(':bundle' => 'post'));
+}
+
+/**
+ * Log existing stories and reports.
+ */
+function checkdesk_reports_update_7003() {
+  $query = db_select('node', 'n');
+  $query->addField('n', 'nid');
+  $query->addField('fdb', 'body_value');
+  $query->join('field_data_body', 'fdb', 'n.nid = fdb.entity_id');
+  $query->condition('n.type', 'discussion');
+  $result = $query->execute()->fetchAll();
+  $data = array();
+  foreach ($result as $row) {
+    $matches = $reports = array();
+    preg_match_all('/\[[^:]+:([0-9]+)\]/u', $row->body_value, $matches);
+    if (count($matches[1])) {
+      foreach ($matches[1] as $key => $nid) {
+        if (!in_array($nid, $reports)) {
+          $reports[] = $nid;
+          $data[] = array('entity_nid' => $row->nid, 'report_nid' => $nid, 'bundle' => 'discussion');
+        }
+      }
+    }
+  }
+  if (count($data)) {
+    $query = db_insert('checkdesk_reports_publication')->fields(array('entity_nid', 'report_nid', 'bundle'));
+    foreach ($data as $record) {
+      $query->values($record);
+    }
+    $query->execute();
+  }
 }

@@ -9,21 +9,6 @@ function checkdesk_core_enable() {
 }
 
 /**
- * Implements hook_schema().
- */
-function checkdesk_core_schema() {
-  $schema['checkdesk_reports_updates'] = array(
-      'description' => 'The base table to associate reports with updates.',
-      'fields' => array(
-          'update_nid' => array('type' => 'int', 'length' => 10, 'unsigned' => TRUE, 'not null' => TRUE),
-          'report_nid' => array('type' => 'int', 'length' => 10, 'unsigned' => TRUE, 'not null' => TRUE),
-      ),
-      'primary key' => array('update_nid', 'report_nid'),
-  );
-  return $schema;
-}
-
-/**
  * Implements hook_requirements().
  */
 function checkdesk_core_requirements($phase) {
@@ -187,14 +172,6 @@ function checkdesk_core_update_7028() {
   if (!empty($uaids)) {
     heartbeat_activity_delete($uaids);
   }
-}
-
-/**
- * Create table for log updates_reports.
- */
-function checkdesk_core_update_7029() {
-  $schema = checkdesk_core_schema();
-  db_create_table('checkdesk_reports_updates', $schema['checkdesk_reports_updates']);
 }
 
 /**
