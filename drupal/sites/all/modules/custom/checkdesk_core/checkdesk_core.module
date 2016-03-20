@@ -1249,12 +1249,7 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
  * Implements hook_form_FORM_ID_alter() for `views_exposed_form`.
  */
 function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
-  if ($form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports') {
-    //Fix reset button
-    //$form['#action'] = url($_GET['q']);
-    //$form['reset']['#attributes']['onclick'] =
-    //        'javascript: jQuery("#views-exposed-form-checkdesk-search-incoming-reports").clearForm();jQuery("#edit-submit-checkdesk-search").trigger("click");return false;';
-  }
+  
   if ($form['#id'] == 'views-exposed-form-checkdesk-search-page' || $form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports') {
     // Add required js for fastLiveFilter plugin.
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
@@ -3365,6 +3360,21 @@ function _checkdesk_story_get_collaborators($nid, $options = array()) {
   }
 
   return $output;
+}
+
+/**
+ * Retrun 'Reset all filters' link for search/incomming reports views
+ */
+function _checkdesk_render_reset_search_result_link() {
+  if (arg(0) == 'search') {
+    return l(t('Reset all filters'), 'search', array('attributes' => array('class' => array('search-reset'))));
+  }
+  return l(t('Reset all filters'), $_GET['q'], array(
+    'attributes' => array(
+      'class' => array('search-reset'),
+      'onclick' => 'javascript: jQuery("#views-exposed-form-checkdesk-search-incoming-reports").clearForm();jQuery("#edit-submit-checkdesk-search").trigger("click");return false;'
+    ),
+  ));
 }
 
 /**

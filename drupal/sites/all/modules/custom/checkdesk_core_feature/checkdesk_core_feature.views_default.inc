@@ -851,7 +851,7 @@ function checkdesk_core_feature_views_default_views() {
   <?php print t(\'There are no results that match your search.\'); ?>
 </div>
 <div class="search-reset-filters">
-  <?php print l(t(\'Reset all filters\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
+ <?php print _checkdesk_render_reset_search_result_link(); ?>
 </div>';
   $handler->display->display_options['empty']['area']['format'] = 'php_code';
   /* Relationship: Flags: spam */
@@ -1355,7 +1355,7 @@ print _checkdesk_search_header();
   <?php print t(\'There are no results that match your search.\'); ?>
 </div>
 <div class="search-reset-filters">
-  <?php print l(t(\'Reset all filters\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
+ <?php print _checkdesk_render_reset_search_result_link(); ?>
 </div>'),
     t('flag_spam'),
     t('flag_gc'),
