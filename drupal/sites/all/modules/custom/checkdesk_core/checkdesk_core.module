@@ -2704,19 +2704,6 @@ function checkdesk_core_preprocess_user_alert(&$vars) {
 }
 
 /**
- * Helper function to check whether a report was published on an update before
- */
-function checkdesk_core_report_published_on_update($nid) {
-  if (is_numeric($nid)) {
-    $count = db_query(
-      'SELECT COUNT(*) FROM {checkdesk_reports_updates} WHERE report_nid = :nid', array(':nid' => $nid)
-    )->fetchField();
-    return $count ? $count : FALSE;
-  }
-  return FALSE;
-}
-
-/**
  * Implements hook_clientside_validation_form_alter().
  */
 function checkdesk_core_clientside_validation_form_alter(&$form, &$form_state, &$js_rules) {
@@ -3035,9 +3022,10 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
         break;
       case 'media':
         //get all stories that hold updates contain this report
-        $query = db_select('checkdesk_reports_updates', 'ru');
-        $query->join('field_data_field_desk', 'fd', 'ru.update_nid = fd.entity_id');
-        $query->condition('ru.report_nid', $object->nid);
+        $query = db_select('checkdesk_reports_publication', 'rp');
+        $query->join('field_data_field_desk', 'fd', 'rp.entity_nid = fd.entity_id');
+        $query->condition('rp.report_nid', $object->nid);
+        $query->condition('rp.bundle', 'post');
         $query->addExpression("CONCAT('node/', fd.field_desk_target_id)", 'story_url');
         $paths = $query->execute()->fetchCol();
         $paths[] = 'node/'. $object->nid;
