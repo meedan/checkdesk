@@ -884,6 +884,10 @@ function checkdesk_links__node($variables) {
   ctools_add_js('checkdesk_core', 'checkdesk_core');
   if (arg(0) != 'embed' && count($links) > 0) {
     $output = '<div' . drupal_attributes(array('class' => $class)) . '>';
+    // Add drag and drop icon
+    if (isset($links['cd_drag'])) {
+      $output .= $links['cd_drag'];
+    }
     // Add share links
     $options = array('links' => $links, 'direction' => $links['dropdown-direction'],
         'type' => 'checkdesk-share', 'wrapper_class' => 'share-on', 'icon_class' => 'icon-share');
@@ -1424,20 +1428,6 @@ function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
  */
 function checkdesk_preprocess_views_view_fields(&$vars) {
   global $user;
-
-  if (in_array($vars['view']->name, array('desk_reports'))) {
-    $report_nid = $vars['fields']['nid']->raw;
-    $vars['name_i18n'] = isset($vars['fields']['field_rating']->content) ? t($vars['fields']['field_rating']->content) : NULL;
-
-    if ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) && checkdesk_core_report_published_on_update($report_nid)) {
-      $vars['report_published'] = t('Published on update');
-    } else {
-      $vars['report_published'] = FALSE;
-    }
-    // Get embed type
-    $vars['media_type_class'] = checkdesk_oembed_embed_class_type($report_nid);
-  }
-
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
     $vars['update_id'] = $vars['fields']['nid']->raw;

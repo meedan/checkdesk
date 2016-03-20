@@ -83,14 +83,14 @@
         media: '(max-width: 740px)',
         entry: function() {
           // Show filters toggle button
-          $('.content-filter .filters-toggle').removeClass('element-hidden');
+          $('.page-search .content-filter .filters-toggle').removeClass('element-hidden');
           // By default collapse all filters
-          $('.content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').hide();
+          $('.page-search .content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').hide();
         },
         exit: function() {
-         $('.content-filter .filters-toggle').addClass('element-hidden');
+         $('.page-search .content-filter .filters-toggle').addClass('element-hidden');
          // Show filters
-          $('.content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').show();
+          $('.page-search .content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').show();
         }
       });
 

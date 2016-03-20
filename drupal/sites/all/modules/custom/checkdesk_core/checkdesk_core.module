@@ -617,6 +617,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $links[$id] = $link;
     }
   }
+
   return $links;
 }
 
@@ -774,6 +775,13 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
 
   // Get node links.
   $links = _checkdesk_core_node_links($node);
+
+  // Add a drag and drop icon
+  if ($node->type == 'media' && $view_mode == 'checkdesk_search' && arg(0) !== 'search') {
+    // Check that reports are in incoming sidebar view
+    $links['cd_drag'] = '<span class="drag-drop"><div class="cd-drag-report cd-drag-node-'. $node->nid  .' draggable"><span class="icon-arrows"></span></div></span>';
+  }
+
   if (!empty($links)) {
     $node->content['links']['checkdesk'] = array(
       '#theme' => 'links',
@@ -1074,23 +1082,24 @@ function checkdesk_core_node_presave($node) {
  * Implements hook_views_pre_render().
  */
 function checkdesk_core_views_pre_render(&$view) {
-  if ($view->name == 'desk_reports') {
+  if ($view->name == 'checkdesk_search' && $view->current_display == 'incoming_reports') {
     // Setup drag & drop.
     drupal_add_js(libraries_get_path('insertatcaret') . '/jquery.insertatcaret.js');
 
     $data = array();
-    foreach ($view->result as $datum) {
+    $reports_nid = array();
+    foreach ($view->result as $row) {
+      $reports_nid[] = $row->nid;
+    }
+    foreach (node_load_multiple($reports_nid) as $datum) {
       $node = (object) array(
         'nid'   => $datum->nid,
-        'title' => $datum->node_title,
+        'title' => $datum->title,
         'type'  => 'media',
       );
-
       $datum->droppable_ref = checkdesk_core_droppable_reference($node);
-
-      $data['report-' . $datum->nid] = $datum;
+      $data['node-' . $datum->nid] = $datum;
     }
-
     // Send view results to client.
     drupal_add_js(array('checkdesk' => array('reports' => $data)), 'setting');
   }
@@ -1254,144 +1263,68 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
  * Implements hook_form_FORM_ID_alter() for `views_exposed_form`.
  */
 function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
-  if ($form['#id'] == 'views-exposed-form-desk-reports-block') {
-    $title_options = array('contains' => t('Show reports with this keyword'), 'not'=> t('Exclude report with this keyword'));
-    $source_options = array('contains' => t('Show reports from this source'), 'not'=> t('Exclude report from this source'));
-    $form['title_op']['#options'] = $title_options;
-    $form['source_op']['#options'] = $source_options;
-    $form['source_op']['#process'] = $form['title_op']['#process'] = array('form_process_radios');
-    $form['source_op']['#attributes'] = $form['title_op']['#attributes'] = array('class' => array('bef-select-as-radios'));
-    $form['source_op']['#theme'] = $form['title_op']['#theme'] = 'select_as_radios';
-    $form['field_stories_target_id']['#options'] = array_reverse($form['field_stories_target_id']['#options'], TRUE);
-    //Display filter info.
-    if (!empty($_REQUEST['title'])) {
-      $form['title']['#description'] = str_replace(array('{key:contains}', '{key:not}'), array('Showing reports with', 'Excluding reports with'), $form['title']['#description']);
-    }
-    else {
-      $form['title']['#description'] = NULL;
-    }
-    $form['title']['#attributes']['placeholder'] = t('Keyword');
-    if (isset($_REQUEST['source'])) {
-      $form['source']['#description'] = str_replace(array('{key:contains}', '{key:not}'), array('Showing reports from', 'Excluding reports from'), $form['source']['#description']);
-    }
-    else {
-      $form['source']['#description'] = NULL;
-    }
-    $form['source']['#attributes']['placeholder'] = 'YouTube'; // don't translate this as the sources database won't understand the translation.
-    //Fix reset button
-    $form['#action'] = url($_GET['q']);
-    $form['submit']['#attributes']['onclick'] = 'javascript: jQuery("#edit-submit-desk-reports").trigger("click");return false;';
-    $form['reset']['#attributes']['onclick'] =
-            'javascript: jQuery("#views-exposed-form-desk-reports-block").clearForm();jQuery("#edit-submit-desk-reports").trigger("click");return false;';
-  }
-  elseif ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
-    // Add custom field for type
-    $form['type'] = array(
-      '#type' => 'select',
-      '#title' => '',
-      '#options' => array(
-        'All' => t('Everything'),
-        'report' => t('Reports'),
-        'story' => t('Stories'),
-        'update' => t('Updates'),
-      ),
-      '#theme' => 'select_as_links',
-    );
-
-    // This value determines the position of the new element.
-    $insert_index = 2;
-    $element_to_insert = array();
-    $element_to_insert['filter-type'] = array(
-      'value' => 'type',
-    );
-    $form_info_top = array_slice($form['#info'], 0, $insert_index);
-    $form_info_bottom = array_slice($form['#info'], $insert_index);
-    $new_form_info = $form_info_top + $element_to_insert + $form_info_bottom;
-    $form['#info'] = $new_form_info;
-
+  
+  if ($form['#id'] == 'views-exposed-form-checkdesk-search-page' || $form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports') {
     // Add required js for fastLiveFilter plugin.
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_search.js');
-
+    // Tag filter
     $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
     $form['field_tags_tid']['#options']['All'] = '– ' . t('Any tag') . ' –';
     unset($form['field_tags_tid']['#description']);
-
-    // Hide/show media reports based on type filter.
-    if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] !== 'report')) {
-      $form['#info']['filter-field_rating_tid']['label'] = NULL;
-      $form['field_rating_tid']['#type'] = 'hidden';
-      unset($form['field_rating_tid']['#theme']);
-    }
-
     // Media filters.
-    if (isset($_GET['type']) && $_GET['type'] === 'report') {
+    if ($form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports' || (isset($_GET['type']) && $_GET['type'] === 'report')) {
       // Change -Any- status label
       $form['field_rating_tid']['#options']['All'] = '– ' . t('Any status') . ' –';
-
       unset($form['field_rating_tid']['#description']);
       $form['media_flags'] = array(
-        '#type' => 'select',
-        '#title' => t('Flags'),
-        '#options' => array(
-          'All' => '– ' . t('Any flag') . ' –',
-          'flagged_gc' => t('Graphic content'),
-          'flagged_spam' => t('Spam'),
-        ),
+          '#type' => 'select',
+          '#title' => t('Flags'),
+          '#options' => array(
+              'All' => '– ' . t('Any flag') . ' –',
+              'flagged_gc' => t('Graphic content'),
+              'flagged_spam' => t('Spam'),
+          ),
         //'#multiple' => TRUE,
-        '#theme' => 'select_as_links',
+          '#theme' => 'select_as_links',
       );
+      // Associated stories filter
       $stories = db_query(
-        "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
-        array(':type' => 'discussion')
+          "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
+          array(':type' => 'discussion')
       )->fetchAllKeyed();
       $form['report_story'] = array(
+          '#type' => 'select',
+          '#title' => t('Associated stories'),
+          '#options' => array('All' => '– ' . t('Any story') . ' –', 'None' => '– ' . t('Unassigned') . ' –') + $stories,
+          '#theme' => 'select_as_links',
+          '#bef_enable_fastlivefilter' => 1,
+          '#fastlivefilte_placeholder' => t('Search for story'),
+      );
+      // Add Publication status filter
+      $form['report_publication'] = array(
         '#type' => 'select',
-        '#title' => t('Associated stories'),
-        '#options' => array('All' => '– ' . t('Any story') . ' –', 'None' => '– ' . t('Unassigned') . ' –') + $stories,
+        '#title' => t('Publication status'),
+        '#options' => array(
+          'All' => '– ' . t('All') . ' –',
+          'report_published' => t('Published'),
+          'report_unpublished' => t('Unpublished'),
+        ),
+        '#theme' => 'select_as_links',
+      );
+      // Media source filter
+      $query = db_select('meedan_sources', 'ms');
+      $query->fields('ms', array('ms_id', 'source'));
+      $query->isNull('ms.parent');
+      $sources = $query->execute()->fetchAllKeyed();
+      $form['report_source'] = array(
+        '#type' => 'select',
+        '#title' => t('Sources'),
+        '#options' => array('All' => '– ' . t('Any source') . ' –') + $sources,
         '#theme' => 'select_as_links',
         '#bef_enable_fastlivefilter' => 1,
-        '#fastlivefilte_placeholder' => t('Search for story'),
+        '#fastlivefilte_placeholder' => t('Search for source'),
       );
-    }
-
-    // Story filter for updates
-    if (isset($_GET['type']) && $_GET['type'] === 'update') {
-      $stories = db_query(
-        "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
-        array(':type' => 'discussion')
-      )->fetchAllKeyed();
-      $form['update_story'] = array(
-        '#type' => 'select',
-        '#title' => t('Associated stories'),
-        '#options' => array('All' => '– ' . t('Any story') . ' –') + $stories,
-        '#theme' => 'select_as_links',
-        '#bef_enable_fastlivefilter' => 1,
-        '#fastlivefilte_placeholder' => t('Search for story'),
-      );
-
-      // Hide tag filter for updates
-      $form['#info']['filter-field_tags_tid']['label'] = NULL;
-      $form['field_tags_tid']['#type'] = 'hidden';
-      unset($form['field_tags_tid']['#theme']);
-    }
-
-    // Hide update choice if user filter by tag.
-    if (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
-      unset($form['type']['#options']['update']);
-    }
-    if (isset($_GET['type']) && $_GET['type'] === 'story') {
-      $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
-    }
-    else {
-      // Hide section filter
-      $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
-      $form['field_section_tid_i18n']['#type'] = 'hidden';
-      unset($form['field_section_tid_i18n']['#theme']);
-      // Hide language filter
-      $form['#info']['filter-language']['label'] = NULL;
-      $form['language']['#type'] = 'hidden';
-      unset($form['language']['#theme']);
     }
     // Add author filter for admin or journalist
     global $user;
@@ -1404,12 +1337,12 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       }
       $users = array('All' => '– ' . t('Any author') . ' –', $user->name => '– ' . t('My content') . ' –') + $users;
       $form['author'] = array(
-        '#type' => 'select',
-        '#title' => t('Authors'),
-        '#options' => $users,
-        '#theme' => 'select_as_links',
-        '#bef_enable_fastlivefilter' => 1,
-        '#fastlivefilte_placeholder' => t('Search for author'),
+          '#type' => 'select',
+          '#title' => t('Authors'),
+          '#options' => $users,
+          '#theme' => 'select_as_links',
+          '#bef_enable_fastlivefilter' => 1,
+          '#fastlivefilte_placeholder' => t('Search for author'),
       );
     }
 
@@ -1418,6 +1351,79 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     // Hide sort and submit button
     $form['sort_bef_combine']['#type'] = 'hidden';
     $form['submit']['#attributes']['class'][] = 'js-hide';
+    
+    if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
+      // Add custom field for type
+      $form['type'] = array(
+          '#type' => 'select',
+          '#title' => '',
+          '#options' => array(
+              'All' => t('Everything'),
+              'report' => t('Reports'),
+              'story' => t('Stories'),
+              'update' => t('Updates'),
+          ),
+          '#theme' => 'select_as_links',
+      );
+
+      // This value determines the position of the new element.
+      $insert_index = 2;
+      $element_to_insert = array();
+      $element_to_insert['filter-type'] = array(
+          'value' => 'type',
+      );
+      $form_info_top = array_slice($form['#info'], 0, $insert_index);
+      $form_info_bottom = array_slice($form['#info'], $insert_index);
+      $new_form_info = $form_info_top + $element_to_insert + $form_info_bottom;
+      $form['#info'] = $new_form_info;
+
+
+      // Hide/show media reports based on type filter.
+      if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] !== 'report')) {
+        $form['#info']['filter-field_rating_tid']['label'] = NULL;
+        $form['field_rating_tid']['#type'] = 'hidden';
+        unset($form['field_rating_tid']['#theme']);
+      }
+
+
+      // Story filter for updates
+      if (isset($_GET['type']) && $_GET['type'] === 'update') {
+        $stories = db_query(
+            "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
+            array(':type' => 'discussion')
+        )->fetchAllKeyed();
+        $form['update_story'] = array(
+            '#type' => 'select',
+            '#title' => t('Associated stories'),
+            '#options' => array('All' => '– ' . t('Any story') . ' –') + $stories,
+            '#theme' => 'select_as_links',
+            '#bef_enable_fastlivefilter' => 1,
+            '#fastlivefilte_placeholder' => t('Search for story'),
+        );
+
+        // Hide tag filter for updates
+        $form['#info']['filter-field_tags_tid']['label'] = NULL;
+        $form['field_tags_tid']['#type'] = 'hidden';
+        unset($form['field_tags_tid']['#theme']);
+      }
+
+      // Hide update choice if user filter by tag.
+      if (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
+        unset($form['type']['#options']['update']);
+      }
+      if (isset($_GET['type']) && $_GET['type'] === 'story') {
+        $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
+      } else {
+        // Hide section filter
+        $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
+        $form['field_section_tid_i18n']['#type'] = 'hidden';
+        unset($form['field_section_tid_i18n']['#theme']);
+        // Hide language filter
+        $form['#info']['filter-language']['label'] = NULL;
+        $form['language']['#type'] = 'hidden';
+        unset($form['language']['#theme']);
+      }
+    }
   }
 }
 
@@ -2034,17 +2040,13 @@ function _twitter_signin_get_picture($account, $twitter_account) {
  * @param type $query
  */
 function checkdesk_core_views_query_alter(&$view, &$query) {
-  // On desk reports, show suggested reports first
-  if ($view->name == 'desk_reports') {
-    if (isset($_GET['q']) &&  $_GET['q'] == 'node/add/discussion') {
-      // show reports that are unassigned to any story
-      $join = new views_join();
-      $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
-      $query->add_relationship('f', $join, 'field_data_field_stories');
-      $query->add_where(1,'f.field_stories_target_id', 1, 'IS NULL');
+
+  if ($view->name == 'checkdesk_search') {
+    // Check if we are displaying reports (for incoming reports sidebar)
+    $is_reports = FALSE;
+    if ((isset($view->old_view[1]) && $view->old_view[1]->current_display == 'incoming_reports') || $view->current_display == 'incoming_reports' || (isset($_GET['type']) && $_GET['type'] === 'report')) {
+      $is_reports = TRUE;
     }
-  }
-  elseif ($view->name == 'checkdesk_search') {
     // Update type condition with right values.
     if (isset($_GET['type']) && $_GET['type'] !== 'All') {
       foreach($query->where[1]['conditions'] as $k => $v) {
@@ -2063,17 +2065,55 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         }
       }
     }
-    // Add where condition based on flag type for reports.
-    if (isset($_GET['type']) && $_GET['type'] === 'report' && isset($_GET['media_flags'])) {
-      switch($_GET['media_flags']) {
-        case 'flagged_spam':
-          $query->add_where(1,'flagging_node.uid', 1, 'IS NOT NULL');
-          break;
-        case 'flagged_gc':
-          $query->add_where(1,'flagging_node_1.uid', 1, 'IS NOT NULL');
-        break;
+
+    if ($is_reports) {
+      // Add where condition based on flag type for reports.
+      if (isset($_GET['media_flags'])) {
+        switch($_GET['media_flags']) {
+          case 'flagged_spam':
+            $query->add_where(1,'flagging_node.uid', 1, 'IS NOT NULL');
+            break;
+          case 'flagged_gc':
+            $query->add_where(1,'flagging_node_1.uid', 1, 'IS NOT NULL');
+            break;
+        }
+      }
+      // Add associated stories condition.
+      if (isset($_GET['report_story']) && ($_GET['report_story'] === 'None' || is_numeric($_GET['report_story']))) {
+        $join = new views_join();
+        $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
+        $query->add_relationship('fdfs', $join, 'field_data_field_stories');
+        if ($_GET['report_story'] === 'None') {
+          $query->add_where(1,'fdfs.field_stories_target_id', 1, 'IS NULL');
+        }
+        else {
+          $query->add_where(1,'fdfs.field_stories_target_id', intval($_GET['report_story']), '=');
+        }
+      }
+      // Add publication status filter
+      if (isset($_GET['report_publication']) && $_GET['report_publication'] !== 'All') {
+        $join = new views_join();
+        $join->construct('checkdesk_reports_publication', 'node', 'nid', 'report_nid', array(), 'LEFT');
+        $query->add_relationship('cru', $join, 'report_nid');
+        if ($_GET['report_publication'] === 'report_unpublished') {
+          $query->add_where(1,'cru.report_nid', 1, 'IS NULL');
+        }
+        else {
+          $query->add_where(1,'cru.report_nid', 1, 'IS NOT NULL');
+        }
+      }
+      // Add source filter
+      if (isset($_GET['report_source']) && $_GET['report_source'] !== 'All') {
+        $join = new views_join();
+        $join->construct('meedan_sources_media', 'node', 'nid', 'nid');
+        $query->add_relationship('msm', $join, 'meedan_sources_media');
+        $join = new views_join();
+        $join->construct('meedan_sources', 'msm', 'ms_id', 'ms_id');
+        $query->add_relationship('ms', $join, 'meedan_sources');
+        $query->add_where(1,'ms.parent', intval($_GET['report_source']), '=');
       }
     }
+
     // Remove status condition if selected type not equal report.
     if (isset($_GET['type']) && $_GET['type'] !== 'report' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
       $conditions = $query->where[1]['conditions'];
@@ -2098,20 +2138,8 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         }
       }
     }
-    // Add associated stories condition.
-    if (isset($_GET['type']) && $_GET['type'] === 'report' &&
-        isset($_GET['report_story']) && ($_GET['report_story'] === 'None' || is_numeric($_GET['report_story']))
-    ) {
-      $join = new views_join();
-      $join->construct('field_data_field_stories', 'node', 'nid', 'entity_id', array(), 'LEFT');
-      $query->add_relationship('fdfs', $join, 'field_data_field_stories');
-      if ($_GET['report_story'] === 'None') {
-        $query->add_where(1,'fdfs.field_stories_target_id', 1, 'IS NULL');
-      }
-      else {
-        $query->add_where(1,'fdfs.field_stories_target_id', intval($_GET['report_story']), '=');
-      }
-    }
+
+
     if (isset($_GET['type']) && $_GET['type'] === 'update' &&
         isset($_GET['update_story']) && is_numeric($_GET['update_story'])
     ) {
@@ -2131,6 +2159,9 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     }
     // Fix helper text in case of search by keyword.
     if ($view->current_display === 'attachment_1') {
+      if (isset($view->old_view[1]) && $view->old_view[1]->current_display == 'incoming_reports') {
+        $query->where[1]['conditions'][0]['value'] = array('media');
+      }
       if (empty($view->exposed_raw_input['keys'])) {
         $query->having = $query->groupby = array();
       }
@@ -2523,11 +2554,6 @@ function checkdesk_core_node_insert($node) {
         ->condition('nid', $node->field_desk[LANGUAGE_NONE][0]['target_id'])
         ->execute();
     }
-    //link report to created update
-    if (!empty($node->body)) {
-      $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
-      checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
-    }
   }
   elseif ($node->type == 'discussion') {
     $path = array(
@@ -2535,28 +2561,6 @@ function checkdesk_core_node_insert($node) {
       'alias' => 'story/' . $node->nid . '/collaboration',
     );
     path_save($path);
-    // Link reports to created story
-    if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
-      $matches = $reports = array();
-      preg_match_all('/\[[^:]+:([0-9]+)\]/u', $node->body[LANGUAGE_NONE][0]['value'], $matches);
-      if (count($matches[1])) {
-        foreach ($matches[1] as $key => $nid) {
-          if (is_numeric($nid) && is_object(node_load($nid))) {
-            if (!in_array($nid, $reports)) {
-              $reports[] = $nid;
-              //Link report to story
-              $report = node_load($nid);
-              if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) ||
-                $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $node->nid
-              ) {
-                $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $node->nid;
-                node_save($report);
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 
@@ -2565,13 +2569,6 @@ function checkdesk_core_node_insert($node) {
  */
 function checkdesk_core_node_update($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'update');
-  if ($node->type === 'post' && isset($node->body)) {
-    $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
-    //link report to update
-    if (!empty($node->body)) {
-      checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
-    }
-  }
 }
 
 /**
@@ -2579,16 +2576,6 @@ function checkdesk_core_node_update($node) {
  */
 function checkdesk_core_node_delete($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'delete');
-  if ($node->type === 'post') {
-    db_delete('checkdesk_reports_updates')
-      ->condition('update_nid', $node->nid)
-      ->execute();
-  }
-  elseif ($node->type == 'media') {
-    db_delete('checkdesk_reports_updates')
-      ->condition('report_nid', $node->nid)
-      ->execute();
-  }
 }
 
 /**
@@ -2723,19 +2710,6 @@ function checkdesk_core_flag_javascript_info_alter(&$info) {
 function checkdesk_core_preprocess_user_alert(&$vars) {
   $vars['body'] = $vars['node']->body[LANGUAGE_NONE][0]['value'];
   $vars['is_closeable'] = TRUE;
-}
-
-/**
- * Helper function to check whether a report was published on an update before
- */
-function checkdesk_core_report_published_on_update($nid) {
-  if (is_numeric($nid)) {
-    $count = db_query(
-      'SELECT COUNT(*) FROM {checkdesk_reports_updates} WHERE report_nid = :nid', array(':nid' => $nid)
-    )->fetchField();
-    return $count ? $count : FALSE;
-  }
-  return FALSE;
 }
 
 /**
@@ -3006,37 +2980,6 @@ function _checkdesk_purge_varnish($paths) {
         watchdog('checkdesk_varnish', 'Purged varnish cache in queue');
         if (module_exists('checkdesk_fbcache')) {
           checkdesk_fbcache_bulk_scrape($hostname, $urls);
-        }
-      }
-    }
-  }
-}
-
-/**
- *
- */
-function checkdesk_log_reports_updates($op, $text, $update_nid, $story_nid) {
-  //link report to created update
-  if ($op == 'update') {
-    db_delete('checkdesk_reports_updates')
-      ->condition('update_nid', $update_nid)
-      ->execute();
-  }
-  $matches = $reports = array();
-  preg_match_all('/\[[^:]+:([0-9]+)\]/u', $text, $matches);
-  if (count($matches[1])) {
-    foreach ($matches[1] as $key => $nid) {
-      if (is_numeric($nid) && is_object(node_load($nid))) {
-        if(!in_array($nid, $reports)) {
-          $reports[] = $nid;
-          db_insert('checkdesk_reports_updates')->fields(array('report_nid' => $nid, 'update_nid'  => $update_nid))->execute();
-          //Link report to story
-          $report = node_load($nid);
-          if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) ||
-            $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $story_nid) {
-              $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $story_nid;
-              node_save($report);
-            }
         }
       }
     }
@@ -3428,6 +3371,21 @@ function _checkdesk_story_get_collaborators($nid, $options = array()) {
   }
 
   return $output;
+}
+
+/**
+ * Retrun 'Reset all filters' link for search/incomming reports views
+ */
+function _checkdesk_render_reset_search_result_link() {
+  if (arg(0) == 'search') {
+    return l(t('Reset all filters'), 'search', array('attributes' => array('class' => array('search-reset'))));
+  }
+  return l(t('Reset all filters'), $_GET['q'], array(
+    'attributes' => array(
+      'class' => array('search-reset'),
+      'onclick' => 'javascript: jQuery("#views-exposed-form-checkdesk-search-incoming-reports").clearForm();jQuery("#edit-submit-checkdesk-search").trigger("click");return false;'
+    ),
+  ));
 }
 
 /**
