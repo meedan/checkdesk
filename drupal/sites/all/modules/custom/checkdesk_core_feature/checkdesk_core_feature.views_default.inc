@@ -842,6 +842,18 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['style_options']['row_class'] = 'item';
   $handler->display->display_options['row_plugin'] = 'entity';
   $handler->display->display_options['row_options']['view_mode'] = 'checkdesk_search';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = '<div class="page-results empty">
+  <?php print t(\'There are no results that match your search.\'); ?>
+</div>
+<div class="search-reset-filters">
+  <?php print l(t(\'Reset all filters\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
+</div>';
+  $handler->display->display_options['empty']['area']['format'] = 'php_code';
   /* Relationship: Flags: spam */
   $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'node';
@@ -1089,19 +1101,6 @@ function checkdesk_core_feature_views_default_views() {
 print _checkdesk_search_header();
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
-  $handler->display->display_options['defaults']['empty'] = FALSE;
-  /* No results behavior: Global: Text area */
-  $handler->display->display_options['empty']['area']['id'] = 'area';
-  $handler->display->display_options['empty']['area']['table'] = 'views';
-  $handler->display->display_options['empty']['area']['field'] = 'area';
-  $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = '<div class="page-results empty">
-  <?php print t(\'There are no results that match your search.\'); ?>
-</div>
-<div class="search-reset-filters">
-  <?php print l(t(\'Reset all filters\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
-</div>';
-  $handler->display->display_options['empty']['area']['format'] = 'php_code';
   $handler->display->display_options['path'] = 'search';
 
   /* Display: Attachment */
@@ -1124,6 +1123,7 @@ print _checkdesk_search_header();
     'type' => 'type',
   );
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['empty'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Type */
   $handler->display->display_options['fields']['type_1']['id'] = 'type_1';
@@ -1351,6 +1351,12 @@ print _checkdesk_search_header();
     t('next ›'),
     t('last »'),
     t('Load more'),
+    t('<div class="page-results empty">
+  <?php print t(\'There are no results that match your search.\'); ?>
+</div>
+<div class="search-reset-filters">
+  <?php print l(t(\'Reset all filters\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
+</div>'),
     t('flag_spam'),
     t('flag_gc'),
     t('author'),
@@ -1368,12 +1374,6 @@ print _checkdesk_search_header();
     t('<?php
 print _checkdesk_search_header();
 ?>'),
-    t('<div class="page-results empty">
-  <?php print t(\'There are no results that match your search.\'); ?>
-</div>
-<div class="search-reset-filters">
-  <?php print l(t(\'Reset all filters\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
-</div>'),
     t('Attachment'),
     t('Incoming reports'),
   );
