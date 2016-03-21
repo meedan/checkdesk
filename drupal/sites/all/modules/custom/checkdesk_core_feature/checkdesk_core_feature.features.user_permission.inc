@@ -123,6 +123,16 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'heartbeat',
   );
 
+  // Exported permission: 'access journalist activities'.
+  $permissions['access journalist activities'] = array(
+    'name' => 'access journalist activities',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'checkdesk_notifications',
+  );
+
   // Exported permission: 'access private fields'.
   $permissions['access private fields'] = array(
     'name' => 'access private fields',
@@ -212,6 +222,15 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'block',
+  );
+
+  // Exported permission: 'administer checkdesk activities'.
+  $permissions['administer checkdesk activities'] = array(
+    'name' => 'administer checkdesk activities',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'checkdesk_notifications',
   );
 
   // Exported permission: 'administer comments'.

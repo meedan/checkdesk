@@ -29,10 +29,10 @@
     <li class="update-share">
        <?php print render($content['links']); ?>
     </li>
-   <?php if (node_access("update", $node, $user)) { ?>
+   <?php if (node_access('update', $node, $user)) : ?>
       <li class="update-edit">
         <?php print l('<span class="icon-pencil-square"></span>'. t('Edit'), 'node/' . $node->nid . '/edit', array('html'=>TRUE)); ?>
       </li>
-    <?php } ?>
+    <?php endif; ?>
   </ul>
 </div>

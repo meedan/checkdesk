@@ -55,7 +55,7 @@
     </div>
     <div class="actions" role="toolbar">
       <?php print render($content['links']); ?>
-      <?php if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) : ?>
+      <?php if (node_access('update', $node, $user)) : ?>
         <div class="update-edit">
         <?php print l('<span class="icon-pencil-square-o"></span>', 'node/' . $node->nid . '/edit', array('query' => drupal_get_destination(), 'html'=>TRUE)); ?>
         </div>
