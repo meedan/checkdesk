@@ -15,7 +15,7 @@ function _reports_resource_retrieve($id) {
        return _checkdesk_api_error(t('Report with the provided id (@id) was not found', array('@id' => $id)), 404);
     }
     return array(
-        'type' => 'report',
+        'type' => 'reports',
         'data' => _reports_format_report($report),
     );
 }
@@ -37,7 +37,7 @@ function _reports_resource_create($report) {
     if (isset($report['story_id'])) {
         if (is_numeric($report['story_id'])) {
             $story = node_load($report['story_id']);
-            if (!is_object($story) || $story->type !== 'discussion') {
+            if ($story->type !== 'discussion') {
                 $msg = t('Story with the provided id (@id) was not found', array('@id' => $report['story_id']));
             }
         }
@@ -65,7 +65,7 @@ function _reports_resource_create($report) {
         node_save($node);
         return array(
             'type' => 'reports',
-            'data' => $node,
+            'data' => _reports_format_report($node),
         );
     }
     //TODO: add a clear error msg
@@ -96,11 +96,16 @@ function _reports_resource_index() {
 }
 
 function _reports_format_report($report) {
+    $story_nid = 0;
+    if (isset($report->field_stories[LANGUAGE_NONE][0]['target_id'])) {
+        $story_nid = $report->field_stories[LANGUAGE_NONE][0]['target_id'];
+    }
     return array(
         'nid' => $report->nid,
         'title' => $report->title,
         'url' => url('node/'. $report->nid, array('absolute' => TRUE)),
         'original_url' => $report->field_link[LANGUAGE_NONE][0]['url'],
         'uid' => $report->uid,
+        'story_nid' => $story_nid,
     );
 }
