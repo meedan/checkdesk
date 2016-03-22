@@ -1,59 +1,14 @@
 <?php
+require_once drupal_get_path('module', 'checkdesk_core') . '/tests/checkdesk_test_case.inc';
 
-class CheckdeskDuplicateTestCase extends DrupalWebTestCase {
-
-  // A user with permission to create media content.
-  protected $web_user;
-
-  // Upload directory
-  protected $public_files_directory = '/tmp';
+class CheckdeskDuplicateTestCase extends CheckdeskTestCase {
 
   public static function getInfo() {
     return array(
       'name' => 'Checkdesk duplicate unit tests',
       'description' => 'Test that _checkdesk_normalize_url works properly.',
-      'group' => 'CheckdeskDuplicate',
+      'group' => 'Checkdesk',
     );
-  }
-
-  // Our own implementation of drupalLogin()
-  // We need this because we have different labels for the sign in and logout links
-  // @see https://api.drupal.org/api/drupal/modules!simpletest!drupal_web_test_case.php/function/DrupalWebTestCase%3A%3AdrupalLogin/7
-  protected function checkdeskLogin(stdClass $account) {
-    if ($this->loggedInUser) {
-      $this->drupalLogout();
-    }
-
-    $edit = array(
-        'name' => $account->name,
-        'pass' => $account->pass_raw
-        );
-    $this->drupalPost('user', $edit, t('Sign in'));
-
-    // If a "log out" link appears on the page, it is almost certainly because
-    // the login was successful.
-    $pass = $this->assertLink(t('Logout'), 0, t('User %name successfully logged in.', array('%name' => $account->name)), t('User login'));
-
-    if ($pass) {
-      $this->loggedInUser = $account;
-    }
-  }
-
-  protected function authenticate() {
-    $web_user = $this->drupalCreateUser(array('create media content'));
-    $web_user->roles[] = 'authenticated user';
-    user_save($web_user);
-    $this->checkdeskLogin($web_user);
-    $this->web_user = $web_user;
-  }
-
-  public function setUp() {
-    $this->setup = TRUE;
-    $this->authenticate();
-  }
-  
-  public function tearDown() {
-    // @todo Remove any testing data
   }
 
   public function testCheckdeskNormalizeURL() {
@@ -80,6 +35,7 @@ class CheckdeskDuplicateTestCase extends DrupalWebTestCase {
   }
 
   public function testCheckdeskDuplicatesPresave() {
+    $this->authenticate(array('create media content'));
     $url = 'http://meedan.com:80';
     $edit = array(
       'uid' => $this->web_user->uid,
@@ -89,7 +45,6 @@ class CheckdeskDuplicateTestCase extends DrupalWebTestCase {
       'promote' => 0,
       'sticky' => 0,
     );
-
     node_save((object) $edit);
     $node = $this->drupalGetNodeByTitle($edit['title']);
     $this->assertEqual($node->field_link[LANGUAGE_NONE][0]['url'], 'http://meedan.com/', 'Creating media with normalized URL.');

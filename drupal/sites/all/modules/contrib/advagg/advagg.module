@@ -196,7 +196,7 @@ define('ADVAGG_SKIP_ENABLED_PREPROCESS_CHECK', FALSE);
 /**
  * Prefetch External domains for CSS/JS.
  */
-define('ADVAGG_BROWSER_DNS_PREFETCH', FALSE);
+define('ADVAGG_BROWSER_DNS_PREFETCH', 0);
 
 /**
  * Function to use when converting a non scalar to a string.
@@ -300,6 +300,7 @@ function advagg_hook_info() {
     'advagg_save_aggregate_pre_alter',
     'advagg_save_aggregate_alter',
     'advagg_build_aggregate_plans_alter',
+    'advagg_build_aggregate_plans_post_alter',
     'advagg_css_groups_alter',
     'advagg_js_groups_alter',
     'advagg_modify_css_pre_render_alter',
@@ -309,6 +310,7 @@ function advagg_hook_info() {
     'advagg_scan_for_changes',
     'advagg_get_info_on_files_alter',
     'advagg_context_alter',
+    'advagg_missing_root_file',
   );
   $hooks = array();
   foreach ($advagg_hooks as $hook) {
@@ -639,7 +641,7 @@ function advagg_cron($bypass_time_check = FALSE) {
   module_load_include('inc', 'advagg', 'advagg.cache');
   $return[] = advagg_delete_stale_aggregates();
 
-  // Remove orphaned files.
+  // Delete orphaned aggregates.
   $return[] = advagg_delete_orphaned_aggregates();
 
   // Remove aggregates that include missing files.
@@ -650,6 +652,10 @@ function advagg_cron($bypass_time_check = FALSE) {
 
   // Remove expired locks from the semaphore database table.
   $return[] = advagg_cleanup_semaphore_table();
+
+  // Remove old temp files.
+  $return[] = advagg_remove_temp_files();
+
   return $return;
 }
 
@@ -1681,11 +1687,11 @@ function _advagg_process_html(&$variables) {
     }
     // Render the CSS.
     $variables['styles'] = drupal_render($full_css);
-    if (!empty($css_cache_id)) {
+    if (!empty($css_cache_id) && variable_get('advagg_cache_level', ADVAGG_CACHE_LEVEL) >= 3) {
       // Save to the cache.
       cache_set($css_cache_id, array($variables['styles'], $full_css), 'cache_advagg_aggregates', CACHE_TEMPORARY);
     }
-    if (!empty($css_cache_id_no_alter)) {
+    if (!empty($css_cache_id_no_alter) && variable_get('advagg_cache_level', ADVAGG_CACHE_LEVEL) >= 5) {
       // Save to the cache.
       cache_set($css_cache_id_no_alter, array($variables['styles'], $full_css), 'cache_advagg_aggregates', CACHE_TEMPORARY);
     }
@@ -1862,10 +1868,10 @@ function _advagg_process_html(&$variables) {
       }
       unset($scripts_array);
 
-      if (!empty($js_cache_id) && !empty($js_cache)) {
+      if (!empty($js_cache_id) && !empty($js_cache) && variable_get('advagg_cache_level', ADVAGG_CACHE_LEVEL) >= 3) {
         cache_set($js_cache_id, array($js_cache, $js_scope_array), 'cache_advagg_aggregates', CACHE_TEMPORARY);
       }
-      if (!empty($js_cache_id_no_alter) && !empty($js_cache)) {
+      if (!empty($js_cache_id_no_alter) && !empty($js_cache) && variable_get('advagg_cache_level', ADVAGG_CACHE_LEVEL) >= 5) {
         cache_set($js_cache_id_no_alter, array($js_cache, $js_scope_array), 'cache_advagg_aggregates', CACHE_TEMPORARY);
       }
     }
@@ -2012,7 +2018,7 @@ function advagg_add_dns_prefetch($url) {
       'rel' => 'dns-prefetch',
       'href' => '//' . $parse['host'],
     ),
-    '#weight' => -999.9,
+    '#weight' => variable_get('advagg_browser_dns_prefetch', ADVAGG_BROWSER_DNS_PREFETCH) == 2 ? -1001 : -999.9,
   );
   // Add markup for dns-prefetch to html_head.
   drupal_add_html_head($element, 'advagg_dns_prefetch:' . $parse['host']);
@@ -2026,7 +2032,7 @@ function advagg_add_dns_prefetch($url) {
         'rel' => 'prefetch',
         'href' => '//' . $parse['host'] . '/robots.txt',
       ),
-      '#weight' => -999.9,
+      '#weight' => variable_get('advagg_browser_dns_prefetch', ADVAGG_BROWSER_DNS_PREFETCH) == 2 ? -1001 : -999.9,
     );
     drupal_add_html_head($element, 'advagg_prefetch:' . $parse['host']);
   }
@@ -2805,6 +2811,11 @@ function advagg_get_current_hooks_hash() {
 /**
  * Store settings associated with hash.
  *
+ * @param string $hash
+ *   The hash.
+ * @param array $settings
+ *   The settings associated with this hash.
+ *
  * @return MergeQuery
  *   value from db_merge
  */
@@ -2845,6 +2856,7 @@ function advagg_hooks_implemented($all = TRUE) {
   if ($all) {
     $hooks += array(
       'advagg_build_aggregate_plans_alter' => array(),
+      'advagg_build_aggregate_plans_post_alter' => array(),
       'advagg_changed_files' => array(),
       'advagg_css_groups_alter' => array(),
       'advagg_js_groups_alter' => array(),
@@ -2854,6 +2866,7 @@ function advagg_hooks_implemented($all = TRUE) {
       'advagg_hooks_implemented_alter' => array(),
       'advagg_removed_aggregates' => array(),
       'advagg_scan_for_changes' => array(),
+      'advagg_missing_root_file' => array(),
       'js_alter' => array(),
       'css_alter' => array(),
     );
@@ -3609,6 +3622,9 @@ function advagg_pre_render_styles(array $elements) {
           $element['#attributes']['href'] = advagg_file_create_url($group['data']);
           $element['#attributes']['media'] = $group['media'];
           $element['#browsers'] = $group['browsers'];
+          if (!empty($group['attributes'])) {
+            $element['#attributes'] += $group['attributes'];
+          }
           $elements[] = $element;
         }
         // The group can be aggregated, but hasn't been: combine multiple items
@@ -3648,6 +3664,9 @@ function advagg_pre_render_styles(array $elements) {
             $element['#value'] = "\n" . implode("\n", $import_batch) . "\n";
             $element['#attributes']['media'] = $group['media'];
             $element['#browsers'] = $group['browsers'];
+            if (!empty($group['attributes'])) {
+              $element['#attributes'] += $group['attributes'];
+            }
             $elements[] = $element;
           }
         }
@@ -3670,6 +3689,9 @@ function advagg_pre_render_styles(array $elements) {
             $element['#attributes']['href'] = advagg_file_create_url($item['data']) . $query_string_separator . $query_string;
             $element['#attributes']['media'] = $item['media'];
             $element['#browsers'] = $group['browsers'];
+            if (!empty($group['attributes'])) {
+              $element['#attributes'] += $group['attributes'];
+            }
             $elements[] = $element;
           }
         }
@@ -3686,6 +3708,9 @@ function advagg_pre_render_styles(array $elements) {
           $element['#value_suffix'] = $embed_suffix;
           $element['#attributes']['media'] = $group['media'];
           $element['#browsers'] = $group['browsers'];
+          if (!empty($group['attributes'])) {
+            $element['#attributes'] += $group['attributes'];
+          }
           $elements[] = $element;
         }
         else {
@@ -3696,6 +3721,9 @@ function advagg_pre_render_styles(array $elements) {
             $element['#value_suffix'] = $embed_suffix;
             $element['#attributes']['media'] = $item['media'];
             $element['#browsers'] = $group['browsers'];
+            if (!empty($group['attributes'])) {
+              $element['#attributes'] += $group['attributes'];
+            }
             $elements[] = $element;
           }
         }
@@ -3714,6 +3742,9 @@ function advagg_pre_render_styles(array $elements) {
           $element['#attributes']['href'] = $file_uri;
           $element['#attributes']['media'] = $item['media'];
           $element['#browsers'] = $group['browsers'];
+          if (!empty($group['attributes'])) {
+            $element['#attributes'] += $group['attributes'];
+          }
           $elements[] = $element;
         }
         break;
@@ -4249,6 +4280,67 @@ function advagg_load_stylesheet($file, $optimize = FALSE, $reset_basepath = TRUE
 }
 
 /**
+ * Decodes UTF byte-order mark (BOM) into the encoding's name.
+ *
+ * @see https://api.drupal.org/api/drupal/core!lib!Drupal!Component!Utility!Unicode.php/function/Unicode%3A%3AencodingFromBOM/8
+ *
+ * @param string $data
+ *   The data possibly containing a BOM. This can be the entire contents of
+ *   a file, or just a fragment containing at least the first five bytes.
+ *
+ * @return string|bool
+ *   The name of the encoding, or FALSE if no byte order mark was present.
+ */
+function advagg_get_encoding_from_bom($data) {
+  static $bomMap = array(
+  "\xEF\xBB\xBF" => 'UTF-8',
+  "\xFE\xFF" => 'UTF-16BE',
+  "\xFF\xFE" => 'UTF-16LE',
+  "\x00\x00\xFE\xFF" => 'UTF-32BE',
+  "\xFF\xFE\x00\x00" => 'UTF-32LE',
+  "\x2B\x2F\x76\x38" => 'UTF-7',
+  "\x2B\x2F\x76\x39" => 'UTF-7',
+  "\x2B\x2F\x76\x2B" => 'UTF-7',
+  "\x2B\x2F\x76\x2F" => 'UTF-7',
+  "\x2B\x2F\x76\x38\x2D" => 'UTF-7',
+  );
+
+  foreach ($bomMap as $bom => $encoding) {
+    if (strpos($data, $bom) === 0) {
+      return $encoding;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Converts data to UTF-8.
+ *
+ * Requires the iconv, GNU recode or mbstring PHP extension.
+ *
+ * @param string $data
+ *   The data to be converted.
+ * @param string $encoding
+ *   The encoding that the data is in.
+ *
+ * @return string|bool
+ *   Converted data or FALSE.
+ */
+function advagg_convert_to_utf8($data, $encoding) {
+  if (function_exists('iconv')) {
+    return @iconv($encoding, 'utf-8', $data);
+  }
+  elseif (function_exists('mb_convert_encoding')) {
+    return @mb_convert_encoding($data, 'utf-8', $encoding);
+  }
+  elseif (function_exists('recode_string')) {
+    return @recode_string($encoding . '..utf-8', $data);
+  }
+  // Cannot convert.
+  return FALSE;
+}
+
+/**
  * Processes the contents of a stylesheet for aggregation.
  *
  * @param string $contents
@@ -4263,6 +4355,12 @@ function advagg_load_stylesheet($file, $optimize = FALSE, $reset_basepath = TRUE
  * @see drupal_load_stylesheet_content()
  */
 function advagg_load_stylesheet_content($contents, $optimize = FALSE) {
+  // If a BOM is found, convert the file to UTF-8.
+  $encoding = advagg_get_encoding_from_bom($contents);
+  if (!empty($encoding)) {
+    $contents = advagg_convert_to_utf8($contents, $encoding);
+  }
+
   if ($optimize) {
     // Perform some safe CSS optimizations.
     // Regexp to match comment blocks.
@@ -4494,7 +4592,24 @@ function advagg_aggressive_cache_conflicts() {
  * @see http://php.net/parse-url#85963
  */
 function advagg_glue_url(array $parsed, $strip_query_and_fragment = FALSE) {
-  $uri = isset($parsed['scheme']) ? $parsed['scheme'] . ':' . ((strtolower($parsed['scheme']) === 'mailto') ? '' : '//') : '';
+  $uri = '';
+  if (isset($parsed['scheme'])) {
+    switch (strtolower($parsed['scheme']) ) {
+      // Mailto uri.
+      case 'mailto':
+        $uri .= $parsed['scheme'] . ':';
+        break;
+
+      // Protocol relative uri.
+      case '//':
+        $uri .= $parsed['scheme'];
+        break;
+
+      // Standard uri.
+      default:
+        $uri .= $parsed['scheme'] . '://';
+    }
+  }
   $uri .= isset($parsed['user']) ? $parsed['user'] . (isset($parsed['pass']) ? ':' . $parsed['pass'] : '') . '@' : '';
   $uri .= isset($parsed['host']) ? $parsed['host'] : '';
   $uri .= !empty($parsed['port']) ? ':' . $parsed['port'] : '';

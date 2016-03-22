@@ -1,4 +1,4 @@
-<section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
+<section id="node-<?php print $node->nid; ?>" class="report-row-container node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
 
    <div class="item-content-wrapper<?php if (isset($status_class)) { print ' ' . $status_class; } ?>">
 	  <span class="item-content">

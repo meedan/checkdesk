@@ -16,7 +16,7 @@ function reactor_node_view($node, $view_mode, $langcode) {
     else {
       $nids = db_query('SELECT ru.report_nid
                         FROM {field_data_field_desk} fd
-                        INNER JOIN {checkdesk_reports_updates} ru ON fd.entity_id = ru.update_nid
+                        INNER JOIN {checkdesk_reports_publication} ru ON fd.entity_id = ru.entity_nid
                         WHERE fd.field_desk_target_id = :nid AND fd.bundle = :bundle
                         ', array(':nid' => $node->nid, ':bundle' => 'post'))->fetchCol();
     }

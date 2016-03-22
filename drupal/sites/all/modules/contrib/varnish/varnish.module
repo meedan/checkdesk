@@ -96,8 +96,24 @@ function varnish_flush_caches() {
  * Takes an array from expire.module and issue purges.
  * You may also safely call this function directly with an array of local urls
  * to purge.
+ *
+ * @param $paths
+ *   Associative array of paths to be purged, where both keys and values are
+ *   paths.
+ * @param $wildcards
+ *   (Optional) Array of wildcards to be applied, as an associative array where
+ *   paths are keys and booleans indicating if the path should have a wildcard
+ *   at the end are values.
  */
-function varnish_expire_cache($paths) {
+function varnish_expire_cache($paths, $wildcards = array()) {
+  if (count($wildcards)) {
+    foreach ($wildcards as $path => $wildcard) {
+      if ($wildcard) {
+        $paths[$path . '[/?](.*)'] = $path . '[/?](.*)';
+      }
+    }
+  }
+
   if (module_exists('expire') && variable_get('expire_include_base_url', constant('EXPIRE_INCLUDE_BASE_URL'))) {
     // Sort the URLs by domain and batch by domain.
     $host_buckets = array();
@@ -106,17 +122,12 @@ function varnish_expire_cache($paths) {
       $host_buckets[$parts['host']][] = $parts['path'] . (!empty($parts['query']) ? '?' . $parts['query'] : '');
     }
     foreach ($host_buckets as $host => $purges) {
-      $purge = implode('$|^', $purges);
-      $purge = '^' . $purge . '$';
-      varnish_purge($host, $purge);
+      varnish_purge_paths($host, $purges);
     }
   }
   else {
     $host = _varnish_get_host();
-    $base = base_path();
-    $purge = implode('$|^' . $base, $paths);
-    $purge = '^' . $base . $purge . '$';
-    varnish_purge($host, $purge);
+    varnish_purge_paths($host, $paths);
   }
 }
 
