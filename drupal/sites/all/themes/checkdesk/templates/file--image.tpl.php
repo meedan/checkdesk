@@ -73,7 +73,7 @@
 
 ?>
 
-<figure class="element element-image">
+<figure class="element element-image mode-<?php print drupal_clean_css_identifier($view_mode) ?>">
   <?php print $inline_image; ?>
   <?php if (!empty($content['field_media_caption'][0]['#markup']) || !empty($content['field_media_credits'])): ?>
   <figcaption>
