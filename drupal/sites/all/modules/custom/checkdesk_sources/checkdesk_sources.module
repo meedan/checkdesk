@@ -22,15 +22,25 @@ function checkdesk_sources_menu() {
  * Implements hook_node_presave().
  */
 function checkdesk_sources_node_presave($node) {
-  if ($node->type === 'source' && $node->is_new) {
+  if ($node->type === 'source') {
     $url = $node->source_url[LANGUAGE_NONE][0]['value'];
     $pender_response =  checkdesk_sources_pender_fetch($url);
     if ($pender_response && $pender_response->type === 'media') {
+      $data = $pender_response->data;
+      $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
+      $node->field_username[LANGUAGE_NONE][0]['value'] = $data->title;
+      $node->title = $data->title;
+      $metadata = array('view_count' => 'Views', 'subscriber_count' => 'Subscribers', 'comment_count' => 'Comments');
       $i = 0;
       $node->source_data = array(LANGUAGE_NONE => array());
-      foreach($pender_response->data as $key => $value) {
-        $node->source_data[LANGUAGE_NONE][$i] = array('first' => $key, 'second' => $value);
-        $i++;
+      foreach($metadata as $key => $value) {
+        if (isset($data->{$key})) {
+          $node->source_data[LANGUAGE_NONE][$i] = array(
+            'first' => $data->{$key},
+            'second' => $value
+          );
+          $i++;
+        }
       }
     }
   }
