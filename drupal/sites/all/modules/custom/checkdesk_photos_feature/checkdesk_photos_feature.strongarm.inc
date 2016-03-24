@@ -74,6 +74,14 @@ function checkdesk_photos_feature_strongarm() {
             'weight' => '0',
             'visible' => TRUE,
           ),
+          'embed_align_first' => array(
+            'weight' => '0',
+            'visible' => TRUE,
+          ),
+          'embed_align_last' => array(
+            'weight' => '0',
+            'visible' => TRUE,
+          ),
         ),
       ),
     ),
@@ -212,16 +220,10 @@ function checkdesk_photos_feature_strongarm() {
   $strongarm->name = 'media_wysiwyg_view_mode_image_wysiwyg_restricted_view_modes';
   $strongarm->value = array(
     'default' => 'default',
-    'diff_standard' => 'diff_standard',
     'teaser' => 'teaser',
     'full' => 'full',
     'preview' => 'preview',
-    'rss' => 'rss',
-    'search_index' => 'search_index',
-    'search_result' => 'search_result',
     'wysiwyg' => 'wysiwyg',
-    'token' => 'token',
-    'embed' => 0,
   );
   $export['media_wysiwyg_view_mode_image_wysiwyg_restricted_view_modes'] = $strongarm;
 
