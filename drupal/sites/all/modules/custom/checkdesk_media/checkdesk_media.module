@@ -81,10 +81,10 @@ function checkdesk_media_preprocess_media_dialog_page(&$variables) {
   // add some js bits
   drupal_add_js(
     drupal_get_path('theme', 'checkdesk') . '/assets/js/media.js', array(
-    'scope' => 'footer',
-    'group' => JS_THEME,
-    'weight' => '9990',
-    'every_page' => FALSE,
+      'scope' => 'footer',
+      'group' => JS_THEME,
+      'weight' => '9990',
+      'every_page' => FALSE,
     )
   );
 
@@ -92,30 +92,30 @@ function checkdesk_media_preprocess_media_dialog_page(&$variables) {
   // Media CSS to override the css supplied by the module
   drupal_add_css(
     drupal_get_path('theme', 'checkdesk') . '/assets/css/components/media.css', array(
-    'scope' => 'footer',
-    'group' => CSS_THEME,
-    'weight' => '9990',
-    'every_page' => FALSE,
+      'scope' => 'footer',
+      'group' => CSS_THEME,
+      'weight' => '9990',
+      'every_page' => FALSE,
     )
   );
 
   // Jquery UI dialog
   drupal_add_css(
     drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/jquery_ui_dialog.css', array(
-    'scope' => 'footer',
-    'group' => CSS_THEME,
-    'weight' => '9991',
-    'every_page' => FALSE,
+      'scope' => 'footer',
+      'group' => CSS_THEME,
+      'weight' => '9991',
+      'every_page' => FALSE,
     )
   );
 
   // Tabs
   drupal_add_css(
     drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/jquery_ui_tabs.css', array(
-    'scope' => 'footer',
-    'group' => CSS_THEME,
-    'weight' => '9992',
-    'every_page' => FALSE,
+      'scope' => 'footer',
+      'group' => CSS_THEME,
+      'weight' => '9992',
+      'every_page' => FALSE,
     )
   );
 }
