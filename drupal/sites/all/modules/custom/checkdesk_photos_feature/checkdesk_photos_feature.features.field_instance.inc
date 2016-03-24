@@ -10,7 +10,7 @@
 function checkdesk_photos_feature_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'file-image-field_media_caption'
+  // Exported field_instance: 'file-image-field_media_caption'.
   $field_instances['file-image-field_media_caption'] = array(
     'bundle' => 'image',
     'default_value' => NULL,
@@ -118,7 +118,7 @@ function checkdesk_photos_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'file-image-field_media_credits'
+  // Exported field_instance: 'file-image-field_media_credits'.
   $field_instances['file-image-field_media_credits'] = array(
     'bundle' => 'image',
     'default_value' => NULL,
