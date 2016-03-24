@@ -40,9 +40,19 @@ function checkdesk_media_fileupload_access($parm) {
  * Implements hook_entity_info_alter();
  */
 function checkdesk_media_entity_info_alter(&$entity_info) {
-  $entity_info['file']['view modes']['embed'] = array(
-    'label' => t('Embed'),
-    'custom settings' => TRUE,
+  $entity_info['file']['view modes'] = array(
+    'embed' => array(
+      'label' => t('Centered'),
+      'custom settings' => TRUE,
+    ),
+    'embed_align_first' => array(
+      'label' => t('Align First'),
+      'custom settings' => TRUE,
+    ),
+    'embed_align_last' => array(
+      'label' => t('Align Last'),
+      'custom settings' => TRUE,
+    ),
   );
 }
 
