@@ -23,7 +23,7 @@ function checkdesk_sources_feature_node_info() {
       'base' => 'node_content',
       'description' => t('A source is a URL that contains reports'),
       'has_title' => '1',
-      'title_label' => t('Source'),
+      'title_label' => t('Name'),
       'help' => '',
     ),
   );
