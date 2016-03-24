@@ -45,11 +45,11 @@ function checkdesk_media_entity_info_alter(&$entity_info) {
       'label' => t('Centered'),
       'custom settings' => TRUE,
     ),
-    'embed_align_first' => array(
+    'embed-align-first' => array(
       'label' => t('Align First'),
       'custom settings' => TRUE,
     ),
-    'embed_align_last' => array(
+    'embed-align-last' => array(
       'label' => t('Align Last'),
       'custom settings' => TRUE,
     ),

@@ -82,6 +82,14 @@ function checkdesk_photos_feature_strongarm() {
             'weight' => '0',
             'visible' => TRUE,
           ),
+          'embed-align-first' => array(
+            'weight' => '0',
+            'visible' => TRUE,
+          ),
+          'embed-align-last' => array(
+            'weight' => '0',
+            'visible' => TRUE,
+          ),
         ),
       ),
     ),
