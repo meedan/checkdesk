@@ -273,8 +273,9 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   // prep user picture
   $user = user_load($message->uid);
   $avatar = _set_user_avatar_bg($user,array('avatar', 'thumb-38'));
+
   // set variables for new comment aka fact-checking footnote
-  if ($message->message_id == 'new_comment_report') {
+  if ($message->message_id == 'new_comment_report' || $message->message_id == 'new_comment_source') {
     // set actor / editor / user
     $actor = l($message->variables['!username'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
     // 

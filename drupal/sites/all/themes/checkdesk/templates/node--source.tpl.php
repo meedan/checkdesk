@@ -6,11 +6,13 @@
         <div><?php print render($content['field_username']); ?></div>
         <div><?php print render($content['field_source_url']); ?></div>
         <div><?php print render($content['field_source_status']); ?></div>
-
+        <?php if (count($source_metadata)) : ?>
+          <?php foreach($source_metadata as $k => $metadata) : ?>
+            <div> <span><?php print str_replace('_', ' ', $k) . " : " ?></span><?php print render($content[$metadata]); ?> </div>
+          <?php endforeach; ?>
+        <?php endif; ?>
       </section>
-      <?php if (isset($content['metadata_fields'])) : ?>
-        <?php print $content['metadata_fields']; ?>
-      <?php endif; ?>
+
       <?php print $source_activity; ?>
     </div>
   </article>
