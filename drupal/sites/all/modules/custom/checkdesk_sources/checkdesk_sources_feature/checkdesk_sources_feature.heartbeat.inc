@@ -13,9 +13,9 @@ function checkdesk_sources_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate = new HeartbeatMessageTemplate();
   $heartbeatmessagetemplate->disabled = FALSE; /* Edit this to true to make a default heartbeatmessagetemplate disabled initially */
   $heartbeatmessagetemplate->api_version = 1;
-  $heartbeatmessagetemplate->message_id = 'checkdesk_comment_on_source';
-  $heartbeatmessagetemplate->description = 'A comment (footnote) was added to a source';
-  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added footnote to <a href="!source_url">source</a>';
+  $heartbeatmessagetemplate->message_id = 'new_comment_source';
+  $heartbeatmessagetemplate->description = 'New comment on a source';
+  $heartbeatmessagetemplate->message = '!username said: <div class="message">!comment</div>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -35,9 +35,8 @@ function checkdesk_sources_feature_heartbeat_template_info() {
     ),
   );
   $heartbeatmessagetemplate->variables = array(
-    '!user_url' => '',
     '!username' => '',
-    '!source_url' => '',
+    '!comment' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
@@ -62,7 +61,7 @@ function checkdesk_sources_feature_heartbeat_template_info() {
       ),
     ),
   );
-  $export['checkdesk_comment_on_source'] = $heartbeatmessagetemplate;
+  $export['new_comment_source'] = $heartbeatmessagetemplate;
 
   return $export;
 }

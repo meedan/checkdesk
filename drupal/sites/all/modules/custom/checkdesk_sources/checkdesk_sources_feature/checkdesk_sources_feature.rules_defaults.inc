@@ -9,8 +9,8 @@
  */
 function checkdesk_sources_feature_default_rules_configuration() {
   $items = array();
-  $items['checkdesk_reports_feature_comment_footnote_on_a_source'] = entity_import('rules_config', '{ "checkdesk_reports_feature_comment_footnote_on_a_source" : {
-      "LABEL" : "Comment (footnote) on a source",
+  $items['checkdesk_reports_feature_new_source_comment'] = entity_import('rules_config', '{ "checkdesk_reports_feature_new_source_comment" : {
+      "LABEL" : "New source comment",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
@@ -24,16 +24,15 @@ function checkdesk_sources_feature_default_rules_configuration() {
         }
       ],
       "DO" : [
-        { "heartbeat_activity_checkdesk_comment_on_source" : {
+        { "heartbeat_activity_new_comment_source" : {
             "nid" : [ "comment:node:nid" ],
             "uid" : [ "comment:author:uid" ],
             "nid_target" : "0",
             "uid_target" : "0",
             "cid" : [ "comment:cid" ],
-            "message_id" : { "value" : { "checkdesk_comment_on_source" : "checkdesk_comment_on_source" } },
-            "!user_url" : [ "comment:author:url" ],
+            "message_id" : { "value" : { "new_comment_source" : "new_comment_source" } },
             "!username" : [ "comment:author:name" ],
-            "!source_url" : [ "comment:node:url" ]
+            "!comment" : [ "comment:comment-body:value" ]
           }
         }
       ]

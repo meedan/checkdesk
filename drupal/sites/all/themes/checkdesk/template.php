@@ -861,6 +861,12 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['field_link_lazy_load'] = $field_link_rendered;
     }
   }
+
+  if ($variables['type'] == 'source') {
+    $variables['source_activity'] = theme(
+      'checkdesk_sources_source_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
+    );
+  }
 }
 
 function checkdesk_links__node($variables) {

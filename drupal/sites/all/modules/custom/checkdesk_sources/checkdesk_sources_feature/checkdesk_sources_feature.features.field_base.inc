@@ -10,6 +10,24 @@
 function checkdesk_sources_feature_field_default_field_bases() {
   $field_bases = array();
 
+  // Exported field_base: 'field_source_comments'.
+  $field_bases['field_source_comments'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_source_comments',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_source_status'.
   $field_bases['field_source_status'] = array(
     'active' => 1,
@@ -38,6 +56,24 @@ function checkdesk_sources_feature_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_source_subscriber'.
+  $field_bases['field_source_subscriber'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_source_subscriber',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
   );
 
   // Exported field_base: 'field_source_tags'.
@@ -70,6 +106,56 @@ function checkdesk_sources_feature_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
+  // Exported field_base: 'field_source_url'.
+  $field_bases['field_source_url'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_source_url',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'link',
+    'settings' => array(
+      'attributes' => array(
+        'class' => '',
+        'rel' => '',
+        'target' => 'default',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 1,
+      'title' => 'optional',
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+    ),
+    'translatable' => 0,
+    'type' => 'link_field',
+  );
+
+  // Exported field_base: 'field_source_views'.
+  $field_bases['field_source_views'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_source_views',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_username'.
   $field_bases['field_username'] = array(
     'active' => 1,
@@ -80,57 +166,6 @@ function checkdesk_sources_feature_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'source_data'.
-  $field_bases['source_data'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'source_data',
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'double_field',
-    'settings' => array(
-      'first' => array(
-        'maxlength' => 255,
-        'precision' => 10,
-        'scale' => 2,
-        'size' => 'normal',
-        'type' => 'varchar',
-      ),
-      'second' => array(
-        'maxlength' => 255,
-        'precision' => 10,
-        'scale' => 2,
-        'size' => 'normal',
-        'type' => 'varchar',
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'double_field',
-  );
-
-  // Exported field_base: 'source_url'.
-  $field_bases['source_url'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'source_url',
     'indexes' => array(
       'format' => array(
         0 => 'format',

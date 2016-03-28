@@ -23,25 +23,30 @@ function checkdesk_sources_menu() {
  */
 function checkdesk_sources_node_presave($node) {
   if ($node->type === 'source') {
-    $url = $node->source_url[LANGUAGE_NONE][0]['value'];
+    $url = $node->field_source_url[LANGUAGE_NONE][0]['url'];
     $pender_response =  checkdesk_sources_pender_fetch($url);
     if ($pender_response && $pender_response->type === 'media') {
       $data = $pender_response->data;
       $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
       $node->field_username[LANGUAGE_NONE][0]['value'] = $data->title;
       $node->title = $data->title;
-      $metadata = array('view_count' => 'Views', 'subscriber_count' => 'Subscribers', 'comment_count' => 'Comments');
-      $i = 0;
-      $node->source_data = array(LANGUAGE_NONE => array());
-      foreach($metadata as $key => $value) {
+      $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
+      foreach($metadata_fields as $key => $value) {
         if (isset($data->{$key})) {
-          $node->source_data[LANGUAGE_NONE][$i] = array(
-            'first' => $data->{$key},
-            'second' => $value
-          );
-          $i++;
+          $node->{$value}[LANGUAGE_NONE][0]['value'] = $data->{$key};
         }
       }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_load().
+ */
+function checkdesk_source_node_load($nodes, $types) {
+  foreach ($nodes as $nid => $node) {
+    if ($node->type == 'source' && isset($node->field_source_url[LANGUAGE_NONE][0]['url'])) {
+      $nodes[$nid]->pender = checkdesk_sources_pender_fetch($node->field_source_url[LANGUAGE_NONE][0]['url']);
     }
   }
 }
@@ -134,4 +139,86 @@ function checkdesk_sources_cron() {
   if (!variable_get('pender_cache_flush', TRUE)) {
     cache_clear_all(NULL, 'cache_pender');
   }
+}
+
+function _checkdesk_source_metadata_fields($provider) {
+  $fields = array();
+  switch ($provider) {
+    case 'youtube' :
+      $fields = array('view_count' => 'field_source_views', 'subscriber_count' => 'field_source_subscriber', 'comment_count' => 'field_source_comments');
+      break;
+  }
+  return $fields;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function checkdesk_sources_theme() {
+  $themes = array();
+  $base = array(
+    'file' => 'theme.inc',
+    'path' => drupal_get_path('module', 'checkdesk_sources') . '/theme',
+  );
+
+  $themes['checkdesk_sources_source_activity'] = array(
+    'template' => 'source_activity',
+    'variables' => array(
+      'node' => NULL,
+      'content' => NULL,
+      'view_mode' => NULL,
+    ),
+    ) + $base;
+
+  $themes['checkdesk_sources_metadata_fields'] = array(
+      'template' => 'checkdesk_sources_metadata_fields',
+      'variables' => array(
+        'node' => NULL,
+      ),
+    ) + $base;
+  return $themes;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `comment_node_source_form`.
+ */
+function checkdesk_sources_form_comment_node_source_form_alter(&$form, $form_state, $form_id) {
+  // Adjust node comments form
+  $nid = $form['#node']->nid;
+  $form['author']['homepage'] = NULL;
+  $form['author']['mail'] = NULL;
+  $form['actions']['submit']['#attributes']['class'] = array('btn');
+  $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['rows'] = 1;
+  $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['class'] = array('expanding');
+  $form['actions']['submit']['#value'] = t('Add comment');
+  $form['actions']['submit']['#ajax'] = array(
+    'callback' => '_checkdesk_reports_comment_form_submit',
+    'wrapper' => 'node-' . $nid,
+    'method' => 'replace',
+    'effect' => 'fade',
+  );
+  $form_state['ctools comment alter'] = FALSE;
+  $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add comment');
+}
+
+/**
+ * Load report activities based on issue #4287
+ */
+function checkdesk_source_load_activity($nid) {
+  $view = views_get_view('source_activity');
+  $view->set_arguments(array($nid));
+  $view->get_total_rows = TRUE;
+  $view->display['default']->display_options['pager']['options']['items_per_page'] = variable_get('checkdesk_comments_first_limit', 20);
+  $view_output = $view->preview('block');
+  $view->destroy();
+  $total_rows = $view->total_rows;
+  if ($total_rows <= variable_get('checkdesk_comments_all_limit', 30)) {
+    $view->display['default']->display_options['pager']['options']['items_per_page'] = variable_get('checkdesk_comments_all_limit', 30);
+    $view_output = $view->preview('block');
+    $view->destroy();
+  }
+  return array(
+    'view_output' => $view_output,
+    'total_rows' => $total_rows,
+  );
 }
