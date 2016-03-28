@@ -170,12 +170,6 @@ function checkdesk_sources_theme() {
     ),
     ) + $base;
 
-  $themes['checkdesk_sources_metadata_fields'] = array(
-      'template' => 'checkdesk_sources_metadata_fields',
-      'variables' => array(
-        'node' => NULL,
-      ),
-    ) + $base;
   return $themes;
 }
 
@@ -192,13 +186,33 @@ function checkdesk_sources_form_comment_node_source_form_alter(&$form, $form_sta
   $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['class'] = array('expanding');
   $form['actions']['submit']['#value'] = t('Add comment');
   $form['actions']['submit']['#ajax'] = array(
-    'callback' => '_checkdesk_reports_comment_form_submit',
+    'callback' => '_checkdesk_sources_comment_form_submit',
     'wrapper' => 'node-' . $nid,
     'method' => 'replace',
     'effect' => 'fade',
   );
   $form_state['ctools comment alter'] = FALSE;
   $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add comment');
+}
+
+/**
+ * Submit comment via ajax.
+ */
+function _checkdesk_sources_comment_form_submit($form, &$form_state) {
+  global $user;
+
+  drupal_get_messages();
+
+  $nid = $form['#node']->nid;
+  $node = node_load($nid);
+  $node_view = node_view($node);
+  $commands = array();
+  $output = theme(
+    'checkdesk_sources_source_activity', array('node' => $node, 'content' => $node_view['content'], 'view_mode' => 'full')
+  );
+  $commands[] = ajax_command_insert('.source-activity-node-'. $node->nid, $output);
+
+  return array('#type' => 'ajax', '#commands' => $commands);
 }
 
 /**
