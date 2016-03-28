@@ -489,42 +489,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   }
 
   // Links for reports only.
-  if ($node->type == 'media') {
-    if (_checkdesk_reports_can_suggest($node)) {
-      $links['checkdesk-suggest'] = array(
-        'title' => user_access('add report to story') ? t('Add to Story') : t('Suggest to Story'),
-        'href' => 'node/' . $node->nid . '/checkdesk/modal/suggest/nojs',
-        'query' => array(
-          'destination' => $destination,
-        ),
-      );
-    }
-
-    // View original content
-    if (isset($node->embed) && isset($node->embed->original_url)) {
-      $links['checkdesk-view-original'] = array(
-        'title' => t('View original'),
-        'href' => $node->embed->original_url,
-      );
-    }
-
-    // Check if this report is flagged
-    $flags = flag_get_flags('node');
-    $flagged = FALSE;
-    foreach ($flags as $flag) {
-      if ($flag->is_flagged($node->nid)) {
-        $flagged = TRUE;
-      }
-    }
-    $links['checkdesk-flag'] = array(
-      'title' => '',
-      'href' => '',
-      'fragment' => ' ',
-      'attributes' => array('class' => 'dropdown-toggle ' . ($flagged ? 'flagged' : 'unflagged'), 'data-toggle' => 'dropdown'),
-      'html' => TRUE,
-      'cd_group' => 'checkdesk-flag',
-      'external' => TRUE,
-    );
+  if (in_array($node->type, array('media', 'source'))) {
 
     $links['checkdesk-ellipsis'] = array(
       'title' => '',
@@ -535,12 +500,57 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       'cd_group' => 'checkdesk-ellipsis',
       'external' => TRUE,
     );
+
+    if ($node->type == 'media') {
+      // Check if this report is flagged
+      $flags = flag_get_flags('node');
+      $flagged = FALSE;
+      foreach ($flags as $flag) {
+        if ($flag->is_flagged($node->nid)) {
+          $flagged = TRUE;
+        }
+      }
+      $links['checkdesk-flag'] = array(
+        'title' => '',
+        'href' => '',
+        'fragment' => ' ',
+        'attributes' => array(
+          'class' => 'dropdown-toggle ' . ($flagged ? 'flagged' : 'unflagged'),
+          'data-toggle' => 'dropdown'
+        ),
+        'html' => TRUE,
+        'cd_group' => 'checkdesk-flag',
+        'external' => TRUE,
+      );
+      if (_checkdesk_reports_can_suggest($node)) {
+        $links['checkdesk-suggest'] = array(
+          'cd_group' => 'checkdesk-ellipsis',
+          'link_type' => 'modal',
+          'modal_class' => 'ctools-modal-modal-popup-medium',
+          'title' => user_access('add report to story') ? t('Add to Story') : t('Suggest to Story'),
+          'href' => 'node/' . $node->nid . '/checkdesk/modal/suggest/nojs',
+          'query' => array(
+            'destination' => $destination,
+          ),
+        );
+      }
+      // View original content
+      if (isset($node->embed) && isset($node->embed->original_url)) {
+        $links['checkdesk-view-original'] = array(
+          'title' => t('View original'),
+          'href' => $node->embed->original_url,
+        );
+      }
+
+    }
   }
 
   // Reports or stories can be shared, edited or deleted
-  if (in_array($node->type, array('discussion', 'media', 'post'))) {
+  if (in_array($node->type, array('discussion', 'media', 'post', 'source'))) {
     if (node_access('update', $node) && $node->type != 'post') {
       $links['checkdesk-edit'] = array(
+        'cd_group' => 'checkdesk-ellipsis',
+        'link_type' => 'link',
         'title' => t('Edit'),
         'href' => 'node/' . $node->nid . '/edit',
         'query' => array(
@@ -578,6 +588,8 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         }
       }
       $links['checkdesk-delete'] = array(
+        'cd_group' => 'checkdesk-ellipsis',
+        'link_type' => 'link',
         'title' => t('Delete'),
         'href' => 'node/' . $node->nid . '/delete',
         'query' => array(
@@ -617,7 +629,6 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $links[$id] = $link;
     }
   }
-
   return $links;
 }
 

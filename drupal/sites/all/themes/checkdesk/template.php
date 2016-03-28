@@ -871,10 +871,6 @@ function checkdesk_preprocess_node(&$variables) {
 
 function checkdesk_links__node($variables) {
   $links = $variables['links'];
-
-  $attributes = $variables['attributes'];
-  $heading = $variables['heading'];
-
   $class[] = 'content-actions';
 
   // get $alpha and $omega
@@ -899,36 +895,19 @@ function checkdesk_links__node($variables) {
         'type' => 'checkdesk-share', 'wrapper_class' => 'share-on', 'icon_class' => 'icon-share');
     $output .= theme('checkdesk_core_render_links', array('options' => $options));
 
-    if (isset($links['flag-spam'])) {
-      $links['flag-spam']['cd_group'] = 'checkdesk-flag';
-    }
-    if (isset($links['flag-graphic'])) {
-      $links['flag-graphic']['cd_group'] = 'checkdesk-flag';
-    }
-    if (isset($links['flag-factcheck'])) {
-      $links['flag-factcheck']['cd_group'] = 'checkdesk-flag';
-    }
-    if (isset($links['flag-delete'])) {
-      $links['flag-delete']['cd_group'] = 'checkdesk-flag';
+    // Set cd_group for report flags
+    $report_flags = array('flag-spam', 'flag-graphic', 'flag-factcheck', 'flag-delete');
+    foreach($report_flags as $flag) {
+      if (isset($links[$flag])) {
+        $links[$flag]['cd_group'] = 'checkdesk-flag';
+      }
     }
     // add flag links
     $options = array('links' => $links, 'direction' => $layout['omega'],
         'type' => 'checkdesk-flag', 'wrapper_class' => 'flag-as', 'icon_class' => 'icon-flag-o');
     $output .= theme('checkdesk_core_render_links', array('options' => $options));
 
-    if (isset($links['checkdesk-suggest'])) {
-      $links['checkdesk-suggest']['cd_group'] = 'checkdesk-ellipsis';
-      $links['checkdesk-suggest']['link_type'] = 'modal';
-      $links['checkdesk-suggest']['modal_class'] = 'ctools-modal-modal-popup-medium';
-    }
-    if (isset($links['checkdesk-edit'])) {
-      $links['checkdesk-edit']['cd_group'] = 'checkdesk-ellipsis';
-      $links['checkdesk-edit']['link_type'] = 'link';
-    }
-    if (isset($links['checkdesk-delete'])) {
-      $links['checkdesk-delete']['cd_group'] = 'checkdesk-ellipsis';
-      $links['checkdesk-delete']['link_type'] = 'link';
-    }
+
     if (isset($links['flag-factcheck_journalist'])) {
       $links['flag-factcheck_journalist']['cd_group'] = 'checkdesk-ellipsis';
     }
