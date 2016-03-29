@@ -33,9 +33,9 @@ function checkdesk_core_permission() {
       'title' => t('Access author filter'),
       'description' => t('User can access author filter (search page).'),
     ),
-    'hide unflag text' => array(
-      'title' => t('Hide unflag text'),
-      'description' => t('User will not able to see unflag text'),
+    'show unflag text' => array(
+      'title' => t('Show unflag text'),
+      'description' => t('User will able to see unflag text'),
     ),
     'access additional settings' => array(
       'title' => t('Access additional settings'),
@@ -715,7 +715,7 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
   }
   global $user;
   //do not allow unflag not allowed text to appear to citizen journalist.
-  if (user_access('hide unflag text') && $flag->name == 'factcheck_journalist') {
+  if (!user_access('show unflag text') && $flag->name == 'factcheck_journalist') {
     $flag_factcheck = flag_get_flag('factcheck_journalist');
     if ($flag_factcheck->is_flagged($entity_id)) {
       return FALSE;

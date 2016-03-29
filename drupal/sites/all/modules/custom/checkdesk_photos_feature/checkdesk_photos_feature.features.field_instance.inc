@@ -10,7 +10,7 @@
 function checkdesk_photos_feature_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'file-image-field_media_caption'
+  // Exported field_instance: 'file-image-field_media_caption'.
   $field_instances['file-image-field_media_caption'] = array(
     'bundle' => 'image',
     'default_value' => NULL,
@@ -25,6 +25,34 @@ function checkdesk_photos_feature_field_default_field_instances() {
         'weight' => 1,
       ),
       'embed' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'embed-align-first' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'embed-align-last' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'embed_align_first' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'embed_align_last' => array(
         'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
@@ -118,7 +146,7 @@ function checkdesk_photos_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'file-image-field_media_credits'
+  // Exported field_instance: 'file-image-field_media_credits'.
   $field_instances['file-image-field_media_credits'] = array(
     'bundle' => 'image',
     'default_value' => NULL,
@@ -133,6 +161,34 @@ function checkdesk_photos_feature_field_default_field_instances() {
         'weight' => 2,
       ),
       'embed' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+      'embed-align-first' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+      'embed-align-last' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+      'embed_align_first' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+      'embed_align_last' => array(
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),

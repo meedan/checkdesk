@@ -810,15 +810,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: 'hide unflag text'.
-  $permissions['hide unflag text'] = array(
-    'name' => 'hide unflag text',
-    'roles' => array(
-      'citizen journalist' => 'citizen journalist',
-    ),
-    'module' => 'checkdesk_core',
-  );
-
   // Exported permission: 'manage features'.
   $permissions['manage features'] = array(
     'name' => 'manage features',
@@ -963,6 +954,16 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
+  );
+
+  // Exported permission: 'show unflag text'.
+  $permissions['show unflag text'] = array(
+    'name' => 'show unflag text',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'checkdesk_core',
   );
 
   // Exported permission: 'skip comment approval'.
