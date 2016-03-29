@@ -29,7 +29,9 @@ function checkdesk_sources_node_presave($node) {
       $data = $pender_response->data;
       $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
       $node->field_username[LANGUAGE_NONE][0]['value'] = $data->title;
-      //$node->title = $data->title;
+      $node->title = $data->title;
+      $thumbnail_url = system_retrieve_file($data->thumbnail_url, 'public://'. basename($data->thumbnail_url), TRUE);
+      $node->field_image[LANGUAGE_NONE][0] = (array) $thumbnail_url;
       $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
       foreach($metadata_fields as $key => $value) {
         if (isset($data->{$key})) {
@@ -43,7 +45,7 @@ function checkdesk_sources_node_presave($node) {
 /**
  * Implements hook_node_load().
  */
-function checkdesk_source_node_load($nodes, $types) {
+function checkdesk_sources_node_load($nodes, $types) {
   foreach ($nodes as $nid => $node) {
     if ($node->type == 'source' && isset($node->field_source_url[LANGUAGE_NONE][0]['url'])) {
       $nodes[$nid]->pender = checkdesk_sources_pender_fetch($node->field_source_url[LANGUAGE_NONE][0]['url']);

@@ -866,7 +866,7 @@ function checkdesk_preprocess_node(&$variables) {
     $variables['source_activity'] = theme(
       'checkdesk_sources_source_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
     );
-    $variables['source_metadata'] = _checkdesk_source_metadata_fields('youtube');
+    $variables['source_metadata'] = _checkdesk_source_metadata_fields($node->pender->data->provider);
   }
 }
 
