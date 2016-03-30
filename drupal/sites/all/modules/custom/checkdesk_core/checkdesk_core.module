@@ -2585,6 +2585,18 @@ function checkdesk_core_node_update($node) {
  * Implements hook_node_delete().
  */
 function checkdesk_core_node_delete($node) {
+  if ($node->type == 'discussion') {
+    //Delete all related update
+    $query = db_select('field_data_field_desk', 'fd');
+    $query->fields('fd', array('entity_id'));
+    $query->condition('fd.field_desk_target_id', $node->nid);
+    $query->join('node', 'n', 'n.nid = fd.entity_id');
+    $query->condition('n.type', 'post');
+    $updates = $query->execute()->fetchCol();
+    foreach($updates as $row) {
+      node_delete($row);
+    }
+  }
   checkdesk_varnish_pages_to_purge('node', $node, 'delete');
 }
 

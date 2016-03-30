@@ -22,22 +22,28 @@ function checkdesk_sources_menu() {
  * Implements hook_node_presave().
  */
 function checkdesk_sources_node_presave($node) {
-  if ($node->type === 'source') {
-    $url = $node->field_source_url[LANGUAGE_NONE][0]['url'];
-    $pender_response =  checkdesk_sources_pender_fetch($url);
-    if ($pender_response && $pender_response->type === 'media') {
-      $data = $pender_response->data;
-      $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
-      $node->field_username[LANGUAGE_NONE][0]['value'] = $data->title;
-      $node->title = $data->title;
-      $thumbnail_url = system_retrieve_file($data->thumbnail_url, 'public://'. basename($data->thumbnail_url), TRUE);
-      $node->field_image[LANGUAGE_NONE][0] = (array) $thumbnail_url;
-      $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
-      foreach($metadata_fields as $key => $value) {
-        if (isset($data->{$key})) {
-          $node->{$value}[LANGUAGE_NONE][0]['value'] = $data->{$key};
+
+  if ($node->is_new) {
+    if ($node->type === 'source') {
+      $url = $node->field_source_url[LANGUAGE_NONE][0]['url'];
+      $pender_response = checkdesk_sources_pender_fetch($url);
+      if ($pender_response && $pender_response->type === 'media') {
+        $data = $pender_response->data;
+        $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
+        $node->field_username[LANGUAGE_NONE][0]['value'] = $data->title;
+        $node->title = $data->title;
+        $thumbnail_url = system_retrieve_file($data->thumbnail_url, 'public://' . basename($data->thumbnail_url), TRUE);
+        $node->field_image[LANGUAGE_NONE][0] = (array) $thumbnail_url;
+        $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
+        foreach ($metadata_fields as $key => $value) {
+          if (isset($data->{$key})) {
+            $node->{$value}[LANGUAGE_NONE][0]['value'] = $data->{$key};
+          }
         }
       }
+    }
+    elseif ($node->type == 'media') {
+      //$node->field_source_media[LANGUAGE_NONE][0]['target_id'] = 1554;
     }
   }
 }
@@ -51,6 +57,40 @@ function checkdesk_sources_node_load($nodes, $types) {
       $nodes[$nid]->pender = checkdesk_sources_pender_fetch($node->field_source_url[LANGUAGE_NONE][0]['url']);
     }
   }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function checkdesk_sources_node_insert($node) {
+  if ($node->type == 'media') {
+    $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
+    if ($embed) {
+      // Query all existing sources
+      _checkdesk_sources_assign_media_source($embed, $node);
+      // Log source data in meedan_sources and meedan_sources_media
+      _meedan_sources_insert($embed, $node->nid);
+    }
+  }
+  elseif ($node->type == 'source') {
+    // Query all existing reports (that have no source)
+  }
+}
+
+/**
+ * Implements of hook_node_delete();
+ */
+function checkdesk_sources_node_delete($node) {
+  if ($node->type == 'media') {
+    db_delete('meedan_sources_media')
+      ->condition('nid', $node->nid)
+      ->execute();
+  }
+}
+
+function _checkdesk_sources_assign_media_source($embed, $node) {
+  // Catch source id if not exists create a new one
+  //$node->field_source_media[LANGUAGE_NONE][0]['target_id'] = 1554;
 }
 
 function checkdesk_sources_pender_fetch($url) {
@@ -237,4 +277,48 @@ function checkdesk_source_load_activity($nid) {
     'view_output' => $view_output,
     'total_rows' => $total_rows,
   );
+}
+
+/**
+ * Insert embed data info in sources table.
+ */
+function _meedan_sources_insert($embed, $nid = NULL) {
+  $source_child = new stdClass();
+  $source_parent = new stdClass();
+  if (!$nid) {
+    $nid = db_result(db_query("SELECT nid FROM {content_type_report} WHERE field_media_embed_url = '%s'", $embed->original_url));
+  }
+
+  $source_parent->source = $embed->provider_name;
+  $source_parent->source_url = $embed->provider_url;
+  $source_parent->parent = NULL;
+  $query = db_select('meedan_sources', 'ms');
+  $query->condition('ms.source', $source_parent->source);
+  $query->fields('ms', array('ms_id'));
+  $parent_id = $query->execute()->fetchfield();
+  if (!$parent_id) {
+    drupal_write_record('meedan_sources', $source_parent);
+    $parent_id = $source_parent->ms_id;
+  }
+  if (isset($embed->author_name)) {
+    $source_child->source = $embed->author_name;
+    $source_child->source_url = $embed->author_url;
+    $source_child->parent = $parent_id;
+    $query = db_select('meedan_sources', 'ms');
+    $query->condition('ms.source', $source_child->source);
+    $query->condition('ms.parent', $source_child->parent);
+    $query->fields('ms', array('ms_id'));
+    $child_id = $query->execute()->fetchfield();
+    if (!$child_id) {
+      drupal_write_record('meedan_sources', $source_child);
+      $child_id = $source_child->ms_id;
+    }
+  }
+  if ($nid) {
+    //Check if there is a related node because oembed doesn't handle the deleted node.
+    $ms_id = isset($child_id) ? $child_id : $parent_id;
+    db_insert('meedan_sources_media')
+      ->fields(array('nid' => $nid, 'ms_id'  => $ms_id,))
+      ->execute();
+  }
 }

@@ -525,11 +525,13 @@ function _checkdesk_reports_render_footnotes($node) {
  * Set flag for report from bookmarklet.
  */
 function checkdesk_reports_node_insert($node) {
-    if ($node->type == 'media' && isset($node->graphic_content) && is_array($node->graphic_content)) {
-        foreach($node->graphic_content as $flag_name => $checked) {
-            if ($checked) {
-                $flag = flag_get_flag($flag_name);
-                $flag->flag('flag', $node->nid);
+    if ($node->type == 'media') {
+        if (isset($node->graphic_content) && is_array($node->graphic_content)) {
+            foreach ($node->graphic_content as $flag_name => $checked) {
+                if ($checked) {
+                    $flag = flag_get_flag($flag_name);
+                    $flag->flag('flag', $node->nid);
+                }
             }
         }
     }
