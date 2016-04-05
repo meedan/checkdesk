@@ -102,7 +102,7 @@ function checkdesk_sources_feature_strongarm() {
           'weight' => '9',
         ),
         'title' => array(
-          'weight' => '2',
+          'weight' => '1',
         ),
         'path' => array(
           'weight' => '8',
