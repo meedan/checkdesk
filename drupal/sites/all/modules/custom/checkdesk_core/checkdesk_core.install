@@ -551,3 +551,10 @@ function checkdesk_core_update_7061() {
 function checkdesk_core_update_7062() {
   module_enable(array('checkdesk_reports_feature'));
 }
+
+/**
+ * Enable checkdesk sources
+ */
+function checkdesk_core_update_7063() {
+  module_enable(array('checkdesk_sources'));
+}

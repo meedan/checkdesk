@@ -30,9 +30,7 @@ function checkdesk_sources_node_presave($node) {
       if ($pender_response && $pender_response->type === 'media') {
         $data = $pender_response->data;
         $node->title = $data->title;
-        if ($data->subtype == 'user') {
-          $node->field_username[LANGUAGE_NONE][0]['value'] = $data->username;
-        }
+        $node->field_username[LANGUAGE_NONE][0]['value'] = $data->username;
         $node->field_published_at[LANGUAGE_NONE][0]['value'] = strtotime($data->published_at);
         $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
         $thumbnail_url = system_retrieve_file($data->thumbnail_url, 'public://' . basename($data->thumbnail_url), TRUE);
