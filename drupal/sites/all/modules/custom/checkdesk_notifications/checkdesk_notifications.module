@@ -142,6 +142,10 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
           'label' => $label . t('New report created'),
           'token type' => 'node',
       );
+      $events[$context . '_new_source'] = array(
+          'label' => $label . t('New source created'),
+          'token type' => 'node',
+      );
     }
     if (user_access('administer checkdesk activities') || $user->uid == 0) {
       $events[$context . '_update_on_story_i_commented_on_update'] = array(
@@ -265,6 +269,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
       if ($subscriptions['site_new_report']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'new_report'");
       }
+      if ($subscriptions['site_new_source']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_source'");
+      }
     }
 
     // Activities for a normal user
@@ -356,6 +363,7 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
     case 'email_new_story':
     case 'email_update_story':
     case 'email_new_report':
+    case 'email_new_source':
       $uids = db_query("SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id")->fetchCol(); // all journalists
       break;
     case 'email_comment_on_update':
