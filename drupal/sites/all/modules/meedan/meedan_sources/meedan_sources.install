@@ -1,1 +1,29 @@
 <?php
+
+/**
+ * Implementation of hook_schema().
+ */
+function meedan_sources_schema() {
+  $schema['meedan_sources'] = array(
+	'description' => 'The base table for media sources.',
+	'fields' => array(
+	  'ms_id' => array('type' => 'serial', 'unsigned' => TRUE,  'not null' => TRUE),
+	  'source' => array('type' => 'varchar', 'length' => 120, 'not null' => FALSE),
+	  'source_url' => array('type' => 'varchar', 'length' => 250, 'not null' => FALSE),
+	  'parent' => array('type' => 'int', 'length' => 11, 'not null' => FALSE),
+	),
+	'primary key' => array('ms_id'),
+  );
+  $schema['meedan_sources_media'] = array(
+	'description' => 'The relationship table joining media sources and nodes where they occur.',
+	'fields' => array(
+	  'nid' => array('type' => 'int', 'unsigned' => TRUE,  'not null' => TRUE),
+	  'ms_id' => array('type' => 'int', 'unsigned' => TRUE,  'not null' => TRUE),
+	),
+	'primary key' => array('nid'),
+	'indexes' => array(
+	  'meedan_source' => array('ms_id'),
+	),
+  );
+  return $schema;
+}
