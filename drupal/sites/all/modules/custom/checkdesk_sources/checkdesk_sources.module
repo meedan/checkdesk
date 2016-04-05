@@ -240,6 +240,30 @@ function checkdesk_sources_theme() {
 }
 
 /**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function checkdesk_sources_form_source_node_form_alter(&$form, &$form_state) {
+  if (!isset($form['nid']['#value'])) {
+    // Hide all fields on form creation except source url
+    $fields = field_info_instances("node", "source");
+    unset($fields['field_source_url']);
+    $form['title']['#access'] = FALSE;
+    foreach ($fields as $k => $v) {
+      $form[$k]['#access'] = FALSE;
+    }
+  }
+  else {
+    // Disable URL field
+    $form['#after_build'][] = '_checkdesk_source_after_build';
+  }
+}
+
+function _checkdesk_source_after_build($form, &$form_state) {
+  $form['field_source_url'][LANGUAGE_NONE][0]['url']['#attributes']['readonly'] = 'readonly';
+  return $form;
+}
+
+/**
  * Implements hook_form_FORM_ID_alter() for `comment_node_source_form`.
  */
 function checkdesk_sources_form_comment_node_source_form_alter(&$form, $form_state, $form_id) {
