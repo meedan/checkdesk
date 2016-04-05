@@ -32,6 +32,7 @@ function checkdesk_sources_node_presave($node) {
         $node->title = $data->title;
         $node->field_username[LANGUAGE_NONE][0]['value'] = $data->username;
         $node->field_published_at[LANGUAGE_NONE][0]['value'] = strtotime($data->published_at);
+        $node->field_provider[LANGUAGE_NONE][0]['value'] = $data->provider;
         $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
         $thumbnail_url = system_retrieve_file($data->thumbnail_url, 'public://' . basename($data->thumbnail_url), TRUE);
         $node->field_image[LANGUAGE_NONE][0] = (array) $thumbnail_url;
@@ -253,6 +254,7 @@ function checkdesk_sources_form_source_node_form_alter(&$form, &$form_state) {
     }
   }
   else {
+    $form['field_provider']['#access'] = FALSE;
     // Disable URL field
     $form['#after_build'][] = '_checkdesk_source_after_build';
   }
