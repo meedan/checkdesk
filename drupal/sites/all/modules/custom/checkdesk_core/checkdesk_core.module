@@ -1659,7 +1659,7 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
   $view = views_get_current_view();
   if (isset($view) && $view->name == 'my_notifications') return;
   foreach ($messages as $key => $message) {
-    if ($message->nid > 0 && in_array($message->message_id, array('status_report', 'new_comment_report', 'new_comment_source', 'new_report', 'publish_report'))) {
+    if ($message->nid > 0 && in_array($message->message_id, array('status_report', 'new_comment_report', 'new_comment_source', 'new_report', 'publish_report', 'checkdesk_new_source'))) {
       $node = node_load($message->nid);
       if ($node->type == 'media' || $node->type == 'source') {
         $messages[$key]->message = theme('checkdesk_heartbeat_content',  array(

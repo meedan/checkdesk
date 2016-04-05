@@ -271,6 +271,11 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     $username = $message->variables['!username'];
     $title = t('added this report');
   }
+  elseif ($message->message_id == 'checkdesk_new_source') {
+    // set variables for new_source
+    $username = $message->variables['!username'];
+    $title = t('added this source');
+  }
 
   // format status report as
   // Noha Aziz changed status to {status icon} verified (different color and add hover info on verified) {timestamp}

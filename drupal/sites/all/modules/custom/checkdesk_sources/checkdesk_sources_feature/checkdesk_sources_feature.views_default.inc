@@ -96,6 +96,7 @@ function checkdesk_sources_feature_views_default_views() {
   $handler->display->display_options['filters']['message_id']['field'] = 'message_id';
   $handler->display->display_options['filters']['message_id']['value'] = array(
     'new_comment_source' => 'new_comment_source',
+    'checkdesk_new_source' => 'checkdesk_new_source',
   );
 
   /* Display: Block */
