@@ -3581,6 +3581,24 @@ function _checkdesk_main_navigation() {
     'class' => array($li_class, 'create-report'),
   );
 
+  // Create source link
+  $create_source_icon = '<svg class="create-report-icon" preserveAspectRatio="xMinYMin meet" viewBox="29 0 26 34"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#create-report-icon"></use></svg>';
+  $create_link = 'node/add/source';
+  $create_classes = array($a_class, 'create-source-link');
+  if (!user_access('create source content')) {
+    $create_query['destination'] = $create_link;
+    $create_link = $create_ano_link;
+    $create_classes = array_merge($create_classes, $create_ano_class);
+  }
+  $items[] = array(
+    'data' => l($create_source_icon . '<span>' . t('Create source') . '</span>', $create_link, array(
+      'attributes' => array('class' => $create_classes),
+      'html' => TRUE,
+      'query' => $create_query,
+    )),
+    'class' => array($li_class, 'create-source'),
+  );
+
   // Create story
   $create_story_icon = '<svg class="create-story-icon" preserveAspectRatio="xMinYMin meet" viewBox="57 0 32 28"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#create-story-icon"></use></svg>';
   $create_link = 'node/add/discussion';
