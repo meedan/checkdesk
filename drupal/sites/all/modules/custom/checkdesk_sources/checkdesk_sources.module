@@ -29,9 +29,12 @@ function checkdesk_sources_node_presave($node) {
       $pender_response = checkdesk_sources_pender_fetch($url);
       if ($pender_response && $pender_response->type === 'media') {
         $data = $pender_response->data;
-        $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
-        $node->field_username[LANGUAGE_NONE][0]['value'] = $data->title;
         $node->title = $data->title;
+        if ($data->subtype == 'user') {
+          $node->field_username[LANGUAGE_NONE][0]['value'] = $data->username;
+        }
+        $node->field_published_at[LANGUAGE_NONE][0]['value'] = strtotime($data->published_at);
+        $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
         $thumbnail_url = system_retrieve_file($data->thumbnail_url, 'public://' . basename($data->thumbnail_url), TRUE);
         $node->field_image[LANGUAGE_NONE][0] = (array) $thumbnail_url;
         $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
@@ -43,7 +46,8 @@ function checkdesk_sources_node_presave($node) {
       }
     }
     elseif ($node->type == 'media') {
-      //$node->field_source_media[LANGUAGE_NONE][0]['target_id'] = 1554;
+      // Query all existing sources
+      _checkdesk_sources_assign_media_source($node->field_link[LANGUAGE_NONE][0]['url'], $node);
     }
   }
 }
@@ -66,14 +70,23 @@ function checkdesk_sources_node_insert($node) {
   if ($node->type == 'media') {
     $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
     if ($embed) {
-      // Query all existing sources
-      _checkdesk_sources_assign_media_source($embed, $node);
       // Log source data in meedan_sources and meedan_sources_media
       _meedan_sources_insert($embed, $node->nid);
     }
   }
   elseif ($node->type == 'source') {
     // Query all existing reports (that have no source)
+    $query = db_select('meedan_sources', 'ms');
+    $query->innerJoin('meedan_sources_media', 'msm', 'ms.ms_id = msm.ms_id');
+    $query->leftJoin('field_data_field_source_media', 'fsm', 'msm.nid = fsm.entity_id');
+    $query->where('TRIM(source_url) = :source_url', array(':source_url' => trim($node->field_source_url[LANGUAGE_NONE][0]['url'])));
+    $query->isNull('fsm.field_source_media_target_id');
+    $query->addField('msm', 'nid');
+    $media_nids = $query->execute()->fetchCol();
+    foreach (node_load_multiple($media_nids) as $media) {
+      $media->field_source_media[LANGUAGE_NONE][0]['target_id'] = $node->nid;
+      node_save($media);
+    }
   }
 }
 
@@ -88,9 +101,22 @@ function checkdesk_sources_node_delete($node) {
   }
 }
 
-function _checkdesk_sources_assign_media_source($embed, $node) {
-  // Catch source id if not exists create a new one
-  //$node->field_source_media[LANGUAGE_NONE][0]['target_id'] = 1554;
+function _checkdesk_sources_assign_media_source($media_url, &$node) {
+  $embed = meedan_oembed_data($media_url);
+  if ($embed) {
+    // Catch source id if not exists create a new one
+    $source_nid = db_query('SELECT entity_id FROM {field_data_field_source_url} WHERE field_source_url_url = :url AND bundle = :bundle'
+      , array(
+        ':url' => $embed->author_url,
+        ':bundle' => 'source'
+      ))->fetchField();
+    if ($source_nid) {
+      $node->field_source_media[LANGUAGE_NONE][0]['target_id'] = $source_nid;
+    }
+    else {
+      // Create a new source
+    }
+  }
 }
 
 function checkdesk_sources_pender_fetch($url) {
