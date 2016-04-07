@@ -17,6 +17,22 @@ function checkdesk_notifications_heartbeat_activity_view(HeartbeatActivity $hear
 }
 
 /**
+ * Implements hook_permission().
+ */
+function checkdesk_notifications_permission() {
+  return array(
+    'administer checkdesk activities' => array(
+      'title' => t('Administer checkdesk activities'),
+      'description' => t('User can administer checkdesk activities.'),
+    ),
+    'access journalist activities' => array(
+      'title' => t('Access journalist activitiesy'),
+      'description' => t('User can access journalist activities.'),
+    ),
+  );
+}
+
+/**
  * Gets number of new notifications.
  */
 function checkdesk_notifications_number_of_new_items($user) {
@@ -87,7 +103,7 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
   $events = array();
   // We need events for both site and e-mail notifications
   foreach (array('site' => t('On site: '), 'email' => t('By e-mail: ')) as $context => $label) {
-    if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles) || $user->uid == 0) {
+    if (user_access('access journalist activities') || $user->uid == 0) {
       $events[$context . '_report_flagged'] = array(
           'label' => $label . t('Report flagged'),
           'token type' => 'node',
@@ -126,8 +142,12 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
           'label' => $label . t('New report created'),
           'token type' => 'node',
       );
+      $events[$context . '_new_source'] = array(
+          'label' => $label . t('New source created'),
+          'token type' => 'node',
+      );
     }
-    if (!in_array('journalist', $user->roles) || in_array('administrator', $user->roles) || $user->uid == 0) {
+    if (user_access('administer checkdesk activities') || $user->uid == 0) {
       $events[$context . '_update_on_story_i_commented_on_update'] = array(
           'label' => $label . t('New update on a story I commented on an update before'),
           'token type' => 'node',
@@ -216,7 +236,7 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     $query->set_where_group('OR', 1);
 
     // Activities for journalists only
-    if (in_array('journalist', $user->roles)) {
+    if (user_access('access journalist activities')) {
       if ($subscriptions['site_report_flagged']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_flag_report'");
       }
@@ -248,6 +268,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
       }
       if ($subscriptions['site_new_report']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'new_report'");
+      }
+      if ($subscriptions['site_new_source']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_source'");
       }
     }
 
@@ -340,6 +363,7 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
     case 'email_new_story':
     case 'email_update_story':
     case 'email_new_report':
+    case 'email_new_source':
       $uids = db_query("SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id")->fetchCol(); // all journalists
       break;
     case 'email_comment_on_update':

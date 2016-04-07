@@ -67,7 +67,7 @@
 }
 
 @include cd-responsive('min-width: #{$width-tablet}') {
-	.page-results {
+	.page-search .page-results {
 		float: $alpha;
 	}
 }
@@ -86,11 +86,11 @@
 }
 
 @include cd-responsive('min-width: #{$width-tablet}') {
-	.search-reset-filters {
+	.page-search .search-reset-filters {
 		float: $omega;
 	}
 }
 
-.items .item {
+.items .item:not(:first-child) {
 	margin-top: 20px;
 }

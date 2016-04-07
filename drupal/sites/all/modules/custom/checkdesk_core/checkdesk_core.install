@@ -9,21 +9,6 @@ function checkdesk_core_enable() {
 }
 
 /**
- * Implements hook_schema().
- */
-function checkdesk_core_schema() {
-  $schema['checkdesk_reports_updates'] = array(
-      'description' => 'The base table to associate reports with updates.',
-      'fields' => array(
-          'update_nid' => array('type' => 'int', 'length' => 10, 'unsigned' => TRUE, 'not null' => TRUE),
-          'report_nid' => array('type' => 'int', 'length' => 10, 'unsigned' => TRUE, 'not null' => TRUE),
-      ),
-      'primary key' => array('update_nid', 'report_nid'),
-  );
-  return $schema;
-}
-
-/**
  * Implements hook_requirements().
  */
 function checkdesk_core_requirements($phase) {
@@ -186,46 +171,6 @@ function checkdesk_core_update_7028() {
   }
   if (!empty($uaids)) {
     heartbeat_activity_delete($uaids);
-  }
-}
-
-/**
- * Create table for log updates_reports.
- */
-function checkdesk_core_update_7029() {
-  $schema = checkdesk_core_schema();
-  db_create_table('checkdesk_reports_updates', $schema['checkdesk_reports_updates']);
-}
-
-/**
- * Log existing updates and reports.
- */
-function checkdesk_core_update_7030() {
-  $query = db_select('node', 'n');
-  $query->addField('n', 'nid');
-  $query->addField('fdb', 'body_value');
-  $query->join('field_data_body', 'fdb', 'n.nid = fdb.entity_id');
-  $query->condition('n.type', 'post');
-  $result = $query->execute()->fetchAll();
-  $data = array();
-  foreach ($result as $row) {
-    $matches = $reports = array();
-    preg_match_all('/\[[^:]+:([0-9]+)\]/u', $row->body_value, $matches);
-    if (count($matches[1])) {
-      foreach ($matches[1] as $key => $nid) {
-        if (!in_array($nid, $reports)) {
-          $reports[] = $nid;
-          $data[] = array('update_nid' => $row->nid, 'report_nid' => $nid);
-        }
-      }
-    }
-  }
-  if (count($data)) {
-    $query = db_insert('checkdesk_reports_updates')->fields(array('update_nid', 'report_nid'));
-    foreach ($data as $record) {
-      $query->values($record);
-    }
-    $query->execute();
   }
 }
 
@@ -605,4 +550,11 @@ function checkdesk_core_update_7061() {
  */
 function checkdesk_core_update_7062() {
   module_enable(array('checkdesk_reports_feature'));
+}
+
+/**
+ * Enable checkdesk sources
+ */
+function checkdesk_core_update_7063() {
+  module_enable(array('checkdesk_sources'));
 }

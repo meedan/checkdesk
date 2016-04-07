@@ -229,99 +229,52 @@ function _checkdesk_alter($files, $type) {
 }
 
 
-/**
- * Returns HTML for status and/or error messages, grouped by type.
- *
- */
-// function checkdesk_status_messages($variables) {
-//   $display = $variables['display'];
-//   $output = '';
-
-//   $status_heading = array(
-//     'status' => t('Status'),
-//     'error' => t('Errors occurred'),
-//     'warning' => t('Warning'),
-//   );
-
-//   foreach (drupal_get_messages($display) as $type => $messages) {
-//     $output .= "<div class=\"alert alert-block alert-$type\">\n";
-//     $output .= "  <a class=\"close\" data-dismiss=\"alert\" href=\"#\">x</a>\n";
-
-//     if (!empty($status_heading[$type])) {
-//       $output .= '<h4 class="alert-heading">' . $status_heading[$type] . "</h4>\n";
-//     }
-
-//     if (count($messages) > 1) {
-//       $output .= " <ul>\n";
-//       foreach ($messages as $message) {
-//         $output .= '  <li>' . $message . "</li>\n";
-//       }
-//       $output .= " </ul>\n";
-//     }
-//     else {
-//       $output .= $messages[0];
-//     }
-
-//     $output .= "</div>\n";
-//   }
-//   return $output;
-// }
-
 function checkdesk_checkdesk_heartbeat_content($variables) {
   $message = $variables['message'];
+  $username = '';
 
-  // prep user picture
-  $user = user_load($message->uid);
-  $avatar = _set_user_avatar_bg($user,array('avatar', 'thumb-38'));
   // set variables for new comment aka fact-checking footnote
-  if ($message->message_id == 'new_comment_report') {
-    // set actor / editor / user
-    $actor = l($message->variables['!username'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
-    // 
+  if ($message->message_id == 'new_comment_report' || $message->message_id == 'new_comment_source') {
+    $username = $message->variables['!username'];
+    //
     $comment_text = $message->variables['!comment'];
     if (isset($message->cid) && user_access('administer comments')) {
       $delete_footnote = l('<span class="icon-trash-o"></span>', 'comment/'. $message->cid .'/delete', array(
-        //'query' => drupal_get_destination(),
         'attributes' => array('class' => 'inline-delete-item', 'title' => t('Delete')),
         'html' => TRUE,
       ));
     }
   }
-
-
-  // set variables for status report 
-  if ($message->message_id == 'status_report') {
+  elseif ($message->message_id == 'status_report') {
+    // set variables for status report
+    $username = $message->variables['!editor'];
     // set icons
     if ($status = $message->variables['!status_org']) {
       $status_term = taxonomy_get_term_by_name($status, 'media_rating');
       $status_class_name = strtolower(str_replace(' ', '-', $status));
       $icon = _checkdesk_report_status_icon(reset($status_term));
     }
-
-    // set actor / editor / user
-    $actor = l($message->variables['!editor'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
     $title = t('changed status to ');
     if (!empty($icon)) {
       $title .= '<span class="media-status"><span class="icon">' . $icon . '</span>';
     }
     $title .= ' <span class="status-name ' . $status_class_name . '">' . strtolower($message->variables['!status']) . '</span></span>';
-    
   }
-
-  // set variables for publish_report
-  if ($message->message_id == 'publish_report') {
-    // set actor / editor / user / publisher
-    $actor = l($message->variables['!publisher'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
+  elseif ($message->message_id == 'publish_report') {
+    // set variables for publish_report
+    $username = $message->variables['!publisher'];
     $story = l($message->variables['!story'], $message->variables['!story_url'], array('html' => TRUE, 'attributes' => array('class' => array('story_link'))));
     $title = t('published on ') . $story;
   }
-
-  // set variables for new_report
-  if ($message->message_id == 'new_report') {
-    // set actor / editor / user / publisher
-    $actor = l($message->variables['!username'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
+  elseif ($message->message_id == 'new_report') {
+    // set variables for new_report
+    $username = $message->variables['!username'];
     $title = t('added this report');
-    // $title = t('Added ') . $message->variables['!title'];
+  }
+  elseif ($message->message_id == 'checkdesk_new_source') {
+    // set variables for new_source
+    $username = $message->variables['!username'];
+    $title = t('added this source');
   }
 
   // format status report as
@@ -330,28 +283,31 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   // format comments as
   // Noha Aziz {comment} {timestamp}
 
-  $output = '';
-  $output = $avatar;
+  // prep user picture
+  $user = user_load($message->uid);
+  $output = _set_user_avatar_bg($user, array('avatar', 'thumb-38'));
 
   $output .= t('<time title="!datetime" datetime="!datetime" class="timestamp">!inverval</time>', array(
       '!inverval' => checkdesk_core_custom_format_interval($message->timestamp),
       '!datetime' => format_date($message->timestamp, 'custom', t('l M d, Y \a\t g:i:sa'))
   ));
 
-
   if (isset($delete_footnote)) {
     $output .= $delete_footnote;
   }
 
-  if(isset($actor)) {
-    $output .= '<span>' . $actor . '</span> ';  
+  if(!empty($username)) {
+    // set actor / editor / user
+    $output .= '<span>' . l($username, 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor')))) . '</span> ';
   }
 
   if(isset($title)) {
     $output .= '<span class="title">' . $title . '</span>';
-  } elseif (isset($comment_text)) {
+  }
+  elseif (isset($comment_text)) {
     $output .= '<span class="report-verification-footnote item-content-text">' . $comment_text . '</span>';
-  } else {
+  }
+  else {
     $output .= $message->message;
   }
 

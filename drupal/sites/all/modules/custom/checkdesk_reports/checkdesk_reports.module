@@ -525,12 +525,40 @@ function _checkdesk_reports_render_footnotes($node) {
  * Set flag for report from bookmarklet.
  */
 function checkdesk_reports_node_insert($node) {
-    if (isset($node->graphic_content) && is_array($node->graphic_content)) {
-        foreach($node->graphic_content as $flag_name => $checked) {
-            if ($checked) {
-                $flag = flag_get_flag($flag_name);
-                $flag->flag('flag', $node->nid);
+    if ($node->type == 'media') {
+        if (isset($node->graphic_content) && is_array($node->graphic_content)) {
+            foreach ($node->graphic_content as $flag_name => $checked) {
+                if ($checked) {
+                    $flag = flag_get_flag($flag_name);
+                    $flag->flag('flag', $node->nid);
+                }
             }
+        }
+    }
+    if (in_array($node->type, array('post', 'discussion'))) {
+        //link report to created update
+        if (!empty($node->body)) {
+            $story_nid = 0;
+            if ($node->type == 'discussion') {
+                $story_nid = $node->nid;
+            }
+            elseif ($node->type == 'post' && isset($node->field_desk[LANGUAGE_NONE][0]['target_id'])) {
+                $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+            }
+            _checkdesk_reports_log_publications('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid, $node->type);
+        }
+    }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function checkdesk_reports_node_update($node) {
+    if ($node->type === 'post' && isset($node->body)) {
+        //link report to update
+        if (!empty($node->body)) {
+            $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+            _checkdesk_reports_log_publications('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid, $node->type);
         }
     }
 }
@@ -539,11 +567,16 @@ function checkdesk_reports_node_insert($node) {
  * Implements hook_node_delete().
  */
 function checkdesk_reports_node_delete($node) {
-  if ($node->type == 'media') {
-        db_delete('checkdesk_reports_updates')
-            ->condition('report_nid', $node->nid)
-            ->execute();
-  }
+    if ($node->type === 'post' || $node->type === 'discussion') {
+        db_delete('checkdesk_reports_publication')
+          ->condition('entity_nid', $node->nid)
+          ->execute();
+    }
+    elseif ($node->type == 'media') {
+        db_delete('checkdesk_reports_publication')
+          ->condition('report_nid', $node->nid)
+          ->execute();
+    }
 }
 
 /**
@@ -706,4 +739,43 @@ function _checkdesk_get_stories_by_activity($show_draft = FALSE) {
     $query->orderBy('ha.timestamp', 'DESC');
     $result = $query->execute()->fetchAllKeyed(0);
     return $result;
+}
+
+/**
+ *
+ */
+function _checkdesk_reports_log_publications($op, $text, $entity_nid, $story_nid, $bundle) {
+    //link report to created update
+    if ($op == 'update') {
+        db_delete('checkdesk_reports_publication')
+          ->condition('entity_nid', $entity_nid)
+          ->execute();
+    }
+    $matches = $reports = $data = array();
+    preg_match_all('/\[[^:]+:([0-9]+)\]/u', $text, $matches);
+    if (count($matches[1])) {
+        foreach ($matches[1] as $key => $nid) {
+            if (is_numeric($nid) && is_object(node_load($nid))) {
+                if(!in_array($nid, $reports)) {
+                    $reports[] = $nid;
+                    $data[] = array('entity_nid' => $entity_nid, 'report_nid' => $nid, 'bundle' => $bundle);
+                    //Link report to story
+                    $report = node_load($nid);
+                    if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) ||
+                      $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $story_nid) {
+                        $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $story_nid;
+                        node_save($report);
+                    }
+                }
+            }
+        }
+        if (count($data)) {
+            $query = db_insert('checkdesk_reports_publication')->fields(array('entity_nid', 'report_nid', 'bundle'));
+            foreach ($data as $record) {
+                $query->values($record);
+            }
+            $query->execute();
+        }
+    }
+
 }

@@ -34,5 +34,5 @@ $total = count($rows) - 1;
 <?php print $wrapper_suffix; ?>
 
 <div class="search-reset-filters">
-  <?php print l(t('Reset all filters'), 'search', array('attributes' => array('class' => array('search-reset')))); ?>
+  <?php print _checkdesk_render_reset_search_result_link(); ?>
 </div>

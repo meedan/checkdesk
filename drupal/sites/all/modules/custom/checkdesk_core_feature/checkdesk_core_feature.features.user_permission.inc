@@ -123,6 +123,16 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'heartbeat',
   );
 
+  // Exported permission: 'access journalist activities'.
+  $permissions['access journalist activities'] = array(
+    'name' => 'access journalist activities',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'checkdesk_notifications',
+  );
+
   // Exported permission: 'access private fields'.
   $permissions['access private fields'] = array(
     'name' => 'access private fields',
@@ -212,6 +222,15 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'block',
+  );
+
+  // Exported permission: 'administer checkdesk activities'.
+  $permissions['administer checkdesk activities'] = array(
+    'name' => 'administer checkdesk activities',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'checkdesk_notifications',
   );
 
   // Exported permission: 'administer comments'.
@@ -791,15 +810,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: 'hide unflag text'.
-  $permissions['hide unflag text'] = array(
-    'name' => 'hide unflag text',
-    'roles' => array(
-      'citizen journalist' => 'citizen journalist',
-    ),
-    'module' => 'checkdesk_core',
-  );
-
   // Exported permission: 'manage features'.
   $permissions['manage features'] = array(
     'name' => 'manage features',
@@ -944,6 +954,16 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
+  );
+
+  // Exported permission: 'show unflag text'.
+  $permissions['show unflag text'] = array(
+    'name' => 'show unflag text',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'checkdesk_core',
   );
 
   // Exported permission: 'skip comment approval'.
