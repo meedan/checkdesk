@@ -48,6 +48,19 @@ function checkdesk_api_feature_default_services_endpoint() {
         ),
       ),
     ),
+    'sources' => array(
+      'operations' => array(
+        'retrieve' => array(
+          'enabled' => '1',
+        ),
+        'create' => array(
+          'enabled' => '1',
+        ),
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'stories' => array(
       'operations' => array(
         'index' => array(

@@ -558,3 +558,10 @@ function checkdesk_core_update_7062() {
 function checkdesk_core_update_7063() {
   module_enable(array('checkdesk_sources'));
 }
+
+/**
+ * Enable checkdesk api
+ */
+function checkdesk_core_update_7064() {
+  module_enable(array('checkdesk_api'));
+}
