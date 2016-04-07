@@ -1,0 +1,118 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "/api/",
+  "resourcePath": "sources",
+  "apis": [
+    {
+      "path": "sources",
+      "operations": [
+        {
+          "summary": "Create a source",
+          "notes": "Create a source, optionally related to a story",
+          "parameters": [
+            {
+              "paramType": "form",
+              "name": "url",
+              "type": "string",
+              "description": "Source URL",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "story_id",
+              "type": "int",
+              "description": "Story ID",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": { "type": "source", "data": { "link": "<link to the source on Checkdesk>", "nid": "<ID>" } },
+              "message": "Success! Returns the source object that was created, with at least link to it on Checkdesk and ID"
+            },
+            {
+              "code": 400,
+              "responseModel": { "type": "error", "data": { "message": "Please provide a URL" } },
+              "message": "Parameters missing"
+            },
+            {
+              "code": 401,
+              "responseModel": { "type": "error", "data": { "message": "Access denied" } },
+              "message": "Access denied"
+            },
+            {
+              "code": 404,
+              "responseModel": { "type": "error", "data": { "message": "Story not found" } },
+              "message": "Story with the provided id was not found"
+            }
+          ],
+          "nickname": "Api::V1::Sources#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "sources",
+      "operations": [
+        {
+          "summary": "Sources list",
+          "notes": "List recent 50 sources",
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": { "type": "sources", "data": [{ "title": "<source title>", "URL": "<checkdesk URl>", "original_url" : "Original URL for the source", "uid" : "author uid" }] },
+              "message": "List of sources objects with title, url, origianl_url and uid"
+            },
+            {
+              "code": 401,
+              "responseModel": { "type": "error", "data": { "message": "Access denied" } },
+              "message": "Access denied"
+            }
+          ],
+          "nickname": "Api::V1::Sources",
+          "method": "GET"
+        }
+      ]
+    },
+    {
+      "path": "sources/{id}",
+      "operations": [
+        {
+          "summary": "Retrive a source",
+          "notes": "Retrive a source",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "int",
+              "description": "ID of the source to retrive",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": { "type": "source", "data": { "title": "<source title>", "URL": "<checkdesk URl>", "original_url" : "Original URL for the source", "uid" : "author uid" } },
+              "message": "Success! Returns the source object that was created, with title, url, origianl_url and uid"
+            },
+            {
+              "code": 404,
+              "responseModel": { "type": "error", "data": { "message": "Please provide a URL" } },
+              "message": "Source with the provided id (@id) was not found"
+            },
+            {
+              "code": 401,
+              "responseModel": { "type": "error", "data": { "message": "Access denied" } },
+              "message": "Access denied"
+            }
+          ],
+          "nickname": "Api::V1::Sources#retrive",
+          "method": "GET"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

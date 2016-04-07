@@ -13,95 +13,29 @@ function checkdesk_api_feature_default_services_endpoint() {
   $endpoint = new stdClass();
   $endpoint->disabled = FALSE; /* Edit this to true to make a default endpoint disabled initially */
   $endpoint->api_version = 3;
-  $endpoint->name = 'api';
+  $endpoint->name = 'checkdesk_api';
   $endpoint->server = 'rest_server';
   $endpoint->path = 'api';
-  $endpoint->authentication = array(
-    'services' => 'services',
-  );
+  $endpoint->authentication = array();
   $endpoint->server_settings = array(
     'formatters' => array(
       'json' => TRUE,
-      'jsonp' => TRUE,
       'bencode' => FALSE,
+      'jsonp' => FALSE,
       'php' => FALSE,
-      'rss' => FALSE,
       'xml' => FALSE,
     ),
     'parsers' => array(
       'application/json' => TRUE,
+      'application/vnd.php.serialized' => TRUE,
       'application/x-www-form-urlencoded' => TRUE,
-      'application/vnd.php.serialized' => FALSE,
-      'application/xml' => FALSE,
-      'multipart/form-data' => FALSE,
-      'text/xml' => FALSE,
+      'application/xml' => TRUE,
+      'multipart/form-data' => TRUE,
+      'text/xml' => TRUE,
     ),
   );
   $endpoint->resources = array(
-    'i18n' => array(
-      'operations' => array(
-        'create' => array(
-          'enabled' => '1',
-        ),
-        'update' => array(
-          'enabled' => '1',
-        ),
-        'delete' => array(
-          'enabled' => '1',
-        ),
-        'index' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
-    'flag' => array(
-      'actions' => array(
-        'is_flagged' => array(
-          'enabled' => '1',
-        ),
-        'flag' => array(
-          'enabled' => '1',
-        ),
-        'countall' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
-    'discussion' => array(
-      'operations' => array(
-        'index' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
-    'comment' => array(
-      'operations' => array(
-        'create' => array(
-          'enabled' => '1',
-        ),
-        'retrieve' => array(
-          'enabled' => '1',
-        ),
-        'update' => array(
-          'enabled' => '1',
-        ),
-        'delete' => array(
-          'enabled' => '1',
-        ),
-        'index' => array(
-          'enabled' => '1',
-        ),
-      ),
-      'actions' => array(
-        'countAll' => array(
-          'enabled' => '1',
-        ),
-        'countNew' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
-    'node' => array(
+    'reports' => array(
       'operations' => array(
         'retrieve' => array(
           'enabled' => '1',
@@ -109,81 +43,28 @@ function checkdesk_api_feature_default_services_endpoint() {
         'create' => array(
           'enabled' => '1',
         ),
-        'update' => array(
-          'enabled' => '1',
-        ),
-        'delete' => array(
-          'enabled' => '1',
-        ),
         'index' => array(
           'enabled' => '1',
         ),
       ),
-      'relationships' => array(
-        'files' => array(
-          'enabled' => '1',
-        ),
-        'comments' => array(
-          'enabled' => '1',
-        ),
-      ),
-      'targeted_actions' => array(
-        'attach_file' => array(
-          'enabled' => '1',
-        ),
-      ),
     ),
-    'system' => array(
-      'actions' => array(
-        'connect' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
-    'user' => array(
+    'stories' => array(
       'operations' => array(
-        'retrieve' => array(
-          'enabled' => '1',
-        ),
-        'update' => array(
-          'enabled' => '1',
-        ),
         'index' => array(
           'enabled' => '1',
         ),
       ),
+    ),
+    'users' => array(
       'actions' => array(
         'login' => array(
-          'enabled' => '1',
-          'settings' => array(
-            'services' => array(
-              'resource_api_version' => '1.0',
-            ),
-          ),
-        ),
-        'logout' => array(
-          'enabled' => '1',
-          'settings' => array(
-            'services' => array(
-              'resource_api_version' => '1.0',
-            ),
-          ),
-        ),
-        'register' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
-    'views' => array(
-      'operations' => array(
-        'retrieve' => array(
           'enabled' => '1',
         ),
       ),
     ),
   );
-  $endpoint->debug = 0;
-  $export['api'] = $endpoint;
+  $endpoint->debug = 1;
+  $export['checkdesk_api'] = $endpoint;
 
   return $export;
 }
