@@ -21,7 +21,7 @@ function checkdesk_oembed_menu() {
 }
 
 /**
- * Menu access callback to limit widget embeds to only 'media' node type.
+ * Menu access callback to limit widget embeds to our node types.
  */
 function checkdesk_oembed_embed_access($node) {
   $types = variable_get('checkdesk_oembed_embed_types', array('media', 'discussion'));
@@ -58,18 +58,6 @@ function checkdesk_oembed_node_view($node, $view_mode, $langcode) {
         ),
       ),
       'checkdesk_oembed_provider_json'
-    );
-    drupal_add_html_head(
-      array(
-        '#tag' => 'link',
-        '#attributes' => array(
-          'href' => checkdesk_oembed_url($node->nid, array('format' => 'xml')),
-          'rel' => 'alternate',
-          'type' => 'application/xml+oembed',
-          'title' => t('@site oEmbed Profile', array('@site' => $site)),
-        ),
-      ),
-      'checkdesk_oembed_provider_xml'
     );
   }
 }
