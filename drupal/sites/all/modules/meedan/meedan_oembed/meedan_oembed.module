@@ -17,7 +17,7 @@ function meedan_oembed_menu() {
       'type' => MENU_CALLBACK,
     ),
     'node/%node/oembed' => array(
-      'title' => 'oEmbed',
+      'title' => 'Flush media cache',
       'description' => 'Refresh oEmbed information for this report',
       'page callback' => 'meedan_oembed_refresh',
       'page arguments' => array(1),
@@ -33,15 +33,20 @@ function meedan_oembed_menu() {
  * Access callback to check if node is a report.
  */
 function meedan_oembed_refresh_access($node) {
-  return $node->type === 'media' && user_access('administer site configuration');
+  return in_array($node->type, array('media', 'source')) && user_access('administer site configuration');
 }
 
 /**
  * Menu callback
  */
 function meedan_oembed_refresh($node) {
-  $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), FALSE, TRUE);
-  drupal_set_message(t('Refreshed oEmbed information: @embed', array('@embed' => print_r($embed, TRUE))));
+  if ($node->type === 'media') {
+    $cache = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), FALSE, TRUE);
+  }
+  elseif ($node->type === 'source') {
+    $cache = checkdesk_sources_pender_fetch($node->field_source_url[LANGUAGE_NONE][0]['url'], TRUE);
+  }
+  drupal_set_message(t('Refreshed media cache: @cache', array('@cache' => print_r($cache, TRUE))));
   drupal_goto('node/' . $node->nid);
 }
 

@@ -118,7 +118,7 @@ function _checkdesk_sources_assign_media_source($media_url, &$node) {
   }
 }
 
-function checkdesk_sources_pender_fetch($url) {
+function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
   $pender = FALSE;
   // Mock a render element for cache keys and expiration. This element will
   // not be rendered.
@@ -127,7 +127,7 @@ function checkdesk_sources_pender_fetch($url) {
   $cache = cache_get($cache_key, $element['#cache']['bin']);
 
   // Cache hit.
-  if ($cache && isset($cache->data)) {
+  if (!$force_refresh && $cache && isset($cache->data)) {
     $pender = $cache->data;
   }
   else {
