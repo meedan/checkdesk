@@ -27,7 +27,7 @@ function checkdesk_api_ui() {
 };
 
 function checkdesk_api_docs_json($doc = 'api') {
-  $docs = array('api', 'reports', 'stories', 'user');
+  $docs = array('api', 'reports', 'stories', 'user', 'sources');
   $contents = '';
   if (in_array($doc, $docs)) {
     $contents = file_get_contents(drupal_get_path('module', 'checkdesk_api') . '/json/' . $doc . '.json');
@@ -155,6 +155,61 @@ function checkdesk_api_services_resources() {
             )
         )
     );
+
+  $resources['sources'] = array(
+    'operations' => array(
+      'retrieve' => array(
+        'help' => 'Retrieve a source',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'checkdesk_api',
+          'name' => 'resources/sources_resource',
+        ),
+        'callback' => '_sources_resource_retrieve',
+        'args' => array(
+          array(
+            'name' => 'id',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The id of the source to retrieve',
+          ),
+        ),
+        'access callback' => 'user_access',
+        'access arguments' => array('access content'),
+      ),
+      'create' => array(
+        'help' => 'Create a source',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'checkdesk_api',
+          'name' => 'resources/sources_resource',
+        ),
+        'callback' => '_sources_resource_create',
+        'args' => array(
+          array(
+            'name' => 'source',
+            'optional' => FALSE,
+            'source' => 'data',
+            'description' => 'The source data to create',
+            'type' => 'array',
+          ),
+        ),
+        'access callback' => 'node_access',
+        'access arguments' => array('create', 'source'),
+      ),
+      'index' => array(
+        'help' => t('List all sources api/sources'),
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'checkdesk_api',
+          'name' => 'resources/sources_resource',
+        ),
+        'callback' => '_sources_resource_index',
+        'access callback' => '_checkdesk_api_access',
+      ),
+    ),
+  );
 
   return $resources;
 }
