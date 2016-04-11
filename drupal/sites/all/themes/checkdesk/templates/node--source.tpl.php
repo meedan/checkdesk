@@ -13,6 +13,11 @@
             <div> <?php print render($content[$metadata]); ?> </div>
           <?php endforeach; ?>
         <?php endif; ?>
+
+        <?php if(isset($references)) : ?>
+          <?php print $references; ?>
+        <?php endif ?>
+
       </section>
 
       <?php print $source_activity; ?>
@@ -24,10 +29,7 @@
     <?php if(isset($content['field_source_tags'])) : ?>
       <?php print render($content['field_source_tags']); ?>
     <?php endif ?>
-
-    <?php if(isset($references)) : ?>
-      <?php print $references; ?>
-    <?php endif ?>
-  </aside>
+    
+     </aside>
 
 </section>

@@ -864,12 +864,25 @@ function checkdesk_preprocess_node(&$variables) {
 
   if ($variables['type'] == 'source') {
     $variables['source_activity'] = theme(
-      'checkdesk_sources_source_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
+      'checkdesk_sources_source_activity', array(
+        'node' => $node,
+        'content' => $variables['content'],
+        'view_mode' => $variables['view_mode']
+      )
     );
     $variables['source_metadata'] = _checkdesk_source_metadata_fields($node->pender->data->provider);
     // set references
-    $variables['references'] = views_embed_view('checkdesk_references ', 'block', $node->nid);
+    $view = views_get_view('checkdesk_references');
+    $view->set_arguments(array(1537));
+    $view->get_total_rows = TRUE;
+    $view_output = $view->preview('block');
+    $total_rows = $view->total_rows;
+    $view->destroy();
+    if ($total_rows) {
+      $variables['references'] = $view_output;
+    }
   }
+
 }
 
 function checkdesk_links__node($variables) {
