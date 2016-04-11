@@ -24,6 +24,10 @@
     <?php if(isset($content['field_source_tags'])) : ?>
       <?php print render($content['field_source_tags']); ?>
     <?php endif ?>
+
+    <?php if(isset($references)) : ?>
+      <?php print $references; ?>
+    <?php endif ?>
   </aside>
 
 </section>

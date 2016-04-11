@@ -163,6 +163,27 @@ function checkdesk_sources_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_source_pattern';
+  $strongarm->value = 'source/[node:nid]';
+  $export['pathauto_node_source_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_source_status_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_source_status_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_source_tags_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_source_tags_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'save_draft_enabled_source';
   $strongarm->value = 0;
   $export['save_draft_enabled_source'] = $strongarm;

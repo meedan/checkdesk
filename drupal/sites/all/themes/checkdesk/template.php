@@ -867,6 +867,8 @@ function checkdesk_preprocess_node(&$variables) {
       'checkdesk_sources_source_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
     );
     $variables['source_metadata'] = _checkdesk_source_metadata_fields($node->pender->data->provider);
+    // set references
+    $variables['references'] = views_embed_view('checkdesk_references ', 'block', $node->nid);
   }
 }
 
