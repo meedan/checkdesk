@@ -98,6 +98,11 @@ function checkdesk_sources_node_delete($node) {
       ->condition('nid', $node->nid)
       ->execute();
   }
+  elseif($node->type == 'source') {
+    $element = pender_render_cache('pender_request',  $node->field_source_url[LANGUAGE_NONE][0]['url']);
+    $cache_key = implode(':', $element['#cache']['keys']);
+    cache_clear_all($cache_key, $element['#cache']['bin']);
+  }
 }
 
 function _checkdesk_sources_assign_media_source($media_url, &$node) {
