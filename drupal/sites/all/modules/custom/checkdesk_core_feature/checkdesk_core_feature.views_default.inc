@@ -895,6 +895,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['type_1']['field'] = 'type';
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'media' => 'media',
+    'source' => 'source',
     'discussion' => 'discussion',
     'post' => 'post',
   );

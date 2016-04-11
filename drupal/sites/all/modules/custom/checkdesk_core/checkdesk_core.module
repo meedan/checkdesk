@@ -1159,6 +1159,7 @@ function checkdesk_core_views_pre_render(&$view) {
       }
       $types = array(
         'media' => array('s' => 'Report', 'p' => 'Reports'),
+        'source' => array('s' => 'Source', 'p' => 'Sources'),
         'post' => array('s' => 'Update', 'p' => 'Updates'),
         'discussion' => array('s' => 'Story', 'p' => 'Stories'),
       );
@@ -1371,6 +1372,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
           '#options' => array(
               'All' => t('Everything'),
               'report' => t('Reports'),
+              'source' => t('Sources'),
               'story' => t('Stories'),
               'update' => t('Updates'),
           ),
@@ -1412,6 +1414,14 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
             '#fastlivefilte_placeholder' => t('Search for story'),
         );
 
+        // Hide tag filter for updates
+        $form['#info']['filter-field_tags_tid']['label'] = NULL;
+        $form['field_tags_tid']['#type'] = 'hidden';
+        unset($form['field_tags_tid']['#theme']);
+      }
+
+      // Source filter
+      if (isset($_GET['type']) && $_GET['type'] === 'source') {
         // Hide tag filter for updates
         $form['#info']['filter-field_tags_tid']['label'] = NULL;
         $form['field_tags_tid']['#type'] = 'hidden';
@@ -2070,6 +2080,9 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
           }
           elseif ($_GET['type'] === 'story') {
             $selected_type = array('discussion');
+          }
+          elseif ($_GET['type'] === 'source') {
+            $selected_type = array('source');
           }
           $query->where[1]['conditions'][$k]['value'] = $selected_type;
         }
