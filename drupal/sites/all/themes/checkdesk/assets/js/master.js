@@ -51,7 +51,7 @@
   Drupal.behaviors.story = {
     attach: function (context, settings) {
       // Show nested activity
-      $('.node-media .item-nested-content-wrapper > .item-controls > .meta').unbind('click').click(function(event) {
+      $('.item-nested-content-wrapper > .item-controls > .meta').unbind('click').click(function(event) {
         var target = $(this).parent(),
             element = target.parent();
         if (element.find('.item-nested-content').is(':visible')) {

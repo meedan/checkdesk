@@ -138,7 +138,8 @@
 		padding-#{$omega}: 20px;
 		@include cd-simple-scrollbar;
 	}
-	.node-type-media:not(.page-embed) & {
+	.node-type-media:not(.page-embed) &,
+	.node-type-source:not(.page-embed) &, {
 		display: block;
 		& > div { 
 			overflow: visible;
