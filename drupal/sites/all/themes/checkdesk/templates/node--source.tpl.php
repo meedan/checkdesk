@@ -6,6 +6,7 @@
         <div class="source-avatar"><?php print render($content['field_image']); ?></div>
         <div class="source-content">
           <span class="title"><?php print l($pender->data->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
+          <span class="username"><?php print $username_link; ?></span>
           <span class="description expandable"><?php print render($content['body']); ?></span>
         </div>
         <div class="source-metadata">

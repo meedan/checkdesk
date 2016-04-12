@@ -4984,6 +4984,40 @@ span.content-labels:after {
   color: #101b2e;
 }
 
+.source-holder .source-content .username {
+  display: inline-block;
+}
+
+.source-holder .source-content .username a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-align-content: center;
+  -moz-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  padding: 4px 8px;
+  color: #6f7a82;
+  border: 1px solid rgba(16, 33, 47, 0.2);
+  margin-bottom: 24px;
+  border-radius: 4px;
+}
+.source-holder .source-content .username a:hover {
+  text-decoration: none;
+}
+
+.source-holder img.favicon {
+  max-width: 16px;
+  margin-left: 5px;
+}
+
 .source-holder .source-content .description {
   margin-top: 0;
 }

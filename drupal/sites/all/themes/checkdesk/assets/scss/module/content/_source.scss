@@ -25,6 +25,29 @@
 	font-weight: 700;
 }
 
+.source-holder .source-content .username {
+	display: inline-block;
+}
+
+.source-holder .source-content .username a {
+	@include flexbox;
+  @include justify-content(center);
+  @include align-content(center);
+	padding: 4px 8px;
+  color: $firefly60;
+  border: 1px solid rgba($firefly, 0.2);
+  margin-bottom: $absolute-line-height;
+  border-radius: 4px;
+  &:hover {
+  	text-decoration: none;
+  }
+}
+
+.source-holder img.favicon {
+	max-width: 16px;
+	margin-#{$omega}: 5px;
+}
+
 .source-holder .source-content .description {
 	margin-top: 0;
 	a { @include ctb-linkColor($strongBlue80); }
