@@ -863,6 +863,11 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if ($variables['type'] == 'source') {
+
+    $source_favicon = '<div class="username-favicon"><img src="http://www.google.com/s2/favicons?domain_url=' .  $node->pender->data->url . '" alt="' . $node->pender->data->provider . '" class="favicon" /></div>';
+    $source_username = '<div class="username-text">' .$node->pender->data->username . '</div>';
+    $variables['username_link'] = l($source_favicon . $source_username, $node->pender->data->url , array('html' => TRUE));
+
     $variables['source_activity'] = theme(
       'checkdesk_sources_source_activity', array(
         'node' => $node,

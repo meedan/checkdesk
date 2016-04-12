@@ -77,8 +77,9 @@ body:not(.most-popular-component) .story {
   margin-#{$omega}: auto;
 }
 
-// report
-body.node-type-media:not(.page-embed) .report {
+// report and source
+body.node-type-media:not(.page-embed) .report,
+body.node-type-source:not(.page-embed) .source {
   max-width: 530px;
   margin-#{$alpha}: auto;
   margin-#{$omega}: auto;

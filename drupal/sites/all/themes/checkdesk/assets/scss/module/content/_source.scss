@@ -1,0 +1,88 @@
+.source-holder {
+	color: $firefly40;
+	a { @include ctb-linkColor($firefly40); }
+	@include clear-icon-margins;
+	text-align: center;
+}
+
+.source-holder .source-content {
+	margin: .25rem 0;
+	margin-bottom: .25rem;
+	color: $firefly40;
+	a { @include ctb-linkColor($firefly40); }
+}
+
+.source-holder .source-content > span {
+	display: block;
+	font-size: 14px;
+	line-height: 1.4;
+	margin-top: 2px;
+}
+
+.source-holder .source-content .title {
+	font-size: 18px;
+	a { @include ctb-linkColor($strongBlue80); }
+	font-weight: 700;
+}
+
+.source-holder .source-content .username {
+	display: inline-block;
+}
+
+.source-holder .source-content .username a {
+	@include flexbox;
+  @include justify-content(center);
+  @include align-content(center);
+	padding: 4px 8px;
+  color: $firefly60;
+  border: 1px solid rgba($firefly, 0.2);
+  margin-bottom: $absolute-line-height;
+  border-radius: 4px;
+  &:hover {
+  	text-decoration: none;
+  }
+}
+
+.source-holder img.favicon {
+	max-width: 16px;
+	margin-#{$omega}: 5px;
+}
+
+.source-holder .source-content .description {
+	margin-top: 0;
+	a { @include ctb-linkColor($strongBlue80); }
+	p { 
+		@if $from-direction == 'left' {
+			@include cd-sans-serif-family;
+		}
+		color: $firefly60;
+		font-size: 16px;
+		line-height: 22px;
+		margin-bottom: $absolute-line-height/3;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	.show-more { padding-#{$alpha}: $gutter-width/2; }
+}
+
+.source .source-metadata {
+	@include flexbox;
+  @include flex-wrap(wrap);
+  @include justify-content(center);
+  margin: $absolute-line-height 0
+}
+
+.source .source-metadata-item {
+	display: block;
+  padding: 4px 8px;
+  margin: 0 4px; 
+  color: $firefly60;
+  border: 1px solid rgba($firefly, 0.1);
+  border-radius: 4px;
+  &:hover {
+    color: $firefly80;
+    text-decoration: none;
+    border: 1px solid rgba($firefly, 0.2);
+  } 
+}

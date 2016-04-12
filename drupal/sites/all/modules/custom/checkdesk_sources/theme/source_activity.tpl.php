@@ -9,7 +9,7 @@
        </div>
     </div>
   </div> <!-- /activity-item-controls -->
-    <div class="activity nested item-nested-content-source">
+    <div class="activity nested item-nested-content">
       <div class="media-activity-node-<?php print $nid; ?>">
         <?php print $source_activity; ?>
       </div>
