@@ -3536,7 +3536,7 @@ function _checkdesk_main_navigation() {
   $a_class = 'main-navigation-link'; //global class for a
   $li_class = 'main-navigation-item'; //global class for item
   $svg_file = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/icons.svg';
-  $s_search = array_fill_keys(array('All', 'report', 'update', 'story'), '');
+  $s_search = array_fill_keys(array('All', 'report', 'update', 'story', 'source'), '');
   if (arg(0) == 'search') {
     if (isset($_GET['type'])) {
         if (count($_GET) == 2) {
@@ -3665,6 +3665,15 @@ function _checkdesk_main_navigation() {
       'query' => array('type' => 'report'),
     )),
     'class' => array($li_class, 'reports'),
+  );
+  $sources_icon = '<svg class="stories-icon" preserveAspectRatio="xMinYMin meet" viewBox="144 0 30 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#stories-icon"></use></svg>';
+  $items[] = array(
+    'data' => l($sources_icon . '<span>' . t('Sources') . '</span>', 'search', array(
+      'attributes' => array('class' => array($a_class, 'sourcess-link', $s_search['source'])),
+      'html' => TRUE,
+      'query' => array('type' => 'source'),
+    )),
+    'class' => array($li_class, 'sources'),
   );
   // add sections icon if there are sections defined by the partner
   if (_checkdesk_show_sections_link()) {

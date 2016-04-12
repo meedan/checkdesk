@@ -30,10 +30,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'text_default',
+        'weight' => 2,
       ),
       'default' => array(
         'label' => 'hidden',
@@ -98,9 +99,13 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
         'weight' => 0,
       ),
       'default' => array(
@@ -179,7 +184,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 10,
       ),
       'default' => array(
         'label' => 'above',
@@ -279,20 +284,12 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 8,
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'date',
-        'settings' => array(
-          'format_type' => 'long',
-          'fromto' => 'both',
-          'multiple_from' => '',
-          'multiple_number' => '',
-          'multiple_to' => '',
-          'show_remaining_days' => FALSE,
-        ),
-        'type' => 'date_default',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 9,
       ),
       'meedan_oembed' => array(
@@ -358,10 +355,16 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'label' => 'inline',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 7,
       ),
       'default' => array(
         'label' => 'inline',
@@ -430,10 +433,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 4,
       ),
       'default' => array(
         'label' => 'inline',
@@ -500,10 +504,16 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'label' => 'inline',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 6,
       ),
       'default' => array(
         'label' => 'inline',
@@ -572,10 +582,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 3,
       ),
       'default' => array(
         'label' => 'hidden',
@@ -645,7 +656,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 9,
       ),
       'default' => array(
         'label' => 'inline',
@@ -724,10 +735,16 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'label' => 'inline',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 5,
       ),
       'default' => array(
         'label' => 'inline',
@@ -796,10 +813,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'text_default',
+        'weight' => 1,
       ),
       'default' => array(
         'label' => 'hidden',
