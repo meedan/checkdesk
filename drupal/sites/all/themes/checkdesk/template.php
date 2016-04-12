@@ -878,7 +878,7 @@ function checkdesk_preprocess_node(&$variables) {
     $variables['source_metadata'] = _checkdesk_source_metadata_fields($node->pender->data->provider);
     // set references
     $view = views_get_view('checkdesk_references');
-    $view->set_arguments(array(1537));
+    $view->set_arguments(array($node->nid));
     $view->get_total_rows = TRUE;
     $view_output = $view->preview('block');
     $total_rows = $view->total_rows;
