@@ -10,13 +10,6 @@
 function checkdesk_reports_feature_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: 'access graphic journalist flag'.
-  $permissions['access graphic journalist flag'] = array(
-    'name' => 'access graphic journalist flag',
-    'roles' => array(),
-    'module' => 'checkdesk_reports',
-  );
-
   // Exported permission: 'add report to story'.
   $permissions['add report to story'] = array(
     'name' => 'add report to story',

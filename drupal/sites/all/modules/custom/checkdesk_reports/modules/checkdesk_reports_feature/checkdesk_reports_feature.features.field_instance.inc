@@ -530,7 +530,7 @@ function checkdesk_reports_feature_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 1,
+      'weight' => 0,
     ),
   );
 
@@ -678,14 +678,14 @@ function checkdesk_reports_feature_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
+      'module' => 'options',
       'settings' => array(
         'match_operator' => 'CONTAINS',
         'path' => '',
         'size' => 60,
       ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 8,
+      'type' => 'options_select',
+      'weight' => 6,
     ),
   );
 
