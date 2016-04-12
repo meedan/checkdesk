@@ -51,13 +51,6 @@ function checkdesk_reports_menu() {
         'file' => 'checkdesk.reports.export.inc',
         'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
     );
-    $items['checkdesk/media-preview'] = array(
-        'page callback' => '_checkdesk_reports_media_preview_callback',
-        'access callback' => TRUE,
-        'type' => MENU_CALLBACK,
-        'file' => 'checkdesk.media_preview.inc',
-        'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
-    );
     $items['checkdesk/media-widget/%'] = array(
         'page callback' => '_checkdesk_media_widget_callback',
         'page arguments' => array(2),
@@ -117,120 +110,93 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
     // Change field attributes
     $form['body'][LANGUAGE_NONE][0]['#attributes'] = array('placeholder' => t('Add more info or write a description. What\'s the context? Does this link need to be fact-checked? What evidence do you have?'), 'rows' => 3);
-    // Description textarea should not be resizable
-    $form['body'][LANGUAGE_NONE][0]['#resizable'] = FALSE;
-    // Check for graphic content
-    $flag = user_access('access graphic journalist flag') ? 'graphic_journalist' : 'graphic';
-    $form['graphic_content'] = array(
-        '#type' => 'checkboxes',
-        '#options' => array($flag => t('Graphic content')),
-        '#weight' => 99,
-    );
-    $form['report_preview'] = array(
-        '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . (isset($preview['preview']) ? $preview['preview'] : '') . '</div></div>',
-    );
-    // Fields order
-    $form['field_link']['#weight'] = -2;
-    $form['report_preview']['#weight'] = 0;
 
     // Load JavaScript for the form
-    $form['#after_build'] = array('_checkdesk_reports_load_javascript_for_report_form');
+    $form['#after_build'][] = '_checkdesk_reports_after_build';
     // Two buttons: submit and cancel
     $form['actions']['submit']['#value'] = t('Submit');
-    $form['actions']['draft']['#access'] = FALSE;
-
-    $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);
-    $default_story = 0;
-    if (!isset($form['nid']['#value'])) {
-        // Hide fields on form creation
-        foreach (variable_get('meedan_bookmarklet_hidden_fields', array('title', 'field_rating')) as $field) {
-            $form[$field]['#access'] = FALSE;
-        }
-        //hide description and graphic content
-        $form['#attached']['js'][] = array(
-            'data' => 'jQuery(function() { jQuery("#edit-body, #edit-graphic-content, #edit-field-stories, #edit-field-tags, #checkdesk-group-metadata").hide();});',
-            'type' => 'inline',
-        );
-        //set default url if exist.
-        if (isset($_GET['url'])) {
-            $form['field_link'][LANGUAGE_NONE][0]['#default_value']['url'] = $_GET['url'];
-        }
-        //set default story if exist.
-        if (isset($_GET['ref_nid']) && is_numeric($_GET['ref_nid']) && $_GET['ref_nid']) {
-            $default_story = $_GET['ref_nid'];
-        }
-    }
-    else {
-        $node = $form['#node'];
-        drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
-        if (isset($node->field_stories[LANGUAGE_NONE][0]['target_id'])) {
-            $default_story = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
-        }
-    }
-
-    if ($default_story && isset($form['field_stories'][LANGUAGE_NONE]['#options'][$default_story])) {
-        $options[$default_story] = $form['field_stories'][LANGUAGE_NONE]['#options'][$default_story];
-        $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($default_story);
-    }
-    // Update stories options
-    $form['field_stories'][LANGUAGE_NONE]['#options'] = $options;
-    // Handle HTML entities
-    foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
-        $option = decode_entities($option);
-    }
-
     // Redirect user to collaboration page.
     $form['actions']['submit']['#submit'][] = '_checkdesk_reports_redirect';
     // Hide comment settings
     $form['comment_settings']['#access'] = user_access('access additional settings');
 
-
-    if($form['field_stories']) {
-        _checkdesk_add_chosen_components();
+    if (!isset($form['nid']['#value'])) {
+        //set default story if exist.
+        if (isset($_GET['ref_nid']) && is_numeric($_GET['ref_nid']) && $_GET['ref_nid']) {
+            $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
+            //$node->field_stories[LANGUAGE_NONE][0]['target_id'] = $_GET['ref_nid'];
+        }
+        // Hide all fields on form creation except source url
+        $fields = field_info_instances('node', 'media');
+        unset($fields['field_link']);
+        $form['title']['#access'] = FALSE;
+        foreach ($fields as $k => $v) {
+            $form[$k]['#access'] = FALSE;
+        }
     }
-    // Add CSS file for autocomplete field
-    if($form['field_tags']) {
-        drupal_add_css(
-            drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/autocomplete.css',
-            array(
+    else {
+        $form['field_source_media']['#access'] = FALSE;
+        $node = $form['#node'];
+        drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
+        $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);
+        if (isset($node->field_stories[LANGUAGE_NONE][0]['target_id'])) {
+            $default_story = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
+            $options[$default_story] = $form['field_stories'][LANGUAGE_NONE]['#options'][$default_story];
+
+        }
+        $form['field_stories'][LANGUAGE_NONE]['#options'] = $options;
+        // Update stories options
+        // Handle HTML entities
+        foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
+            $option = decode_entities($option);
+        }
+        // Add extra component.
+        if($form['field_stories']) {
+            _checkdesk_add_chosen_components();
+        }
+        // Add CSS file for autocomplete field
+        if($form['field_tags']) {
+            drupal_add_css(
+              drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/autocomplete.css',
+              array(
                 'scope' => 'footer',
                 'group' => CSS_THEME,
                 'weight' => '9991',
                 'every_page' => FALSE,
-            )
-        );
-    }
-
-    // Add extra css for metadata fields
-    $metadata_fields = checkdesk_reports_metadata_fields();
-    if (count($metadata_fields)) {
-        $metadata_fields_adjust = array();
-        // Add css for metadata fields (geolocation and date popup)
-        foreach ($metadata_fields as $metadata_field_name) {
-            $metadata_field = field_info_field($metadata_field_name);
-            if($metadata_field['type'] == 'geolocation_latlng') {
-                $metadata_fields_adjust['geolocation'] = $metadata_field['field_name'];
-                //$field_location_name = $metadata_field['field_name'];
-                //break;
+              )
+            );
+        }
+        // Add extra css for metadata fields
+        $metadata_fields = checkdesk_reports_metadata_fields();
+        if (count($metadata_fields)) {
+            $metadata_fields_adjust = array();
+            // Add css for metadata fields (geolocation and date popup)
+            foreach ($metadata_fields as $metadata_field_name) {
+                $metadata_field = field_info_field($metadata_field_name);
+                if($metadata_field['type'] == 'geolocation_latlng') {
+                    $metadata_fields_adjust['geolocation'] = $metadata_field['field_name'];
+                }
+                elseif (in_array($metadata_field['type'], array('date', 'datetime', 'datestamp'))) {
+                    $metadata_fields_adjust['date'] = $metadata_field['field_name'];
+                }
             }
-            elseif (in_array($metadata_field['type'], array('date', 'datetime', 'datestamp'))) {
-                $metadata_fields_adjust['date'] = $metadata_field['field_name'];
+            if (count($metadata_fields_adjust)) {
+                _checkdesk_reports_adjust_metadata_display($metadata_fields_adjust, $form);
             }
         }
-        if (count($metadata_fields_adjust)) {
-            _checkdesk_reports_adjust_metadata_display($metadata_fields_adjust, $form);
-        }
     }
-
 }
 
 /*
  * Load JavaScript file for bookmarklet form
  */
-function _checkdesk_reports_load_javascript_for_report_form($form, &$form_state) {
+function _checkdesk_reports_after_build($form, &$form_state) {
     //add placeholder to link field
     $form['field_link'][LANGUAGE_NONE][0]['url']['#attributes']['placeholder'] = t('Add a link');
-    drupal_add_js(drupal_get_path('module', 'checkdesk_reports') . '/js/checkdesk_report_form.js');
+    if ($form['nid']['#value']) {
+        // Disable URL field
+        $form['field_link'][LANGUAGE_NONE][0]['url']['#attributes']['readonly'] = 'readonly';
+    }
     return $form;
 }
 
@@ -519,22 +485,23 @@ function _checkdesk_reports_render_footnotes($node) {
     return $html;
 }
 
+/**
+ * Implements hook_node_presave().
+ */
+function checkdesk_reports_node_presave($node) {
+    if ($node->is_new && $node->type == 'media') {
+        $oembed_response = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), TRUE);
+        $node->title = $oembed_response->title;
+        $node->body[LANGUAGE_NONE][0]['value'] = $oembed_response->description;
+    }
+}
+
 /*
  * Implements hook_node_insert().
  *
  * Set flag for report from bookmarklet.
  */
 function checkdesk_reports_node_insert($node) {
-    if ($node->type == 'media') {
-        if (isset($node->graphic_content) && is_array($node->graphic_content)) {
-            foreach ($node->graphic_content as $flag_name => $checked) {
-                if ($checked) {
-                    $flag = flag_get_flag($flag_name);
-                    $flag->flag('flag', $node->nid);
-                }
-            }
-        }
-    }
     if (in_array($node->type, array('post', 'discussion'))) {
         //link report to created update
         if (!empty($node->body)) {
