@@ -3595,7 +3595,7 @@ function _checkdesk_main_navigation() {
   );
 
   // Create source link
-  $create_source_icon = '<svg class="create-report-icon" preserveAspectRatio="xMinYMin meet" viewBox="29 0 26 34"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#create-report-icon"></use></svg>';
+  $create_source_icon = '<svg class="create-source-icon" preserveAspectRatio="xMinYMin meet" viewBox="56 0 26 34"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#create-source-icon"></use></svg>';
   $create_link = 'node/add/source';
   $create_classes = array($a_class, 'create-source-link');
   if (!user_access('create source content')) {
@@ -3648,7 +3648,7 @@ function _checkdesk_main_navigation() {
   // Second group
   // reports, stories and updates
   $items = array();
-  $stories_icon = '<svg class="reports-icon" preserveAspectRatio="xMinYMin meet" viewBox="117 0 25 29"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#reports-icon"></use></svg>';
+  $stories_icon = '<svg class="stories-icon" preserveAspectRatio="xMinYMin meet" viewBox="145 0 32 26"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#stories-icon"></use></svg>';
   $items[] = array(
     'data' => l($stories_icon . '<span>' . t('Stories') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'stories-link', $s_search['story'])),
@@ -3657,7 +3657,7 @@ function _checkdesk_main_navigation() {
     )),
     'class' => array($li_class, 'stories'),
   );
-  $reports_icon = '<svg class="stories-icon" preserveAspectRatio="xMinYMin meet" viewBox="144 0 30 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#stories-icon"></use></svg>';
+  $reports_icon = '<svg class="reports-icon" preserveAspectRatio="xMinYMin meet" viewBox="168 0 32 26"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#reports-icon"></use></svg>';
   $items[] = array(
     'data' => l($reports_icon . '<span>' . t('Reports') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'reports-link', $s_search['report'])),
@@ -3666,7 +3666,7 @@ function _checkdesk_main_navigation() {
     )),
     'class' => array($li_class, 'reports'),
   );
-  $sources_icon = '<svg class="stories-icon" preserveAspectRatio="xMinYMin meet" viewBox="144 0 30 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#stories-icon"></use></svg>';
+  $sources_icon = '<svg class="sources-icon" preserveAspectRatio="xMinYMin meet" viewBox="202 0 32 26"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $svg_file . '#sources-icon"></use></svg>';
   $items[] = array(
     'data' => l($sources_icon . '<span>' . t('Sources') . '</span>', 'search', array(
       'attributes' => array('class' => array($a_class, 'sourcess-link', $s_search['source'])),
