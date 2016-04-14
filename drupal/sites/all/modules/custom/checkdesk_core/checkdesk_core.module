@@ -3565,7 +3565,7 @@ function _checkdesk_main_navigation() {
     'class' => array($li_class, 'homepage'),
   );
   $ref_nid = 0;
-  if (arg(0) == 'node' && is_numeric(arg(1)) /*&& $node->type == 'discussion'*/) {
+  if (($node = menu_get_object()) && $node->type == 'discussion') {
     $ref_nid = arg(1);
   }
   // Create links for anonymous users
