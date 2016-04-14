@@ -90,10 +90,6 @@ function checkdesk_reports_permission() {
             'title' => t('Export reports'),
             'description' => t('User can export reports.'),
         ),
-        'access graphic journalist flag' => array(
-            'title' => t('Access graphic journalist flag'),
-            'description' => t('User can access graphic journalist flag.'),
-        ),
     );
 }
 
@@ -124,7 +120,6 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
         //set default story if exist.
         if (isset($_GET['ref_nid']) && is_numeric($_GET['ref_nid']) && $_GET['ref_nid']) {
             $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
-            //$node->field_stories[LANGUAGE_NONE][0]['target_id'] = $_GET['ref_nid'];
         }
         // Hide all fields on form creation except source url
         $fields = field_info_instances('node', 'media');

@@ -10,6 +10,13 @@ function checkdesk_reports_duplicates_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  $items['checkdesk/media-preview'] = array(
+    'page callback' => '_checkdesk_reports_media_preview_callback',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'checkdesk.media_preview.inc',
+    'file path' => drupal_get_path('module', 'checkdesk_reports_duplicates') . '/includes',
+  );
   return $items;
 }
 
