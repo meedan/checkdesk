@@ -2,16 +2,19 @@
 	color: $firefly40;
 	a { @include ctb-linkColor($firefly40); }
 	@include clear-icon-margins;
-	&:not(.source-inline-holder) {
-		text-align: center;	
-	}
+	
 }
 
 .source-holder .source-content {
 	margin: .25rem 0;
 	margin-bottom: .25rem;
 	color: $firefly40;
+	text-align: center;
 	a { @include ctb-linkColor($firefly40); }
+}
+
+.source-inline-holder .source-content {
+	text-align: $alpha;
 }
 
 .source-holder .source-content > span {
@@ -87,4 +90,8 @@
     text-decoration: none;
     border: 1px solid rgba($firefly, 0.2);
   } 
+}
+
+.source-references .item-content-wrapper {
+	background-color: rgba($firefly, 0.02);
 }
