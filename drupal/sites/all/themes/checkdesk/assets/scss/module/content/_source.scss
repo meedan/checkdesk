@@ -2,7 +2,9 @@
 	color: $firefly40;
 	a { @include ctb-linkColor($firefly40); }
 	@include clear-icon-margins;
-	text-align: center;
+	&:not(.source-inline-holder) {
+		text-align: center;	
+	}
 }
 
 .source-holder .source-content {

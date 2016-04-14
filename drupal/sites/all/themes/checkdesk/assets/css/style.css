@@ -4647,7 +4647,6 @@ span.content-labels:after {
 
 .source-holder {
   color: #9fa6ac;
-  text-align: center;
 }
 .source-holder a {
   color: #9fa6ac;
@@ -4658,6 +4657,9 @@ span.content-labels:after {
 .source-holder span[class^="icon-"]:before, .source-holder span[class^="icon-"]:after, .source-holder span[class*="icon-"]:before, .source-holder span[class*="icon-"]:after {
   margin: 0;
   font-size: 16px;
+}
+.source-holder:not(.source-inline-holder) {
+  text-align: center;
 }
 
 .source-holder .source-content {
