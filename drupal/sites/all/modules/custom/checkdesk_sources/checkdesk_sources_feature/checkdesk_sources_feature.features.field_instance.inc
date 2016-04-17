@@ -470,7 +470,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'autocomplete_deluxe',
+      'module' => 'options',
       'settings' => array(
         'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
         'delimiter' => '',
@@ -479,7 +479,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'not_found_message' => 'The term \'@term\' will be added.',
         'size' => 60,
       ),
-      'type' => 'autocomplete_deluxe_taxonomy',
+      'type' => 'options_select',
       'weight' => 4,
     ),
   );

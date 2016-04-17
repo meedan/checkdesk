@@ -2012,7 +2012,10 @@ password: Your password
   $strongarm->name = 'uuid_features_entity_taxonomy_term';
   $strongarm->value = array(
     'media_rating' => 'media_rating',
+    'source_status' => 'source_status',
     'tags' => 0,
+    'sections' => 0,
+    'source_tags' => 0,
   );
   $export['uuid_features_entity_taxonomy_term'] = $strongarm;
 
