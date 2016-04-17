@@ -3,8 +3,8 @@
       <span class="item-content">
         <div class="media-holder media-inline-holder source-holder source-inline-holder<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
           <div class="media">
-            <div class="inline-holder inline-img-thumb-holder">
-              <?php print render($content['field_image']); ?>
+            <div class="inline-holder inline-img-thumb-holder inline-img-thumb-source-holder">
+              <?php print l(render($content['field_image']), 'node/' . $node->nid , array('html' => TRUE)); ?>
             </div>
           </div>
           <div class="source-content">

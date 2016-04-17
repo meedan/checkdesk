@@ -2,9 +2,8 @@
   <article class="source">
     <div class="item-wrapper">
       <section class="source-holder item-content-wrapper">
-
-        <div class="source-avatar"><?php print render($content['field_image']); ?></div>
         <div class="source-content">
+          <div class="source-avatar"><?php print render($content['field_image']); ?></div>
           <span class="title"><?php print l($pender->data->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
           <span class="username"><?php print $username_link; ?></span>
           <span class="description expandable"><?php print render($content['body']); ?></span>
@@ -16,12 +15,13 @@
             <?php endforeach; ?>
           <?php endif; ?>
         </div>
-        
+      </section>
+
+      <div class="source-references item-content-wrapper">
         <?php if(isset($references)) : ?>
           <?php print $references; ?>
         <?php endif ?>
-
-      </section>
+      </div>
 
       <?php print $source_activity; ?>
     </div>
