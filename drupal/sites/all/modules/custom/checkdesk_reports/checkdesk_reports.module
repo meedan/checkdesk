@@ -56,8 +56,6 @@ function checkdesk_reports_menu() {
         'page arguments' => array(2),
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
-        'file' => 'checkdesk.media_preview.inc',
-        'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
     );
     return $items;
 }
@@ -71,6 +69,25 @@ function checkdesk_report_load($nid) {
         return $report;
     }
     return FALSE;
+}
+
+/**
+ *
+ */
+function _checkdesk_media_widget_callback($nid) {
+    $node = node_load($nid);
+    $render = field_view_field('node', $node, 'field_link',
+      array(
+        'type' => 'meedan_oembed_thumbnail',
+        'settings' => array('imagestyle' => 'report_thumbnail'),
+      )
+    );
+    $media_ref = checkdesk_core_droppable_reference($node);
+    $response = array(
+      'preview' => render($render),
+      'media_ref' => $media_ref,
+    );
+    drupal_json_output($response);
 }
 
 /**
