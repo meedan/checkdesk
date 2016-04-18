@@ -819,6 +819,159 @@ function checkdesk_core_feature_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
+    'field_source_tags_tid' => array(
+      'bef_format' => 'bef_links',
+      'more_options' => array(
+        'bef_select_all_none' => FALSE,
+        'bef_collapsible' => 1,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'enable_fastlivefilter' => 1,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+            1 => 'vocabulary',
+            'secondary_label' => NULL,
+            'collapsible_label' => NULL,
+            'combine_rewrite' => NULL,
+            'reset_label' => NULL,
+            'bef_filter_description' => NULL,
+            'any_label' => NULL,
+            'filter_rewrite_values' => NULL,
+          ),
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+          'filter_rewrite_values' => NULL,
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+        ),
+        'secondary_label' => NULL,
+        'collapsible_label' => NULL,
+        'combine_rewrite' => NULL,
+        'reset_label' => NULL,
+        'filter_rewrite_values' => NULL,
+      ),
+      'secondary_label' => NULL,
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+      'bef_filter_description' => NULL,
+      'any_label' => NULL,
+      'filter_rewrite_values' => NULL,
+    ),
+    'field_source_status_tid' => array(
+      'bef_format' => 'bef_links',
+      'more_options' => array(
+        'bef_select_all_none' => FALSE,
+        'bef_collapsible' => 1,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'enable_fastlivefilter' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+            1 => 'vocabulary',
+            'secondary_label' => NULL,
+            'collapsible_label' => NULL,
+            'combine_rewrite' => NULL,
+            'reset_label' => NULL,
+            'bef_filter_description' => NULL,
+            'any_label' => NULL,
+            'filter_rewrite_values' => NULL,
+          ),
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+          'filter_rewrite_values' => NULL,
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+        ),
+        'secondary_label' => NULL,
+        'collapsible_label' => NULL,
+        'combine_rewrite' => NULL,
+        'reset_label' => NULL,
+        'filter_rewrite_values' => NULL,
+      ),
+      'secondary_label' => NULL,
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+      'bef_filter_description' => NULL,
+      'any_label' => NULL,
+      'filter_rewrite_values' => NULL,
+    ),
+    'field_provider_value' => array(
+      'bef_format' => 'default',
+      'more_options' => array(
+        'is_secondary' => 0,
+        'any_label' => '',
+        'enable_fastlivefilter' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+            'secondary_label' => NULL,
+            'collapsible_label' => NULL,
+            'combine_rewrite' => NULL,
+            'reset_label' => NULL,
+            'bef_filter_description' => NULL,
+            'any_label' => NULL,
+            'filter_rewrite_values' => NULL,
+          ),
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+          'filter_rewrite_values' => NULL,
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+        ),
+        'secondary_label' => NULL,
+        'collapsible_label' => NULL,
+        'combine_rewrite' => NULL,
+        'reset_label' => NULL,
+        'filter_rewrite_values' => NULL,
+      ),
+      'secondary_label' => NULL,
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+      'bef_filter_description' => NULL,
+      'any_label' => NULL,
+      'filter_rewrite_values' => NULL,
+    ),
     'secondary_label' => NULL,
     'collapsible_label' => NULL,
     'combine_rewrite' => NULL,
@@ -1080,6 +1233,83 @@ function checkdesk_core_feature_views_default_views() {
     4 => 0,
   );
   $handler->display->display_options['filters']['language']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Content: Tags (field_source_tags) */
+  $handler->display->display_options['filters']['field_source_tags_tid']['id'] = 'field_source_tags_tid';
+  $handler->display->display_options['filters']['field_source_tags_tid']['table'] = 'field_data_field_source_tags';
+  $handler->display->display_options['filters']['field_source_tags_tid']['field'] = 'field_source_tags_tid';
+  $handler->display->display_options['filters']['field_source_tags_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_source_tags_tid']['expose']['operator_id'] = 'field_source_tags_tid_op';
+  $handler->display->display_options['filters']['field_source_tags_tid']['expose']['label'] = 'Tags';
+  $handler->display->display_options['filters']['field_source_tags_tid']['expose']['operator'] = 'field_source_tags_tid_op';
+  $handler->display->display_options['filters']['field_source_tags_tid']['expose']['identifier'] = 'field_source_tags_tid';
+  $handler->display->display_options['filters']['field_source_tags_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+    254 => 0,
+    255 => 0,
+    260 => 0,
+    261 => 0,
+    268 => 0,
+    269 => 0,
+    276 => 0,
+    277 => 0,
+  );
+  $handler->display->display_options['filters']['field_source_tags_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_source_tags_tid']['vocabulary'] = 'source_tags';
+  /* Filter criterion: Content: Status (field_source_status) */
+  $handler->display->display_options['filters']['field_source_status_tid']['id'] = 'field_source_status_tid';
+  $handler->display->display_options['filters']['field_source_status_tid']['table'] = 'field_data_field_source_status';
+  $handler->display->display_options['filters']['field_source_status_tid']['field'] = 'field_source_status_tid';
+  $handler->display->display_options['filters']['field_source_status_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_source_status_tid']['expose']['operator_id'] = 'field_source_status_tid_op';
+  $handler->display->display_options['filters']['field_source_status_tid']['expose']['label'] = 'Status';
+  $handler->display->display_options['filters']['field_source_status_tid']['expose']['operator'] = 'field_source_status_tid_op';
+  $handler->display->display_options['filters']['field_source_status_tid']['expose']['identifier'] = 'field_source_status_tid';
+  $handler->display->display_options['filters']['field_source_status_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+    254 => 0,
+    255 => 0,
+    260 => 0,
+    261 => 0,
+    268 => 0,
+    269 => 0,
+    276 => 0,
+    277 => 0,
+  );
+  $handler->display->display_options['filters']['field_source_status_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_source_status_tid']['vocabulary'] = 'source_status';
+  /* Filter criterion: Content: Provider (field_provider) */
+  $handler->display->display_options['filters']['field_provider_value']['id'] = 'field_provider_value';
+  $handler->display->display_options['filters']['field_provider_value']['table'] = 'field_data_field_provider';
+  $handler->display->display_options['filters']['field_provider_value']['field'] = 'field_provider_value';
+  $handler->display->display_options['filters']['field_provider_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_provider_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_provider_value']['expose']['operator_id'] = 'field_provider_value_op';
+  $handler->display->display_options['filters']['field_provider_value']['expose']['label'] = 'Provider';
+  $handler->display->display_options['filters']['field_provider_value']['expose']['operator'] = 'field_provider_value_op';
+  $handler->display->display_options['filters']['field_provider_value']['expose']['identifier'] = 'field_provider_value';
+  $handler->display->display_options['filters']['field_provider_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+    254 => 0,
+    255 => 0,
+    260 => 0,
+    261 => 0,
+    268 => 0,
+    269 => 0,
+    276 => 0,
+    277 => 0,
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -1371,6 +1601,8 @@ print _checkdesk_search_header();
     t('Flagged'),
     t('State'),
     t('Language'),
+    t('Status'),
+    t('Provider'),
     t('Page'),
     t('<?php
 print _checkdesk_search_header();

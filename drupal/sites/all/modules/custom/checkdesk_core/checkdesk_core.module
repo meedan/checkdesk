@@ -1275,15 +1275,16 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
  * Implements hook_form_FORM_ID_alter() for `views_exposed_form`.
  */
 function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
-  
+
   if ($form['#id'] == 'views-exposed-form-checkdesk-search-page' || $form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports') {
+    $filter_to_hide = array();
     // Add required js for fastLiveFilter plugin.
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_search.js');
     // Tag filter
-    $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
+    $form['field_source_tags_tid']['#fastlivefilte_placeholder'] = $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
     $form['field_tags_tid']['#options']['All'] = '– ' . t('Any tag') . ' –';
-    unset($form['field_tags_tid']['#description']);
+    unset($form['field_tags_tid']['#description'], $form['field_source_tags_tid']['#description']);
     // Media filters.
     if ($form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports' || (isset($_GET['type']) && $_GET['type'] === 'report')) {
       // Change -Any- status label
@@ -1297,7 +1298,6 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
               'flagged_gc' => t('Graphic content'),
               'flagged_spam' => t('Spam'),
           ),
-        //'#multiple' => TRUE,
           '#theme' => 'select_as_links',
       );
       // Associated stories filter
@@ -1363,7 +1363,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     // Hide sort and submit button
     $form['sort_bef_combine']['#type'] = 'hidden';
     $form['submit']['#attributes']['class'][] = 'js-hide';
-    
+
     if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
       // Add custom field for type
       $form['type'] = array(
@@ -1393,11 +1393,8 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
 
       // Hide/show media reports based on type filter.
       if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] !== 'report')) {
-        $form['#info']['filter-field_rating_tid']['label'] = NULL;
-        $form['field_rating_tid']['#type'] = 'hidden';
-        unset($form['field_rating_tid']['#theme']);
+        $filter_to_hide[] = 'field_rating_tid';
       }
-
 
       // Story filter for updates
       if (isset($_GET['type']) && $_GET['type'] === 'update') {
@@ -1415,35 +1412,38 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         );
 
         // Hide tag filter for updates
-        $form['#info']['filter-field_tags_tid']['label'] = NULL;
-        $form['field_tags_tid']['#type'] = 'hidden';
-        unset($form['field_tags_tid']['#theme']);
+        $filter_to_hide[] = 'field_tags_tid';
       }
 
       // Source filter
       if (isset($_GET['type']) && $_GET['type'] === 'source') {
-        // Hide tag filter for updates
-        $form['#info']['filter-field_tags_tid']['label'] = NULL;
-        $form['field_tags_tid']['#type'] = 'hidden';
-        unset($form['field_tags_tid']['#theme']);
+        $form['field_source_status_tid']['#options']['All'] = '– ' . t('Any status') . ' –';
+        unset($form['field_source_status_tid']['#description']);
+        // Hide tag filter
+        $filter_to_hide[] = 'field_tags_tid';
+      }
+      else {
+        // Hide tag filter, status, provider
+        $filter_to_hide[] = 'field_source_tags_tid';
+        $filter_to_hide[] = 'field_source_status_tid';
+        $filter_to_hide[] = 'field_provider_value';
       }
 
-      // Hide update choice if user filter by tag.
-      if (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
-        unset($form['type']['#options']['update']);
-      }
       if (isset($_GET['type']) && $_GET['type'] === 'story') {
         $form['field_section_tid_i18n']['#fastlivefilte_placeholder'] = t('Search for section');
-      } else {
-        // Hide section filter
-        $form['#info']['filter-field_section_tid_i18n']['label'] = NULL;
-        $form['field_section_tid_i18n']['#type'] = 'hidden';
-        unset($form['field_section_tid_i18n']['#theme']);
-        // Hide language filter
-        $form['#info']['filter-language']['label'] = NULL;
-        $form['language']['#type'] = 'hidden';
-        unset($form['language']['#theme']);
       }
+      else {
+        // Hide section filter
+        $filter_to_hide[] = 'field_section_tid_i18n';
+        // Hide language filter
+        $filter_to_hide[] = 'language';
+      }
+    }
+
+    foreach ($filter_to_hide as $h) {
+      $form['#info']['filter-' . $h]['label'] = NULL;
+      $form[$h]['#type'] = 'hidden';
+      unset($form[$h]['#theme']);
     }
   }
 }
@@ -2136,32 +2136,6 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         $query->add_where(1,'ms.parent', intval($_GET['report_source']), '=');
       }
     }
-
-    // Remove status condition if selected type not equal report.
-    if (isset($_GET['type']) && $_GET['type'] !== 'report' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
-      $conditions = $query->where[1]['conditions'];
-      foreach($conditions as $k => $v) {
-        if (is_string($v['field']) && $v['field'] === 'field_data_field_rating.field_rating_tid') {
-          unset($query->table_queue['field_data_field_rating']);
-          unset($query->where[1]['conditions'][$k]);
-          break;
-        }
-      }
-    }
-    // Remove section condition and language if selected type not equal story.
-    if (isset($_GET['type']) && $_GET['type'] !== 'story' && (isset($_GET['field_section_tid_i18n']) || isset($_GET['language']))) {
-      $conditions = $query->where[1]['conditions'];
-      foreach($conditions as $k => $v) {
-        if (is_string($v['field']) && $v['field'] === 'field_data_field_section.field_section_tid') {
-          unset($query->table_queue['field_data_field_section']);
-          unset($query->where[1]['conditions'][$k]);
-        }
-        elseif (is_string($v['field']) && $v['field'] === 'node.language') {
-          unset($query->where[1]['conditions'][$k]);
-        }
-      }
-    }
-
 
     if (isset($_GET['type']) && $_GET['type'] === 'update' &&
         isset($_GET['update_story']) && is_numeric($_GET['update_story'])
