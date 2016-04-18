@@ -31,11 +31,15 @@ function checkdesk_sources_node_presave($node) {
         $data = $pender_response->data;
         $node->title = $data->title;
         $node->field_username[LANGUAGE_NONE][0]['value'] = $data->username;
-        $node->field_published_at[LANGUAGE_NONE][0]['value'] = strtotime($data->published_at);
         $node->field_provider[LANGUAGE_NONE][0]['value'] = $data->provider;
         $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
-        $thumbnail_url = system_retrieve_file($data->thumbnail_url, 'public://' . basename($data->thumbnail_url), TRUE);
-        $node->field_image[LANGUAGE_NONE][0] = (array) $thumbnail_url;
+        if (isset($data->published_at)) {
+          $node->field_published_at[LANGUAGE_NONE][0]['value'] = strtotime($data->published_at);
+        }
+        if (isset($data->picture)) {
+          $picture = system_retrieve_file($data->picture, 'public://' . basename($data->picture), TRUE);
+          $node->field_image[LANGUAGE_NONE][0] = (array) $picture;
+        }
         $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
         foreach ($metadata_fields as $key => $value) {
           if (isset($data->{$key})) {
