@@ -124,6 +124,19 @@ function _checkdesk_sources_assign_media_source($media_url, &$node) {
     }
     else {
       // Create a new source
+      global $user;
+      $source = new StdClass;
+      $source->type = 'source';
+      node_object_prepare($source);
+      $source->status = 1;
+      $source->language = LANGUAGE_NONE;
+      $source->uid = $user->uid;
+      $source->field_source_url[LANGUAGE_NONE][0]['url'] = $embed->author_url;
+
+      if ($source = node_submit($source)) {
+        node_save($source);
+        $node->field_source_media[LANGUAGE_NONE][0]['target_id'] = $source->nid;
+      }
     }
   }
 }
