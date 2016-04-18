@@ -262,6 +262,8 @@ function checkdesk_sources_form_source_node_form_alter(&$form, &$form_state) {
     foreach ($fields as $k => $v) {
       $form[$k]['#access'] = FALSE;
     }
+    // Validate duplicate source
+    $form['#validate'][] = '_checkdesk_sources_duplicates_form_validate';
   }
   else {
     $form['field_provider']['#access'] = FALSE;
@@ -285,6 +287,24 @@ function checkdesk_sources_form_source_node_form_alter(&$form, &$form_state) {
 function _checkdesk_source_after_build($form, &$form_state) {
   $form['field_source_url'][LANGUAGE_NONE][0]['url']['#attributes']['readonly'] = 'readonly';
   return $form;
+}
+
+/**
+ * Validate sources duplicates
+ */
+function _checkdesk_sources_duplicates_form_validate($form, &$form_state) {
+  $url = $form_state['values']['field_source_url'][LANGUAGE_NONE][0]['url'];
+  $query = db_select('field_data_field_source_url', 'fs');
+  $query->addField('fs', 'entity_id');
+  $query->condition('fs.field_source_url_url', $url);
+  $query->addTag('checkdesk_source_duplicate');
+  $result = $query->execute()->fetchField();
+  if ($result) {
+    $msg = t('Source already exists !source', array(
+        '!source' => l(t('View the link'), 'node/'. $result, array('attributes' => array('target'=>'_blank'))))
+    );
+    form_set_error('field_source_url', $msg);
+  }
 }
 
 /**
