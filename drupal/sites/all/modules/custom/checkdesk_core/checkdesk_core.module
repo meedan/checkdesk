@@ -789,8 +789,10 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
 
   // Add a drag and drop icon
   if ($node->type == 'media' && $view_mode == 'checkdesk_search' && arg(0) !== 'search') {
-    // Check that reports are in incoming sidebar view
-    $links['cd_drag'] = '<span class="drag-drop"><div class="cd-drag-report cd-drag-node-'. $node->nid  .' draggable"><span class="icon-arrows"></span></div></span>';
+    if (!(($node_page = menu_get_object()) && $node_page->type == 'source')) {
+      // Check that reports are in incoming sidebar view
+      $links['cd_drag'] = '<span class="drag-drop"><div class="cd-drag-report cd-drag-node-'. $node->nid  .' draggable"><span class="icon-arrows"></span></div></span>';
+    }
   }
 
   if (!empty($links)) {
