@@ -5662,25 +5662,27 @@ body.cke_editable figure.element figcaption {
   line-height: 20px;
   margin-top: 5px;
 }
-.story .story-body figure.element.mode-embed-align-first, .story .story-body figure.element.mode-embed-align-last,
-.update .update-body figure.element.mode-embed-align-first,
-.update .update-body figure.element.mode-embed-align-last,
-body.cke_editable figure.element.mode-embed-align-first,
-body.cke_editable figure.element.mode-embed-align-last {
-  margin-top: 0;
-  max-width: 35%;
-}
-.story .story-body figure.element.mode-embed-align-first,
-.update .update-body figure.element.mode-embed-align-first,
-body.cke_editable figure.element.mode-embed-align-first {
-  float: left;
-  margin-right: 26px;
-}
-.story .story-body figure.element.mode-embed-align-last,
-.update .update-body figure.element.mode-embed-align-last,
-body.cke_editable figure.element.mode-embed-align-last {
-  float: right;
-  margin-left: 26px;
+@media only screen and (min-width: 740px) {
+  .story .story-body figure.element.mode-embed-align-first, .story .story-body figure.element.mode-embed-align-last,
+  .update .update-body figure.element.mode-embed-align-first,
+  .update .update-body figure.element.mode-embed-align-last,
+  body.cke_editable figure.element.mode-embed-align-first,
+  body.cke_editable figure.element.mode-embed-align-last {
+    margin-top: 0;
+    max-width: 35%;
+  }
+  .story .story-body figure.element.mode-embed-align-first,
+  .update .update-body figure.element.mode-embed-align-first,
+  body.cke_editable figure.element.mode-embed-align-first {
+    float: left;
+    margin-right: 26px;
+  }
+  .story .story-body figure.element.mode-embed-align-last,
+  .update .update-body figure.element.mode-embed-align-last,
+  body.cke_editable figure.element.mode-embed-align-last {
+    float: right;
+    margin-left: 26px;
+  }
 }
 .story .story-body figure.element a,
 .update .update-body figure.element a,
