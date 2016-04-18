@@ -37,7 +37,8 @@ function checkdesk_sources_node_presave($node) {
           $node->field_published_at[LANGUAGE_NONE][0]['value'] = strtotime($data->published_at);
         }
         if (isset($data->picture)) {
-          $picture = system_retrieve_file($data->picture, 'public://' . basename($data->picture), TRUE);
+          $file_name = explode('?', basename($data->picture));
+          $picture = system_retrieve_file($data->picture, 'public://' . $file_name[0], TRUE);
           $node->field_image[LANGUAGE_NONE][0] = (array) $picture;
         }
         $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
