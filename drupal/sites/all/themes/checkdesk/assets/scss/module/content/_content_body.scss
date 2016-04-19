@@ -50,12 +50,12 @@
       max-width: 35%;
     }
     &.mode-embed-align-first {
-      float: left;
-      margin-right: 26px;
+      float: $alpha;
+      margin-#{$omega}: 26px;
     }
     &.mode-embed-align-last {
-      float: right;
-      margin-left: 26px;
+      float: $omega;
+      margin-#{$alpha}: 26px;
     }
     a { word-wrap: break-word; }
   }
