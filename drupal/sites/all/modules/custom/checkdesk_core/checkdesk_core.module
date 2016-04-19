@@ -2960,8 +2960,10 @@ function _checkdesk_purge_varnish($paths) {
       }
       foreach ($hostnames as $hostname) {
         $urls = array();
-        //add front page
+        // Add front page
         $paths[] = '<front>';
+        // Add search page (Ticket #4688)
+        $paths[] = 'search';
         if (!$purge_all) {
           foreach ($paths as $path) {
             foreach($languages as $key => $value) {
@@ -2977,7 +2979,7 @@ function _checkdesk_purge_varnish($paths) {
         varnish_purge_paths($hostname, $urls);
         //adding sleep for 2 seconds
         sleep(2);
-        watchdog('checkdesk_varnish', 'Purged varnish cache in queue');
+        //watchdog('checkdesk_varnish', 'Purged varnish cache in queue');
         if (module_exists('checkdesk_fbcache')) {
           checkdesk_fbcache_bulk_scrape($hostname, $urls);
         }
