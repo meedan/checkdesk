@@ -17,12 +17,6 @@
         </div>
       </section>
 
-      <div class="source-references item-content-wrapper">
-        <?php if(isset($references)) : ?>
-          <?php print $references; ?>
-        <?php endif ?>
-      </div>
-
       <?php print $source_activity; ?>
     </div>
   </article>
@@ -33,5 +27,22 @@
       <?php print render($content['field_source_tags']); ?>
     <?php endif ?>  
   </aside>
+
+  <section id="references" class="cd-container cd-container-inline">
+    <div class="cd-container-inner">
+
+      <div class="cd-container-header">
+        <h2 class="cd-container-header-title">
+          <?php print $pender->data->title . t('&#8217;s reports'); ?>
+        </h2>
+      </div>
+
+      <div class="cd-container-body">
+        <?php if(isset($references)) : ?>
+          <?php print $references; ?>
+        <?php endif ?>
+      </div>
+    </div>
+  </section>
 
 </section>

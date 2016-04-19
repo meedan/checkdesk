@@ -5094,10 +5094,6 @@ span.content-labels:after {
   border: 1px solid rgba(16, 33, 47, 0.2);
 }
 
-.source-references .item-content-wrapper {
-  background-color: rgba(16, 33, 47, 0.02);
-}
-
 section#comment-form {
   clear: both;
   *zoom: 1;
@@ -6137,14 +6133,14 @@ body.cke_editable figure.element.mode-embed-align-last {
 .story .story-body figure.element.mode-embed-align-first,
 .update .update-body figure.element.mode-embed-align-first,
 body.cke_editable figure.element.mode-embed-align-first {
-  float: left;
-  margin-right: 26px;
+  float: right;
+  margin-left: 26px;
 }
 .story .story-body figure.element.mode-embed-align-last,
 .update .update-body figure.element.mode-embed-align-last,
 body.cke_editable figure.element.mode-embed-align-last {
-  float: right;
-  margin-left: 26px;
+  float: left;
+  margin-right: 26px;
 }
 .story .story-body figure.element a,
 .update .update-body figure.element a,
@@ -6818,6 +6814,14 @@ body.cke_editable blockquote:after {
   text-align: right;
 }
 
+.cd-container-inner .cd-container-header-title {
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #3e4c57;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: right;
+}
+
 .cd-container .cd-container-inner .more-link {
   position: absolute;
   top: 30px;
@@ -6972,6 +6976,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-2 .l-row-item-span-1 {
+    width: 50%;
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 auto;
     -moz-box-flex: 1;
@@ -6981,6 +6986,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-2 .l-row-item-span-2 {
+    width: 100%;
     -webkit-box-flex: 2;
     -webkit-flex: 2 1 auto;
     -moz-box-flex: 2;
@@ -6990,6 +6996,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-2 .l-row-item-span-3 {
+    width: 150%;
     -webkit-box-flex: 3;
     -webkit-flex: 3 1 auto;
     -moz-box-flex: 3;
@@ -6999,6 +7006,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-2 .l-row-item-span-4 {
+    width: 200%;
     -webkit-box-flex: 4;
     -webkit-flex: 4 1 auto;
     -moz-box-flex: 4;
@@ -7008,6 +7016,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-2 .l-row-item-span-5 {
+    width: 250%;
     -webkit-box-flex: 5;
     -webkit-flex: 5 1 auto;
     -moz-box-flex: 5;
@@ -7017,6 +7026,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-3 .l-row-item-span-1 {
+    width: 33.33333%;
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 auto;
     -moz-box-flex: 1;
@@ -7026,6 +7036,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-3 .l-row-item-span-2 {
+    width: 66.66667%;
     -webkit-box-flex: 2;
     -webkit-flex: 2 1 auto;
     -moz-box-flex: 2;
@@ -7035,6 +7046,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-3 .l-row-item-span-3 {
+    width: 100%;
     -webkit-box-flex: 3;
     -webkit-flex: 3 1 auto;
     -moz-box-flex: 3;
@@ -7044,6 +7056,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-3 .l-row-item-span-4 {
+    width: 133.33333%;
     -webkit-box-flex: 4;
     -webkit-flex: 4 1 auto;
     -moz-box-flex: 4;
@@ -7053,6 +7066,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-3 .l-row-item-span-5 {
+    width: 166.66667%;
     -webkit-box-flex: 5;
     -webkit-flex: 5 1 auto;
     -moz-box-flex: 5;
@@ -7062,6 +7076,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-4 .l-row-item-span-1 {
+    width: 25%;
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 auto;
     -moz-box-flex: 1;
@@ -7071,6 +7086,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-4 .l-row-item-span-2 {
+    width: 50%;
     -webkit-box-flex: 2;
     -webkit-flex: 2 1 auto;
     -moz-box-flex: 2;
@@ -7080,6 +7096,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-4 .l-row-item-span-3 {
+    width: 75%;
     -webkit-box-flex: 3;
     -webkit-flex: 3 1 auto;
     -moz-box-flex: 3;
@@ -7089,6 +7106,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-4 .l-row-item-span-4 {
+    width: 100%;
     -webkit-box-flex: 4;
     -webkit-flex: 4 1 auto;
     -moz-box-flex: 4;
@@ -7098,6 +7116,7 @@ body.cke_editable blockquote:after {
   }
 
   .l-row-cols-4 .l-row-item-span-5 {
+    width: 125%;
     -webkit-box-flex: 5;
     -webkit-flex: 5 1 auto;
     -moz-box-flex: 5;
