@@ -25,7 +25,8 @@ function checkdesk_sources_update_7001() {
 			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id
 			GROUP BY source_url
 		');
-
+  $values = array();
+  $fields =  array('entity_type' => 'node', 'bundle' => 'media', 'deleted' => 0,'language' => LANGUAGE_NONE, 'delta' => 0);
   foreach ($result as $row) {
     $response = checkdesk_sources_pender_fetch($row->source_url, TRUE);
     if ($response->type === 'media' || !empty($response->data->provider)) {
@@ -35,12 +36,24 @@ function checkdesk_sources_update_7001() {
         $nids = explode(',',  $row->nid);
         $vids = explode(',', $row->vid);
         foreach ($nids as $k => $v) {
-          $db_rows[] = '("node", "media", 0, '. $v .', '. $vids[$K] .', "und", 0, '. $source->nid .')';
+          $values[] = $fields + array('entity_id' => $v, 'revision_id' => $vids[$k] , 'field_source_media_target_id' => $source->nid);
         }
       }
     }
-    if (count($db_rows)) {
-      // write a record direct into DB
+
+  }
+  if (count($values)) {
+    $query = db_insert('field_data_field_source_media')->fields(array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_source_media_target_id'));
+    // write a record direct into DB
+    foreach ($values as $record) {
+      $query->values($record);
     }
+    $query->execute();
+    $query = db_insert('field_revision_field_source_media')->fields(array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_source_media_target_id'));
+    // write a record direct into DB
+    foreach ($values as $record) {
+      $query->values($record);
+    }
+    $query->execute();
   }
 }
