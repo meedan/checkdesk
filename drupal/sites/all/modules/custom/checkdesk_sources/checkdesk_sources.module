@@ -26,7 +26,7 @@ function checkdesk_sources_node_presave($node) {
   if ($node->is_new) {
     if ($node->type === 'source') {
       $url = $node->field_source_url[LANGUAGE_NONE][0]['url'];
-      $pender_response = checkdesk_sources_pender_fetch($url);
+      $pender_response = checkdesk_sources_pender_fetch($url, TRUE);
       if ($pender_response && $pender_response->type === 'media') {
         $data = $pender_response->data;
         $node->title = $data->title;
@@ -114,31 +114,47 @@ function _checkdesk_sources_assign_media_source($media_url, &$node) {
   $embed = meedan_oembed_data($media_url);
   if ($embed) {
     // Catch source id if not exists create a new one
-    $source_nid = db_query('SELECT entity_id FROM {field_data_field_source_url} WHERE field_source_url_url = :url AND bundle = :bundle'
-      , array(
-        ':url' => $embed->author_url,
-        ':bundle' => 'source'
-      ))->fetchField();
+    $source_nid = _checkdesk_get_source($embed->author_url);
     if ($source_nid) {
       $node->field_source_media[LANGUAGE_NONE][0]['target_id'] = $source_nid;
     }
     else {
       // Create a new source
-      global $user;
-      $source = new StdClass;
-      $source->type = 'source';
-      node_object_prepare($source);
-      $source->status = 1;
-      $source->language = LANGUAGE_NONE;
-      $source->uid = $user->uid;
-      $source->field_source_url[LANGUAGE_NONE][0]['url'] = $embed->author_url;
-
-      if ($source = node_submit($source)) {
-        node_save($source);
+      $source = _checkdesk_source_create_new_entity($embed->author_url);
+      if ($source) {
         $node->field_source_media[LANGUAGE_NONE][0]['target_id'] = $source->nid;
       }
     }
   }
+}
+
+/**
+ * @param $url
+ */
+function _checkdesk_get_source($url) {
+  return db_query('SELECT entity_id FROM {field_data_field_source_url} WHERE field_source_url_url = :url AND bundle = :bundle'
+    , array(
+      ':url' => $url,
+      ':bundle' => 'source'
+    ))->fetchField();
+}
+
+function _checkdesk_source_create_new_entity($source_url) {
+  // Create a new source
+  global $user;
+  $source = new StdClass;
+  $source->type = 'source';
+  node_object_prepare($source);
+  $source->status = 1;
+  $source->language = LANGUAGE_NONE;
+  $source->uid = $user->uid;
+  $source->field_source_url[LANGUAGE_NONE][0]['url'] = $source_url;
+
+  if ($source = node_submit($source)) {
+    node_save($source);
+    return $source;
+  }
+  return FALSE;
 }
 
 function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
@@ -148,7 +164,6 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
   $element = pender_render_cache('pender_request', $url);
   $cache_key = implode(':', $element['#cache']['keys']);
   $cache = cache_get($cache_key, $element['#cache']['bin']);
-
   // Cache hit.
   if (!$force_refresh && $cache && isset($cache->data)) {
     $pender = $cache->data;
@@ -307,16 +322,24 @@ function _checkdesk_source_after_build($form, &$form_state) {
  */
 function _checkdesk_sources_duplicates_form_validate($form, &$form_state) {
   $url = $form_state['values']['field_source_url'][LANGUAGE_NONE][0]['url'];
-  $query = db_select('field_data_field_source_url', 'fs');
-  $query->addField('fs', 'entity_id');
-  $query->condition('fs.field_source_url_url', $url);
-  $query->addTag('checkdesk_source_duplicate');
-  $result = $query->execute()->fetchField();
-  if ($result) {
-    $msg = t('Source already exists !source', array(
-        '!source' => l(t('View the link'), 'node/'. $result, array('attributes' => array('target'=>'_blank'))))
-    );
-    form_set_error('field_source_url', $msg);
+  // Check a valid URL for Pender.
+  $response = checkdesk_sources_pender_fetch($url, TRUE);
+  if ($response->type !== 'media' || empty($response->data->provider)) {
+    form_set_error('field_source_url', t('Invalid source URL'));
+  }
+  else {
+    $query = db_select('field_data_field_source_url', 'fs');
+    $query->addField('fs', 'entity_id');
+    $query->condition('fs.field_source_url_url', $url);
+    $query->addTag('checkdesk_source_duplicate');
+    $result = $query->execute()->fetchField();
+    if ($result) {
+      $msg = t('Source already exists !source', array(
+          '!source' => l(t('View the link'), 'node/' . $result, array('attributes' => array('target' => '_blank')))
+        )
+      );
+      form_set_error('field_source_url', $msg);
+    }
   }
 }
 

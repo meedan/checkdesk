@@ -13,3 +13,34 @@ function checkdesk_sources_schema() {
   $schema['cache_pender']['description'] = 'Cache table for the Pender.';
   return $schema;
 }
+
+/**
+ * Migrate meedan_sources
+ */
+function checkdesk_sources_update_7001() {
+  $result = db_query('
+			SELECT GROUP_CONCAT(n.nid ORDER BY n.nid) AS nid, GROUP_CONCAT(n.vid ORDER BY n.nid) AS vid, ms.source_url
+			FROM {node} n
+			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
+			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id
+			GROUP BY source_url
+		');
+
+  foreach ($result as $row) {
+    $response = checkdesk_sources_pender_fetch($row->source_url, TRUE);
+    if ($response->type === 'media' || !empty($response->data->provider)) {
+      $source = _checkdesk_source_create_new_entity($row->source_url);
+      if ($source) {
+        // LINK source & reports
+        $nids = explode(',',  $row->nid);
+        $vids = explode(',', $row->vid);
+        foreach ($nids as $k => $v) {
+          $db_rows[] = '("node", "media", 0, '. $v .', '. $vids[$K] .', "und", 0, '. $source->nid .')';
+        }
+      }
+    }
+    if (count($db_rows)) {
+      // write a record direct into DB
+    }
+  }
+}
