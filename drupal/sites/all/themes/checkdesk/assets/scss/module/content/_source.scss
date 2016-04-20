@@ -81,7 +81,8 @@
 .source .source-metadata-item {
 	display: block;
   padding: 4px 8px;
-  margin: 0 4px; 
+  margin-#{$omega}: 4px;
+  margin-bottom: 6px; 
   color: $firefly60;
   border: 1px solid rgba($firefly, 0.1);
   border-radius: 4px;
