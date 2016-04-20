@@ -275,6 +275,16 @@ function checkdesk_sources_theme() {
     ),
     ) + $base;
 
+  $themes['checkdesk_sources_activity_count'] = array(
+      'template' => 'source_activity_count',
+      'variables' => array(
+        'count' => NULL,
+        'nid' => NULL,
+        'link_count' => NULL,
+      ),
+    ) + $base;
+
+
   return $themes;
 }
 
