@@ -33,7 +33,7 @@
 
       <div class="cd-container-header">
         <h2 class="cd-container-header-title">
-          <?php print $pender->data->title . t('&#8217;s reports'); ?>
+          <?php print $source_reference_title; ?>
         </h2>
       </div>
 

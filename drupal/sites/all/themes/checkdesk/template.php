@@ -876,6 +876,11 @@ function checkdesk_preprocess_node(&$variables) {
       )
     );
     $variables['source_metadata'] = _checkdesk_source_metadata_fields($node->pender->data->provider);
+
+    // set the title for source references
+    // e.g. John Hodgman's reports
+    $variables['source_reference_title'] = t($node->pender->data->title . '&#8217;s reports');
+
     // set references
     $view = views_get_view('checkdesk_references');
     $view->set_arguments(array($node->nid));
@@ -886,6 +891,7 @@ function checkdesk_preprocess_node(&$variables) {
     if ($total_rows) {
       $variables['references'] = $view_output;
     }
+
   }
 
 }
