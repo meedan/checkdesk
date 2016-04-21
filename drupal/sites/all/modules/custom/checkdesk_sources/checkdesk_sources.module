@@ -176,11 +176,11 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Pender-Token: ' . variable_get('checkdesk_sources_pender_key')));
     $response = json_decode(curl_exec($ch));
     curl_close($ch);
+    $pender = $response;
     if ($response->type == 'error') {
       watchdog('Pender', 'Error fetching data from %url [@msg].', array('%url' => $url, '@msg' => $response->data), WATCHDOG_ERROR);
     }
     else {
-      $pender = $response;
       cache_set($cache_key, $pender, $element['#cache']['bin'], $element['#cache']['expire']);
     }
   }
@@ -334,7 +334,10 @@ function _checkdesk_sources_duplicates_form_validate($form, &$form_state) {
   $url = $form_state['values']['field_source_url'][LANGUAGE_NONE][0]['url'];
   // Check a valid URL for Pender.
   $response = checkdesk_sources_pender_fetch($url, TRUE);
-  if ($response->type !== 'media' || empty($response->data->provider)) {
+  if ($response->type == 'error') {
+    form_set_error('field_source_url', t('Error fetching data from @url', array('@url' => $url)));
+  }
+  elseif ($response->type === 'media' && empty($response->data->provider)) {
     form_set_error('field_source_url', t('Invalid source URL'));
   }
   else {

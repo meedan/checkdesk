@@ -26,8 +26,10 @@ function checkdesk_reports_schema() {
  * Change checkdesk_reports weight
  */
 function checkdesk_reports_update_7001() {
-  $schema = checkdesk_reports_schema();
-  db_create_table('checkdesk_reports_publication', $schema['checkdesk_reports_publication']);
+  if (!db_table_exists('checkdesk_reports_publication')) {
+    $schema = checkdesk_reports_schema();
+    db_create_table('checkdesk_reports_publication', $schema['checkdesk_reports_publication']);
+  }
   db_update('system')
     ->fields(array(
       'weight' => 99,
