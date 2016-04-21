@@ -3720,6 +3720,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Sign in with :', array(), array('context' => ''));
+  $translations['ar:default']['4a4d774f0a92aedf75d0c010f0fe17df'] = array(
+    'source' => 'Align First',
+    'context' => '',
+    'location' => '/ar/story/176',
+    'translation' => 'بمحاذاة النص',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Align First', array(), array('context' => ''));
   $translations['ar:default']['4b1b4dc8cf38b3c64b1d657da8f5ac8c'] = array(
     'source' => 'Report',
     'context' => '',
@@ -5587,6 +5596,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('Display the last comment of a node', array(), array('context' => ''));
+  $translations['ar:default']['6e0b81cc9a0919bc2182df7a5762fd26'] = array(
+    'source' => 'Display as',
+    'context' => '',
+    'location' => '/ar/media/37/format-form?render=media-popup&fields=undefined',
+    'translation' => 'طريقة العرض',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Display as', array(), array('context' => ''));
   $translations['ar:default']['6e3afc6db5b86d790de679dd64f46129'] = array(
     'source' => 'Content authored',
     'context' => '',
@@ -7782,6 +7800,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('now', array(), array('context' => ''));
+  $translations['ar:default']['983fea1a5bc59d669a24ab0a0740c5fc'] = array(
+    'source' => 'Align Last',
+    'context' => '',
+    'location' => '/ar/story/176',
+    'translation' => 'عكس النص',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Align Last', array(), array('context' => ''));
   $translations['ar:default']['984a7717d7dbfd4aa04f3d1082d36026'] = array(
     'source' => 'Get an overview of all content.',
     'context' => '',
@@ -11179,6 +11206,19 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Sign Up', array(), array('context' => ''));
+  $translations['ar:default']['d6b0a1333ad9df0911ebd5bb8c7791fa'] = array(
+    'source' => 'Choose the type of display you would like for this
+      file. Please be aware that files may display differently than they do when
+      they are inserted into an editor.',
+    'context' => '',
+    'location' => '/ar/media/37/format-form?render=media-popup&fields=undefined',
+    'translation' => 'اختر طريقة عرض الملف. مع الأخذ في الاعتبار أن الملفات قد تظهر بشكل مختلف في المحرر عن شكلها النهائي في المحتوى.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Choose the type of display you would like for this
+      file. Please be aware that files may display differently than they do when
+      they are inserted into an editor.', array(), array('context' => ''));
   $translations['ar:default']['d7085e2b5b40144896a996a297e3847d'] = array(
     'source' => 'Sign in with Facebook',
     'context' => '',
@@ -11586,6 +11626,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Jump menu', array(), array('context' => ''));
+  $translations['ar:default']['dc5ffc2b720501ba00de3be1477b435d'] = array(
+    'source' => 'Centered',
+    'context' => '',
+    'location' => '/ar/story/176',
+    'translation' => 'في الوسط ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Centered', array(), array('context' => ''));
   $translations['ar:default']['dca21c097a636a622d51837672257170'] = array(
     'source' => 'Published on live blog under ',
     'context' => '',
