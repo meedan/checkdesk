@@ -178,7 +178,7 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
     curl_close($ch);
     $pender = $response;
     if ($response->type == 'error') {
-      watchdog('Pender', 'Error fetching data from %url [@msg].', array('%url' => $url, '@msg' => $response->data), WATCHDOG_ERROR);
+     watchdog('Pender', 'Error fetching data from %url [@msg].', array('%url' => $url, '@msg' => $response->data->message));
     }
     else {
       cache_set($cache_key, $pender, $element['#cache']['bin'], $element['#cache']['expire']);
@@ -335,7 +335,7 @@ function _checkdesk_sources_duplicates_form_validate($form, &$form_state) {
   // Check a valid URL for Pender.
   $response = checkdesk_sources_pender_fetch($url, TRUE);
   if ($response->type == 'error') {
-    form_set_error('field_source_url', t('Error fetching data from @url', array('@url' => $url)));
+    form_set_error('field_source_url', t($response->data->message));
   }
   elseif ($response->type === 'media' && empty($response->data->provider)) {
     form_set_error('field_source_url', t('Invalid source URL'));
