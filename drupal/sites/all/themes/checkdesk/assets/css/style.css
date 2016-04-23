@@ -4816,6 +4816,29 @@ span.content-labels:after {
   padding-left: 7.5px;
 }
 
+.media-source-status {
+  text-align: left;
+  margin-top: 30px;
+}
+.media-source-status .status-name {
+  font-weight: 700;
+}
+.media-source-status .checkdesk-status-icon {
+  margin: 0 4.5px;
+}
+.media-source-status .checkdesk-status-icon img {
+  margin-top: -4px;
+}
+.media-source-status .verified {
+  color: #399664;
+}
+.media-source-status .undetermined {
+  color: #ec9131;
+}
+.media-source-status .false {
+  color: #cc4f43;
+}
+
 .source .source-metadata {
   display: -webkit-box;
   display: -webkit-flex;

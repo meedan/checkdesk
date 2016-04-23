@@ -45,6 +45,11 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     }
   }
 
+  // Add template suggestion for source tags field
+  if ($element['#field_name'] == 'field_source_tags') {
+    $variables['theme_hook_suggestions'][] = 'field__field_source_tags';
+  }
+
   if ($element['#field_name'] == 'field_link') {
     $embed = $element['#object']->embed;
     $node = $element['#object'];
@@ -100,6 +105,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
         $variables['report_status'] = _checkdesk_report_status($node);
       }
     }
+
     // Inline thumbnail
     if ($element['#formatter'] == 'meedan_inline_thumbnail') {
       $variables['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
@@ -868,6 +874,11 @@ function checkdesk_preprocess_node(&$variables) {
     $source_username = '<div class="username-text">' .$node->pender->data->username . '</div>';
     $variables['username_link'] = l($source_favicon . $source_username, $node->pender->data->url , array('html' => TRUE));
 
+    // Load report status
+    if (isset($node->field_source_status)) {
+      $variables['source_status'] = _checkdesk_sources_status($node);
+    }
+
     $variables['source_activity'] = theme(
       'checkdesk_sources_source_activity', array(
         'node' => $node,
@@ -1145,6 +1156,38 @@ function checkdesk_field__field_tags(&$variables) {
           'plural' => t('Stories'),
       );
     }
+
+    $output = '<section id="media-tags" class="cd-container">';
+    $output .= '<div class="cd-container-inner">';
+    $output .= '<div class="submeta"><h2 class="submeta-header">' . t('Tags') . '</h2>';
+    $output .= '<ul class="tag-list u-unstyled inline-list submeta-content">';
+    foreach ($variables['element']['#items'] as $key => $item) {
+      $tag_name = '<span class="tag-name">' . $item['taxonomy_term']->name . '</span>';
+
+      $output .= '<li class="inline-list-item">';
+
+      $output .= l($tag_name, 'taxonomy/term/' . $item['tid'], array(
+          'html' => TRUE,
+          'attributes' => array(
+              'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
+              'class' => array('tag-link'),
+          ),
+      ));
+
+      $output .= '</li>';
+    }
+    $output .= '</ul></div></div></section>';
+    return $output;
+  }
+}
+
+/**
+ * Field: Source Tags
+ */
+function checkdesk_field__field_source_tags(&$variables) {
+  if ($variables['element']['#view_mode'] == 'full' || $variables['element']['#view_mode'] == 'checkdesk_collaborate') {
+    $type = $variables['element']['#bundle'];
+
 
     $output = '<section id="media-tags" class="cd-container">';
     $output .= '<div class="cd-container-inner">';

@@ -421,6 +421,22 @@ function checkdesk_source_load_activity($nid) {
 }
 
 /**
+ * Get status of a source
+ */
+function _checkdesk_sources_status($source) {
+    global $language;
+    $source_status = array();
+
+    $term = isset($source->field_source_status[LANGUAGE_NONE][0]['taxonomy_term']) ?
+        $source->field_source_status[LANGUAGE_NONE][0]['taxonomy_term'] :
+        taxonomy_term_load($source->field_source_status[LANGUAGE_NONE][0]['tid']);
+    $status_name = $term->name;
+    $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
+    $source_status['status'] = '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
+    return $source_status;
+}
+
+/**
  * Insert embed data info in sources table.
  */
 function _meedan_sources_insert($embed, $nid = NULL) {
