@@ -875,7 +875,7 @@ function checkdesk_preprocess_node(&$variables) {
     $variables['username_link'] = l($source_favicon . $source_username, $node->pender->data->url , array('html' => TRUE));
 
     // Load report status
-    if (isset($node->field_source_status)) {
+    if (!empty($node->field_source_status)) {
       $variables['source_status'] = _checkdesk_sources_status($node);
     }
 
