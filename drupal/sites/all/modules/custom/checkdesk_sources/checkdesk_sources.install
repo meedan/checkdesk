@@ -72,5 +72,5 @@ function __checkdesk_sources_update_7001(&$sandbox) {
     $query->execute();
   }
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
-  $sandbox['last_nid'] = $row->uaid;
+  $sandbox['last_nid'] = $row->nid;
 }

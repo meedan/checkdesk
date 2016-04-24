@@ -33,17 +33,17 @@ function checkdesk_sources_node_presave($node) {
         $node->field_username[LANGUAGE_NONE][0]['value'] = $data->username;
         $node->field_provider[LANGUAGE_NONE][0]['value'] = $data->provider;
         $node->body[LANGUAGE_NONE][0]['value'] = $data->description;
-        if (isset($data->published_at)) {
+        if (isset($data->published_at) && !empty($data->published_at)) {
           $node->field_published_at[LANGUAGE_NONE][0]['value'] = strtotime($data->published_at);
         }
-        if (isset($data->picture)) {
+        if (isset($data->picture) && !empty($data->picture)) {
           $file_name = explode('?', basename($data->picture));
           $picture = system_retrieve_file($data->picture, 'public://' . $file_name[0], TRUE);
           $node->field_image[LANGUAGE_NONE][0] = (array) $picture;
         }
         $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
         foreach ($metadata_fields as $key => $value) {
-          if (isset($data->{$key})) {
+          if (isset($data->{$key}) && !empty($data->{$key})) {
             $node->{$value}[LANGUAGE_NONE][0]['value'] = $data->{$key};
           }
         }
@@ -142,6 +142,9 @@ function _checkdesk_get_source($url) {
 function _checkdesk_source_create_new_entity($source_url) {
   // Create a new source
   global $user;
+  if (!$user->uid) {
+    $user = user_load(1);
+  }
   $source = new StdClass;
   $source->type = 'source';
   node_object_prepare($source);
