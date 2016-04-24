@@ -7,14 +7,22 @@
           <span class="title"><?php print l($pender->data->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
           <span class="username"><?php print $username_link; ?></span>
           <span class="description expandable"><?php print render($content['body']); ?></span>
-        </div>
-        <div class="source-metadata">
+
           <?php if (count($source_metadata)) : ?>
-            <?php foreach($source_metadata as $k => $metadata) : ?>
-              <div class="source-metadata-item"><?php print render($content[$metadata]); ?></div>
-            <?php endforeach; ?>
+            <div class="source-metadata">
+              <?php foreach($source_metadata as $k => $metadata) : ?>
+                <div class="source-metadata-item"><?php print render($content[$metadata]); ?></div>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
+
+          <?php if(isset($source_status['status'])) : ?>
+            <div class="media-status media-source-status">
+              <?php print $source_status['status']; ?>
+            </div>
           <?php endif; ?>
         </div>
+        
       </section>
 
       <?php print $source_activity; ?>
@@ -28,21 +36,21 @@
     <?php endif ?>  
   </aside>
 
-  <section id="references" class="cd-container cd-container-inline">
-    <div class="cd-container-inner">
+  <?php if(isset($references)) : ?>
+    <section id="references" class="cd-container cd-container-inline">
+      <div class="cd-container-inner">
 
-      <div class="cd-container-header">
-        <h2 class="cd-container-header-title">
-          <?php print $source_reference_title; ?>
-        </h2>
-      </div>
+        <div class="cd-container-header">
+          <h2 class="cd-container-header-title">
+            <?php print $source_reference_title; ?>
+          </h2>
+        </div>
 
-      <div class="cd-container-body">
-        <?php if(isset($references)) : ?>
+        <div class="cd-container-body">
           <?php print $references; ?>
-        <?php endif ?>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  <?php endif ?>
 
 </section>

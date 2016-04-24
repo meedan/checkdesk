@@ -105,7 +105,7 @@ ul#breadcrumb h1 {
 }
 
 ul#user-menu {
-	@include flexbox();
+  @include flexbox();
   @include flex-direction(row-reverse);
   @include align-items(center);
   // make user-menu the last item in metabar
@@ -129,10 +129,10 @@ ul#user-menu {
     }
   }
 
-	// add bell icon for notifications.
+  // add bell icon for notifications.
   .icon-bell-o { 
-  	@include icon("bell-o", 26px); 
-  	&:before {
+    @include icon("bell-o", 26px); 
+    &:before {
       margin: 0;
     }
   }
@@ -202,24 +202,6 @@ ul#user-menu .avatar-menu {
   }
 }
 
-// Utility menu which contains language switcher
-// don't show it on mobile
-@media (min-width: 1px) and (max-width: #{$width-tablet}) {
-  #utility-menu { display: none; }
-}
-
-@include cd-responsive('min-width: #{$width-tablet}') {
-  #utility-menu {
-    padding-#{$alpha}: 20px;
-    padding-#{$omega}: 20px;
-    li { list-style: none; }
-    a.language-link { 
-      @include ctb-linkColor($firefly30);
-      padding: 10px; 
-    }
-  }
-}
-
 #my-account {
   ul {
     @include reset-list-style;
@@ -244,5 +226,62 @@ ul#user-menu .avatar-menu {
   }
   @else {
     @include border-radius(0 $radius $radius $radius);
+  }
+}
+
+
+// Utility menu which contains language switcher
+
+#utility-menu-wrapper {
+  @include reset-list-style;
+  li {
+    margin: 0 10px;
+  }
+  li a {
+    text-decoration: none;
+    @include ctb-linkColor($firefly30);
+    @include transition(border 0.2s ease);
+    @include transition(color 0.2s ease);
+  }
+}
+
+#utility-menu-wrapper .dropdown-menu {
+  min-width: auto;
+}
+
+#utility-menu:not(.dropdown-menu) a.language-link { 
+  padding: 10px; 
+}
+
+#utility-menu-toggle {
+  padding-#{$alpha}: 20px;
+  padding-#{$omega}: 20px;
+  @media (min-width: 1px) and (max-width: #{$width-tablet}) {
+    position: relative;
+    padding-#{$alpha}: 8px;
+    padding-#{$omega}: 8px;
+  }
+  @include ctb-linkColor($firefly30);
+  // globe icon
+  .icon-globe { 
+    @include icon("globe", 26px); 
+    &:before {
+      margin: 0;
+    }
+  }
+
+}
+
+// Hide globe icon until js has added the class dropdown-menu
+@media (min-width: 1px) and (max-width: #{$width-tablet}) {
+  #utility-menu:not(.dropdown-menu) {
+    display: none;
+  }
+}
+
+// Hide dropdown when on tablet/desktop
+@include cd-responsive('min-width: #{$width-tablet}') {
+  #utility-menu-toggle {
+    display: none;
   }
 }
