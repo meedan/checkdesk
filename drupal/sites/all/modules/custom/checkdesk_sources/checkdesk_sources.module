@@ -78,7 +78,7 @@ function checkdesk_sources_node_insert($node) {
       _meedan_sources_insert($embed, $node->nid);
     }
   }
-  elseif ($node->type == 'source') {
+  elseif (FASLE && $node->type == 'source') {
     // Query all existing reports (that have no source)
     $query = db_select('meedan_sources', 'ms');
     $query->innerJoin('meedan_sources_media', 'msm', 'ms.ms_id = msm.ms_id');
@@ -118,7 +118,7 @@ function _checkdesk_sources_assign_media_source($media_url, &$node) {
     if ($source_nid) {
       $node->field_source_media[LANGUAGE_NONE][0]['target_id'] = $source_nid;
     }
-    else {
+    elseif (!empty($embed->author_url)) {
       // Create a new source
       $source = _checkdesk_source_create_new_entity($embed->author_url);
       if ($source) {
@@ -481,4 +481,48 @@ function _meedan_sources_insert($embed, $nid = NULL) {
       ->fields(array('nid' => $nid, 'ms_id'  => $ms_id,))
       ->execute();
   }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function checkdesk_sources_field_formatter_info() {
+  return array(
+    'checkdesk_source_thousands_format' => array(
+      'label' => t('Abbreviated numbers'),
+      'field types' => array('number_integer'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function checkdesk_sources_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  switch ($display['type']) {
+    case 'checkdesk_source_thousands_format':
+      foreach ($items as $delta => $item) {
+        $element[$delta]['#markup'] = _checkdesk_sources_thousandsNumberFormat($item['value']);
+      }
+      break;
+  }
+  return $element;
+}
+
+/**
+ * PHP Format to Nearest Thousands such as Kilos, Millions, Billions, and Trillions
+ * @param $num
+ * @return float|string
+ */
+function _checkdesk_sources_thousandsNumberFormat($num) {
+  $x = round($num);
+  $x_number_format = number_format($x);
+  $x_array = explode(',', $x_number_format);
+  $x_parts = array('k', 'm', 'b', 't');
+  $x_count_parts = count($x_array) - 1;
+  $x_display = $x;
+  $x_display = $x_array[0] . ((int) $x_array[1][0] !== 0 ? '.' . $x_array[1][0] : '');
+  $x_display .= $x_parts[$x_count_parts - 1];
+  return $x_display;
 }
