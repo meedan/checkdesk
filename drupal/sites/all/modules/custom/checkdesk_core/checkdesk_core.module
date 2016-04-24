@@ -3486,6 +3486,11 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
       elseif ($term_vocabulary->machine_name == 'sections') {
         $path = 'section/' . $term->name;
       }
+      elseif ($term_vocabulary->machine_name == 'source_tags') {
+        $path = 'search';
+        $options['query']['type'] = 'source';
+        $options['query']['field_source_tags_tid'] = $matches[1];
+      }
     }
   }
   else if ($path === 'reports') {
