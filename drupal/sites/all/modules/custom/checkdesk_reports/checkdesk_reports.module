@@ -464,7 +464,7 @@ function _checkdesk_reports_comment_form_submit($form, &$form_state) {
     }
     //TODO use theme function instead of writing HTML
     $output = _checkdesk_reports_render_footnotes($node);
-    $commands[] = ajax_command_invoke(NULL, 'footnoteCallback', array($nid, $output));
+    $commands[] = ajax_command_invoke(NULL, 'footnoteCallback', array($nid, $output, 'report'));
 
     return array('#type' => 'ajax', '#commands' => $commands);
 }

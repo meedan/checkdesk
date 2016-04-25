@@ -398,7 +398,7 @@ function _checkdesk_sources_comment_form_submit($form, &$form_state) {
   $output = theme(
     'checkdesk_sources_source_activity', array('node' => $node, 'content' => $node_view['content'], 'view_mode' => 'full')
   );
-  $commands[] = ajax_command_insert('.source-activity-node-'. $node->nid, $output);
+  $commands[] = ajax_command_invoke(NULL, 'footnoteCallback', array($nid, $output, 'source'));
 
   return array('#type' => 'ajax', '#commands' => $commands);
 }

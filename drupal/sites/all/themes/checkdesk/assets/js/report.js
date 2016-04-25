@@ -209,12 +209,12 @@
   }
 
   // This callback is invoked when a new footnote is added
-  $.fn.footnoteCallback = function (nid, output) {
+  $.fn.footnoteCallback = function (nid, output,  type) {
     var $form = $('#node-' + nid + ' .open section#comment-form');
     $form.hide();
     $form.appendTo($('html'));
-    $('.open#report-activity-node-' + nid).replaceWith(output);
-    $('.open#report-activity-node-' + nid + ' .item-nested-content').append($form);
+    $('.open#' + type + '-activity-node-' + nid).replaceWith(output);
+    $('.open#' + type + '-activity-node-' + nid + ' .item-nested-content').append($form);
     $form.show();
     $form.find('textarea').val('');
     //destory then re-assign expanding to fix issue #2119.
@@ -222,7 +222,7 @@
     $form.find('textarea[class*=expanding]').expanding();
     // Scroll to new footnote
     $('html, body').animate({
-      scrollTop: $('.open#report-activity-node-' + nid).offset().top - 150
+      scrollTop: $('.open#' + type + '-activity-node-' + nid).offset().top - 150
     }, 'slow');
     Drupal.attachBehaviors($('#node-' + nid));
   };
