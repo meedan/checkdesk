@@ -11,7 +11,9 @@
           <?php if (count($source_metadata)) : ?>
             <div class="source-metadata">
               <?php foreach($source_metadata as $k => $metadata) : ?>
-                <div class="source-metadata-item"><?php print render($content[$metadata]); ?></div>
+                <?php if (isset($content[$metadata])) : ?>
+                  <div class="source-metadata-item"><?php print render($content[$metadata]); ?></div>
+                <?php endif; ?>
               <?php endforeach; ?>
             </div>
           <?php endif; ?>
