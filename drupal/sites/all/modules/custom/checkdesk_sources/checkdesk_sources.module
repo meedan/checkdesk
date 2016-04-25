@@ -518,6 +518,9 @@ function checkdesk_sources_field_formatter_view($entity_type, $entity, $field, $
  * @return float|string
  */
 function _checkdesk_sources_thousandsNumberFormat($num) {
+  if (!is_numeric($num)) {
+    return $num;
+  }
   $x = round($num);
   $x_number_format = number_format($x);
   $x_array = explode(',', $x_number_format);
