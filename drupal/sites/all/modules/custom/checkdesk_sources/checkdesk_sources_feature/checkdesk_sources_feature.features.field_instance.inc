@@ -265,6 +265,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
   // Exported field_instance: 'node-source-field_published_at'.
   $field_instances['node-source-field_published_at'] = array(
     'bundle' => 'source',
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -356,26 +357,16 @@ function checkdesk_sources_feature_field_default_field_instances() {
       ),
       'checkdesk_search' => array(
         'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
+        'module' => 'checkdesk_sources',
+        'settings' => array(),
+        'type' => 'checkdesk_source_thousands_format',
         'weight' => 7,
       ),
       'default' => array(
         'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
+        'module' => 'checkdesk_sources',
+        'settings' => array(),
+        'type' => 'checkdesk_source_thousands_format',
         'weight' => 7,
       ),
       'meedan_oembed' => array(
@@ -505,26 +496,16 @@ function checkdesk_sources_feature_field_default_field_instances() {
       ),
       'checkdesk_search' => array(
         'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
+        'module' => 'checkdesk_sources',
+        'settings' => array(),
+        'type' => 'checkdesk_source_thousands_format',
         'weight' => 6,
       ),
       'default' => array(
         'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
+        'module' => 'checkdesk_sources',
+        'settings' => array(),
+        'type' => 'checkdesk_source_thousands_format',
         'weight' => 6,
       ),
       'meedan_oembed' => array(
@@ -736,26 +717,16 @@ function checkdesk_sources_feature_field_default_field_instances() {
       ),
       'checkdesk_search' => array(
         'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
+        'module' => 'checkdesk_sources',
+        'settings' => array(),
+        'type' => 'checkdesk_source_thousands_format',
         'weight' => 5,
       ),
       'default' => array(
         'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
+        'module' => 'checkdesk_sources',
+        'settings' => array(),
+        'type' => 'checkdesk_source_thousands_format',
         'weight' => 5,
       ),
       'meedan_oembed' => array(

@@ -17,60 +17,69 @@ function checkdesk_sources_schema() {
 /**
  * Migrate meedan_sources
  */
-function __checkdesk_sources_update_7001(&$sandbox) {
+function checkdesk_sources_update_7002(&$sandbox) {
+  //echo "Set variable set \n";
+  variable_set('checkdesk_sources_pender_key', 'dev');
+  variable_set('checkdesk_sources_pender_host', 'http://pender.ca.ios.ba');
   if (!isset($sandbox['progress'])) {
     $sandbox['progress'] = 0;
-    $sandbox['last_nid'] = 0;
-    $sandbox['limit'] = 200;
+    $sandbox['iteration'] = 0;
+    $sandbox['limit'] = 1000;
     $sandbox['max'] =db_query('
-			SELECT COUNT(n.nid)
+			SELECT COUNT(DISTINCT ms.source_url)
 			FROM {node} n
 			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
 			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id
-			GROUP BY source_url
+			WHERE ms.parent IS NOT NULL /*AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)*/
 		')->fetchField();
   }
+  echo "Create sources #{$sandbox['iteration']} \n";
+  $limit_start = $sandbox['iteration'] * $sandbox['limit'];
   $result = db_query_range('
 			SELECT GROUP_CONCAT(n.nid ORDER BY n.nid) AS nid, GROUP_CONCAT(n.vid ORDER BY n.nid) AS vid, ms.source_url
 			FROM {node} n
 			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
 			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id
+			WHERE ms.parent IS NOT NULL /*AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)*/
 			GROUP BY source_url
-		',0, $sandbox['limit']);
+		', $limit_start, $sandbox['limit']);
 
-  $values = array();
-  $fields =  array('entity_type' => 'node', 'bundle' => 'media', 'deleted' => 0,'language' => LANGUAGE_NONE, 'delta' => 0);
+  $default_fields =  array('entity_type' => 'node', 'bundle' => 'media', 'deleted' => 0,'language' => LANGUAGE_NONE, 'delta' => 0);
+  $all_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_source_media_target_id');
   foreach ($result as $row) {
     $response = checkdesk_sources_pender_fetch($row->source_url, TRUE);
-    if ($response->type === 'media' || !empty($response->data->provider)) {
+    //echo "Response {$response->type} -- {$response->data->provider} \n";
+    if (!($response->type == 'error' || ($response->type === 'media' && empty($response->data->provider)))) {
+      echo "Create a source {$row->source_url} \n";
       $source = _checkdesk_source_create_new_entity($row->source_url);
       if ($source) {
+        $values = array();
         // LINK source & reports
         $nids = explode(',',  $row->nid);
         $vids = explode(',', $row->vid);
         foreach ($nids as $k => $v) {
-          $values[] = $fields + array('entity_id' => $v, 'revision_id' => $vids[$k] , 'field_source_media_target_id' => $source->nid);
+          $values[] = $default_fields + array('entity_id' => $v, 'revision_id' => $vids[$k] , 'field_source_media_target_id' => $source->nid);
+        }
+        if (count($values)) {
+          echo "Link media with sources {$row->nid} \n";
+          $query = db_insert('field_data_field_source_media')->fields($all_fields);
+          // write a record direct into DB
+          foreach ($values as $record) {
+            $query->values($record);
+          }
+          $query->execute();
+          $query = db_insert('field_revision_field_source_media')->fields($all_fields);
+          // write a record direct into DB
+          foreach ($values as $record) {
+            $query->values($record);
+          }
+          $query->execute();
         }
       }
     }
     $sandbox['progress'] ++;
   }
 
-  if (count($values)) {
-    $fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_source_media_target_id');
-    $query = db_insert('field_data_field_source_media')->fields($fields);
-    // write a record direct into DB
-    foreach ($values as $record) {
-      $query->values($record);
-    }
-    $query->execute();
-    $query = db_insert('field_revision_field_source_media')->fields($fields);
-    // write a record direct into DB
-    foreach ($values as $record) {
-      $query->values($record);
-    }
-    $query->execute();
-  }
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
-  $sandbox['last_nid'] = $row->nid;
+  $sandbox['iteration'] ++;
 }

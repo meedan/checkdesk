@@ -39,7 +39,9 @@ function checkdesk_sources_node_presave($node) {
         if (isset($data->picture) && !empty($data->picture)) {
           $file_name = explode('?', basename($data->picture));
           $picture = system_retrieve_file($data->picture, 'public://' . $file_name[0], TRUE);
-          $node->field_image[LANGUAGE_NONE][0] = (array) $picture;
+          if ($picture) {
+            $node->field_image[LANGUAGE_NONE][0] = (array) $picture;
+          }
         }
         $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
         foreach ($metadata_fields as $key => $value) {
@@ -78,7 +80,7 @@ function checkdesk_sources_node_insert($node) {
       _meedan_sources_insert($embed, $node->nid);
     }
   }
-  elseif (FASLE && $node->type == 'source') {
+  elseif (FALSE && $node->type == 'source') {
     // Query all existing reports (that have no source)
     $query = db_select('meedan_sources', 'ms');
     $query->innerJoin('meedan_sources_media', 'msm', 'ms.ms_id = msm.ms_id');
