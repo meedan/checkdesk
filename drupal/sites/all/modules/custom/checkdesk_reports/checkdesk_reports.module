@@ -147,7 +147,7 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
         }
     }
     else {
-        $form['field_source_media']['#access'] = FALSE;
+        $form['field_source_media']['#access'] = $form['field_provider']['#access'] = FALSE;
         $node = $form['#node'];
         drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
         $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);

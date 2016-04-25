@@ -21,6 +21,8 @@ function checkdesk_sources_update_7001(&$sandbox) {
   //echo "Set variable set \n";
   variable_set('checkdesk_sources_pender_key', 'dev');
   variable_set('checkdesk_sources_pender_host', 'http://pender.ca.ios.ba');
+  // Increase a len for group_concat_max_len
+  db_query('SET SESSION group_concat_max_len = 1000000')->execute();
   if (!isset($sandbox['progress'])) {
     $sandbox['progress'] = 0;
     $sandbox['iteration'] = 0;

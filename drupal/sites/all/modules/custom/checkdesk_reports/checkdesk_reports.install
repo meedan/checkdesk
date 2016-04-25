@@ -86,3 +86,57 @@ function checkdesk_reports_update_7003() {
     $query->execute();
   }
 }
+
+/**
+ * Set provider for existing reports
+ */
+function checkdesk_reports_update_7004() {
+  db_query('SET SESSION group_concat_max_len = 1000000')->execute();
+  db_delete('field_data_field_provider')
+    ->condition('bundle', 'media')
+    ->execute();
+  db_delete('field_revision_field_provider')
+    ->condition('bundle', 'media')
+    ->execute();
+  $result = db_query('
+			SELECT GROUP_CONCAT(n.nid ORDER BY n.nid) AS nid, GROUP_CONCAT(n.vid ORDER BY n.nid) AS vid, ms.source, ms.ms_id
+			FROM {node} n
+			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
+			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id AND parent IS NULL
+			GROUP BY msm.ms_id
+			ORDER BY msm.ms_id
+		');
+
+  $default_fields =  array('entity_type' => 'node', 'bundle' => 'media', 'deleted' => 0,'language' => LANGUAGE_NONE, 'delta' => 0, 'field_provider_format' => NULL);
+  $all_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_provider_value', 'field_provider_format');
+  foreach ($result as $kk => $row) {
+    if (!empty($row->source)) {
+      $values = array();
+      // LINK source & reports
+      $nids = explode(',', $row->nid);
+      $vids = explode(',', $row->vid);
+
+      foreach ($nids as $k => $v) {
+        $values[] = $default_fields + array(
+            'entity_id' => $v,
+            'revision_id' => $vids[$k],
+            'field_provider_value' => $row->source
+          );
+      }
+      if (count($values)) {
+        $query = db_insert('field_data_field_provider')->fields($all_fields);
+        // write a record direct into DB
+        foreach ($values as $record) {
+          $query->values($record);
+        }
+        $query->execute();
+        $query = db_insert('field_revision_field_provider')->fields($all_fields);
+        // write a record direct into DB
+        foreach ($values as $record) {
+          $query->values($record);
+        }
+        $query->execute();
+      }
+    }
+  }
+}
