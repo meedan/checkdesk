@@ -124,11 +124,14 @@
     color: $verified;
   }
 
-  .undetermined {
+  .undetermined,
+  .slightly-credible {
     color: $undetermined;
   }
 
-  .false {
+  .false,
+  .sockpuppet,
+  .not-credible {
     color: $false;
   }
 
