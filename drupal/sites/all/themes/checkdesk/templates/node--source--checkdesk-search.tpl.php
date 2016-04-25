@@ -11,6 +11,11 @@
             <span class="title"><?php print l($pender->data->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
             <span class="username"><?php print $username_link; ?></span>
             <span class="description expandable"><?php print render($content['body']); ?></span>
+            <?php if(isset($source_status['status'])) : ?>
+              <div class="media-status media-source-status">
+                <?php print $source_status['status']; ?>
+              </div>
+            <?php endif; ?>
           </div>
         </div> <!-- /media-holder -->
       </span> <!-- /item-content -->
