@@ -17,7 +17,7 @@ function checkdesk_sources_schema() {
 /**
  * Migrate meedan_sources
  */
-function checkdesk_sources_update_7001(&$sandbox) {
+function __checkdesk_sources_update_7001(&$sandbox) {
   //echo "Set variable set \n";
   variable_set('checkdesk_sources_pender_key', 'dev');
   variable_set('checkdesk_sources_pender_host', 'http://pender.ca.ios.ba');
