@@ -1233,32 +1233,6 @@ function checkdesk_core_feature_views_default_views() {
     4 => 0,
   );
   $handler->display->display_options['filters']['language']['expose']['reduce'] = TRUE;
-  /* Filter criterion: Content: Tags (field_source_tags) */
-  $handler->display->display_options['filters']['field_source_tags_tid']['id'] = 'field_source_tags_tid';
-  $handler->display->display_options['filters']['field_source_tags_tid']['table'] = 'field_data_field_source_tags';
-  $handler->display->display_options['filters']['field_source_tags_tid']['field'] = 'field_source_tags_tid';
-  $handler->display->display_options['filters']['field_source_tags_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_source_tags_tid']['expose']['operator_id'] = 'field_source_tags_tid_op';
-  $handler->display->display_options['filters']['field_source_tags_tid']['expose']['label'] = 'Tags';
-  $handler->display->display_options['filters']['field_source_tags_tid']['expose']['operator'] = 'field_source_tags_tid_op';
-  $handler->display->display_options['filters']['field_source_tags_tid']['expose']['identifier'] = 'field_source_tags_tid';
-  $handler->display->display_options['filters']['field_source_tags_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    5 => 0,
-    4 => 0,
-    254 => 0,
-    255 => 0,
-    260 => 0,
-    261 => 0,
-    268 => 0,
-    269 => 0,
-    276 => 0,
-    277 => 0,
-  );
-  $handler->display->display_options['filters']['field_source_tags_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_source_tags_tid']['vocabulary'] = 'source_tags';
   /* Filter criterion: Content: Status (field_source_status) */
   $handler->display->display_options['filters']['field_source_status_tid']['id'] = 'field_source_status_tid';
   $handler->display->display_options['filters']['field_source_status_tid']['table'] = 'field_data_field_source_status';

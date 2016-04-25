@@ -33,8 +33,8 @@
 
   <aside class="report-footer">
     <!-- tag list -->
-    <?php if(isset($content['field_source_tags'])) : ?>
-      <?php print render($content['field_source_tags']); ?>
+    <?php if(isset($content['field_tags'])) : ?>
+      <?php print render($content['field_tags']); ?>
     <?php endif ?>  
   </aside>
 

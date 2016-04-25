@@ -1284,9 +1284,9 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_search.js');
     // Tag filter
-    $form['field_source_tags_tid']['#fastlivefilte_placeholder'] = $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
+    $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
     $form['field_tags_tid']['#options']['All'] = '– ' . t('Any tag') . ' –';
-    unset($form['field_tags_tid']['#description'], $form['field_source_tags_tid']['#description']);
+    unset($form['field_tags_tid']['#description']);
     // Media filters.
     if ($form['#id'] == 'views-exposed-form-checkdesk-search-incoming-reports' || (isset($_GET['type']) && $_GET['type'] === 'report')) {
       // Change -Any- status label
@@ -1408,12 +1408,9 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       if (isset($_GET['type']) && $_GET['type'] === 'source') {
         $form['field_source_status_tid']['#options']['All'] = '– ' . t('Any status') . ' –';
         unset($form['field_source_status_tid']['#description']);
-        // Hide tag filter
-        $filter_to_hide[] = 'field_tags_tid';
       }
       else {
-        // Hide tag filter, status, provider
-        $filter_to_hide[] = 'field_source_tags_tid';
+        // Hide status filter.
         $filter_to_hide[] = 'field_source_status_tid';
       }
 
@@ -3466,11 +3463,6 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
       }
       elseif ($term_vocabulary->machine_name == 'sections') {
         $path = 'section/' . $term->name;
-      }
-      elseif ($term_vocabulary->machine_name == 'source_tags') {
-        $path = 'search';
-        $options['query']['type'] = 'source';
-        $options['query']['field_source_tags_tid'] = $matches[1];
       }
     }
   }

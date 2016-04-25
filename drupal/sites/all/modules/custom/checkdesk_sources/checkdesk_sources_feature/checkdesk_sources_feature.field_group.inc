@@ -21,11 +21,11 @@ function checkdesk_sources_feature_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Metadata group',
-    'weight' => '10',
+    'weight' => '11',
     'children' => array(
-      0 => 'field_source_views',
+      0 => 'field_source_comments',
       1 => 'field_source_subscriber',
-      2 => 'field_source_comments',
+      2 => 'field_source_views',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

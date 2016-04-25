@@ -313,7 +313,7 @@ function checkdesk_sources_form_source_node_form_alter(&$form, &$form_state) {
     // Disable URL field
     $form['#after_build'][] = '_checkdesk_source_after_build';
     // Add CSS file for autocomplete field
-    if($form['field_source_tags']) {
+    if ($form['field_tags']) {
       drupal_add_css(
         drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/autocomplete.css',
         array(
