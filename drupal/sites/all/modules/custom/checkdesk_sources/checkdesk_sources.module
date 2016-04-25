@@ -546,7 +546,7 @@ function _checkdesk_sources_migrate_meedan_sources() {
 			FROM {node} n
 			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
 			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id
-			WHERE ms.parent IS NOT NULL /*AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)*/
+			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)
 		')->fetchField();
   echo "Sources count [$total] \n";
 
@@ -556,7 +556,7 @@ function _checkdesk_sources_migrate_meedan_sources() {
 			FROM {node} n
 			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
 			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id
-			WHERE ms.parent IS NOT NULL /*AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)*/
+			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)
 			GROUP BY ms.source_url
 			ORDER BY ms.source_url
 		');
