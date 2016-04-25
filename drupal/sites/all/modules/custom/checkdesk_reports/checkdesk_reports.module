@@ -505,6 +505,7 @@ function checkdesk_reports_node_presave($node) {
         $oembed_response = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), TRUE);
         $node->title = $oembed_response->title;
         $node->body[LANGUAGE_NONE][0]['value'] = $oembed_response->description;
+        $node->field_provider[LANGUAGE_NONE][0]['value'] = $oembed_response->provider_name;
     }
 }
 
