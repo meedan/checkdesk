@@ -141,6 +141,10 @@ function _checkdesk_get_source($url) {
 }
 
 function _checkdesk_source_create_new_entity($source_url) {
+  $response = checkdesk_sources_pender_fetch($source_url, TRUE);
+  if ($response->type == 'error' || ($response->type === 'media' && empty($response->data->provider))) {
+    return FALSE;
+  }
   // Create a new source
   global $user;
   if (!$user->uid) {
