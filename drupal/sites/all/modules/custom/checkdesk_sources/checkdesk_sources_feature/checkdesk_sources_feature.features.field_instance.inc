@@ -61,7 +61,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'body',
-    'label' => 'Description about this source',
+    'label' => 'Description',
     'required' => FALSE,
     'settings' => array(
       'display_summary' => TRUE,
@@ -869,7 +869,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Comments');
-  t('Description about this source');
+  t('Description');
   t('Image');
   t('Provider');
   t('Published at');
