@@ -59,8 +59,9 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
 
     // Set author name or provider name
-    if (isset($embed->author_url) && isset($embed->author_name)) {
-      $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+    if (isset($embed->author_name) && (isset($embed->author_url) || isset($node->field_source_media[LANGUAGE_NONE][0]['target_id']))) {
+      $variables['author_name'] =  isset($node->field_source_media[LANGUAGE_NONE][0]['target_id']) ? l($embed->author_name, 'node/'. $node->field_source_media[LANGUAGE_NONE][0]['target_id'])
+        : l($embed->author_name, $embed->author_url);
     }
     elseif (isset($embed->original_url) && isset($embed->provider_name)) {
       $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
