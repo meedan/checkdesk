@@ -32,6 +32,14 @@ function checkdesk_theme() {
 
 function checkdesk_preprocess_field(&$variables, $hook) {
   $element = $variables['element'];
+
+  // Add theme suggestions for field tags in case of sources too
+  if ($element['#object']->type == 'source') {
+    if ($element['#field_name'] == 'field_tags') {
+      $variables['theme_hook_suggestions'][] = 'field__field_tags';
+    }
+  }
+  
   // Add a custom tpl for metadata fields
   $metadata_fields = checkdesk_reports_metadata_fields();
   if (in_array($element['#field_name'], $metadata_fields)) {
