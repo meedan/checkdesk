@@ -48,7 +48,15 @@
   }
 }
 
+// vertical align favicon
+.source-holder .username-favicon {
+	@include flexbox;
+  @include justify-content(center);
+  @include align-content(center);
+}
+
 .source-holder img.favicon {
+	@include align-self(center);
 	max-width: 16px;
 	margin-#{$omega}: 5px;
 }

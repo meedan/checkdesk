@@ -4791,7 +4791,28 @@ span.content-labels:after {
   text-decoration: none;
 }
 
+.source-holder .username-favicon {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-align-content: center;
+  -moz-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
 .source-holder img.favicon {
+  -webkit-align-self: center;
+  -moz-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
   max-width: 16px;
   margin-right: 5px;
 }
