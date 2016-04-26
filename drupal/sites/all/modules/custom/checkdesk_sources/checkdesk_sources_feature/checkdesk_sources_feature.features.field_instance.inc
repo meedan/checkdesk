@@ -190,7 +190,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 11,
       ),
       'meedan_oembed' => array(
         'label' => 'above',
@@ -291,7 +291,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 10,
       ),
       'meedan_oembed' => array(
         'label' => 'above',
@@ -367,7 +367,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'module' => 'checkdesk_sources',
         'settings' => array(),
         'type' => 'checkdesk_source_thousands_format',
-        'weight' => 7,
+        'weight' => 6,
       ),
       'meedan_oembed' => array(
         'label' => 'above',
@@ -404,6 +404,71 @@ function checkdesk_sources_feature_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-source-field_source_likes'.
+  $field_instances['node-source-field_source_likes'] = array(
+    'bundle' => 'source',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'checkdesk_collaborate' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'checkdesk_export' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'checkdesk_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'checkdesk_sources',
+        'settings' => array(),
+        'type' => 'checkdesk_source_thousands_format',
+        'weight' => 7,
+      ),
+      'meedan_oembed' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_source_likes',
+    'label' => 'Likes',
+    'required' => FALSE,
+    'settings' => array(
+      'exclude_cv' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 13,
+    ),
+  );
+
   // Exported field_instance: 'node-source-field_source_status'.
   $field_instances['node-source-field_source_status'] = array(
     'bundle' => 'source',
@@ -435,7 +500,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'module' => 'i18n_taxonomy',
         'settings' => array(),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 4,
+        'weight' => 3,
       ),
       'meedan_oembed' => array(
         'label' => 'above',
@@ -506,7 +571,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'module' => 'checkdesk_sources',
         'settings' => array(),
         'type' => 'checkdesk_source_thousands_format',
-        'weight' => 6,
+        'weight' => 5,
       ),
       'meedan_oembed' => array(
         'label' => 'above',
@@ -524,7 +589,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
     'entity_type' => 'node',
     'exclude_cv' => 0,
     'field_name' => 'field_source_subscriber',
-    'label' => 'Subscribers',
+    'label' => 'Followers',
     'required' => 0,
     'settings' => array(
       'exclude_cv' => FALSE,
@@ -572,7 +637,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 8,
+        'weight' => 9,
       ),
       'meedan_oembed' => array(
         'label' => 'above',
@@ -656,7 +721,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'module' => 'checkdesk_sources',
         'settings' => array(),
         'type' => 'checkdesk_source_thousands_format',
-        'weight' => 5,
+        'weight' => 4,
       ),
       'meedan_oembed' => array(
         'label' => 'above',
@@ -723,7 +788,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'module' => 'i18n_taxonomy',
         'settings' => array(),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 11,
+        'weight' => 8,
       ),
       'meedan_oembed' => array(
         'label' => 'above',
@@ -871,11 +936,12 @@ function checkdesk_sources_feature_field_default_field_instances() {
   t('Comments');
   t('Description');
   t('Image');
+  t('Likes');
   t('Provider');
   t('Published at');
   t('Source URL');
   t('Status');
-  t('Subscribers');
+  t('Followers');
   t('Tags');
   t('Username');
   t('Views');

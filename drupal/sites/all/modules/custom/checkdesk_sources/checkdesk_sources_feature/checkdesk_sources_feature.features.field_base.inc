@@ -84,6 +84,21 @@ function checkdesk_sources_feature_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
+  // Exported field_base: 'field_source_likes'.
+  $field_bases['field_source_likes'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_source_likes',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_source_status'.
   $field_bases['field_source_status'] = array(
     'active' => 1,
