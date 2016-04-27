@@ -879,7 +879,6 @@ function checkdesk_preprocess_node(&$variables) {
       $source_username = '<div class="username-text">' . $node->field_username[LANGUAGE_NONE][0]['value'] . '</div>';
       $variables['username_link'] = l($source_favicon . $source_username, $node->field_source_url[LANGUAGE_NONE][0]['url'] , array('html' => TRUE));
     }
-
     // Load report status
     if (!empty($node->field_source_status)) {
       $variables['source_status'] = _checkdesk_sources_status($node);
@@ -895,19 +894,20 @@ function checkdesk_preprocess_node(&$variables) {
     $variables['source_metadata'] = _checkdesk_source_metadata_fields($node->pender->data->provider);
 
     // set references
-    $view = views_get_view('checkdesk_references');
-    $view->set_arguments(array($node->nid));
-    $view->get_total_rows = TRUE;
-    $view_output = $view->preview('block');
-    $total_rows = $view->total_rows;
-    $view->destroy();
-    if ($total_rows) {
-      // set the title for source references
-      // e.g. John Hodgman's reports
-      $variables['source_reference_title'] = t('!source_name&#8217;s reports', array('!source_name' => $node->title));
-      $variables['references'] = $view_output;
+    if ($variables['view_mode'] == 'full') {
+      $checkdesk_references = views_get_view('checkdesk_references');
+      $checkdesk_references->set_arguments(array($node->nid));
+      $checkdesk_references->get_total_rows = TRUE;
+      $view_output = $checkdesk_references->preview('block');
+      $total_rows = $checkdesk_references->total_rows;
+      $checkdesk_references->destroy();
+      if ($total_rows) {
+        // set the title for source references
+        // e.g. John Hodgman's reports
+        $variables['source_reference_title'] = t('!source_name&#8217;s reports', array('!source_name' => $node->title));
+        $variables['references'] = $view_output;
+      }
     }
-
   }
 
 }
