@@ -880,6 +880,11 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['username_link'] = l($source_favicon . $source_username, $node->field_source_url[LANGUAGE_NONE][0]['url'] , array('html' => TRUE));
     }
 
+    // Media description
+    if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
+      $variables['media_description'] = check_markup($node->body[LANGUAGE_NONE][0]['value'], 'filtered_html');
+    }
+
     // Load report status
     if (!empty($node->field_source_status)) {
       $variables['source_status'] = _checkdesk_sources_status($node);

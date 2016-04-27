@@ -12,7 +12,9 @@
             <?php if (isset($username_link)): ?>
               <span class="username"><?php print $username_link; ?></span>
             <?php endif; ?>
-            <span class="description expandable"><?php print render($content['body']); ?></span>
+            <?php if(isset($media_description)) : ?>
+              <span class="description expandable"><?php print $media_description; ?></span>
+            <?php endif; ?>
             <?php if(isset($source_status['status'])) : ?>
               <div class="media-status media-source-status">
                 <?php print $source_status['status']; ?>
