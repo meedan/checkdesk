@@ -17,10 +17,10 @@ index d47c142..181459b 100644
      '#type' => 'textfield',
      '#title' => t('Varnish connection timeout (milliseconds)'),
 diff --git a/drupal/sites/all/modules/contrib/varnish/varnish.module b/drupal/sites/all/modules/contrib/varnish/varnish.module
-index e9a6515..5151110 100644
+index 8342e0c..7c23071 100644
 --- a/drupal/sites/all/modules/contrib/varnish/varnish.module
 +++ b/drupal/sites/all/modules/contrib/varnish/varnish.module
-@@ -334,7 +334,12 @@ function _varnish_terminal_run($commands) {
+@@ -345,7 +345,12 @@ function _varnish_terminal_run($commands) {
        if ($status['code'] == 107) {
          $secret = variable_get('varnish_control_key', '');
          $challenge = substr($status['msg'], 0, 32);

@@ -1,0 +1,10 @@
+name = Checkdesk API
+description = A REST API for Checkdesk
+package = Checkdesk
+core = 7.x
+
+dependencies[] = services
+dependencies[] = rest_server
+dependencies[] = checkdesk_api_feature
+
+files[] = tests/checkdesk_api.test

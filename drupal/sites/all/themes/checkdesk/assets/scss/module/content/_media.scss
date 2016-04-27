@@ -149,7 +149,8 @@ span.content-labels {
 	overflow-y: hidden;
 }
 
-.media .inline-img-thumb-holder, .media .inline-video-thumb-holder {
+.media .inline-img-thumb-holder, 
+.media .inline-video-thumb-holder {
 	float: $omega;
 	padding-#{$alpha}: 12px;
 	padding-bottom: 12px;
@@ -157,6 +158,11 @@ span.content-labels {
   margin-#{$alpha}: auto;
   margin-#{$omega}: auto;
   position: relative;
+}
+
+
+.media .inline-img-thumb-holder:not(.inline-img-thumb-source-holder), 
+.media .inline-video-thumb-holder:not(.inline-img-thumb-source-holder) {
 	width: 140px;
 	height: 88px;
 	text-align: center;

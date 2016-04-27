@@ -1,0 +1,8 @@
+<?php
+
+function checkdesk_sources_test_enable() {
+  $pender_host = $url = url('api/media', array(
+    'absolute' => TRUE, 'query' => array('url' => 'https://www.youtube.com/user/MeedanTube'),
+  ));
+  variable_set('checkdesk_sources_pender_host', $pender_host);
+}

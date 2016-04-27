@@ -1,0 +1,101 @@
+<?php
+require_once drupal_get_path('module', 'checkdesk_core') . '/tests/checkdesk_test_case.inc';
+
+class CheckdeskAPIReportsTestCase extends CheckdeskTestCase {
+  public function setUp() {
+    parent::setUp();
+  }
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Checkdesk API report resources',
+      'description' => 'Test that checkdesk reports API works properly.',
+      'group' => 'Checkdesk',
+    );
+  }
+
+  public function testCheckdeskAPIReportResources() {
+    include_once( drupal_get_path('module', 'checkdesk_api') .'/resources/reports_resource.inc');
+    $story_settings = array(
+      'type' => 'discussion',
+      'title' => $this->randomName(32),
+    );
+    $story = $this->drupalCreateNode($story_settings);
+    $report_data = array('url' => 'https://www.youtube.com');
+    // Create a report
+    $return = _reports_resource_create($report_data);
+    $this->assertEqual('reports', $return['type'], t('Create a report'), 'Checkdesk API');
+    if ($return['data']['nid']) {
+      // Retrive a report with valid id
+      $retrieve_report = _reports_resource_retrieve($return['data']['nid']);
+      $this->assertEqual('reports', $retrieve_report['type'], t('Retrive a report (created via API) with vaild id'), 'Checkdesk API');
+    }
+    else {
+      // Test a retrive API with a report created by drupalCreateNode
+      $report_settings = array(
+        'type' => 'media',
+        'title' => $this->randomName(32),
+        'field_link' => array(LANGUAGE_NONE => array(array('url' => 'https://www.youtube.com/watch?v=0UCGGpQCszQ'))),
+      );
+      $report = $this->drupalCreateNode($report_settings);
+      $retrieve_report = _reports_resource_retrieve($report->nid);
+      $this->assertEqual('reports', $retrieve_report['type'], t('Retrive a report with vaild id'), 'Checkdesk API');
+
+    }
+    // Create a report and assign it to specific story
+    /*
+    $report_data['story_id'] = $story->nid;
+    $return = _reports_resource_create($report_data);
+    $this->assertEqual($story->nid, $return['data']['story_nid'], t('Create a report with a story id @id', array('@id' => $story->nid)), 'Checkdesk API');
+    */
+    // Retrive a report with invalid id
+    //$return = _reports_resource_retrieve($story->nid);
+    //$this->assertEqual('error', $return['type'], t('Retrive a report with invaild id'), 'Checkdesk API');
+    // Reports listing
+    $return = _reports_resource_index();
+    $this->assertEqual('reports', $return['type'], t('List reports'), 'Checkdesk API');
+  }
+
+}
+
+class CheckdeskAPIUserTestCase extends CheckdeskTestCase {
+  public function setUp() {
+    parent::setUp();
+  }
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Checkdesk API user resources',
+      'description' => 'Test that checkdesk user works properly.',
+      'group' => 'Checkdesk',
+    );
+  }
+
+  public function testCheckdeskAPIUserLogin() {
+
+  }
+
+}
+
+
+class CheckdeskAPIStoryrTestCase extends CheckdeskTestCase {
+  public function setUp() {
+    parent::setUp();
+  }
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Checkdesk API user resources',
+      'description' => 'Test that checkdesk user works properly.',
+      'group' => 'Checkdesk',
+    );
+  }
+
+  public function testCheckdeskAPIStoryResources() {
+    // Listing stories
+    include_once( drupal_get_path('module', 'checkdesk_api') .'/resources/stories_resource.inc');
+    $return = _stories_resource_index();
+    $this->assertEqual('stories', $return['type'], t('List stories'), 'Checkdesk API');
+  }
+
+}

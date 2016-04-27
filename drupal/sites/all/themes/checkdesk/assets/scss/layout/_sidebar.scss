@@ -31,6 +31,7 @@
     bottom: 0;
     z-index: 1;
     max-width: 360px;
+    min-width: 360px;
     height: 100%;
   }
 
@@ -43,16 +44,49 @@
   #sidebar-first.column { 
     border-#{$omega}: 1px solid $firefly10;
     background-color: #fff;
-    .view-desk-reports {
+    .view-checkdesk-search {
       .view-content {
         height: auto; // default height adjusted by jQuery in reports.js
         overflow-y: auto;
+        padding-#{$alpha}: 10px;
+        padding-#{$omega}: 10px;
       }
     }
     @include ctb-load-more-pager; 
   }
 }
 
+// Incoming Reports 
+// search filters 
+// Render search page as in responsive mode in the sidebar
+
+#sidebar-first.column {
+  background-color: $thatch5Alt;
+}
+
+#sidebar-first.column .view-checkdesk-search {
+  @include flexbox;
+  @include flex-direction(column);
+}
+
+// Filters on the top
+#sidebar-first.column .view-filters {
+  margin-top: 10px;
+  @include order(-1);
+  form {
+    margin-bottom: 0;
+  }
+}
+
+#sidebar-first.column .control-container,
+#sidebar-first.column .view-filters {
+  margin-#{$alpha}: 10px;
+  margin-#{$omega}: 10px;
+}
+
+#sidebar-first.column .control-container {
+  padding-top: 10px;
+}
 
 // Page with sidebar second
 // as in search page
@@ -118,4 +152,3 @@ body.sidebar-second aside#sidebar-second {
     }
   }
 }
-

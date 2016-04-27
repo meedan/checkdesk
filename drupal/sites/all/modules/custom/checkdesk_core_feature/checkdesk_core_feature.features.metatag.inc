@@ -236,9 +236,6 @@ function checkdesk_core_feature_metatag_export_default() {
       'book:tag' => array(
         'value' => '',
       ),
-      'og:video' => array(
-        'value' => '',
-      ),
       'og:video:secure_url' => array(
         'value' => '',
       ),
@@ -375,6 +372,9 @@ function checkdesk_core_feature_metatag_export_default() {
         'value' => '',
       ),
       'twitter:data2' => array(
+        'value' => '',
+      ),
+      'og:video:url' => array(
         'value' => '',
       ),
     ),

@@ -21,7 +21,8 @@
     @for $span from 1 through 5 {
       .l-row-cols-#{$column} {
         .l-row-item-span-#{$span} {
-            @include flex($span 1 auto);
+          width: (100% / $column) * $span;
+          @include flex($span 1 auto);
         }
       }
     }

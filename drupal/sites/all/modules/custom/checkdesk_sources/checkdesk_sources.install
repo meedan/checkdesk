@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Install file for the checkdesk sources
+ */
+
+/**
+ * Implementation of hook_schema().
+ */
+function checkdesk_sources_schema() {
+  $schema['cache_pender'] = drupal_get_schema_unprocessed('system', 'cache');
+  $schema['cache_pender']['description'] = 'Cache table for the Pender.';
+  return $schema;
+}

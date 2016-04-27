@@ -37,6 +37,19 @@
   }
 }
 
+// align title to normal for containers that are inline
+// for example on report or source pages to show references
+// plus different format
+.cd-container-inline {
+  .cd-container-header-title {
+    font-family: $sans-serif-font-stack;
+    color: $firefly80;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: $alpha;
+  }
+}
+
 // more link
 .cd-container .cd-container-inner .more-link {
   position: absolute;
