@@ -8,7 +8,7 @@
           <?php if (isset($username_link)): ?>
             <span class="username"><?php print $username_link; ?></span>
           <?php endif; ?>
-          <span class="description expandable"><?php print render($content['body']); ?></span>
+          <span class="description"><?php print render($content['body']); ?></span>
 
           <?php if (count($source_metadata)) : ?>
             <div class="source-metadata">
@@ -26,7 +26,7 @@
             </div>
           <?php endif; ?>
         </div>
-        
+
       </section>
 
       <?php print $source_activity; ?>
@@ -37,7 +37,7 @@
     <!-- tag list -->
     <?php if(isset($content['field_tags'])) : ?>
       <?php print render($content['field_tags']); ?>
-    <?php endif ?>  
+    <?php endif ?>
   </aside>
 
   <?php if(isset($references)) : ?>
