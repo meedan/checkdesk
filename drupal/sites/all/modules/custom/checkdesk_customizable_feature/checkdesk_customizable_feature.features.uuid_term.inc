@@ -107,5 +107,18 @@ function checkdesk_customizable_feature_uuid_features_default_terms() {
     'vocabulary_machine_name' => 'media_rating',
     'field_status_icon' => array(),
   );
+  $terms[] = array(
+    'name' => 'Credible',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'e9cb5883-07ab-49d6-a262-86749d292048',
+    'language' => 'und',
+    'i18n_tsid' => 0,
+    'vocabulary_machine_name' => 'source_status',
+    'path' => array(
+      'pathauto' => 1,
+    ),
+  );
   return $terms;
 }
