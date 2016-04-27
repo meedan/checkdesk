@@ -22,7 +22,7 @@ function checkdesk_sources_menu() {
  * Implements hook_node_presave().
  */
 function checkdesk_sources_node_presave($node) {
-  if ($node->is_new) {
+  if ($node->is_new || isset($node->enforce_refresh)) {
     if ($node->type === 'source') {
       $url = _checkdesk_normalize_url($node->field_source_url[LANGUAGE_NONE][0]['url']);
       $node->field_source_url[LANGUAGE_NONE][0]['url'] = $url;

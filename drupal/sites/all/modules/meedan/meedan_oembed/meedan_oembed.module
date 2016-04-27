@@ -45,6 +45,9 @@ function meedan_oembed_refresh($node) {
   }
   elseif ($node->type === 'source') {
     $cache = checkdesk_sources_pender_fetch($node->field_source_url[LANGUAGE_NONE][0]['url'], TRUE);
+    // Enfforce source refresh
+    $node->enforce_refresh = TRUE;
+    node_save($node);
   }
   drupal_set_message(t('Refreshed media cache: @cache', array('@cache' => print_r($cache, TRUE))));
   drupal_goto('node/' . $node->nid);

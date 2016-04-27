@@ -8,8 +8,10 @@
             </div>
           </div>
           <div class="source-content">
-            <span class="title"><?php print l($pender->data->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
-            <span class="username"><?php print $username_link; ?></span>
+            <span class="title"><?php print l($title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
+            <?php if (isset($username_link)): ?>
+              <span class="username"><?php print $username_link; ?></span>
+            <?php endif; ?>
             <span class="description expandable"><?php print render($content['body']); ?></span>
             <?php if(isset($source_status['status'])) : ?>
               <div class="media-status media-source-status">

@@ -39,7 +39,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
       $variables['theme_hook_suggestions'][] = 'field__field_tags';
     }
   }
-  
+
   // Add a custom tpl for metadata fields
   $metadata_fields = checkdesk_reports_metadata_fields();
   if (in_array($element['#field_name'], $metadata_fields)) {
@@ -874,9 +874,11 @@ function checkdesk_preprocess_node(&$variables) {
 
   if ($variables['type'] == 'source') {
 
-    $source_favicon = '<div class="username-favicon"><img src="http://www.google.com/s2/favicons?domain_url=' .  $node->pender->data->url . '" alt="' . $node->pender->data->provider . '" class="favicon" /></div>';
-    $source_username = '<div class="username-text">' .$node->pender->data->username . '</div>';
-    $variables['username_link'] = l($source_favicon . $source_username, $node->pender->data->url , array('html' => TRUE));
+    if (isset($node->pender->data->favicon)) {
+      $source_favicon = '<div class="username-favicon"><img src="' .  $node->pender->data->favicon . '" alt="' . $node->pender->data->provider . '" class="favicon" /></div>';
+      $source_username = '<div class="username-text">' . $node->field_username[LANGUAGE_NONE][0]['value'] . '</div>';
+      $variables['username_link'] = l($source_favicon . $source_username, $node->field_source_url[LANGUAGE_NONE][0]['url'] , array('html' => TRUE));
+    }
 
     // Load report status
     if (!empty($node->field_source_status)) {
@@ -892,10 +894,6 @@ function checkdesk_preprocess_node(&$variables) {
     );
     $variables['source_metadata'] = _checkdesk_source_metadata_fields($node->pender->data->provider);
 
-    // set the title for source references
-    // e.g. John Hodgman's reports
-    $variables['source_reference_title'] = t('!source_name&#8217;s reports', array('!source_name' => $node->pender->data->title));
-
     // set references
     $view = views_get_view('checkdesk_references');
     $view->set_arguments(array($node->nid));
@@ -904,6 +902,9 @@ function checkdesk_preprocess_node(&$variables) {
     $total_rows = $view->total_rows;
     $view->destroy();
     if ($total_rows) {
+      // set the title for source references
+      // e.g. John Hodgman's reports
+      $variables['source_reference_title'] = t('!source_name&#8217;s reports', array('!source_name' => $node->pender->data->title));
       $variables['references'] = $view_output;
     }
 
