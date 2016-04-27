@@ -25,7 +25,8 @@ function checkdesk_sources_node_presave($node) {
 
   if ($node->is_new) {
     if ($node->type === 'source') {
-      $url = $node->field_source_url[LANGUAGE_NONE][0]['url'];
+      $url = _checkdesk_normalize_url($node->field_source_url[LANGUAGE_NONE][0]['url']);
+      $node->field_source_url[LANGUAGE_NONE][0]['url'] = $url;
       $pender_response = checkdesk_sources_pender_fetch($url, TRUE);
       if ($pender_response && $pender_response->type === 'media') {
         $data = $pender_response->data;
@@ -340,7 +341,7 @@ function _checkdesk_source_after_build($form, &$form_state) {
  * Validate sources duplicates
  */
 function _checkdesk_sources_duplicates_form_validate($form, &$form_state) {
-  $url = $form_state['values']['field_source_url'][LANGUAGE_NONE][0]['url'];
+  $url = _checkdesk_normalize_url($form_state['values']['field_source_url'][LANGUAGE_NONE][0]['url']);
   // Check a valid URL for Pender.
   $response = checkdesk_sources_pender_fetch($url, TRUE);
   if ($response->type == 'error') {
@@ -540,9 +541,6 @@ function _checkdesk_sources_thousandsNumberFormat($num) {
  * Migrate meedan_sources
  */
 function _checkdesk_sources_migrate_meedan_sources() {
-  echo "Set Pender variables \n";
-  variable_set('checkdesk_sources_pender_key', 'dev');
-  variable_set('checkdesk_sources_pender_host', 'http://pender.ca.ios.ba');
   // Increase a len for group_concat_max_len
   db_query('SET SESSION group_concat_max_len = 1000000')->execute();
   $total =db_query('
