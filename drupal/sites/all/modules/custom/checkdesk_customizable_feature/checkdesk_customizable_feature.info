@@ -1,0 +1,16 @@
+name = Checkdesk Customizable Feature
+description = Customizable settings are placed here to allow the module to be disabled at will
+core = 7.x
+package = Features
+dependencies[] = taxonomy
+dependencies[] = uuid
+dependencies[] = uuid_features
+features[features_api][] = api:2
+features[uuid_term][] = 1f826df0-ed70-4dc7-b320-add71b9c0dc0
+features[uuid_term][] = 24d1fc3f-6913-4880-b1f8-cb2a5cb63745
+features[uuid_term][] = 3c7ab283-8d43-4913-a293-0db16f025fb1
+features[uuid_term][] = 448e6370-f504-4136-8bf2-51a65906eabb
+features[uuid_term][] = 502ab059-26b9-4947-92e5-3e1a6de4d91e
+features[uuid_term][] = 547bb9d2-1dd3-4116-9001-61dfdf877a78
+features[uuid_term][] = a312dcad-5904-423c-9be9-d8537a2e72cb
+features[uuid_term][] = ba27bacf-4d99-4c1d-bdce-a7fb35fafd43

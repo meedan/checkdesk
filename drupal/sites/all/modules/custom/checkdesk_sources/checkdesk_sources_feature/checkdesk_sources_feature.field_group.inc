@@ -26,6 +26,7 @@ function checkdesk_sources_feature_field_group_info() {
       0 => 'field_source_comments',
       1 => 'field_source_subscriber',
       2 => 'field_source_views',
+      3 => 'field_source_likes',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
