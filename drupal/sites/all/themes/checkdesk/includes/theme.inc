@@ -260,6 +260,16 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     }
     $title .= ' <span class="status-name ' . $status_class_name . '">' . strtolower($message->variables['!status']) . '</span></span>';
   }
+  elseif ($message->message_id == 'checkdesk_status_source') {
+    // set variables for status report
+    $username = $message->variables['!editor'];
+    // set icons
+    if ($status_name = $message->variables['!status']) {
+      $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
+      $source_status = '<span class="media-status media-source-status"><span class="status-name ' . $status_class . '">' . t($status_name) . '</span></span>';
+    }
+    $title = t('changed status to ') . $source_status;
+  }
   elseif ($message->message_id == 'publish_report') {
     // set variables for publish_report
     $username = $message->variables['!publisher'];

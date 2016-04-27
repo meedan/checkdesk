@@ -904,7 +904,7 @@ function checkdesk_preprocess_node(&$variables) {
     if ($total_rows) {
       // set the title for source references
       // e.g. John Hodgman's reports
-      $variables['source_reference_title'] = t('!source_name&#8217;s reports', array('!source_name' => $node->pender->data->title));
+      $variables['source_reference_title'] = t('!source_name&#8217;s reports', array('!source_name' => $node->title));
       $variables['references'] = $view_output;
     }
 

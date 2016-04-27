@@ -935,13 +935,13 @@ function checkdesk_sources_feature_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Comments');
   t('Description');
+  t('Followers');
   t('Image');
   t('Likes');
   t('Provider');
   t('Published at');
   t('Source URL');
   t('Status');
-  t('Followers');
   t('Tags');
   t('Username');
   t('Views');

@@ -9,6 +9,31 @@
  */
 function checkdesk_sources_feature_default_rules_configuration() {
   $items = array();
+  $items['checkdesk_reports_feature_change_source_status'] = entity_import('rules_config', '{ "checkdesk_reports_feature_change_source_status" : {
+      "LABEL" : "Change source status",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules" ],
+      "ON" : { "node_update" : [] },
+      "IF" : [
+        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "source" : "source" } } } },
+        { "php_eval" : { "code" : "if (isset($node-\\u003Efield_source_status[LANGUAGE_NONE][0][\\u0027tid\\u0027])) {\\r\\n  if (!isset($node_unchanged-\\u003Efield_source_status[LANGUAGE_NONE][0][\\u0027tid\\u0027])) {\\r\\n    return TRUE;\\r\\n  }\\r\\n  if ($node_unchanged-\\u003Efield_source_status[LANGUAGE_NONE][0][\\u0027tid\\u0027] != $node-\\u003Efield_source_status[LANGUAGE_NONE][0][\\u0027tid\\u0027]) {\\r\\n    return TRUE;\\r\\n  }\\r\\n}\\r\\nreturn FALSE;" } }
+      ],
+      "DO" : [
+        { "heartbeat_activity_checkdesk_status_source" : {
+            "nid" : [ "node:nid" ],
+            "uid" : [ "site:current-user:uid" ],
+            "message_id" : { "value" : { "checkdesk_status_source" : "checkdesk_status_source" } },
+            "!editor_url" : [ "site:current-user:url" ],
+            "!editor" : [ "node:author:name" ],
+            "!source_url" : [ "node:url" ],
+            "!status" : [ "node:field-source-status:name" ]
+          }
+        }
+      ]
+    }
+  }');
   $items['checkdesk_reports_feature_new_source'] = entity_import('rules_config', '{ "checkdesk_reports_feature_new_source" : {
       "LABEL" : "New source",
       "PLUGIN" : "reaction rule",
