@@ -127,6 +127,11 @@ function _checkdesk_sources_assign_media_source($media_url, &$node) {
         $node->field_source_media[LANGUAGE_NONE][0]['target_id'] = $source->nid;
       }
     }
+
+    if (isset($node->field_source_media[LANGUAGE_NONE][0]['target_id'])) {
+      drupal_set_message(t('Your report author has been linked to an existing source [!source]', array('!source' => l($source->title, 'node/'. $source->nid))));
+
+    }
   }
 }
 
@@ -134,6 +139,7 @@ function _checkdesk_sources_assign_media_source($media_url, &$node) {
  * @param $url
  */
 function _checkdesk_get_source($url) {
+  $url = _checkdesk_normalize_url($url);
   return db_query('SELECT entity_id FROM {field_data_field_source_url} WHERE field_source_url_url = :url AND bundle = :bundle'
     , array(
       ':url' => $url,
