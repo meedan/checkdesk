@@ -8,6 +8,7 @@
           <?php if (isset($username_link)): ?>
             <span class="username"><?php print $username_link; ?></span>
           <?php endif; ?>
+          
           <?php if(isset($media_description)) : ?>
             <span class="description expandable2x"><?php print $media_description; ?></span>
           <?php endif; ?>
@@ -28,7 +29,7 @@
             </div>
           <?php endif; ?>
         </div>
-        
+
       </section>
 
       <?php print $source_activity; ?>
@@ -39,7 +40,7 @@
     <!-- tag list -->
     <?php if(isset($content['field_tags'])) : ?>
       <?php print render($content['field_tags']); ?>
-    <?php endif ?>  
+    <?php endif ?>
   </aside>
 
   <?php if(isset($references)) : ?>
