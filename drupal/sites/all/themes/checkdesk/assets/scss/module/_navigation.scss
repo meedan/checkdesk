@@ -80,13 +80,6 @@
     bottom: 10px;
   }
 
-  // Hide about and info links when limited vertical space
-  @media (min-height: 1px) and (max-height: 690px) {
-    #header nav ul.third-group { 
-      // display: none;
-    }
-  }
-
   #header nav li {
     height: 50px;
   }
@@ -135,6 +128,7 @@
 
 }
 
+// Vertical scroll if icons overlap
 @media (min-height: 1px) and (max-height: 690px) {
   #header nav {
     position: fixed !important;
