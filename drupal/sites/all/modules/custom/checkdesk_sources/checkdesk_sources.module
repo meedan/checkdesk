@@ -45,7 +45,7 @@ function checkdesk_sources_node_presave($node) {
         }
         $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
         foreach ($metadata_fields as $key => $value) {
-          if (isset($data->{$key}) && !empty($data->{$key})) {
+          if (isset($data->{$key}) && is_numeric($data->{$key})) {
             $node->{$value}[LANGUAGE_NONE][0]['value'] = $data->{$key};
           }
         }
