@@ -45,7 +45,7 @@ function checkdesk_sources_node_presave($node) {
         }
         $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
         foreach ($metadata_fields as $key => $value) {
-          if (isset($data->{$key}) && is_numeric($data->{$key})) {
+          if (isset($data->{$key}) && is_int($data->{$key})) {
             $node->{$value}[LANGUAGE_NONE][0]['value'] = $data->{$key};
           }
         }
@@ -547,7 +547,7 @@ function checkdesk_sources_field_formatter_view($entity_type, $entity, $field, $
  * @return float|string
  */
 function _checkdesk_sources_thousandsNumberFormat($num) {
-  if (!is_numeric($num)) {
+  if (!is_int($num)) {
     return $num;
   }
   $x = round($num);

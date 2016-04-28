@@ -13,3 +13,24 @@ function checkdesk_sources_schema() {
   $schema['cache_pender']['description'] = 'Cache table for the Pender.';
   return $schema;
 }
+
+function checkdesk_sources_enable() {
+  checkdesk_sources_update_7001();
+}
+/**
+ * Change metadata fields size
+ */
+function checkdesk_sources_update_7001() {
+  // Views field
+  db_query('ALTER TABLE {field_data_field_source_views} CHANGE field_source_views_value field_source_views_value BIGINT( 11 ) NULL DEFAULT NULL');
+  db_query('ALTER TABLE {field_revision_field_source_views} CHANGE field_source_views_value field_source_views_value BIGINT( 11 ) NULL DEFAULT NULL');
+  // Likes field
+  db_query('ALTER TABLE {field_data_field_source_likes} CHANGE field_source_likes_value	 field_source_likes_value	 BIGINT( 11 ) NULL DEFAULT NULL');
+  db_query('ALTER TABLE {field_revision_field_source_likes} CHANGE field_source_likes_value	 field_source_likes_value	 BIGINT( 11 ) NULL DEFAULT NULL');
+  // Subscribe field
+  db_query('ALTER TABLE {field_data_field_source_subscriber} CHANGE field_source_subscriber_value field_source_subscriber_value BIGINT( 11 ) NULL DEFAULT NULL');
+  db_query('ALTER TABLE {field_revision_field_source_subscriber} CHANGE field_source_subscriber_value field_source_subscriber_value BIGINT( 11 ) NULL DEFAULT NULL');
+  // Comment field
+  db_query('ALTER TABLE {field_data_field_source_comments} CHANGE field_source_comments_value field_source_comments_value BIGINT( 11 ) NULL DEFAULT NULL');
+  db_query('ALTER TABLE {field_revision_field_source_comments} CHANGE field_source_comments_value field_source_comments_value BIGINT( 11 ) NULL DEFAULT NULL');
+}
