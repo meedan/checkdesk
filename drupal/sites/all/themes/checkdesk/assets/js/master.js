@@ -32,9 +32,10 @@
     }
   };
 
-  // text expander for report description
+  // text expander for report description and source bios
   Drupal.behaviors.textExpander = {
     attach: function(context) {
+      // text expander for report descriptions
       $('span.expandable').expander({
         slicePoint: 120,
         expandPrefix: ' ',
@@ -45,8 +46,22 @@
         userCollapse: false,
         preserveWords: true,
       });
+      // text expander for source bios
+      $('span.expandable2x').expander({
+        slicePoint: 300,
+        expandPrefix: ' ',
+        expandText: Drupal.t('Show more&hellip;'),
+        expandEffect: 'fadeIn',
+        expandSpeed: 300,
+        moreClass: 'show-more',
+        userCollapse: false,
+        preserveWords: true,
+      });
     }
   };
+
+  
+
 
   Drupal.behaviors.story = {
     attach: function (context, settings) {
