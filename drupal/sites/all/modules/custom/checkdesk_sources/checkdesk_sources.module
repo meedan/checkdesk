@@ -604,6 +604,12 @@ function _checkdesk_sources_migrate_meedan_sources() {
           $values[] = $default_fields + array('entity_id' => $v, 'revision_id' => $vids[$k] , 'field_source_media_target_id' => $source->nid);
         }
         if (count($values)) {
+          db_delete('field_data_field_source_media')
+            ->condition('entity_id', $nids, 'IN')
+            ->execute();
+          db_delete('field_revision_field_source_media')
+            ->condition('entity_id', $nids, 'IN')
+            ->execute();
           echo "Link source {$source->nid} with medias  {$row->nid} \n";
           $query = db_insert('field_data_field_source_media')->fields($all_fields);
           // write a record direct into DB
