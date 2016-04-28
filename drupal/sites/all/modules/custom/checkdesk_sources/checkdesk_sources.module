@@ -45,7 +45,7 @@ function checkdesk_sources_node_presave($node) {
         }
         $metadata_fields = _checkdesk_source_metadata_fields($data->provider);
         foreach ($metadata_fields as $key => $value) {
-          if (isset($data->{$key}) && !empty($data->{$key})) {
+          if (isset($data->{$key}) && is_int($data->{$key})) {
             $node->{$value}[LANGUAGE_NONE][0]['value'] = $data->{$key};
           }
         }
@@ -547,7 +547,7 @@ function checkdesk_sources_field_formatter_view($entity_type, $entity, $field, $
  * @return float|string
  */
 function _checkdesk_sources_thousandsNumberFormat($num) {
-  if (!is_numeric($num)) {
+  if (!is_int($num)) {
     return $num;
   }
   $x = round($num);
@@ -604,6 +604,12 @@ function _checkdesk_sources_migrate_meedan_sources() {
           $values[] = $default_fields + array('entity_id' => $v, 'revision_id' => $vids[$k] , 'field_source_media_target_id' => $source->nid);
         }
         if (count($values)) {
+          db_delete('field_data_field_source_media')
+            ->condition('entity_id', $nids, 'IN')
+            ->execute();
+          db_delete('field_revision_field_source_media')
+            ->condition('entity_id', $nids, 'IN')
+            ->execute();
           echo "Link source {$source->nid} with medias  {$row->nid} \n";
           $query = db_insert('field_data_field_source_media')->fields($all_fields);
           // write a record direct into DB
