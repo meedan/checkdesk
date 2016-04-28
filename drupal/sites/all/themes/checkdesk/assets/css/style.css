@@ -3218,6 +3218,11 @@ html.no-js #header svg {
     transform: rotate(45deg);
   }
 }
+@media only screen and (min-width: 740px) and (min-height: 1px) and (max-height: 690px) {
+  #header nav ul.third-group {
+    display: none;
+  }
+}
 @media (min-width: 1px) and (max-width: 740px) {
   #header nav {
     position: static !important;
