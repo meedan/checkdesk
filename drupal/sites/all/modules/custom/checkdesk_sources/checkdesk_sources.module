@@ -148,7 +148,7 @@ function _checkdesk_get_source($url) {
 }
 
 function _checkdesk_source_create_new_entity($source_url) {
-  $response = checkdesk_sources_pender_fetch($source_url, TRUE);
+  $response = checkdesk_sources_pender_fetch($source_url);
   if ($response->type == 'error' || ($response->type === 'media' && empty($response->data->provider))) {
     return FALSE;
   }
@@ -179,6 +179,7 @@ function _checkdesk_source_create_new_entity($source_url) {
 
 function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
   $pender = FALSE;
+  $url = _checkdesk_normalize_url($url);
   // Mock a render element for cache keys and expiration. This element will
   // not be rendered.
   $element = pender_render_cache('pender_request', $url);
@@ -334,8 +335,8 @@ function checkdesk_sources_form_source_node_form_alter(&$form, &$form_state) {
     foreach ($fields as $k => $v) {
       $form[$k]['#access'] = FALSE;
     }
-    // Validate duplicate source
-    $form['#validate'][] = '_checkdesk_sources_duplicates_form_validate';
+    // Validate source URL
+    $form['#validate'][] = '_checkdesk_sources_form_validate';
   }
   else {
     $form['field_provider']['#access'] = FALSE;
@@ -364,30 +365,26 @@ function _checkdesk_source_after_build($form, &$form_state) {
 /**
  * Validate sources duplicates
  */
-function _checkdesk_sources_duplicates_form_validate($form, &$form_state) {
-  $url = _checkdesk_normalize_url($form_state['values']['field_source_url'][LANGUAGE_NONE][0]['url']);
-  // Check a valid URL for Pender.
-  $response = checkdesk_sources_pender_fetch($url, TRUE);
+function _checkdesk_sources_form_validate($form, &$form_state) {
+  $url = $form_state['values']['field_source_url'][LANGUAGE_NONE][0]['url'];
+  // CHeck source duplicate
+  $source = _checkdesk_get_source($url);
+  if ($source) {
+    $msg = t('Source already exists !source', array(
+        '!source' => l(t('View the link'), 'node/' . $source, array('attributes' => array('target' => '_blank')))
+      )
+    );
+    form_set_error('field_source_url', $msg);
+  }
+  // Check a valid response.
+  $response = checkdesk_sources_pender_fetch($url);
   if ($response->type == 'error') {
     form_set_error('field_source_url', t($response->data->message));
   }
-  elseif ($response->type === 'media' && empty($response->data->provider)) {
+  elseif ($response->type === 'media' && $response->data->type !== 'profile') {
     form_set_error('field_source_url', t('Invalid source URL'));
   }
-  else {
-    $query = db_select('field_data_field_source_url', 'fs');
-    $query->addField('fs', 'entity_id');
-    $query->condition('fs.field_source_url_url', $url);
-    $query->addTag('checkdesk_source_duplicate');
-    $result = $query->execute()->fetchField();
-    if ($result) {
-      $msg = t('Source already exists !source', array(
-          '!source' => l(t('View the link'), 'node/' . $result, array('attributes' => array('target' => '_blank')))
-        )
-      );
-      form_set_error('field_source_url', $msg);
-    }
-  }
+
 }
 
 /**
@@ -588,7 +585,7 @@ function _checkdesk_sources_migrate_meedan_sources() {
   $all_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_source_media_target_id');
   foreach ($result as $kk => $row) {
     echo "Source ### $kk of $total  - {$row->source_url} \n";
-    $response = checkdesk_sources_pender_fetch($row->source_url, TRUE);
+    $response = checkdesk_sources_pender_fetch($row->source_url);
     if (!($response->type == 'error' || ($response->type === 'media' && empty($response->data->provider)))) {
       echo "Create a source {$row->source_url} \n";
       $source = _checkdesk_source_create_new_entity($row->source_url);
