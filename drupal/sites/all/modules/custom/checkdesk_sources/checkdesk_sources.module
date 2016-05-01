@@ -70,42 +70,10 @@ function checkdesk_sources_node_load($nodes, $types) {
 }
 
 /**
- * Implements hook_node_insert().
- */
-function checkdesk_sources_node_insert($node) {
-  if ($node->type == 'media') {
-    $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
-    if ($embed) {
-      // Log source data in meedan_sources and meedan_sources_media
-      _meedan_sources_insert($embed, $node->nid);
-    }
-  }
-  elseif (FALSE && $node->type == 'source') {
-    // Query all existing reports (that have no source)
-    $query = db_select('meedan_sources', 'ms');
-    $query->innerJoin('meedan_sources_media', 'msm', 'ms.ms_id = msm.ms_id');
-    $query->leftJoin('field_data_field_source_media', 'fsm', 'msm.nid = fsm.entity_id');
-    $query->where('TRIM(source_url) = :source_url', array(':source_url' => trim($node->field_source_url[LANGUAGE_NONE][0]['url'])));
-    $query->isNull('fsm.field_source_media_target_id');
-    $query->addField('msm', 'nid');
-    $media_nids = $query->execute()->fetchCol();
-    foreach (node_load_multiple($media_nids) as $media) {
-      $media->field_source_media[LANGUAGE_NONE][0]['target_id'] = $node->nid;
-      node_save($media);
-    }
-  }
-}
-
-/**
  * Implements of hook_node_delete();
  */
 function checkdesk_sources_node_delete($node) {
-  if ($node->type == 'media') {
-    db_delete('meedan_sources_media')
-      ->condition('nid', $node->nid)
-      ->execute();
-  }
-  elseif($node->type == 'source') {
+  if($node->type == 'source') {
     $element = pender_render_cache('pender_request',  $node->field_source_url[LANGUAGE_NONE][0]['url']);
     $cache_key = implode(':', $element['#cache']['keys']);
     cache_clear_all($cache_key, $element['#cache']['bin']);
@@ -468,50 +436,6 @@ function _checkdesk_sources_status($source) {
 }
 
 /**
- * Insert embed data info in sources table.
- */
-function _meedan_sources_insert($embed, $nid = NULL) {
-  $source_child = new stdClass();
-  $source_parent = new stdClass();
-  if (!$nid) {
-    $nid = db_result(db_query("SELECT nid FROM {content_type_report} WHERE field_media_embed_url = '%s'", $embed->original_url));
-  }
-
-  $source_parent->source = $embed->provider_name;
-  $source_parent->source_url = $embed->provider_url;
-  $source_parent->parent = NULL;
-  $query = db_select('meedan_sources', 'ms');
-  $query->condition('ms.source', $source_parent->source);
-  $query->fields('ms', array('ms_id'));
-  $parent_id = $query->execute()->fetchfield();
-  if (!$parent_id) {
-    drupal_write_record('meedan_sources', $source_parent);
-    $parent_id = $source_parent->ms_id;
-  }
-  if (isset($embed->author_name)) {
-    $source_child->source = $embed->author_name;
-    $source_child->source_url = $embed->author_url;
-    $source_child->parent = $parent_id;
-    $query = db_select('meedan_sources', 'ms');
-    $query->condition('ms.source', $source_child->source);
-    $query->condition('ms.parent', $source_child->parent);
-    $query->fields('ms', array('ms_id'));
-    $child_id = $query->execute()->fetchfield();
-    if (!$child_id) {
-      drupal_write_record('meedan_sources', $source_child);
-      $child_id = $source_child->ms_id;
-    }
-  }
-  if ($nid) {
-    //Check if there is a related node because oembed doesn't handle the deleted node.
-    $ms_id = isset($child_id) ? $child_id : $parent_id;
-    db_insert('meedan_sources_media')
-      ->fields(array('nid' => $nid, 'ms_id'  => $ms_id,))
-      ->execute();
-  }
-}
-
-/**
  * Implements hook_field_formatter_info().
  */
 function checkdesk_sources_field_formatter_info() {
@@ -565,7 +489,7 @@ function _checkdesk_sources_migrate_meedan_sources() {
 			SELECT COUNT(DISTINCT ms.source_url)
 			FROM {node} n
 			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
-			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id
+			INNER JOIN {meedan_sources} ms ON ms.ms_id = msm.ms_id
 			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)
 		')->fetchField();
   echo "Sources count [$total] \n";
@@ -575,7 +499,7 @@ function _checkdesk_sources_migrate_meedan_sources() {
 			SELECT GROUP_CONCAT(n.nid ORDER BY n.nid) AS nid, GROUP_CONCAT(n.vid ORDER BY n.nid) AS vid, ms.source_url
 			FROM {node} n
 			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
-			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id
+			INNER JOIN {meedan_sources} ms ON ms.ms_id = msm.ms_id
 			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)
 			GROUP BY ms.source_url
 			ORDER BY ms.source_url

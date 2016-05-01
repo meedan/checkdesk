@@ -1493,11 +1493,6 @@ print _checkdesk_search_header();
     5 => 0,
     4 => 0,
   );
-  /* Filter criterion: Content: Published or admin */
-  $handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
-  $handler->display->display_options['filters']['status_extra']['table'] = 'node';
-  $handler->display->display_options['filters']['status_extra']['field'] = 'status_extra';
-  $handler->display->display_options['filters']['status_extra']['group'] = 1;
   /* Filter criterion: Content: State */
   $handler->display->display_options['filters']['state']['id'] = 'state';
   $handler->display->display_options['filters']['state']['table'] = 'node';
@@ -1535,6 +1530,23 @@ print _checkdesk_search_header();
     4 => 0,
   );
   $handler->display->display_options['filters']['language']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Content: Provider (field_provider) */
+  $handler->display->display_options['filters']['field_provider_value']['id'] = 'field_provider_value';
+  $handler->display->display_options['filters']['field_provider_value']['table'] = 'field_data_field_provider';
+  $handler->display->display_options['filters']['field_provider_value']['field'] = 'field_provider_value';
+  $handler->display->display_options['filters']['field_provider_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_provider_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_provider_value']['expose']['operator_id'] = 'field_provider_value_op';
+  $handler->display->display_options['filters']['field_provider_value']['expose']['label'] = 'Provider';
+  $handler->display->display_options['filters']['field_provider_value']['expose']['operator'] = 'field_provider_value_op';
+  $handler->display->display_options['filters']['field_provider_value']['expose']['identifier'] = 'field_provider_value';
+  $handler->display->display_options['filters']['field_provider_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+  );
   $translatables['checkdesk_search'] = array(
     t('Master'),
     t('Search'),

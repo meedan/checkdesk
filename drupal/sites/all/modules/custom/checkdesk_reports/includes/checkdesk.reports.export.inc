@@ -83,11 +83,10 @@ function _checkdesk_reports_load_reports_story($story_nid) {
   $query = db_select('node', 'n');
   $query->addExpression('FROM_UNIXTIME(created)', 'created');
   $query->addField('fl', 'field_link_url');
-  $query->addField('ms', 'source');
+  $query->addField('fp', 'field_provider_value', 'source');
   $query->fields('n', array('nid', 'title'));
   $query->join('field_data_field_link', 'fl', 'n.nid = fl.entity_id');
-  $query->join('meedan_sources_media', 'msm', 'n.nid = msm.nid');
-  $query->join('meedan_sources', 'ms', 'ms.ms_id = msm.ms_id');
+  $query->join('field_data_field_provider', 'fp', 'n.nid = fp.entity_id');
   $query->condition('n.type', 'media');
   $query->groupBy('n.nid');
   if (is_numeric($story_nid)) {

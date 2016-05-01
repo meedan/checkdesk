@@ -73,7 +73,7 @@ function _checkdesk_api_user_login_facebook($parameters, $provider) {
 }
 
 /**
- * Implements hook_checkdesk_analytics_info().
+ *
  */
 function _checkdesk_api_user_success_login($user, $provider) {
     user_login_finalize();

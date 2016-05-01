@@ -35,3 +35,11 @@ function checkdesk_sources_update_7001() {
   db_query('ALTER TABLE {field_data_field_source_comments} CHANGE field_source_comments_value field_source_comments_value BIGINT( 11 ) NULL DEFAULT NULL');
   db_query('ALTER TABLE {field_revision_field_source_comments} CHANGE field_source_comments_value field_source_comments_value BIGINT( 11 ) NULL DEFAULT NULL');
 }
+
+/**
+ * Disable checkdesk_analytics and meedan_sources
+ */
+function checkdesk_sources_update_7002() {
+  $module_list = array('checkdesk_analytics', 'meedan_sources');
+  module_disable($module_list);
+}
