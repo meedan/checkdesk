@@ -24,11 +24,10 @@ function checkdesk_sources_menu() {
 function checkdesk_sources_node_presave($node) {
   if ($node->is_new || isset($node->enforce_refresh)) {
     if ($node->type === 'source') {
-      $url = _checkdesk_normalize_url($node->field_source_url[LANGUAGE_NONE][0]['url']);
-      $pender_response = checkdesk_sources_pender_fetch($url);
+      $pender_response = checkdesk_sources_pender_fetch($node->field_source_url[LANGUAGE_NONE][0]['url']);
       if ($pender_response && $pender_response->type === 'media') {
         $data = $pender_response->data;
-        $node->field_source_url[LANGUAGE_NONE][0]['url'] = _checkdesk_normalize_url($data->url);
+        $node->field_source_url[LANGUAGE_NONE][0]['url'] = $data->url;
         $node->title = $data->title;
         $node->field_username[LANGUAGE_NONE][0]['value'] = $data->username;
         $node->field_provider[LANGUAGE_NONE][0]['value'] = $data->provider;
@@ -117,7 +116,7 @@ function _checkdesk_get_source($url) {
 
 function _checkdesk_source_create_new_entity($source_url) {
   $response = checkdesk_sources_pender_fetch($source_url);
-  if ($response->type == 'error' || ($response->type === 'media' && empty($response->data->provider))) {
+  if ($response->type == 'error' || ($response->type === 'media' && $response->data->type !== 'profile')) {
     return FALSE;
   }
   // Re-call get source for alias URL (#4631)
@@ -136,7 +135,7 @@ function _checkdesk_source_create_new_entity($source_url) {
   $source->status = 1;
   $source->language = LANGUAGE_NONE;
   $source->uid = $user->uid;
-  $source->field_source_url[LANGUAGE_NONE][0]['url'] = $source_url;
+  $source->field_source_url[LANGUAGE_NONE][0]['url'] = $response->data->url;
 
   if ($source = node_submit($source)) {
     node_save($source);
@@ -147,7 +146,6 @@ function _checkdesk_source_create_new_entity($source_url) {
 
 function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
   $pender = FALSE;
-  $url = _checkdesk_normalize_url($url);
   // Mock a render element for cache keys and expiration. This element will
   // not be rendered.
   $element = pender_render_cache('pender_request', $url);
@@ -155,7 +153,7 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
   $cache = cache_get($cache_key, $element['#cache']['bin']);
   // Cache hit.
   if (!$force_refresh && $cache && isset($cache->data)) {
-    $pender = $cache->data;
+    $pender = $cache->data['pender'];
   }
   else {
     $ch = curl_init('PENDER');
@@ -163,14 +161,29 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Pender-Token: ' . variable_get('checkdesk_sources_pender_key')));
-    $response = json_decode(curl_exec($ch));
+    $pender = json_decode(curl_exec($ch));
     curl_close($ch);
-    $pender = $response;
-    if ($response->type == 'error') {
-     watchdog('Pender', 'Error fetching data from %url [@msg].', array('%url' => $url, '@msg' => $response->data->message));
+    if ($pender->type == 'error') {
+     watchdog('Pender', 'Error fetching data from %url [@msg].', array('%url' => $url, '@msg' => $pender->data->message));
     }
     else {
-      cache_set($cache_key, $pender, $element['#cache']['bin'], $element['#cache']['expire']);
+      // Cache pender response (Pender URL)
+      $pender_cache = array();
+      $element = pender_render_cache('pender_request', $pender->data->url);
+      $cache_key = implode(':', $element['#cache']['keys']);
+      $pender_cache['type'] = 'pender';
+      $pender_cache['pender'] = $pender;
+      cache_set($cache_key, $pender_cache, $element['#cache']['bin'], $element['#cache']['expire']);
+      if ($url !== $pender->data->url) {
+        $pender_cache = array();
+        $pender_cache['type'] = 'url';
+        $pender_cache['url'] = $pender->data->url;
+        $pender_cache['pender'] = $pender;
+        // Cache with original URL
+        $element = pender_render_cache('pender_request', $url);
+        $cache_key = implode(':', $element['#cache']['keys']);
+        cache_set($cache_key, $pender_cache, $element['#cache']['bin'], $element['#cache']['expire']);
+      }
     }
   }
   return $pender;
@@ -335,24 +348,28 @@ function _checkdesk_source_after_build($form, &$form_state) {
  */
 function _checkdesk_sources_form_validate($form, &$form_state) {
   $url = $form_state['values']['field_source_url'][LANGUAGE_NONE][0]['url'];
-  // CHeck source duplicate
-  $source = _checkdesk_get_source($url);
-  if ($source) {
-    $msg = t('Source already exists !source', array(
-        '!source' => l(t('View the link'), 'node/' . $source, array('attributes' => array('target' => '_blank')))
-      )
-    );
-    form_set_error('field_source_url', $msg);
-  }
-  // Check a valid response.
   $response = checkdesk_sources_pender_fetch($url);
-  if ($response->type == 'error') {
-    form_set_error('field_source_url', t($response->data->message));
+  if ($response) {
+    // CHeck source duplicate
+    $source = _checkdesk_get_source($response->data->url);
+    if ($source) {
+      $msg = t('Source already exists !source', array(
+          '!source' => l(t('View the link'), 'node/' . $source, array('attributes' => array('target' => '_blank')))
+        )
+      );
+      form_set_error('field_source_url', $msg);
+    }
+    // Check a valid response.
+    if ($response->type == 'error') {
+      form_set_error('field_source_url', t($response->data->message));
+    }
+    elseif ($response->type === 'media' && $response->data->type !== 'profile') {
+      form_set_error('field_source_url', t('Invalid source URL'));
+    }
   }
-  elseif ($response->type === 'media' && $response->data->type !== 'profile') {
-    form_set_error('field_source_url', t('Invalid source URL'));
+  else {
+    form_set_error('field_source_url', t('No response from Pender, please review !pender settings', array('!pender' => l('Pender', 'admin/config/services/checkdesk-sources'))));
   }
-
 }
 
 /**
@@ -381,10 +398,8 @@ function checkdesk_sources_form_comment_node_source_form_alter(&$form, $form_sta
  * Submit comment via ajax.
  */
 function _checkdesk_sources_comment_form_submit($form, &$form_state) {
-  global $user;
 
   drupal_get_messages();
-
   $nid = $form['#node']->nid;
   $node = node_load($nid);
   $node_view = node_view($node);
