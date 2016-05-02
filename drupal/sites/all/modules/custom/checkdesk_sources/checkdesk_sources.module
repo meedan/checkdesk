@@ -498,67 +498,98 @@ function _checkdesk_sources_thousandsNumberFormat($num) {
  * Migrate meedan_sources
  */
 function _checkdesk_sources_migrate_meedan_sources() {
-  // Increase a len for group_concat_max_len
-  db_query('SET SESSION group_concat_max_len = 1000000')->execute();
-  $total =db_query('
+  $total = db_query('
 			SELECT COUNT(DISTINCT ms.source_url)
-			FROM {node} n
-			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
-			INNER JOIN {meedan_sources} ms ON ms.ms_id = msm.ms_id
+			FROM {meedan_sources} ms
 			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)
 		')->fetchField();
+
   echo "Sources count [$total] \n";
 
-  //echo "Create sources iteration #{$sandbox['iteration']} \n";
   $result = db_query('
-			SELECT GROUP_CONCAT(n.nid ORDER BY n.nid) AS nid, GROUP_CONCAT(n.vid ORDER BY n.nid) AS vid, ms.source_url
-			FROM {node} n
-			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
-			INNER JOIN {meedan_sources} ms ON ms.ms_id = msm.ms_id
+			SELECT ms.source_url
+			FROM {meedan_sources} ms
 			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)
 			GROUP BY ms.source_url
 			ORDER BY ms.source_url
 		');
 
-  $default_fields =  array('entity_type' => 'node', 'bundle' => 'media', 'deleted' => 0,'language' => LANGUAGE_NONE, 'delta' => 0);
-  $all_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_source_media_target_id');
+  $created  = 0;
   foreach ($result as $kk => $row) {
-    echo "Source ### $kk of $total  - {$row->source_url} \n";
+    echo "Source # $kk of $total  - {$row->source_url} \n";
     $response = checkdesk_sources_pender_fetch($row->source_url);
-    if (!($response->type == 'error' || ($response->type === 'media' && empty($response->data->provider)))) {
-      echo "Create a source {$row->source_url} \n";
+    if (!($response->type == 'error' || ($response->type === 'media' && $response->data->type !== 'profile'))) {
       $source = _checkdesk_source_create_new_entity($row->source_url);
       if ($source) {
-        $values = array();
-        // LINK source & reports
-        $nids = explode(',',  $row->nid);
-        $vids = explode(',', $row->vid);
-        foreach ($nids as $k => $v) {
-          $values[] = $default_fields + array('entity_id' => $v, 'revision_id' => $vids[$k] , 'field_source_media_target_id' => $source->nid);
-        }
-        if (count($values)) {
-          db_delete('field_data_field_source_media')
-            ->condition('entity_id', $nids, 'IN')
-            ->execute();
-          db_delete('field_revision_field_source_media')
-            ->condition('entity_id', $nids, 'IN')
-            ->execute();
-          echo "Link source {$source->nid} with medias  {$row->nid} \n";
-          $query = db_insert('field_data_field_source_media')->fields($all_fields);
-          // write a record direct into DB
-          foreach ($values as $record) {
-            $query->values($record);
-          }
-          $query->execute();
-          $query = db_insert('field_revision_field_source_media')->fields($all_fields);
-          // write a record direct into DB
-          foreach ($values as $record) {
-            $query->values($record);
-          }
-          $query->execute();
-        }
+        $created ++;
+        echo "Created a source {$row->source_url} with nid {$source->nid} \n";
       }
     }
   }
   drupal_get_messages();
+  echo "Created $created of $total \n";
+  echo "Linking sources and reports \n";
+  _checkdesk_sources_migrate_meedan_sources_linking();
+}
+
+/**
+ * Linking (source - media ) for migrate meedan_sources
+ */
+function _checkdesk_sources_migrate_meedan_sources_linking() {
+  // Increase a len for group_concat_max_len
+  db_query('SET SESSION group_concat_max_len = 1000000')->execute();
+
+  $result = db_query('
+			SELECT GROUP_CONCAT(n.nid ORDER BY n.nid) AS nid, GROUP_CONCAT(n.vid ORDER BY n.nid) AS vid, ms.source_url
+			FROM {node} n
+			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
+			INNER JOIN {meedan_sources} ms ON ms.ms_id = msm.ms_id
+			WHERE ms.parent IS NOT NULL AND n.nid NOT IN (SELECT entity_id FROM {field_data_field_source_media})
+			GROUP BY ms.source_url
+			ORDER BY ms.source_url
+		');
+
+  $default_fields =  array('entity_type' => 'node', 'bundle' => 'media', 'deleted' => 0,'language' => LANGUAGE_NONE, 'delta' => 0);
+  $values = array();
+  foreach ($result as $kk => $row) {
+    $response = checkdesk_sources_pender_fetch($row->source_url);
+    if (!($response->type == 'error' || ($response->type === 'media' && $response->data->type !== 'profile'))) {
+      $source_nid = _checkdesk_get_source($response->data->url);
+      if ($source_nid) {
+        // LINK source & reports
+        echo "Linking source {$source_nid} with reports [{$row->nid}] \n";
+        $nids = explode(',',  $row->nid);
+        $vids = explode(',', $row->vid);
+        foreach ($nids as $k => $v) {
+          $values[] = $default_fields + array('entity_id' => $v, 'revision_id' => $vids[$k] , 'field_source_media_target_id' => $source_nid);
+        }
+      }
+    }
+  }
+
+  if (count($values)) {
+    $nids = db_query('SELECT nid FROM {meedan_sources_media}')->fetchCol();
+    $all_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_source_media_target_id');
+    // Remove existing nids
+    db_delete('field_data_field_source_media')
+      ->condition('entity_id', $nids, 'IN')
+      ->execute();
+    db_delete('field_revision_field_source_media')
+      ->condition('entity_id', $nids, 'IN')
+      ->execute();
+
+    $query = db_insert('field_data_field_source_media')->fields($all_fields);
+    // write a record direct into DB
+    foreach ($values as $record) {
+      $query->values($record);
+    }
+    $query->execute();
+    $query = db_insert('field_revision_field_source_media')->fields($all_fields);
+    // write a record direct into DB
+    foreach ($values as $record) {
+      $query->values($record);
+    }
+    $query->execute();
+  }
+
 }
