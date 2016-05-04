@@ -501,7 +501,7 @@ function checkdesk_reports_feature_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_link',
-    'label' => 'Media',
+    'label' => 'URL',
     'required' => 1,
     'settings' => array(
       'absolute_url' => 1,

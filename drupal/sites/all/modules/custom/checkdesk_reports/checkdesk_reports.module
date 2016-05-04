@@ -115,10 +115,8 @@ function checkdesk_reports_permission() {
  */
 function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     global $user;
-    drupal_set_title(t('Submit report'));
     // Adjust edit node form
     $form['#attributes']['class'][] = 'cd-report-duplicates';
-    $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
     $form['field_link'][LANGUAGE_NONE][0]['#description'] = t('When you submit a report it becomes available for fact-checking and may be included in a blog post by our team.');
     $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
     // Change field attributes
