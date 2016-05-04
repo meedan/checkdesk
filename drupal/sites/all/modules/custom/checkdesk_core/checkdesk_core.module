@@ -623,10 +623,11 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $embed_title = 'Export to CSV';
       $embed_data = array('nid' => $node->nid, 'title' => $embed_title, 'user' => $user);
     }
-
-    $share_links = checkdesk_core_share_links($url, $node->title, $node->type, $embed_data);
-    foreach ($share_links as $id => $link) {
-      $links[$id] = $link;
+    if ($node->type !== 'source') {
+      $share_links = checkdesk_core_share_links($url, $node->title, $node->type, $embed_data);
+      foreach ($share_links as $id => $link) {
+        $links[$id] = $link;
+      }
     }
   }
   return $links;
