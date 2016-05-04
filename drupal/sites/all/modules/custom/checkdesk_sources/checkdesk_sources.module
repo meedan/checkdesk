@@ -153,7 +153,7 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
   $cache = cache_get($cache_key, $element['#cache']['bin']);
   // Cache hit.
   if (!$force_refresh && $cache && isset($cache->data)) {
-    $pender = $cache->data['pender'];
+    $pender = $cache->data;
   }
   else {
     $ch = curl_init('PENDER');
