@@ -24,11 +24,10 @@ function checkdesk_sources_menu() {
 function checkdesk_sources_node_presave($node) {
   if ($node->is_new || isset($node->enforce_refresh)) {
     if ($node->type === 'source') {
-      $url = _checkdesk_normalize_url($node->field_source_url[LANGUAGE_NONE][0]['url']);
-      $pender_response = checkdesk_sources_pender_fetch($url);
+      $pender_response = checkdesk_sources_pender_fetch($node->field_source_url[LANGUAGE_NONE][0]['url']);
       if ($pender_response && $pender_response->type === 'media') {
         $data = $pender_response->data;
-        $node->field_source_url[LANGUAGE_NONE][0]['url'] = _checkdesk_normalize_url($data->url);
+        $node->field_source_url[LANGUAGE_NONE][0]['url'] = $data->url;
         $node->title = $data->title;
         $node->field_username[LANGUAGE_NONE][0]['value'] = $data->username;
         $node->field_provider[LANGUAGE_NONE][0]['value'] = $data->provider;
@@ -70,42 +69,17 @@ function checkdesk_sources_node_load($nodes, $types) {
 }
 
 /**
- * Implements hook_node_insert().
- */
-function checkdesk_sources_node_insert($node) {
-  if ($node->type == 'media') {
-    $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
-    if ($embed) {
-      // Log source data in meedan_sources and meedan_sources_media
-      _meedan_sources_insert($embed, $node->nid);
-    }
-  }
-  elseif (FALSE && $node->type == 'source') {
-    // Query all existing reports (that have no source)
-    $query = db_select('meedan_sources', 'ms');
-    $query->innerJoin('meedan_sources_media', 'msm', 'ms.ms_id = msm.ms_id');
-    $query->leftJoin('field_data_field_source_media', 'fsm', 'msm.nid = fsm.entity_id');
-    $query->where('TRIM(source_url) = :source_url', array(':source_url' => trim($node->field_source_url[LANGUAGE_NONE][0]['url'])));
-    $query->isNull('fsm.field_source_media_target_id');
-    $query->addField('msm', 'nid');
-    $media_nids = $query->execute()->fetchCol();
-    foreach (node_load_multiple($media_nids) as $media) {
-      $media->field_source_media[LANGUAGE_NONE][0]['target_id'] = $node->nid;
-      node_save($media);
-    }
-  }
-}
-
-/**
  * Implements of hook_node_delete();
  */
 function checkdesk_sources_node_delete($node) {
-  if ($node->type == 'media') {
-    db_delete('meedan_sources_media')
-      ->condition('nid', $node->nid)
-      ->execute();
-  }
-  elseif($node->type == 'source') {
+  if($node->type == 'source') {
+    // Clear cache for user-pender-url
+    if (isset($node->pender->data->user_url)) {
+      $element = pender_render_cache('user_pender_url', $node->pender->data->user_url);
+      $cache_key = implode(':', $element['#cache']['keys']);
+      cache_clear_all($cache_key, $element['#cache']['bin']);
+    }
+    // Clear cache for pender object
     $element = pender_render_cache('pender_request',  $node->field_source_url[LANGUAGE_NONE][0]['url']);
     $cache_key = implode(':', $element['#cache']['keys']);
     cache_clear_all($cache_key, $element['#cache']['bin']);
@@ -148,8 +122,8 @@ function _checkdesk_get_source($url) {
 }
 
 function _checkdesk_source_create_new_entity($source_url) {
-  $response = checkdesk_sources_pender_fetch($source_url, TRUE);
-  if ($response->type == 'error' || ($response->type === 'media' && empty($response->data->provider))) {
+  $response = checkdesk_sources_pender_fetch($source_url);
+  if ($response->type == 'error' || ($response->type === 'media' && $response->data->type !== 'profile')) {
     return FALSE;
   }
   // Re-call get source for alias URL (#4631)
@@ -168,7 +142,7 @@ function _checkdesk_source_create_new_entity($source_url) {
   $source->status = 1;
   $source->language = LANGUAGE_NONE;
   $source->uid = $user->uid;
-  $source->field_source_url[LANGUAGE_NONE][0]['url'] = $source_url;
+  $source->field_source_url[LANGUAGE_NONE][0]['url'] = $response->data->url;
 
   if ($source = node_submit($source)) {
     node_save($source);
@@ -181,6 +155,7 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
   $pender = FALSE;
   // Mock a render element for cache keys and expiration. This element will
   // not be rendered.
+  $url = _checkdesk_sources_user_pender_url_cache($url);
   $element = pender_render_cache('pender_request', $url);
   $cache_key = implode(':', $element['#cache']['keys']);
   $cache = cache_get($cache_key, $element['#cache']['bin']);
@@ -194,17 +169,37 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Pender-Token: ' . variable_get('checkdesk_sources_pender_key')));
-    $response = json_decode(curl_exec($ch));
+    $pender = json_decode(curl_exec($ch));
     curl_close($ch);
-    $pender = $response;
-    if ($response->type == 'error') {
-     watchdog('Pender', 'Error fetching data from %url [@msg].', array('%url' => $url, '@msg' => $response->data->message));
+    if ($pender->type == 'error') {
+     watchdog('Pender', 'Error fetching data from %url [@msg].', array('%url' => $url, '@msg' => $pender->data->message));
     }
     else {
+      if ($url !== $pender->data->url) {
+        $pender->data->user_url = $url;
+      }
+      // Cache pender response (Pender URL)
+      $element = pender_render_cache('pender_request', $pender->data->url);
+      $cache_key = implode(':', $element['#cache']['keys']);
       cache_set($cache_key, $pender, $element['#cache']['bin'], $element['#cache']['expire']);
+      if ($url !== $pender->data->url) {
+        $element = pender_render_cache('user_pender_url', $url);
+        $cache_key = implode(':', $element['#cache']['keys']);
+        cache_set($cache_key, $pender->data->url, $element['#cache']['bin'], $element['#cache']['expire']);
+      }
     }
   }
   return $pender;
+}
+
+function _checkdesk_sources_user_pender_url_cache($url) {
+  $element = pender_render_cache('user_pender_url', $url);
+  $cache_key = implode(':', $element['#cache']['keys']);
+  $cache = cache_get($cache_key, $element['#cache']['bin']);
+  if ($cache && isset($cache->data)) {
+    return $cache->data;
+  }
+  return $url;
 }
 
 /**
@@ -334,8 +329,8 @@ function checkdesk_sources_form_source_node_form_alter(&$form, &$form_state) {
     foreach ($fields as $k => $v) {
       $form[$k]['#access'] = FALSE;
     }
-    // Validate duplicate source
-    $form['#validate'][] = '_checkdesk_sources_duplicates_form_validate';
+    // Validate source URL
+    $form['#validate'][] = '_checkdesk_sources_form_validate';
   }
   else {
     $form['field_provider']['#access'] = FALSE;
@@ -364,29 +359,29 @@ function _checkdesk_source_after_build($form, &$form_state) {
 /**
  * Validate sources duplicates
  */
-function _checkdesk_sources_duplicates_form_validate($form, &$form_state) {
-  $url = _checkdesk_normalize_url($form_state['values']['field_source_url'][LANGUAGE_NONE][0]['url']);
-  // Check a valid URL for Pender.
-  $response = checkdesk_sources_pender_fetch($url, TRUE);
-  if ($response->type == 'error') {
-    form_set_error('field_source_url', t($response->data->message));
-  }
-  elseif ($response->type === 'media' && empty($response->data->provider)) {
-    form_set_error('field_source_url', t('Invalid source URL'));
-  }
-  else {
-    $query = db_select('field_data_field_source_url', 'fs');
-    $query->addField('fs', 'entity_id');
-    $query->condition('fs.field_source_url_url', $url);
-    $query->addTag('checkdesk_source_duplicate');
-    $result = $query->execute()->fetchField();
-    if ($result) {
+function _checkdesk_sources_form_validate($form, &$form_state) {
+  $url = $form_state['values']['field_source_url'][LANGUAGE_NONE][0]['url'];
+  $response = checkdesk_sources_pender_fetch($url);
+  if ($response) {
+    // CHeck source duplicate
+    $source = _checkdesk_get_source($response->data->url);
+    if ($source) {
       $msg = t('Source already exists !source', array(
-          '!source' => l(t('View the link'), 'node/' . $result, array('attributes' => array('target' => '_blank')))
+          '!source' => l(t('View the link'), 'node/' . $source, array('attributes' => array('target' => '_blank')))
         )
       );
       form_set_error('field_source_url', $msg);
     }
+    // Check a valid response.
+    if ($response->type == 'error') {
+      form_set_error('field_source_url', t($response->data->message));
+    }
+    elseif ($response->type === 'media' && $response->data->type !== 'profile') {
+      form_set_error('field_source_url', t('Invalid source URL'));
+    }
+  }
+  else {
+    form_set_error('field_source_url', t('No response from Pender, please review !pender settings', array('!pender' => l('Pender', 'admin/config/services/checkdesk-sources'))));
   }
 }
 
@@ -416,10 +411,8 @@ function checkdesk_sources_form_comment_node_source_form_alter(&$form, $form_sta
  * Submit comment via ajax.
  */
 function _checkdesk_sources_comment_form_submit($form, &$form_state) {
-  global $user;
 
   drupal_get_messages();
-
   $nid = $form['#node']->nid;
   $node = node_load($nid);
   $node_view = node_view($node);
@@ -471,50 +464,6 @@ function _checkdesk_sources_status($source) {
 }
 
 /**
- * Insert embed data info in sources table.
- */
-function _meedan_sources_insert($embed, $nid = NULL) {
-  $source_child = new stdClass();
-  $source_parent = new stdClass();
-  if (!$nid) {
-    $nid = db_result(db_query("SELECT nid FROM {content_type_report} WHERE field_media_embed_url = '%s'", $embed->original_url));
-  }
-
-  $source_parent->source = $embed->provider_name;
-  $source_parent->source_url = $embed->provider_url;
-  $source_parent->parent = NULL;
-  $query = db_select('meedan_sources', 'ms');
-  $query->condition('ms.source', $source_parent->source);
-  $query->fields('ms', array('ms_id'));
-  $parent_id = $query->execute()->fetchfield();
-  if (!$parent_id) {
-    drupal_write_record('meedan_sources', $source_parent);
-    $parent_id = $source_parent->ms_id;
-  }
-  if (isset($embed->author_name)) {
-    $source_child->source = $embed->author_name;
-    $source_child->source_url = $embed->author_url;
-    $source_child->parent = $parent_id;
-    $query = db_select('meedan_sources', 'ms');
-    $query->condition('ms.source', $source_child->source);
-    $query->condition('ms.parent', $source_child->parent);
-    $query->fields('ms', array('ms_id'));
-    $child_id = $query->execute()->fetchfield();
-    if (!$child_id) {
-      drupal_write_record('meedan_sources', $source_child);
-      $child_id = $source_child->ms_id;
-    }
-  }
-  if ($nid) {
-    //Check if there is a related node because oembed doesn't handle the deleted node.
-    $ms_id = isset($child_id) ? $child_id : $parent_id;
-    db_insert('meedan_sources_media')
-      ->fields(array('nid' => $nid, 'ms_id'  => $ms_id,))
-      ->execute();
-  }
-}
-
-/**
  * Implements hook_field_formatter_info().
  */
 function checkdesk_sources_field_formatter_info() {
@@ -547,9 +496,6 @@ function checkdesk_sources_field_formatter_view($entity_type, $entity, $field, $
  * @return float|string
  */
 function _checkdesk_sources_thousandsNumberFormat($num) {
-  if (!is_int($num)) {
-    return $num;
-  }
   $x = round($num);
   $x_number_format = number_format($x);
   $x_array = explode(',', $x_number_format);
@@ -565,67 +511,98 @@ function _checkdesk_sources_thousandsNumberFormat($num) {
  * Migrate meedan_sources
  */
 function _checkdesk_sources_migrate_meedan_sources() {
-  // Increase a len for group_concat_max_len
-  db_query('SET SESSION group_concat_max_len = 1000000')->execute();
-  $total =db_query('
+  $total = db_query('
 			SELECT COUNT(DISTINCT ms.source_url)
-			FROM {node} n
-			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
-			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id
+			FROM {meedan_sources} ms
 			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)
 		')->fetchField();
+
   echo "Sources count [$total] \n";
 
-  //echo "Create sources iteration #{$sandbox['iteration']} \n";
   $result = db_query('
-			SELECT GROUP_CONCAT(n.nid ORDER BY n.nid) AS nid, GROUP_CONCAT(n.vid ORDER BY n.nid) AS vid, ms.source_url
-			FROM {node} n
-			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
-			INNER JOIN {meedan_sources ms} ON ms.ms_id = msm.ms_id
+			SELECT ms.source_url
+			FROM {meedan_sources} ms
 			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)
 			GROUP BY ms.source_url
 			ORDER BY ms.source_url
 		');
 
-  $default_fields =  array('entity_type' => 'node', 'bundle' => 'media', 'deleted' => 0,'language' => LANGUAGE_NONE, 'delta' => 0);
-  $all_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_source_media_target_id');
+  $created  = 0;
   foreach ($result as $kk => $row) {
-    echo "Source ### $kk of $total  - {$row->source_url} \n";
-    $response = checkdesk_sources_pender_fetch($row->source_url, TRUE);
-    if (!($response->type == 'error' || ($response->type === 'media' && empty($response->data->provider)))) {
-      echo "Create a source {$row->source_url} \n";
+    echo "Source # $kk of $total  - {$row->source_url} \n";
+    $response = checkdesk_sources_pender_fetch($row->source_url);
+    if (!($response->type == 'error' || ($response->type === 'media' && $response->data->type !== 'profile'))) {
       $source = _checkdesk_source_create_new_entity($row->source_url);
       if ($source) {
-        $values = array();
-        // LINK source & reports
-        $nids = explode(',',  $row->nid);
-        $vids = explode(',', $row->vid);
-        foreach ($nids as $k => $v) {
-          $values[] = $default_fields + array('entity_id' => $v, 'revision_id' => $vids[$k] , 'field_source_media_target_id' => $source->nid);
-        }
-        if (count($values)) {
-          db_delete('field_data_field_source_media')
-            ->condition('entity_id', $nids, 'IN')
-            ->execute();
-          db_delete('field_revision_field_source_media')
-            ->condition('entity_id', $nids, 'IN')
-            ->execute();
-          echo "Link source {$source->nid} with medias  {$row->nid} \n";
-          $query = db_insert('field_data_field_source_media')->fields($all_fields);
-          // write a record direct into DB
-          foreach ($values as $record) {
-            $query->values($record);
-          }
-          $query->execute();
-          $query = db_insert('field_revision_field_source_media')->fields($all_fields);
-          // write a record direct into DB
-          foreach ($values as $record) {
-            $query->values($record);
-          }
-          $query->execute();
-        }
+        $created ++;
+        echo "Created a source {$row->source_url} with nid {$source->nid} \n";
       }
     }
   }
   drupal_get_messages();
+  echo "Created $created of $total \n";
+  echo "Linking sources and reports \n";
+  _checkdesk_sources_migrate_meedan_sources_linking();
+}
+
+/**
+ * Linking (source - media ) for migrate meedan_sources
+ */
+function _checkdesk_sources_migrate_meedan_sources_linking() {
+  // Increase a len for group_concat_max_len
+  db_query('SET SESSION group_concat_max_len = 1000000')->execute();
+
+  $result = db_query('
+			SELECT GROUP_CONCAT(n.nid ORDER BY n.nid) AS nid, GROUP_CONCAT(n.vid ORDER BY n.nid) AS vid, ms.source_url
+			FROM {node} n
+			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
+			INNER JOIN {meedan_sources} ms ON ms.ms_id = msm.ms_id
+			WHERE ms.parent IS NOT NULL AND n.nid NOT IN (SELECT entity_id FROM {field_data_field_source_media})
+			GROUP BY ms.source_url
+			ORDER BY ms.source_url
+		');
+
+  $default_fields =  array('entity_type' => 'node', 'bundle' => 'media', 'deleted' => 0,'language' => LANGUAGE_NONE, 'delta' => 0);
+  $values = array();
+  foreach ($result as $kk => $row) {
+    $response = checkdesk_sources_pender_fetch($row->source_url);
+    if (!($response->type == 'error' || ($response->type === 'media' && $response->data->type !== 'profile'))) {
+      $source_nid = _checkdesk_get_source($response->data->url);
+      if ($source_nid) {
+        // LINK source & reports
+        echo "Linking source {$source_nid} with reports [{$row->nid}] \n";
+        $nids = explode(',',  $row->nid);
+        $vids = explode(',', $row->vid);
+        foreach ($nids as $k => $v) {
+          $values[] = $default_fields + array('entity_id' => $v, 'revision_id' => $vids[$k] , 'field_source_media_target_id' => $source_nid);
+        }
+      }
+    }
+  }
+
+  if (count($values)) {
+    $nids = db_query('SELECT nid FROM {meedan_sources_media}')->fetchCol();
+    $all_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_source_media_target_id');
+    // Remove existing nids
+    db_delete('field_data_field_source_media')
+      ->condition('entity_id', $nids, 'IN')
+      ->execute();
+    db_delete('field_revision_field_source_media')
+      ->condition('entity_id', $nids, 'IN')
+      ->execute();
+
+    $query = db_insert('field_data_field_source_media')->fields($all_fields);
+    // write a record direct into DB
+    foreach ($values as $record) {
+      $query->values($record);
+    }
+    $query->execute();
+    $query = db_insert('field_revision_field_source_media')->fields($all_fields);
+    // write a record direct into DB
+    foreach ($values as $record) {
+      $query->values($record);
+    }
+    $query->execute();
+  }
+
 }
