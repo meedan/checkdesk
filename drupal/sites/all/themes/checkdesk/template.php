@@ -876,7 +876,7 @@ function checkdesk_preprocess_node(&$variables) {
 
     if (isset($node->pender->data->favicon)) {
       $source_favicon = '<div class="username-favicon"><img src="' .  $node->pender->data->favicon . '" alt="' . $node->pender->data->provider . '" class="favicon" /></div>';
-      $source_username = '<div class="username-text">' . $node->field_username[LANGUAGE_NONE][0]['value'] . '</div>';
+      $source_username = '<div class="username-text">' . urlencode($node->field_username[LANGUAGE_NONE][0]['value']) . '</div>';
       $variables['username_link'] = l($source_favicon . $source_username, $node->field_source_url[LANGUAGE_NONE][0]['url'] , array('html' => TRUE));
     }
 
