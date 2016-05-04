@@ -884,7 +884,7 @@ function checkdesk_preprocess_node(&$variables) {
     if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
       $variables['media_description'] = check_markup($node->body[LANGUAGE_NONE][0]['value'], 'filtered_html');
     }
-    
+
     // Load report status
     if (!empty($node->field_source_status)) {
       $variables['source_status'] = _checkdesk_sources_status($node);
@@ -908,9 +908,7 @@ function checkdesk_preprocess_node(&$variables) {
       $total_rows = $checkdesk_references->total_rows;
       $checkdesk_references->destroy();
       if ($total_rows) {
-        // set the title for source references
-        // e.g. John Hodgman's reports
-        $variables['source_reference_title'] = t('!source_name&#8217;s reports', array('!source_name' => $node->title));
+        $variables['source_reference_title'] = t('Reports from !source_name', array('!source_name' => $node->title));
         $variables['references'] = $view_output;
       }
     }
