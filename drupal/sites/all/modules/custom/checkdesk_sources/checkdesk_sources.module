@@ -73,6 +73,13 @@ function checkdesk_sources_node_load($nodes, $types) {
  */
 function checkdesk_sources_node_delete($node) {
   if($node->type == 'source') {
+    // Clear cache for user-pender-url
+    if (isset($node->pender->data->user_url)) {
+      $element = pender_render_cache('user_pender_url', $node->pender->data->user_url);
+      $cache_key = implode(':', $element['#cache']['keys']);
+      cache_clear_all($cache_key, $element['#cache']['bin']);
+    }
+    // Clear cache for pender object
     $element = pender_render_cache('pender_request',  $node->field_source_url[LANGUAGE_NONE][0]['url']);
     $cache_key = implode(':', $element['#cache']['keys']);
     cache_clear_all($cache_key, $element['#cache']['bin']);
@@ -148,6 +155,7 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
   $pender = FALSE;
   // Mock a render element for cache keys and expiration. This element will
   // not be rendered.
+  $url = _checkdesk_sources_user_pender_url_cache($url);
   $element = pender_render_cache('pender_request', $url);
   $cache_key = implode(':', $element['#cache']['keys']);
   $cache = cache_get($cache_key, $element['#cache']['bin']);
@@ -167,26 +175,31 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
      watchdog('Pender', 'Error fetching data from %url [@msg].', array('%url' => $url, '@msg' => $pender->data->message));
     }
     else {
+      if ($url !== $pender->data->url) {
+        $pender->data->user_url = $url;
+      }
       // Cache pender response (Pender URL)
-      $pender_cache = array();
       $element = pender_render_cache('pender_request', $pender->data->url);
       $cache_key = implode(':', $element['#cache']['keys']);
-      $pender_cache['type'] = 'pender';
-      $pender_cache['pender'] = $pender;
-      cache_set($cache_key, $pender_cache, $element['#cache']['bin'], $element['#cache']['expire']);
+      cache_set($cache_key, $pender, $element['#cache']['bin'], $element['#cache']['expire']);
       if ($url !== $pender->data->url) {
-        $pender_cache = array();
-        $pender_cache['type'] = 'url';
-        $pender_cache['url'] = $pender->data->url;
-        $pender_cache['pender'] = $pender;
-        // Cache with original URL
-        $element = pender_render_cache('pender_request', $url);
+        $element = pender_render_cache('user_pender_url', $url);
         $cache_key = implode(':', $element['#cache']['keys']);
-        cache_set($cache_key, $pender_cache, $element['#cache']['bin'], $element['#cache']['expire']);
+        cache_set($cache_key, $pender->data->url, $element['#cache']['bin'], $element['#cache']['expire']);
       }
     }
   }
   return $pender;
+}
+
+function _checkdesk_sources_user_pender_url_cache($url) {
+  $element = pender_render_cache('user_pender_url', $url);
+  $cache_key = implode(':', $element['#cache']['keys']);
+  $cache = cache_get($cache_key, $element['#cache']['bin']);
+  if ($cache && isset($cache->data)) {
+    return $cache->data;
+  }
+  return $url;
 }
 
 /**
