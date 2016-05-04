@@ -27,7 +27,7 @@
       line-height: 30px;
     }
   }
-
+  
   figure.element {
     margin-top: 26px;
     margin-bottom: 26px;
@@ -43,6 +43,21 @@
       font-size: 16px;
       line-height: 20px;
       margin-top: 5px;
+    }
+    @include cd-responsive('min-width: #{$width-tablet}') {
+      &.mode-embed-align-first,
+      &.mode-embed-align-last {
+        margin-top: 0;
+        max-width: 35%;
+      }
+      &.mode-embed-align-first {
+        float: $alpha;
+        margin-#{$omega}: 26px;
+      }
+      &.mode-embed-align-last {
+        float: $omega;
+        margin-#{$alpha}: 26px;
+      }
     }
     a { word-wrap: break-word; }
   }

@@ -10,3 +10,14 @@ $databases['default']['default'] = array(
   'charset'  => 'utf8mb4',
   'collation' => 'utf8mb4_general_ci',
 );
+
+$databases['test']['default'] = array(
+  'driver'   => 'mysql',
+  'database' => 'checkdesk_tests',
+  'username' => 'checkdesk',
+  'password' => '',
+  'host'     => 'localhost',
+  'prefix'   => '',
+  'charset'  => 'utf8mb4',
+  'collation' => 'utf8mb4_general_ci',
+);

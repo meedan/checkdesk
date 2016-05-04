@@ -32,13 +32,25 @@
     }
   };
 
-  // text expander for report description
+  // text expander for report description and source bios
   Drupal.behaviors.textExpander = {
     attach: function(context) {
+      // text expander for report descriptions
       $('span.expandable').expander({
         slicePoint: 120,
         expandPrefix: ' ',
-        expandText: 'Show more&hellip;',
+        expandText: Drupal.t('Show more&hellip;'),
+        expandEffect: 'fadeIn',
+        expandSpeed: 300,
+        moreClass: 'show-more',
+        userCollapse: false,
+        preserveWords: true,
+      });
+      // text expander for source bios
+      $('span.expandable2x').expander({
+        slicePoint: 300,
+        expandPrefix: ' ',
+        expandText: Drupal.t('Show more&hellip;'),
         expandEffect: 'fadeIn',
         expandSpeed: 300,
         moreClass: 'show-more',
@@ -48,10 +60,13 @@
     }
   };
 
+  
+
+
   Drupal.behaviors.story = {
     attach: function (context, settings) {
       // Show nested activity
-      $('.node-media .item-nested-content-wrapper > .item-controls > .meta').unbind('click').click(function(event) {
+      $('.item-nested-content-wrapper > .item-controls > .meta').unbind('click').click(function(event) {
         var target = $(this).parent(),
             element = target.parent();
         if (element.find('.item-nested-content').is(':visible')) {

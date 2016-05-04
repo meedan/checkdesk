@@ -460,6 +460,13 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'fboauth_popup';
+  $strongarm->value = 0;
+  $export['fboauth_popup'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'fboauth_user_connections';
   $strongarm->value = array(
     0 => 'posts',
@@ -2005,7 +2012,10 @@ password: Your password
   $strongarm->name = 'uuid_features_entity_taxonomy_term';
   $strongarm->value = array(
     'media_rating' => 'media_rating',
+    'source_status' => 'source_status',
     'tags' => 0,
+    'sections' => 0,
+    'source_tags' => 0,
   );
   $export['uuid_features_entity_taxonomy_term'] = $strongarm;
 
@@ -2034,7 +2044,7 @@ password: Your password
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'varnish_cache_clear';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['varnish_cache_clear'] = $strongarm;
 
   $strongarm = new stdClass();

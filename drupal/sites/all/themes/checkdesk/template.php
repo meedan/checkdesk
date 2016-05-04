@@ -32,6 +32,14 @@ function checkdesk_theme() {
 
 function checkdesk_preprocess_field(&$variables, $hook) {
   $element = $variables['element'];
+
+  // Add theme suggestions for field tags in case of sources too
+  if ($element['#object']->type == 'source') {
+    if ($element['#field_name'] == 'field_tags') {
+      $variables['theme_hook_suggestions'][] = 'field__field_tags';
+    }
+  }
+
   // Add a custom tpl for metadata fields
   $metadata_fields = checkdesk_reports_metadata_fields();
   if (in_array($element['#field_name'], $metadata_fields)) {
@@ -59,8 +67,9 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
 
     // Set author name or provider name
-    if (isset($embed->author_url) && isset($embed->author_name)) {
-      $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+    if (isset($embed->author_name) && (isset($embed->author_url) || isset($node->field_source_media[LANGUAGE_NONE][0]['target_id']))) {
+      $variables['author_name'] =  isset($node->field_source_media[LANGUAGE_NONE][0]['target_id']) ? l($embed->author_name, 'node/'. $node->field_source_media[LANGUAGE_NONE][0]['target_id'])
+        : l($embed->author_name, $embed->author_url);
     }
     elseif (isset($embed->original_url) && isset($embed->provider_name)) {
       $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
@@ -100,6 +109,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
         $variables['report_status'] = _checkdesk_report_status($node);
       }
     }
+
     // Inline thumbnail
     if ($element['#formatter'] == 'meedan_inline_thumbnail') {
       $variables['inline_thumbnail'] = _meedan_inline_thumbnail_bg($node, array('inline-img-thumb'));
@@ -861,14 +871,52 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['field_link_lazy_load'] = $field_link_rendered;
     }
   }
+
+  if ($variables['type'] == 'source') {
+    if (isset($node->pender->data->favicon)) {
+      $source_favicon = '<div class="username-favicon"><img src="' .  $node->pender->data->favicon . '" alt="' . $node->pender->data->provider . '" class="favicon" /></div>';
+      $source_username = '<div class="username-text">' . urldecode($node->field_username[LANGUAGE_NONE][0]['value']) . '</div>';
+      $variables['username_link'] = l($source_favicon . $source_username, $node->field_source_url[LANGUAGE_NONE][0]['url'] , array('html' => TRUE));
+    }
+
+    // Media description
+    if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
+      $variables['media_description'] = check_markup($node->body[LANGUAGE_NONE][0]['value'], 'filtered_html');
+    }
+
+    // Load report status
+    if (!empty($node->field_source_status)) {
+      $variables['source_status'] = _checkdesk_sources_status($node);
+    }
+
+    $variables['source_activity'] = theme(
+      'checkdesk_sources_source_activity', array(
+        'node' => $node,
+        'content' => $variables['content'],
+        'view_mode' => $variables['view_mode']
+      )
+    );
+    $variables['source_metadata'] = _checkdesk_source_metadata_fields($node->pender->data->provider);
+
+    // set references
+    if ($variables['view_mode'] == 'full') {
+      $checkdesk_references = views_get_view('checkdesk_references');
+      $checkdesk_references->set_arguments(array($node->nid));
+      $checkdesk_references->get_total_rows = TRUE;
+      $view_output = $checkdesk_references->preview('block');
+      $total_rows = $checkdesk_references->total_rows;
+      $checkdesk_references->destroy();
+      if ($total_rows) {
+        $variables['source_reference_title'] = t('Reports from !source_name', array('!source_name' => $node->title));
+        $variables['references'] = $view_output;
+      }
+    }
+  }
+
 }
 
 function checkdesk_links__node($variables) {
   $links = $variables['links'];
-
-  $attributes = $variables['attributes'];
-  $heading = $variables['heading'];
-
   $class[] = 'content-actions';
 
   // get $alpha and $omega
@@ -884,41 +932,28 @@ function checkdesk_links__node($variables) {
   ctools_add_js('checkdesk_core', 'checkdesk_core');
   if (arg(0) != 'embed' && count($links) > 0) {
     $output = '<div' . drupal_attributes(array('class' => $class)) . '>';
+    // Add drag and drop icon
+    if (isset($links['cd_drag'])) {
+      $output .= $links['cd_drag'];
+    }
     // Add share links
     $options = array('links' => $links, 'direction' => $links['dropdown-direction'],
         'type' => 'checkdesk-share', 'wrapper_class' => 'share-on', 'icon_class' => 'icon-share');
     $output .= theme('checkdesk_core_render_links', array('options' => $options));
 
-    if (isset($links['flag-spam'])) {
-      $links['flag-spam']['cd_group'] = 'checkdesk-flag';
-    }
-    if (isset($links['flag-graphic'])) {
-      $links['flag-graphic']['cd_group'] = 'checkdesk-flag';
-    }
-    if (isset($links['flag-factcheck'])) {
-      $links['flag-factcheck']['cd_group'] = 'checkdesk-flag';
-    }
-    if (isset($links['flag-delete'])) {
-      $links['flag-delete']['cd_group'] = 'checkdesk-flag';
+    // Set cd_group for report flags
+    $report_flags = array('flag-spam', 'flag-graphic', 'flag-factcheck', 'flag-delete');
+    foreach($report_flags as $flag) {
+      if (isset($links[$flag])) {
+        $links[$flag]['cd_group'] = 'checkdesk-flag';
+      }
     }
     // add flag links
     $options = array('links' => $links, 'direction' => $layout['omega'],
         'type' => 'checkdesk-flag', 'wrapper_class' => 'flag-as', 'icon_class' => 'icon-flag-o');
     $output .= theme('checkdesk_core_render_links', array('options' => $options));
 
-    if (isset($links['checkdesk-suggest'])) {
-      $links['checkdesk-suggest']['cd_group'] = 'checkdesk-ellipsis';
-      $links['checkdesk-suggest']['link_type'] = 'modal';
-      $links['checkdesk-suggest']['modal_class'] = 'ctools-modal-modal-popup-medium';
-    }
-    if (isset($links['checkdesk-edit'])) {
-      $links['checkdesk-edit']['cd_group'] = 'checkdesk-ellipsis';
-      $links['checkdesk-edit']['link_type'] = 'link';
-    }
-    if (isset($links['checkdesk-delete'])) {
-      $links['checkdesk-delete']['cd_group'] = 'checkdesk-ellipsis';
-      $links['checkdesk-delete']['link_type'] = 'link';
-    }
+
     if (isset($links['flag-factcheck_journalist'])) {
       $links['flag-factcheck_journalist']['cd_group'] = 'checkdesk-ellipsis';
     }
@@ -1424,20 +1459,6 @@ function checkdesk_preprocess_views_view__recent_stories_by_tag(&$vars) {
  */
 function checkdesk_preprocess_views_view_fields(&$vars) {
   global $user;
-
-  if (in_array($vars['view']->name, array('desk_reports'))) {
-    $report_nid = $vars['fields']['nid']->raw;
-    $vars['name_i18n'] = isset($vars['fields']['field_rating']->content) ? t($vars['fields']['field_rating']->content) : NULL;
-
-    if ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) && checkdesk_core_report_published_on_update($report_nid)) {
-      $vars['report_published'] = t('Published on update');
-    } else {
-      $vars['report_published'] = FALSE;
-    }
-    // Get embed type
-    $vars['media_type_class'] = checkdesk_oembed_embed_class_type($report_nid);
-  }
-
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
     $vars['update_id'] = $vars['fields']['nid']->raw;

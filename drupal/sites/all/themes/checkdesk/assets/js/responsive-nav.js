@@ -1,8 +1,8 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
-	'use strict';
+  'use strict';
 
-	// frontpage swap header logos and hide header on page scroll
+  // frontpage swap header logos and hide header on page scroll
   Drupal.behaviors.responsiveNav = {
     attach: function(context) {
       if($('.nav-collapse').length) {
@@ -59,6 +59,7 @@
           $('.btn-sign-in-up').text(Drupal.t('Sign in')).addClass('btn-sm');
           // make avatar small
           $('#my-account-link .avatar-menu').removeClass('thumb-40').addClass('thumb-38');
+          $("#utility-menu").addClass("js dropdown-menu");
         },
         exit: function() {
           // Restore sign in / sign up button size and copy
@@ -70,6 +71,8 @@
           $('.metabar').css('position', '');
           // close responsive nav
           if (typeof nav != 'undefined') {nav.close();}
+
+          $("#utility-menu").removeClass("js dropdown-menu");
         }
       });
 
@@ -83,14 +86,14 @@
         media: '(max-width: 740px)',
         entry: function() {
           // Show filters toggle button
-          $('.content-filter .filters-toggle').removeClass('element-hidden');
+          $('.page-search .content-filter .filters-toggle').removeClass('element-hidden');
           // By default collapse all filters
-          $('.content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').hide();
+          $('.page-search .content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').hide();
         },
         exit: function() {
-         $('.content-filter .filters-toggle').addClass('element-hidden');
+         $('.page-search .content-filter .filters-toggle').addClass('element-hidden');
          // Show filters
-          $('.content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').show();
+          $('.page-search .content-filter .filters-toggle').parent().find('.filter-list').children().not('#edit-keys-wrapper').show();
         }
       });
 

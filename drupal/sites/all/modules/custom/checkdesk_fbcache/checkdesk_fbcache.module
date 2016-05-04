@@ -1,0 +1,44 @@
+<?php
+/**
+ * Implements hook_node_update();
+ */
+function checkdesk_fbcache_node_update($node) {
+  $url = url('node/' . $node->nid, array('absolute' => TRUE));
+  if (!module_exists('varnish')) { // if Varnish does not exist we can scrape the URL now
+    checkdesk_fbcache_scrape($url);
+  }
+}
+
+/**
+ * Scrape a bulk of URLs on Facebook
+ */
+function checkdesk_fbcache_bulk_scrape($hostname, $paths) {
+  $base_path = base_path();
+  while (!empty($paths)) {
+    $url = "http://" . $hostname . $base_path . array_shift($paths);
+    checkdesk_fbcache_scrape($url);
+  }
+}
+
+/**
+ * Scrape Facebook version of a URL
+ * Async POST to Facebook URL scraper
+ */
+function checkdesk_fbcache_scrape($url) {
+  $fboauth_id = variable_get('fboauth_id', NULL);
+  $fboauth_secret = variable_get('fboauth_secret', NULL);
+  $host = 'https://graph.facebook.com';
+  $ch = curl_init($host);
+  $fields = array(
+    'id' => $url,
+    'scrape' => 'true',
+    'access_token' => $fboauth_id . '|' . $fboauth_secret,
+  );
+  curl_setopt($ch, CURLOPT_POST, 1);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  $response = curl_exec($ch);
+  watchdog('fbcache', 'Scraped ' . $url . ' with response ' . $response);
+  curl_close($ch);
+}

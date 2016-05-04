@@ -25,6 +25,7 @@ function checkdesk_photos_feature_user_default_permissions() {
   $permissions['create files'] = array(
     'name' => 'create files',
     'roles' => array(
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'file_entity',
@@ -74,6 +75,15 @@ function checkdesk_photos_feature_user_default_permissions() {
     'name' => 'edit own image files',
     'roles' => array(),
     'module' => 'file_entity',
+  );
+
+  // Exported permission: 'upload files directly to the system'.
+  $permissions['upload files directly to the system'] = array(
+    'name' => 'upload files directly to the system',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'checkdesk_media',
   );
 
   // Exported permission: 'use media wysiwyg'.

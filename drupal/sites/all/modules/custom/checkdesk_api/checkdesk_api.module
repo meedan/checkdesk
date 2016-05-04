@@ -1,0 +1,233 @@
+<?php
+
+/**
+ * Implementation of hook_menu().
+ */
+function checkdesk_api_menu() {
+  return array(
+    'checkdesk-api/docs/%' => array(
+      'title' => 'Checkdesk API Explorer: JSON Docs',
+      'page callback' => 'checkdesk_api_docs_json',
+      'page arguments' => array(2),
+      'access arguments' => array('administer site configuration'),
+      'type' => MENU_CALLBACK,
+    ),
+    'checkdesk-api/ui' => array(
+      'title' => 'Checkdesk API Explorer',
+      'page callback' => 'checkdesk_api_ui',
+      'access arguments' => array('administer site configuration'),
+      'type' => MENU_CALLBACK,
+    ),
+  );
+}
+
+function checkdesk_api_ui() {
+  print theme('swagger-ui', array('base' => '/' . drupal_get_path('module', 'checkdesk_api')));
+  return NULL;
+};
+
+function checkdesk_api_docs_json($doc = 'api') {
+  $docs = array('api', 'reports', 'stories', 'user', 'sources');
+  $contents = '';
+  if (in_array($doc, $docs)) {
+    $contents = file_get_contents(drupal_get_path('module', 'checkdesk_api') . '/json/' . $doc . '.json');
+  }
+  drupal_add_http_header('Content-Type', 'application/json');
+  print $contents;
+  return NULL;
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function checkdesk_api_theme($existing, $type, $theme, $path) {
+  return array(
+    'swagger-ui' => array(
+      'template' => 'swagger-ui',
+      'variables' => array(
+        'base' => NULL,
+      ),
+    ),
+ );
+}
+
+/**
+ * Implements hook_services_resources().
+ */
+function checkdesk_api_services_resources() {
+    $resources = array();
+    $resources['stories'] = array(
+        'operations' => array(
+            'index' => array(
+                'help' => t('List all stories api/stories'),
+                'file' => array(
+                    'type' => 'inc',
+                    'module' => 'checkdesk_api',
+                    'name' => 'resources/stories_resource',
+                ),
+                'callback' => '_stories_resource_index',
+                'access callback' => '_checkdesk_api_access',
+            ),
+        ),
+    );
+    $resources['reports'] = array(
+        'operations' => array(
+            'retrieve' => array(
+                'help' => 'Retrieve a report',
+                'file' => array(
+                    'type' => 'inc',
+                    'module' => 'checkdesk_api',
+                    'name' => 'resources/reports_resource',
+                ),
+                'callback' => '_reports_resource_retrieve',
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'optional' => FALSE,
+                        'source' => array('path' => 0),
+                        'type' => 'int',
+                        'description' => 'The id of the report to retrieve',
+                    ),
+                ),
+                'access callback' => 'user_access',
+                'access arguments' => array('access content'),
+            ),
+            'create' => array(
+                'help' => 'Create a report',
+                'file' => array(
+                    'type' => 'inc',
+                    'module' => 'checkdesk_api',
+                    'name' => 'resources/reports_resource',
+                ),
+                'callback' => '_reports_resource_create',
+                'args' => array(
+                    array(
+                        'name' => 'report',
+                        'optional' => FALSE,
+                        'source' => 'data',
+                        'description' => 'The report data to create',
+                        'type' => 'array',
+                    ),
+                ),
+                'access callback' => 'node_access',
+                'access arguments' => array('create', 'media'),
+            ),
+            'index' => array(
+                'help' => t('List all reports api/reports'),
+                'file' => array(
+                    'type' => 'inc',
+                    'module' => 'checkdesk_api',
+                    'name' => 'resources/reports_resource',
+                ),
+                'callback' => '_reports_resource_index',
+                'access callback' => '_checkdesk_api_access',
+            ),
+        ),
+    );
+
+    $resources['users'] = array(
+        'actions' => array(
+            'login' => array(
+                'help' => t('Login a user for a new session with (checkdesk/fb/twitter) api/users/login/:provider'),
+                'file' => array(
+                    'type' => 'inc',
+                    'module' => 'checkdesk_api',
+                    'name' => 'resources/user_resource',
+                ),
+                'callback' => '_checkdesk_api_user_resource_login',
+                'access callback' => '_checkdesk_api_access',
+                'args' => array(
+                    array(
+                        'name' => 'provider',
+                        'optional' => FALSE,
+                        'source' => array('path' => '1'),
+                        'type' => 'string',
+                        'description' => 'The Provider can be "facebook", "twitter" or "checkdesk"',
+                    ),
+                    array(
+                        'name' => 'parameters',
+                        'optional' => FALSE,
+                        'source' => 'data',
+                        'description' => 'The parameters for each login method',
+                        'type' => 'array',
+                    ),
+                ),
+            )
+        )
+    );
+
+  $resources['sources'] = array(
+    'operations' => array(
+      'retrieve' => array(
+        'help' => 'Retrieve a source',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'checkdesk_api',
+          'name' => 'resources/sources_resource',
+        ),
+        'callback' => '_sources_resource_retrieve',
+        'args' => array(
+          array(
+            'name' => 'id',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The id of the source to retrieve',
+          ),
+        ),
+        'access callback' => 'user_access',
+        'access arguments' => array('access content'),
+      ),
+      'create' => array(
+        'help' => 'Create a source',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'checkdesk_api',
+          'name' => 'resources/sources_resource',
+        ),
+        'callback' => '_sources_resource_create',
+        'args' => array(
+          array(
+            'name' => 'source',
+            'optional' => FALSE,
+            'source' => 'data',
+            'description' => 'The source data to create',
+            'type' => 'array',
+          ),
+        ),
+        'access callback' => 'node_access',
+        'access arguments' => array('create', 'source'),
+      ),
+      'index' => array(
+        'help' => t('List all sources api/sources'),
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'checkdesk_api',
+          'name' => 'resources/sources_resource',
+        ),
+        'callback' => '_sources_resource_index',
+        'access callback' => '_checkdesk_api_access',
+      ),
+    ),
+  );
+
+  return $resources;
+}
+
+function _checkdesk_api_access() {
+    return TRUE;
+}
+
+/**
+ * @param string $msg
+ * @param int $code
+ */
+function _checkdesk_api_error($msg, $code) {
+    drupal_add_http_header('status', $code);
+    return array(
+        'type' => 'error',
+        'data' => array(
+            'message' => $msg,
+        ),
+    );
+}

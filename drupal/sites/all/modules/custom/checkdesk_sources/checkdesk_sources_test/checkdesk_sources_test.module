@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * Implementation of hook_menu().
+ */
+function checkdesk_sources_test_menu() {
+  $items = array();
+
+  $items['api/media'] = array(
+    'title' => 'Mocking Pender request',
+    'page callback' => 'checkdesk_sources_test_mocking_pender',
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+
+function checkdesk_sources_test_mocking_pender() {
+  $url = $_GET['url'];
+  $output = array(
+    "type" => "media",
+    "data" => array (
+      "url" => "https://www.youtube.com/user/MeedanTube",
+      "provider" => "youtube",
+      "type" => "profile",
+      "title" => "MeedanTube",
+      "description" => "",
+      "published_at" => "2009-03-06T00:44:31.000Z",
+      "thumbnail_url" => "https://yt3.ggpht.com/-MPd3Hrn0msk/AAAAAAAAAAI/AAAAAAAAAAA/I1ftnn68v8U/s88-c-k-no/photo.jpg",
+      "view_count" => 29122,
+      "subscriber_count" => 137,
+      "comment_count" => 7,
+    ),
+  );
+  return json_encode($output);
+}

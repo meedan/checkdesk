@@ -392,7 +392,7 @@ function theme_media_widget($variables) {
   $output = '';
 
   // The "form-media" class is required for proper Ajax functionality.
-  $output .= '<div id="' . $element['#id'] . '" class="media-widget form-media clearfix">';
+  $output .= '<div class="media-widget form-media clearfix">';
   $output .= drupal_render_children($element);
   $output .= '</div>';
 

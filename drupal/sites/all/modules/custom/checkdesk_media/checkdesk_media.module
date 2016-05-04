@@ -1,12 +1,58 @@
 <?php
 
 /**
+ * Implements hook_permission();
+ */
+function checkdesk_media_permission() {
+  return array(
+    'upload files directly to the system' => array(
+      'title' => t('Upload files directly to the system'),
+      'description' => t('User can upload files directly to Drupal by visiting file/add. Requires "File Entity: Add and upload new files" permission as well. Without this permission a user can only upload files through media browser.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu_alter();
+ */
+function checkdesk_media_menu_alter(&$items) {
+  $items['file/add']['access arguments'][] = $items['file/add']['access callback'];
+  $items['file/add']['access callback'] = 'checkdesk_media_fileupload_access';
+}
+
+/**
+ * Access callback to allow direct file upload to the system
+ */
+function checkdesk_media_fileupload_access($parm) {
+  $args = func_get_args();
+  $access_callback = array_pop($args);
+  if (is_null($access_callback)) {
+    $access_callback = 'user_access';
+  }
+  $original_access = call_user_func_array($access_callback, $args);
+  if (!$original_access) {
+    return FALSE; // Return FALSE if user does not originally have permission to add files
+  }
+  return user_access('upload files directly to the system');
+}
+
+/**
  * Implements hook_entity_info_alter();
  */
 function checkdesk_media_entity_info_alter(&$entity_info) {
-  $entity_info['file']['view modes']['embed'] = array(
-  'label' => t('Embed'),
-  'custom settings' => TRUE,
+  $entity_info['file']['view modes'] = array(
+    'embed' => array(
+      'label' => t('Centered'),
+      'custom settings' => TRUE,
+    ),
+    'embed-align-first' => array(
+      'label' => t('Align First'),
+      'custom settings' => TRUE,
+    ),
+    'embed-align-last' => array(
+      'label' => t('Align Last'),
+      'custom settings' => TRUE,
+    ),
   );
 }
 
@@ -14,12 +60,12 @@ function checkdesk_media_entity_info_alter(&$entity_info) {
  * Implements hook_wysiwyg_editor_settings_alter();
  */
 function checkdesk_media_wysiwyg_editor_settings_alter(&$settings, &$context) {
-  if($context['profile']->editor == 'ckeditor') {
+  if ($context['profile']->editor == 'ckeditor') {
     $settings['extraAllowedContent'] = 'img(*)[*]'; // enable img tag in CKEditor
     $settings['removePlugins'] = 'image';           // disable image properties dialog
   }
   // Set height for caption and credit fields
-  if($context['profile']->format == 'captions') {
+  if ($context['profile']->format == 'captions') {
     $settings['height'] = 100;
   }
 }
@@ -30,11 +76,8 @@ function checkdesk_media_wysiwyg_editor_settings_alter(&$settings, &$context) {
 // function checkdesk_media_form_media_wysiwyg_format_form_alter(&$form, &$form_state) {
 //   // drupal_add_css('.form-item-format {display: none;}', array('type' => 'inline')); // hide image view mode selection form item
 // }
-
-
 // function checkdesk_media_media_browser_plugins_alter(&$plugin_output) {
 //   // dsm($plugin_output);
-  
 // }
 
 /**
@@ -46,21 +89,19 @@ function checkdesk_media_preprocess_media_dialog_page(&$variables) {
   drupal_add_js(array('basePathCheckdeskTheme' => $variables['basePathCheckdeskTheme']), 'setting');
 
   // add some js bits
-    drupal_add_js(
-      drupal_get_path('theme', 'checkdesk') . '/assets/js/media.js',
-      array(
-        'scope' => 'footer',
-        'group' => JS_THEME,
-        'weight' => '9990',
-        'every_page' => FALSE,
-      )
-    );
+  drupal_add_js(
+    drupal_get_path('theme', 'checkdesk') . '/assets/js/media.js', array(
+      'scope' => 'footer',
+      'group' => JS_THEME,
+      'weight' => '9990',
+      'every_page' => FALSE,
+    )
+  );
 
   // Add css files for media browser
   // Media CSS to override the css supplied by the module
   drupal_add_css(
-    drupal_get_path('theme', 'checkdesk') . '/assets/css/components/media.css',
-    array(
+    drupal_get_path('theme', 'checkdesk') . '/assets/css/components/media.css', array(
       'scope' => 'footer',
       'group' => CSS_THEME,
       'weight' => '9990',
@@ -70,8 +111,7 @@ function checkdesk_media_preprocess_media_dialog_page(&$variables) {
 
   // Jquery UI dialog
   drupal_add_css(
-    drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/jquery_ui_dialog.css',
-    array(
+    drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/jquery_ui_dialog.css', array(
       'scope' => 'footer',
       'group' => CSS_THEME,
       'weight' => '9991',
@@ -81,17 +121,11 @@ function checkdesk_media_preprocess_media_dialog_page(&$variables) {
 
   // Tabs
   drupal_add_css(
-    drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/jquery_ui_tabs.css',
-    array(
+    drupal_get_path('theme', 'checkdesk') . '/assets/css/replace_drupal/jquery_ui_tabs.css', array(
       'scope' => 'footer',
       'group' => CSS_THEME,
       'weight' => '9992',
       'every_page' => FALSE,
     )
   );
-
-  
-
-
-
 }

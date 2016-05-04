@@ -1,0 +1,136 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "/api/",
+  "resourcePath": "users",
+  "apis": [
+    {
+      "path": "users/login/checkdesk",
+      "tags": "Users",
+      "operations": [
+        {
+          "summary": "User login",
+          "notes": "Login a user for a new session with (checkdesk/fb/twitter) api/users/login/:provider",
+          "consumes": [
+             "application/x-www-form-urlencoded"
+          ],
+          "parameters": [
+            {
+              "paramType": "form",
+              "name": "username",
+              "type": "string",
+              "description": "Username, the same one used to login to Checkdesk",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "password",
+              "type": "string",
+              "description": "Password, the same one used to login to Checkdesk",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": {
+                "type": "user",
+                "data": {
+                  "provider": "provider name",
+                  "uid": "<UID>",
+                  "url": "URL",
+                  "sessid" : "session id",
+                  "session_name" : "session name",
+                  "token" : "token",
+                  "user" : "user object"
+                }
+              },
+              "message": "Success! Returns the user object"
+            },
+            {
+              "code": 406,
+              "message": "Already logged in user"
+            },
+            {
+              "code": 400,
+              "message": "Parameters missing (depend on provider)"
+            },
+            {
+              "code": 401,
+              "message": "The username %name has not been activated or is blocked."
+            },
+            {
+              "code": 401,
+              "message": "Error: no Drupal account was found for the specified Facebook user"
+            },
+            {
+              "code": 401,
+              "message": "Wrong username or password."
+            }
+          ],
+          "nickname": "Api::V1::Users#login",
+          "method": "POST"
+        }
+      ]
+    },
+    {
+      "path": "users/login/facebook",
+      "tags": "Users",
+      "operations": [
+        {
+          "summary": "User login",
+          "notes": "Login a user for a new session with (checkdesk/fb/twitter) api/users/login/:provider",
+          "consumes": [
+            "application/x-www-form-urlencoded"
+          ],
+          "parameters": [
+            {
+              "paramType": "form",
+              "name": "access_token",
+              "type": "string",
+              "description": "Facebook access token",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": {
+                "type": "user",
+                "data": {
+                  "provider": "provider name",
+                  "uid": "<UID>",
+                  "url": "URL",
+                  "sessid" : "session id",
+                  "session_name" : "session name",
+                  "token" : "token",
+                  "user" : "user object"
+                }
+              },
+              "message": "Success! Returns the user object"
+            },
+            {
+              "code": 406,
+              "message": "Already logged in user"
+            },
+            {
+              "code": 400,
+              "message": "Parameters missing (depend on provider)"
+            },
+            {
+              "code": 401,
+              "message": "The username %name has not been activated or is blocked."
+            },
+            {
+              "code": 401,
+              "message": "Error: no Drupal account was found for the specified Facebook user"
+            }
+          ],
+          "nickname": "Api::V1::Users#login",
+          "method": "POST"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
