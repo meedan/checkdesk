@@ -531,6 +531,10 @@ function _checkdesk_sources_migrate_meedan_sources() {
   foreach ($result as $kk => $row) {
     echo "Source # $kk of $total  - {$row->source_url} \n";
     $response = checkdesk_sources_pender_fetch($row->source_url);
+    // Ticket  #4761: do a slepp in case of API limit reached.
+    if ($response->type == 'error' && $response->data->code == 11) {
+      $response = _checkdesk_fetch_pender_sleep($row->source_url, $response->data->message);
+    }
     if (!($response->type == 'error' || ($response->type === 'media' && $response->data->type !== 'profile'))) {
       $source = _checkdesk_source_create_new_entity($row->source_url);
       if ($source) {
@@ -545,6 +549,17 @@ function _checkdesk_sources_migrate_meedan_sources() {
   _checkdesk_sources_migrate_meedan_sources_linking();
 }
 
+function _checkdesk_fetch_pender_sleep($url, $sleep) {
+  echo "Sleep for $sleep seconds\n";
+  sleep($sleep);
+  $response = checkdesk_sources_pender_fetch($url);
+  if ($response->type == 'error' && $response->data->code == 11) {
+    _checkdesk_fetch_pender_sleep($url, $response->data->message);
+  }
+  else {
+    return $response;
+  }
+}
 /**
  * Linking (source - media ) for migrate meedan_sources
  */
