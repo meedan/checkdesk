@@ -175,7 +175,7 @@ function checkdesk_sources_pender_fetch($url, $force_refresh = FALSE) {
      watchdog('Pender', 'Error fetching data from %url [@msg].', array('%url' => $url, '@msg' => $pender->data->message));
     }
     else {
-      if ($url !== $pender->data->url) {
+      if ($url !== $pender->data->url && isset($pender->data)) {
         $pender->data->user_url = $url;
       }
       // Cache pender response (Pender URL)
@@ -514,7 +514,7 @@ function _checkdesk_sources_migrate_meedan_sources() {
   $total = db_query('
 			SELECT COUNT(DISTINCT ms.source_url)
 			FROM {meedan_sources} ms
-			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)
+			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url WHERE field_source_url_url IS NOT NULL)
 		')->fetchField();
 
   echo "Sources count [$total] \n";
@@ -522,7 +522,7 @@ function _checkdesk_sources_migrate_meedan_sources() {
   $result = db_query('
 			SELECT ms.source_url
 			FROM {meedan_sources} ms
-			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url)
+			WHERE ms.parent IS NOT NULL AND ms.source_url NOT IN (SELECT field_source_url_url FROM field_data_field_source_url WHERE field_source_url_url IS NOT NULL)
 			GROUP BY ms.source_url
 			ORDER BY ms.source_url
 		');
