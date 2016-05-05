@@ -122,6 +122,9 @@ function _checkdesk_get_source($url) {
 }
 
 function _checkdesk_source_create_new_entity($source_url) {
+  if (empty($source_url)) {
+    return FALSE;
+  }
   $response = checkdesk_sources_pender_fetch($source_url);
   if ($response->type == 'error' || ($response->type === 'media' && $response->data->type !== 'profile')) {
     return FALSE;
@@ -529,19 +532,23 @@ function _checkdesk_sources_migrate_meedan_sources() {
 
   $created  = 0;
   foreach ($result as $kk => $row) {
-    echo "Source # $kk of $total  - {$row->source_url} \n";
+    $msg = "Source # $kk of $total  - {$row->source_url} ";
     $response = checkdesk_sources_pender_fetch($row->source_url);
     // Ticket  #4761: do a slepp in case of API limit reached.
     if ($response->type == 'error' && $response->data->code == 11) {
       $response = _checkdesk_fetch_pender_sleep($row->source_url, $response->data->message);
     }
     if (!($response->type == 'error' || ($response->type === 'media' && $response->data->type !== 'profile'))) {
-      $source = _checkdesk_source_create_new_entity($row->source_url);
+      $source = _checkdesk_source_create_new_entity($response->data->url);
       if ($source) {
         $created ++;
-        echo "Created a source {$row->source_url} with nid {$source->nid} \n";
+        $msg .= " [Created with nid {$source->nid}]";
       }
     }
+    else {
+      $msg .=" [Invalid source]";
+    }
+    echo "$msg \n";
   }
   drupal_get_messages();
   echo "Created $created of $total \n";
