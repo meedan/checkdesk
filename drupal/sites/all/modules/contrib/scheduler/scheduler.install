@@ -50,6 +50,7 @@ function scheduler_uninstall() {
   // Keep variables in alphabetic order for easier maintenance and patching.
   $variables = array(
     'scheduler_allow_date_only',
+    'scheduler_cache_clear_all',
     'scheduler_date_format',
     'scheduler_date_only_format',
     'scheduler_default_time',
@@ -104,16 +105,21 @@ function scheduler_update_7100() {
 
   // Grant these roles the 'view scheduled content' permission.
   if ($roles_to_update = $query->execute()->fetchCol()) {
-    $query = db_insert('role_permission');
-    $query->fields(array('rid', 'permission', 'module'));
     foreach ($roles_to_update as $rid ) {
-      $query->values(array(
+      // Use db_merge not db_insert in case the role already has the permission.
+      $query = db_merge('role_permission');
+      $query->key(array(
         'rid' => $rid,
         'permission' => 'view scheduled content',
         'module' => 'scheduler',
       ));
+      $query->fields(array(
+        'rid' => $rid,
+        'permission' => 'view scheduled content',
+        'module' => 'scheduler',
+      ));
+      $query->execute();
     }
-    $query->execute();
   }
 
   return format_plural(sizeof($roles_to_update), '1 role updated with view scheduled content permission.', '@count roles updated with view scheduled content permission.');
@@ -139,4 +145,18 @@ function scheduler_update_7101() {
     db_delete('scheduler')->condition('nid', $nids_to_delete, 'IN')->execute();
   }
   return format_plural(sizeof($nids_to_delete), '1 obsolete row deleted from scheduler table.', '@count obsolete rows deleted from scheduler table.');
+}
+
+/**
+ * Update role_permission table with clean machine name.
+ */
+function scheduler_update_7102() {
+  // Change all values of 'schedule (un)publishing of nodes' to the cleaner
+  // 'schedule publishing of nodes'
+  // @see http://www.drupal.org/node/2538002
+  $rows_updated = db_update('role_permission')
+    ->fields(array('permission' => 'schedule publishing of nodes'))
+    ->condition('permission', 'schedule (un)publishing of nodes', '=') ->execute();
+
+  return format_plural($rows_updated, '1 row updated in role_permission table.', '@count rows updated in role_permission table.');
 }
