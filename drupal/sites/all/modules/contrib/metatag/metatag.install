@@ -1579,8 +1579,13 @@ function metatag_update_7028() {
  * Add an index to the {metatag} table to speed up some queries.
  */
 function metatag_update_7029() {
-  db_add_index('metatag', 'type_revision', array('entity_type', 'revision_id'));
-  drupal_set_message(t('Added an index to the main Metatag table that will hopefully improve performance a little.'));
+  if (!db_index_exists('metatag', 'type_revision')) {
+    db_add_index('metatag', 'type_revision', array('entity_type', 'revision_id'));
+    return t('Added an index to the main Metatag table that will hopefully improve performance a little.');
+  }
+  else {
+    return t('Did not add the index, it already existed.');
+  }
 }
 
 /**
@@ -1783,7 +1788,11 @@ function metatag_update_7040(&$sandbox) {
 
     // Get a list of {metatag} records that have a robots meta tag definition
     // that is not in the correct format.
-    $nodes = db_query("SELECT * FROM {metatag} WHERE data LIKE '%:6:\"robots\";%' AND data NOT LIKE '%:6:\"robots\";a:1:{s:5:\"value\";%'");
+    $nodes = db_select('metatag', 'm')
+      ->fields('m')
+      ->condition('m.data', '%:6:"robots";%', 'LIKE')
+      ->condition('m.data', '%:6:"robots";a:1:{s:5:"value";%', 'NOT LIKE')
+      ->execute();
     $sandbox['records'] = array();
     foreach ($nodes as $record) {
       $sandbox['records'][] = $record;
@@ -2077,7 +2086,7 @@ function metatag_update_7105() {
  * update 7105.
  */
 function metatag_update_7106() {
-  metatag_update_7105();
+  return metatag_update_7105();
 }
 
 /**

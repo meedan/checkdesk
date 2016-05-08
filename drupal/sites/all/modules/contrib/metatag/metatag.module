@@ -132,7 +132,7 @@ function metatag_menu() {
     'weight' => -10,
   );
   $items['admin/config/search/metatags/config/add'] = array(
-    'title' => 'Add a Metatag default',
+    'title' => 'Add default meta tags',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('metatag_config_add_form'),
     'access arguments' => array('administer meta tags'),
@@ -416,6 +416,8 @@ function metatag_config_cache_clear() {
   cache_clear_all('*', 'cache_metatag', TRUE);
   drupal_static_reset('metatag_config_load_with_defaults');
   drupal_static_reset('metatag_entity_supports_metatags');
+  drupal_static_reset('metatag_config_instance_info');
+  drupal_static_reset('metatag_get_info');
   ctools_include('export');
   ctools_export_load_object_reset('metatag_config');
 }
@@ -1866,6 +1868,11 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
     }
   }
   else {
+    $metatags = array();
+  }
+
+  // Certain circumstances can result in $metatags not being an array.
+  if (!is_array($metatags)) {
     $metatags = array();
   }
 

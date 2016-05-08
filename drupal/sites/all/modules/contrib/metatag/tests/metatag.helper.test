@@ -12,6 +12,9 @@ class MetatagTestHelper extends DrupalWebTestCase {
    */
   protected $adminUser;
 
+  /**
+   * {@inheritdoc}
+   */
   function setUp(array $modules = array()) {
     // Make sure these modules are enabled so that we can use their entity
     // types later.

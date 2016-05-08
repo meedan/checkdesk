@@ -51,7 +51,7 @@ function metatag_views_views_preview_info_alter(&$rows, $view) {
   $values = metatag_metatags_values($instance, $metatags, $options);
   foreach ($values as $metatag => $value) {
     $metatag_info = metatag_get_info('tags', $metatag);
-    $values[$metatag] = check_plain($metatag_info['label']) . ': ' . check_plain($value);
+    $values[$metatag] = $metatag_info['label'] . ': ' . check_plain($value);
   }
   if (!empty($values)) {
     $rows['query'][] = array(

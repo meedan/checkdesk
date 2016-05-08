@@ -166,6 +166,9 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     // doesn't end up with a bunch of a-circumflex characters.
     $value = str_replace('&nbsp;', ' ', $value);
 
+    // Decode HTML entities.
+    $value = decode_entities($value);
+
     // Remove any HTML code that might have been included.
     $value = strip_tags($value);
 
@@ -197,8 +200,8 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
 
     $form['value'] += array(
       '#type' => 'textfield',
-      '#title' => t($this->info['label']),
-      '#description' => !empty($this->info['description']) ? t($this->info['description']) : '',
+      '#title' => $this->info['label'],
+      '#description' => !empty($this->info['description']) ? $this->info['description'] : '',
       '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
       '#element_validate' => array('token_element_validate'),
       '#token_types' => $options['token types'],
@@ -432,7 +435,7 @@ class DrupalDateIntervalMetaTag extends DrupalDefaultMetaTag {
   public function getForm(array $options = array()) {
     $form['value'] = array(
       '#type' => 'textfield',
-      '#title' => t('@title interval', array('@title' => $this->info['label'])),
+      '#title' => t('!title interval', array('!title' => $this->info['label'])),
       '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
       '#element_validate' => array('element_validate_integer_positive'),
       '#maxlength' => 4,
@@ -440,7 +443,7 @@ class DrupalDateIntervalMetaTag extends DrupalDefaultMetaTag {
     );
     $form['period'] = array(
       '#type' => 'select',
-      '#title' => t('@title interval type', array('@title' => $this->info['label'])),
+      '#title' => t('!title interval type', array('!title' => $this->info['label'])),
       '#default_value' => isset($this->data['period']) ? $this->data['period'] : '',
       '#options' => array(
         '' => t('- none -'),
