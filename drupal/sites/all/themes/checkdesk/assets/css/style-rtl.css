@@ -5523,6 +5523,50 @@ div.sensitive-hide {
   margin-right: 1px;
 }
 
+#media-node-form .meedan-bookmarklet-loading {
+  background: white url(../imgs/icons/loader_white.gif) left center no-repeat;
+}
+
+#meedan_bookmarklet_preview {
+  color: #6f7a82;
+  margin: 15px 0;
+}
+
+#meedan_bookmarklet_preview_content img {
+  width: auto;
+  clear: both;
+}
+
+#meedan_bookmarklet_preview_content,
+#meedan_bookmarklet_preview_gc {
+  height: auto;
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+}
+
+#meedan_bookmarklet_preview_gc {
+  background: #9fa6ac;
+  color: #3e4c57;
+  padding-top: 85px;
+  height: 345px;
+  max-height: 145px;
+}
+#meedan_bookmarklet_preview_gc span, #meedan_bookmarklet_preview_gc a {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+#meedan_bookmarklet_preview_gc span {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+#meedan_bookmarklet_preview_gc a, #meedan_bookmarklet_preview_gc a:visited, #meedan_bookmarklet_preview_gc a:link, #meedan_bookmarklet_preview_gc a:hover {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
 @media only screen and (min-width: 740px) {
   .update .update-row {
     display: -webkit-box;
