@@ -20,30 +20,31 @@ function checkdesk_sources_feature_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Metadata group',
+    'label' => 'Metadata',
     'weight' => '11',
     'children' => array(
       0 => 'field_source_comments',
-      1 => 'field_source_subscriber',
-      2 => 'field_source_views',
-      3 => 'field_source_likes',
+      1 => 'field_source_likes',
+      2 => 'field_source_subscriber',
+      3 => 'field_source_views',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Metadata',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-source-metadata field-group-fieldset',
         'required_fields' => 1,
         'id' => '',
+        'classes' => 'group-source-metadata field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $field_groups['group_source_metadata|node|source|form'] = $field_group;
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Metadata group');
+  t('Metadata');
 
   return $field_groups;
 }

@@ -2,9 +2,9 @@
   <?php if ($count) : ?>
     <?php if ($link_count): ?>
     	<?php $count = '<span>' . $count . '</span>'; ?>
-      <?php print l($count . ' ' . t('comments'), 'node/'. $nid, array('html' => TRUE, 'attributes' => array('class' => array('count', 'count-footnotes')))); ?>
+      <?php print l($count . ' ' . t('Comments'), 'node/'. $nid, array('html' => TRUE, 'attributes' => array('class' => array('count', 'count-footnotes')))); ?>
     <?php else: ?>
-      <?php print '<span>' . $count . ' ' . t('comments') . '</span>'; ?>
+      <?php print '<span>' . $count . ' ' . t('Comments') . '</span>'; ?>
     <?php endif; ?>
   <?php endif; ?>
 </div>
