@@ -51,11 +51,20 @@ function checkdesk_reports_menu() {
         'file' => 'checkdesk.reports.export.inc',
         'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
     );
+    $items['checkdesk/media-preview'] = array(
+      'page callback' => '_checkdesk_reports_media_preview_callback',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+      'file' => 'checkdesk.media_preview.inc',
+      'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
+    );
     $items['checkdesk/media-widget/%'] = array(
-        'page callback' => '_checkdesk_media_widget_callback',
-        'page arguments' => array(2),
-        'access callback' => TRUE,
-        'type' => MENU_CALLBACK,
+      'page callback' => '_checkdesk_media_widget_callback',
+      'page arguments' => array(2),
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+      'file' => 'checkdesk.media_preview.inc',
+      'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
     );
     return $items;
 }
@@ -69,25 +78,6 @@ function checkdesk_report_load($nid) {
         return $report;
     }
     return FALSE;
-}
-
-/**
- *
- */
-function _checkdesk_media_widget_callback($nid) {
-    $node = node_load($nid);
-    $render = field_view_field('node', $node, 'field_link',
-      array(
-        'type' => 'meedan_oembed_thumbnail',
-        'settings' => array('imagestyle' => 'report_thumbnail'),
-      )
-    );
-    $media_ref = checkdesk_core_droppable_reference($node);
-    $response = array(
-      'preview' => render($render),
-      'media_ref' => $media_ref,
-    );
-    drupal_json_output($response);
 }
 
 /**
@@ -122,6 +112,20 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     // Change field attributes
     $form['body'][LANGUAGE_NONE][0]['#attributes'] = array('placeholder' => t('Add more info or write a description. What\'s the context? Does this link need to be fact-checked? What evidence do you have?'), 'rows' => 3);
 
+    // Check for graphic content
+    $flag = user_access('access graphic journalist flag') ? 'graphic_journalist' : 'graphic';
+    $form['graphic_content'] = array(
+      '#type' => 'checkboxes',
+      '#options' => array($flag => t('Graphic content')),
+      '#weight' => 99,
+    );
+    $form['report_preview'] = array(
+      '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . (isset($preview['preview']) ? $preview['preview'] : '') . '</div></div>',
+    );
+    // Fields order
+    $form['field_link']['#weight'] = -2;
+    $form['report_preview']['#weight'] = 0;
+
     // Load JavaScript for the form
     $form['#after_build'][] = '_checkdesk_reports_after_build';
     // Two buttons: submit and cancel
@@ -130,12 +134,26 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     $form['actions']['submit']['#submit'][] = '_checkdesk_reports_redirect';
     // Hide comment settings
     $form['comment_settings']['#access'] = user_access('access additional settings');
-
+    // Hide sources and provider fields
+    $form['field_source_media']['#access'] = $form['field_provider']['#access'] = FALSE;
+    // attach js file
+    $form['#attached']['js'][] = drupal_get_path('module', 'checkdesk_reports') . '/js/checkdesk_report_form.js';
+    
     if (!isset($form['nid']['#value'])) {
+        // Hide fields on form creation
+        foreach (variable_get('meedan_bookmarklet_hidden_fields', array('title', 'field_rating')) as $field) {
+            $form[$field]['#access'] = FALSE;
+        }
+        //hide description and graphic content
+        $form['#attached']['js'][] = array(
+          'data' => 'jQuery(function() { jQuery("#edit-body, #edit-graphic-content, #edit-field-stories, #edit-field-tags, #checkdesk-group-metadata").hide();});',
+          'type' => 'inline',
+        );
         //set default story if exist.
         if (isset($_GET['ref_nid']) && is_numeric($_GET['ref_nid']) && $_GET['ref_nid']) {
             $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
         }
+        /*
         // Hide all fields on form creation except source url
         $fields = field_info_instances('node', 'media');
         unset($fields['field_link']);
@@ -143,9 +161,9 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
         foreach ($fields as $k => $v) {
             $form[$k]['#access'] = FALSE;
         }
+        */
     }
     else {
-        $form['field_source_media']['#access'] = $form['field_provider']['#access'] = FALSE;
         $node = $form['#node'];
         drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
         $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity(TRUE);
@@ -513,7 +531,15 @@ function checkdesk_reports_node_presave($node) {
  * Set flag for report from bookmarklet.
  */
 function checkdesk_reports_node_insert($node) {
-    if (in_array($node->type, array('post', 'discussion'))) {
+    if ($node->type == 'media' && isset($node->graphic_content) && is_array($node->graphic_content)) {
+        foreach($node->graphic_content as $flag_name => $checked) {
+            if ($checked) {
+                $flag = flag_get_flag($flag_name);
+                $flag->flag('flag', $node->nid);
+            }
+        }
+    }
+    elseif (in_array($node->type, array('post', 'discussion'))) {
         //link report to created update
         if (!empty($node->body)) {
             $story_nid = 0;
