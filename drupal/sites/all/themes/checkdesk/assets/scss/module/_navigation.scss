@@ -187,7 +187,9 @@ svg.logo-icon {
 #header nav {
   svg.create-report-icon {
     top: 8px;
-    #{$alpha}: -1px;
+    @if $from-direction == 'right' {
+      #{$alpha}: -1px;
+    }
     width: 26px;
     height: 32px;
   }
@@ -202,7 +204,7 @@ svg.logo-icon {
   svg.create-story-icon {
     top: 11px;
     @if $from-direction == 'right' {
-      #{$alpha}: -6px;
+      #{$alpha}: -4px;
     }
     width: 28px;
     height: 32px;
@@ -230,7 +232,11 @@ svg.logo-icon {
 
   svg.stories-icon {
     top: 11px;
-    #{$alpha}: 1px;
+    @if $from-direction == 'left' {
+      #{$alpha}: 1px;
+    } @else {
+      #{$alpha}: -10px;
+    }
     width: 34px;
     height: 32px;
   }
@@ -238,7 +244,11 @@ svg.logo-icon {
   svg.sections-icon {
     top: 11px;
     width: 31px;
-    #{$alpha}: -2px;
+    @if $from-direction == 'left' {
+      #{$alpha}: -2px;
+    } @else {
+      #{$alpha}: -4px;
+    }
     height: 27px;
   }
 
