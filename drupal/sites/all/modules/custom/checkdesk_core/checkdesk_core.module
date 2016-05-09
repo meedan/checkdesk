@@ -577,7 +577,9 @@ function _checkdesk_core_node_links($node, $account = NULL) {
               }
             }
             $destination = drupal_lookup_path('source', urldecode($alias), $langcode);
-            if (empty($destination)) $destination = $alias;
+            if (empty($destination)) {
+              $destination = $alias;
+            }
           }
           else {
             $destination = '<front>';
@@ -621,14 +623,18 @@ function _checkdesk_core_node_links($node, $account = NULL) {
 
     if ($node->type == 'discussion') {
       $embed_title = 'Export to CSV';
-      $embed_data = array('nid' => $node->nid, 'title' => $embed_title, 'user' => $user);
+      $embed_data = array(
+        'nid' => $node->nid,
+        'title' => $embed_title,
+        'user' => $user
+      );
     }
-    if ($node->type !== 'source') {
-      $share_links = checkdesk_core_share_links($url, $node->title, $node->type, $embed_data);
-      foreach ($share_links as $id => $link) {
-        $links[$id] = $link;
-      }
+
+    $share_links = checkdesk_core_share_links($url, $node->title, $node->type, $embed_data);
+    foreach ($share_links as $id => $link) {
+      $links[$id] = $link;
     }
+
   }
   return $links;
 }

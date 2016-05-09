@@ -41,19 +41,24 @@ function checkdesk_oembed_tokens($type, $tokens, array $data = array(), array $o
 function checkdesk_oembed__token_image($node) {
 	$image = token_replace('[theme:frontpage_logo_path]', array());
 	switch ($node->type) {
-		case 'discussion': // story
-			if (!empty($node->field_lead_image[LANGUAGE_NONE][0]['uri'])) {
-				$image = token_replace('[node:field_lead_image]', array('node' => $node));
-			}
-			break;
-		case 'media': // report
-			if (!empty($node->embed->thumbnail_url)) {
-				$image = $node->embed->thumbnail_url;
-			}
-			break;
-		case 'post': // update
-			// TODO
-			break;
+	  case 'discussion': // story
+		if (!empty($node->field_lead_image[LANGUAGE_NONE][0]['uri'])) {
+		  $image = token_replace('[node:field_lead_image]', array('node' => $node));
+		}
+		break;
+	  case 'media': // report
+		if (!empty($node->embed->thumbnail_url)) {
+		  $image = $node->embed->thumbnail_url;
+		}
+		break;
+	  case 'post': // update
+		// TODO
+		break;
+	  case 'source':
+		if (!empty($node->field_image[LANGUAGE_NONE][0]['uri'])) {
+		  $image = token_replace('[node:field_image]', array('node' => $node));
+		}
+		break;
 	}
 	return $image;
 }
