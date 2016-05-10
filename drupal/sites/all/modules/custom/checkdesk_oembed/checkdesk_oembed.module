@@ -24,7 +24,7 @@ function checkdesk_oembed_menu() {
  * Menu access callback to limit widget embeds to our node types.
  */
 function checkdesk_oembed_embed_access($node) {
-  $types = variable_get('checkdesk_oembed_embed_types', array('media', 'discussion'));
+  $types = variable_get('checkdesk_oembed_embed_types', array('media', 'discussion', 'source'));
   return $node && in_array($node->type, $types) && node_access('view', $node);
 }
 
@@ -151,8 +151,11 @@ function checkdesk_oembed_provider($provider, $url, $matches) {
  * @return (string) $embed_code
  */
 function checkdesk_oembed_embed_code($nid) {
-  $src = url('embed/' . $nid);
-  return theme('meedan_iframe', array('src' => $src, 'attributes' => array('style' => 'width: 100%;')));
+  $node_url = url('node/'. $nid, array('absolute' => TRUE));
+  $src = url(variable_get('checkdesk_sources_pender_host') . '/api/medias.js', array('external' => TRUE, 'query' => array('url' => $node_url)));
+  return '<script src="' . $src . '"></script>';
+  //$src = url('embed/' . $nid);
+  //return theme('meedan_iframe', array('src' => $src, 'attributes' => array('style' => 'width: 100%;')));
 }
 
 /**

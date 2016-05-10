@@ -615,24 +615,26 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     }
 
     $embed_data = array();
-    if ($node->type == 'media') {
+    if (in_array($node->type, array('media', 'source'))) {
       $embed_title = 'Embed this ';
-      $embed_title .= ($node->type == 'media') ? 'report' : 'story';
+      $embed_title .= ($node->type == 'media') ? 'report' : 'source';
       $embed_data = array('nid' => $node->nid, 'title' => $embed_title);
-    }
-
-    if ($node->type == 'discussion') {
-      $embed_title = 'Export to CSV';
-      $embed_data = array(
-        'nid' => $node->nid,
-        'title' => $embed_title,
-        'user' => $user
-      );
     }
 
     $share_links = checkdesk_core_share_links($url, $node->title, $node->type, $embed_data);
     foreach ($share_links as $id => $link) {
       $links[$id] = $link;
+    }
+
+    // Export option
+    if ($node->type == 'discussion' && user_access('export reports')) {
+      $links['checkdesk-export'] = array(
+        'title' => t('Export to CSV'),
+        'href' => 'reports-export/' . $node->nid,
+        'attributes' => array('title' => $node->title, 'class' => array('export')),
+        'link_type' => 'link',
+        'cd_group' => 'checkdesk-share',
+      );
     }
 
   }
@@ -676,23 +678,8 @@ function checkdesk_core_share_links($url, $title, $type, $embed = array()) {
     'cd_group' => 'checkdesk-share',
   );
 
-
-  // Export option
-  if (isset($embed['nid']) && ($type == 'discussion')) {
-    if (user_access('export reports')) {
-      $links['checkdesk-export'] = array(
-        'title' => t('Export to CSV'),
-        'href' => 'reports-export/'. $embed['nid'],
-        'attributes' => array('title' => $title, 'class' => array('export')),
-        'link_type' => 'link',
-        'cd_group' => 'checkdesk-share',
-      );
-    }
-  }
-
-
   // show embed if nid has a value
-  if (isset($embed['nid']) && ($type == 'media')) {
+  if (isset($embed['nid'])) {
     if (!isset($embed['title'])) {
       $embed['title'] = 'Embed this report';
     }
