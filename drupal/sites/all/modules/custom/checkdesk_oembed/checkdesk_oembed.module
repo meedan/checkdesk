@@ -129,9 +129,9 @@ function checkdesk_oembed_provider($provider, $url, $matches) {
 
   $languages = language_list();
   $language = $languages[$node->language];
-
+  $node_url = url('node/'. $node->nid, array('absolute' => TRUE));
   $result = _oembedprovider_result('rich', array(
-    'html' => checkdesk_oembed_embed_code($node->nid),
+    'html' => $node_url,//checkdesk_oembed_embed_code($node->nid),
     'width' => 0,
     'height' => 0,
     'title' => $node->title,
