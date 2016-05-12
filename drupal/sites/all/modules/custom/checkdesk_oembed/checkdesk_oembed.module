@@ -127,11 +127,8 @@ function checkdesk_oembed_provider($provider, $url, $matches) {
 
   $author = user_load($node->uid);
 
-  $languages = language_list();
-  $language = $languages[$node->language];
-  $node_url = url('node/'. $node->nid, array('absolute' => TRUE));
   $result = _oembedprovider_result('rich', array(
-    'html' => $node_url,//checkdesk_oembed_embed_code($node->nid),
+    'html' => checkdesk_oembed_embed_code($node->nid),
     'width' => 0,
     'height' => 0,
     'title' => $node->title,
@@ -151,11 +148,20 @@ function checkdesk_oembed_provider($provider, $url, $matches) {
  * @return (string) $embed_code
  */
 function checkdesk_oembed_embed_code($nid) {
+  $src = url('embed/' . $nid);
+  return theme('meedan_iframe', array('src' => $src, 'attributes' => array('style' => 'width: 100%;')));
+}
+
+/**
+ * Returns the embed code for a node [Pender].
+ *
+ * @param  (int) $nid
+ * @return (string) $embed_code
+ */
+function checkdesk_oembed_embed_pender_code($nid) {
   $node_url = url('node/'. $nid, array('absolute' => TRUE));
   $src = url(variable_get('checkdesk_sources_pender_host') . '/api/medias.js', array('external' => TRUE, 'query' => array('url' => $node_url)));
   return '<script src="' . $src . '"></script>';
-  //$src = url('embed/' . $nid);
-  //return theme('meedan_iframe', array('src' => $src, 'attributes' => array('style' => 'width: 100%;')));
 }
 
 /**

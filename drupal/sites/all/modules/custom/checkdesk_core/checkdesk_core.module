@@ -685,7 +685,7 @@ function checkdesk_core_share_links($url, $title, $type, $embed = array()) {
     }
     $links['checkdesk-share-embed'] = array(
       'html' => TRUE,
-      'title' => t($embed['title']) . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($embed['nid'])) . '</textarea>',
+      'title' => t($embed['title']) . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_pender_code($embed['nid'])) . '</textarea>',
       'href' => $url,
       'attributes' => array('title' => $title, 'class' => array('embed'), 'onclick' => 'return false;'),
       'link_type' => 'link',
