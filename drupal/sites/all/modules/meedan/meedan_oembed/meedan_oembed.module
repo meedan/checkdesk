@@ -49,6 +49,10 @@ function meedan_oembed_refresh($node) {
     $node->enforce_refresh = TRUE;
     node_save($node);
   }
+  // flush the `cache_oembed` entry for our own node
+  $url =  url('node/' . $node->nid, array('absolute' => TRUE, 'language' => (object) array('language' => FALSE), 'alias' => TRUE));
+  $cid = 'oembed_request:' . hash('sha256', $url);
+  cache_clear_all($cid, 'cache_oembed', TRUE);
   drupal_set_message(t('Refreshed media cache: @cache', array('@cache' => print_r($cache, TRUE))));
   drupal_goto('node/' . $node->nid);
 }
