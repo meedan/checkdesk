@@ -311,17 +311,24 @@ function checkdesk_preprocess_page(&$variables) {
     $variables['theme_hook_suggestions'][] = 'page__embed';
 
     unset($variables['page']['content']['user_alert_user_alert']);
-
-    // add call to action (cta) cd embed footer
-    $variables['cd_embed_footer'] = array(
-      '#type' => 'link',
-      '#title' => '<span class="icon-comments-o"></span> ' . '<span class="cta-text">' . t('Help verify this report') . '</span>',
-      '#href' => url('node/' . $variables['node']->nid, array('absolute' => TRUE)),
-      '#options' => array(
-        'attributes' => array('class' => array('btn', 'btn-primary-alt' , 'btn-sm')),
-        'html' => TRUE,
-      )
-    );
+    if ($variables['node']->type == 'media') {
+      // add call to action (cta) cd embed footer
+      $variables['cd_embed_footer'] = array(
+        '#type' => 'link',
+        '#title' => '<span class="icon-comments-o"></span> ' . '<span class="cta-text">' . t('Help verify this report') . '</span>',
+        '#href' => url('node/' . $variables['node']->nid, array('absolute' => TRUE)),
+        '#options' => array(
+          'attributes' => array(
+            'class' => array(
+              'btn',
+              'btn-primary-alt',
+              'btn-sm'
+            )
+          ),
+          'html' => TRUE,
+        )
+      );
+    }
     // add css for
     drupal_add_css(
       drupal_get_path('theme', 'checkdesk') . '/assets/css/module/cd_embed.css',
