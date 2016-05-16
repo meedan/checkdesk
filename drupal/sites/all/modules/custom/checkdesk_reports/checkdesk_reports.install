@@ -159,14 +159,13 @@ function checkdesk_reports_update_7005() {
 		');
 
   $default_fields =  array('entity_type' => 'node', 'bundle' => 'media', 'deleted' => 0,'language' => LANGUAGE_NONE, 'delta' => 0, 'field_provider_format' => NULL);
-  $all_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_provider_value', 'field_provider_format');
+  $values = array();
+
   foreach ($result as $kk => $row) {
     if (!empty($row->source)) {
-      $values = array();
       // LINK source & reports
       $nids = explode(',', $row->nid);
       $vids = explode(',', $row->vid);
-
       foreach ($nids as $k => $v) {
         $values[] = $default_fields + array(
             'entity_id' => $v,
@@ -174,20 +173,22 @@ function checkdesk_reports_update_7005() {
             'field_provider_value' => $row->source
           );
       }
-      if (count($values)) {
-        $query = db_insert('field_data_field_provider')->fields($all_fields);
-        // write a record direct into DB
-        foreach ($values as $record) {
-          $query->values($record);
-        }
-        $query->execute();
-        $query = db_insert('field_revision_field_provider')->fields($all_fields);
-        // write a record direct into DB
-        foreach ($values as $record) {
-          $query->values($record);
-        }
-        $query->execute();
-      }
     }
+  }
+
+  if (count($values)) {
+    $all_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_provider_value', 'field_provider_format');
+    $query = db_insert('field_data_field_provider')->fields($all_fields);
+    // write a record direct into DB
+    foreach ($values as $record) {
+      $query->values($record);
+    }
+    $query->execute();
+    $query = db_insert('field_revision_field_provider')->fields($all_fields);
+    // write a record direct into DB
+    foreach ($values as $record) {
+      $query->values($record);
+    }
+    $query->execute();
   }
 }
