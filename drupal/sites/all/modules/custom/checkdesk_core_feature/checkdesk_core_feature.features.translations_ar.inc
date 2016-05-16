@@ -4103,6 +4103,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Default sort', array(), array('context' => 'Sort order'));
+  $translations['ar:default']['521dc8c1501f8b09df89191fad70c1d9'] = array(
+    'source' => 'Create source',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'أنشئ مصدر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Create source', array(), array('context' => ''));
   $translations['ar:default']['528d47c4e82bf6c33174ff79e93408fc'] = array(
     'source' => 'RSS description',
     'context' => '',
@@ -13078,6 +13087,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('The number of times a piece of content is flagged by any user.', array(), array('context' => ''));
+  $translations['ar:default']['f741808613fb2ec278ae36e1450127c0'] = array(
+    'source' => 'Embed this source',
+    'context' => '',
+    'location' => '/ar/search?type=source',
+    'translation' => 'ضمّن هذا المصدر على موقعك',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Embed this source', array(), array('context' => ''));
   $translations['ar:default']['f741840fb6f8bf6a54efc82d3b68bb5f'] = array(
     'source' => 'View link',
     'context' => '',
