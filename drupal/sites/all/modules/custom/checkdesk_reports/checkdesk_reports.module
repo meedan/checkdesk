@@ -66,6 +66,22 @@ function checkdesk_reports_menu() {
       'file' => 'checkdesk.media_preview.inc',
       'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
     );
+    $items['admin/reports/checkdesk'] = array(
+      'title' => 'Checkdesk',
+      'description' => t('Checkdesk reports'),
+      'page callback' => 'system_admin_menu_block_page',
+      'access arguments' => array('access administration pages'),
+      'weight' => -60,
+      'file' => 'system.admin.inc',
+      'file path' => drupal_get_path('module', 'system'),
+    );
+    $items['admin/reports/checkdesk/reports-export'] = array(
+      'title' => 'Export all reports as CSV',
+      'page callback' => '_checkdesk_reports_export',
+      'access arguments' => array('export reports'),
+      'file' => 'checkdesk.reports.export.inc',
+      'file path' => drupal_get_path('module', 'checkdesk_reports') . '/includes',
+    );
     return $items;
 }
 

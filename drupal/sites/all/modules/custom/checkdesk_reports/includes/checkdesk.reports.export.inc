@@ -4,9 +4,8 @@
 /**
  *
  */
-function _checkdesk_reports_export($story_nid) {
-  // Set filename
-  $file_name = date('Ymd', time()). '-reports-'. $story_nid . '.csv';
+function _checkdesk_reports_export($story_nid = 0) {
+  set_time_limit(0);
   // Load reports
   $reports = _checkdesk_reports_load_reports_story($story_nid);
   // Get max footnotes count to set header
@@ -45,6 +44,14 @@ function _checkdesk_reports_export($story_nid) {
     $rows[] = $row;
   }
 
+  // Set filename
+  $file_name = date('Ymd', time()). '-reports-';
+  if ($story_nid) {
+    $file_name .=  $story_nid . '.csv';
+  }
+  else {
+    $file_name .= variable_get('site_name', ''). '.csv';
+  }
   // Export CSV file
   // output headers so that the file is downloaded rather than displayed
   header('Content-Type: text/csv; charset=utf-8');
