@@ -160,7 +160,7 @@ function checkdesk_oembed_embed_code($nid) {
  */
 function checkdesk_oembed_embed_pender_code($nid) {
   $node_url = url('node/'. $nid, array('absolute' => TRUE));
-  $src = url(variable_get('checkdesk_sources_pender_host') . '/api/medias.js', array('external' => TRUE, 'query' => array('url' => $node_url)));
+  $src = url(variable_get('checkdesk_sources_pender_public_url') . '/api/medias.js', array('external' => TRUE, 'query' => array('url' => $node_url)));
   return '<script src="' . $src . '"></script>';
 }
 
