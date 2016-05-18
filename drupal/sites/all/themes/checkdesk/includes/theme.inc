@@ -264,9 +264,10 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     // set variables for status report
     $username = $message->variables['!editor'];
     // set icons
-    if ($status_name = $message->variables['!status']) {
-      $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
-      $source_status = '<span class="media-status media-source-status"><span class="status-name ' . $status_class . '">' . t($status_name) . '</span></span>';
+    if ($status_name = $message->variables['!status_org']) {
+      $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));
+      $status_term = taxonomy_get_term_by_name($status_name, 'source_status');
+      $source_status = '<span class="media-status media-source-status"><span class="status-name ' . $status_class . '">' . i18n_taxonomy_term_name(reset($status_term)) . '</span></span>';
     }
     $title = t('changed status to ') . $source_status;
   }

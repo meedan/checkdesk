@@ -23,9 +23,9 @@
             </div>
           <?php endif; ?>
 
-          <?php if(isset($source_status['status'])) : ?>
+          <?php if(isset($source_status)) : ?>
             <div class="media-status media-source-status">
-              <?php print $source_status['status']; ?>
+              <?php print $source_status; ?>
             </div>
           <?php endif; ?>
         </div>

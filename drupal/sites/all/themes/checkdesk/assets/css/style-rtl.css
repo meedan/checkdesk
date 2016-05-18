@@ -3602,7 +3602,7 @@ svg.logo-icon {
 }
 #header nav svg.create-story-icon {
   top: 11px;
-  right: -6px;
+  right: -4px;
   width: 28px;
   height: 32px;
 }
@@ -3625,14 +3625,14 @@ svg.logo-icon {
 }
 #header nav svg.stories-icon {
   top: 11px;
-  right: 1px;
+  right: -10px;
   width: 34px;
   height: 32px;
 }
 #header nav svg.sections-icon {
   top: 11px;
   width: 31px;
-  right: -2px;
+  right: -4px;
   height: 27px;
 }
 #header nav svg.updates-icon {
@@ -5521,6 +5521,50 @@ div.sensitive-hide {
 }
 .report-detail .separator {
   margin-right: 1px;
+}
+
+#media-node-form .meedan-bookmarklet-loading {
+  background: white url(../imgs/icons/loader_white.gif) left center no-repeat;
+}
+
+#meedan_bookmarklet_preview {
+  color: #6f7a82;
+  margin: 15px 0;
+}
+
+#meedan_bookmarklet_preview_content img {
+  width: auto;
+  clear: both;
+}
+
+#meedan_bookmarklet_preview_content,
+#meedan_bookmarklet_preview_gc {
+  height: auto;
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+}
+
+#meedan_bookmarklet_preview_gc {
+  background: #9fa6ac;
+  color: #3e4c57;
+  padding-top: 85px;
+  height: 345px;
+  max-height: 145px;
+}
+#meedan_bookmarklet_preview_gc span, #meedan_bookmarklet_preview_gc a {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+#meedan_bookmarklet_preview_gc span {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+#meedan_bookmarklet_preview_gc a, #meedan_bookmarklet_preview_gc a:visited, #meedan_bookmarklet_preview_gc a:link, #meedan_bookmarklet_preview_gc a:hover {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
 }
 
 @media only screen and (min-width: 740px) {
@@ -10405,7 +10449,7 @@ ul.secondary a.active {
 
 .field-label-inline .field-label,
 .field-label-inline .field-items {
-  float: left;
+  float: right;
   /*LTR*/
 }
 
@@ -10415,18 +10459,18 @@ form .field-multiple-table {
 }
 
 form .field-multiple-table th.field-label {
-  padding-left: 0;
+  padding-right: 0;
   /*LTR*/
 }
 
 form .field-multiple-table td.field-multiple-drag {
   width: 30px;
-  padding-right: 0;
+  padding-left: 0;
   /*LTR*/
 }
 
 form .field-multiple-table td.field-multiple-drag a.tabledrag-handle {
-  padding-right: .5em;
+  padding-left: .5em;
   /*LTR*/
 }
 

@@ -44,10 +44,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 2,
       ),
       'meedan_oembed' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'text_default',
+        'weight' => 2,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -126,9 +127,13 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'meedan_oembed' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
         'weight' => 0,
       ),
       'search_index' => array(
@@ -209,7 +214,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 11,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -316,7 +321,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 10,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -395,10 +400,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 6,
       ),
       'meedan_oembed' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'checkdesk_sources',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'checkdesk_source_thousands_format',
+        'weight' => 6,
       ),
       'search_index' => array(
         'label' => 'inline',
@@ -468,10 +474,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 7,
       ),
       'meedan_oembed' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'checkdesk_sources',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'checkdesk_source_thousands_format',
+        'weight' => 7,
       ),
       'search_index' => array(
         'label' => 'inline',
@@ -540,10 +547,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 3,
       ),
       'meedan_oembed' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 3,
       ),
       'search_index' => array(
         'label' => 'inline',
@@ -617,10 +625,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 5,
       ),
       'meedan_oembed' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'checkdesk_sources',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'checkdesk_source_thousands_format',
+        'weight' => 5,
       ),
       'search_index' => array(
         'label' => 'inline',
@@ -692,7 +701,7 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 9,
       ),
       'search_index' => array(
         'label' => 'inline',
@@ -779,10 +788,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 4,
       ),
       'meedan_oembed' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'checkdesk_sources',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'checkdesk_source_thousands_format',
+        'weight' => 4,
       ),
       'search_index' => array(
         'label' => 'inline',
@@ -852,10 +862,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 8,
       ),
       'meedan_oembed' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 8,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -929,10 +940,11 @@ function checkdesk_sources_feature_field_default_field_instances() {
         'weight' => 1,
       ),
       'meedan_oembed' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'text_default',
+        'weight' => 1,
       ),
       'search_index' => array(
         'label' => 'hidden',

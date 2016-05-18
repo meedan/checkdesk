@@ -19,6 +19,15 @@ function checkdesk_core_feature_translations_ar_defaults() {
     'plural' => 0,
   );
   $translatables[] = t('Source frequency of reports in any given month.', array(), array('context' => ''));
+  $translations['ar:default']['0032076e76b3eefe361ba08f21d77d77'] = array(
+    'source' => 'Date',
+    'context' => 'datetime',
+    'location' => '/ar/node/51/edit?destination=search',
+    'translation' => 'التاريخ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Date', array(), array('context' => 'datetime'));
   $translations['ar:default']['0046311d21a0ef8a6b714966cd1ccfd3'] = array(
     'source' => 'The module\'s database schema version number. -1 if the module is not installed (its tables do not exist); 0 or the largest N of the module\'s hook_update_N() function that has either been run or existed when the module was first installed.',
     'context' => '',
@@ -1322,7 +1331,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Source URL',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'مصدر URL',
+    'translation' => 'رابط المصدر',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2066,6 +2075,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Nodes represent the main site content items.', array(), array('context' => ''));
+  $translations['ar:default']['27703c8f150ac4bb0a3a83a7857353af'] = array(
+    'source' => 'Provider',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'المزود',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Provider', array(), array('context' => ''));
   $translations['ar:default']['27c9d130ea5fb8c3ba5eecb1b8f753bd'] = array(
     'source' => '<a href="!url">@count more updates</a> related to <a href="!url">this story</a>. <a href="!url">View all</a>',
     'context' => '',
@@ -2210,6 +2228,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Display fields in a contextual links menu.', array(), array('context' => ''));
+  $translations['ar:default']['2d291378a8a29af401a45aec8688733a'] = array(
+    'source' => 'Tags',
+    'context' => 'field_tags:media:label',
+    'location' => '/index.php',
+    'translation' => 'الوسوم',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Tags', array(), array('context' => 'field_tags:media:label'));
   $translations['ar:default']['2d47a9f99538445fcef83ca349ea77fe'] = array(
     'source' => '<?php
 print theme(\'views_autorefresh\', array(
@@ -3360,6 +3387,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('User activity ID', array(), array('context' => ''));
+  $translations['ar:default']['438387d2814797ffa5a3f6b877ea612a'] = array(
+    'source' => 'Add comment',
+    'context' => '',
+    'location' => '/ar/source/2724',
+    'translation' => 'أضف تعليق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Add comment', array(), array('context' => ''));
   $translations['ar:default']['43dc4c29d59c2c845bbb01ce770692f5'] = array(
     'source' => 'Uid',
     'context' => '',
@@ -4067,6 +4103,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Default sort', array(), array('context' => 'Sort order'));
+  $translations['ar:default']['521dc8c1501f8b09df89191fad70c1d9'] = array(
+    'source' => 'Create source',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'أنشئ مصدر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Create source', array(), array('context' => ''));
   $translations['ar:default']['528d47c4e82bf6c33174ff79e93408fc'] = array(
     'source' => 'RSS description',
     'context' => '',
@@ -4299,6 +4344,15 @@ A new user <a href="!url">!name </a>has registered. If you want to accept this r
     'plural' => 0,
   );
   $translatables[] = t('Maillog', array(), array('context' => ''));
+  $translations['ar:default']['56d713560c0681c819be51b9f6caf91f'] = array(
+    'source' => 'Tags',
+    'context' => 'field_tags:discussion:label',
+    'location' => '/index.php',
+    'translation' => 'الوسوم',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Tags', array(), array('context' => 'field_tags:discussion:label'));
   $translations['ar:default']['572a593770f2b6f22ab3252e4e9ccad3'] = array(
     'source' => 'The login account of the Twitter user this message is replying to.',
     'context' => '',
@@ -5389,6 +5443,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plural' => 0,
   );
   $translatables[] = t('The parent comment.', array(), array('context' => ''));
+  $translations['ar:default']['6a9bd15a2dbd2b910f9533044fa3e01b'] = array(
+    'source' => 'Tags',
+    'context' => 'vocabulary:1:name',
+    'location' => '/index.php',
+    'translation' => 'الوسوم',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Tags', array(), array('context' => 'vocabulary:1:name'));
   $translations['ar:default']['6a9d7e9f1bb03943c92098a16b25d82e'] = array(
     'source' => '!screen_name this link already exists: !url',
     'context' => '',
@@ -8441,6 +8504,15 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('filter criterion', array(), array('context' => ''));
+  $translations['ar:default']['a5525c29acf41cfba7b19a16e6855d51'] = array(
+    'source' => 'added this source',
+    'context' => '',
+    'location' => '/ar/search?type=source',
+    'translation' => 'أضاف هذا المصدر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('added this source', array(), array('context' => ''));
   $translations['ar:default']['a5662e78a477cfd4d7ab4bfdd80039da'] = array(
     'source' => 'Submit Report',
     'context' => '',
@@ -13015,6 +13087,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('The number of times a piece of content is flagged by any user.', array(), array('context' => ''));
+  $translations['ar:default']['f741808613fb2ec278ae36e1450127c0'] = array(
+    'source' => 'Embed this source',
+    'context' => '',
+    'location' => '/ar/search?type=source',
+    'translation' => 'ضمّن هذا المصدر على موقعك',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Embed this source', array(), array('context' => ''));
   $translations['ar:default']['f741840fb6f8bf6a54efc82d3b68bb5f'] = array(
     'source' => 'View link',
     'context' => '',
@@ -13528,6 +13609,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Comment', array(), array('context' => 'comment_body:comment_node_page:label'));
+  $translations['ar:field']['20dbf6cad9cb92e901adec34340ec69d'] = array(
+    'source' => 'Tags',
+    'context' => 'field_tags:source:label',
+    'location' => 'field:field_tags:source:label',
+    'translation' => 'الوسوم',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Tags', array(), array('context' => 'field_tags:source:label'));
   $translations['ar:field']['29dedd81199c6b53fe0c84939ed01f26'] = array(
     'source' => 'Credits',
     'context' => 'field_media_credits:image:label',
@@ -13564,6 +13654,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Bio', array(), array('context' => 'field_bio:user:label'));
+  $translations['ar:field']['41ed2d42d6b4464c9f31f75fe111f797'] = array(
+    'source' => 'Source URL',
+    'context' => 'field_source_url:source:label',
+    'location' => 'field:field_source_url:source:label',
+    'translation' => 'رابط المصدر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Source URL', array(), array('context' => 'field_source_url:source:label'));
   $translations['ar:field']['506d65ddd7b5fbd4b76b1ae0b9461216'] = array(
     'source' => 'Description',
     'context' => 'body:media:label',
@@ -13591,6 +13690,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Reason', array(), array('context' => 'field_reason:spam:label'));
+  $translations['ar:field']['61178709af449db6e48960f933ee4390'] = array(
+    'source' => 'Username',
+    'context' => 'field_username:source:label',
+    'location' => 'field:field_username:source:label',
+    'translation' => 'اسم المستخدم',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Username', array(), array('context' => 'field_username:source:label'));
   $translations['ar:field']['66b873725237788cb3f1ed4a89a95988'] = array(
     'source' => 'Fact-checking status',
     'context' => 'field_rating:media:label',
@@ -13600,6 +13708,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Fact-checking status', array(), array('context' => 'field_rating:media:label'));
+  $translations['ar:field']['6af60c25d7f96236f16da4384a4d587a'] = array(
+    'source' => 'Provider',
+    'context' => 'field_provider:media:label',
+    'location' => 'field:field_provider:media:label',
+    'translation' => 'المزود',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Provider', array(), array('context' => 'field_provider:media:label'));
   $translations['ar:field']['6caecad86e78083b9cf8525bc53ca181'] = array(
     'source' => 'Body',
     'context' => 'body:post:label',
@@ -13618,6 +13735,33 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Story', array(), array('context' => 'field_desk:post:label'));
+  $translations['ar:field']['7852890816ccbb2ff57412426f6f107e'] = array(
+    'source' => 'Likes',
+    'context' => 'field_source_likes:source:label',
+    'location' => 'field:field_source_likes:source:label',
+    'translation' => 'الإعجاب',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Likes', array(), array('context' => 'field_source_likes:source:label'));
+  $translations['ar:field']['7a036ad5b5b5d01a354bc1936d29fc19'] = array(
+    'source' => 'Description',
+    'context' => 'body:source:label',
+    'location' => 'field:body:source:label',
+    'translation' => 'الوصف',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Description', array(), array('context' => 'body:source:label'));
+  $translations['ar:field']['8cd3f225e9ce96da7efc91532359d93b'] = array(
+    'source' => 'Status',
+    'context' => 'field_source_status:source:label',
+    'location' => 'field:field_source_status:source:label',
+    'translation' => 'الحالة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Status', array(), array('context' => 'field_source_status:source:label'));
   $translations['ar:field']['9810583d5816898e30b4c16172caf32a'] = array(
     'source' => 'Media',
     'context' => 'field_link:media:label',
@@ -13627,6 +13771,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Media', array(), array('context' => 'field_link:media:label'));
+  $translations['ar:field']['9817e7f80ad8bccbe2949aa64c940e19'] = array(
+    'source' => 'Provider',
+    'context' => 'field_provider:source:label',
+    'location' => 'field:field_provider:source:label',
+    'translation' => 'المزود',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Provider', array(), array('context' => 'field_provider:source:label'));
   $translations['ar:field']['ae3d8c1a1b2798487836735a185857b3'] = array(
     'source' => 'Reason',
     'context' => 'field_reason:factcheck:label',
@@ -13645,6 +13798,33 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Story', array(), array('context' => 'field_stories:media:label'));
+  $translations['ar:field']['b96e7c0827131f93956ee014570b7881'] = array(
+    'source' => 'Published at',
+    'context' => 'field_published_at:source:label',
+    'location' => 'field:field_published_at:source:label',
+    'translation' => 'نُشر في',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Published at', array(), array('context' => 'field_published_at:source:label'));
+  $translations['ar:field']['be48800b48438fcf9d1d324e49bf4bb1'] = array(
+    'source' => 'Views',
+    'context' => 'field_source_views:source:label',
+    'location' => 'field:field_source_views:source:label',
+    'translation' => 'المطالعات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Views', array(), array('context' => 'field_source_views:source:label'));
+  $translations['ar:field']['c0a36b88e45b7073301acefd5eba0114'] = array(
+    'source' => 'Comments',
+    'context' => 'field_source_comments:source:label',
+    'location' => 'field:field_source_comments:source:label',
+    'translation' => 'التعليقات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Comments', array(), array('context' => 'field_source_comments:source:label'));
   $translations['ar:field']['c6dca5331105c2ae1c8e54c19f424767'] = array(
     'source' => 'Story',
     'context' => 'body:discussion:label',
@@ -13663,6 +13843,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Reason', array(), array('context' => 'field_reason:graphic:label'));
+  $translations['ar:field']['d26c997ede1d52a18679a5d69075ab26'] = array(
+    'source' => 'Followers',
+    'context' => 'field_source_subscriber:source:label',
+    'location' => 'field:field_source_subscriber:source:label',
+    'translation' => 'المتابعين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Followers', array(), array('context' => 'field_source_subscriber:source:label'));
   $translations['ar:field']['f7cc399e5b1bdc3160c3d52c3b2726aa'] = array(
     'source' => 'Additional authors',
     'context' => 'field_additional_authors:discussion:label',
@@ -13717,6 +13906,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('My account', array(), array('context' => 'item:42e9e86e-42ae-8d04-0d50-e42bde8cbbda:title'));
+  $translations['ar:menu']['66124c1bf88fc3c69212b7baa7ec4020'] = array(
+    'source' => 'Create story',
+    'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
+    'location' => 'checkdesk_core_feature.features.translations.inc:12120',
+    'translation' => 'انشئ قصة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Create story', array(), array('context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title'));
   $translations['ar:menu']['6af2b2a74a46e161bf78b738d6778c87'] = array(
     'source' => 'Update story',
     'context' => 'item:d1a4a4e9-b0c3-8d94-11a4-34f35bda25c1:title',
@@ -13825,6 +14023,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Information', array(), array('context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title'));
+  $translations['ar:taxonomy']['0b962e9dc354a095cb75e6a5af8c723f'] = array(
+    'source' => 'Credible',
+    'context' => 'term:e9cb5883-07ab-49d6-a262-86749d292048:name',
+    'location' => 'taxonomy:term:e9cb5883-07ab-49d6-a262-86749d292048:name',
+    'translation' => 'مصدر موثوق به',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Credible', array(), array('context' => 'term:e9cb5883-07ab-49d6-a262-86749d292048:name'));
   $translations['ar:taxonomy']['12813189e549be09a79e6442d4671fac'] = array(
     'source' => 'Undetermined',
     'context' => 'term:ba27bacf-4d99-4c1d-bdce-a7fb35fafd43:name',
@@ -13870,6 +14077,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Tags', array(), array('context' => 'vocabulary:1:name'));
+  $translations['ar:taxonomy']['9a36efcb0abb2a26a8691a9589709d54'] = array(
+    'source' => 'Not Credible',
+    'context' => 'term:24d1fc3f-6913-4880-b1f8-cb2a5cb63745:name',
+    'location' => 'taxonomy:term:24d1fc3f-6913-4880-b1f8-cb2a5cb63745:name',
+    'translation' => 'مصدر ليس محل ثقة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Not Credible', array(), array('context' => 'term:24d1fc3f-6913-4880-b1f8-cb2a5cb63745:name'));
   $translations['ar:taxonomy']['a32d66bce2c3deee0d198dd73c704eea'] = array(
     'source' => 'Sections',
     'context' => 'vocabulary:3:name',
@@ -13879,6 +14095,24 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translatables[] = t('Sections', array(), array('context' => 'vocabulary:3:name'));
+  $translations['ar:taxonomy']['ed9e36932d90edb825781f5b31e0472a'] = array(
+    'source' => 'Slightly Credible',
+    'context' => 'term:448e6370-f504-4136-8bf2-51a65906eabb:name',
+    'location' => 'taxonomy:term:448e6370-f504-4136-8bf2-51a65906eabb:name',
+    'translation' => 'مصدر موثوق به إلى حد ما',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Slightly Credible', array(), array('context' => 'term:448e6370-f504-4136-8bf2-51a65906eabb:name'));
+  $translations['ar:taxonomy']['f4f620cedfc91fcf86b3dea6015d3873'] = array(
+    'source' => 'Sockpuppet',
+    'context' => 'term:1f826df0-ed70-4dc7-b320-add71b9c0dc0:name',
+    'location' => 'taxonomy:term:1f826df0-ed70-4dc7-b320-add71b9c0dc0:name',
+    'translation' => 'حساب مزيف',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translatables[] = t('Sockpuppet', array(), array('context' => 'term:1f826df0-ed70-4dc7-b320-add71b9c0dc0:name'));
   $translations['ar:taxonomy']['ff776b8cf6a645e574b270dff9ad105e'] = array(
     'source' => 'Not Applicable',
     'context' => 'term:a312dcad-5904-423c-9be9-d8537a2e72cb:name',

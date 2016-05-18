@@ -31,8 +31,8 @@
         });
     });
 
-  // Function to retrieve a media preview from a URL.
-  function getMediaPreview() {
+  // Function to retrieve report duplicate.
+  function getReportDuplicate() {
     var $input = $('#edit-field-link-und-0-url'),
         url = $input.val().trim();
 
@@ -78,7 +78,7 @@
     return txtArea || (e.keyCode || e.which || e.charCode || 0) !== 13;
   }
 
-  Drupal.behaviors.checkdeskBookmarklet = {
+  Drupal.behaviors.checkdeskDuplicate = {
     attach: function(context, settings) {
 
       // http://stackoverflow.com/a/587575/209184
@@ -96,7 +96,7 @@
             done = $('#edit-submit');
         if (/https?:\/\/[^.]+\.[^.]+/.test(url)) {
           done.removeAttr('disabled');
-          typingTimer = setTimeout(getMediaPreview, 500);
+          typingTimer = setTimeout(getReportDuplicate, 500);
         }
         else {
           done.attr('disabled', 'disabled');

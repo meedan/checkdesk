@@ -140,3 +140,55 @@ function checkdesk_reports_update_7004() {
     }
   }
 }
+
+/**
+ * Set provider for existing reports
+ */
+function checkdesk_reports_update_7005() {
+  db_query('SET SESSION group_concat_max_len = 1000000')->execute();
+
+  $result = db_query('
+			SELECT GROUP_CONCAT(n.nid ORDER BY n.nid) AS nid, GROUP_CONCAT(n.vid ORDER BY n.nid) AS vid, ms2.ms_id, ms2.source
+			FROM {node} n
+			INNER JOIN {meedan_sources_media} msm ON n.nid = msm.nid
+			INNER JOIN {meedan_sources} ms ON ms.ms_id = msm.ms_id
+			INNER JOIN {meedan_sources} ms2 ON ms.parent = ms2.ms_id
+            WHERE n.nid NOT IN (SELECT entity_id FROM {field_data_field_provider})
+			GROUP BY ms2.ms_id
+			ORDER BY msm.ms_id
+		');
+
+  $default_fields =  array('entity_type' => 'node', 'bundle' => 'media', 'deleted' => 0,'language' => LANGUAGE_NONE, 'delta' => 0, 'field_provider_format' => NULL);
+  $values = array();
+
+  foreach ($result as $kk => $row) {
+    if (!empty($row->source)) {
+      // LINK source & reports
+      $nids = explode(',', $row->nid);
+      $vids = explode(',', $row->vid);
+      foreach ($nids as $k => $v) {
+        $values[] = $default_fields + array(
+            'entity_id' => $v,
+            'revision_id' => $vids[$k],
+            'field_provider_value' => $row->source
+          );
+      }
+    }
+  }
+
+  if (count($values)) {
+    $all_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta', 'field_provider_value', 'field_provider_format');
+    $query = db_insert('field_data_field_provider')->fields($all_fields);
+    // write a record direct into DB
+    foreach ($values as $record) {
+      $query->values($record);
+    }
+    $query->execute();
+    $query = db_insert('field_revision_field_provider')->fields($all_fields);
+    // write a record direct into DB
+    foreach ($values as $record) {
+      $query->values($record);
+    }
+    $query->execute();
+  }
+}

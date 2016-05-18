@@ -4,9 +4,8 @@
 /**
  *
  */
-function _checkdesk_reports_export($story_nid) {
-  // Set filename
-  $file_name = date('Ymd', time()). '-reports-'. $story_nid . '.csv';
+function _checkdesk_reports_export($story_nid = 0) {
+  set_time_limit(0);
   // Load reports
   $reports = _checkdesk_reports_load_reports_story($story_nid);
   // Get max footnotes count to set header
@@ -45,6 +44,14 @@ function _checkdesk_reports_export($story_nid) {
     $rows[] = $row;
   }
 
+  // Set filename
+  $file_name = date('Ymd', time()). '-reports-';
+  if ($story_nid) {
+    $file_name .=  $story_nid . '.csv';
+  }
+  else {
+    $file_name .= variable_get('site_name', ''). '.csv';
+  }
   // Export CSV file
   // output headers so that the file is downloaded rather than displayed
   header('Content-Type: text/csv; charset=utf-8');
@@ -86,10 +93,9 @@ function _checkdesk_reports_load_reports_story($story_nid) {
   $query->addField('fp', 'field_provider_value', 'source');
   $query->fields('n', array('nid', 'title'));
   $query->join('field_data_field_link', 'fl', 'n.nid = fl.entity_id');
-  $query->join('field_data_field_provider', 'fp', 'n.nid = fp.entity_id');
+  $query->leftJoin('field_data_field_provider', 'fp', 'n.nid = fp.entity_id');
   $query->condition('n.type', 'media');
-  $query->groupBy('n.nid');
-  if (is_numeric($story_nid)) {
+  if (is_numeric($story_nid) && $story_nid) {
     // Load reports for specific story
     $query->join('field_data_field_stories', 'fs', 'n.nid = fs.entity_id AND field_stories_target_id = :story', array(':story' => arg(1)));
   }
