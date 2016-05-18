@@ -74,10 +74,11 @@ function cd_import_translations() {
   _cd_create_sample_content();
   //add translation for administer users.
   _cd_translate_system_menu();
+  // rebuild permission
+  node_access_rebuild();
   $batch = l10n_update_batch_multiple($operations, LOCALE_IMPORT_KEEP);
   return $batch;
 }
-
 
 function cd_configuration_form($form, &$form_state, &$install_state) {
   $form['cd_information'] = array(
@@ -159,7 +160,7 @@ function cd_configuration_form_submit($form, &$form_state) {
   }
   variable_set('checkdesk_site_owner_url', $values['checkdesk_site_owner_url']);
   //enable our features.
-  module_enable(array('checkdesk_reports_feature', 'checkdesk_core_feature', 'checkdesk_photos_feature', 'checkdesk_advaggr_feature'));
+  module_enable(array('checkdesk_reports_feature', 'checkdesk_sources_feature', 'checkdesk_core_feature', 'checkdesk_photos_feature', 'checkdesk_advaggr_feature'));
   if ($form_state['values']['enable_multilingual'][1]) {
     module_enable(array('checkdesk_multilingual_feature'));
   }

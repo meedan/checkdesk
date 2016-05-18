@@ -95,7 +95,6 @@ function _checkdesk_reports_load_reports_story($story_nid) {
   $query->join('field_data_field_link', 'fl', 'n.nid = fl.entity_id');
   $query->leftJoin('field_data_field_provider', 'fp', 'n.nid = fp.entity_id');
   $query->condition('n.type', 'media');
-  $query->groupBy('n.nid');
   if (is_numeric($story_nid) && $story_nid) {
     // Load reports for specific story
     $query->join('field_data_field_stories', 'fs', 'n.nid = fs.entity_id AND field_stories_target_id = :story', array(':story' => arg(1)));
