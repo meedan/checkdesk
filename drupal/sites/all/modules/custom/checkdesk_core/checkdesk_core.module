@@ -1297,8 +1297,8 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
           '#theme' => 'select_as_links',
       );
       // Associated stories filter
-      $stories = db_query(
-          "SELECT nid, title FROM {node} WHERE type = :type AND status = 1",
+      $stories = db_query_range(
+          "SELECT nid, title FROM {node} WHERE type = :type AND status = 1", 0, 50,
           array(':type' => 'discussion')
       )->fetchAllKeyed();
       $form['report_story'] = array(
