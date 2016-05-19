@@ -4434,7 +4434,7 @@ function drupal_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALS
       case 'setting':
         $js_element = $element;
         $js_element['#value_prefix'] = $embed_prefix;
-        $js_element['#value'] = 'jQuery.extend(Drupal.settings, ' . drupal_json_encode(drupal_array_merge_deep_array($item['data'])) . ");";
+        $js_element['#value'] = 'console.log("its me");jQuery.extend(Drupal.settings, ' . drupal_json_encode(drupal_array_merge_deep_array($item['data'])) . ");";
         $js_element['#value_suffix'] = $embed_suffix;
         $output .= theme('html_tag', array('element' => $js_element));
         break;
