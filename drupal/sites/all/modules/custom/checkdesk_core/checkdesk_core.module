@@ -2683,9 +2683,9 @@ function checkdesk_core_flag_javascript_info_alter(&$info) {
       $js = drupal_add_js(NULL, NULL);
       $settings = '';
       if (isset($js['settings'])) {
-        $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
-            drupal_json_encode(call_user_func_array('array_merge_recursive', $js['settings']['data'])) .
-            ');</script>';
+//        $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
+//            drupal_json_encode(call_user_func_array('array_merge_recursive', $js['settings']['data'])) .
+//            ');</script>';
       }
       // Add the settings to the form
       $output .= $settings;
