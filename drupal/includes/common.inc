@@ -5103,7 +5103,7 @@ function drupal_json_encode($var) {
 
   if ($php530) {
     // Encode <, >, ', &, and " using the json_encode() options parameter.
-    return json_encode($var, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT);
+    return json_encode($var, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_PARTIAL_OUTPUT_ON_ERROR);
   }
 
   // json_encode() escapes <, >, ', &, and " using its options parameter, but
