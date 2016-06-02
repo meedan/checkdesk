@@ -1092,20 +1092,15 @@ function checkdesk_core_views_pre_render(&$view) {
   if ($view->name == 'checkdesk_search' && $view->current_display == 'incoming_reports') {
     // Setup drag & drop.
     drupal_add_js(libraries_get_path('insertatcaret') . '/jquery.insertatcaret.js');
-
     $data = array();
-    $reports_nid = array();
     foreach ($view->result as $row) {
-      $reports_nid[] = $row->nid;
-    }
-    foreach (node_load_multiple($reports_nid) as $datum) {
       $node = (object) array(
-        'nid'   => $datum->nid,
-        'title' => $datum->title,
+        'nid'   => $row->nid,
+        'title' => $row->node_title,
         'type'  => 'media',
       );
-      $datum->droppable_ref = checkdesk_core_droppable_reference($node);
-      $data['node-' . $datum->nid] = $datum;
+      $node->droppable_ref = checkdesk_core_droppable_reference($node);
+      $data['node-' . $row->nid] = $node;
     }
     // Send view results to client.
     drupal_add_js(array('checkdesk' => array('reports' => $data)), 'setting');
