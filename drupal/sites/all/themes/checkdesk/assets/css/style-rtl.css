@@ -683,10 +683,6 @@
   content: "\f044";
 }
 
-.icon-arrows:before {
-  content: "\f047";
-}
-
 .icon-times-circle:before {
   content: "\f057";
 }
@@ -708,7 +704,7 @@
   content: "\f064";
 }
 
-.story .story-follow a.flag-action:before {
+.story .story-follow a.flag-action:before, .icon-plus:before {
   content: "\f067";
 }
 
@@ -6270,6 +6266,11 @@ body.cke_editable p {
   font-size: 20px;
   line-height: 30px;
 }
+.story .story-body a,
+.update .update-body a,
+body.cke_editable a {
+  word-wrap: break-word;
+}
 .story .story-body figure.element,
 .update .update-body figure.element,
 body.cke_editable figure.element {
@@ -8117,7 +8118,7 @@ Full item with 75% width media.
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrows:before {
+.icon-plus:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
