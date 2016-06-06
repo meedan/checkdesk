@@ -31,6 +31,32 @@
 
   Drupal.behaviors.checkdesk = {
     attach: function (context, settings) {
+      $('.draggable', context).click(function() {
+        // Retrieve the Views information from the DOM.
+        var data       = $(this).data('views'),
+            $textarea  = $('.droppable textarea', context),
+            instance;
+
+        $('#node-'+ data.nid ).hide();
+        // Either insert the text into CKEDITOR, if available, else directly
+        // into the text editor.
+        if (typeof CKEDITOR != 'undefined' && CKEDITOR.instances[$textarea.attr('id')]) {
+          instance = CKEDITOR.instances[$textarea.attr('id')];
+          var mediaoembed_template = '<md class="tagMediaOembedClass" datasource="'+ data.nid +'">' + data.droppable_ref + '</md>';
+          instance.insertHtml(mediaoembed_template);
+          // add newline.
+          instance.execCommand( 'enter' );
+          // remember the inserted report.
+          instance.checkdeskReports[data.nid] = data.droppable_ref;
+        } else {
+          $textarea.insertAtCaret("\n" + data.droppable_ref + "\n");
+        }
+        $('.droppable', context).addClass('ui-highlight');
+        setTimeout(function() {
+          $('.droppable', context).removeClass('ui-highlight');
+        }, 2000);
+      });
+
       // Drag and drop support for reports
       $('.draggable', context).draggable({
         revert: 'invalid',
@@ -101,7 +127,6 @@
                 // report is there: hide in sidebar.
                 $('#node-'+ nid).hide();
               } else {
-                console.log('I am here  - show', nid);
                 // report is not there: show in sidebar.
                 $('#node-'+ nid).show();
               }
@@ -141,7 +166,7 @@
         if (wmode_set.test(value)) {
           return value;
         }
-          
+
         var sep = value.indexOf('?') === -1 ? '?' : '&';
 
         return value + sep + 'wmode=transparent';
@@ -152,7 +177,7 @@
         Drupal.CTools.Modal.dismiss();
         return false;
       });
-      
+
       // Close modal by clicking outside it
       $('#modalBackdrop').click(function() {
         Drupal.CTools.Modal.dismiss();
@@ -161,12 +186,12 @@
       // Show messages when an item is flagged/unflagged
       $(document).bind('flagGlobalAfterLinkUpdate', function(event, data) {
         Drupal.ajax.checkdesk_core_message_settings.setMessages();
-        
+
         // Keep settings
         if (data.settings) {
           $.extend(true, Drupal.settings, data.settings);
         }
-        
+
         // Run any other ajax command
         if (data.hasOwnProperty('commands')) {
           for (var i = 0; i < data.commands.length; i++) {
@@ -215,19 +240,19 @@
 
     return html;
   };
-  
+
   /**
    * Handle cTools Modal events
    */
   Drupal.behaviors.ctoolsModalEvents = {
-    attach: function(context) {  
+    attach: function(context) {
       // Responds to link click with ctools applied
       $('a.ctools-use-modal').click(function() {
-        $('body').addClass('modal-overflow-hidden');                    
+        $('body').addClass('modal-overflow-hidden');
       });
       // Responds to cTools modal close
       $(document).bind('CToolsDetachBehaviors', function() {
-        $('body').removeClass('modal-overflow-hidden');                    
+        $('body').removeClass('modal-overflow-hidden');
       });
     }
   }
