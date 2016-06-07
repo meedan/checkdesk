@@ -34,7 +34,7 @@
       $('.draggable', context).click(function() {
         // Retrieve the Views information from the DOM.
         var data       = $(this).data('views'),
-            $textarea  = $('.droppable textarea', context),
+            $textarea  = $('.droppable textarea'),
             instance;
 
         $('#node-'+ data.nid ).hide();

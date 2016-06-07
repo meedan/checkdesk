@@ -154,7 +154,7 @@ function checkdesk_reports_form_media_node_form_alter(&$form, &$form_state) {
     $form['field_source_media']['#access'] = $form['field_provider']['#access'] = FALSE;
     // attach js file
     $form['#attached']['js'][] = drupal_get_path('module', 'checkdesk_reports') . '/js/checkdesk_report_form.js';
-    
+
     if (!isset($form['nid']['#value'])) {
         // Hide fields on form creation
         foreach (variable_get('meedan_bookmarklet_hidden_fields', array('title', 'field_rating')) as $field) {
@@ -673,6 +673,8 @@ function _checkdesk_report_status($report) {
  * @return string
  */
 function _checkdesk_report_status_icon($term) {
+    if (empty($term)) return '';
+
     $icon_class = '';
     $status_name = $term->name;
     // Set status icon
