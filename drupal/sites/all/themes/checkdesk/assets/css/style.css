@@ -5275,11 +5275,11 @@ div.sensitive-hide {
   }
   .update .update-row .update-footer {
     -webkit-box-flex: 1;
-    -webkit-flex: 1 1 150px;
+    -webkit-flex: 1 0 120px;
     -moz-box-flex: 1;
-    -moz-flex: 1 1 150px;
-    -ms-flex: 1 1 150px;
-    flex: 1 1 150px;
+    -moz-flex: 1 0 120px;
+    -ms-flex: 1 0 120px;
+    flex: 1 0 120px;
     -webkit-box-ordinal-group: 0;
     -webkit-order: -1;
     -moz-order: -1;
@@ -6485,6 +6485,15 @@ body.cke_editable blockquote:after {
 .item-controls .actions span[class^="icon-"], .item-controls .actions span[class*="icon-"] {
   font-size: 20px;
   color: #9fa6ac;
+}
+.item-controls .actions span[class^="icon-"]:hover, .item-controls .actions span[class*="icon-"]:hover {
+  color: #3e4c57;
+}
+.item-controls .actions .drag-drop span[class^="icon-"]:hover, .item-controls .actions .drag-drop span[class^="icon-"]:active {
+  color: #2e77fc;
+}
+.item-controls .actions .open span[class^="icon-"], .item-controls .actions .open span[class*="icon-"] {
+  color: #3e4c57;
 }
 .item-controls .actions div {
   display: inline-block;
@@ -8346,6 +8355,23 @@ form .ui-droppable {
 form .ui-droppable.drop-hover textarea {
   background-color: rgba(0, 136, 255, 0.02);
   border-color: rgba(0, 136, 255, 0.9);
+}
+form .ui-highlight .form-textarea-wrapper {
+  position: relative;
+}
+form .ui-highlight .form-textarea-wrapper:after {
+  position: absolute;
+  content: '';
+  width: 0px;
+  height: 98.4%;
+  top: 0;
+  bottom: 0;
+  left: -7px;
+  border: 4px solid rgba(46, 119, 252, 0.8);
+  -webkit-transition: opacity 2s ease-in-out;
+  -moz-transition: opacity 2s ease-in-out;
+  -o-transition: opacity 2s ease-in-out;
+  transition: opacity 2s ease-in-out;
 }
 form.ife .form-type-select {
   *zoom: 1;

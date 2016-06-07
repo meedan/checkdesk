@@ -54,7 +54,7 @@
         $('.droppable', context).addClass('ui-highlight');
         setTimeout(function() {
           $('.droppable', context).removeClass('ui-highlight');
-        }, 2000);
+        }, 500);
       });
 
       // Drag and drop support for reports
