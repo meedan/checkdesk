@@ -90,6 +90,18 @@
 	span[class^="icon-"], span[class*="icon-"] { 
 		font-size: 20px;
 		color: $firefly40;
+		&:hover {
+			color: $firefly80;
+		}
+	}
+	.drag-drop span[class^="icon-"] {
+		&:hover, &:active {
+			color: $brand-primary;
+		}
+	}
+
+	.open span[class^="icon-"], .open span[class*="icon-"] { 
+		color: $firefly80;
 	}
 	div {
 		display: inline-block;

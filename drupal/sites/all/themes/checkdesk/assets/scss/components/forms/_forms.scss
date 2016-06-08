@@ -21,6 +21,23 @@
     background-color: rgba($twitter-blueish, 0.02);
     border-color: rgba($twitter-blueish, 0.9);
   }
+
+  .ui-highlight .form-textarea-wrapper {
+    position: relative;
+    &:after {
+      position: absolute;
+      content: '';
+      width: 0px;
+      height: 98.4%;
+      top: 0;
+      bottom: 0;
+      #{$alpha}: -7px;
+      border: 4px solid rgba($brand-primary, 0.8);
+      @include transition(opacity 2s ease-in-out);
+    }
+    
+  }
+
 }
 
 // ===================================================================
