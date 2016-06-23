@@ -27,6 +27,9 @@
       line-height: 30px;
     }
   }
+
+  // Break long links in body text
+  a { word-wrap: break-word; }
   
   figure.element {
     margin-top: 26px;

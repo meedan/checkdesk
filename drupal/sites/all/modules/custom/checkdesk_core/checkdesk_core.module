@@ -785,7 +785,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
   if ($node->type == 'media' && $view_mode == 'checkdesk_search' && arg(0) !== 'search') {
     if (!(($node_page = menu_get_object()) && $node_page->type == 'source')) {
       // Check that reports are in incoming sidebar view
-      $links['cd_drag'] = '<span class="drag-drop"><div class="cd-drag-report cd-drag-node-'. $node->nid  .' draggable"><span class="icon-arrows"></span></div></span>';
+      $links['cd_drag'] = '<span class="drag-drop"><div class="cd-drag-report cd-drag-node-'. $node->nid  .' draggable"><span class="icon-plus"></span></div></span>';
     }
   }
 
