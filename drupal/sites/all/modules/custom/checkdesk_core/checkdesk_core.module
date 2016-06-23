@@ -3830,3 +3830,69 @@ function checkdesk_core_field_group_info_alter(&$groups) {
     $groups['group_metadata|node|media|form']->data['children'] = variable_get('checkdesk_metadata_fields', array());
   }
 }
+
+function _checkdesk_core_export_data_csv() {
+  $csv_folder = 'public://cd_csv/';
+  file_prepare_directory($csv_folder, FILE_CREATE_DIRECTORY);
+  // export sources
+  $file_name = $csv_folder . '01_accounts.csv';
+  $result = db_query('SELECT n.created, n.changed, field_source_url_url, u.name
+                    FROM {node} n
+                    INNER JOIN {users} u ON u.uid = n.uid
+                    INNER JOIN {field_data_field_source_url} fs ON n.nid = fs.entity_id
+                    WHERE n.type = :type
+                    ', array(':type' => 'source'));
+  $header = array('created_at', 'updated_at', 'url', 'user_id');
+  $fp = fopen($file_name, 'w');
+  fputcsv($fp, $header);
+  foreach ($result as $row) {
+    $w_row = (array) $row;
+    fputcsv($fp, $w_row);
+  }
+  fclose($fp);
+
+  // export projects
+  $file_name = $csv_folder . '02_projects.csv';
+  $result = db_query('SELECT n.created, n.changed, n.title, u.name, fb.body_value, f.uri
+                    FROM {node} n
+                    INNER JOIN {users} u ON u.uid = n.uid
+                    LEFT JOIN {field_revision_body} fb ON n.nid = fb.entity_id
+                    LEFT JOIN {field_data_field_lead_image} fi ON n.nid = fi.entity_id
+                    LEFT JOIN {file_managed} f ON f.fid = fi.field_lead_image_fid
+                    WHERE n.type = :type
+                    ', array(':type' => 'discussion'));
+  $header = array(
+    'created_at',
+    'updated_at',
+    'title',
+    'user_id',
+    'description',
+    'lead_image'
+  );
+  $fp = fopen($file_name, 'w');
+  fputcsv($fp, $header);
+  foreach ($result as $row) {
+    $w_row = (array) $row;
+    fputcsv($fp, $w_row);
+  }
+  fclose($fp);
+
+  // export medias
+  $file_name = $csv_folder . '03_medias.csv';
+  $result = db_query('SELECT n.created, n.changed, fl.field_link_url, u.name, fs.field_source_url_url
+                    FROM {node} n
+                    INNER JOIN {users} u ON u.uid = n.uid
+                    INNER JOIN {field_data_field_link} fl ON n.nid = fl.entity_id
+                    LEFT JOIN {field_data_field_source_media} fm ON n.nid = fm.field_source_media_target_id
+                    LEFT JOIN {field_data_field_source_url} fs ON fm.field_source_media_target_id = fs.entity_id
+                    WHERE n.type = :type
+                    ', array(':type' => 'media'));
+  $header = array('created_at', 'updated_at', 'url', 'user_id', 'account_id');
+  $fp = fopen($file_name, 'w');
+  fputcsv($fp, $header);
+  foreach ($result as $row) {
+    $w_row = (array) $row;
+    fputcsv($fp, $w_row);
+  }
+  fclose($fp);
+}
