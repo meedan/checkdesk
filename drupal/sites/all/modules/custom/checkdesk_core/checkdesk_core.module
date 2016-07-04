@@ -3834,8 +3834,34 @@ function checkdesk_core_field_group_info_alter(&$groups) {
 function _checkdesk_core_export_data_csv() {
   $csv_folder = 'public://cd_csv/';
   file_prepare_directory($csv_folder, FILE_CREATE_DIRECTORY);
+  $team = variable_get('site_name');
+  // export team
+  $file_name = $csv_folder . '01_teams.csv';
+  $result = array(
+    array($team, file_create_url(theme_get_setting('frontpage_logo_path', 'checkdesk')))
+  );
+  $header = array('name', 'logo');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // export users
+  $file_name = $csv_folder . '02_users.csv';
+  $result = db_query("SELECT u.name, u.mail, FROM_UNIXTIME(u.created), FROM_UNIXTIME(u.login), '$team' AS team
+                    FROM {users} u
+                    WHERE u.uid <> 0
+                    ");
+  $header = array('name', 'email', 'created_at', 'login', 'team');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
   // export sources
-  $file_name = $csv_folder . '01_accounts.csv';
+  $file_name = $csv_folder . '03_sources.csv';
+  $result = db_query('SELECT u.name AS user_id, u.name, fb.field_bio_value, f.uri
+                    FROM {users} u
+                    LEFT JOIN {file_managed} f ON f.fid = u.picture
+                    LEFT JOIN {field_data_field_bio} fb ON u.uid = fb.entity_id
+                    WHERE u.uid <> :uid
+                    ', array(':uid' => 0));
+  $header = array('user_id', 'name', 'slogan', 'avatar');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // export accounts
+  $file_name = $csv_folder . '04_accounts.csv';
   $result = db_query('SELECT FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), field_source_url_url, u.name
                     FROM {node} n
                     INNER JOIN {users} u ON u.uid = n.uid
@@ -3843,16 +3869,9 @@ function _checkdesk_core_export_data_csv() {
                     WHERE n.type = :type
                     ', array(':type' => 'source'));
   $header = array('created_at', 'updated_at', 'url', 'user_id');
-  $fp = fopen($file_name, 'w');
-  fputcsv($fp, $header);
-  foreach ($result as $row) {
-    $w_row = (array) $row;
-    fputcsv($fp, $w_row);
-  }
-  fclose($fp);
-
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
   // export projects
-  $file_name = $csv_folder . '02_projects.csv';
+  $file_name = $csv_folder . '05_projects.csv';
   $result = db_query('SELECT FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), n.title, u.name, fb.body_value, f.uri
                     FROM {node} n
                     INNER JOIN {users} u ON u.uid = n.uid
@@ -3869,16 +3888,9 @@ function _checkdesk_core_export_data_csv() {
     'description',
     'lead_image'
   );
-  $fp = fopen($file_name, 'w');
-  fputcsv($fp, $header);
-  foreach ($result as $row) {
-    $w_row = (array) $row;
-    fputcsv($fp, $w_row);
-  }
-  fclose($fp);
-
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
   // export medias
-  $file_name = $csv_folder . '03_medias.csv';
+  $file_name = $csv_folder . '06_medias.csv';
   $result = db_query('SELECT FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), fl.field_link_url, u.name, fs.field_source_url_url
                     FROM {node} n
                     INNER JOIN {users} u ON u.uid = n.uid
@@ -3888,11 +3900,15 @@ function _checkdesk_core_export_data_csv() {
                     WHERE n.type = :type
                     ', array(':type' => 'media'));
   $header = array('created_at', 'updated_at', 'url', 'user_id', 'account_id');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+}
+
+function _checkdesk_core_write_to_csv($file_name, $header, $data) {
   $fp = fopen($file_name, 'w');
-  fputcsv($fp, $header);
-  foreach ($result as $row) {
+  fputcsv($fp, $header, ',', '`');
+  foreach ($data as $row) {
     $w_row = (array) $row;
-    fputcsv($fp, $w_row);
+    fputcsv($fp, $w_row, ',', '`');
   }
   fclose($fp);
 }
