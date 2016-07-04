@@ -3901,6 +3901,8 @@ function _checkdesk_core_export_data_csv() {
                     ', array(':type' => 'media'));
   $header = array('created_at', 'updated_at', 'url', 'user_id', 'account_id');
   _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // Export annotations
+  _checkdesk_core_export_annotations($csv_folder);
 }
 
 function _checkdesk_core_write_to_csv($file_name, $header, $data) {
@@ -3911,4 +3913,47 @@ function _checkdesk_core_write_to_csv($file_name, $header, $data) {
     fputcsv($fp, $w_row, ',', '`');
   }
   fclose($fp);
+}
+
+function _checkdesk_core_export_annotations($csv_folder) {
+  $file_name = $csv_folder . '07_annotations.csv';
+  // Export status
+  $result = db_query('SELECT :status AS type ,td.name AS status, IFNULL(fr.bundle, fs.bundle) AS target_entity, IFNULL(fr.entity_id, fs.entity_id) as target
+            FROM {taxonomy_vocabulary} v
+            INNER JOIN {taxonomy_term_data} td ON v.vid = td.vid
+            LEFT JOIN {field_data_field_rating} fr on td.tid = fr.field_rating_tid
+            LEFT JOIN {field_data_field_source_status} fs ON td.tid = fs.field_source_status_tid
+            WHERE v.machine_name IN (:machine_name) AND (fs.bundle = :source OR fr.bundle = :media)
+            ', array(':status' => 'status', ':machine_name' => array('media_rating', 'source_status'), ':source' => 'source', ':media' => 'media'));
+  $header = array('type', 'body', 'target');
+  $data = array();
+  foreach ($result as $row) {
+    $row->body = drupal_json_encode(array('type' => $row->type, 'status' => $row->status));
+    unset($row->status, $row->target_entity);
+    $data[] = $row;
+  }
+  // Export tags
+  $result = db_query('
+              SELECT :tags AS type, ft.bundle AS target_entity, GROUP_CONCAT(td.name) AS tags, ft.entity_id as target
+              FROM {field_data_field_tags} ft
+              INNER JOIN {taxonomy_term_data} td ON td.tid = ft.field_tags_tid
+              GROUP BY ft.entity_id
+              ', array(':tags' => 'tags'));
+  foreach ($result as $row) {
+    $row->body = drupal_json_encode(array('type' => $row->type, 'tags' => $row->tags));
+    unset($row->tags, $row->target_entity);
+    $data[] = $row;
+  }
+  // Export comments
+  $result = db_query('SELECT :comment AS type, c.subject AS text, n.nid AS target
+                      FROM {node} n
+                      INNER JOIN {comment} c ON n.nid = c.nid
+                      ', array(':comment' => 'comment'));
+  foreach ($result as $row) {
+    $row->body = drupal_json_encode(array('type' => $row->type, 'text' => $row->text));
+    unset($row->text);
+    $data[] = $row;
+  }
+  // Export flags
+  _checkdesk_core_write_to_csv($file_name, $header, $data);
 }
