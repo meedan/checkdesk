@@ -17,7 +17,7 @@ Drupal.behaviors.meedanFacebook = {
       FB.init({
         appId      : Drupal.settings.meedanFacebook.appId, // App ID from the App Dashboard
         xfbml      : true,  // parse XFBML tags on this page?
-        version    : 'v2.3'
+        version    : 'v2.6'
       });
 
       // Comments count.

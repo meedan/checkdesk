@@ -460,6 +460,13 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'fboauth_apiversion';
+  $strongarm->value = 'v2.5';
+  $export['fboauth_apiversion'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'fboauth_popup';
   $strongarm->value = 0;
   $export['fboauth_popup'] = $strongarm;

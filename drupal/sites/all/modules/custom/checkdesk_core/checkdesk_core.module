@@ -3830,3 +3830,125 @@ function checkdesk_core_field_group_info_alter(&$groups) {
     $groups['group_metadata|node|media|form']->data['children'] = variable_get('checkdesk_metadata_fields', array());
   }
 }
+
+function _checkdesk_core_export_data_csv() {
+  $csv_folder = 'public://cd_csv/';
+  file_prepare_directory($csv_folder, FILE_CREATE_DIRECTORY);
+  $team = variable_get('site_name');
+  // export team
+  $file_name = $csv_folder . '01_teams.csv';
+  $result = array(
+    array($team, file_create_url(theme_get_setting('frontpage_logo_path', 'checkdesk')))
+  );
+  $header = array('name', 'logo');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // export users
+  $file_name = $csv_folder . '02_users.csv';
+  $result = db_query("SELECT u.name, u.mail, u.pass, IFNULL(f.uri, 'http://meedan.com'), FROM_UNIXTIME(u.created), FROM_UNIXTIME(u.login)
+                    FROM {users} u
+                    LEFT JOIN {file_managed} f ON f.fid = u.picture
+                    WHERE u.uid <> 0
+                    ");
+  $header = array('name', 'email', 'password', 'profile_image', 'created_at', 'login');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // export sources
+  $file_name = $csv_folder . '03_sources.csv';
+  $result = db_query('SELECT u.name AS user_id, u.name, fb.field_bio_value, f.uri
+                    FROM {users} u
+                    LEFT JOIN {file_managed} f ON f.fid = u.picture
+                    LEFT JOIN {field_data_field_bio} fb ON u.uid = fb.entity_id
+                    WHERE u.uid <> :uid
+                    ', array(':uid' => 0));
+  $header = array('user_id', 'name', 'slogan', 'avatar');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // export accounts
+  $file_name = $csv_folder . '04_accounts.csv';
+  $result = db_query('SELECT FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), field_source_url_url, u.name
+                    FROM {node} n
+                    INNER JOIN {users} u ON u.uid = n.uid
+                    INNER JOIN {field_data_field_source_url} fs ON n.nid = fs.entity_id
+                    WHERE n.type = :type
+                    ', array(':type' => 'source'));
+  $header = array('created_at', 'updated_at', 'url', 'user_id');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // export projects
+  $file_name = $csv_folder . '05_projects.csv';
+  $result = db_query('SELECT n.nid, FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), n.title, u.name, fb.body_value, f.uri
+                    FROM {node} n
+                    INNER JOIN {users} u ON u.uid = n.uid
+                    LEFT JOIN {field_revision_body} fb ON n.nid = fb.entity_id
+                    LEFT JOIN {field_data_field_lead_image} fi ON n.nid = fi.entity_id
+                    LEFT JOIN {file_managed} f ON f.fid = fi.field_lead_image_fid
+                    WHERE n.type = :type
+                    ', array(':type' => 'discussion'));
+  $header = array('projects_id', 'created_at', 'updated_at', 'title', 'user_id', 'description', 'lead_image');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // export medias
+  $file_name = $csv_folder . '06_medias.csv';
+  $result = db_query('SELECT FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), fl.field_link_url, u.name, fs.field_source_url_url, fp.field_stories_target_id
+                    FROM {node} n
+                    INNER JOIN {users} u ON u.uid = n.uid
+                    INNER JOIN {field_data_field_link} fl ON n.nid = fl.entity_id
+                    LEFT JOIN {field_data_field_source_media} fm ON n.nid = fm.entity_id
+                    LEFT JOIN {field_data_field_source_url} fs ON fm.field_source_media_target_id = fs.entity_id
+                    LEFT JOIN {field_data_field_stories} fp ON n.nid = fp.entity_id
+                    WHERE n.type = :type
+                    ', array(':type' => 'media'));
+  $header = array('created_at', 'updated_at', 'url', 'user_id', 'account_id', 'project_id');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // Export annotations
+  _checkdesk_core_export_annotations($csv_folder);
+}
+
+function _checkdesk_core_write_to_csv($file_name, $header, $data) {
+  $fp = fopen($file_name, 'w');
+  fputcsv($fp, $header, ',', '`');
+  foreach ($data as $row) {
+    $w_row = (array) $row;
+    fputcsv($fp, $w_row, ',', '`');
+  }
+  fclose($fp);
+}
+
+function _checkdesk_core_export_annotations($csv_folder) {
+  $file_name = $csv_folder . '07_annotations.csv';
+  // Export status
+  $result = db_query('SELECT :status AS type ,td.name AS status, IFNULL(fr.bundle, fs.bundle) AS target_entity, IFNULL(fr.entity_id, fs.entity_id) as target
+            FROM {taxonomy_vocabulary} v
+            INNER JOIN {taxonomy_term_data} td ON v.vid = td.vid
+            LEFT JOIN {field_data_field_rating} fr on td.tid = fr.field_rating_tid
+            LEFT JOIN {field_data_field_source_status} fs ON td.tid = fs.field_source_status_tid
+            WHERE v.machine_name IN (:machine_name) AND (fs.bundle = :source OR fr.bundle = :media)
+            ', array(':status' => 'status', ':machine_name' => array('media_rating', 'source_status'), ':source' => 'source', ':media' => 'media'));
+  $header = array('type', 'body', 'target');
+  $data = array();
+  foreach ($result as $row) {
+    $row->body = drupal_json_encode(array('type' => $row->type, 'status' => $row->status));
+    unset($row->status, $row->target_entity);
+    $data[] = $row;
+  }
+  // Export tags
+  $result = db_query('
+              SELECT :tags AS type, ft.bundle AS target_entity, GROUP_CONCAT(td.name) AS tags, ft.entity_id as target
+              FROM {field_data_field_tags} ft
+              INNER JOIN {taxonomy_term_data} td ON td.tid = ft.field_tags_tid
+              GROUP BY ft.entity_id
+              ', array(':tags' => 'tags'));
+  foreach ($result as $row) {
+    $row->body = drupal_json_encode(array('type' => $row->type, 'tags' => $row->tags));
+    unset($row->tags, $row->target_entity);
+    $data[] = $row;
+  }
+  // Export comments
+  $result = db_query('SELECT :comment AS type, c.subject AS text, n.nid AS target
+                      FROM {node} n
+                      INNER JOIN {comment} c ON n.nid = c.nid
+                      ', array(':comment' => 'comment'));
+  foreach ($result as $row) {
+    $row->body = drupal_json_encode(array('type' => $row->type, 'text' => $row->text));
+    unset($row->text);
+    $data[] = $row;
+  }
+  // Export flags
+  _checkdesk_core_write_to_csv($file_name, $header, $data);
+}

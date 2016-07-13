@@ -27,7 +27,7 @@ function checkdesk_fbcache_bulk_scrape($hostname, $paths) {
 function checkdesk_fbcache_scrape($url) {
   $fboauth_id = variable_get('fboauth_id', NULL);
   $fboauth_secret = variable_get('fboauth_secret', NULL);
-  $host = 'https://graph.facebook.com';
+  $host = 'https://graph.facebook.com/2.6';
   $ch = curl_init($host);
   $fields = array(
     'id' => $url,
