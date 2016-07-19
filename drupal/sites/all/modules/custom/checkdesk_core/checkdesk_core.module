@@ -3846,7 +3846,7 @@ function _checkdesk_core_export_data_csv() {
   _checkdesk_core_write_to_csv($file_name, $header, $result);
   // export users
   $file_name = $csv_folder . '02_users.csv';
-  $result = db_query("SELECT u.name, u.mail, u.pass, IFNULL(f.uri, 'http://meedan.com'), FROM_UNIXTIME(u.created), FROM_UNIXTIME(u.login)
+  $result = db_query("SELECT u.name, u.mail, u.pass, f.uri, FROM_UNIXTIME(u.created), FROM_UNIXTIME(u.login)
                     FROM {users} u
                     LEFT JOIN {file_managed} f ON f.fid = u.picture
                     WHERE u.uid <> 0
@@ -3863,48 +3863,47 @@ function _checkdesk_core_export_data_csv() {
   _checkdesk_core_write_to_csv($file_name, $header, $result);
   // export sources
   $file_name = $csv_folder . '04_sources.csv';
-  $result = db_query('SELECT u.name AS user_id, u.name, fb.field_bio_value, f.uri
+  $result = db_query('SELECT u.name AS user_id, u.name, IFNULL(fb.field_bio_value, u.name), f.uri, FROM_UNIXTIME(u.created)
                     FROM {users} u
                     LEFT JOIN {file_managed} f ON f.fid = u.picture
                     LEFT JOIN {field_data_field_bio} fb ON u.uid = fb.entity_id
                     WHERE u.uid <> :uid
                     ', array(':uid' => 0));
-  $header = array('user_id', 'name', 'slogan', 'avatar');
+  $header = array('user_id', 'name', 'slogan', 'avatar', 'created_at');
   _checkdesk_core_write_to_csv($file_name, $header, $result);
   // export accounts
   $file_name = $csv_folder . '05_accounts.csv';
-  $result = db_query('SELECT FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), field_source_url_url, u.name
+  $result = db_query('SELECT n.nid, FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), field_source_url_url, u.name as user_id, u.name as source_id
                     FROM {node} n
                     INNER JOIN {users} u ON u.uid = n.uid
                     INNER JOIN {field_data_field_source_url} fs ON n.nid = fs.entity_id
                     WHERE n.type = :type
                     ', array(':type' => 'source'));
-  $header = array('created_at', 'updated_at', 'url', 'user_id');
+  $header = array('id', 'created_at', 'updated_at', 'url', 'user_id', 'source_id');
   _checkdesk_core_write_to_csv($file_name, $header, $result);
   // export projects
   $file_name = $csv_folder . '06_projects.csv';
-  $result = db_query('SELECT n.nid, FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), n.title, u.name, fb.body_value, f.uri
+  $result = db_query('SELECT n.nid, FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), n.title, u.name, IFNULL(fb.body_value, :description), f.uri
                     FROM {node} n
                     INNER JOIN {users} u ON u.uid = n.uid
                     LEFT JOIN {field_revision_body} fb ON n.nid = fb.entity_id
                     LEFT JOIN {field_data_field_lead_image} fi ON n.nid = fi.entity_id
                     LEFT JOIN {file_managed} f ON f.fid = fi.field_lead_image_fid
                     WHERE n.type = :type
-                    ', array(':type' => 'discussion'));
-  $header = array('projects_id', 'created_at', 'updated_at', 'title', 'user_id', 'description', 'lead_image');
+                    ', array(':type' => 'discussion', ':description' => 'add description ...'));
+  $header = array('id', 'created_at', 'updated_at', 'title', 'user_id', 'description', 'lead_image');
   _checkdesk_core_write_to_csv($file_name, $header, $result);
   // export medias
   $file_name = $csv_folder . '07_medias.csv';
-  $result = db_query('SELECT FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), fl.field_link_url, u.name, fs.field_source_url_url, fp.field_stories_target_id
+  $result = db_query('SELECT n.nid, FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), fl.field_link_url, u.name, IFNULL(fm.field_source_media_target_id, 0), IFNULL(fp.field_stories_target_id, 0)
                     FROM {node} n
                     INNER JOIN {users} u ON u.uid = n.uid
                     INNER JOIN {field_data_field_link} fl ON n.nid = fl.entity_id
                     LEFT JOIN {field_data_field_source_media} fm ON n.nid = fm.entity_id
-                    LEFT JOIN {field_data_field_source_url} fs ON fm.field_source_media_target_id = fs.entity_id
                     LEFT JOIN {field_data_field_stories} fp ON n.nid = fp.entity_id
                     WHERE n.type = :type
                     ', array(':type' => 'media'));
-  $header = array('created_at', 'updated_at', 'url', 'user_id', 'account_id', 'project_id');
+  $header = array('id', 'created_at', 'updated_at', 'url', 'user_id', 'account_id', 'project_id');
   _checkdesk_core_write_to_csv($file_name, $header, $result);
   // Export annotations
   _checkdesk_core_export_annotations($csv_folder);
