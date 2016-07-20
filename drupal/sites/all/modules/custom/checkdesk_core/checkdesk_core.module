@@ -3834,7 +3834,7 @@ function checkdesk_core_field_group_info_alter(&$groups) {
 function _checkdesk_core_export_data_csv() {
   $team = variable_get('site_name');
   #$dir_name = str_replace(' ', '_', strtolower($team));
-  $csv_folder = 'public://cd3_csv/'. str_replace(' ', '_', strtolower($team)).'/';
+  $csv_folder = 'public://checkdesk_migration/'. str_replace(' ', '_', strtolower($team)).'/';
   file_prepare_directory($csv_folder, FILE_CREATE_DIRECTORY);
   $team_id = hash('md5', $team);
   // export team
@@ -3895,15 +3895,23 @@ function _checkdesk_core_export_data_csv() {
   _checkdesk_core_write_to_csv($file_name, $header, $result);
   // export medias
   $file_name = $csv_folder . '07_medias.csv';
-  $result = db_query('SELECT n.nid, FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), fl.field_link_url, u.name, IFNULL(fm.field_source_media_target_id, 0), IFNULL(fp.field_stories_target_id, 0)
+  $result = db_query('SELECT n.nid, FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), fl.field_link_url, u.name, IFNULL(fm.field_source_media_target_id, 0)
                     FROM {node} n
                     INNER JOIN {users} u ON u.uid = n.uid
                     INNER JOIN {field_data_field_link} fl ON n.nid = fl.entity_id
                     LEFT JOIN {field_data_field_source_media} fm ON n.nid = fm.entity_id
-                    LEFT JOIN {field_data_field_stories} fp ON n.nid = fp.entity_id
                     WHERE n.type = :type
                     ', array(':type' => 'media'));
-  $header = array('id', 'created_at', 'updated_at', 'url', 'user_id', 'account_id', 'project_id');
+  $header = array('id', 'created_at', 'updated_at', 'url', 'user_id', 'account_id');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // Export project medias
+  $file_name = $csv_folder . '08_project_medias.csv';
+  $result = db_query('SELECT n.nid, fp.field_stories_target_id
+                    FROM {node} n
+                    INNER JOIN {field_data_field_stories} fp ON n.nid = fp.entity_id
+                    WHERE n.type = :type
+                    ', array(':type' => 'media'));
+  $header = array('media_id', 'project_id');
   _checkdesk_core_write_to_csv($file_name, $header, $result);
   // Export annotations
   _checkdesk_core_export_annotations($csv_folder);
