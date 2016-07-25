@@ -3941,7 +3941,15 @@ function _checkdesk_core_write_to_csv($file_name, $header, $data) {
 }
 
 function _checkdesk_core_export_annotations($csv_folder) {
-  $file_name = $csv_folder . '07_annotations.csv';
+  // Export comments
+  $file_name = $csv_folder . '09_comments.csv';
+  $header = array('text', 'annotator_id', 'created_at', 'updated_at', 'target_id');
+  $result = db_query('SELECT c.subject AS text, u.mail,FROM_UNIXTIME(c.created) AS created_at, FROM_UNIXTIME(c.changed) AS updated_at,  n.nid AS target
+                      FROM {node} n
+                      INNER JOIN {comment} c ON n.nid = c.nid
+                      INNER JOIN {users} u ON c.uid = u.uid
+                      ');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
   // Export status
   $result = db_query('SELECT :status AS type ,td.name AS status, IFNULL(fr.bundle, fs.bundle) AS target_entity, IFNULL(fr.entity_id, fs.entity_id) as target
             FROM {taxonomy_vocabulary} v
@@ -3980,5 +3988,5 @@ function _checkdesk_core_export_annotations($csv_folder) {
     $data[] = $row;
   }
   // Export flags
-  _checkdesk_core_write_to_csv($file_name, $header, $data);
+  //_checkdesk_core_write_to_csv($file_name, $header, $data);
 }
