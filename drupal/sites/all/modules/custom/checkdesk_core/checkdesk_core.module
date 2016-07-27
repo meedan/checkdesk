@@ -3964,7 +3964,6 @@ function _checkdesk_core_export_annotations($csv_folder) {
   // Export status
   $file_name = $csv_folder . '11_status.csv';
   $header = array('status', 'annotator', 'created_at', 'updated_at', 'target_id');
-  // media status
   $result = db_query('SELECT td.name AS status, u.mail, FROM_UNIXTIME(n.created) AS created_at, FROM_UNIXTIME(n.changed) AS updated_at, n.nid as target
             FROM {node} n
             INNER JOIN {users} u ON n.uid = u.uid
@@ -3980,5 +3979,14 @@ function _checkdesk_core_export_annotations($csv_folder) {
   _checkdesk_core_write_to_csv($file_name, $header, $result);
 
   // Export flags
-  //_checkdesk_core_write_to_csv($file_name, $header, $data);
+  $file_name = $csv_folder . '12_flags.csv';
+  $header = array('flag', 'annotator', 'created_at', 'updated_at', 'target_id');
+  $result = db_query('
+              SELECT f.name AS flag, u.mail, FROM_UNIXTIME(fn.timestamp) AS created_at, FROM_UNIXTIME(fn.timestamp) AS updated_at, n.nid as target
+              FROM {node} n
+              INNER JOIN {flagging} fn ON n.nid = fn.entity_id
+              INNER JOIN {flag} f ON f.fid = fn.fid
+              INNER JOIN {users} u ON fn.uid = u.uid
+              ');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
 }
