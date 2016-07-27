@@ -3924,7 +3924,7 @@ function _checkdesk_core_export_data_csv() {
   _checkdesk_core_write_to_csv($file_name, $header, $result);
 
   // Export annotations
-  //_checkdesk_core_export_annotations($csv_folder);
+  _checkdesk_core_export_annotations($csv_folder);
 }
 
 function _checkdesk_core_write_to_csv($file_name, $header, $data) {
@@ -3943,50 +3943,42 @@ function _checkdesk_core_write_to_csv($file_name, $header, $data) {
 function _checkdesk_core_export_annotations($csv_folder) {
   // Export comments
   $file_name = $csv_folder . '09_comments.csv';
-  $header = array('text', 'annotator_id', 'created_at', 'updated_at', 'target_id');
+  $header = array('text', 'annotator', 'created_at', 'updated_at', 'target_id');
   $result = db_query('SELECT c.subject AS text, u.mail,FROM_UNIXTIME(c.created) AS created_at, FROM_UNIXTIME(c.changed) AS updated_at,  n.nid AS target
                       FROM {node} n
                       INNER JOIN {comment} c ON n.nid = c.nid
                       INNER JOIN {users} u ON c.uid = u.uid
                       ');
   _checkdesk_core_write_to_csv($file_name, $header, $result);
-  // Export status
-  $result = db_query('SELECT :status AS type ,td.name AS status, IFNULL(fr.bundle, fs.bundle) AS target_entity, IFNULL(fr.entity_id, fs.entity_id) as target
-            FROM {taxonomy_vocabulary} v
-            INNER JOIN {taxonomy_term_data} td ON v.vid = td.vid
-            LEFT JOIN {field_data_field_rating} fr on td.tid = fr.field_rating_tid
-            LEFT JOIN {field_data_field_source_status} fs ON td.tid = fs.field_source_status_tid
-            WHERE v.machine_name IN (:machine_name) AND (fs.bundle = :source OR fr.bundle = :media)
-            ', array(':status' => 'status', ':machine_name' => array('media_rating', 'source_status'), ':source' => 'source', ':media' => 'media'));
-  $header = array('type', 'body', 'target');
-  $data = array();
-  foreach ($result as $row) {
-    $row->body = drupal_json_encode(array('type' => $row->type, 'status' => $row->status));
-    unset($row->status, $row->target_entity);
-    $data[] = $row;
-  }
   // Export tags
+  $file_name = $csv_folder . '10_tags.csv';
+  $header = array('tag', 'annotator', 'created_at', 'updated_at', 'target_id');
   $result = db_query('
-              SELECT :tags AS type, ft.bundle AS target_entity, GROUP_CONCAT(td.name) AS tags, ft.entity_id as target
-              FROM {field_data_field_tags} ft
+              SELECT td.name AS tags, u.mail, FROM_UNIXTIME(n.created) AS created_at, FROM_UNIXTIME(n.changed) AS updated_at, n.nid as target
+              FROM {node} n
+              INNER JOIN {users} u ON n.uid = u.uid
+              INNER JOIN {field_data_field_tags} ft ON n.nid = ft.entity_id
               INNER JOIN {taxonomy_term_data} td ON td.tid = ft.field_tags_tid
-              GROUP BY ft.entity_id
-              ', array(':tags' => 'tags'));
-  foreach ($result as $row) {
-    $row->body = drupal_json_encode(array('type' => $row->type, 'tags' => $row->tags));
-    unset($row->tags, $row->target_entity);
-    $data[] = $row;
-  }
-  // Export comments
-  $result = db_query('SELECT :comment AS type, c.subject AS text, n.nid AS target
-                      FROM {node} n
-                      INNER JOIN {comment} c ON n.nid = c.nid
-                      ', array(':comment' => 'comment'));
-  foreach ($result as $row) {
-    $row->body = drupal_json_encode(array('type' => $row->type, 'text' => $row->text));
-    unset($row->text);
-    $data[] = $row;
-  }
+              ');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+  // Export status
+  $file_name = $csv_folder . '11_status.csv';
+  $header = array('status', 'annotator', 'created_at', 'updated_at', 'target_id');
+  // media status
+  $result = db_query('SELECT td.name AS status, u.mail, FROM_UNIXTIME(n.created) AS created_at, FROM_UNIXTIME(n.changed) AS updated_at, n.nid as target
+            FROM {node} n
+            INNER JOIN {users} u ON n.uid = u.uid
+            INNER JOIN {field_data_field_rating} fr on n.nid = fr.entity_id
+            INNER JOIN {taxonomy_term_data} td ON td.tid = fr.field_rating_tid
+            UNION
+            SELECT td.name AS status, u.mail, FROM_UNIXTIME(n.created) AS created_at, FROM_UNIXTIME(n.changed) AS updated_at, n.nid as target
+            FROM {node} n
+            INNER JOIN {users} u ON n.uid = u.uid
+            INNER JOIN {field_data_field_source_status} fs on n.nid = fs.entity_id
+            INNER JOIN {taxonomy_term_data} td ON td.tid = fs.field_source_status_tid
+            ');
+  _checkdesk_core_write_to_csv($file_name, $header, $result);
+
   // Export flags
   //_checkdesk_core_write_to_csv($file_name, $header, $data);
 }
