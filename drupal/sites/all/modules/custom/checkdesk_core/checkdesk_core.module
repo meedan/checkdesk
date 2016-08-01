@@ -3963,14 +3963,14 @@ function _checkdesk_core_export_annotations($csv_folder) {
   _checkdesk_core_write_to_csv($file_name, $header, $result);
   // Export status
   $file_name = $csv_folder . '11_status.csv';
-  $header = array('status', 'annotator', 'created_at', 'updated_at', 'target_id');
-  $result = db_query('SELECT td.name AS status, u.mail, FROM_UNIXTIME(n.created) AS created_at, FROM_UNIXTIME(n.changed) AS updated_at, n.nid as target
+  $header = array('status', 'annotator', 'annotated_type', 'created_at', 'updated_at', 'target_id');
+  $result = db_query('SELECT td.name AS status, u.mail, n.type, FROM_UNIXTIME(n.created) AS created_at, FROM_UNIXTIME(n.changed) AS updated_at, n.nid as target
             FROM {node} n
             INNER JOIN {users} u ON n.uid = u.uid
             INNER JOIN {field_data_field_rating} fr on n.nid = fr.entity_id
             INNER JOIN {taxonomy_term_data} td ON td.tid = fr.field_rating_tid
             UNION
-            SELECT td.name AS status, u.mail, FROM_UNIXTIME(n.created) AS created_at, FROM_UNIXTIME(n.changed) AS updated_at, n.nid as target
+            SELECT td.name AS status, u.mail, n.type, FROM_UNIXTIME(n.created) AS created_at, FROM_UNIXTIME(n.changed) AS updated_at, n.nid as target
             FROM {node} n
             INNER JOIN {users} u ON n.uid = u.uid
             INNER JOIN {field_data_field_source_status} fs on n.nid = fs.entity_id
