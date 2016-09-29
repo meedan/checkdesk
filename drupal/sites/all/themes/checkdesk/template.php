@@ -1226,7 +1226,7 @@ function _checkdesk_generate_lead_image_directed($image, $image_caption = '') {
     $output .= '<picture>';
     $output .= '<source media="(min-width: 740px)" srcset="' . $lead_image_path . '" />';
     $output .= '<source media="(min-width: 660px)" srcset="' . $lead_image_med_path   . '"/>';
-    $output .= '<source srcset="' . $lead_image_small_path   . '"/>';
+    $output .= '<source media="(min-width: 0)" srcset="' . $lead_image_small_path   . '"/>';
     $output .= '<img class="feature-image" src="' . $lead_image_small_path . '" />';
     $output .= '</picture>';
   }
