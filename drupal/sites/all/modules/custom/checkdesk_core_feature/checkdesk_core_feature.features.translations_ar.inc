@@ -159,7 +159,7 @@ function checkdesk_core_feature_translations_ar_defaults() {
     'source' => 'Fact-checking set on a report by citizen journalist',
     'context' => '',
     'location' => '',
-    'translation' => 'تفعيل تقصي صحة المعلومات على تقرير من قبل مواطن صحفى',
+    'translation' => 'تفعيل تقصي صحة المعلومات على تقرير من قبل صحفي مساهم',
     'plid' => 0,
     'plural' => 0,
   );
@@ -1042,7 +1042,7 @@ This was an auto-generated email from !site; please do not respond directly to t
 ',
     'context' => '',
     'location' => '/index.php',
-    'translation' => 'مرحباً !recipient_name, 
+    'translation' => 'مرحباً !recipient_name,
 
 قام !author بإضافة تقرير جديد !report.
 
@@ -2124,7 +2124,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Citizen Reports',
     'context' => '',
     'location' => '/checkdesk/ar/admin/meedan/reports',
-    'translation' => 'تقارير المواطنين',
+    'translation' => 'تقارير المساهمين',
     'plid' => 0,
     'plural' => 0,
   );
@@ -4851,7 +4851,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
 ',
     'context' => '',
     'location' => '/index.php',
-    'translation' => 'مرحباً !recipient_name, 
+    'translation' => 'مرحباً !recipient_name,
 
 قام !author  بكتابة مسودة جدىدة للموضوع !story.
 
@@ -9768,7 +9768,7 @@ Go to !story_url to compose a new update to the story using that report.', array
     'source' => 'citizen journalist',
     'context' => '',
     'location' => '',
-    'translation' => 'صحفي مواطن',
+    'translation' => 'صحفي مساهم',
     'plid' => 0,
     'plural' => 0,
   );
@@ -11612,7 +11612,7 @@ This was an auto-generated email from !site, please do not respond directly to t
 ',
     'context' => '',
     'location' => '/index.php',
-    'translation' => 'مرحباً !recipient_name, 
+    'translation' => 'مرحباً !recipient_name,
 
 قام !author  بكتابة مسودة جدىدة للموضوع !story.
 
@@ -12394,7 +12394,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['eaa9fe407fdfe0eb43e52cdd784267f0'] = array(
     'source' => '<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000, 
+  \'interval\' => 5000,
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
@@ -12403,7 +12403,7 @@ print theme(\'views_autorefresh\', array(
     'location' => '/ar',
     'translation' => '<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000, 
+  \'interval\' => 5000,
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
@@ -12413,7 +12413,7 @@ print theme(\'views_autorefresh\', array(
   );
   $translatables[] = t('<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000, 
+  \'interval\' => 5000,
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
