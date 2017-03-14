@@ -3837,103 +3837,30 @@ function _checkdesk_core_export_data_csv() {
   $csv_folder = 'public://checkdesk_migration/'. $slug .'/';
   file_prepare_directory($csv_folder, FILE_CREATE_DIRECTORY);
   $team_id = hash('md5', $team);
-
   // export team
-  $file_index = 1;
-  $file_name = _get_file_name($csv_folder, 'teams', $file_index);
-  $result = array(
+  $index = 0;
+  $file_name = _get_file_name($csv_folder, 'teams', $index);
+  $data = array(
     array($team_id, $team, $slug, file_create_url(theme_get_setting('frontpage_logo_path', 'checkdesk')))
   );
   $header = array('id', 'name', 'slug', 'logo');
-  _checkdesk_core_write_to_csv($file_name, $header, $result);
-  // export users
-  $file_index++;
-  $file_name = _get_file_name($csv_folder, 'users', $file_index);
-  $result = db_query("SELECT u.name, u.mail, u.pass, IFNULL(f.uri, 'http://meedan.com'), FROM_UNIXTIME(u.created), FROM_UNIXTIME(u.login)
-                    FROM {users} u
-                    LEFT JOIN {file_managed} f ON f.fid = u.picture
-                    WHERE u.uid <> 0
-                    ");
-  $header = array('name', 'email', 'password', 'profile_image', 'created_at', 'login');
-  _checkdesk_core_write_to_csv($file_name, $header, $result);
-  // Export team_users
-  $file_index++;
-  $file_name = _get_file_name($csv_folder, 'team_users', $file_index);
-  $roles = array_flip(user_roles(TRUE));
-  $administrator_role_id = $roles['administrator'];
-  $journalist_role_id = $roles['journalist'];
-  $result = db_query("SELECT '$team_id' AS team_id, u.mail AS user_id, 'owner' AS role, IF(status=1, 'member', 'banned') AS status,
-                      FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.created) AS updated_at
-                      FROM {users} u
-                      INNER JOIN {users_roles} ur ON u.uid = ur.uid
-                      WHERE ur.rid = $administrator_role_id
-                      UNION
-                      SELECT '$team_id' AS team_id, u.mail AS user_id, IF(MAX(ur.rid)=$journalist_role_id, 'journalist', 'contributor') AS role,
-                             IF(status=1, 'member', 'banned') AS status, FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.created) AS updated_at
-                      FROM {users} u
-                      INNER JOIN {users_roles} ur ON u.uid = ur.uid
-                      WHERE ur.rid <> $administrator_role_id
-                      GROUP BY u.uid
-                    ");
-  $header = array('team_id', 'user_id', 'role', 'status', 'created_at', 'updated_at');
-  _checkdesk_core_write_to_csv($file_name, $header, $result);
-  /*
-  // export sources
-  $file_index++;
-  $file_name = _get_file_name($csv_folder, 'sources', $file_index);
-  $result = db_query('SELECT u.name AS user_id, u.name, fb.field_bio_value, f.uri
-                    FROM {users} u
-                    LEFT JOIN {file_managed} f ON f.fid = u.picture
-                    LEFT JOIN {field_data_field_bio} fb ON u.uid = fb.entity_id
-                    WHERE u.uid <> :uid
-                    ', array(':uid' => 0));
-  $header = array('user_id', 'name', 'slogan', 'avatar');
-  _checkdesk_core_write_to_csv($file_name, $header, $result);
-  // export accounts
-  $file_index++;
-  $file_name = _get_file_name($csv_folder, 'accounts', $file_index);
-  $result = db_query('SELECT FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed), field_source_url_url, u.name
-                    FROM {node} n
-                    INNER JOIN {users} u ON u.uid = n.uid
-                    INNER JOIN {field_data_field_source_url} fs ON n.nid = fs.entity_id
-                    WHERE n.type = :type
-                    ', array(':type' => 'source'));
-  $header = array('created_at', 'updated_at', 'url', 'user_id');
-  _checkdesk_core_write_to_csv($file_name, $header, $result);
-  */
-  // export projects
-  $file_index++;
-  $file_name = _get_file_name($csv_folder, 'projects', $file_index);
-  $result = db_query('SELECT n.nid, n.title, :team_id AS team_id, u.mail, fb.body_value, f.uri,
-                            FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed)
-                    FROM {node} n
-                    INNER JOIN {users} u ON u.uid = n.uid
-                    LEFT JOIN {field_revision_body} fb ON n.nid = fb.entity_id
-                    LEFT JOIN {field_data_field_lead_image} fi ON n.nid = fi.entity_id
-                    LEFT JOIN {file_managed} f ON f.fid = fi.field_lead_image_fid
-                    WHERE n.type = :type
-                    ', array(':team_id' => $team_id, ':type' => 'discussion'));
-  $header = array('id', 'title', 'team_id', 'user_id', 'description', 'lead_image', 'created_at', 'updated_at');
-  _checkdesk_core_write_to_csv($file_name, $header, $result);
-  // export medias
-  $file_index++;
-  $file_name = _get_file_name($csv_folder, 'project_medias', $file_index);
-  $result = db_query('SELECT n.nid, fp.field_stories_target_id, fl.field_link_url, u.mail, FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed)
-                    FROM {node} n
-                    INNER JOIN {users} u ON u.uid = n.uid
-                    INNER JOIN {field_data_field_link} fl ON n.nid = fl.entity_id
-                    INNER JOIN {field_data_field_stories} fp ON n.nid = fp.entity_id
-                    WHERE n.type = :type
-                    ', array(':type' => 'media'));
-  $header = array('id', 'project_id', 'url', 'user_id', 'created_at', 'updated_at');
-  _checkdesk_core_write_to_csv($file_name, $header, $result);
-  // Export annotations
-  _checkdesk_core_export_annotations($csv_folder, $file_index);
+  _checkdesk_core_write_to_csv($file_name, $header, $data);
+  // export other models
+  $models = array('users', 'team_users', 'projects', 'project_medias', 'tags', 'comments', 'statuses');
+  foreach ($models as $model) {
+    $index++;
+    _checkdesk_core_prepare_exported_data($csv_folder, $index, $model, array('team_id' => $team_id));
+  }
 }
 
-function _get_file_name($csv_folder, $name, $index) {
-  $index = sprintf("%02d", $index);
-  return $csv_folder . $index . '_' . $name . '.csv';
+function _checkdesk_core_prepare_exported_data($csv_folder, $index, $model, $options) {
+  $fun = "_checkdesk_export_build_query_$model";
+  $query = $fun($options);
+  $data = db_query($query['query'], $query['params']);
+  $data = $data->fetchAll();
+  $header = array_keys((array)$data[0]);
+  $file_name = _get_file_name($csv_folder, $model, $index);
+  _checkdesk_core_write_to_csv($file_name, $header, $data);
 }
 
 function _checkdesk_core_write_to_csv($file_name, $header, $data) {
@@ -3949,11 +3876,83 @@ function _checkdesk_core_write_to_csv($file_name, $header, $data) {
   fclose($fp);
 }
 
-function _checkdesk_core_export_annotations($csv_folder, $file_index) {
-  // Export tags
-  $file_index++;
-  $file_name = _get_file_name($csv_folder, 'tags', $file_index);
-  $result = db_query('
+function _get_file_name($csv_folder, $model, $index) {
+  $index = sprintf("%02d", $index);
+  return $csv_folder . $index . '_' . $model . '.csv';
+}
+
+function _checkdesk_export_build_query_users($options) {
+  $query = array();
+  $query['query'] = '
+                    SELECT u.name, u.mail AS email, u.pass AS password, f.uri AS profile_image,
+                          FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.login) AS login
+                    FROM {users} u
+                    LEFT JOIN {file_managed} f ON f.fid = u.picture
+                    WHERE u.uid <> :uid
+              ';
+  $query['params'] = array(':uid' => 0);
+  return $query;
+}
+
+function _checkdesk_export_build_query_team_users($options) {
+  $query = array();
+  $roles = array_flip(user_roles(TRUE));
+  $administrator_role_id = $roles['administrator'];
+  $journalist_role_id = $roles['journalist'];
+  $query['query'] = '
+                      SELECT :team_id AS team_id, u.mail AS user_id, :role AS role, IF(status= :status, :member, :banned) AS status,
+                      FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.created) AS updated_at
+                      FROM {users} u
+                      INNER JOIN {users_roles} ur ON u.uid = ur.uid
+                      WHERE ur.rid = :administrator_role_id
+                      UNION
+                      SELECT :team_id AS team_id, u.mail AS user_id, IF(MAX(ur.rid)=:journalist_role_id, :journalist, :contributor) AS role,
+                             IF(status=:status, :member, :banned) AS status, FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.created) AS updated_at
+                      FROM {users} u
+                      INNER JOIN {users_roles} ur ON u.uid = ur.uid
+                      WHERE ur.rid <> :administrator_role_id
+                      GROUP BY u.uid
+              ';
+  $query['params'] = array(':team_id' => $options['team_id'], ':role' => 'owner', ':status' => 1, ':member' => 'member', ':banned' => 'banned',
+                            ':journalist_role_id' => $journalist_role_id, ':journalist' => 'journalist', ':contributor' => 'contributor',
+                            ':administrator_role_id' => $administrator_role_id);
+  return $query;
+}
+
+function _checkdesk_export_build_query_projects($options) {
+  $query = array();
+  $query['query'] = '
+                    SELECT n.nid, n.title, :team_id AS team_id, u.mail, fb.body_value, f.uri,
+                            FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed)
+                    FROM {node} n
+                    INNER JOIN {users} u ON u.uid = n.uid
+                    LEFT JOIN {field_revision_body} fb ON n.nid = fb.entity_id
+                    LEFT JOIN {field_data_field_lead_image} fi ON n.nid = fi.entity_id
+                    LEFT JOIN {file_managed} f ON f.fid = fi.field_lead_image_fid
+                    WHERE n.type = :type
+              ';
+  $query['params'] = array(':team_id' => $options['team_id'], ':type' => 'discussion');
+  return $query;
+}
+
+function _checkdesk_export_build_query_project_medias($options) {
+  $query = array();
+  $query['query'] = '
+              SELECT n.nid AS id, fp.field_stories_target_id AS project_id, fl.field_link_url AS url, u.mail AS user_id,
+                     FROM_UNIXTIME(n.created) AS created_at, FROM_UNIXTIME(n.changed) AS updated_at
+              FROM {node} n
+              INNER JOIN {users} u ON u.uid = n.uid
+              INNER JOIN {field_data_field_link} fl ON n.nid = fl.entity_id
+              INNER JOIN {field_data_field_stories} fp ON n.nid = fp.entity_id
+              WHERE n.type = :type
+              ';
+  $query['params'] = array(':type' => 'media');
+  return $query;
+}
+
+function _checkdesk_export_build_query_tags($options) {
+  $query = array();
+  $query['query'] = '
               SELECT u.mail as annotator_id, :annotator as annotator_type, n.nid as annotated_id, :annotated as annotated_type,
                      td.name as tag, FROM_UNIXTIME(n.created) as created_at, FROM_UNIXTIME(n.changed) as updated_at
               FROM {node} n
@@ -3961,37 +3960,35 @@ function _checkdesk_core_export_annotations($csv_folder, $file_index) {
               INNER JOIN {field_data_field_tags} ft ON ft.revision_id = n.vid
               INNER JOIN {taxonomy_term_data} td ON td.tid = ft.field_tags_tid
               WHERE n.type = :type
-              ', array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':type' => 'media'));
-  $header = array('annotator_id', 'annotator_type', 'annotated_id', 'annotated_type', 'tag', 'created_at', 'updated_at');
-  _checkdesk_core_write_to_csv($file_name, $header, $result);
-  // Export comments
-  $file_index++;
-  $file_name = _get_file_name($csv_folder, 'comments', $file_index);
-  $result = db_query('SELECT u.mail as annotator_id, :annotator as annotator_type, n.nid as annotated_id, :annotated as annotated_type,
+              ';
+  $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':type' => 'media');
+  return $query;
+}
+
+function _checkdesk_export_build_query_comments($options) {
+  $query = array();
+  $query['query'] = 'SELECT u.mail as annotator_id, :annotator as annotator_type, n.nid as annotated_id, :annotated as annotated_type,
                       c.subject AS text, FROM_UNIXTIME(n.created) as created_at, FROM_UNIXTIME(n.changed) as updated_at
                       FROM {node} n
                       INNER JOIN {users} u on n.uid = u.uid
                       INNER JOIN {comment} c ON n.nid = c.nid
                       WHERE n.type = :type
-                      ', array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':type' => 'media'));
-  $header = array('annotator_id', 'annotator_type', 'annotated_id', 'annotated_type', 'text', 'created_at', 'updated_at');
-  _checkdesk_core_write_to_csv($file_name, $header, $result);
-  // Export status
-  /*
-  $result = db_query('SELECT :status AS type ,td.name AS status, IFNULL(fr.bundle, fs.bundle) AS target_entity, IFNULL(fr.entity_id, fs.entity_id) as target
-            FROM {taxonomy_vocabulary} v
-            INNER JOIN {taxonomy_term_data} td ON v.vid = td.vid
-            LEFT JOIN {field_data_field_rating} fr on td.tid = fr.field_rating_tid
-            LEFT JOIN {field_data_field_source_status} fs ON td.tid = fs.field_source_status_tid
-            WHERE v.machine_name IN (:machine_name) AND (fs.bundle = :source OR fr.bundle = :media)
-            ', array(':status' => 'status', ':machine_name' => array('media_rating', 'source_status'), ':source' => 'source', ':media' => 'media'));
-  $header = array('type', 'body', 'target');
-  $data = array();
-  foreach ($result as $row) {
-    $row->body = drupal_json_encode(array('type' => $row->type, 'status' => $row->status));
-    unset($row->status, $row->target_entity);
-    $data[] = $row;
-  }
-  _checkdesk_core_write_to_csv($file_name, $header, $data);
-  */
+                      ';
+  $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':type' => 'media');
+  return $query;
+}
+
+function _checkdesk_export_build_query_statuses($options) {
+  $query = array();
+  $query['query'] = '
+            SELECT u.mail as annotator_id, :annotator as annotator_type, n.nid as annotated_id, :annotated as annotated_type,
+                   td.name AS status, FROM_UNIXTIME(n.created) as created_at, FROM_UNIXTIME(n.changed) as updated_at
+            FROM {node} n
+            INNER JOIN {users} u ON u.uid = n.uid
+            INNER JOIN {field_data_field_rating} fr on n.nid = fr.entity_id AND n.type = :type
+            INNER JOIN {taxonomy_term_data} td ON td.tid = fr.field_rating_tid
+            INNER JOIN {taxonomy_vocabulary} v ON v.vid = td.vid AND v.machine_name = :machine_name
+            ';
+  $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':type' => 'media', ':machine_name' => 'media_rating');
+  return $query;
 }
