@@ -3833,7 +3833,7 @@ function checkdesk_core_field_group_info_alter(&$groups) {
 
 function _checkdesk_core_export_data_csv() {
   $team = variable_get('site_name');
-  $slug = str_replace(' ', '_', strtolower($team));
+  $slug = str_replace(' ', '-', strtolower($team));
   $csv_folder = 'public://checkdesk_migration/'. $slug .'/';
   file_prepare_directory($csv_folder, FILE_CREATE_DIRECTORY);
   $team_id = hash('md5', $team);
@@ -3846,10 +3846,22 @@ function _checkdesk_core_export_data_csv() {
   $header = array('id', 'name', 'slug', 'logo');
   _checkdesk_core_write_to_csv($file_name, $header, $data);
   // export other models
+  $options = array('team_id' => $team_id);
+  // alllow user to limit migration for specific stories - just define check_story_ids using variable_set
+  $options['story_ids'] = variable_get('check_story_ids', array());
+  if (count($options['story_ids'])) {
+    $ids = db_query('
+      SELECT fs.entity_id
+      FROM {field_data_field_stories} fs
+      WHERE fs.entity_type = :type AND fs.bundle = :bundle AND fs.field_stories_target_id IN (:ids)
+      ', array(':type' => 'node', ':bundle' => 'media', ':ids' => $options['story_ids'])
+      )->fetchCol();
+    $options['media_ids'] = $ids;
+  }
   $models = array('users', 'team_users', 'projects', 'project_medias', 'tags', 'comments', 'statuses');
   foreach ($models as $model) {
     $index++;
-    _checkdesk_core_prepare_exported_data($csv_folder, $index, $model, array('team_id' => $team_id));
+    _checkdesk_core_prepare_exported_data($csv_folder, $index, $model, $options);
   }
 }
 
@@ -3868,8 +3880,8 @@ function _checkdesk_core_write_to_csv($file_name, $header, $data) {
   fputcsv($fp, $header, ',', '`');
   foreach ($data as $row) {
     $w_row = (array) $row;
-    if (isset($w_row['uri'])) {
-      $w_row['uri'] = file_create_url($w_row['uri']);
+    if (isset($w_row['lead_image'])) {
+      $w_row['lead_image'] = file_create_url($w_row['lead_image']);
     }
     fputcsv($fp, $w_row, ',', '`');
   }
@@ -3922,16 +3934,20 @@ function _checkdesk_export_build_query_team_users($options) {
 function _checkdesk_export_build_query_projects($options) {
   $query = array();
   $query['query'] = '
-                    SELECT n.nid, n.title, :team_id AS team_id, u.mail, fb.body_value, f.uri,
-                            FROM_UNIXTIME(n.created), FROM_UNIXTIME(n.changed)
+                    SELECT n.nid AS id, n.title, :team_id AS team_id, u.mail AS user_id, fb.body_value AS description, f.uri AS lead_image,
+                            FROM_UNIXTIME(n.created) AS created_at, FROM_UNIXTIME(n.changed) AS updated_at
                     FROM {node} n
                     INNER JOIN {users} u ON u.uid = n.uid
-                    LEFT JOIN {field_revision_body} fb ON n.nid = fb.entity_id
+                    LEFT JOIN {field_revision_body} fb ON n.vid = fb.revision_id
                     LEFT JOIN {field_data_field_lead_image} fi ON n.nid = fi.entity_id
                     LEFT JOIN {file_managed} f ON f.fid = fi.field_lead_image_fid
                     WHERE n.type = :type
               ';
   $query['params'] = array(':team_id' => $options['team_id'], ':type' => 'discussion');
+  if (count($options['story_ids'])) {
+    $query['query'] .= ' AND n.nid IN (:ids)';
+    $query['params'][':ids'] = $options['story_ids'];
+  }
   return $query;
 }
 
@@ -3947,6 +3963,10 @@ function _checkdesk_export_build_query_project_medias($options) {
               WHERE n.type = :type
               ';
   $query['params'] = array(':type' => 'media');
+  if (count($options['story_ids'])) {
+    $query['query'] .= ' AND fp.field_stories_target_id IN (:ids)';
+    $query['params'][':ids'] = $options['story_ids'];
+  }
   return $query;
 }
 
@@ -3962,6 +3982,10 @@ function _checkdesk_export_build_query_tags($options) {
               WHERE n.type = :type
               ';
   $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':type' => 'media');
+  if (count($options['media_ids'])) {
+    $query['query'] .= ' AND n.nid IN (:ids)';
+    $query['params'][':ids'] = $options['media_ids'];
+  }
   return $query;
 }
 
@@ -3975,6 +3999,10 @@ function _checkdesk_export_build_query_comments($options) {
                       WHERE n.type = :type
                       ';
   $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':type' => 'media');
+  if (count($options['media_ids'])) {
+    $query['query'] .= ' AND n.nid IN (:ids)';
+    $query['params'][':ids'] = $options['media_ids'];
+  }
   return $query;
 }
 
@@ -3985,10 +4013,15 @@ function _checkdesk_export_build_query_statuses($options) {
                    td.name AS status, FROM_UNIXTIME(n.created) as created_at, FROM_UNIXTIME(n.changed) as updated_at
             FROM {node} n
             INNER JOIN {users} u ON u.uid = n.uid
-            INNER JOIN {field_data_field_rating} fr on n.nid = fr.entity_id AND n.type = :type
+            INNER JOIN {field_data_field_rating} fr on n.nid = fr.entity_id
             INNER JOIN {taxonomy_term_data} td ON td.tid = fr.field_rating_tid
             INNER JOIN {taxonomy_vocabulary} v ON v.vid = td.vid AND v.machine_name = :machine_name
+            WHERE n.type = :type
             ';
   $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':type' => 'media', ':machine_name' => 'media_rating');
+  if (count($options['media_ids'])) {
+    $query['query'] .= ' AND n.nid IN (:ids)';
+    $query['params'][':ids'] = $options['media_ids'];
+  }
   return $query;
 }
