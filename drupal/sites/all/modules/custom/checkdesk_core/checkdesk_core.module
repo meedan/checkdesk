@@ -3897,12 +3897,16 @@ function _checkdesk_export_build_query_users($options) {
   $query = array();
   $query['query'] = '
                     SELECT u.name, u.mail AS email, u.pass AS password, f.uri AS profile_image,
-                          FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.login) AS login
+                           IFNULL(fb.fbid, t.twitter_uid) AS uuid,
+                           CASE WHEN fb.fbid IS NOT NULL then :facebook WHEN t.twitter_uid IS NOT NULL then :twitter ELSE :empty END AS provider,
+                           FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.login) AS login
                     FROM {users} u
+                    LEFT JOIN {fboauth_users} fb ON u.uid = fb.uid
+                    LEFT JOIN {twitter_account} t on u.uid = t.uid
                     LEFT JOIN {file_managed} f ON f.fid = u.picture
                     WHERE u.uid <> :uid
               ';
-  $query['params'] = array(':uid' => 0);
+  $query['params'] = array(':uid' => 0, ':facebook' => 'facebook', ':twitter' => 'twitter', ':empty' => '');
   return $query;
 }
 
