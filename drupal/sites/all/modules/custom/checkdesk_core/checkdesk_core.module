@@ -3848,7 +3848,7 @@ function _checkdesk_core_export_data_csv() {
   // export other models
   $options = array('team_id' => $team_id);
   // alllow user to limit migration for specific stories - just define check_story_ids using variable_set
-  $options['story_ids'] = variable_get('check_story_ids', array());
+  $options['story_ids'] = variable_get('check_story_ids', array(1031));
   if (count($options['story_ids'])) {
     $ids = db_query('
       SELECT fs.entity_id
@@ -3882,6 +3882,13 @@ function _checkdesk_core_write_to_csv($file_name, $header, $data) {
     $w_row = (array) $row;
     if (isset($w_row['lead_image'])) {
       $w_row['lead_image'] = file_create_url($w_row['lead_image']);
+    }
+    elseif (isset($w_row['description'])) {
+      $w_row['description'] = strip_tags($w_row['description']);
+    }
+    elseif (isset($w_row['status'])) {
+      $variables = heartbeat_decode_message_variables($w_row['status']);
+      $w_row['status'] = $variables['!status'];
     }
     fputcsv($fp, $w_row, ',', '`');
   }
@@ -3996,10 +4003,11 @@ function _checkdesk_export_build_query_tags($options) {
 function _checkdesk_export_build_query_comments($options) {
   $query = array();
   $query['query'] = 'SELECT u.mail as annotator_id, :annotator as annotator_type, n.nid as annotated_id, :annotated as annotated_type,
-                      c.subject AS text, FROM_UNIXTIME(n.created) as created_at, FROM_UNIXTIME(n.changed) as updated_at
+                      cb.comment_body_value AS text, FROM_UNIXTIME(n.created) as created_at, FROM_UNIXTIME(n.changed) as updated_at
                       FROM {node} n
                       INNER JOIN {users} u on n.uid = u.uid
                       INNER JOIN {comment} c ON n.nid = c.nid
+                      INNER JOIN {field_data_comment_body} cb ON c.cid = cb.entity_id
                       WHERE n.type = :type
                       ';
   $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':type' => 'media');
@@ -4013,19 +4021,16 @@ function _checkdesk_export_build_query_comments($options) {
 function _checkdesk_export_build_query_statuses($options) {
   $query = array();
   $query['query'] = '
-            SELECT u.mail as annotator_id, :annotator as annotator_type, n.nid as annotated_id, :annotated as annotated_type,
-                   td.name AS status, FROM_UNIXTIME(n.created) as created_at, FROM_UNIXTIME(n.changed) as updated_at
-            FROM {node} n
-            INNER JOIN {users} u ON u.uid = n.uid
-            INNER JOIN {field_data_field_rating} fr on n.nid = fr.entity_id
-            INNER JOIN {taxonomy_term_data} td ON td.tid = fr.field_rating_tid
-            INNER JOIN {taxonomy_vocabulary} v ON v.vid = td.vid AND v.machine_name = :machine_name
-            WHERE n.type = :type
+            SELECT u.mail as annotator_id, :annotator as annotator_type, ha.nid as annotated_id, :annotated as annotated_type,
+                   ha.variables AS status, FROM_UNIXTIME(ha.timestamp) as created_at, FROM_UNIXTIME(ha.timestamp) as updated_at
+            FROM {heartbeat_activity} ha
+            INNER JOIN {users} u ON u.uid = ha.uid
+            WHERE ha.message_id = :message_id
             ';
-  $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':type' => 'media', ':machine_name' => 'media_rating');
-  if (count($options['media_ids'])) {
-    $query['query'] .= ' AND n.nid IN (:ids)';
-    $query['params'][':ids'] = $options['media_ids'];
+  $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':message_id' => 'status_report');
+  if (count($options['story_ids'])) {
+    $query['query'] .= ' AND ha.nid_target IN (:ids)';
+    $query['params'][':ids'] = $options['story_ids'];
   }
   return $query;
 }
