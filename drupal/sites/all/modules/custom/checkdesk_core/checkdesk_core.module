@@ -3858,7 +3858,7 @@ function _checkdesk_core_export_data_csv() {
       )->fetchCol();
     $options['media_ids'] = $ids;
   }
-  $models = array('users', 'team_users', 'projects', 'project_medias', 'tags', 'comments', 'statuses');
+  $models = array('users', 'team_users', 'projects', 'project_medias', 'tags', 'comments', 'statuses', 'flags');
   foreach ($models as $model) {
     $index++;
     _checkdesk_core_prepare_exported_data($csv_folder, $index, $model, $options);
@@ -3883,12 +3883,19 @@ function _checkdesk_core_write_to_csv($file_name, $header, $data) {
     if (isset($w_row['lead_image'])) {
       $w_row['lead_image'] = file_create_url($w_row['lead_image']);
     }
+    elseif (isset($w_row['logo'])) {
+      $w_row['logo'] = file_create_url($w_row['logo']);
+    }
     elseif (isset($w_row['description'])) {
       $w_row['description'] = strip_tags($w_row['description']);
     }
     elseif (isset($w_row['status'])) {
       $variables = heartbeat_decode_message_variables($w_row['status']);
       $w_row['status'] = $variables['!status'];
+    }
+    elseif (isset($w_row['flag'])) {
+      $variables = heartbeat_decode_message_variables($w_row['flag']);
+      $w_row['flag'] = $variables['!flag_type'];
     }
     fputcsv($fp, $w_row, ',', '`');
   }
@@ -4028,6 +4035,23 @@ function _checkdesk_export_build_query_statuses($options) {
             WHERE ha.message_id = :message_id
             ';
   $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':message_id' => 'status_report');
+  if (count($options['story_ids'])) {
+    $query['query'] .= ' AND ha.nid_target IN (:ids)';
+    $query['params'][':ids'] = $options['story_ids'];
+  }
+  return $query;
+}
+
+function _checkdesk_export_build_query_flags($options) {
+  $query = array();
+  $query['query'] = '
+            SELECT u.mail as annotator_id, :annotator as annotator_type, ha.nid as annotated_id, :annotated as annotated_type,
+                   ha.variables AS flag, FROM_UNIXTIME(ha.timestamp) as created_at, FROM_UNIXTIME(ha.timestamp) as updated_at
+            FROM {heartbeat_activity} ha
+            INNER JOIN {users} u ON u.uid = ha.uid
+            WHERE ha.message_id = :message_id
+            ';
+  $query['params'] = array(':annotator' => 'User', ':annotated' => 'ProjectMedia', ':message_id' => 'checkdesk_flag_report');
   if (count($options['story_ids'])) {
     $query['query'] .= ' AND ha.nid_target IN (:ids)';
     $query['params'][':ids'] = $options['story_ids'];
