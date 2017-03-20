@@ -3848,7 +3848,7 @@ function _checkdesk_core_export_data_csv() {
   // export other models
   $options = array('team_id' => $team_id);
   // alllow user to limit migration for specific stories - just define check_story_ids using variable_set
-  $options['story_ids'] = variable_get('check_story_ids', array(1031));
+  $options['story_ids'] = variable_get('check_story_ids', array());
   if (count($options['story_ids'])) {
     $ids = db_query('
       SELECT fs.entity_id
@@ -3910,7 +3910,7 @@ function _get_file_name($csv_folder, $model, $index) {
 function _checkdesk_export_build_query_users($options) {
   $query = array();
   $query['query'] = '
-                    SELECT u.name, u.mail AS email, u.pass AS password, f.uri AS profile_image,
+                    SELECT u.name, u.mail AS email, u.pass AS password, f.uri AS profile_image,:skip AS skip_confirmation_mail,
                            IFNULL(fb.fbid, t.twitter_uid) AS uuid,
                            CASE WHEN fb.fbid IS NOT NULL then :facebook WHEN t.twitter_uid IS NOT NULL then :twitter ELSE :empty END AS provider,
                            FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.login) AS login
@@ -3919,8 +3919,9 @@ function _checkdesk_export_build_query_users($options) {
                     LEFT JOIN {twitter_account} t on u.uid = t.uid
                     LEFT JOIN {file_managed} f ON f.fid = u.picture
                     WHERE u.uid <> :uid
+                    GROUP BY u.uid
               ';
-  $query['params'] = array(':uid' => 0, ':facebook' => 'facebook', ':twitter' => 'twitter', ':empty' => '');
+  $query['params'] = array(':uid' => 0, ':skip' => true, ':facebook' => 'facebook', ':twitter' => 'twitter', ':empty' => '');
   return $query;
 }
 
