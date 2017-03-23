@@ -57,21 +57,48 @@ function _get_file_name($csv_folder, $model, $index) {
   return $csv_folder . $index . '_' . $model . '.csv';
 }
 
-function _checkdesk_export_build_query_users($options) {
+function _checkdesk_export_build_query_users(&$options) {
   $query = array();
-  $query['query'] = '
-                    SELECT u.name, u.mail AS email, u.pass AS password, f.uri AS profile_image,:skip AS skip_confirmation_mail,
-                           IFNULL(fb.fbid, t.twitter_uid) AS uuid,
-                           CASE WHEN fb.fbid IS NOT NULL then :facebook WHEN t.twitter_uid IS NOT NULL then :twitter ELSE :empty END AS provider,
-                           FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.login) AS login
-                    FROM {users} u
-                    LEFT JOIN {fboauth_users} fb ON u.uid = fb.uid
-                    LEFT JOIN {twitter_account} t on u.uid = t.uid
-                    LEFT JOIN {file_managed} f ON f.fid = u.picture
-                    WHERE u.uid <> :uid
-                    GROUP BY u.uid
-              ';
   $query['params'] = array(':uid' => 0, ':skip' => true, ':facebook' => 'facebook', ':twitter' => 'twitter', ':empty' => '');
+  if (count($options['story_ids'])) {
+     $query['query'] = '
+              SELECT u.name, u.mail AS email, u.pass AS password, f.uri AS profile_image,:skip AS skip_confirmation_mail,
+                     IFNULL(fb.fbid, t.twitter_uid) AS uuid,
+                     CASE WHEN fb.fbid IS NOT NULL then :facebook WHEN t.twitter_uid IS NOT NULL then :twitter ELSE :empty END AS provider,
+                     FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.login) AS login
+              FROM {heartbeat_activity} ha
+              INNER JOIN {users} u ON ha.uid = u.uid
+              LEFT JOIN {fboauth_users} fb ON u.uid = fb.uid
+              LEFT JOIN {twitter_account} t on u.uid = t.uid
+              LEFT JOIN {file_managed} f ON f.fid = u.picture
+              WHERE u.uid <> :uid AND ha.nid_target IN (:ids) AND ha.message_id in (:message_ids)
+              GROUP BY u.uid
+              ';
+    $query['params'][':ids'] = $options['story_ids'];
+    $message_ids = array('checkdesk_add_story', 'checkdesk_flag_report', 'new_comment_report', 'new_report', 'status_report');
+    $query['params'][':message_ids'] = $message_ids;
+    $user_uids = db_query('
+              SELECT DISTINCT(u.uid)
+              FROM {heartbeat_activity} ha
+              INNER JOIN {users} u ON ha.uid = u.uid
+              WHERE u.uid <> :uid AND ha.nid_target IN (:ids) AND ha.message_id in (:message_ids)
+      ', array(':uid' => 0, ':ids' => $options['story_ids'], ':message_ids' => $message_ids));
+    $options['user_uids'] = $user_uids->fetchCol();
+  }
+  else {
+    $query['query'] = '
+              SELECT u.name, u.mail AS email, u.pass AS password, f.uri AS profile_image,:skip AS skip_confirmation_mail,
+                     IFNULL(fb.fbid, t.twitter_uid) AS uuid,
+                     CASE WHEN fb.fbid IS NOT NULL then :facebook WHEN t.twitter_uid IS NOT NULL then :twitter ELSE :empty END AS provider,
+                     FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.login) AS login
+              FROM {users} u
+              LEFT JOIN {fboauth_users} fb ON u.uid = fb.uid
+              LEFT JOIN {twitter_account} t on u.uid = t.uid
+              LEFT JOIN {file_managed} f ON f.fid = u.picture
+              WHERE u.uid <> :uid
+              GROUP BY u.uid
+              ';
+  }
   return $query;
 }
 
