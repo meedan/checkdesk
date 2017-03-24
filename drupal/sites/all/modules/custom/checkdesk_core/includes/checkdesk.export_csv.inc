@@ -15,9 +15,29 @@ function _checkdesk_core_prepare_exported_data($csv_folder, $index, $model, $opt
   elseif ($model == 'flags') {
     _check_get_hearbeat_value($data, 'flag', '!flag_type');
   }
+  elseif ($model == 'team_users') {
+    _check_get_user_role($data);
+  }
   $header = array_keys((array)$data[0]);
   $file_name = _get_file_name($csv_folder, $model, $index);
   _checkdesk_core_write_to_csv($file_name, $header, $data);
+}
+
+function _check_get_user_role(&$data) {
+  $roles = array_flip(user_roles(TRUE));
+  $administrator_role_id = $roles['administrator'];
+  $journalist_role_id = $roles['journalist'];
+  foreach ($data as &$row) {
+    $user_roles = explode(',', $row->role);
+    if (in_array($administrator_role_id, $user_roles)) {
+      $role = 'owner';
+    }
+    else {
+      $max_role = MAX($user_roles);
+      $role = ($max_role == $journalist_role_id) ? 'journalist' : 'contributor';
+    }
+    $row->role = $role;
+  }
 }
 
 function _check_adjust_html_text(&$data, $key) {
@@ -59,34 +79,7 @@ function _get_file_name($csv_folder, $model, $index) {
 
 function _checkdesk_export_build_query_users(&$options) {
   $query = array();
-  $query['params'] = array(':uid' => 0, ':skip' => true, ':facebook' => 'facebook', ':twitter' => 'twitter', ':empty' => '');
-  if (count($options['story_ids'])) {
-     $query['query'] = '
-              SELECT u.name, u.mail AS email, u.pass AS password, f.uri AS profile_image,:skip AS skip_confirmation_mail,
-                     IFNULL(fb.fbid, t.twitter_uid) AS uuid,
-                     CASE WHEN fb.fbid IS NOT NULL then :facebook WHEN t.twitter_uid IS NOT NULL then :twitter ELSE :empty END AS provider,
-                     FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.login) AS login
-              FROM {heartbeat_activity} ha
-              INNER JOIN {users} u ON ha.uid = u.uid
-              LEFT JOIN {fboauth_users} fb ON u.uid = fb.uid
-              LEFT JOIN {twitter_account} t on u.uid = t.uid
-              LEFT JOIN {file_managed} f ON f.fid = u.picture
-              WHERE u.uid <> :uid AND ha.nid_target IN (:ids) AND ha.message_id in (:message_ids)
-              GROUP BY u.uid
-              ';
-    $query['params'][':ids'] = $options['story_ids'];
-    $message_ids = array('checkdesk_add_story', 'checkdesk_flag_report', 'new_comment_report', 'new_report', 'status_report');
-    $query['params'][':message_ids'] = $message_ids;
-    $user_uids = db_query('
-              SELECT DISTINCT(u.uid)
-              FROM {heartbeat_activity} ha
-              INNER JOIN {users} u ON ha.uid = u.uid
-              WHERE u.uid <> :uid AND ha.nid_target IN (:ids) AND ha.message_id in (:message_ids)
-      ', array(':uid' => 0, ':ids' => $options['story_ids'], ':message_ids' => $message_ids));
-    $options['user_uids'] = $user_uids->fetchCol();
-  }
-  else {
-    $query['query'] = '
+  $query['query'] = '
               SELECT u.name, u.mail AS email, u.pass AS password, f.uri AS profile_image,:skip AS skip_confirmation_mail,
                      IFNULL(fb.fbid, t.twitter_uid) AS uuid,
                      CASE WHEN fb.fbid IS NOT NULL then :facebook WHEN t.twitter_uid IS NOT NULL then :twitter ELSE :empty END AS provider,
@@ -96,34 +89,33 @@ function _checkdesk_export_build_query_users(&$options) {
               LEFT JOIN {twitter_account} t on u.uid = t.uid
               LEFT JOIN {file_managed} f ON f.fid = u.picture
               WHERE u.uid <> :uid
-              GROUP BY u.uid
               ';
+  $query['params'] = array(':uid' => 0, ':skip' => true, ':facebook' => 'facebook', ':twitter' => 'twitter', ':empty' => '');
+  if (count($options['user_uids'])) {
+    $query['query'] .= ' AND u.uid IN (:ids)';
+    $query['params'][':ids'] = $options['user_uids'];
   }
+  $query['query'] .= ' GROUP BY u.uid';
   return $query;
 }
 
 function _checkdesk_export_build_query_team_users($options) {
   $query = array();
-  $roles = array_flip(user_roles(TRUE));
-  $administrator_role_id = $roles['administrator'];
-  $journalist_role_id = $roles['journalist'];
   $query['query'] = '
-                      SELECT :team_id AS team_id, u.mail AS user_id, :role AS role, IF(u.status=:status, :member, :banned) AS status,
-                      FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.created) AS updated_at
+                      SELECT :team_id AS team_id, u.mail AS user_id, group_concat(ur.rid) AS role,
+                             IF(u.status=:status, :member, :banned) AS status, FROM_UNIXTIME(u.created) AS created_at,
+                             FROM_UNIXTIME(u.created) AS updated_at
                       FROM {users} u
                       INNER JOIN {users_roles} ur ON u.uid = ur.uid
-                      WHERE ur.rid = :administrator_role_id
-                      UNION
-                      SELECT :team_id AS team_id, u.mail AS user_id, IF(MAX(ur.rid)=:journalist_role_id, :journalist, :contributor) AS role,
-                             IF(u.status=:status, :member, :banned) AS status, FROM_UNIXTIME(u.created) AS created_at, FROM_UNIXTIME(u.created) AS updated_at
-                      FROM {users} u
-                      INNER JOIN {users_roles} ur ON u.uid = ur.uid
-                      WHERE ur.rid <> :administrator_role_id AND u.uid <> :uid
-                      GROUP BY u.uid
+                      WHERE u.uid <> :uid
               ';
-  $query['params'] = array(':team_id' => $options['team_id'], ':role' => 'owner', ':status' => 1, ':member' => 'member', ':banned' => 'banned',
-                            ':journalist_role_id' => $journalist_role_id, ':journalist' => 'journalist', ':contributor' => 'contributor',
-                            ':administrator_role_id' => $administrator_role_id, ':uid' => 0);
+  $query['params'] = array(':team_id' => $options['team_id'], ':status' => 1, ':member' => 'member', ':banned' => 'banned',':uid' => 0);
+
+  if (count($options['user_uids'])) {
+    $query['query'] .= ' AND u.uid IN (:ids)';
+    $query['params'][':ids'] = $options['user_uids'];
+  }
+  $query['query'] .= ' GROUP BY u.uid';
   return $query;
 }
 

@@ -3855,6 +3855,7 @@ function _checkdesk_core_export_data_csv() {
   // alllow user to limit migration for specific stories - just define check_story_ids using variable_set
   $options['story_ids'] = variable_get('check_story_ids', array());
   if (count($options['story_ids'])) {
+    // Get related medias
     $ids = db_query('
       SELECT fs.entity_id
       FROM {field_data_field_stories} fs
@@ -3862,6 +3863,21 @@ function _checkdesk_core_export_data_csv() {
       ', array(':type' => 'node', ':bundle' => 'media', ':ids' => $options['story_ids'])
       )->fetchCol();
     $options['media_ids'] = $ids;
+    // Get contributed users
+    $message_ids = array('checkdesk_add_story', 'checkdesk_flag_report', 'new_report', 'status_report');
+    $uids = db_query('
+              SELECT u.uid
+              FROM {heartbeat_activity} ha
+              INNER JOIN {users} u ON ha.uid = u.uid
+              WHERE u.uid <> :uid AND ha.nid_target IN (:ids) AND ha.message_id in (:message_ids)
+              UNION DISTINCT
+              SELECT u.uid
+              FROM {heartbeat_activity} ha
+              INNER JOIN {users} u ON ha.uid = u.uid
+              WHERE u.uid <> :uid AND ha.nid IN (:media_ids) AND ha.message_id = :comment_message
+      ', array(':uid' => 0, ':ids' => $options['story_ids'], ':media_ids' => $ids, ':message_ids' => $message_ids, ':comment_message' => 'new_comment_report')
+      )->fetchCol();;
+    $options['user_uids'] = $uids;
   }
   $models = array('users', 'team_users', 'projects', 'project_medias', 'tags', 'comments', 'statuses', 'flags');
   foreach ($models as $model) {
